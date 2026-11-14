@@ -2691,6 +2691,15 @@ const sociales2S: Topic[] = [
         ],
       },
       {
+        image: "/kit/histok/images/s2-dia-indicadores.svg",
+        title: "Los seis indicadores",
+        diagram: true,
+        info: "Los seis indicadores de la demografía, con las definiciones del curso.",
+        body: [
+          "La fecundidad solo cuenta a las mujeres de 15 a 49 años; las otras tasas, a toda la población. Y el crecimiento real corrige el natural con la migración.",
+        ],
+      },
+      {
         image: "/kit/histok/images/s2-dia-poblacion-mundial.svg",
         title: "¿Cuántos somos?",
         diagram: true,
@@ -2716,7 +2725,7 @@ const sociales2S: Topic[] = [
         diagram: true,
         info: "Modelo de la transición demográfica en cinco fases, con las curvas de natalidad, mortalidad y población.",
         body: [
-          "1: natalidad y mortalidad altas, crecimiento lento. 2: baja la mortalidad y el crecimiento se acelera. 3: baja la natalidad y se frena. 4: las dos bajas, crecimiento mínimo. 5: envejecimiento, más muertes que nacimientos. En los países desarrollados la mortalidad bajó desde el siglo XVII y la natalidad desde mediados del XIX.",
+          "La clave es el orden: primero baja la mortalidad y después la natalidad, y en ese desfase la población se dispara. En los países desarrollados la mortalidad bajó desde el siglo XVII y la natalidad desde mediados del XIX.",
         ],
       },
       {

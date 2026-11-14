@@ -119,22 +119,44 @@ def piramides():
     s.save(OUT + "s2-dia-piramides.svg")
 
 
+def indicadores():
+    s = Svg("Los seis indicadores", "lo que mide la demografía", "Los seis indicadores de la demografía")
+    tarjetas = [
+        ("Natalidad", "pink", ["Nacimientos vivos al año", "por cada 1000 habitantes"]),
+        ("Fecundidad", "orange", ["Nacimientos por cada 1000", "mujeres de 15 a 49 años"]),
+        ("Mortalidad", "cyan", ["Defunciones al año", "por cada 1000 habitantes"]),
+        ("Densidad", "yellow", ["Habitantes por km²"]),
+        ("Crecimiento natural", "green", ["Nacimientos − muertes"]),
+        ("Crecimiento real", "green", ["Natural + inmigrantes", "− emigrantes"]),
+    ]
+    # compacto y arriba: en el teléfono el texto de la diapositiva tapa la mitad de abajo
+    w, h, gx, gy, y0 = 425, 132, 30, 16, 178
+    for i, (nombre, c, filas) in enumerate(tarjetas):
+        x = 60 + (i % 2) * (w + gx)
+        y = y0 + (i // 2) * (h + gy)
+        s.card(x, y, w, h, c)
+        s.text(x + 28, y + 46, nombre, 29, c, "start", 700)
+        s.lines(x + 28, y + 87, filas, 23, WHITE)
+    s.save(OUT + "s2-dia-indicadores.svg")
+
+
 def transicion():
     s = Svg("Transición demográfica", "las cinco fases", "Modelo de la transición demográfica en cinco fases")
-    x0, x1, top, bot = 70, 930, 250, 760
+    # nombres y resultados arriba, curvas abajo: en el teléfono el texto tapa la parte baja
+    x0, x1, top, bot = 70, 930, 380, 690
     fw = (x1 - x0) / 5
-    fases = ["Antiguo\nrégimen", "Comienzo", "Final", "Régimen\nmoderno", "Enveje-\ncimiento"]
-    crece = [("lento", "cyan"), ("se acelera", "green"), ("se frena", "yellow"), ("mínimo", "orange"), ("negativo", "pink")]
+    fases = ["Antiguo\nrégimen", "Comienzo de\nla transición", "Final de\nla transición", "Régimen\nmoderno", "Enveje-\ncimiento"]
+    crece = [("lento", "cyan"), ("se acelera", "green"), ("ritmo lento", "yellow"), ("mínimo o nulo", "orange"), ("negativo", "pink")]
     for i, f in enumerate(fases):
         xa = x0 + i * fw
         if i:
-            s.line(xa, top - 10, xa, bot, DIM, 2, dash="6 10")
-        s.text(xa + fw / 2, top - 52, str(i + 1), 30, WHITE, weight=700)
+            s.line(xa, 170, xa, bot, DIM, 2, dash="6 10")
+        s.text(xa + fw / 2, 200, str(i + 1), 30, WHITE, weight=700)
         rows = f.split("\n")
         for k, row in enumerate(rows):
-            s.text(xa + fw / 2, bot + 40 + k * 26, row, 21, MUTED)
+            s.text(xa + fw / 2, 240 + k * 26, row, 21, MUTED)
         txt, c = crece[i]
-        s.text(xa + fw / 2, bot + 112, txt, 22, c, weight=700)
+        s.text(xa + fw / 2, 316, txt, 22, c, weight=700)
     yy = lambda v: bot - v * (bot - top)  # v en 0..1
     xx = lambda f: x0 + f * (x1 - x0)
     nat = [(0, .9), (.2, .92), (.3, .9), (.42, .78), (.55, .5), (.6, .4), (.7, .3), (.8, .26), (.9, .2), (1, .18)]
@@ -160,7 +182,7 @@ def transicion():
     pob = [(0, .1), (.2, .12), (.3, .16), (.4, .26), (.5, .42), (.6, .55), (.7, .62), (.8, .65), (.9, .64), (1, .6)]
     s.path("M" + pts(pob), "green", 5, dash="2 12")
     # leyenda
-    ly = 860 + 150
+    ly = bot + 60
     s.line(80, ly, 130, ly, "pink", 6)
     s.text(145, ly + 8, "natalidad", 23, "pink", "start", 700)
     s.line(330, ly, 380, ly, "cyan", 6)
@@ -247,9 +269,10 @@ def comparaciones():
 if __name__ == "__main__":
     ciclo_deng()
     poblacion_mundial()
+    indicadores()
     piramides()
     transicion()
     urbano()
     hacia_2050()
     comparaciones()
-    print("8 diagramas de Sociales")
+    print("9 diagramas de Sociales")
