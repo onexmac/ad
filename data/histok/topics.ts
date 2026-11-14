@@ -2725,7 +2725,7 @@ const sociales2S: Topic[] = [
         diagram: true,
         info: "Modelo de la transición demográfica en cinco fases, con las curvas de natalidad, mortalidad y población.",
         body: [
-          "La clave es el orden: primero baja la mortalidad y después la natalidad, y en ese desfase la población se dispara. En los países desarrollados la mortalidad bajó desde el siglo XVII y la natalidad desde mediados del XIX.",
+          "1: natalidad y mortalidad altas, crecimiento lento. 2: baja la mortalidad y el crecimiento se acelera. 3: baja la natalidad, crecimiento a ritmo lento. 4: las dos bajas, crecimiento mínimo o nulo. 5: aumenta la mortalidad, crecimiento negativo. En los países desarrollados la mortalidad bajó desde el siglo XVII y la natalidad desde mediados del XIX.",
         ],
       },
       {
