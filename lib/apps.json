@@ -1,0 +1,27 @@
+{
+  "sections": [
+    {
+      "slug": "kit",
+      "name": "Kit",
+      "tagline": "Personal",
+      "apps": []
+    },
+    {
+      "slug": "ad",
+      "name": "AD",
+      "tagline": "Adelante",
+      "apps": [
+        {
+          "slug": "control-usuarios",
+          "name": "Control de usuarios",
+          "external": "https://control-usuarios.vercel.app"
+        },
+        {
+          "slug": "kpi",
+          "name": "KPI",
+          "external": "https://adelante-kpi.vercel.app"
+        }
+      ]
+    }
+  ]
+}
