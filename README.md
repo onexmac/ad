@@ -11,6 +11,10 @@ Every app lives at `/<section>/<app>`, for example `/ad/kpi`.
 
 1. Add an entry to `lib/apps.json` under its section (`slug`, `name`, optional `description`).
 2. Put the app's code in `app/<section>/<slug>/`.
+   An app that needs its own look (dark ground, its own fonts, icon or
+   `themeColor`) goes in its own route group with its own root layout, like
+   Histok in `app/(histok)/kit/histok/`. The portal's pages live in
+   `app/(portal)/`.
 
 An app that still lives in its own deployment can be listed first with an
 `external` URL. Its portal path then redirects there, so the link you share

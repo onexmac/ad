@@ -7,8 +7,7 @@
       "apps": [
         {
           "slug": "histok",
-          "name": "Histok",
-          "external": "https://histok.vercel.app"
+          "name": "Histok"
         }
       ]
     },
