@@ -773,6 +773,14 @@ const socialesII: Topic[] = [
     label: "Descolonización de Asia y África",
     thumbnail: SII_DESC_1,
     glossary: {
+      "Frente de Liberación Nacional":
+        "El FLN: movimiento nacionalista argelino que dirigió la guerra de independencia contra Francia y gobernó el país después.",
+      "neocolonialismo":
+        "Dominación económica de un país rico sobre otro que ya es independiente, aunque no haya control político formal.",
+      "apartheid":
+        "Sistema de Sudáfrica (1948–1994) que separaba por ley a la población según su raza.",
+      "autarquía":
+        "Política de un país que intenta producir todo lo que necesita sin depender de nadie.",
       descolonización:
         "Proceso por el que las colonias de Asia y África se independizaron de las potencias europeas, sobre todo entre 1945 y 1975.",
       "autodeterminación de los pueblos":
@@ -832,6 +840,48 @@ const socialesII: Topic[] = [
         info: "El primer ministro congoleño Patrice Lumumba firma el documento que concede la independencia al Congo, junto al primer ministro belga Gaston Eyskens, el 30 de junio de 1960. Fotografía de Congopresse, dominio público.",
         body: [
           "Fue la peor preparada, porque a las potencias les interesaba menos. No se habían formado naciones: la organización seguía siendo tribal y rudimentaria. Al irse los europeos quedaron fronteras artificiales, y con ellas violencia y discursos de odio entre etnias.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/sii-desc-argelia.jpg",
+        title: "Argelia (1954–1962)",
+        info: "Los seis jefes del FLN antes del levantamiento del 1 de noviembre de 1954. De pie, de izquierda a derecha: Rabah Bitat, Mostefa Ben Boulaïd, Didouche Mourad y Mohamed Boudiaf; sentados, Krim Belkacem y Larbi Ben M'hidi. Fotografía de 1954, dominio público.",
+        body: [
+          "Para Francia, Argelia no era una colonia: era parte de su propio país, y ahí vivían cerca de un millón de colonos europeos. En 1954 el ",
+          { term: "Frente de Liberación Nacional" },
+          " empezó la guerra, que duró hasta 1962. Fue larga y violenta porque Francia no quería perder un territorio que sentía suyo, y los colonos se negaban a ceder el poder.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/sii-desc-mozambique.jpg",
+        title: "El sur de África y las islas",
+        info: "Estatua de Samora Machel, el primer presidente de Mozambique independiente (1975), en Maputo, diciembre de 2019. Foto de Claus Wonnemann, CC BY-SA 4.0.",
+        body: [
+          "En el sur de África llegó tarde y con guerra. Portugal mandó decenas de miles de soldados a Angola y Mozambique, y perdió: en 1975 fueron libres. En Rodesia los colonos británicos pelearon contra una guerrilla creciente hasta aceptar un acuerdo negociado en 1979. Las islas del Pacífico (Fiyi, Tonga, Vanuatu) y del Caribe (Dominica, Antigua), al revés: poco a poco y negociando, entre 1970 y 1983 (el curso dice 1971).",
+        ],
+      },
+      {
+        image: "/kit/histok/images/sii-desc-ruanda.jpg",
+        title: "Ruanda: el legado colonial",
+        info: "Informe de 1922–1923 sobre la administración belga de Ruanda-Urundi, presentado al Parlamento de Bélgica por el ministro de Colonias. Archivos Nacionales de Ruanda, Kigali. Foto de Adygrafix250, 2024, CC BY 4.0.",
+        body: [
+          "En los años 30 la administración belga puso la etnia de cada persona en su documento de identidad y prefirió a los tutsis para los cargos. Con la independencia, en 1962, el poder pasó a dirigentes hutus y la rivalidad siguió. El colonialismo consolidó y politizó esas identidades: las volvió base de privilegios y rivalidades, y ese camino desembocó en el genocidio de 1994.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/sii-desc-cacao.jpg",
+        title: "Independientes, pero no libres",
+        info: "Un agricultor extiende granos de cacao para secarlos en Nkyerepoaso, región Ashanti de Ghana, enero de 2018. El cacao sigue siendo una de las grandes exportaciones del país. Foto de King Bangaba, CC BY-SA 4.0.",
+        body: [
+          "Muchos países africanos ganaron la bandera pero no la economía. Siguieron viviendo de exportar uno o dos productos —cacao, cobre, café— a precios que se fijaban afuera, con los préstamos, la tecnología y las grandes empresas en manos extranjeras. Eso es el ",
+          { term: "neocolonialismo" },
+          ". No lo confundás con el ",
+          { term: "panafricanismo" },
+          ", el ",
+          { term: "apartheid" },
+          " ni la ",
+          { term: "autarquía" },
+          ".",
         ],
       },
       {
@@ -1074,7 +1124,7 @@ const socialesII: Topic[] = [
         title: "Cómo funcionó",
         info: "Sótano de la Escuela de Mecánica de la Armada (ESMA) en Buenos Aires, centro clandestino de detención y tortura durante la dictadura argentina. Foto de Adam Jones, CC BY-SA 2.0.",
         body: [
-          "Desde 1975 las dictaduras del Cono Sur se pasaban información, se prestaban centros de detención y se entregaban presos entre ellas, con apoyo y entrenamiento de Estados Unidos. Con el ",
+          "Desde 1975 las dictaduras del Cono Sur se pasaban información, se prestaban centros de detención y se entregaban presos entre ellas; documentos desclasificados señalan el respaldo de Estados Unidos. Con el ",
           { term: "Plan Cóndor" },
           ", cruzar la frontera dejó de ser una salida: nadie estaba a salvo del otro lado.",
         ],
@@ -1288,9 +1338,9 @@ const socialesII: Topic[] = [
       "socialismo real":
         "Nombre que se dio a los regímenes socialistas que existieron de verdad en la URSS y Europa del Este.",
       Perestroika:
-        "Política de Gorbachov para reordenar la economía y abrir el gobierno: mercado, actividad comercial y propiedad privada.",
+        "«Reestructuración»: la reforma de Gorbachov a la economía soviética. Apertura comercial, acceso a la propiedad privada y comercio con Occidente, conservando las bases del Estado soviético.",
       Glasnost:
-        "Política de Gorbachov de libertad y transparencia de la información, que además separó el Estado del Partido Comunista.",
+        "«Transparencia»: más libertad de prensa, crítica pública a los errores del Partido Comunista y discusión abierta de los problemas del país.",
       "Pacto de Varsovia":
         "Alianza militar de la URSS y los países socialistas de Europa del Este, creada frente a la OTAN.",
       "Comunidad de Estados Independientes":
@@ -1323,7 +1373,7 @@ const socialesII: Topic[] = [
           { term: "Perestroika" },
           " y la ",
           { term: "Glasnost" },
-          ". Por primera vez en décadas se podía criticar al gobierno en voz alta. Y se acercó a Washington: el tratado de 1987 obligó a ambas potencias a reducir su arsenal nuclear y a dejarse inspeccionar.",
+          ". Pero al abrirse la discusión salieron a la luz los problemas económicos y los reclamos nacionalistas de las repúblicas, y la autoridad del gobierno central se debilitó. Y se acercó a Washington: el tratado de 1987 obligó a ambas potencias a reducir su arsenal nuclear y a dejarse inspeccionar.",
         ],
       },
       {
@@ -1331,7 +1381,7 @@ const socialesII: Topic[] = [
         title: "Las consecuencias",
         info: "Multitud en una manifestación en Praga durante la Revolución de Terciopelo, finales de noviembre de 1989. Foto de RobbieIanMorrison, CC BY 4.0.",
         body: [
-          "En 1987 hubo elecciones con más de un candidato y se liberaron opositores; se derogó el artículo que daba el monopolio al Partido Comunista. En 1989 cayeron uno tras otro los gobiernos de Europa del Este, y en 1991 se rompió el ",
+          "En 1987 hubo elecciones con más de un candidato y se liberaron opositores; se derogó el artículo que daba el monopolio al Partido Comunista. En 1989 cayeron uno tras otro los gobiernos de Europa del Este —en noviembre, el Muro de Berlín, y en 1990 Alemania se reunificó—, y en 1991 se rompió el ",
           { term: "Pacto de Varsovia" },
           ". Las reformas no salvaron a la URSS: la aceleraron.",
         ],
@@ -1960,6 +2010,14 @@ const sociales2S: Topic[] = [
         ],
       },
       {
+        image: "/kit/histok/images/s2-china-zee.jpg",
+        title: "Shenzhen, 1980",
+        info: "Estatua de Deng Xiaoping en Shenzhen, la ciudad que nació de su primera zona económica especial, junio de 2009. Foto de Brücke-Osteuropa, dominio público.",
+        body: [
+          "En 1980 Deng creó la Zona Económica Especial de Shenzhen: inversión extranjera, empresas privadas y producción para exportar. Pero el Partido Comunista no soltó el control político. Ese es el modelo chino: apertura al mercado y a la inversión extranjera, con un sistema de partido único.",
+        ],
+      },
+      {
         image: "/kit/histok/images/s2-dia-ciclo-deng.svg",
         title: "El ciclo de la reforma",
         diagram: true,
@@ -1985,6 +2043,10 @@ const sociales2S: Topic[] = [
     label: "China en el mundo",
     thumbnail: "/kit/histok/images/s2-mundo-addis.jpg",
     glossary: {
+      "Franja y la Ruta":
+        "Plan chino, lanzado en 2013, para financiar y construir infraestructura que conecte a China con Asia, África, Europa y América Latina.",
+      "diplomacia de la deuda":
+        "Acusación de que un país presta dinero a otro para ganar poder sobre él cuando no puede pagar.",
       "no injerencia":
         "Principio de no meterse en los asuntos internos de otro país: no condicionar la ayuda a cómo se gobierna.",
       "asociación estratégica":
@@ -2060,6 +2122,18 @@ const sociales2S: Topic[] = [
           "En 2007 Costa Rica rompió con Taiwán, después de 60 años de relaciones, para abrirlas con la República Popular China. Las pruebas están a la vista: el Estadio Nacional lo construyó China, los presidentes de ambos países se visitaron, y el tratado de libre comercio entró en vigor el 1 de agosto de 2011.",
         ],
       },
+      {
+        image: "/kit/histok/images/s2-china-hambantota.jpg",
+        title: "La Franja y la Ruta",
+        info: "Autos recién desembarcados en el puerto de Hambantota, en el sur de Sri Lanka, agosto de 2020. Foto de Amalbalasooriya, CC BY-SA 4.0.",
+        body: [
+          "Con la iniciativa de la ",
+          { term: "Franja y la Ruta" },
+          ", China financia puertos, ferrocarriles y carreteras en decenas de países. En 2017 Sri Lanka no pudo con sus deudas y arrendó por 99 años el puerto de Hambantota a una empresa china. Los críticos hablan de «",
+          { term: "diplomacia de la deuda" },
+          "»; China, de beneficio mutuo. Lo seguro: crece su influencia económica y política sobre los países deudores, y se abre un debate sobre su soberanía.",
+        ],
+      },
     ],
   },
   {
@@ -2089,7 +2163,7 @@ const sociales2S: Topic[] = [
         body: [
           "Japón salió de Corea en 1945 y la península se partió en el ",
           { term: "paralelo 38" },
-          ": la URSS ocupó el norte y EE. UU. el sur. En 1948 nacieron dos gobiernos: al norte, uno comunista con ",
+          ": la URSS ocupó el norte y EE. UU. el sur; con los años, el norte quedó bajo influencia soviética y china. En 1948 nacieron dos gobiernos: al norte, uno comunista con ",
           { name: "Kim Il Sung" },
           " y Kim Tubong; al sur, uno nacionalista con ",
           { name: "Syngman Rhee" },
@@ -2115,7 +2189,19 @@ const sociales2S: Topic[] = [
         title: "Lo que dejó la guerra",
         info: "Una niña coreana carga a su hermano a la espalda junto a un tanque detenido, en Haengju, el 9 de junio de 1951. Fotografía de la Marina de EE. UU., dominio público.",
         body: [
-          "Un millón de muertos y una tensión que no terminó nunca. El norte quedó atrasado y el sur se desarrolló. El norte armó un programa nuclear, y en 2010 bombardeó la isla surcoreana de Yeonpyeong. La guerra terminó con un armisticio, no con un tratado de paz: técnicamente, sigue.",
+          "Un millón de muertos y una tensión que no terminó nunca. El norte quedó atrasado y el sur se desarrolló. El norte armó un programa nuclear, y en 2010 bombardeó la isla surcoreana de Yeonpyeong.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/s2-corea-2018.jpg",
+        title: "Panmunjom",
+        info: "Kim Jong-un y Moon Jae-in levantan las manos tras firmar la Declaración de Panmunjom, 27 de abril de 2018. Foto de la Casa Azul (Cheongwadae), licencia KOGL tipo 1.",
+        body: [
+          "La guerra terminó en 1953 con un armisticio firmado en Panmunjom, no con un tratado de paz: se dejó de pelear, pero formalmente la guerra no ha terminado, y la tensión sigue latente. En abril de 2018 ",
+          { name: "Moon Jae-in" },
+          " y ",
+          { name: "Kim Jong-un" },
+          " se reunieron ahí mismo para bajarla. Es una huella de la Guerra Fría: las dos potencias se disputaron la hegemonía en territorios ajenos, y las consecuencias siguen hoy.",
         ],
       },
       {
@@ -2262,7 +2348,7 @@ const sociales2S: Topic[] = [
         diagram: true,
         info: "Mapa de Israel (claro) y de los territorios que ocupó en la Guerra de los Seis Días (beige), con rótulos en inglés: Gaza, Cisjordania (West Bank), el Sinaí y los Altos del Golán. Mapa de Wikimedia Commons, CC BY-SA 3.0.",
         body: [
-          "Egipto bloqueó el estrecho de Tirán y movió tropas al Sinaí, aliado con Siria y Jordania. Israel respondió con un ataque aéreo sorpresa y ganó en seis días (5 al 10 de junio). Ocupó Gaza, Cisjordania, el Sinaí, Jerusalén Este y los Altos del Golán, y empezó a expropiar tierras e instalar colonos.",
+          "Egipto bloqueó el estrecho de Tirán y movió tropas al Sinaí, aliado con Siria y Jordania. Israel respondió con un ataque aéreo sorpresa y ganó en seis días (5 al 10 de junio). Ocupó Gaza, Cisjordania, el Sinaí, Jerusalén Este y los Altos del Golán, y empezó a expropiar tierras e instalar colonos. Desde entonces, la devolución de esas tierras y el estatus de Jerusalén son el centro del conflicto.",
         ],
       },
       {
@@ -2316,6 +2402,10 @@ const sociales2S: Topic[] = [
     label: "Rusia: Georgia y Ucrania",
     thumbnail: "/kit/histok/images/s2-rusia-kremlin.jpg",
     glossary: {
+      "soberanía":
+        "El poder de un Estado para decidir por sí mismo, sin que otro se lo imponga.",
+      "integridad territorial":
+        "Principio del derecho internacional: el territorio de un Estado no se puede quitar ni partir por la fuerza.",
       Gazprom: "La empresa rusa de gas natural, la más poderosa del mundo en su ramo; la controla el Estado.",
       oleoducto: "Tubería de cientos de kilómetros que lleva petróleo de un lugar a otro.",
       Euromaidán:
@@ -2404,6 +2494,19 @@ const sociales2S: Topic[] = [
           ", con misiles y drones. Hasta septiembre de 2026 no había un acuerdo de paz definitivo.",
         ],
       },
+      {
+        image: "/kit/histok/images/s2-dia-ucrania.svg",
+        title: "Dos argumentos",
+        diagram: true,
+        info: "Los argumentos de Rusia y de Ucrania sobre la invasión de 2022, según el curso.",
+        body: [
+          "Rusia dice que se defiende de una OTAN que se acercó a sus fronteras. Ucrania y sus aliados responden con un principio del derecho internacional: la ",
+          { term: "soberanía" },
+          " y la ",
+          { term: "integridad territorial" },
+          " de los Estados.",
+        ],
+      },
     ],
   },
   {
@@ -2411,6 +2514,8 @@ const sociales2S: Topic[] = [
     label: "Limpiezas étnicas y derechos humanos",
     thumbnail: "/kit/histok/images/s2-etnia-srebrenica.jpg",
     glossary: {
+      "zona segura":
+        "Área que la ONU declara protegida para que la población civil se refugie durante una guerra.",
       "limpieza étnica":
         "Expulsar a la fuerza a una población de un territorio por razones políticas, religiosas, nacionalistas, racistas o ideológicas; suele venir con violencia y masacres.",
       genocidio:
@@ -2452,6 +2557,18 @@ const sociales2S: Topic[] = [
           " crecieron los nacionalismos, y ",
           { name: "Slobodan Milošević" },
           " lanzó una «limpieza» contra las otras etnias. El libro registra 278 800 muertos en Bosnia, y más de un millón y medio de albano-kosovares tuvieron que huir. La OTAN intervino en Bosnia desde 1994.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/s2-etnia-nombres.jpg",
+        title: "Srebrenica, 1995",
+        info: "El muro con los nombres de las víctimas en el memorial de Potočari, junto a Srebrenica. Foto de Michael Büker, marzo de 2009, CC BY-SA 3.0.",
+        body: [
+          "En julio de 1995 fuerzas serbobosnias asesinaron a más de 8000 hombres y niños bosníacos musulmanes en Srebrenica, una «",
+          { term: "zona segura" },
+          "» de la ONU con tropas de paz presentes. Los tribunales internacionales lo calificaron como ",
+          { term: "genocidio" },
+          ". La lección: tropas de paz sin mandato ni medios para defender a la población no la protegen.",
         ],
       },
       {
@@ -2503,7 +2620,7 @@ const sociales2S: Topic[] = [
         title: "Lo que se repite",
         info: "El campamento de refugiados de Kibumba, en Goma (Zaire, hoy Congo), adonde huyeron más de un millón de ruandeses, 3 de agosto de 1994. Fotografía del Departamento de Defensa de EE. UU., CC0.",
         body: [
-          "Fronteras artificiales: Ruanda, Burundi y Sudán heredaron divisiones coloniales que ignoraron etnias y religiones. Líderes que usan la identidad para ganar poder: Milošević, Kiir, Machar. Millones de desplazados. Y una respuesta internacional tardía: la OTAN en Bosnia desde 1994; en Ruanda, las tropas se fueron.",
+          "Fronteras artificiales: Ruanda, Burundi y Sudán heredaron divisiones coloniales que ignoraron etnias y religiones. Líderes que usan la identidad para ganar poder: Milošević, Kiir, Machar. Millones de desplazados. Y una respuesta internacional tardía: la OTAN en Bosnia desde 1994; en Ruanda, las tropas se fueron. La conclusión del curso: proteger los derechos humanos depende de actuar temprano.",
         ],
       },
       {
@@ -2533,6 +2650,12 @@ const sociales2S: Topic[] = [
     label: "América Latina desde los noventa",
     thumbnail: "/kit/histok/images/s2-latam-cartagena.jpg",
     glossary: {
+      "programas de ajuste estructural":
+        "Reformas que el FMI y el Banco Mundial pedían a cambio de préstamos: recortar el gasto, abrir el comercio y vender empresas públicas.",
+      "exportaciones no tradicionales":
+        "Productos nuevos para exportar, distintos del café y el banano de siempre: piña, flores, dispositivos médicos, servicios.",
+      "zonas francas":
+        "Áreas donde las empresas que exportan pagan pocos o ningún impuesto, para atraer inversión.",
       Mercosur:
         "Mercado Común del Sur: bloque comercial de Argentina, Brasil, Paraguay y Uruguay, creado en 1991.",
       "DR-CAFTA":
@@ -2590,6 +2713,22 @@ const sociales2S: Topic[] = [
         ],
       },
       {
+        image: "/kit/histok/images/s2-latam-zonafranca.jpg",
+        title: "Costa Rica desde los 80",
+        info: "La Zona Franca América, en Heredia, Costa Rica, al atardecer, enero de 2009. Foto de Victor Quirós A., CC BY-SA 3.0.",
+        body: [
+          "Costa Rica aplicó el modelo con ",
+          { term: "programas de ajuste estructural" },
+          ", promovió las ",
+          { term: "exportaciones no tradicionales" },
+          ", creó el régimen de ",
+          { term: "zonas francas" },
+          " y atrajo ",
+          { term: "inversión extranjera directa" },
+          ". Las exportaciones de manufactura y servicios crecieron muchísimo. La contradicción: el sector exportador moderno se expandió, mientras la agricultura para el mercado interno perdió el apoyo del Estado, y se ampliaron las brechas sociales y territoriales.",
+        ],
+      },
+      {
         image: "/kit/histok/images/s2-latam-dilma.jpg",
         title: "Argentina, Brasil y Venezuela",
         info: "Sesión de la Cámara de Diputados de Brasil que votó el juicio político contra Dilma Rousseff, abril de 2016. Foto de Agência Brasil, CC BY 2.0.",
@@ -2640,7 +2779,7 @@ const sociales2S: Topic[] = [
         title: "Centroamérica, el puente",
         info: "Un semisumergible cargado de cocaína interceptado en el océano Pacífico, agosto de 2007. Fotografía de la Oficina de Aduanas y Protección Fronteriza de EE. UU., dominio público.",
         body: [
-          "La droga va de Suramérica a Centroamérica y de ahí a EE. UU.: el 90 % de la que sale de Suramérica pasa por Centroamérica, unos 900 000 kilos de cocaína al año. Los carteles mexicanos administran el negocio y otros grupos hacen de transportistas.",
+          "En los 80 y 90 se reforzó el control antidrogas en el Caribe y en parte de Colombia, y muchas rutas se pasaron a Centroamérica. Hoy el 90 % de la droga que sale de Suramérica pasa por aquí rumbo a EE. UU., unos 900 000 kilos de cocaína al año. ¿Por qué aquí? Por la ubicación, entre los productores del sur y el mercado del norte, y por instituciones debilitadas.",
         ],
       },
     ],
@@ -2783,6 +2922,15 @@ const sociales2S: Topic[] = [
           " subió de 61 a 79 años y tienen 1,69 hijos por mujer, por debajo del ",
           { term: "nivel de reemplazo" },
           ": envejecen, como Japón, Italia y Alemania. Los países en desarrollo controlan el hambre y las enfermedades desde 1950, pasaron de vivir 41 años a 70, y aunque su fecundidad baja, sigue siendo la más alta.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/s2-dia-reemplazo.svg",
+        title: "Por debajo del reemplazo",
+        diagram: true,
+        info: "Cómo se achica una población con 1,3 hijos por mujer y sin migración: cada generación es un 38 % más chica que la anterior (1,3 ÷ 2,1).",
+        body: [
+          "Con 1,3 hijos por mujer y sin migración, la población se reduce y envejece. Menos gente en edad de trabajar sostiene a más personas mayores: presión sobre la salud y las pensiones.",
         ],
       },
       {

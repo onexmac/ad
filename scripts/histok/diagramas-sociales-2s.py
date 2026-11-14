@@ -247,6 +247,34 @@ def _comparar(name, titulo, a, b, ca, cb, filas, etiquetas, desc):
     s.save(OUT + name)
 
 
+def ucrania():
+    s = Svg("Rusia vs. Ucrania", "dos argumentos sobre la invasión de 2022", "Los argumentos de Rusia y de Ucrania sobre la invasión de 2022")
+    s.card(60, 175, 880, 135, "pink")
+    s.text(95, 225, "Rusia", 30, "pink", "start", 700)
+    s.text(95, 272, "La ampliación de la OTAN amenaza su seguridad.", 26, WHITE, "start")
+    s.card(60, 330, 880, 170, "cyan")
+    s.text(95, 380, "Ucrania y sus aliados", 30, "cyan", "start", 700)
+    s.lines(95, 427, ["Cada Estado elige sus alianzas sin coerción,", "y las fronteras no se cambian por la fuerza."], 26, WHITE)
+    s.card(60, 520, 880, 110, "yellow")
+    s.text(500, 562, "El principio que invoca Ucrania", 23, MUTED)
+    s.text(500, 604, "soberanía e integridad territorial", 30, "yellow", weight=700)
+    s.save(OUT + "s2-dia-ucrania.svg")
+
+
+def reemplazo():
+    s = Svg("Debajo del reemplazo", "1,3 hijos por mujer y sin migración", "Cómo se achica una población con 1,3 hijos por mujer")
+    filas = [("1.ª generación", 100, "cyan"), ("sus hijos", 62, "yellow"), ("sus nietos", 38, "orange")]
+    x0, w, y = 70, 860, 200
+    for nombre, v, c in filas:
+        s.text(x0, y, nombre, 25, WHITE, "start", 600)
+        s.rect(x0, y + 14, w, 40, DIM, rx=12)
+        s.rect(x0, y + 14, w * v / 100, 40, c, rx=12)
+        s.text(x0 + w, y, str(v), 27, c, "end", 700)
+        y += 92
+    s.text(500, y + 6, "con 2,1 hijos por mujer, las tres barras serían iguales", 23, MUTED)
+    s.save(OUT + "s2-dia-reemplazo.svg")
+
+
 def comparaciones():
     _comparar(
         "s2-dia-finlandia-nicaragua.svg", "Finlandia vs. Nicaragua", "Finlandia", "Nicaragua", "cyan", "yellow",
@@ -275,4 +303,6 @@ if __name__ == "__main__":
     urbano()
     hacia_2050()
     comparaciones()
-    print("9 diagramas de Sociales")
+    ucrania()
+    reemplazo()
+    print("11 diagramas de Sociales")
