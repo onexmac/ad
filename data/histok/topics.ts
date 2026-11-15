@@ -513,6 +513,33 @@ const civicaII: Topic[] = [
         info: "Edificio de la Asamblea Legislativa de Costa Rica, sede del Poder Legislativo, en San José.",
       },
       {
+        image: "/kit/histok/images/civ2-dia-ejecutivo.svg",
+        title: "El Poder Ejecutivo",
+        diagram: true,
+        info: "Cómo se forma el Poder Ejecutivo, qué hace y qué depende de él, según la Constitución de 1949.",
+        body: [
+          "Es el poder que gobierna día a día: decide, administra y pone en práctica lo que aprueba la Asamblea.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/civ2-dia-legislativo.svg",
+        title: "El Poder Legislativo",
+        diagram: true,
+        info: "Cómo se forma la Asamblea Legislativa, qué hace y qué órganos dependen de ella, según la Constitución de 1949.",
+        body: [
+          "Es el poder que representa a la ciudadanía: discute y aprueba leyes, y vigila al Ejecutivo.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/civ2-dia-judicial.svg",
+        title: "El Poder Judicial",
+        diagram: true,
+        info: "Cómo se forma la Corte Suprema de Justicia, qué hace y qué depende de ella.",
+        body: [
+          "Aplica la ley a cada caso. Y la Sala IV puede anular una ley o un acto del gobierno si choca con la Constitución.",
+        ],
+      },
+      {
         image: CIV_MUNICIPALIDAD,
         title: "Rendición de cuentas y gobiernos locales",
         body: [
@@ -525,12 +552,39 @@ const civicaII: Topic[] = [
         info: "Edificio de la Municipalidad de Montes de Oca, con el escudo del cantón sobre el portal de entrada y la bandera nacional izada.",
       },
       {
+        image: "/kit/histok/images/civ2-dia-incidencia.svg",
+        title: "Mecanismos de incidencia",
+        diagram: true,
+        info: "Los mecanismos con los que la ciudadanía costarricense puede influir en las decisiones públicas.",
+        body: [
+          "Incidir es influir en una decisión pública sin ser gobernante.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/civ2-dia-rendicion.svg",
+        title: "Mecanismos de rendición de cuentas",
+        diagram: true,
+        info: "Quién vigila a quienes gobiernan en Costa Rica: la Constitución y los órganos de control.",
+        body: [
+          "Quien maneja poder o dinero público tiene que explicar qué hizo con él, y alguien tiene que poder revisarlo.",
+        ],
+      },
+      {
+        image: "/kit/histok/images/civ2-dia-municipal.svg",
+        title: "Los gobiernos locales",
+        diagram: true,
+        info: "Cómo se organizan las municipalidades de Costa Rica.",
+        body: [
+          "Es el gobierno más cercano: el que recoge la basura, arregla la calle del barrio y da los permisos.",
+        ],
+      },
+      {
         image: CIV_TSE,
         title: "La institucionalidad democrática",
         body: [
           "La ",
           { term: "institucionalidad democrática" },
-          " de Costa Rica es su mayor patrimonio, y es más frágil de lo que parece: no se pierde de un golpe, sino cuando se va normalizando que las reglas se salten «solo esta vez».",
+          " de Costa Rica es su mayor patrimonio, y es más frágil de lo que parece: no se pierde de un golpe, sino cuando se va normalizando que las reglas se salten «solo esta vez». Que los poderes se controlen es sano; el deterioro empieza cuando uno ataca a otro en vez de controlarlo, y la ciudadanía deja de confiar en todos.",
         ],
         info: "El Tribunal Supremo de Elecciones (TSE) en San José, la institución que organiza y supervisa las elecciones en Costa Rica.",
       },
@@ -563,6 +617,15 @@ const civicaII: Topic[] = [
           " y entregó el Cuartel Bellavista para convertirlo en museo.",
         ],
         info: "Estatua de bronce de José Figueres Ferrer en la Plaza de la Democracia, en San José.",
+      },
+      {
+        image: "/kit/histok/images/civ2-dia-articulo12.svg",
+        title: "El artículo 12",
+        diagram: true,
+        info: "El artículo 12 de la Constitución Política de Costa Rica (1949), en un fragmento.",
+        body: [
+          "Lo que se decretó en 1948 quedó escrito en la Constitución de 1949. La seguridad interna quedó en manos de policías civiles.",
+        ],
       },
       {
         image: CIV_ARMAS,
@@ -648,6 +711,15 @@ const civicaII: Topic[] = [
         ],
         info: "Sede del Banco Central de Costa Rica en San José: edificio de fachada de vidrio oscuro, con su rótulo sobre la entrada y la bandera nacional al frente.",
       },
+      {
+        image: "/kit/histok/images/civ2-dia-ciudadania.svg",
+        title: "Ciudadanía activa",
+        diagram: true,
+        info: "Qué hace una ciudadanía activa, el tercer desafío del temario.",
+        body: [
+          "El tercer desafío del temario: un Estado transparente y gobernable necesita gente que participe, no solo espectadores.",
+        ],
+      },
     ],
   },
   {
@@ -688,6 +760,15 @@ const civicaII: Topic[] = [
           " es el más exigente de todos, porque obliga a aceptar que el voto del vecino pesa exactamente lo mismo que el propio.",
         ],
         info: "Estatua de bronce de Juan Santamaría en Alajuela, que lo representa avanzando con una antorcha en alto y un fusil en la otra mano.",
+      },
+      {
+        image: "/kit/histok/images/civ2-dia-valores.svg",
+        title: "Los seis valores",
+        diagram: true,
+        info: "Los valores democráticos que pide el temario.",
+        body: [
+          "En un examen, cada valor se reconoce por una conducta concreta: quién respeta, quién comparte, quién dice la verdad.",
+        ],
       },
       {
         image: CIV_MORAZAN,
@@ -2129,9 +2210,9 @@ const sociales2S: Topic[] = [
         body: [
           "Con la iniciativa de la ",
           { term: "Franja y la Ruta" },
-          ", China financia puertos, ferrocarriles y carreteras en decenas de países. En 2017 Sri Lanka no pudo con sus deudas y arrendó por 99 años el puerto de Hambantota a una empresa china. Los críticos hablan de «",
+          ", China financia puertos, ferrocarriles y carreteras en decenas de países. En 2017 Sri Lanka no pudo con sus deudas y arrendó por 99 años el puerto de Hambantota a una empresa china. Los críticos hablan de ",
           { term: "diplomacia de la deuda" },
-          "»; China, de beneficio mutuo. Lo seguro: crece su influencia económica y política sobre los países deudores, y se abre un debate sobre su soberanía.",
+          "; China, de beneficio mutuo. Lo seguro: crece su influencia económica y política sobre los países deudores, y se abre un debate sobre su soberanía.",
         ],
       },
     ],
@@ -2564,9 +2645,9 @@ const sociales2S: Topic[] = [
         title: "Srebrenica, 1995",
         info: "El muro con los nombres de las víctimas en el memorial de Potočari, junto a Srebrenica. Foto de Michael Büker, marzo de 2009, CC BY-SA 3.0.",
         body: [
-          "En julio de 1995 fuerzas serbobosnias asesinaron a más de 8000 hombres y niños bosníacos musulmanes en Srebrenica, una «",
+          "En julio de 1995 fuerzas serbobosnias asesinaron a más de 8000 hombres y niños bosníacos musulmanes en Srebrenica, una ",
           { term: "zona segura" },
-          "» de la ONU con tropas de paz presentes. Los tribunales internacionales lo calificaron como ",
+          " de la ONU con tropas de paz presentes. Los tribunales internacionales lo calificaron como ",
           { term: "genocidio" },
           ". La lección: tropas de paz sin mandato ni medios para defender a la población no la protegen.",
         ],
@@ -3467,6 +3548,340 @@ const biologia2S: Topic[] = [
 ];
 
 
+// 2 Semestre › Cívica. Prueba final del 25 de noviembre. El temario repite los
+// cuatro temas de Cívica II (mismas secciones, ampliadas: se comparten con el
+// 1 Semestre) y suma comunicación política, discursos y el sistema electoral.
+// No hubo material del curso para estos temas: el contenido sale de la
+// Constitución, el Código Electoral y datos del TSE.
+function deCivicaII(slug: string): Topic {
+  const t = civicaII.find((x) => x.slug === slug);
+  if (!t) throw new Error(`Cívica II no tiene la sección "${slug}"`);
+  return t;
+}
+
+const comunicacionPolitica: Topic = {
+  slug: "comunicacion-politica",
+  label: "Comunicación política",
+  thumbnail: "/kit/histok/images/civ2-com-conferencia.jpg",
+  glossary: {
+    "comunicación política":
+      "Los mensajes con los que gobiernos, partidos e instituciones buscan informar e influir en la ciudadanía.",
+    "opinión pública":
+      "Lo que piensa la mayoría de la gente sobre un tema en un momento dado.",
+  },
+  slides: [
+    {
+      image: "/kit/histok/images/civ2-com-conferencia.jpg",
+      title: "Comunicación política",
+      info: "Conferencia de prensa del presidente Carlos Alvarado en Casa Presidencial, octubre de 2018. Foto de Julieth Mendez, CC BY-SA 4.0.",
+    },
+    {
+      image: "/kit/histok/images/civ2-dia-comunicacion.svg",
+      title: "Dos formas de comunicar",
+      diagram: true,
+      info: "Propaganda y comunicación educativa: en qué se diferencian.",
+      body: [
+        "Las instituciones del Estado no solo dan servicios: también hablan. Eso es ",
+        { term: "comunicación política" },
+        ", y con ella se forma la ",
+        { term: "opinión pública" },
+        ".",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-dia-instituciones.svg",
+      title: "ICE, MEP, CONAVI y RECOPE",
+      diagram: true,
+      info: "Las cuatro instituciones que nombra el temario.",
+      body: [
+        "Ante cada mensaje, preguntá: ¿me está informando, educando o convenciendo? ¿Y qué no me está diciendo?",
+      ],
+    },
+  ],
+};
+
+const discursosPoliticos: Topic = {
+  slug: "discursos-politicos",
+  label: "Discursos y agendas políticas",
+  thumbnail: "/kit/histok/images/civ2-disc-plenario.jpg",
+  glossary: {
+    "reforma social":
+      "Conjunto de cambios de los años 40 que crearon derechos laborales y seguridad social en Costa Rica.",
+    "Garantías Sociales":
+      "Capítulo de la Constitución que protege el trabajo y la seguridad social de las personas.",
+    "Vanguardia Popular":
+      "Nombre que tomó en 1943 el Partido Comunista de Costa Rica.",
+    "Esquipulas II":
+      "Acuerdo firmado en Guatemala en 1987 por los presidentes de Centroamérica para terminar las guerras de la región.",
+    "derechos humanos":
+      "Derechos que tiene toda persona por el solo hecho de serlo, sin importar su origen, sexo o ideas.",
+    "agenda política":
+      "Los temas que un gobierno, un partido o una sociedad pone como prioridad para discutir y decidir.",
+  },
+  slides: [
+    {
+      image: "/kit/histok/images/civ2-disc-plenario.jpg",
+      title: "Discursos y agendas políticas",
+      info: "El salón del Plenario de la Asamblea Legislativa de Costa Rica, septiembre de 2021. Foto de Maynor Solís Calderón, Asamblea Legislativa, CC BY-SA 4.0.",
+    },
+    {
+      image: "/kit/histok/images/civ2-disc-figueres.jpg",
+      title: "José Figueres Ferrer",
+      info: "José Figueres Ferrer, presidente de Costa Rica, en su visita oficial a Ámsterdam, donde lo recibió la reina Juliana, 4 de octubre de 1956. Foto de Joop van Bilsen para Anefo, Archivo Nacional de los Países Bajos, CC0.",
+      body: [
+        { name: "José Figueres Ferrer" },
+        " encabezó la Junta que gobernó tras la guerra civil de 1948. Su discurso más estudiado es el del 1 de diciembre de ese año: al abolir el ejército, entregó el Cuartel Bellavista para convertirlo en un centro de cultura. La idea de fondo: el país se defiende con escuelas, no con soldados.",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-disc-calderon.jpg",
+      title: "Rafael Ángel Calderón Guardia",
+      info: "Retrato al óleo de Rafael Ángel Calderón Guardia, presidente de Costa Rica de 1940 a 1944, obra de Gonzalo Morales Alvarado. Imagen de 2009, CC BY-SA 4.0.",
+      body: [
+        { name: "Rafael Ángel Calderón Guardia" },
+        ", presidente de 1940 a 1944, impulsó la ",
+        { term: "reforma social" },
+        ": la Caja Costarricense de Seguro Social (1941), las ",
+        { term: "Garantías Sociales" },
+        " y el Código de Trabajo (1943). Sus discursos defendían la justicia social inspirada en la doctrina social de la Iglesia.",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-disc-mora.jpg",
+      title: "Manuel Mora Valverde",
+      info: "Manuel Mora Valverde (1909–1994), hacia 1940. Fotografía de la Asamblea Legislativa de Costa Rica, dominio público.",
+      body: [
+        { name: "Manuel Mora Valverde" },
+        " fue uno de los fundadores del Partido Comunista en 1931, que en 1943 pasó a llamarse ",
+        { term: "Vanguardia Popular" },
+        ". Desde la Asamblea defendió a los trabajadores, y se alió con Calderón Guardia y con la Iglesia para sacar adelante la reforma de los años 40.",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-disc-arias.jpg",
+      title: "Óscar Arias Sánchez",
+      info: "Óscar Arias Sánchez en 2018. Foto de MadriCR, CC BY-SA 4.0.",
+      body: [
+        { name: "Óscar Arias Sánchez" },
+        " fue presidente de 1986 a 1990 y de 2006 a 2010. Su plan de paz llevó a ",
+        { term: "Esquipulas II" },
+        " y le valió el Nobel de la Paz de 1987. En el discurso del Nobel, «La paz no tiene fronteras», pidió que Centroamérica decidiera su propio destino, sin las potencias.",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-disc-odio.jpg",
+      title: "Elizabeth Odio Benito",
+      info: "Elizabeth Odio Benito como jueza de la Corte Interamericana de Derechos Humanos, en San José, marzo de 2018. Foto de la Corte IDH, CC BY-SA 2.0.",
+      body: [
+        { name: "Elizabeth Odio Benito" },
+        " es jurista. Fue ministra de Justicia, vicepresidenta de la República (1998–2002), jueza del tribunal de la ONU para la antigua Yugoslavia y de la Corte Penal Internacional, y presidenta de la Corte Interamericana. Sus discursos defienden los ",
+        { term: "derechos humanos" },
+        " y los de las mujeres.",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-dia-agenda.svg",
+      title: "Agendas políticas",
+      diagram: true,
+      info: "Quién arma la agenda política: partidos, gobierno, medios y ciudadanía.",
+      body: [
+        "Una ",
+        { term: "agenda política" },
+        " decide qué problemas se atienden primero, y cuáles se quedan esperando.",
+      ],
+    },
+  ],
+};
+
+const conceptosElectorales: Topic = {
+  slug: "conceptos-electorales",
+  label: "Sistema electoral: conceptos",
+  thumbnail: "/kit/histok/images/civ2-elec-fila.jpg",
+  glossary: {
+    "sistema electoral":
+      "Las reglas que convierten los votos de la ciudadanía en cargos públicos.",
+    "código electoral":
+      "La ley que regula las elecciones, los partidos políticos y su financiamiento.",
+    "partidos políticos":
+      "Agrupación de ciudadanos que comparte ideas y busca llegar al gobierno por medio de elecciones.",
+    "ideología":
+      "Conjunto de ideas sobre cómo debería organizarse la sociedad y qué debería hacer el Estado.",
+    "programa de gobierno":
+      "Documento en el que un partido explica qué hará si gana.",
+    "campaña electoral":
+      "Periodo antes de la elección en que los partidos buscan el voto.",
+    "propaganda":
+      "Mensajes hechos para convencer y ganar apoyo para una idea, una persona o un partido.",
+    "deuda política":
+      "Dinero con que el Estado reembolsa a los partidos parte de sus gastos de campaña, según los votos que obtuvieron.",
+    "elección":
+      "Acto en que la ciudadanía escoge, votando, a quienes ocuparán los cargos públicos.",
+    "sufragio":
+      "El derecho y el deber de votar.",
+    "participación":
+      "Tomar parte en las decisiones colectivas: votar, opinar, organizarse.",
+    "abstencionismo":
+      "No ir a votar pudiendo hacerlo.",
+    "bipartidismo":
+      "Sistema en que dos partidos se reparten casi todo el poder.",
+    "multipartidismo":
+      "Sistema en que varios partidos tienen fuerza real.",
+    "pluralismo":
+      "Que convivan y compitan muchas ideas, grupos y partidos distintos.",
+    "cultura electoral":
+      "Los conocimientos, valores y hábitos de una sociedad sobre cómo se vota y se elige.",
+    "opinión pública":
+      "Lo que piensa la mayoría de la gente sobre un tema en un momento dado.",
+  },
+  slides: [
+    {
+      image: "/kit/histok/images/civ2-elec-fila.jpg",
+      title: "Sistema electoral: conceptos",
+      info: "Votantes hacen fila para votar en las elecciones de Costa Rica, 4 de febrero de 2018. Foto de Dereck Camacho, CC BY-SA 4.0.",
+    },
+    {
+      image: "/kit/histok/images/civ2-elec-quesada10.jpg",
+      title: "Las reglas del juego",
+      info: "Votantes en Ciudad Quesada durante las elecciones nacionales del 7 de febrero de 2010. Foto de Russtony, CC BY-SA 3.0 CR.",
+      body: [
+        "Todo empieza con el ",
+        { term: "sistema electoral" },
+        " y el ",
+        { term: "código electoral" },
+        ". Dentro de esas reglas compiten los ",
+        { term: "partidos políticos" },
+        ", cada uno con su ",
+        { term: "ideología" },
+        " y su ",
+        { term: "programa de gobierno" },
+        ", que da a conocer en la ",
+        { term: "campaña electoral" },
+        " con ",
+        { term: "propaganda" },
+        ", pagada en parte con la ",
+        { term: "deuda política" },
+        ".",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-dia-abstencion.svg",
+      title: "Votar o no votar",
+      diagram: true,
+      info: "Abstencionismo en la primera ronda presidencial de Costa Rica, 1998–2022, según el Tribunal Supremo de Elecciones.",
+      body: [
+        "La ",
+        { term: "elección" },
+        " se decide con el ",
+        { term: "sufragio" },
+        ", pero la ",
+        { term: "participación" },
+        " viene bajando: en 2022 el ",
+        { term: "abstencionismo" },
+        " pasó del 40 %, el más alto de estas siete elecciones.",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-dia-partidos.svg",
+      title: "De dos a muchos",
+      diagram: true,
+      info: "Del bipartidismo al multipartidismo en Costa Rica, con datos del Tribunal Supremo de Elecciones.",
+      body: [
+        "Del ",
+        { term: "bipartidismo" },
+        " al ",
+        { term: "multipartidismo" },
+        ": más opciones significan más ",
+        { term: "pluralismo" },
+        ", pero también gobiernos con menos diputados propios.",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-elec-quesada.jpg",
+      title: "Cultura electoral",
+      info: "Votantes en Ciudad Quesada durante las elecciones nacionales del 2 de febrero de 2014. Foto de Manuel A. Aguilar C., CC BY-SA 3.0 CR.",
+      body: [
+        "La ",
+        { term: "cultura electoral" },
+        " se aprende en la casa y en el colegio: informarse antes de votar, escuchar al que piensa distinto, aceptar el resultado y vigilar a quien gane. Con ella cambia también la ",
+        { term: "opinión pública" },
+        ".",
+      ],
+    },
+  ],
+};
+
+const eleccionesCostaRica: Topic = {
+  slug: "elecciones-costa-rica",
+  label: "Elecciones en Costa Rica",
+  thumbnail: "/kit/histok/images/civ2-elec-junta.jpg",
+  glossary: {
+    "Tribunal Supremo de Elecciones":
+      "El TSE: el órgano que organiza las elecciones y resuelve los conflictos electorales.",
+    "Registro Civil":
+      "Oficina del TSE que registra los hechos de la vida de cada persona y entrega la cédula de identidad.",
+    "padrón electoral":
+      "Lista oficial de las personas que pueden votar en una elección.",
+    "segunda ronda":
+      "Nueva votación entre los dos candidatos más votados cuando ninguno supera el 40 %.",
+    "voto femenino":
+      "El derecho de las mujeres a votar, reconocido en Costa Rica en la Constitución de 1949.",
+  },
+  slides: [
+    {
+      image: "/kit/histok/images/civ2-elec-junta.jpg",
+      title: "Elecciones en Costa Rica",
+      info: "Auxiliares del Tribunal Supremo de Elecciones en una junta receptora de votos, 4 de febrero de 2018. Foto de Dereck Camacho, CC BY-SA 4.0.",
+    },
+    {
+      image: "/kit/histok/images/civ2-dia-tse.svg",
+      title: "El cuarto poder",
+      diagram: true,
+      info: "Cómo se organiza el Tribunal Supremo de Elecciones, según la Constitución y el Código Electoral.",
+      body: [
+        "La Constitución de 1949 le dio al ",
+        { term: "Tribunal Supremo de Elecciones" },
+        " rango e independencia de poder del Estado. De él depende el ",
+        { term: "Registro Civil" },
+        ", que arma el ",
+        { term: "padrón electoral" },
+        ".",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-dia-como-se-elige.svg",
+      title: "Cómo se elige",
+      diagram: true,
+      info: "Calendario y reglas de las elecciones nacionales de Costa Rica.",
+      body: [
+        "Si nadie supera el 40 %, hay ",
+        { term: "segunda ronda" },
+        ". Pasó por primera vez en 2002 y desde entonces se volvió común.",
+      ],
+    },
+    {
+      image: "/kit/histok/images/civ2-elec-fila2.jpg",
+      title: "El sufragio",
+      info: "Fila para votar en las elecciones nacionales de Costa Rica, 4 de febrero de 2018. Foto de Dereck Camacho, CC BY-SA 4.0.",
+      body: [
+        "Desde 1949 el voto es universal, secreto y obligatorio por la Constitución, aunque no se castiga a quien no vota. El ",
+        { term: "voto femenino" },
+        " se estrenó en 1950, en un plebiscito en La Tigra, y en 1953 las mujeres votaron por primera vez en una elección nacional. Hoy se vota desde los 18 años.",
+      ],
+    },
+  ],
+};
+
+const civica2S: Topic[] = [
+  deCivicaII("constitucionalismo-poderes"),
+  deCivicaII("abolicion-ejercito"),
+  deCivicaII("desafios-estado"),
+  deCivicaII("cultura-politica"),
+  comunicacionPolitica,
+  discursosPoliticos,
+  conceptosElectorales,
+  eleccionesCostaRica,
+];
+
 export const semestres: Semestre[] = [
   {
     slug: "1-semestre",
@@ -3483,6 +3898,7 @@ export const semestres: Semestre[] = [
     materias: [
       { slug: "sociales-ii", label: "Sociales II", accent: "#3f6b5e", topics: socialesII },
       { slug: "sociales-2s", label: "Sociales", accent: "#6e4d88", topics: sociales2S },
+      { slug: "civica-2s", label: "Cívica", accent: "#a35a2c", topics: civica2S },
       { slug: "biologia-2s", label: "Biología", accent: "#2b7370", topics: biologia2S },
     ],
   },
