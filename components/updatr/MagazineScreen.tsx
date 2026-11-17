@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
 import { CANCEL_SPRING } from "@/lib/updatr/flight";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
@@ -16,6 +16,7 @@ import { SnapStrip } from "./SnapStrip";
 import { BottomBar, type Tab } from "./BottomBar";
 import { useOpener } from "./useOpener";
 import { Arrow } from "./Arrow";
+import { GROW_SPRING, Grow } from "./Grow";
 
 /* ---------- navigation ---------- */
 
@@ -60,17 +61,12 @@ function springScrollTo(id: string) {
 
 /* ---------- small pieces ---------- */
 
-function Reveal({ children, className, delay = 0, y = 28 }: { children: ReactNode; className?: string; delay?: number; y?: number }) {
+/** Grows slightly into place from the bottom of the screen; shrinks back on the way out. */
+function Reveal({ children, className, delay = 0, y = 18 }: { children: ReactNode; className?: string; delay?: number; y?: number }) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{ ...springs.expanding, delay }}
-    >
+    <Grow className={className} y={y} lag={Math.round(delay / 0.04)}>
       {children}
-    </motion.div>
+    </Grow>
   );
 }
 
@@ -78,8 +74,9 @@ function Reveal({ children, className, delay = 0, y = 28 }: { children: ReactNod
 function Rise({ children, className, from = 0.84 }: { children: ReactNode; className?: string; from?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 58%"] });
-  const scale = useTransform(scrollYProgress, [0, 1], [from, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.35, 1]);
+  const p = useSpring(scrollYProgress, GROW_SPRING);
+  const scale = useTransform(p, [0, 1], [from, 1], { clamp: false });
+  const opacity = useTransform(p, [0, 1], [0.35, 1]);
   return (
     <motion.div ref={ref} className={className} style={{ scale, opacity, transformOrigin: "50% 100%" }}>
       {children}
@@ -493,12 +490,11 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
             </div>
             <div className="grid grid-cols-3 border-y border-rule">
               {issue.grid.map((item, i) => (
-                <motion.div
+                <Grow
                   key={item.id}
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-10% 0px" }}
-                  transition={{ ...springs.popping, delay: i * 0.05 }}
+                  from={0.92}
+                  y={14}
+                  lag={i % 3}
                   className={`border-rule ${i % 3 !== 2 ? "border-r" : ""} ${i < 3 ? "border-b" : ""}`}
                 >
                   <HoldImage
@@ -510,7 +506,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                     onHoldChange={(h) => setFocus(h ? item : null)}
                     {...fly(item, `m-grid-${item.id}`)}
                   />
-                </motion.div>
+                </Grow>
               ))}
             </div>
             <div className="relative h-[52px] overflow-hidden border-b border-rule px-5">
@@ -561,22 +557,23 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
               <span className="mono text-ink-soft">P.{PAGE.briefs}</span>
             </div>
             <div className="mt-6 columns-2 gap-5 [column-rule:1px_solid_var(--rule-soft)]">
-              {issue.briefs.map((item) => (
-                <motion.button
-                  key={item.id}
-                  type="button"
-                  whileTap={{ scale: 0.97 }}
-                  transition={springs.snappy}
-                  onClick={() => opener.open(item.id)}
-                  className="mb-6 block w-full break-inside-avoid text-left"
-                >
+              {issue.briefs.map((item, i) => (
+                <Grow key={item.id} lag={i % 2} y={12} className="mb-6 break-inside-avoid">
+                  <motion.button
+                    type="button"
+                    whileTap={{ scale: 0.97 }}
+                    transition={springs.snappy}
+                    onClick={() => opener.open(item.id)}
+                    className="block w-full text-left"
+                  >
                   <span className="mono block text-ink-soft">
                     {byId[item.franchise]?.code} · {dot(item.date)}
                   </span>
                   <span className="mt-1 block text-[16px] font-medium leading-[1.12] tracking-[-0.02em]">{item.title}</span>
                   <span className="mt-1 block text-[13px] leading-[1.42] text-ink/75">{item.body[0]}</span>
                   {item.mock ? <span className="mono mt-1 block text-ink-faint">Sample</span> : null}
-                </motion.button>
+                  </motion.button>
+                </Grow>
               ))}
             </div>
           </Section>
@@ -673,15 +670,17 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                   transition={springs.settling}
                   className="border-b border-rule-soft"
                 >
-                  <Row
-                    index={pad(i + 1)}
-                    item={item}
-                    franchise={byId[item.franchise]}
-                    flightKey={`m-row-${item.id}`}
-                    away={opener.isAway(`m-row-${item.id}`)}
-                    onOpen={(from) => opener.open(item.id, from)}
-                    onOpenText={() => opener.openFromKey(item.id, `m-row-${item.id}`)}
-                  />
+                  <Grow from={0.95} y={12}>
+                    <Row
+                      index={pad(i + 1)}
+                      item={item}
+                      franchise={byId[item.franchise]}
+                      flightKey={`m-row-${item.id}`}
+                      away={opener.isAway(`m-row-${item.id}`)}
+                      onOpen={(from) => opener.open(item.id, from)}
+                      onOpenText={() => opener.openFromKey(item.id, `m-row-${item.id}`)}
+                    />
+                  </Grow>
                 </motion.li>
               ))}
             </AnimatePresence>
