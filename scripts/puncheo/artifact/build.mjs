@@ -25,7 +25,7 @@ const js = await esbuild.build({
   target: "es2020",
   jsx: "automatic",
   define: { "process.env.NODE_ENV": '"production"' },
-  alias: { "@": ROOT },
+  alias: { "next/link": path.join(HERE, "link.tsx"), "@": ROOT },
   nodePaths: [path.join(ROOT, "node_modules")],
 });
 
