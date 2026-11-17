@@ -151,9 +151,9 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
                   transition={springs.settling}
                   className="mb-24 px-5"
                 >
-                  <div className="flex items-baseline justify-between">
-                    <h2 className="text-[30px] font-normal leading-[1] tracking-[-0.04em]">— {f.name}</h2>
-                    <span className="mono text-ink-soft">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h2 className="min-w-0 flex-1 text-[30px] font-normal leading-[1] tracking-[-0.04em]">— {f.name}</h2>
+                    <span className="mono shrink-0 text-ink-soft">
                       {pad(i + 1)} / {pad(feed.length)}
                     </span>
                   </div>
