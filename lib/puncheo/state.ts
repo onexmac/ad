@@ -33,14 +33,17 @@ function deviceRecord<T extends object>(key: string) {
     }
     return cache;
   };
-  const save = (next: T) => {
+  /** Returns false when the device refused to keep it (it still works for this visit). */
+  const save = (next: T): boolean => {
     cache = next;
+    let kept = true;
     try {
       window.localStorage.setItem(key, JSON.stringify(next));
     } catch {
-      // Storage blocked (private window, preview): it still works for this visit.
+      kept = false; // storage blocked or full
     }
     listeners.forEach((l) => l());
+    return kept;
   };
   const subscribe = (l: () => void) => {
     listeners.add(l);
@@ -83,4 +86,51 @@ export function useClosed() {
     closedStore.save(next);
   };
   return { closed, set };
+}
+
+const photosStore = deviceRecord<Record<string, string[]>>("puncheo:formaleta-n1:photos:v1");
+
+/** Photos per check, as small JPEG data URLs (the prototype keeps them on the device). */
+export function usePhotos() {
+  const photos = photosStore.use();
+  const add = (id: string, url: string): boolean => {
+    const cur = photosStore.load();
+    return photosStore.save({ ...cur, [id]: [...(cur[id] ?? []), url] });
+  };
+  const remove = (id: string, i: number) => {
+    const cur = photosStore.load();
+    const list = (cur[id] ?? []).filter((_, n) => n !== i);
+    const next = { ...cur };
+    if (list.length) next[id] = list;
+    else delete next[id];
+    photosStore.save(next);
+  };
+  return { photos, add, remove };
+}
+
+/** Shrinks a picked or captured photo to a JPEG data URL of at most `max` px. */
+export function shrinkPhoto(file: File, max = 720): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.naturalWidth * k);
+      c.height = Math.round(img.naturalHeight * k);
+      c.getContext("2d")!.drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL("image/jpeg", 0.72));
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("unreadable image"));
+    };
+    img.src = url;
+  });
+}
+
+/** A yellow or red mark, or a check whose sheet asks for one, needs a photo. */
+export function needsPhoto(required: boolean, s: Status | undefined | null) {
+  return required || s === "yellow" || s === "red";
 }
