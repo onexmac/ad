@@ -20,15 +20,19 @@ export type Issue = {
 
 const byNewest = (a: Item, b: Item) => (b.date ?? "").localeCompare(a.date ?? "");
 
-export function buildIssue(items: Item[], franchises: Franchise[]): Issue {
+export function buildIssue(items: Item[], franchises: Franchise[], edition = 0): Issue {
   const all = [...items].sort(byNewest);
+  // A later edition composes from a rotated pool (demo of fresh content until
+  // the server builds real editions); the archive order stays newest first.
+  const r = all.length ? (edition * 3) % all.length : 0;
+  const pool = r ? [...all.slice(r), ...all.slice(0, r)] : all;
   const used = new Set<string>();
   const take = (i?: Item) => {
     if (i) used.add(i.id);
     return i;
   };
   const free = (pred: (i: Item) => boolean = () => true) =>
-    all.filter((i) => !used.has(i.id) && pred(i));
+    pool.filter((i) => !used.has(i.id) && pred(i));
   const pictured = (i: Item) => !!i.image && !i.mock;
 
   const cover = take(free(pictured)[0]);

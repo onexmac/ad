@@ -10,7 +10,7 @@ import { CANCEL_SPRING } from "@/lib/updatr/flight";
  * against, springing back on release. Apply the returned scale and origin to
  * the page's main element.
  */
-export function useEdgeSquish() {
+export function useEdgeSquish({ bottom = true }: { bottom?: boolean } = {}) {
   const scale = useMotionValue(1);
   const origin = useMotionValue("50% 0%");
   useEffect(() => {
@@ -23,7 +23,8 @@ export function useEdgeSquish() {
       if (e.touches.length !== 1 || e.defaultPrevented || document.body.style.overflow === "hidden") return;
       const y = e.touches[0].clientY;
       const atTop = window.scrollY <= 0;
-      const atBottom = window.scrollY >= max() - 1;
+      // (A page whose bottom does something else, a pull to refresh, opts out.)
+      const atBottom = bottom && window.scrollY >= max() - 1;
       if (atTop || atBottom) {
         if (pinned === null) {
           pinned = y;
@@ -50,6 +51,6 @@ export function useEdgeSquish() {
       window.removeEventListener("touchend", onEnd);
       window.removeEventListener("touchcancel", onEnd);
     };
-  }, [scale, origin]);
+  }, [scale, origin, bottom]);
   return { scale, origin };
 }

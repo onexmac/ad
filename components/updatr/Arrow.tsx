@@ -12,6 +12,7 @@ const PATHS = {
   right: "M2 8H13.5M9.75 4.25L13.5 8L9.75 11.75",
   left: "M14 8H2.5M6.25 4.25L2.5 8L6.25 11.75",
   up: "M8 14V2.5M4.25 6.25L8 2.5L11.75 6.25",
+  down: "M8 2V13.5M4.25 9.75L8 13.5L11.75 9.75",
 } as const;
 
 export function Arrow({
