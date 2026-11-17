@@ -10,15 +10,34 @@
   create or suggest new repositories for apps.
 - Deploys happen through Vercel's GitHub integration on push to `main`. Do not
   deploy with the Vercel CLI or a token.
-- Every app or prototype Marcos asks for, and every iteration of it: first an
-  interactive preview in the chat as a Claude artifact (Artifact tool), then
-  ship to `main` (branch → PR → merge, without waiting to be asked) and give him
-  the portal link, `https://magi0s.vercel.app/<section>/<slug>`. Never a Vercel
-  branch preview (it sits behind a Vercel login), and never screenshots instead
-  of either. The artifact bundles the app's own components into one page; for
-  Updatr: `npm i --no-save esbuild@0.24.2` then
-  `node scripts/updatr/artifact/build.mjs <outDir>` and publish `updatr.html`
-  with its `img/` files. The only stop before `main` is the first rule above:
-  secrets or private-repo content.
+- Publishing mode, `sim` or `launch`. Before the first build of a session that
+  works on an app, if Marcos hasn't said, ask him once: sim or launch? Suggest
+  `sim` for a new app and `launch` for one already live, more so when the
+  session comes from desktop (`get_session` origin `desktop_app`).
+  - `sim`: every iteration is shown in the chat as a Claude artifact (Artifact
+    tool); nothing reaches Vercel until he types `launch`.
+  - `launch`: every iteration ships to `main` (branch → PR → merge, without
+    waiting to be asked) and he gets the portal link,
+    `https://magi0s.vercel.app/<section>/<slug>`. An artifact only if he asks.
+  - He can set it in his first message (`eva sim …`, `eva launch …`) and switch
+    any time by typing `sim` or `launch`; `launch` mid-session also ships what
+    is there now.
+  - Never a Vercel branch preview (it sits behind a Vercel login), never
+    screenshots instead of the artifact or the link. The only stop before
+    `main` is the first rule above: secrets or private-repo content.
+  - The artifact is built from this repo's own code, not a copy. For Updatr:
+    `npm i --no-save esbuild@0.24.2`, then
+    `node scripts/updatr/artifact/build.mjs <outDir>`, and publish `updatr.html`
+    with its `img/` files.
+- Mobile first, native feel: navigation lives at the bottom (tab bar or bottom
+  bar), never a top nav bar. Every overlay closes by pull-down and by a
+  right swipe (Histok's back-swipe), every horizontal strip lands on a card on a
+  spring, and images open and close by flying from and to their place in the
+  layout. One image element per picture, carried between places, never a
+  second copy for an effect (black and white is a filter on that element).
+  Taps open on the native click, so a touch that stops a scroll opens nothing.
+  Springs and haptics: `lib/histok/springs.ts`, `lib/histok/haptic.ts`;
+  Updatr's gesture pieces: `lib/updatr/flight.ts`, `lib/updatr/carrier.ts`,
+  `components/updatr/` (`Detail`, `HoldImage`, `SnapStrip`, `BottomBar`).
 - Look: forced light mode, tokens in `app/globals.css` (ground, card, ink,
   brand). Reuse them; do not add inline colours.

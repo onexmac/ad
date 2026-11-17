@@ -1,20 +1,22 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { kindLabel, kindOrder, type Franchise, type Item, type Kind } from "@/data/updatr/types";
 import { SNAPSHOT, countdown, dot, isoWeek, pad, relative } from "@/lib/updatr/format";
 import { HoldImage } from "./HoldImage";
+import { useOpener } from "./useOpener";
+import { SnapStrip } from "./SnapStrip";
 import { Detail } from "./Detail";
 import { VariantSwitch } from "./VariantSwitch";
 
 export function IndexScreen({ items, franchises }: { items: Item[]; franchises: Franchise[] }) {
   const byId = useMemo(() => Object.fromEntries(franchises.map((f) => [f.id, f])), [franchises]);
-  const [opened, setOpened] = useState<{ id: string; key?: string } | null>(null);
+  const opener = useOpener();
+  const { opened } = opener;
   const [filter, setFilter] = useState<Kind | null>(null);
-  const closeDetail = useCallback(() => setOpened(null), []);
 
   const sorted = useMemo(
     () => [...items].sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "")),
@@ -89,7 +91,7 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
                   <motion.span
                     layoutId="index-mark"
                     transition={springs.snappy}
-                    className="absolute left-0 top-1/2 block h-[10px] w-[10px] -translate-y-1/2 bg-accent"
+                    className="pointer-events-none absolute left-0 top-1/2 block h-[10px] w-[10px] -translate-y-1/2 bg-accent"
                   />
                 ) : null}
               </button>
@@ -105,32 +107,37 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
               <h2 className="text-[30px] font-normal leading-none tracking-[-0.04em]">— Coming</h2>
               <span className="mono text-ink-soft">{pad(upcoming.length)}</span>
             </div>
-            <div className="no-scrollbar mt-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
-              {upcoming.map((item) => (
-                <motion.button
-                  key={item.id}
-                  type="button"
-                  whileTap={{ scale: 0.96 }}
-                  transition={springs.popping}
-                  onClick={() => {
-                    haptic.select();
-                    setOpened({ id: item.id });
-                  }}
-                  className="flex aspect-[3/4] w-[58%] shrink-0 snap-start flex-col justify-between bg-ink p-4 text-left text-paper"
-                >
-                  <span className="mono flex justify-between text-paper/60">
-                    <span>{byId[item.franchise]?.code}</span>
-                    <span className="text-accent">{countdown(item.when!)}</span>
-                  </span>
-                  <span className="text-[24px] font-bold uppercase leading-[0.92] tracking-[-0.035em]">{item.title}</span>
-                  <span className="grid grid-cols-[52px_1fr] gap-y-[2px] text-[12px] leading-tight text-paper/80">
-                    <span className="text-paper/50">Date</span>
-                    <span>{dot(item.when)}</span>
-                    <span className="text-paper/50">Type</span>
-                    <span>{kindLabel[item.kind]}</span>
-                  </span>
-                </motion.button>
-              ))}
+            <div className="mt-5">
+              <SnapStrip
+                label="Coming up"
+                fraction={0.58}
+                gap={12}
+                cards={upcoming.map((item) => (
+                  <motion.button
+                    key={item.id}
+                    type="button"
+                    whileTap={{ scale: 0.96 }}
+                    transition={springs.popping}
+                    onClick={() => {
+                      haptic.select();
+                      opener.open(item.id, undefined, "b");
+                    }}
+                    className="flex aspect-[3/4] w-full flex-col justify-between bg-ink p-4 text-left text-paper"
+                  >
+                    <span className="mono flex justify-between text-paper/60">
+                      <span>{byId[item.franchise]?.code}</span>
+                      <span className="text-accent">{countdown(item.when!)}</span>
+                    </span>
+                    <span className="text-[24px] font-bold uppercase leading-[0.92] tracking-[-0.035em]">{item.title}</span>
+                    <span className="grid grid-cols-[52px_1fr] gap-y-[2px] text-[12px] leading-tight text-paper/80">
+                      <span className="text-paper/50">Date</span>
+                      <span>{dot(item.when)}</span>
+                      <span className="text-paper/50">Type</span>
+                      <span>{kindLabel[item.kind]}</span>
+                    </span>
+                  </motion.button>
+                ))}
+              />
             </div>
           </section>
         ) : null}
@@ -173,12 +180,12 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
                       alt={item.title}
                       fallbackTitle={item.title}
                       ratio="4 / 5"
-                      layoutId={key}
-                      hidden={opened?.key === key}
-                      onOpen={() => setOpened({ id: item.id, key })}
+                      flightKey={key}
+                      away={opener.isAway(key)}
+                      onOpen={(from) => opener.open(item.id, { key, ...from }, "b")}
                     />
                   </div>
-                  <button type="button" className="mt-5 block text-left" onClick={() => setOpened({ id: item.id })}>
+                  <button type="button" className="mt-5 block text-left" onClick={() => opener.openFromKey(item.id, key, "b")}>
                     <span className="block text-[21px] font-medium leading-[1.15] tracking-[-0.025em]">{item.title}</span>
                     <span className="mt-3 block text-[15px] leading-[1.5] text-ink/80">{item.dek}</span>
                     {item.body[0] ? (
@@ -202,19 +209,18 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
         </footer>
       </main>
 
-      <AnimatePresence>
-        {open ? (
-          <Detail
-            key={open.id}
-            item={open}
-            franchise={byId[open.franchise]}
-            variant="b"
-            layoutKey={opened?.key}
-            position={`${pad(sorted.findIndex((i) => i.id === open.id) + 1)} / ${pad(sorted.length)}`}
-            onClose={closeDetail}
-          />
-        ) : null}
-      </AnimatePresence>
+      {open && opened ? (
+        <Detail
+          key={open.id}
+          item={open}
+          franchise={byId[open.franchise]}
+          variant="b"
+          origin={opener.origin}
+          onRelease={opener.release}
+          onClosed={opener.closed}
+          position={`${pad(sorted.findIndex((i) => i.id === open.id) + 1)} / ${pad(sorted.length)}`}
+        />
+      ) : null}
     </LayoutGroup>
   );
 }

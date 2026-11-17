@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { kindLabel, kindOrder, type Franchise, type Item, type Kind } from "@/data/updatr/types";
 import { SNAPSHOT, countdown, dot, isoWeek, pad, relative, spell, weekday } from "@/lib/updatr/format";
 import { HoldImage } from "./HoldImage";
+import { useOpener, type From } from "./useOpener";
 import { Detail } from "./Detail";
 import { VariantSwitch } from "./VariantSwitch";
 
@@ -14,9 +15,8 @@ type Filter = Kind | "all";
 
 export function GridScreen({ items, franchises }: { items: Item[]; franchises: Franchise[] }) {
   const byId = useMemo(() => Object.fromEntries(franchises.map((f) => [f.id, f])), [franchises]);
-  const [opened, setOpened] = useState<{ id: string; key?: string } | null>(null);
-  const openId = opened?.id ?? null;
-  const openKey = opened?.key;
+  const opener = useOpener();
+  const { opened } = opener;
   const [focusId, setFocusId] = useState<string | null>(null);
   const [filter, setFilter] = useState<Filter>("all");
 
@@ -42,9 +42,8 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
     return c;
   }, [items]);
 
-  const open = openId ? items.find((i) => i.id === openId) : null;
+  const open = opened ? items.find((i) => i.id === opened.id) : null;
   const focus = focusId ? items.find((i) => i.id === focusId) : null;
-  const closeDetail = useCallback(() => setOpened(null), []);
   const worlds = new Set(items.filter((i) => !i.mock).map((i) => i.franchise)).size;
   const collabs = items.filter((i) => i.kind === "collab" && i.status !== "out").length;
 
@@ -52,7 +51,7 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
     <LayoutGroup>
       <main className="mx-auto min-h-dvh w-full max-w-[520px] bg-ground pb-[calc(40px+var(--sab))]">
         {/* Bar */}
-        <header className="sticky top-0 z-20 border-b border-rule bg-ground/90 px-5 pb-3 pt-[calc(14px+var(--sat))] backdrop-blur-md">
+        <header data-updatr-chrome="top" className="sticky top-0 z-20 border-b border-rule bg-ground/90 px-5 pb-3 pt-[calc(14px+var(--sat))] backdrop-blur-md">
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2">
               <span className="block h-[9px] w-[9px] bg-ink" />
@@ -89,9 +88,9 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
                   alt={item.title}
                   fallbackTitle={item.title}
                   index={pad(i + 1)}
-                  layoutId={`a-grid-${item.id}`}
-                  hidden={openKey === `a-grid-${item.id}`}
-                  onOpen={() => setOpened({ id: item.id, key: `a-grid-${item.id}` })}
+                  flightKey={`a-grid-${item.id}`}
+                  away={opener.isAway(`a-grid-${item.id}`)}
+                  onOpen={(from) => opener.open(item.id, { key: `a-grid-${item.id}`, ...from })}
                   onHoldChange={(h) => setFocusId(h ? item.id : null)}
                 />
               </div>
@@ -145,7 +144,7 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
                   <motion.span
                     layoutId="filter-rule-a"
                     transition={springs.snappy}
-                    className="absolute inset-x-0 bottom-0 h-[2px] bg-ink"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-ink"
                   />
                 ) : null}
               </button>
@@ -172,10 +171,10 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
                     index={pad(i + 1)}
                     item={item}
                     franchise={f}
-                    hidden={openKey === `a-row-${item.id}`}
-                    onOpen={(fromImage) =>
-                      setOpened({ id: item.id, key: fromImage ? `a-row-${item.id}` : undefined })
-                    }
+                    flightKey={`a-row-${item.id}`}
+                    away={opener.isAway(`a-row-${item.id}`)}
+                    onOpen={(from) => opener.open(item.id, from)}
+                    onOpenText={() => opener.openFromKey(item.id, `a-row-${item.id}`)}
                   />
                 </motion.li>
               );
@@ -196,7 +195,7 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
             <button
               key={item.id}
               type="button"
-              onClick={() => setOpened({ id: item.id })}
+              onClick={() => opener.open(item.id)}
               className="grid w-full grid-cols-[64px_1fr_auto] items-baseline gap-3 border-b border-rule-soft py-3 text-left"
             >
               <span className="mono text-ink">{dot(item.when)}</span>
@@ -233,19 +232,18 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
         </footer>
       </main>
 
-      <AnimatePresence>
-        {open ? (
-          <Detail
-            key={open.id}
-            item={open}
-            franchise={byId[open.franchise]}
-            variant="a"
-            layoutKey={openKey}
-            position={`${pad(sorted.findIndex((i) => i.id === open.id) + 1)} / ${pad(sorted.length)}`}
-            onClose={closeDetail}
-          />
-        ) : null}
-      </AnimatePresence>
+      {open && opened ? (
+        <Detail
+          key={open.id}
+          item={open}
+          franchise={byId[open.franchise]}
+          variant="a"
+          origin={opener.origin}
+          onRelease={opener.release}
+          onClosed={opener.closed}
+          position={`${pad(sorted.findIndex((i) => i.id === open.id) + 1)} / ${pad(sorted.length)}`}
+        />
+      ) : null}
     </LayoutGroup>
   );
 }
@@ -254,21 +252,24 @@ export function Row({
   index,
   item,
   franchise,
-  hidden,
+  away,
   onOpen,
-  layoutKey,
+  onOpenText,
+  flightKey,
 }: {
   index: string;
   item: Item;
   franchise: Franchise;
-  hidden: boolean;
-  layoutKey?: string;
-  onOpen: (fromImage: boolean) => void;
+  away: boolean;
+  flightKey: string;
+  onOpen: (from?: From) => void;
+  /** Text tap: the thumbnail still flies open. */
+  onOpenText: () => void;
 }) {
   return (
     <div className="grid grid-cols-[28px_1fr_72px] gap-3 px-5 py-5">
       <span className="mono pt-[2px] text-ink-faint">{index}</span>
-      <button type="button" onClick={() => onOpen(false)} className="min-w-0 text-left">
+      <button type="button" onClick={onOpenText} className="min-w-0 text-left">
         <span className="mono block text-ink-soft">
           {franchise.code} — {kindLabel[item.kind]} — {item.when && item.status !== "out" ? countdown(item.when) : dot(item.date)}
         </span>
@@ -282,9 +283,9 @@ export function Row({
           alt={item.title}
           fallbackTitle={franchise.code}
           caption={{ kicker: `${franchise.code} — ${kindLabel[item.kind]}`, title: item.title }}
-          layoutId={layoutKey ?? `a-row-${item.id}`}
-          hidden={hidden}
-          onOpen={() => onOpen(true)}
+          flightKey={flightKey}
+          away={away}
+          onOpen={(from) => onOpen({ key: flightKey, ...from })}
         />
       </div>
     </div>

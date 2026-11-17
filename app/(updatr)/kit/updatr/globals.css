@@ -34,6 +34,11 @@ body {
   color-scheme: light;
 }
 
+/* Desktop scrollbars: locking the page under an article must not shift it. */
+html {
+  scrollbar-gutter: stable;
+}
+
 [data-app],
 [data-app] * {
   -webkit-tap-highlight-color: transparent;
