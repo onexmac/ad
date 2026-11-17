@@ -39,6 +39,14 @@ html {
   scrollbar-gutter: stable;
 }
 
+/* The page keeps its own bounce (the ground shows, and the rubber band runs)
+   but never hands it on to a host page around it: inside the Claude app the
+   artifact frame's white container used to bounce along at the top. */
+html,
+body {
+  overscroll-behavior-y: contain;
+}
+
 [data-app],
 [data-app] * {
   -webkit-tap-highlight-color: transparent;
