@@ -292,3 +292,12 @@ html {
   background: linear-gradient(180deg, #f1f2f3 0%, #ffffff 30%);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.12);
 }
+/* Leia's dark field (the toolbar's search, opened): a charcoal well sunk into the
+   bar, shadowed under its top rim, a faint lit edge below; white type. */
+.leia-field-dark {
+  background: linear-gradient(180deg, #1f2125 0%, #2b2e33 40%, #30333a 100%);
+  box-shadow:
+    inset 0 2px 3px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.13);
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { CheckIcon, LockIcon } from "./Icons";
@@ -46,73 +47,100 @@ function Cross() {
   );
 }
 
-export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kind: Kind; search?: FooterSearch; polish?: boolean }) {
+export function Footer({
+  s,
+  kind,
+  search,
+  polish = false,
+  sections = true,
+}: {
+  s: PunchSheet;
+  kind: Kind;
+  search?: FooterSearch;
+  polish?: boolean;
+  /** The sections chip at the left (the legacy walks); B navigates from the rooms bar on top. */
+  sections?: boolean;
+}) {
   const bar = kind === "bar";
   const round = bar ? "rounded-[6px]" : "rounded-[10px]";
+  const input = useRef<HTMLInputElement>(null);
+  const open = !!search?.open;
+  const spring = { type: "spring" as const, stiffness: 460, damping: 40 };
 
-  // The search key, quiet (never the accent). Opened, the same element grows into the
-  // field: it turns hollow (a well you type into), and the close X grows in at its end.
-  const searchBox = search ? (
-    <motion.div
-      layout
-      transition={{ type: "spring", stiffness: 420, damping: 36 }}
-      className={`relative flex h-11 items-center ${round} ${search.open ? "min-w-0 flex-1" : "w-11 shrink-0"} ${
-        polish ? (search.open ? "leia-field" : "leia-search") : ""
-      }`}
-      style={
-        polish
-          ? undefined
-          : search.open
-            ? { background: bar ? "transparent" : "var(--ground)", boxShadow: bar ? "inset 0 0 0 1.5px var(--ink-soft)" : "inset 0 0 0 1.5px var(--hair-2)" }
-            : bar
-              ? { background: "transparent" }
-              : { background: "var(--hair)" }
-      }
+  const toggle = () => {
+    if (!search) return;
+    // Focus inside the tap itself, so the phone raises its keyboard.
+    if (!open) input.current?.focus({ preventScroll: true });
+    else input.current?.blur();
+    search.toggle();
+  };
+
+  // The quiet search key (never the accent): Leia's charcoal tile, the lens white.
+  const key = search ? (
+    <motion.button
+      type="button"
+      onClick={toggle}
+      aria-label="Buscar"
+      tabIndex={open ? -1 : 0}
+      animate={{ opacity: open ? 0 : 1, scale: open ? 0.6 : 1 }}
+      transition={spring}
+      className={`grid size-11 shrink-0 place-items-center ${round} ${polish ? "leia-search text-ground" : bar ? "text-ink-faint" : "bg-hair text-ink-soft"}`}
+      style={{ pointerEvents: open ? "none" : "auto" }}
     >
-      {search.open ? (
-        <>
-          <motion.span layout="position" className={`grid w-10 shrink-0 place-items-center ${polish ? "text-[#8a8d93]" : "text-ink-faint"}`}>
-            <Lens size={15} />
-          </motion.span>
-          <input
-            id="puncheo-buscar"
-            autoFocus
-            value={search.q}
-            onChange={(e) => search.setQ(e.target.value)}
-            placeholder="Buscar check"
-            enterKeyHint="search"
-            autoComplete="off"
-            className={`min-w-0 flex-1 bg-transparent text-[15px] outline-none ${
-              polish ? "text-ink placeholder:text-[#9a9da3]" : bar ? "text-ground placeholder:text-ink-soft" : "text-ink placeholder:text-ink-faint"
-            }`}
-          />
-          <motion.button
-            type="button"
-            onClick={search.toggle}
-            aria-label="Cerrar búsqueda"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 520, damping: 26, delay: 0.08 }}
-            className={`mr-1.5 grid size-8 shrink-0 place-items-center rounded-full ${polish ? "bg-[#c9cbcf] text-ground" : bar ? "bg-ink-3 text-ground" : "bg-hair text-ink-soft"}`}
-          >
-            <Cross />
-          </motion.button>
-        </>
-      ) : (
-        <button
-          type="button"
-          onClick={search.toggle}
-          aria-label="Buscar"
-          className={`grid h-full w-full place-items-center ${polish ? "text-ground" : bar ? "text-ink-faint" : "text-ink-soft"}`}
-        >
-          <Lens />
-        </button>
-      )}
-    </motion.div>
+      <Lens />
+    </motion.button>
   ) : null;
 
-  // What leaves the bar while searching folds away sideways.
-  const fold = { initial: { opacity: 0, width: 0 }, animate: { opacity: 1, width: "auto" }, exit: { opacity: 0, width: 0 }, transition: { type: "spring" as const, stiffness: 420, damping: 36 } };
+  // Searching: the key turns into the close X, outside the field on its left, and
+  // the field rolls out of it to the right: dark and sunk in, a well to type into.
+  // Only opacity, scale and the clip move, so nothing reflows while it opens.
+  const field = search ? (
+    <div className={`pointer-events-none absolute inset-y-0 flex items-center ${bar ? "inset-x-3 gap-2" : "inset-x-1.5 gap-1.5"}`}>
+      <motion.button
+        type="button"
+        onClick={toggle}
+        aria-label="Cerrar búsqueda"
+        tabIndex={open ? 0 : -1}
+        initial={false}
+        animate={{ opacity: open ? 1 : 0, scale: open ? 1 : 0.6 }}
+        transition={spring}
+        className={`grid size-11 shrink-0 place-items-center ${round} ${polish ? "leia-search text-ground" : bar ? "bg-ink-3 text-ground" : "bg-hair text-ink-soft"}`}
+        style={{ pointerEvents: open ? "auto" : "none" }}
+      >
+        <motion.span initial={false} animate={{ rotate: open ? 0 : -90 }} transition={spring} className="grid place-items-center">
+          <Cross />
+        </motion.span>
+      </motion.button>
+      <motion.label
+        initial={false}
+        animate={{ clipPath: open ? `inset(0% 0% 0% 0% round ${bar ? 6 : 10}px)` : `inset(0% 100% 0% 0% round ${bar ? 6 : 10}px)` }}
+        transition={spring}
+        className={`flex h-11 min-w-0 flex-1 items-center ${round} ${polish ? "leia-field-dark" : bar ? "leia-well" : "bg-ground shadow-[inset_0_0_0_1.5px_var(--hair-2)]"}`}
+        style={{ pointerEvents: open ? "auto" : "none" }}
+      >
+        <span className={`grid w-9 shrink-0 place-items-center ${bar ? "text-[#8a8d93]" : "text-ink-faint"}`}>
+          <Lens size={15} />
+        </span>
+        <input
+          ref={input}
+          id="puncheo-buscar"
+          tabIndex={open ? 0 : -1}
+          aria-hidden={!open}
+          value={search.q}
+          onChange={(e) => search.setQ(e.target.value)}
+          placeholder="Buscar check"
+          enterKeyHint="search"
+          autoComplete="off"
+          className={`h-full min-w-0 flex-1 bg-transparent pr-3 text-[16px] outline-none ${
+            bar ? "text-ground placeholder:text-[#7d8087]" : "text-ink placeholder:text-ink-faint"
+          }`}
+        />
+      </motion.label>
+    </div>
+  ) : null;
+
+  // What steps aside while searching: it fades under the field (no reflow).
+  const aside = { animate: { opacity: open ? 0 : 1 }, transition: { duration: 0.16 }, style: { pointerEvents: open ? ("none" as const) : ("auto" as const) } };
 
   const action = (
     <motion.button
@@ -154,20 +182,20 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
           className={`absolute inset-x-0 bottom-full -z-10 ${polish ? "leia-strip" : bar ? "bg-ink" : "rounded-t-[16px] bg-ground shadow-[var(--shadow-soft)]"}`}
         >
           {search.suggestions.length ? (
-            <div className="no-scrollbar flex gap-1.5 overflow-x-auto px-3 pt-2.5">
+            <div className="no-scrollbar flex gap-1.5 overflow-x-auto px-3 pt-2">
               {search.suggestions.map((w) => (
                 <button
                   key={w}
                   type="button"
                   onClick={() => search.setQ(w)}
-                  className={`shrink-0 rounded-full px-3 py-1.5 text-[13px] ${polish ? "leia-btn text-ink" : bar ? "bg-ink-3 text-ground" : "bg-card text-ink-2"}`}
+                  className={`h-8 shrink-0 rounded-[4px] px-2.5 text-[14px] ${polish ? "leia-btn leia-emboss text-ink" : bar ? "bg-ink-3 text-ground" : "bg-card text-ink-2"}`}
                 >
                   {w}
                 </button>
               ))}
             </div>
           ) : null}
-          <div className="flex gap-1.5 px-3 py-2.5">
+          <div className="flex gap-1.5 px-3 py-2">
             {search.filters.map((f, i) => {
               const on = i === search.filter;
               return (
@@ -176,12 +204,12 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
                   type="button"
                   onClick={() => search.setFilter(i)}
                   aria-pressed={on}
-                  className={`flex h-10 min-w-0 flex-1 flex-col items-center justify-center rounded-[4px] leading-none ${
+                  className={`flex h-9 min-w-0 flex-1 items-center justify-center gap-1 rounded-[4px] px-1 leading-none ${
                     polish ? (on ? "leia-tab-on text-ground" : "leia-btn text-ink") : on ? "bg-brand text-ground" : bar ? "bg-ink-3 text-hair" : "bg-card text-ink-2"
                   }`}
                 >
-                  <span className="max-w-full truncate px-1 text-[13px]">{f.label}</span>
-                  <span className={`mt-0.5 text-[10px] tabular-nums ${on ? "text-brand-2" : polish ? "text-[#8a8d93]" : "opacity-60"}`}>{f.count}</span>
+                  <span className={`min-w-0 truncate text-[14px] ${polish && !on ? "leia-emboss" : ""}`}>{f.label}</span>
+                  <span className={`text-[12px] tabular-nums ${on ? "text-brand-2" : polish ? "text-[#8a8d93]" : "opacity-60"}`}>{f.count}</span>
                 </button>
               );
             })}
@@ -191,27 +219,26 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
     </AnimatePresence>
   );
 
+  const row = (
+    <>
+      {sections ? (
+        <motion.div className="shrink-0" {...aside}>
+          <SectionControl s={s} tone={polish ? "leia" : bar ? "bar" : "pill"} />
+        </motion.div>
+      ) : null}
+      {key}
+      <motion.div className="flex min-w-0 flex-1" {...aside}>
+        {action}
+      </motion.div>
+      {field}
+    </>
+  );
+
   if (bar) {
     return (
       <nav className={`fixed inset-x-0 bottom-0 z-30 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: "var(--sab)" }}>
         {panel}
-        <div className="mx-auto flex h-[64px] max-w-[560px] items-center gap-2 px-3">
-          <AnimatePresence initial={false}>
-            {search?.open ? null : (
-              <motion.div key="sections" className="shrink-0" {...fold}>
-                <SectionControl s={s} tone={polish ? "leia" : "bar"} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {searchBox}
-          <AnimatePresence initial={false}>
-            {search?.open ? null : (
-              <motion.div key="close" className="flex min-w-0 flex-1 overflow-hidden" {...fold}>
-                {action}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+        <div className="relative mx-auto flex h-[60px] max-w-[560px] items-center gap-2 px-3">{row}</div>
       </nav>
     );
   }
@@ -219,23 +246,7 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
   return (
     <nav className="fixed left-1/2 z-30 w-[calc(100%-32px)] max-w-[488px] -translate-x-1/2" style={{ bottom: "calc(var(--sab) + 16px)" }}>
       {panel}
-      <div className="flex items-center gap-1.5 rounded-[16px] bg-ground p-1.5 shadow-[var(--shadow-mid)]">
-        <AnimatePresence initial={false}>
-          {search?.open ? null : (
-            <motion.div key="sections" className="shrink-0" {...fold}>
-              <SectionControl s={s} tone="pill" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-        {searchBox}
-        <AnimatePresence initial={false}>
-          {search?.open ? null : (
-            <motion.div key="close" className="flex min-w-0 flex-1 overflow-hidden" {...fold}>
-              {action}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      <div className="relative flex items-center gap-1.5 rounded-[16px] bg-ground p-1.5 shadow-[var(--shadow-mid)]">{row}</div>
     </nav>
   );
 }

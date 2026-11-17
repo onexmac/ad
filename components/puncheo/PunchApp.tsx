@@ -13,6 +13,7 @@ import { FanLayer } from "./FanLayer";
 import { LetterTags, Legend, SheetHeader, type Tone } from "./Header";
 import { RailRow, type RowSkin } from "./RailRow";
 import { Walk, type StripTone } from "./Walk";
+import { RoomScroll } from "./RoomScroll";
 import { usePunchSheet } from "./usePunchSheet";
 
 /*
@@ -111,7 +112,10 @@ const norm = (t: string) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
 export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Variant }) {
   const cfg = CONFIG[variant];
   const s = usePunchSheet(sheet);
-  const { scale, origin } = useEdgeSquish({ bottom: false }); // the bottom pulls into the next room
+  // B scrolls through every room, so its page rubber-bands at both ends; the
+  // legacy walks pull into the next room at the bottom instead.
+  const continuous = variant === "b";
+  const { scale, origin } = useEdgeSquish({ bottom: continuous });
   const [searching, setSearching] = useState(false);
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState(0);
@@ -202,17 +206,18 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         ) : (
           <>
             <Legend dark={cfg.skin.dark} />
-            <Walk s={s} skin={cfg.skin} />
+            {continuous ? <RoomScroll s={s} skin={cfg.skin} /> : <Walk s={s} skin={cfg.skin} />}
           </>
         )}
         <div style={{ height: `calc(var(--sab) + ${cfg.spacer + (searching ? 120 : 0)}px)` }} />
       </motion.main>
       <Toast toast={s.toast} bottom={cfg.toast} />
-      <FanLayer s={s} />
+      {continuous ? null : <FanLayer s={s} />}
       <Footer
         s={s}
         kind={cfg.foot}
         polish={!!cfg.skin.leia}
+        sections={!continuous}
         search={{
           open: searching,
           q,

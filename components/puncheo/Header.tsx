@@ -301,40 +301,40 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
   const n1 = sheet.subtitle.replace("Vivienda ", "");
   return (
     <>
-      <div className="-mx-4">
-        <header className="leia-toolbar relative z-[1] flex items-center px-3" style={{ paddingTop: "var(--sat)", height: "calc(var(--sat) + 50px)" }}>
-          <span className="leia-emboss flex h-full items-center pr-3 text-[15px] text-[#4d5056] shadow-[1px_0_0_#fff,inset_-1px_0_0_#c3c5c9]">
-            <b className="mr-1">AD</b> Puncheo
-          </span>
-          <span className="flex flex-1 justify-center">
-            <LeiaSwitch current={current} />
-          </span>
-          <span className="w-[86px]" />
-        </header>
-        {/* The sub-bar: the rooms, as Leia's category cells. */}
-        <nav className="leia-tabs flex h-[46px]">
-          {s.sections.map((x, i) => {
-            const on = i === s.section;
-            const t = s.sectionTallies[i];
-            return (
-              <button
-                key={x.id}
-                type="button"
-                onClick={() => !on && s.travelTo(i)}
-                aria-current={on ? "true" : undefined}
-                className={`relative flex min-w-0 flex-1 flex-col items-center justify-center ${i < s.sections.length - 1 ? "leia-tab-sep" : ""} ${on ? "leia-tab-on" : ""}`}
-              >
-                <span className={`max-w-full truncate px-0.5 text-[13.5px] ${on ? "text-ground" : "leia-emboss text-ink"}`}>{x.name}</span>
-                <span
-                  className={`text-[10px] tabular-nums ${on ? "text-brand-2" : t.done === t.total ? "text-ok-deep" : "text-[#8a8d93]"}`}
-                >
-                  {t.done}/{t.total}
-                </span>
-              </button>
-            );
-          })}
-        </nav>
-      </div>
+      <header className="leia-toolbar relative z-[21] -mx-4 flex items-center px-3" style={{ paddingTop: "var(--sat)", height: "calc(var(--sat) + 50px)" }}>
+        <span className="leia-emboss flex h-full items-center pr-3 text-[15px] text-[#4d5056] shadow-[1px_0_0_#fff,inset_-1px_0_0_#c3c5c9]">
+          <b className="mr-1">AD</b> Puncheo
+        </span>
+        <span className="flex flex-1 justify-center">
+          <LeiaSwitch current={current} />
+        </span>
+        <span className="w-[86px]" />
+      </header>
+      {/* Behind the status bar while the rooms bar is pinned under it. */}
+      <div className="leia-toolbar fixed inset-x-0 top-0 z-[22]" style={{ height: "var(--sat)" }} />
+      {/* The sub-bar: the rooms, as Leia's category cells. It stays pinned at the top
+          and follows the room being read; the blue cell slides to it. */}
+      <nav id="puncheo-tabs" className="leia-tabs sticky z-20 -mx-4 flex h-[46px]" style={{ top: "var(--sat)" }}>
+        {s.sections.map((x, i) => {
+          const on = i === s.section;
+          const t = s.sectionTallies[i];
+          return (
+            <button
+              key={x.id}
+              type="button"
+              onClick={() => s.travelTo(i)}
+              aria-current={on ? "true" : undefined}
+              className={`relative flex min-w-0 flex-1 flex-col items-center justify-center ${i < s.sections.length - 1 ? "leia-tab-sep" : ""}`}
+            >
+              {on ? <motion.span layoutId="leia-room" transition={springs.snappy} className="leia-tab-on pointer-events-none absolute inset-0" /> : null}
+              <span className={`relative max-w-full truncate px-0.5 text-[13.5px] transition-colors duration-150 ${on ? "text-ground" : "leia-emboss text-ink"}`}>{x.name}</span>
+              <span className={`relative text-[10px] tabular-nums ${on ? "text-brand-2" : t.done === t.total ? "text-ok-deep" : "text-[#8a8d93]"}`}>
+                {t.done}/{t.total}
+              </span>
+            </button>
+          );
+        })}
+      </nav>
 
       <div className="leia-panel mt-4 overflow-hidden rounded-[6px]">
         <div className="leia-band flex h-[44px] items-center px-4 text-ground">
