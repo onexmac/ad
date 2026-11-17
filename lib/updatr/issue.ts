@@ -24,7 +24,8 @@ export function buildIssue(items: Item[], franchises: Franchise[], edition = 0):
   const all = [...items].sort(byNewest);
   // A later edition composes from a rotated pool (demo of fresh content until
   // the server builds real editions); the archive order stays newest first.
-  const r = all.length ? (edition * 3) % all.length : 0;
+  const n = all.length;
+  const r = n ? (((edition * 3) % n) + n) % n : 0;
   const pool = r ? [...all.slice(r), ...all.slice(0, r)] : all;
   const used = new Set<string>();
   const take = (i?: Item) => {
