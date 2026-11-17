@@ -58,3 +58,18 @@ const NUMBERS = [
 export function spell(n: number): string {
   return NUMBERS[n] ?? String(n);
 }
+
+/** yyyy-mm-dd of a UTC date. */
+export function isoDate(d: Date): string {
+  return d.toISOString().slice(0, 10);
+}
+
+/** Monday (UTC) of an ISO week. */
+export function isoWeekMonday(year: number, week: number): Date {
+  const jan4 = new Date(Date.UTC(year, 0, 4));
+  const monday = new Date(jan4);
+  monday.setUTCDate(jan4.getUTCDate() - ((jan4.getUTCDay() + 6) % 7) + (week - 1) * 7);
+  return monday;
+}
+
+export const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

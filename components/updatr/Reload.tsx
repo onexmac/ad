@@ -38,7 +38,24 @@ export function fetchNextIssue(signal: AbortSignal): Promise<void> {
  * does); the page lifts against friction and arms past the mark; release
  * there commits. Touch, mouse wheel and trackpad.
  */
-export function useBottomPull({ enabled, onCommit }: { enabled: boolean; onCommit: () => void }) {
+export function useBottomPull(opts: { enabled: boolean; onCommit: () => void }) {
+  return useEdgePull({ edge: "bottom", ...opts });
+}
+
+/**
+ * The same pull at either edge of the page: past the bottom (pushing up) or
+ * past the top (pulling down). Only a fresh gesture that starts at that edge
+ * counts; friction, a mark, release past it commits.
+ */
+export function useEdgePull({
+  edge,
+  enabled,
+  onCommit,
+}: {
+  edge: "top" | "bottom";
+  enabled: boolean;
+  onCommit: () => void;
+}) {
   const raw = useMotionValue(0);
   const lift = useTransform(raw, liftOf);
   const [armed, setArmed] = useState(false);
@@ -55,7 +72,9 @@ export function useBottomPull({ enabled, onCommit }: { enabled: boolean; onCommi
     let isArmed = false;
     let last = { y: 0, t: 0, v: 0 };
     const max = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    const atEnd = () => window.scrollY >= max() - 1;
+    // +1 when the pull runs with the finger going down (top), -1 going up (bottom).
+    const sign = edge === "top" ? 1 : -1;
+    const atEnd = () => (edge === "top" ? window.scrollY <= 0 : window.scrollY >= max() - 1);
     const blocked = () => !live.current.enabled || document.body.style.overflow === "hidden";
     const arm = (on: boolean) => {
       if (on === isArmed) return;
@@ -97,10 +116,10 @@ export function useBottomPull({ enabled, onCommit }: { enabled: boolean; onCommi
       const dy = y - sy;
       if (mode === "pending") {
         if (Math.abs(dx) < 6 && Math.abs(dy) < 6) {
-          if (dy < 0 && e.cancelable) e.preventDefault();
+          if (sign * dy > 0 && e.cancelable) e.preventDefault();
           return;
         }
-        if (dy < 0 && Math.abs(dy) >= Math.abs(dx) && e.cancelable) {
+        if (sign * dy > 0 && Math.abs(dy) >= Math.abs(dx) && e.cancelable) {
           mode = "pull";
           raw.stop();
           haptic.drag();
@@ -111,8 +130,8 @@ export function useBottomPull({ enabled, onCommit }: { enabled: boolean; onCommi
       }
       e.preventDefault();
       const now = performance.now();
-      last = { y, t: now, v: ((last.y - y) / Math.max(1, now - last.t)) * 1000 };
-      const r = Math.max(0, base - dy);
+      last = { y, t: now, v: ((sign * (y - last.y)) / Math.max(1, now - last.t)) * 1000 };
+      const r = Math.max(0, base + sign * dy);
       raw.set(r);
       arm(r > COMMIT);
     };
@@ -128,7 +147,7 @@ export function useBottomPull({ enabled, onCommit }: { enabled: boolean; onCommi
     let fromEnd: boolean | null = null;
     const onWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-      if (fromEnd === null) fromEnd = !blocked() && atEnd() && e.deltaY > 0;
+      if (fromEnd === null) fromEnd = !blocked() && atEnd() && -sign * e.deltaY > 0;
       if (idle) clearTimeout(idle);
       idle = setTimeout(() => {
         idle = null;
@@ -137,7 +156,7 @@ export function useBottomPull({ enabled, onCommit }: { enabled: boolean; onCommi
       }, 160);
       if (!fromEnd) return;
       raw.stop();
-      const r = Math.max(0, raw.get() + e.deltaY * 0.6);
+      const r = Math.max(0, raw.get() - sign * e.deltaY * 0.6);
       raw.set(r);
       arm(r > COMMIT);
     };
@@ -155,7 +174,7 @@ export function useBottomPull({ enabled, onCommit }: { enabled: boolean; onCommi
       window.removeEventListener("wheel", onWheel);
       if (idle) clearTimeout(idle);
     };
-  }, [raw]);
+  }, [raw, edge]);
 
   return { raw, lift, armed };
 }

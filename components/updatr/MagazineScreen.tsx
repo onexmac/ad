@@ -15,7 +15,8 @@ import { SnapStrip } from "./SnapStrip";
 import { BottomBar, type Tab } from "./BottomBar";
 import { useOpener } from "./useOpener";
 import { useEdgeSquish } from "./useEdgeSquish";
-import { PullReadout, ReloadScreen, useBottomPull } from "./Reload";
+import { PullReadout, ReloadScreen, useBottomPull, useEdgePull } from "./Reload";
+import { Editions, EditionsReadout } from "./Editions";
 import { Arrow } from "./Arrow";
 import { GROW_SPRING, Grow } from "./Grow";
 
@@ -129,8 +130,13 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
   const byId = useMemo(() => Object.fromEntries(franchises.map((f) => [f.id, f])), [franchises]);
   // Each fetch from the bottom of the page brings the next edition.
   const [edition, setEdition] = useState(0);
-  const [fetching, setFetching] = useState(false);
-  const issueNo = isoWeek(SNAPSHOT) + edition;
+  // The issue being fetched (from the bottom pull, or picked on the calendar).
+  const [fetchTarget, setFetchTarget] = useState<number | null>(null);
+  const fetching = fetchTarget !== null;
+  const [calendar, setCalendar] = useState(false);
+  const baseIssue = isoWeek(SNAPSHOT);
+  const issueNo = baseIssue + edition;
+  const [latest, setLatest] = useState(baseIssue);
   const issue = useMemo(() => buildIssue(items, franchises, edition), [items, franchises, edition]);
   const opener = useOpener();
   const { opened } = opener;
@@ -174,18 +180,21 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
   }, []);
 
   // Histok's rubber band at the top and bottom of the page.
-  // Histok's rubber band at the top; the bottom pulls a new issue instead.
-  const { scale: bounce, origin: bounceOrigin } = useEdgeSquish({ bottom: false });
-  const pull = useBottomPull({ enabled: !fetching && !opened, onCommit: () => setFetching(true) });
-  const pageY = useTransform(pull.lift, (v) => -v);
+  // Both edges of the issue do something: the top pulls down the calendar of
+  // past editions, the bottom pulls the next issue. (No squish there.)
+  const { scale: bounce, origin: bounceOrigin } = useEdgeSquish({ top: false, bottom: false });
+  const free = !fetching && !opened && !calendar;
+  const pull = useBottomPull({ enabled: free, onCommit: () => setFetchTarget(issueNo + 1) });
+  const topPull = useEdgePull({ edge: "top", enabled: free, onCommit: () => setCalendar(true) });
+  const pageY = useTransform(() => topPull.lift.get() - pull.lift.get());
   useEffect(() => {
-    if (!fetching) return;
+    if (!fetching && !calendar) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
     };
-  }, [fetching]);
+  }, [fetching, calendar]);
 
   const worlds = new Set(items.filter((i) => !i.mock).map((i) => i.franchise)).size;
   const archive = filter === "all" ? issue.all : issue.all.filter((i) => i.kind === filter);
@@ -213,6 +222,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
   return (
     <LayoutGroup>
       <PullReadout raw={pull.raw} lift={pull.lift} armed={pull.armed} issueNo={issueNo} />
+      <EditionsReadout raw={topPull.raw} lift={topPull.lift} armed={topPull.armed} issueNo={issueNo} commitAt={140} />
       <motion.main
         key={edition}
         className="mx-auto min-h-dvh w-full max-w-[520px] overflow-x-clip bg-ground pb-[calc(110px+var(--sab))]"
@@ -697,20 +707,30 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         active={where.tab}
         section={where.section}
         folio={FOLIO[where.section] ?? "01"}
-        hidden={!!opened || fetching}
+        hidden={!!opened || fetching || calendar}
         onGo={(t) => springScrollTo(t.anchor)}
       />
 
-      {fetching ? (
+      {calendar ? (
+        <Editions
+          issueNo={issueNo}
+          latest={latest}
+          onPick={(n) => setFetchTarget(n)}
+          onClose={() => setCalendar(false)}
+        />
+      ) : null}
+
+      {fetchTarget !== null ? (
         <ReloadScreen
-          issueNo={issueNo + 1}
+          issueNo={fetchTarget}
           onReady={() => {
-            setEdition((e) => e + 1);
+            setEdition(fetchTarget - baseIssue);
+            setLatest((l) => Math.max(l, fetchTarget));
             setFilter("all");
             window.scrollTo(0, 0);
           }}
           onCancel={() => {}}
-          onGone={() => setFetching(false)}
+          onGone={() => setFetchTarget(null)}
         />
       ) : null}
 
