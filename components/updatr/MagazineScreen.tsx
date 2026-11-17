@@ -10,6 +10,7 @@ import { buildIssue } from "@/lib/updatr/issue";
 import { HoldImage } from "./HoldImage";
 import { Detail } from "./Detail";
 import { Row } from "./GridScreen";
+import { VariantSwitch } from "./VariantSwitch";
 
 type Opened = { id: string; key?: string; variant: "a" | "b" };
 
@@ -24,6 +25,40 @@ function Reveal({ children, className, delay = 0, y = 28 }: { children: ReactNod
       viewport={{ once: true, margin: "-8% 0px" }}
       transition={{ ...springs.expanding, delay }}
     >
+      {children}
+    </motion.div>
+  );
+}
+
+/** Scroll-linked rise: grows from smaller as it comes up into view. */
+function Rise({ children, className, from = 0.84 }: { children: ReactNode; className?: string; from?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 58%"] });
+  const scale = useTransform(scrollYProgress, [0, 1], [from, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.35, 1]);
+  return (
+    <motion.div ref={ref} className={className} style={{ scale, opacity, transformOrigin: "50% 100%" }}>
+      {children}
+    </motion.div>
+  );
+}
+
+/** Card in a horizontal strip: full size at its snap point, smaller off it. */
+function StripCard({
+  container,
+  children,
+  className,
+}: {
+  container: React.RefObject<HTMLDivElement | null>;
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollXProgress } = useScroll({ container, target: ref, axis: "x", offset: ["start end", "end start"] });
+  const scale = useTransform(scrollXProgress, [0, 0.56, 1], [0.86, 1, 0.9]);
+  const opacity = useTransform(scrollXProgress, [0, 0.56, 1], [0.5, 1, 0.6]);
+  return (
+    <motion.div ref={ref} className={className} style={{ scale, opacity, transformOrigin: "50% 60%" }}>
       {children}
     </motion.div>
   );
@@ -71,6 +106,9 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
   };
   const hidden = (key: string) => opened?.key === key;
   const openItem = opened ? items.find((i) => i.id === opened.id) : null;
+  const cap = (i: Item) => ({ kicker: `${byId[i.franchise]?.code ?? ""} — ${kindLabel[i.kind]} — ${dot(i.date)}`, title: i.title });
+  const dossierStrip = useRef<HTMLDivElement>(null);
+  const ticketStrip = useRef<HTMLDivElement>(null);
 
   // Running header: which section is under the middle of the screen.
   useEffect(() => {
@@ -152,6 +190,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
               <HoldImage
                 src={issue.cover.image}
                 alt={issue.cover.title}
+                caption={cap(issue.cover!)}
                 fallbackTitle={issue.cover.title}
                 ratio="4 / 5"
                 parallax
@@ -228,9 +267,11 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                   <p>{issue.feature.source}</p>
                 </div>
               </Reveal>
+              <Rise>
               <HoldImage
                 src={issue.feature.image}
                 alt={issue.feature.title}
+                caption={cap(issue.feature!)}
                 fallbackTitle={issue.feature.title}
                 ratio="3 / 4"
                 parallax
@@ -238,6 +279,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                 hidden={hidden(`m-feature-${issue.feature.id}`)}
                 onOpen={() => open(issue.feature!, `m-feature-${issue.feature!.id}`)}
               />
+              </Rise>
             </div>
             <div className="px-5">
               <Reveal>
@@ -283,6 +325,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                     <HoldImage
                       src={item.image}
                       alt={item.title}
+                caption={cap(item)}
                       fallbackTitle={item.title}
                       index={pad(i + 1)}
                       layoutId={key}
@@ -350,15 +393,16 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                 <span className="text-[13px]">{pad(issue.dossier.items.length)} entries</span>
               </div>
             </div>
-            <div className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5">
+            <div ref={dossierStrip} className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5">
               {issue.dossier.items.map((item, i) => {
                 const key = `m-dossier-${item.id}`;
                 return (
-                  <article key={item.id} className="w-[78%] shrink-0 snap-start">
+                  <StripCard key={item.id} container={dossierStrip} className="w-[78%] shrink-0 snap-start">
                     <div className="relative">
                       <HoldImage
                         src={item.image}
                         alt={item.title}
+                caption={cap(item)}
                         fallbackTitle={item.title}
                         ratio="4 / 5"
                         layoutId={key}
@@ -374,7 +418,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                     </p>
                     <h3 className="mt-2 text-[22px] font-medium leading-[1.08] tracking-[-0.025em]">{item.title}</h3>
                     <p className="mt-2 text-[14px] leading-[1.45] text-paper/70">{item.dek}</p>
-                  </article>
+                  </StripCard>
                 );
               })}
               <div className="w-1 shrink-0" />
@@ -388,10 +432,10 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         {/* ---------- Coming: tickets ---------- */}
         {issue.coming.length ? (
           <Section name="Calendar" id="calendar" className="pt-4">
-            <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
+            <div ref={ticketStrip} className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
               {issue.coming.map((item, i) => (
+                <StripCard key={item.id} container={ticketStrip} className="w-[52%] shrink-0 snap-start">
                 <motion.button
-                  key={item.id}
                   type="button"
                   initial={{ opacity: 0, x: 40 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -402,7 +446,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                     haptic.select();
                     open(item, undefined, "b");
                   }}
-                  className={`flex aspect-[3/4] w-[52%] shrink-0 snap-start flex-col justify-between p-4 text-left ${
+                  className={`flex aspect-[3/4] w-full flex-col justify-between p-4 text-left ${
                     i % 3 === 1 ? "border border-ink bg-paper text-ink" : "bg-ink text-paper"
                   }`}
                 >
@@ -418,6 +462,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                     <span>{kindLabel[item.kind]}</span>
                   </span>
                 </motion.button>
+                </StripCard>
               ))}
             </div>
           </Section>
@@ -436,10 +481,11 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
               {issue.pair.map((item, i) => {
                 const key = `m-pair-${item.id}`;
                 return (
-                  <Reveal key={item.id} delay={i * 0.08} className={i === 1 ? "pt-20" : ""}>
+                  <Rise key={item.id} className={i === 1 ? "pt-20" : ""} from={i === 1 ? 0.78 : 0.86}>
                     <HoldImage
                       src={item.image}
                       alt={item.title}
+                caption={cap(item)}
                       fallbackTitle={item.title}
                       ratio={i === 0 ? "3 / 4" : "1 / 1"}
                       layoutId={key}
@@ -453,7 +499,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                       <span className="block text-[16px] font-medium leading-[1.15] tracking-[-0.02em]">{item.title}</span>
                       <span className="mt-1 block text-[13px] leading-[1.4] text-ink-soft">{item.dek}</span>
                     </button>
-                  </Reveal>
+                  </Rise>
                 );
               })}
             </div>
@@ -560,16 +606,10 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
             </div>
           </div>
           <p className="mt-16 text-[19vw] font-bold leading-[0.8] tracking-[-0.07em] text-ink/10 min-[520px]:text-[98px]">Nº{isoWeek(SNAPSHOT)}</p>
-          <p className="mono mt-6 text-ink-faint">
-            Prototype · snapshot {dot(SNAPSHOT)} · images belong to their publishers ·{" "}
-            <a href="/kit/updatr/a" className="underline">
-              A
-            </a>{" "}
-            ·{" "}
-            <a href="/kit/updatr/b" className="underline">
-              B
-            </a>
-          </p>
+          <div className="mt-8">
+            <VariantSwitch current="m" />
+          </div>
+          <p className="mono mt-6 text-ink-faint">Prototype · snapshot {dot(SNAPSHOT)} · images belong to their publishers</p>
         </footer>
       </main>
 
