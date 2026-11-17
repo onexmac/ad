@@ -241,3 +241,54 @@ html {
   background: #2c2f34;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.1);
 }
+
+/* The rail's wire waiting to be plugged: the current's front flickers and a
+   spark runs down to it, over and over, until the next check is marked. */
+.wire-wait {
+  box-shadow: 0 0 6px 1px currentColor;
+  animation: wire-flicker 1.2s ease-in-out infinite;
+}
+.wire-wait::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  height: 6px;
+  border-radius: 3px;
+  background: #ffffff;
+  box-shadow: 0 0 6px 2px currentColor;
+  animation: wire-spark 1.2s cubic-bezier(0.5, 0, 0.75, 0) infinite;
+}
+@keyframes wire-spark {
+  from {
+    top: -6px;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  to {
+    top: 100%;
+    opacity: 0.2;
+  }
+}
+@keyframes wire-flicker {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wire-wait,
+  .wire-wait::after {
+    animation: none;
+  }
+}
+/* Leia's text field: a white well, sunk in, a hairline rim. */
+.leia-field {
+  background: linear-gradient(180deg, #f1f2f3 0%, #ffffff 30%);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.12);
+}

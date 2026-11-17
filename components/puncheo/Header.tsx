@@ -271,9 +271,9 @@ function YardHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
 /** Leia's center pill, an engraved outline, holding the layout switch. */
 function LeiaSwitch({ current }: { current: Variant }) {
   const items = [
-    { id: "a", href: "/ad/puncheo" },
-    { id: "b", href: "/ad/puncheo/b" },
-    { id: "c", href: "/ad/puncheo/c" },
+    { id: "a", href: "/ad/puncheo/legado-a" },
+    { id: "b", href: "/ad/puncheo" },
+    { id: "c", href: "/ad/puncheo/legado-c" },
   ] as const;
   return (
     <span className="leia-inset-pill flex h-[30px] items-center gap-0.5 rounded-full p-[2px]">
@@ -292,37 +292,56 @@ function LeiaSwitch({ current }: { current: Variant }) {
 }
 
 /**
- * B's header, after Leia: the light toolbar (the engraved pill in the middle),
- * then the receipt panel with its blue band and the ficha as a receipt line.
+ * The app's header, after Leia's: the light toolbar (the engraved pill in the
+ * middle) over its sub-bar, the rooms as category cells, the current one a
+ * pressed blue cell (a tap goes there). Then the receipt panel: the blue band
+ * and the ficha as a receipt line.
  */
 function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string }; s: PunchSheet; current: Variant }) {
   const n1 = sheet.subtitle.replace("Vivienda ", "");
   return (
     <>
-      <header className="leia-toolbar relative -mx-4 flex items-center px-3" style={{ paddingTop: "var(--sat)", height: "calc(var(--sat) + 52px)" }}>
-        <span className="leia-emboss flex h-full items-center pr-3 text-[15px] text-[#4d5056] shadow-[1px_0_0_#fff,inset_-1px_0_0_#c3c5c9]">
-          <b className="mr-1">AD</b> Puncheo
-        </span>
-        <span className="flex flex-1 justify-center">
-          <LeiaSwitch current={current} />
-        </span>
-        <span className="w-[86px]" />
-      </header>
+      <div className="-mx-4">
+        <header className="leia-toolbar relative z-[1] flex items-center px-3" style={{ paddingTop: "var(--sat)", height: "calc(var(--sat) + 50px)" }}>
+          <span className="leia-emboss flex h-full items-center pr-3 text-[15px] text-[#4d5056] shadow-[1px_0_0_#fff,inset_-1px_0_0_#c3c5c9]">
+            <b className="mr-1">AD</b> Puncheo
+          </span>
+          <span className="flex flex-1 justify-center">
+            <LeiaSwitch current={current} />
+          </span>
+          <span className="w-[86px]" />
+        </header>
+        {/* The sub-bar: the rooms, as Leia's category cells. */}
+        <nav className="leia-tabs flex h-[46px]">
+          {s.sections.map((x, i) => {
+            const on = i === s.section;
+            const t = s.sectionTallies[i];
+            return (
+              <button
+                key={x.id}
+                type="button"
+                onClick={() => !on && s.travelTo(i)}
+                aria-current={on ? "true" : undefined}
+                className={`relative flex min-w-0 flex-1 flex-col items-center justify-center ${i < s.sections.length - 1 ? "leia-tab-sep" : ""} ${on ? "leia-tab-on" : ""}`}
+              >
+                <span className={`max-w-full truncate px-0.5 text-[13.5px] ${on ? "text-ground" : "leia-emboss text-ink"}`}>{x.name}</span>
+                <span
+                  className={`text-[10px] tabular-nums ${on ? "text-brand-2" : t.done === t.total ? "text-ok-deep" : "text-[#8a8d93]"}`}
+                >
+                  {t.done}/{t.total}
+                </span>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
 
       <div className="leia-panel mt-4 overflow-hidden rounded-[6px]">
-        <div className="leia-band flex h-[50px] items-center gap-3 px-3 text-ground">
-          <span className="leia-band-sep flex h-full items-center pr-3" aria-hidden>
-            <svg width={26} height={20} viewBox="0 0 26 20">
-              <rect x="1" y="1" width="24" height="18" rx="2.5" fill="#fff" />
-              <circle cx="8" cy="8.5" r="2.6" fill="#4a8ae2" />
-              <path d="M3.8 15.2c.7-2.2 2.3-3.3 4.2-3.3s3.5 1.1 4.2 3.3z" fill="#4a8ae2" />
-              <rect x="14.5" y="6" width="7.5" height="2" rx="1" fill="#4a8ae2" />
-              <rect x="14.5" y="10.5" width="7.5" height="2" rx="1" fill="#4a8ae2" />
-            </svg>
-          </span>
-          <span className="min-w-0 flex-1 truncate text-[19px]">
+        <div className="leia-band flex h-[44px] items-center px-4 text-ground">
+          <span className="min-w-0 flex-1 truncate text-[18px]">
             {sheet.title} {n1}
           </span>
+          <span className="text-[13px] text-brand-2">Pre-armado y pre-chorrea</span>
         </div>
         <div className="flex items-center gap-4 px-4 py-3.5">
           <span className="text-[38px] font-[200] leading-none text-brand">{n1}</span>
@@ -334,9 +353,6 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
             {String(s.t.done).padStart(2, "0")}
             <span className="font-normal text-[#8a8d93]">/{s.t.total}</span>
           </span>
-          <svg width={9} height={14} viewBox="0 0 9 14" aria-hidden>
-            <path d="M1.5 1.5l5.5 5.5-5.5 5.5" fill="none" stroke="#b9bbbf" strokeWidth={2} />
-          </svg>
         </div>
       </div>
     </>
