@@ -25,6 +25,7 @@ import {
   type Rect,
 } from "@/lib/updatr/flight";
 import type { Carrier } from "@/lib/updatr/carrier";
+import { Arrow } from "./Arrow";
 
 /** Asymptote for the pull-down: the sheet approaches this travel and grips. */
 const PULL_MAX = 400;
@@ -684,7 +685,7 @@ export function Detail({
                 rel="noreferrer"
                 className="mono pointer-events-auto flex h-12 items-center gap-2 bg-ink px-4 text-paper"
               >
-                Source <span aria-hidden>↗</span>
+                Source <Arrow dir="out" />
               </a>
             ) : (
               <span className="mono flex h-12 items-center px-4 text-ink-faint">Sample</span>
@@ -711,7 +712,7 @@ function SourceLink({ item }: { item: Item }) {
       className="mt-10 flex items-center justify-between border-y border-rule py-4 text-[17px] font-medium"
     >
       <span>Read at {item.source}</span>
-      <span aria-hidden>↗</span>
+      <Arrow dir="out" />
     </motion.a>
   );
 }
