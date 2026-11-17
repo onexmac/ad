@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useMotionValue, useTransform } from "motion/react";
+import { animate, motion, useMotionValue, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import type { Key } from "@/data/puncheo/rooms";
 import { CheckIcon } from "./Icons";
-import { COLOR, RailRow, type RowSkin } from "./RailRow";
+import { RailRow, type RowSkin } from "./RailRow";
 import type { PunchSheet } from "./usePunchSheet";
-import { useSectionPull } from "./useSectionPull";
+import { PULL_COMMIT, useSectionPull } from "./useSectionPull";
 
 export type StripTone = "plain" | "leia" | "yard";
 export type StripItem = { id: string; label: string; count: React.ReactNode };
@@ -186,47 +186,38 @@ function PhaseHead({ name, moment, first, dark, leia }: { name: string; moment: 
   );
 }
 
-/** The foot of a section: a quiet cue that lifts with the pull and lights when it arms. No instructions. */
-function EndMarker({ s, armed, pulling, dark }: { s: PunchSheet; armed: boolean; pulling: boolean; dark?: boolean }) {
-  const next = s.sections[s.section + 1];
-  if (!next) return <div className="h-6" />;
-  return (
-    <div className="mt-6 flex flex-col items-center pb-2 text-center">
-      <motion.span
-        className="grid size-9 place-items-center rounded-full"
-        animate={{ y: pulling ? -4 : 0, scale: armed ? 1.12 : 1 }}
-        transition={{ type: "spring", stiffness: 420, damping: 24 }}
-        style={{ background: armed ? "var(--brand)" : dark ? "rgba(255,255,255,0.14)" : "var(--card-2)", color: armed ? "var(--ground)" : dark ? "var(--hair)" : "var(--ink-soft)" }}
-        aria-hidden
-      >
-        <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="square" strokeLinejoin="miter">
-          <path d="M12 19V6M6 11.5l6-6 6 6" />
-        </svg>
-      </motion.span>
-      <span className={`mt-2 text-[13px] font-medium ${dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>{next.name}</span>
-    </div>
-  );
-}
-
 /**
  * The current room: its title, then its pre-armado and pre-chorrea checks on the
  * rail with group labels and key facts between them, and the pull into the next room.
  */
 export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
   const { sec } = s;
-  // The screen moves as one: the pull lifts it against friction (the rubber),
-  // and going to another section carries it on, up past the top (or down, going
-  // back), and brings the new section in from the other edge. Nothing inside
-  // animates on its own.
+  // Going to another room: the items scroll up and away (down, going back), the
+  // new room's items cascade in on springs, and the rail morphs with it, the
+  // current pill shrinking into a dot as the next room's dot grows into the
+  // pill. The pull drives the same morph partway, so it previews the next room.
   const shift = useMotionValue(0);
+  const morph = useMotionValue(0);
+  const [toward, setToward] = useState<number | null>(null);
+  const [cascade, setCascade] = useState(0);
+  const traveling = useRef(false);
   const travel = (to: number) => {
+    if (traveling.current) return;
+    traveling.current = true;
+    setToward(to);
     const down = to < s.section;
     const h = window.innerHeight;
-    animate(shift, down ? h * 0.55 : -h * 0.55, { duration: 0.2, ease: [0.4, 0, 1, 1] }).then(() => {
+    Promise.all([
+      animate(morph, 1, { duration: 0.32, ease: [0.3, 0, 0.2, 1] }),
+      animate(shift, down ? h * 0.6 : -h * 0.6, { duration: 0.24, ease: [0.4, 0, 1, 1] }),
+    ]).then(() => {
       pull.raw.set(0);
       s.goSection(to, undefined, true);
-      shift.set(down ? -h * 0.45 : h * 0.45);
-      animate(shift, 0, { type: "spring", stiffness: 260, damping: 30 });
+      setCascade((c) => c + 1);
+      shift.set(0);
+      morph.set(0);
+      setToward(null);
+      traveling.current = false;
     });
   };
   const pull = useSectionPull({
@@ -239,20 +230,45 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
   useEffect(() => {
     s.registerTravel(travel);
   });
+  // While pulling, the rail leans toward the next room, up to 40% of the morph.
+  useMotionValueEvent(pull.raw, "change", (v) => {
+    if (!traveling.current) morph.set(Math.min(1, v / PULL_COMMIT) * 0.4);
+  });
+  const railTo = toward ?? (pull.pulling && s.section < s.sections.length - 1 ? s.section + 1 : null);
   const y = useTransform([pull.lift, shift], ([l, sh]: number[]) => sh - l);
   const st = s.sectionTallies[s.section];
+  // The new room's items come in one after another on springs (only after a move, not on load).
+  const enter = (i: number) => ({
+    initial: cascade > 0 ? { opacity: 0, y: 44 } : false,
+    animate: { opacity: 1, y: 0 },
+    transition: { type: "spring" as const, stiffness: 360, damping: 26, delay: Math.min(i, 12) * 0.035 },
+  });
   const rows = sec.items.map((it, i) => {
     if (it.kind === "check") {
       const c = s.byId.get(it.id)!;
       return (
-        <li key={c.id} data-check={c.id}>
+        <motion.li key={`${sec.id}-${c.id}`} data-check={c.id} {...enter(i)}>
           <RailRow s={s} check={c} skin={skin} />
-        </li>
+        </motion.li>
       );
     }
-    if (it.kind === "phase") return <li key={`p-${it.n}`}><PhaseHead name={it.name} moment={it.moment} first={i === 0} dark={skin.dark} leia={skin.leia} /></li>;
-    if (it.kind === "group") return <li key={`g-${i}-${it.label}`}><GroupLabel label={it.label} dark={skin.dark} leia={skin.leia} /></li>;
-    return <li key={`k-${i}-${it.key.title}`}><KeyBlock k={it.key} skin={skin} /></li>;
+    if (it.kind === "phase")
+      return (
+        <motion.li key={`${sec.id}-p-${it.n}`} {...enter(i)}>
+          <PhaseHead name={it.name} moment={it.moment} first={i === 0} dark={skin.dark} leia={skin.leia} />
+        </motion.li>
+      );
+    if (it.kind === "group")
+      return (
+        <motion.li key={`${sec.id}-g-${i}`} {...enter(i)}>
+          <GroupLabel label={it.label} dark={skin.dark} leia={skin.leia} />
+        </motion.li>
+      );
+    return (
+      <motion.li key={`${sec.id}-k-${i}`} {...enter(i)}>
+        <KeyBlock k={it.key} skin={skin} />
+      </motion.li>
+    );
   });
 
   return (
@@ -296,105 +312,172 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
           </ul>
         </section>
       )}
-      <EndMarker s={s} armed={pull.armed} pulling={pull.pulling} dark={skin.dark} />
     </motion.div>
     {/* Outside the moving layer: a transformed ancestor would trap this fixed rail. */}
-    <SectionRail s={s} dark={skin.dark} />
+    <SectionRail s={s} dark={skin.dark} morph={morph} toward={railTo} />
     </>
   );
 }
 
+const DOT = 16;
+const GAP = 7;
+const C = {
+  done: "#95c955",
+  rest: "#48505f", // incomplete room: dark bluish grey
+  restDark: "#2c323d",
+  track: "#e6e6e8",
+  trackDark: "rgba(255,255,255,0.16)",
+};
+
 /**
- * The rail at the right edge (Marcos's sketch): a grey dot per room, and the
- * current room stretched into a tall pill. Inside the pill, a dot per check,
- * joined by the line, each one level with its card while the card is on
- * screen; checks above or below the screen gather at the pill's ends.
- * Tapping a room's dot goes there.
+ * The rail at the right edge (Marcos's sketch): a dot per room, the current
+ * room stretched into a tall pill. Inside the pill, a dot per check, joined by
+ * the line, level with its card while the card is on screen and gathered at
+ * the ends when it isn't; hollow until you have scrolled past it, filled in
+ * its mark's colour once marked. Done rooms are all green, the rest dark
+ * bluish grey. Moving to another room (or pulling toward it) morphs the rail:
+ * the current pill shrinks into a dot as the target dot grows into the pill.
  */
-function SectionRail({ s, dark }: { s: PunchSheet; dark?: boolean }) {
+function SectionRail({ s, dark, morph, toward }: { s: PunchSheet; dark?: boolean; morph: MotionValue<number>; toward: number | null }) {
   const ids = s.sec.ids;
-  const pill = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState<number[]>([]);
+  const box = useRef<HTMLDivElement>(null);
+  const [H, setH] = useState(0);
+  const [pos, setPos] = useState<{ y: number; passed: boolean }[]>([]);
+  const n = s.sections.length;
+  const full = Math.max(DOT, H - (n - 1) * (DOT + GAP));
+
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setH(el.offsetHeight));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     let raf = 0;
     const measure = () => {
       raf = 0;
-      const el = pill.current;
+      const el = box.current;
       if (!el) return;
+      // The pill's place: after the rooms above it.
       const r = el.getBoundingClientRect();
+      const top = r.top + s.section * (DOT + GAP);
       const pad = 10;
       const lo = pad;
-      const hi = r.height - pad;
-      const n = ids.length;
-      const gap = Math.min(10, (hi - lo) / Math.max(1, n - 1));
-      // Each check's card centre, in the pill's own coordinates, held inside the pill.
+      const hi = full - pad;
+      const gap = Math.min(10, (hi - lo) / Math.max(1, ids.length - 1));
+      const line = window.innerHeight * 0.45;
       const p = ids.map((id) => {
         const c = document.querySelector(`[data-check="${CSS.escape(id)}"]`);
-        if (!c) return lo;
+        if (!c) return { y: lo, passed: false };
         const b = c.getBoundingClientRect();
-        return Math.max(lo, Math.min(hi, b.top + b.height / 2 - r.top));
+        const mid = b.top + b.height / 2;
+        return { y: Math.max(lo, Math.min(hi, mid - top)), passed: mid < line };
       });
-      // Keep them apart: pushed down from the top, then up from the bottom, so the
-      // ones off screen stack at the ends.
-      for (let i = 1; i < n; i++) p[i] = Math.max(p[i], p[i - 1] + gap);
-      p[n - 1] = Math.min(p[n - 1], hi);
-      for (let i = n - 2; i >= 0; i--) p[i] = Math.min(p[i], p[i + 1] - gap);
+      for (let i = 1; i < p.length; i++) p[i].y = Math.max(p[i].y, p[i - 1].y + gap);
+      if (p.length) p[p.length - 1].y = Math.min(p[p.length - 1].y, hi);
+      for (let i = p.length - 2; i >= 0; i--) p[i].y = Math.min(p[i].y, p[i + 1].y - gap);
       setPos(p);
     };
     const on = () => {
       if (!raf) raf = requestAnimationFrame(measure);
     };
     measure();
+    // The new room's cards are still springing in: measure again as they settle.
+    const settle = [180, 420, 800].map((ms) => setTimeout(on, ms));
     window.addEventListener("scroll", on, { passive: true });
     window.addEventListener("resize", on);
     const ro = new ResizeObserver(on);
     const list = document.getElementById("puncheo-list");
     if (list) ro.observe(list);
     return () => {
+      settle.forEach(clearTimeout);
       cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener("scroll", on);
       window.removeEventListener("resize", on);
     };
-  }, [ids]);
+  }, [ids, full, s.section]);
 
-  const roomDot = (i: number) => {
-    const t = s.sectionTallies[i];
-    const done = t.done === t.total;
-    return (
-      <button
-        key={s.sections[i].id}
-        type="button"
-        aria-label={`Ir a ${s.sections[i].name}`}
-        onClick={() => s.travelTo(i)}
-        className="pointer-events-auto block size-[18px] shrink-0 rounded-full"
-        style={{ background: done ? "var(--ok)" : dark ? "rgba(255,255,255,0.28)" : "var(--hair)" }}
-      />
-    );
-  };
-  const ink = dark ? "var(--ground)" : "var(--ink-3)";
   return (
     <div
-      className="pointer-events-none fixed right-[7px] z-20 flex w-[20px] flex-col items-center gap-[7px]"
-      style={{ top: "calc(var(--sat) + 76px)", bottom: "calc(var(--sab) + 92px)" }}
+      ref={box}
+      className="pointer-events-none fixed right-[7px] z-20 flex w-[18px] flex-col items-center"
+      style={{ top: "calc(var(--sat) + 76px)", bottom: "calc(var(--sab) + 92px)", gap: GAP }}
     >
-      {s.sections.slice(0, s.section).map((_, i) => roomDot(i))}
-      <div ref={pill} className="relative w-[20px] min-h-[60px] flex-1 rounded-full" style={{ background: dark ? "rgba(255,255,255,0.16)" : "var(--hair)" }}>
-        {pos.length > 1 ? (
-          <span className="absolute left-1/2 w-[2px] -translate-x-1/2" style={{ top: pos[0], height: pos[pos.length - 1] - pos[0], background: ink }} />
-        ) : null}
-        {pos.map((y, i) => {
-          const m = s.marks[ids[i]];
-          return (
-            <span
-              key={ids[i]}
-              className="absolute left-1/2 size-[10px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{ top: y, background: m ? COLOR[m] : ink, boxShadow: m ? `0 0 0 2px ${dark ? "#5b6376" : "var(--hair)"}` : undefined }}
+      {H > 0
+        ? s.sections.map((x, i) => (
+            <RoomMark
+              key={x.id}
+              i={i}
+              s={s}
+              dark={dark}
+              morph={morph}
+              role={i === s.section ? "current" : i === toward ? "toward" : "rest"}
+              full={full}
+              pos={i === s.section ? pos : null}
             />
-          );
-        })}
-      </div>
-      {s.sections.slice(s.section + 1).map((_, k) => roomDot(s.section + 1 + k))}
+          ))
+        : null}
     </div>
   );
 }
+
+function RoomMark({
+  i,
+  s,
+  dark,
+  morph,
+  role,
+  full,
+  pos,
+}: {
+  i: number;
+  s: PunchSheet;
+  dark?: boolean;
+  morph: MotionValue<number>;
+  role: "current" | "toward" | "rest";
+  full: number;
+  pos: { y: number; passed: boolean }[] | null;
+}) {
+  const t = s.sectionTallies[i];
+  const done = t.done === t.total;
+  const dot = done ? C.done : dark ? C.restDark : C.rest;
+  const track = done ? C.done : dark ? C.trackDark : C.track;
+  const height = useTransform(morph, (m) => (role === "current" ? full - (full - DOT) * m : role === "toward" ? DOT + (full - DOT) * m : DOT));
+  const background = useTransform(morph, [0, 1], role === "current" ? [track, dot] : role === "toward" ? [dot, track] : [dot, dot]);
+  const inner = useTransform(morph, [0, 0.45], [1, 0]);
+  const ids = s.sections[i].ids;
+  const ink = done ? "#ffffff" : dark ? "#ffffff" : C.rest;
+  return (
+    <motion.button
+      type="button"
+      aria-label={`Ir a ${s.sections[i].name}`}
+      onClick={() => s.travelTo(i)}
+      className="pointer-events-auto relative w-[18px] shrink-0 rounded-full"
+      style={{ height, background }}
+    >
+      {role === "current" && pos ? (
+        <motion.span className="absolute inset-0" style={{ opacity: inner }}>
+          {pos.length > 1 ? (
+            <span className="absolute left-1/2 w-[2px] -translate-x-1/2" style={{ top: pos[0].y, height: pos[pos.length - 1].y - pos[0].y, background: ink }} />
+          ) : null}
+          {pos.map((p, k) => {
+            const m = s.marks[ids[k]];
+            const fill = m ? COLOR_HEX[m] : p.passed ? ink : null;
+            return (
+              <span
+                key={ids[k]}
+                className="absolute left-1/2 size-[10px] -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors duration-200"
+                style={{ top: p.y, background: fill ?? track, boxShadow: `inset 0 0 0 2px ${fill ?? ink}` }}
+              />
+            );
+          })}
+        </motion.span>
+      ) : null}
+    </motion.button>
+  );
+}
+
+const COLOR_HEX: Record<string, string> = { green: "#95c955", yellow: "#ffd556", red: "#eb5757", na: "#bdbdbd" };
