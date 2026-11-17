@@ -14,6 +14,8 @@ const SQUARE = 60;
 const BAR_H = 62;
 /** Distance from the screen edges. */
 const INSET = 12;
+/** The page column the bar lines up with. */
+const COLUMN = 520;
 /** Ground-coloured gutter between the folded square's frame and its ink. */
 const GUTTER = 3;
 /** The ink square's share of the frame at the very top of the issue. */
@@ -60,7 +62,6 @@ export function BottomBar({
   onGo: (tab: Tab) => void;
 }) {
   const { scrollYProgress } = useScroll();
-  const column = useRef<HTMLDivElement>(null);
   const box = useRef<HTMLDivElement>(null);
   const face = useRef<HTMLButtonElement>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -84,14 +85,13 @@ export function BottomBar({
     activeRef.current = active;
   });
 
+  // The open bar spans the page column (520px at most) less the insets.
   useLayoutEffect(() => {
-    const el = column.current;
-    if (!el) return;
-    const measure = () => span.set(Math.max(SQUARE, el.offsetWidth - INSET * 2));
+    const measure = () =>
+      span.set(Math.max(SQUARE, Math.min(document.documentElement.clientWidth, COLUMN) - INSET * 2));
     measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, [span]);
 
   // Spoken progress, written straight to the label (no re-render per scroll step).
@@ -268,14 +268,15 @@ export function BottomBar({
   const current = picked ?? active;
 
   return (
-    <nav aria-label="Sections" className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
-      <div ref={column} className="relative mx-auto h-0 w-full max-w-[520px]">
+    // Only the square itself is fixed: iOS Safari tints its toolbar from
+    // elements fixed at the screen edge, so no transparent full-width strip.
+    <nav aria-label="Sections">
         <motion.div
           ref={box}
           data-updatr-chrome={isOpen ? "bottom" : "corner"}
-          className="absolute overflow-hidden"
+          className="fixed z-30 overflow-hidden"
           style={{
-            right: INSET,
+            right: `max(${INSET}px, calc((100% - ${COLUMN}px) / 2 + ${INSET}px))`,
             bottom: `calc(var(--sab) + ${INSET}px)`,
             width,
             height,
@@ -434,7 +435,6 @@ export function BottomBar({
             </div>
           </motion.div>
         </motion.div>
-      </div>
     </nav>
   );
 }
