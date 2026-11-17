@@ -10,5 +10,11 @@
   create or suggest new repositories for apps.
 - Deploys happen through Vercel's GitHub integration on push to `main`. Do not
   deploy with the Vercel CLI or a token.
+- Every app or prototype Marcos asks for ships to `main` as soon as there is
+  something to look at (branch → PR → merge, without waiting to be asked), and
+  every iteration after that. Give him the portal link,
+  `https://magi0s.vercel.app/<section>/<slug>`. Never a Vercel branch preview
+  (it sits behind a Vercel login), an artifact, or screenshots instead. The only
+  stop is the first rule above: secrets or private-repo content.
 - Look: forced light mode, tokens in `app/globals.css` (ground, card, ink,
   brand). Reuse them; do not add inline colours.
