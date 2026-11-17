@@ -129,6 +129,108 @@ matched; when they differ, Updatr is the newer and better-tested one.
 - **Multi-touch.** One finger drives a gesture. A second finger settles it;
   it must never leave UI stuck half-way.
 
+## Don'ts (each one happened; most errors came from here)
+
+### Process
+- **Don't send a Vercel branch preview, or any `<project>.vercel.app` link.**
+  Branch previews sit behind a Vercel login. The only link is the magi0s
+  portal URL.
+- **Don't push a build in `sim` mode, and don't send screenshots instead of
+  the artifact or the link.**
+- **Don't build the artifact from a copy.** It comes from the repo's code via
+  the build script, and it is published at the same file path so its URL
+  stays the same.
+- **Don't attach repos or answer setup questions from memory.** Check what is
+  already attached, and read the CLAUDE.md files first.
+- **Don't reformat files you didn't change.** A Prettier run once rewrote 400
+  lines of a file in a repo that doesn't use Prettier.
+- **Don't force-push or rebase a branch after its pull request was squash
+  merged.** Merge `origin/main` into the branch with `-X ours` (the branch
+  already holds the content), then push.
+- **Don't trust a test against a stale server.**
+  - Rebuild, and kill the old `next-server` by pid; it survives `pkill` of
+    its parent.
+  - Don't test with Playwright against `next dev`: its overlay swallows taps.
+  - Don't test the artifact without a viewport meta tag, or it lays out at
+    980 px wide.
+- **Don't report a test-harness artifact as a bug, or a bug as an artifact.**
+  The coarse-step "jump" checks are noisy. Look at the frames before
+  deciding.
+- **Don't claim it works on iOS from Chromium emulation.** Say what still
+  needs a real phone.
+
+### Images and motion
+- **Don't render two images for one picture.** No black-and-white copy
+  cross-fading over a colour copy, and no shared `layoutId` duplicates. Both
+  glitch the moment sizes change. Use one element and a filter.
+- **Don't use motion's `layoutId` projection for elements inside a
+  transformed container** (a sheet being pulled or swiped). It measures the
+  untransformed box and the image jumps on close. Use our own rect-based
+  flights.
+- **Don't start a flight's spring in the same frame as a heavy render**, or
+  its first visible frame skips ahead. Start it on the next frame
+  (`Carrier.fly` does).
+- **Don't fly to a rect measured once if the target can move.** Pass a
+  function. The page may scroll, or a strip may settle, mid-flight.
+- **Don't let a flying picture draw over chrome it should pass under**, and
+  don't let it ignore its ancestor's opacity. Clip it and carry the opacity.
+- **Don't use CSS scroll-snap for strips that should feel physical.** Use the
+  spring strip. Its ends rubber-band and it always lands on a card.
+
+### Touch and gestures
+- **Don't open on pointerup.** Open on the native click: a touch that stops a
+  fling has no click.
+- **Don't add passive touchmove listeners where you might need to take the
+  gesture.** Call `preventDefault` on the first move, before iOS commits to
+  its own scroll.
+- **Don't stop a spring on pointerdown unless you re-settle it on every way a
+  gesture can end:** pointerup, pointercancel, a vertical scroll, a held
+  child that swallows the release, or a second finger. Otherwise strips and
+  sheets park half-way.
+- **Don't let a second finger break a drag.** Track one pointer id and settle
+  on any other.
+- **Don't trust velocity at release.** A finger that rested more than 80 ms
+  has none.
+- **Don't let React events from a carried element reach its old parents.**
+  The picture inside the article still bubbles, through React, to the tile
+  and strip it came from. Check `currentTarget.contains(target)`.
+- **Don't let invisible controls take taps.**
+  - Tabs fading in are not tappable yet: double taps went to Archive.
+  - Sliding indicators (layoutId pills) need `pointer-events-none`.
+- **Don't make a dismissing tap also act.** A tap outside an open bar closes
+  it and nothing else, as in iOS menus.
+- **Don't trigger edge actions from a scroll that merely arrives at the
+  edge.** Fresh gestures only, with friction and a mark.
+- **Don't use `history.pushState` to make an overlay "back-able".** Safari's
+  edge swipe animates into the duplicate history entry. Guard the left edge
+  instead.
+- **Don't treat `touchcancel` as a release.** The system took the touch, so
+  settle back.
+
+### Layout and chrome
+- **Don't put a navigation bar at the top.** And don't leave a full-width
+  transparent wrapper fixed at the bottom either: Safari tints its toolbar
+  from it.
+- **Don't leave fixed layers mounted when idle** (flight layers, pull
+  readouts).
+- **Don't track the current section with IntersectionObserver.** After a jump
+  it reports the wrong section. Read scroll positions on scroll frames
+  instead.
+- **Don't lock body scroll without `scrollbar-gutter: stable`.**
+- **Don't keep re-rendering on every scroll percent.** Write labels directly,
+  or quantise the value.
+- **Don't measure a "visible" tile against the whole viewport** when chrome
+  covers part of it. Use the open area. Mark chrome with
+  `data-updatr-chrome` (`top`, `bottom` or `corner`).
+
+### Look
+- **Don't type arrows or symbols that iOS can turn into emoji** (↘ ↗ ← →).
+  Draw them as SVG.
+- **Don't add ©/® or other decoration to wordmarks** unless asked.
+- **Don't add inline colours.** Use the tokens.
+- **Don't fill empty states with nothing.** Say what to do, and use the real
+  icon.
+
 ## Starting a new app
 
 1. Register it in `lib/apps.json` and create `app/<section>/<slug>/`. Give it
