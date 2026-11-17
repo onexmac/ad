@@ -80,7 +80,16 @@ export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, size 
                     }
             }
           >
-            <CameraIcon size={Math.round(size * 0.45)} />
+            {leia ? (
+              // Leia's keys carry solid glyphs (the ⊘ and tag keys), engraved.
+              <svg width={Math.round(size * 0.5)} height={Math.round(size * 0.5)} viewBox="0 0 24 24" className="leia-glyph" aria-hidden>
+                <path d="M8.2 4.5h7.6l1.4 2.2H21a1 1 0 011 1V19a1 1 0 01-1 1H3a1 1 0 01-1-1V7.7a1 1 0 011-1h3.8z" fill="currentColor" />
+                <circle cx="12" cy="13" r="4.2" fill={missing ? "#8fc24f" : "#e9eaec"} />
+                <circle cx="12" cy="13" r="2.6" fill="currentColor" />
+              </svg>
+            ) : (
+              <CameraIcon size={Math.round(size * 0.45)} />
+            )}
           </span>
         )}
         {photos.length > 1 ? (

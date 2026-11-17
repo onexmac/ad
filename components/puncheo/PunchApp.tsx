@@ -48,19 +48,20 @@ const CONFIG: Record<Variant, Config> = {
     toast: 84,
   },
   b: {
-    ground: "leia-ground",
+    ground: "leia-ground leia-root",
     tone: "leia",
     strip: "leia",
     foot: "bar",
     skin: {
-      card: "leia-card",
-      cardOpen: "leia-card-open",
-      rest: "#fbfbfc",
-      restOpen: "#ffffff",
-      node: "#5d636c",
-      highlight: "var(--card-2)",
-      tags: true,
-      radius: 6, // the buttons inside are 4
+      // Leia's receipt rows: flush in the room's panel, split by etched lines.
+      card: "leia-row",
+      cardOpen: "leia-row leia-row-open",
+      rest: "#e7e8ea",
+      restOpen: "#f4f4f5",
+      node: "#5b6376",
+      highlight: "#ffffff",
+      tags: false,
+      radius: 0, // the panel (6) holds keys of 4
       bigNum: true,
       dark: true,
       leia: true,

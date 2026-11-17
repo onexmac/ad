@@ -75,10 +75,14 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
     >
       {s.isClosed ? (
         <CheckIcon size={15} strokeWidth={2.4} className="text-ground" />
-      ) : !s.ready ? (
+      ) : !s.ready && !polish ? (
         <LockIcon size={14} className={bar ? "text-ink-faint" : "text-ink-soft"} />
       ) : null}
-      <span className={`truncate text-[13px] font-bold uppercase tracking-[0.02em] ${s.ready || s.isClosed ? "text-ground" : bar ? "text-ink-faint" : "text-ink-soft"}`}>
+      <span
+        className={`truncate uppercase ${polish ? "leia-cond text-[18px]" : "text-[13px] font-bold tracking-[0.02em]"} ${
+          s.ready || s.isClosed ? "text-ground" : polish ? "text-[#c9cbcf]" : bar ? "text-ink-faint" : "text-ink-soft"
+        }`}
+      >
         {s.isClosed ? "Ficha cerrada" : "Cerrar ficha"}
       </span>
     </motion.button>

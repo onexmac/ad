@@ -70,7 +70,7 @@ export function Strip({
               className={`relative flex h-[54px] min-w-0 flex-1 flex-col items-center justify-center ${i < items.length - 1 ? "leia-tab-sep" : ""}`}
             >
               {on ? <motion.span layoutId={`strip-${id}`} transition={springs.snappy} className="leia-tab-on pointer-events-none absolute inset-0" /> : null}
-              <span className={`relative max-w-full truncate px-1 text-[15px] ${on ? "font-semibold text-ground" : "font-medium text-ink-2"}`} style={on ? undefined : { textShadow: "0 1px 0 #fff" }}>
+              <span className={`relative max-w-full truncate px-1 text-[16px] font-normal ${on ? "text-ground" : "text-ink"}`} style={on ? undefined : { textShadow: "0 1px 0 #fff" }}>
                 {x.label}
               </span>
               <span className={`relative mt-0.5 text-[11px] tabular-nums ${on ? "text-brand-2" : "text-ink-faint"}`}>{x.count}</span>
@@ -119,6 +119,20 @@ export function RoomStrip({ s, tone = "plain" }: { s: PunchSheet; tone?: StripTo
 
 /** A key fact from the sheet, set apart in AD Visual's hairline table (on Leia's slate, a paper panel). */
 function KeyBlock({ k, skin }: { k: Key; skin: RowSkin }) {
+  if (skin.leia)
+    return (
+      <div className="leia-row bg-[#f4f4f5] px-3 py-2">
+        <span className="block pb-1 text-[11px] font-bold uppercase tracking-[0.06em] text-[#8a8d93]">Clave · {k.title}</span>
+        <div className="grid grid-cols-[auto_minmax(0,1fr)]">
+          {k.rows.map(([key, val], i) => (
+            <div key={key} className={`col-span-2 grid grid-cols-subgrid ${i ? "shadow-[inset_0_1px_0_#dcdde0]" : ""}`}>
+              <span className="py-1.5 pr-4 text-[13px] text-[#8a8d93]">{key}</span>
+              <span className="py-1.5 text-[14px] font-bold leading-5 text-ink">{val}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   return (
     <div className="pb-4 pt-1.5">
       <div className="min-w-0">
@@ -138,7 +152,13 @@ function KeyBlock({ k, skin }: { k: Key; skin: RowSkin }) {
   );
 }
 
-function GroupLabel({ label, dark }: { label: string; dark?: boolean }) {
+function GroupLabel({ label, dark, leia }: { label: string; dark?: boolean; leia?: boolean }) {
+  if (leia)
+    return (
+      <div className="leia-strip px-3 py-1.5">
+        <span className="leia-emboss text-[13px] font-bold text-[#5f6268]">{label}</span>
+      </div>
+    );
   return (
     <span className={`mono block pb-2.5 pl-1 pt-2 ${dark ? "leia-engrave text-hair" : "text-ink-soft"}`} style={{ fontWeight: 600 }}>
       {label}
@@ -147,7 +167,15 @@ function GroupLabel({ label, dark }: { label: string; dark?: boolean }) {
 }
 
 /** Where the room's checks for one punch begin: the punch, and when it happens. */
-function PhaseHead({ name, moment, first, dark }: { name: string; moment: string; first: boolean; dark?: boolean }) {
+function PhaseHead({ name, moment, first, dark, leia }: { name: string; moment: string; first: boolean; dark?: boolean; leia?: boolean }) {
+  // Leia: the "Taxes" strip, a taller lit bar with the name and its moment.
+  if (leia)
+    return (
+      <div className="leia-strip px-3 py-2.5">
+        <span className="leia-emboss block text-[17px] text-ink">{name}</span>
+        <span className="leia-emboss mt-0.5 block text-[12.5px] leading-[16px] text-[#6c6f75]">{moment}</span>
+      </div>
+    );
   return (
     <div className={first ? "" : "pt-4"}>
       <div className="min-w-0 pb-3 pl-1">
@@ -216,32 +244,52 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
         </li>
       );
     }
-    if (it.kind === "phase") return <li key={`p-${it.n}`}><PhaseHead name={it.name} moment={it.moment} first={i === 0} dark={skin.dark} /></li>;
-    if (it.kind === "group") return <li key={`g-${i}-${it.label}`}><GroupLabel label={it.label} dark={skin.dark} /></li>;
+    if (it.kind === "phase") return <li key={`p-${it.n}`}><PhaseHead name={it.name} moment={it.moment} first={i === 0} dark={skin.dark} leia={skin.leia} /></li>;
+    if (it.kind === "group") return <li key={`g-${i}-${it.label}`}><GroupLabel label={it.label} dark={skin.dark} leia={skin.leia} /></li>;
     return <li key={`k-${i}-${it.key.title}`}><KeyBlock k={it.key} skin={skin} /></li>;
   });
 
   return (
     <>
     <motion.div style={{ y }}>
-      <section key={sec.id} id="puncheo-section" className="mt-7">
-        <div className="flex items-end justify-between gap-3">
-          <div className="min-w-0">
-            <span className={`mono ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>
-              Sección {s.section + 1} de {s.sections.length}
+      {skin.leia ? (
+        // Leia: the room is a receipt panel; its blue band is the section's header.
+        <section key={sec.id} id="puncheo-section" className="leia-panel mt-6 overflow-hidden rounded-[6px]">
+          <div className="leia-band flex h-[54px] items-center gap-3 px-3 text-ground">
+            <span className="leia-band-sep flex h-full items-center pr-3 text-[13px] text-brand-2">
+              {s.section + 1}/{s.sections.length}
             </span>
-            <h2 className={`mt-1 text-[30px] font-semibold leading-none tracking-[-0.03em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{sec.name}</h2>
-            <p className={`mt-1.5 text-[13px] ${skin.dark ? "text-hair-2" : "text-ink-soft"}`}>{sec.note}</p>
+            <span className="min-w-0 flex-1">
+              <span data-title className="block truncate text-[19px] leading-tight">{sec.name}</span>
+              <span className="block truncate text-[12px] text-brand-2">{sec.note}</span>
+            </span>
+            <span className="text-[18px] tabular-nums">
+              {String(st.done).padStart(2, "0")}
+              <span className="text-brand-2">/{st.total}</span>
+            </span>
           </div>
-          <span className="shrink-0 leading-none tabular-nums">
-            <span className={`text-[24px] font-medium tracking-[-0.02em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{String(st.done).padStart(2, "0")}</span>
-            <span className={`text-[14px] ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>/{st.total}</span>
-          </span>
-        </div>
-        <ul id="puncheo-list" className="mt-5">
-          {rows}
-        </ul>
-      </section>
+          <ul id="puncheo-list">{rows}</ul>
+        </section>
+      ) : (
+      <section key={sec.id} id="puncheo-section" className="mt-7">
+          <div className="flex items-end justify-between gap-3">
+            <div className="min-w-0">
+              <span className={`mono ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>
+                Sección {s.section + 1} de {s.sections.length}
+              </span>
+              <h2 data-title className={`mt-1 text-[30px] font-semibold leading-none tracking-[-0.03em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{sec.name}</h2>
+              <p className={`mt-1.5 text-[13px] ${skin.dark ? "text-hair-2" : "text-ink-soft"}`}>{sec.note}</p>
+            </div>
+            <span className="shrink-0 leading-none tabular-nums">
+              <span className={`text-[24px] font-medium tracking-[-0.02em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{String(st.done).padStart(2, "0")}</span>
+              <span className={`text-[14px] ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>/{st.total}</span>
+            </span>
+          </div>
+          <ul id="puncheo-list" className="mt-5">
+            {rows}
+          </ul>
+        </section>
+      )}
       <EndMarker s={s} armed={pull.armed} pulling={pull.pulling} dark={skin.dark} />
     </motion.div>
     {/* Outside the moving layer: a transformed ancestor would trap this fixed rail. */}

@@ -101,102 +101,143 @@ html {
   -webkit-touch-callout: none;
 }
 
-/* ── Leia: the polish of an older UI. Subtle gradients, a lit top edge, a
-   darker bottom edge, soft drop shadows, engraved type, a fine texture.
+/* ── Leia: an iOS 6-era POS, polished. Light surfaces in soft vertical
+   gradients with a white top edge and a darker bottom edge; buttons with a
+   lit face, a hairline border and a short shadow; solid dark glyphs; the
+   receipt list on light grey split by etched lines; the dark checkout bar
+   with a blue condensed CTA and the big thin total. Type: Helvetica Neue.
    Nested radii always shrink inward (container > inner). ───────────────── */
+.leia-root {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 .leia-ground {
-  background-color: #5d636c;
+  background-color: #5b6376;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"),
-    linear-gradient(180deg, #666c76 0%, #575d66 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
   background-attachment: fixed;
 }
 .leia-engrave {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.35);
 }
+.leia-emboss {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.leia-cond {
+  font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue Condensed Bold", var(--font-cond), "Arial Narrow", sans-serif;
+  font-weight: 700;
+  font-stretch: condensed;
+  letter-spacing: 0.01em;
+}
+/* The top toolbar: light, falling to grey, a white top edge and a dark rule under it. */
+.leia-toolbar {
+  background: linear-gradient(180deg, #f6f6f7 0%, #e6e7e9 45%, #cdcfd3 100%);
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(0, 0, 0, 0.45), 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+/* The center pill in the toolbar: an engraved outline. */
+.leia-inset-pill {
+  background: linear-gradient(180deg, #e3e4e7 0%, #f3f3f4 100%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28), 0 1px 0 rgba(255, 255, 255, 0.9);
+  border: 1px solid #a9acb2;
+}
+/* The right panel's header band ("A Costumer"). */
 .leia-band {
-  background: linear-gradient(180deg, #5d9bf0 0%, #4986eb 55%, #3f78d6 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(0, 0, 0, 0.18);
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.22);
+  background: linear-gradient(180deg, #5c9be8 0%, #4a8ae2 50%, #3f7dd8 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.22);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
-.leia-card {
-  background: linear-gradient(180deg, #ffffff 0%, #f6f7f8 100%);
-  box-shadow:
-    inset 0 1px 0 #ffffff,
-    0 0 0 1px rgba(25, 28, 34, 0.18),
-    0 1px 0 rgba(25, 28, 34, 0.22),
-    0 3px 6px rgba(25, 28, 34, 0.18);
+.leia-band-sep {
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.18), 1px 0 0 rgba(255, 255, 255, 0.18);
 }
-.leia-card-open {
-  background: #ffffff;
-  box-shadow:
-    inset 0 1px 0 #ffffff,
-    0 0 0 1px rgba(25, 28, 34, 0.2),
-    0 6px 18px rgba(25, 28, 34, 0.28);
+/* The receipt panel: light grey, rows split by an etched line (dark over light). */
+.leia-panel {
+  background: #e7e8ea;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.35);
 }
-.leia-paper {
-  background: linear-gradient(180deg, #ffffff 0%, #f4f5f6 100%);
-  box-shadow: inset 0 1px 0 #ffffff, 0 0 0 1px rgba(25, 28, 34, 0.18), 0 2px 4px rgba(25, 28, 34, 0.2);
+.leia-row {
+  box-shadow: inset 0 -1px 0 #cbccd0, 0 1px 0 rgba(255, 255, 255, 0.7);
 }
+.leia-row-open {
+  background: #f4f4f5;
+}
+/* A table section header inside the panel (also the "Taxes" strip). */
+.leia-strip {
+  background: linear-gradient(180deg, #f0f0f2 0%, #d9dadd 100%);
+  box-shadow: inset 0 1px 0 #ffffff, inset 0 -1px 0 #b9bbc0;
+}
+/* Product tile: photo area over a lit caption bar, a short shadow on the slate. */
+.leia-tile {
+  background: #fdfdfd;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.leia-caption {
+  background: linear-gradient(180deg, #fbfbfb 0%, #e3e3e4 100%);
+  box-shadow: inset 0 1px 0 #ffffff, inset 0 -1px 0 #c4c5c8;
+}
+/* The square buttons (the ⊘ and tag keys): lit face, hairline, short shadow; glyphs solid #55585e. */
 .leia-btn {
-  background: linear-gradient(180deg, #ffffff 0%, #e9eaec 100%);
-  box-shadow: inset 0 1px 0 #ffffff, 0 0 0 1px rgba(25, 28, 34, 0.22), 0 1px 1px rgba(25, 28, 34, 0.18);
+  background: linear-gradient(180deg, #fbfbfc 0%, #e4e5e7 100%);
+  box-shadow: inset 0 1px 0 #ffffff, 0 0 0 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.14);
+  color: #55585e;
 }
-.leia-btn-ok {
-  background: linear-gradient(180deg, #a9d46e 0%, #95c955 50%, #84b546 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 0 0 1px rgba(80, 110, 30, 0.55), 0 1px 2px rgba(25, 28, 34, 0.25);
+.leia-btn:active {
+  background: linear-gradient(180deg, #dcdde0 0%, #eceded 100%);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.18);
 }
+.leia-btn-ok,
 .leia-fill-green {
-  background: linear-gradient(180deg, #a9d46e 0%, #95c955 50%, #84b546 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 0 0 1px rgba(80, 110, 30, 0.55), 0 1px 2px rgba(25, 28, 34, 0.25);
+  background: linear-gradient(180deg, #a8d46c 0%, #8fc24f 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 0 0 1px rgba(70, 105, 25, 0.6), 0 1px 1px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
 }
 .leia-fill-yellow {
-  background: linear-gradient(180deg, #ffe07d 0%, #ffd556 50%, #f5c33a 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 0 0 1px rgba(170, 120, 0, 0.5), 0 1px 2px rgba(25, 28, 34, 0.25);
+  background: linear-gradient(180deg, #ffe17a 0%, #f6c63c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 0 0 1px rgba(160, 110, 0, 0.55), 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 .leia-fill-red {
-  background: linear-gradient(180deg, #f27373 0%, #eb5757 50%, #d94848 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(150, 30, 30, 0.55), 0 1px 2px rgba(25, 28, 34, 0.25);
+  background: linear-gradient(180deg, #f07171 0%, #d94a4a 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(140, 25, 25, 0.6), 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 .leia-glyph {
   filter: drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.25));
 }
+/* Category bar: cells on a lit strip, split by an etched pair; the active cell a blue gradient. */
 .leia-tabs {
-  background: linear-gradient(180deg, #fbfbfc 0%, #e9eaec 100%);
-  box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(25, 28, 34, 0.25), 0 2px 4px rgba(25, 28, 34, 0.15);
+  background: linear-gradient(180deg, #f1f1f2 0%, #dedfe1 100%);
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 .leia-tab-sep {
-  box-shadow: inset -1px 0 0 rgba(25, 28, 34, 0.14), 1px 0 0 rgba(255, 255, 255, 0.85);
+  box-shadow: inset -1px 0 0 #c9cacd, 1px 0 0 #fafafa;
 }
 .leia-tab-on {
-  background: linear-gradient(180deg, #3f78d6 0%, #4986eb 60%, #5592ee 100%);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.28), inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(180deg, #6ba2e6 0%, #4f8ad9 50%, #3c73c6 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+/* The checkout bar: dark, falling darker, a faint lit top edge over a black rule. */
 .leia-bar {
-  background: linear-gradient(180deg, #3b4048 0%, #2c3036 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 -1px 0 rgba(0, 0, 0, 0.35);
+  background: linear-gradient(180deg, #50555d 0%, #3b3f46 55%, #30343a 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 -1px 0 rgba(0, 0, 0, 0.6);
 }
 .leia-cta {
-  background: linear-gradient(180deg, #5d9bf0 0%, #4986eb 50%, #3e76d4 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(10, 40, 100, 0.55), 0 1px 2px rgba(0, 0, 0, 0.35);
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, #5ea2ea 0%, #4a8de0 50%, #3877cf 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(10, 45, 110, 0.7), 0 1px 1px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.35);
 }
 .leia-cta-off {
-  background: linear-gradient(180deg, #555b64 0%, #474c54 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.45);
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  background: linear-gradient(180deg, #62676f 0%, #4e535a 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.55), 0 1px 1px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.45);
 }
-.leia-receipt {
-  background: linear-gradient(180deg, #ffffff 0%, #f3f4f5 100%);
-  box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(25, 28, 34, 0.2), 0 2px 5px rgba(25, 28, 34, 0.18);
-}
-/* Leia's header search key: a small charcoal tile, lit on top, the lens engraved white. */
+/* The toolbar's search key: a charcoal tile, lit on top, the lens white. */
 .leia-search {
-  background: linear-gradient(180deg, #6e737b 0%, #555a62 50%, #4a4e55 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.3);
-  filter: drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.0));
+  background: linear-gradient(180deg, #7a7d84 0%, #5b5e64 50%, #4b4e54 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.55), 0 1px 1px rgba(0, 0, 0, 0.3);
 }
 .leia-search svg {
   filter: drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.45));
+}
+.leia-well {
+  background: #2c2f34;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.1);
 }
