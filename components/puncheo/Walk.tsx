@@ -16,7 +16,7 @@ export type StripItem = { id: string; label: string; count: React.ReactNode };
 /**
  * A row of choices in three dresses. plain: pill chips (the active one ink, or
  * blue for filters). leia: Leia's category tabs, full width, the active cell a
- * solid blue block. yard: AD Visual's folder chips.
+ * solid blue block. yard: AD Visual's segmented choice.
  */
 export function Strip({
   items,
@@ -38,6 +38,23 @@ export function Strip({
     haptic.select();
     onPick(i);
   };
+  if (tone === "yard") {
+    // AD Visual's segmented choice (Actividades / Miembros): the active one a solid blue tile, the rest plain bold text.
+    return (
+      <div className="mt-5 flex gap-1">
+        {items.map((x, i) => {
+          const on = i === active;
+          return (
+            <button key={x.id} type="button" onClick={() => pick(i)} aria-pressed={on} className="relative flex h-11 flex-auto items-center justify-center gap-1 rounded-[10px] px-2.5">
+              {on ? <motion.span layoutId={`strip-${id}`} transition={springs.snappy} className="pointer-events-none absolute inset-0 rounded-[10px] bg-brand" /> : null}
+              <span className={`relative truncate text-[15px] font-semibold ${on ? "text-ground" : "text-ink"}`}>{x.label}</span>
+              <span className={`relative text-[11px] tabular-nums ${on ? "text-brand-2" : "text-ink-faint"}`}>{x.count}</span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
   if (tone === "leia") {
     // Leia's category bar: a lit strip of cells split by etched lines; the active one pressed in, blue.
     return (
@@ -67,23 +84,6 @@ export function Strip({
     <div className="no-scrollbar -mx-4 mt-5 flex gap-1.5 overflow-x-auto px-4 py-1">
       {items.map((x, i) => {
         const on = i === active;
-        if (tone === "yard") {
-          return (
-            <button
-              key={x.id}
-              type="button"
-              onClick={() => pick(i)}
-              aria-pressed={on}
-              className={`flex h-10 shrink-0 items-center gap-2 rounded-[10px] bg-ground pl-2.5 pr-2 transition-shadow ${on ? "shadow-[var(--shadow-mid)]" : "shadow-[var(--shadow-soft)]"}`}
-            >
-              <svg width={16} height={16} viewBox="0 0 24 24" aria-hidden>
-                <path d="M3 6.5h6l2 2h10v10H3z" fill={on ? "var(--brand)" : "var(--hair-2)"} />
-              </svg>
-              <span className={`text-[14px] ${on ? "font-semibold text-ink" : "font-medium text-ink-3"}`}>{x.label}</span>
-              <span className="rounded-[4px] border border-hair-2 px-1 text-[10px] font-medium tabular-nums text-ink-faint">{x.count}</span>
-            </button>
-          );
-        }
         return (
           <button key={x.id} type="button" onClick={() => pick(i)} aria-pressed={on} className="relative flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5">
             {on ? <motion.span layoutId={`strip-${id}`} transition={springs.snappy} className="pointer-events-none absolute inset-0 rounded-full" style={{ background: accent }} /> : null}
@@ -126,7 +126,9 @@ function KeyBlock({ k, rail, skin }: { k: Key; rail: boolean; skin: RowSkin }) {
       </div>
       <div className="min-w-0 flex-1 pb-4 pl-1 pt-1.5">
         <span className={`mono block pb-1.5 ${skin.dark ? "leia-engrave text-hair-2" : "text-ink-faint"}`}>Clave · {k.title}</span>
-        <div className={`grid grid-cols-[auto_minmax(0,1fr)] ${skin.leia ? "leia-paper rounded-[4px] px-3" : "border-y border-ink"}`}>
+        <div
+          className={`grid grid-cols-[auto_minmax(0,1fr)] ${skin.leia ? "leia-paper rounded-[4px] px-3" : skin.yard ? "rounded-[12px] bg-card px-3 py-1" : "border-y border-ink"}`}
+        >
           {k.rows.map(([key, val], i) => (
             <div key={key} className={`col-span-2 grid grid-cols-subgrid ${i ? "border-t border-hair" : ""}`}>
               <span className="mono py-2.5 pr-4 text-ink-faint">{key}</span>

@@ -9,8 +9,8 @@ import type { PunchSheet } from "./usePunchSheet";
  * One line at the thumb: a quiet search key, then the close action, then the
  * running total. The punches are sections of the walk now, so there are no tabs.
  *   bar  — Leia's full-width bar, flush to the bottom edge (polish: Leia's bevels).
- *   pill — AD Visual's white pill. Everything inside is round and sits on the
- *          same 6 px padding, so the radii are concentric (28 = 22 + 6).
+ *   pill — AD Visual's bottom bar: a white panel (radius 16) holding flat grey
+ *          keys (radius 10) on a 6 px padding, so the radii stay concentric.
  */
 
 type Kind = "bar" | "pill";
@@ -49,7 +49,7 @@ function Total({ s, light }: { s: PunchSheet; light: boolean }) {
 
 export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kind: Kind; search?: FooterSearch; polish?: boolean }) {
   const bar = kind === "bar";
-  const round = bar ? "rounded-[6px]" : "rounded-full";
+  const round = bar ? "rounded-[6px]" : "rounded-[10px]";
 
   // Quiet: a neutral key, never the accent. The close action is the one that stands out.
   const lens = search ? (
@@ -66,7 +66,7 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
           ? { color: search.open ? "var(--ink)" : "var(--hair)" }
           : bar
             ? { background: search.open ? "var(--ground)" : "transparent", color: search.open ? "var(--ink)" : "var(--ink-faint)" }
-            : { background: search.open ? "var(--ink)" : "var(--card-2)", color: search.open ? "var(--ground)" : "var(--ink-3)" }
+            : { background: search.open ? "var(--ink)" : "var(--hair)", color: search.open ? "var(--ground)" : "var(--ink-soft)" }
       }
     >
       {search.open ? <Cross /> : <Lens />}
@@ -131,11 +131,11 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
 
   return (
     <nav className="fixed left-1/2 z-30 w-[calc(100%-32px)] max-w-[488px] -translate-x-1/2" style={{ bottom: "calc(var(--sab) + 16px)" }}>
-      <div className="flex items-center gap-1.5 rounded-full bg-ground p-1.5 shadow-[var(--shadow-mid)]">
+      <div className="flex items-center gap-1.5 rounded-[16px] bg-ground p-1.5 shadow-[var(--shadow-mid)]">
         {lens}
         {field ?? action}
         {search?.open ? null : (
-          <span className="pl-2 pr-[22px]">
+          <span className="pl-2 pr-2.5">
             <Total s={s} light={false} />
           </span>
         )}

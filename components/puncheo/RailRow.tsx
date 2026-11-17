@@ -38,6 +38,8 @@ export type RowSkin = {
   dark?: boolean;
   /** Leia's polish on the controls: bevelled square buttons. */
   leia?: boolean;
+  /** AD Visual: flat grey square controls, Figma's tags (grey, green for FOTO), the grey Clave panel. */
+  yard?: boolean;
 };
 
 /**
@@ -90,12 +92,14 @@ function CardEdge({ radius, color, fresh }: { radius: number; color: string; fre
 
 type Tag = { label: string; bg: string; ink: string };
 
-function tagsOf(c: Instance): Tag[] {
+function tagsOf(c: Instance, yard = false): Tag[] {
   const t: Tag[] = [];
-  if (c.photo.required) t.push({ label: "Foto", bg: "var(--brand-2)", ink: "var(--brand)" });
-  if (c.tolerance.includes("3/5")) t.push({ label: "Regla 3/5", bg: "var(--warn-soft)", ink: "var(--warn-deep)" });
-  else if (/mm/.test(c.tolerance)) t.push({ label: "mm", bg: "var(--warn-soft)", ink: "var(--warn-deep)" });
-  if (c.na) t.push({ label: "N/A", bg: "var(--hair)", ink: "var(--ink-soft)" });
+  // AD Visual's tags are grey, with green for the one that matters (as ESPARTA, BAÑO).
+  const grey = { bg: "var(--hair)", ink: "var(--ink-soft)" };
+  if (c.photo.required) t.push({ label: "Foto", ...(yard ? { bg: "var(--ok)", ink: "var(--ink)" } : { bg: "var(--brand-2)", ink: "var(--brand)" }) });
+  if (c.tolerance.includes("3/5")) t.push({ label: "Regla 3/5", ...(yard ? grey : { bg: "var(--warn-soft)", ink: "var(--warn-deep)" }) });
+  else if (/mm/.test(c.tolerance)) t.push({ label: "mm", ...(yard ? grey : { bg: "var(--warn-soft)", ink: "var(--warn-deep)" }) });
+  if (c.na) t.push({ label: "N/A", ...grey });
   return t;
 }
 
@@ -132,7 +136,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
   });
   const color = r.status ? COLOR[r.status] : null;
   const NODE_Y = 31; // level with the title
-  const tags = skin.tags ? tagsOf(check) : [];
+  const tags = skin.tags ? tagsOf(check, skin.yard) : [];
   const R = skin.radius ?? 20;
 
   return (
@@ -244,6 +248,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                 missing={r.missingPhoto || (check.photo.required && !r.photos.length)}
                 shake={shake}
                 leia={skin.leia}
+                flat={skin.yard}
                 dragged={sw.dragged}
                 onPick={(f) => s.pickPhoto(check, f)}
                 size={34}
@@ -258,7 +263,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                 }}
                 className="ml-2.5 shrink-0" // a clear gap from the camera: two different targets
               >
-                <SquircleCheck key={r.pulse} status={r.status} fresh={r.pulse > 0} leia={skin.leia} />
+                <SquircleCheck key={r.pulse} status={r.status} fresh={r.pulse > 0} leia={skin.leia} flat={skin.yard} />
               </button>
             </div>
 

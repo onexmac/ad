@@ -35,8 +35,56 @@ const LAND = 0.14;
  * two squircle rings running out, the check drawing itself). N/A leaves the box
  * hatched like the swipe that set it.
  */
-export function SquircleCheck({ status, fresh, size = 34, leia = false }: { status: Status | null; fresh: boolean; size?: number; leia?: boolean }) {
+export function SquircleCheck({
+  status,
+  fresh,
+  size = 34,
+  leia = false,
+  flat = false,
+}: {
+  status: Status | null;
+  fresh: boolean;
+  size?: number;
+  leia?: boolean;
+  flat?: boolean;
+}) {
+  if (flat) return <FlatCheck status={status} fresh={fresh} size={size} />;
   return leia ? <LeiaCheck status={status} fresh={fresh} size={size} /> : <SquircleBox status={status} fresh={fresh} size={size} />;
+}
+
+const FLAT: Record<Exclude<Status, "na">, string> = { green: "var(--ok)", yellow: "var(--warn)", red: "var(--bad)" };
+
+/** AD Visual's check: a flat grey square (the Secondary button's fill) that fills solid when marked. */
+function FlatCheck({ status, fresh, size }: { status: Status | null; fresh: boolean; size: number }) {
+  const coloured = status && status !== "na" ? status : null;
+  return (
+    <span className="relative block" style={{ width: size, height: size }}>
+      <span className="absolute inset-0 rounded-[6px] bg-hair" />
+      {status === "na" ? <span className="absolute inset-0 rounded-[6px]" style={{ backgroundImage: HATCH_DENSE }} /> : null}
+      {coloured ? (
+        <motion.span
+          key={coloured}
+          className="absolute inset-0 grid place-items-center rounded-[6px]"
+          style={{ background: FLAT[coloured] }}
+          initial={fresh ? { scale: 0.5, opacity: 0 } : false}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ ...springs.popping, delay: fresh ? LAND : 0 }}
+        >
+          <svg width={17} height={17} viewBox="0 0 24 24" fill="none" aria-hidden>
+            <motion.path
+              d={coloured === "green" ? "M5 12.5l4.5 4.5L19 7.5" : coloured === "yellow" ? "M12 4v10M12 18v1.5" : "M6.5 6.5l11 11M17.5 6.5l-11 11"}
+              stroke={coloured === "yellow" ? "var(--ink)" : "var(--ground)"}
+              strokeWidth={2.6}
+              strokeLinecap="square"
+              initial={fresh ? { pathLength: 0, opacity: 0 } : false}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 0.3, delay: fresh ? LAND + 0.1 : 0, ease: [0.65, 0, 0.35, 1] }}
+            />
+          </svg>
+        </motion.span>
+      ) : null}
+    </span>
+  );
 }
 
 function SquircleBox({ status, fresh, size }: { status: Status | null; fresh: boolean; size: number }) {

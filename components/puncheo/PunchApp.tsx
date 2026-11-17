@@ -18,8 +18,9 @@ import { usePunchSheet } from "./usePunchSheet";
  *   A — the base: white paper, hairline cards, tags, V/A/R/N counters, Leia's bar.
  *   B — more Leia: the blue band, the receipt line, category tabs as solid blocks,
  *       the big light blue numerals, sharper tiles on a grey counter.
- *   C — more AD Visual (the graveyard): grey panels, white cards with the soft
- *       shadow, folder chips, the italic note, the date tile and the white pill.
+ *   C — more AD Visual (the graveyard): the week on a grey canvas, a white sheet
+ *       with caps titles and progress cards, hairline cards with flat grey keys,
+ *       segmented filters, the grey Clave panel, the white bottom panel.
  */
 
 type Config = {
@@ -70,15 +71,25 @@ const CONFIG: Record<Variant, Config> = {
     toast: 84,
   },
   c: {
-    ground: "bg-card",
+    ground: "bg-ground",
     tone: "yard",
     strip: "yard",
     foot: "pill",
-    skin: { card: "bg-ground shadow-[var(--shadow-soft)]", cardOpen: "bg-ground shadow-[var(--shadow-mid)]", rest: "#ffffff", restOpen: "#ffffff", node: "var(--card)", highlight: "var(--card)", tags: true, radius: 22 }, // bigger than the 17 px round camera inside
+    skin: {
+      card: "bg-ground shadow-[inset_0_0_0_1px_var(--hair-2)]",
+      cardOpen: "bg-ground shadow-[inset_0_0_0_1px_var(--hair-2),var(--shadow-soft)]",
+      rest: "#ffffff",
+      restOpen: "#ffffff",
+      node: "var(--ground)",
+      highlight: "var(--card)",
+      tags: true,
+      radius: 10, // the flat keys inside are 6
+      yard: true,
+    },
     filterAccent: "var(--brand)",
-    counters: true,
-    spacer: 110,
-    toast: 96,
+    counters: false,
+    spacer: 104,
+    toast: 92,
   },
 };
 
