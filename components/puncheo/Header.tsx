@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import type { Status } from "@/lib/puncheo/state";
@@ -37,7 +38,7 @@ export function SheetHeader({
 }) {
   const { punch, t, marks, isClosed } = s;
   const n1 = sheet.subtitle.replace("Vivienda ", "");
-  const pct = t.total ? Math.round((t.done / t.total) * 100) : 0;
+  if (tone === "yard") return <YardHeader sheet={sheet} s={s} current={current} />;
   return (
     <>
       {tone === "leia" ? (
@@ -75,7 +76,6 @@ export function SheetHeader({
               </h1>
               <p className="mt-2 text-[13px] text-ink-soft">{sheet.system}</p>
             </div>
-            {tone === "yard" ? <DateTile /> : null}
           </div>
         </header>
       )}
@@ -108,18 +108,10 @@ export function SheetHeader({
               </span>
               <span className="mt-0.5 block text-[17px] font-semibold tracking-[-0.01em] text-ground">{punch.name}</span>
             </span>
-            {tone === "yard" ? (
-              // AD Visual's dark chip: label and a percent box.
-              <span className="flex items-center gap-1.5 rounded-[6px] bg-ink-3 py-1 pl-2 pr-1">
-                <span className="text-[12px] font-semibold text-hair">Avance</span>
-                <span className="rounded-[4px] bg-ink-2 px-1.5 py-0.5 text-[11px] font-semibold tabular-nums text-ground">{pct}%</span>
-              </span>
-            ) : (
               <span className="text-right leading-none">
                 <span className="text-[22px] font-medium tracking-[-0.02em] text-ground tabular-nums">{String(t.done).padStart(2, "0")}</span>
                 <span className="text-[15px] font-medium text-ink-soft tabular-nums">/{String(t.total).padStart(2, "0")}</span>
               </span>
-            )}
           </div>
         )}
 
@@ -211,5 +203,108 @@ export function DateTile() {
         {d.getDate()}
       </span>
     </span>
+  );
+}
+
+const subscribeNever = () => () => {};
+
+/** This week's days, read on the client only (the page is built ahead of time). */
+function useWeek() {
+  return useSyncExternalStore(
+    subscribeNever,
+    () => WEEK.value,
+    () => null,
+  );
+}
+const WEEK = {
+  get value() {
+    const cache = WEEK as unknown as { _v?: { d: number; today: boolean }[]; _day?: number };
+    const now = new Date();
+    if (!cache._v || cache._day !== now.getDate()) {
+      const start = new Date(now);
+      start.setDate(now.getDate() - now.getDay());
+      cache._v = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        return { d: d.getDate(), today: d.toDateString() === now.toDateString() };
+      });
+      cache._day = now.getDate();
+    }
+    return cache._v;
+  },
+};
+
+/** AD Visual's progress card: a name, a figure on the right, a blue bar on a light blue track. */
+function ProgressCard({ title, done, total, note }: { title: string; done: number; total: number; note?: React.ReactNode }) {
+  const pct = total ? (done / total) * 100 : 0;
+  return (
+    <div className="rounded-[8px] bg-ground px-3 py-2.5 shadow-[inset_0_0_0_1px_var(--hair-2)]">
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="truncate text-[16px] text-ink">{title}</span>
+        <span className="shrink-0 text-[16px] tabular-nums text-ink">
+          {note}
+          {String(done).padStart(2, "0")}
+          <span className="text-ink-faint">/{total}</span>
+        </span>
+      </div>
+      <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-brand-2">
+        <motion.div className="h-full rounded-full bg-brand" initial={false} animate={{ width: `${pct}%` }} transition={springs.completing} />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * C's header, after AD Visual's mobile screens: the week on the grey canvas,
+ * then a white sheet with the centred caps title and the progress cards.
+ */
+function YardHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string }; s: PunchSheet; current: Variant }) {
+  const week = useWeek();
+  const n1 = sheet.subtitle.replace("Vivienda ", "");
+  const st = s.sectionTallies[s.section];
+  return (
+    <>
+      <header className="-mx-4 bg-card-2 px-4 pb-12" style={{ paddingTop: "calc(var(--sat) + 20px)" }}>
+        <div className="flex items-center justify-between">
+          <span className="mono text-ink-faint">AD · Puncheo</span>
+          <VariantSwitch current={current} />
+        </div>
+        <div className="mt-5 rounded-[16px] bg-card px-2 pb-2 pt-3 shadow-[var(--shadow-soft)]">
+          <div className="grid grid-cols-7 text-center text-[12px] font-medium text-ink">
+            {["D", "L", "K", "M", "J", "V", "S"].map((d, i) => (
+              <span key={i}>{d}</span>
+            ))}
+          </div>
+          <div className="mt-2 grid grid-cols-7 gap-1 text-center">
+            {(week ?? Array.from({ length: 7 }, () => null)).map((x, i) => (
+              <span
+                key={i}
+                className={`grid h-9 place-items-center rounded-[8px] text-[16px] tabular-nums ${x?.today ? "bg-brand font-semibold text-ground" : "text-ink-2"}`}
+              >
+                {x ? x.d : ""}
+              </span>
+            ))}
+          </div>
+        </div>
+      </header>
+      <div className="relative -mx-4 -mt-7 rounded-t-[28px] bg-ground px-4 pt-7">
+        <div className="text-center">
+          <h1 className="text-[22px] font-bold uppercase leading-tight tracking-[0.01em] text-ink">
+            {sheet.title} {n1}
+          </h1>
+          <p className="text-[22px] font-bold uppercase leading-tight tracking-[0.01em] text-ink-faint">{s.punch.name}</p>
+          <p className="mx-auto mt-2 max-w-[300px] text-[13px] leading-[18px] text-ink-soft">{s.punch.moment}</p>
+        </div>
+        <div className="mt-6 grid gap-3">
+          <ProgressCard title={`Puncheo ${s.punch.n} · ${s.punch.name}`} done={s.t.done} total={s.t.total} />
+          <ProgressCard
+            title={s.sec.name}
+            done={st.done}
+            total={st.total}
+            note={st.red ? <span className="mr-2 text-bad">−{st.red}</span> : null}
+          />
+        </div>
+      </div>
+    </>
   );
 }
