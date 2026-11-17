@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Bitter, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const note = Bitter({ variable: "--font-note", subsets: ["latin"], style: ["italic"], weight: ["400"] });
 const mono = JetBrains_Mono({ variable: "--font-mono-face", subsets: ["latin"], weight: ["500", "600"] });
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${inter.variable} ${mono.variable} h-full antialiased`}>
+    <html lang="es" className={`${inter.variable} ${mono.variable} ${note.variable} h-full antialiased`}>
       <body className="min-h-full">{children}</body>
     </html>
   );

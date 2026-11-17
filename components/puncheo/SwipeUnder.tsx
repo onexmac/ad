@@ -3,12 +3,13 @@
 import { motion, useTransform } from "motion/react";
 import type { SwipeMark, Zone } from "./useSwipeMark";
 import { CheckIcon, CrossIcon, LockIcon, NaIcon } from "./Icons";
+import { HATCH } from "./Squircle";
 
 const ZONE_BG: Record<Exclude<Zone, null>, string> = {
   green: "var(--ok)",
   yellow: "var(--warn)",
   red: "var(--bad)",
-  na: "var(--ink-3)",
+  na: "var(--hair)",
   "na-blocked": "var(--card-2)",
 };
 
@@ -45,7 +46,7 @@ export function SwipeUnder({
         justifyContent: right ? "flex-start" : "flex-end",
         background: zone ? ZONE_BG[zone] : right ? "var(--ok-soft)" : "var(--bad-soft)",
         backgroundImage:
-          zone === "na-blocked" ? "repeating-linear-gradient(135deg, transparent 0 7px, rgba(25,28,34,0.06) 7px 8px)" : undefined,
+          zone === "na" ? HATCH : zone === "na-blocked" ? "repeating-linear-gradient(135deg, transparent 0 7px, rgba(25,28,34,0.05) 7px 8px)" : undefined,
       }}
     >
       <motion.span
@@ -53,7 +54,7 @@ export function SwipeUnder({
         style={{
           scale,
           opacity,
-          color: zone === "yellow" || zone === "na-blocked" ? "var(--ink)" : zone ? "var(--ground)" : "var(--ink-3)",
+          color: zone === "yellow" || zone === "na" ? "var(--ink)" : zone === "na-blocked" ? "var(--ink-faint)" : zone ? "var(--ground)" : "var(--ink-3)",
           flexDirection: right ? "row" : "row-reverse",
         }}
       >
