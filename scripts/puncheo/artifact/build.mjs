@@ -34,13 +34,13 @@ const css = (await postcss([tailwind({ base: ROOT })]).process(cssIn, { from: pa
 
 const page = `<title>Puncheo</title>
 <meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Bitter:ital,wght@1,400&display=swap">
 <style>
 :root { color-scheme: light; }
 html, body { background: #ffffff; color: #191c22; }
 body { margin: 0; }
 ${css.replace(/<\/style/g, "<\\/style")}
-:root { --font-inter: "Inter", "Helvetica Neue", Arial, sans-serif; --font-mono-face: "JetBrains Mono", ui-monospace, monospace; }
+:root { --font-inter: "Inter", "Helvetica Neue", Arial, sans-serif; --font-mono-face: "JetBrains Mono", ui-monospace, monospace; --font-note: "Bitter", Georgia, serif; }
 </style>
 <div id="root"></div>
 <script>${js.outputFiles[0].text.replace(/<\/script/g, "<\\/script")}</script>
