@@ -281,6 +281,7 @@ export function Row({
           src={item.image}
           alt={item.title}
           fallbackTitle={franchise.code}
+          caption={{ kicker: `${franchise.code} — ${kindLabel[item.kind]}`, title: item.title }}
           layoutId={layoutKey ?? `a-row-${item.id}`}
           hidden={hidden}
           onOpen={() => onOpen(true)}

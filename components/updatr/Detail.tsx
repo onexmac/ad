@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, type Variants } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useMotionValue, useTransform, type Variants } from "motion/react";
 import { springs, cascadeOut } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { kindLabel, type Franchise, type Item } from "@/data/updatr/types";
@@ -64,21 +64,96 @@ export function Detail({
     onClose();
   };
 
+  // Pull-down to dismiss, from anywhere while the page is scrolled to the top.
+  // The sheet follows the finger with growing resistance, shrinks, rounds its
+  // corners and lets the magazine show through; past the threshold it closes
+  // and the image springs back into its place in the layout.
+  const sheet = useRef<HTMLDivElement>(null);
+  const pull = useMotionValue(0);
+  const sheetScale = useTransform(pull, [0, 400], [1, 0.82]);
+  const sheetRadius = useTransform(pull, [0, 90], [0, 28]);
+  const backdrop = useTransform(pull, [0, 380], [1, 0]);
+  const closeRef = useRef(close);
+  useEffect(() => {
+    closeRef.current = close;
+  });
+
+  useEffect(() => {
+    const el = sheet.current;
+    if (!el) return;
+    const PULL_MAX = 400;
+    const resist = (d: number) => PULL_MAX * (1 - Math.exp(-Math.max(0, d) / PULL_MAX));
+    let startX = 0;
+    let startY = 0;
+    let mode: "idle" | "deciding" | "pulling" = "idle";
+    let last = { y: 0, t: 0 };
+    let vy = 0;
+
+    const begin = (x: number, y: number) => {
+      if (el.scrollTop > 0) return;
+      startX = x;
+      startY = y;
+      mode = "deciding";
+      last = { y, t: performance.now() };
+      vy = 0;
+    };
+    const move = (x: number, y: number, prevent: () => void) => {
+      if (mode === "idle") return;
+      const dx = x - startX;
+      const dy = y - startY;
+      if (mode === "deciding") {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        if (dy > 0 && Math.abs(dy) > Math.abs(dx) && el.scrollTop <= 0) {
+          mode = "pulling";
+          haptic.drag();
+        } else {
+          mode = "idle";
+          return;
+        }
+      }
+      prevent();
+      const now = performance.now();
+      const dt = Math.max(1, now - last.t);
+      vy = (y - last.y) / dt;
+      last = { y, t: now };
+      pull.set(resist(dy));
+    };
+    const end = () => {
+      if (mode === "pulling") {
+        if (pull.get() > 110 || vy > 0.7) closeRef.current();
+        else animate(pull, 0, springs.snappy);
+      }
+      mode = "idle";
+    };
+
+    const ts = (e: TouchEvent) => begin(e.touches[0].clientX, e.touches[0].clientY);
+    const tm = (e: TouchEvent) => move(e.touches[0].clientX, e.touches[0].clientY, () => e.preventDefault());
+    const pd = (e: PointerEvent) => e.pointerType === "mouse" && begin(e.clientX, e.clientY);
+    const pm = (e: PointerEvent) => e.pointerType === "mouse" && move(e.clientX, e.clientY, () => e.preventDefault());
+    const pu = (e: PointerEvent) => e.pointerType === "mouse" && end();
+    el.addEventListener("touchstart", ts, { passive: true });
+    el.addEventListener("touchmove", tm, { passive: false });
+    el.addEventListener("touchend", end);
+    el.addEventListener("touchcancel", end);
+    el.addEventListener("pointerdown", pd);
+    window.addEventListener("pointermove", pm);
+    window.addEventListener("pointerup", pu);
+    return () => {
+      el.removeEventListener("touchstart", ts);
+      el.removeEventListener("touchmove", tm);
+      el.removeEventListener("touchend", end);
+      el.removeEventListener("touchcancel", end);
+      el.removeEventListener("pointerdown", pd);
+      window.removeEventListener("pointermove", pm);
+      window.removeEventListener("pointerup", pu);
+    };
+  }, [pull]);
+
   const showImage = item.image && !failed;
   const meta = `${franchise.code} — ${kindLabel[item.kind]} — ${dot(item.date)}`;
 
   const hero = (
-    <motion.div
-      drag="y"
-      dragConstraints={{ top: 0, bottom: 0 }}
-      dragElastic={{ top: 0.05, bottom: 0.6 }}
-      dragSnapToOrigin
-      dragTransition={{ bounceStiffness: springs.snappy.stiffness, bounceDamping: springs.snappy.damping }}
-      onDragEnd={(_, info) => {
-        if (info.offset.y > 110 || info.velocity.y > 700) close();
-      }}
-      style={{ touchAction: "pan-x", position: "relative", aspectRatio: variant === "a" ? "1 / 1" : "4 / 5" }}
-    >
+    <motion.div style={{ position: "relative", aspectRatio: variant === "a" ? "1 / 1" : "4 / 5" }}>
       <motion.div
         layoutId={layoutKey}
         initial={layoutKey ? false : { opacity: 0, scale: 1.04 }}
@@ -119,16 +194,25 @@ export function Detail({
   );
 
   return (
-    <motion.div
-      className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-ground"
-      initial={{ backgroundColor: "rgba(237,235,230,0)" }}
-      animate={{ backgroundColor: "rgba(237,235,230,1)" }}
-      exit={{ backgroundColor: "rgba(237,235,230,0)", transition: { duration: 0.25 } }}
-      transition={{ duration: 0.2 }}
-      role="dialog"
-      aria-modal="true"
-      aria-label={item.title}
-    >
+    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label={item.title}>
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, transition: { duration: 0.25 } }}
+        transition={{ duration: 0.2 }}
+      >
+        <motion.div className="absolute inset-0 bg-ground" style={{ opacity: backdrop }} />
+      </motion.div>
+      <motion.div
+        ref={sheet}
+        className="absolute inset-0 overflow-y-auto overscroll-contain"
+        initial={{ backgroundColor: "rgba(237,235,230,0)" }}
+        animate={{ backgroundColor: "rgba(237,235,230,1)" }}
+        exit={{ backgroundColor: "rgba(237,235,230,0)", transition: { duration: 0.25 } }}
+        transition={{ duration: 0.2 }}
+        style={{ y: pull, scale: sheetScale, borderRadius: sheetRadius, transformOrigin: "50% 0%" }}
+      >
       <div className="mx-auto w-full max-w-[520px] pb-[calc(48px+var(--sab))]">
         <Cascade i={0} className="sticky top-0 z-10 flex items-center justify-between bg-ground/90 px-5 pb-3 pt-[calc(14px+var(--sat))] backdrop-blur-md">
           <button type="button" onClick={close} className="mono py-2 pr-4">
@@ -213,7 +297,8 @@ export function Detail({
           </div>
         )}
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
