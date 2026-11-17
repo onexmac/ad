@@ -11,6 +11,7 @@ import { useOpener } from "./useOpener";
 import { SnapStrip } from "./SnapStrip";
 import { Detail } from "./Detail";
 import { VariantSwitch } from "./VariantSwitch";
+import { Arrow } from "./Arrow";
 
 export function IndexScreen({ items, franchises }: { items: Item[]; franchises: Franchise[] }) {
   const byId = useMemo(() => Object.fromEntries(franchises.map((f) => [f.id, f])), [franchises]);
@@ -53,7 +54,9 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
 
         {/* Now */}
         <section className="mt-14 grid grid-cols-[88px_1fr] gap-4 px-5">
-          <span className="text-[14px] font-medium">Now ↘</span>
+          <span className="text-[14px] font-medium">
+            Now <Arrow dir="turn" weight={1.75} />
+          </span>
           <p className="text-[15px] font-medium leading-[1.35] tracking-[-0.01em]">
             {latest ? (
               <>
@@ -191,7 +194,15 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
                     {item.body[0] ? (
                       <span className="mt-3 line-clamp-3 block text-[15px] leading-[1.5] text-ink-soft">{item.body[0]}</span>
                     ) : null}
-                    <span className="mono mt-4 block text-ink">{item.mock ? "Sample entry" : "Read ↘"}</span>
+                    <span className="mono mt-4 block text-ink">
+                      {item.mock ? (
+                        "Sample entry"
+                      ) : (
+                        <>
+                          Read <Arrow dir="turn" />
+                        </>
+                      )}
+                    </span>
                   </button>
                 </motion.article>
               );

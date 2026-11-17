@@ -15,6 +15,7 @@ import { VariantSwitch } from "./VariantSwitch";
 import { SnapStrip } from "./SnapStrip";
 import { BottomBar, type Tab } from "./BottomBar";
 import { useOpener } from "./useOpener";
+import { Arrow } from "./Arrow";
 
 /* ---------- navigation ---------- */
 
@@ -28,6 +29,20 @@ const TABS: Tab[] = [
 
 /** Page numbers in the contents, in reading order. */
 const PAGE = { feature: "04", dossier: "08", wardrobe: "14", latest: "18", briefs: "22", dates: "26", archive: "30" };
+/** Folio of each section, for the home square. */
+const FOLIO: Record<string, string> = {
+  Cover: "01",
+  Contents: "02",
+  Note: "03",
+  Feature: PAGE.feature,
+  Dossier: PAGE.dossier,
+  Wardrobe: PAGE.wardrobe,
+  "Six squares": PAGE.latest,
+  Briefs: PAGE.briefs,
+  Countdown: PAGE.dates,
+  Calendar: "28",
+  "All entries": PAGE.archive,
+};
 
 let scrolling: { stop: () => void } | null = null;
 /** Spring the page to an anchor; a touch or the wheel takes over at once. */
@@ -302,7 +317,9 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         {/* Editor's note */}
         <Section name="Note" tab="issue" id="note" className="px-5 pt-20">
           <div className="grid grid-cols-[88px_1fr] gap-4">
-            <span className="text-[14px] font-medium">Note ↘</span>
+            <span className="text-[14px] font-medium">
+              Note <Arrow dir="turn" weight={1.75} />
+            </span>
             <Reveal>
               <p className="text-[25px] leading-[1.14] tracking-[-0.03em]">
                 {spell(items.length)} things moved across {spell(worlds).toLowerCase()} worlds this week.{" "}
@@ -371,7 +388,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                 onClick={() => opener.openFromKey(issue.feature!.id, `m-feature-${issue.feature!.id}`)}
                 className="mono mt-2 text-ink"
               >
-                Continue ↘
+                Continue <Arrow dir="turn" />
               </button>
             </div>
           </Section>
@@ -701,6 +718,8 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         tabs={TABS}
         active={where.tab}
         section={where.section}
+        folio={FOLIO[where.section] ?? "01"}
+        hidden={!!opened}
         onGo={(t) => springScrollTo(t.anchor)}
       />
 

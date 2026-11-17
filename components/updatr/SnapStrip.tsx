@@ -6,6 +6,7 @@ import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { AXIS_LOCK, freshVelocity } from "@/lib/updatr/flight";
 import { pad } from "@/lib/updatr/format";
+import { Arrow } from "./Arrow";
 
 /** How far past an edge the strip follows the finger before it grips. */
 const EDGE_RUBBER = 0.32;
@@ -221,17 +222,17 @@ export function SnapStrip({
             type="button"
             aria-label="Previous"
             onClick={() => goTo(indexRef.current - 1)}
-            className={`mono px-1 py-2 ${index === 0 ? soft : ""}`}
+            className={`grid h-9 w-9 place-items-center ${index === 0 ? soft : ""}`}
           >
-            ←
+            <Arrow dir="left" />
           </button>
           <button
             type="button"
             aria-label="Next"
             onClick={() => goTo(indexRef.current + 1)}
-            className={`mono px-1 py-2 ${index === n - 1 ? soft : ""}`}
+            className={`grid h-9 w-9 place-items-center ${index === n - 1 ? soft : ""}`}
           >
-            →
+            <Arrow dir="right" />
           </button>
         </div>
       ) : null}

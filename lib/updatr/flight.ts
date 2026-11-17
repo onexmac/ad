@@ -50,6 +50,8 @@ export function openArea(): Rect {
   for (const el of document.querySelectorAll<HTMLElement>("[data-updatr-chrome]")) {
     const r = el.getBoundingClientRect();
     if (r.height <= 0 || r.bottom <= 0 || r.top >= vh) continue;
+    // A corner piece (the folded home square) hides too little to count.
+    if (el.dataset.updatrChrome === "corner") continue;
     if (el.dataset.updatrChrome === "top") top = Math.max(top, r.bottom);
     else bottom = Math.min(bottom, r.top);
   }
