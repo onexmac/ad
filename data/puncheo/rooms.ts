@@ -11,17 +11,26 @@
 import { sheet as base, type Check, type Punch, type Sheet } from "./formaleta-n1";
 
 /** A check as it appears in one room: its own id (room:number), the sheet's number kept as `num`. */
-export type Instance = Check & { num: string; room: string };
+export type Instance = Check & { num: string; room: string; phase: string };
 
 /** A fact from the sheet worth seeing on its own between checks (AD Visual's hairline table). */
 export type Key = { title: string; rows: [string, string][] };
 
-export type Item = { kind: "check"; id: string } | { kind: "group"; label: string } | { kind: "key"; key: Key };
+export type Item =
+  | { kind: "check"; id: string }
+  | { kind: "group"; label: string }
+  | { kind: "key"; key: Key }
+  /** Where a room's checks for one punch begin: its name and when it happens. */
+  | { kind: "phase"; n: number; name: string; moment: string };
 
 export type Section = { id: string; name: string; note: string; items: Item[]; ids: string[] };
 
 export type RoomPunch = Omit<Punch, "checks"> & { checks: Instance[]; sections: Section[] };
-export type RoomSheet = Omit<Sheet, "punches"> & { punches: RoomPunch[] };
+export type RoomSheet = Omit<Sheet, "punches"> & {
+  punches: RoomPunch[];
+  /** The walk: one section per room, each holding its pre-armado and then its pre-chorrea checks. */
+  walk: Section[];
+};
 
 const KEYS: Record<string, Key> = {
   regla: {
@@ -152,7 +161,7 @@ function build(p: Punch, specs: Spec[]): RoomPunch {
       if (typeof it === "string") {
         const c = byNum.get(it)!;
         const id = `${sp.id}:${it}`;
-        checks.push({ ...c, id, num: it, room: sp.name });
+        checks.push({ ...c, id, num: it, room: sp.name, phase: p.name });
         ids.push(id);
         return { kind: "check", id };
       }
@@ -164,7 +173,35 @@ function build(p: Punch, specs: Spec[]): RoomPunch {
   return { ...p, checks, sections };
 }
 
+const ROOMS: { id: string; name: string; note: string }[] = [
+  { id: "casa", name: "Casa", note: "Losa, perímetro y paneles" },
+  { id: "sala", name: "Sala", note: "Sala, comedor y cocina" },
+  { id: "cuartos", name: "Cuartos", note: "Todos los dormitorios" },
+  { id: "banos", name: "Baños", note: "Con sus previstas" },
+  { id: "techos", name: "Techos", note: "Formaleta de cielo" },
+  { id: "cierre", name: "Cierre", note: "Toda la casa, antes de chorrear" },
+];
+
+/** Rooms are the sections; inside each, the pre-armado checks come first, then the pre-chorrea ones. */
+function walkOf(punches: RoomPunch[]): Section[] {
+  return ROOMS.map((room) => {
+    const items: Item[] = [];
+    const ids: string[] = [];
+    for (const p of punches) {
+      const sec = p.sections.find((x) => x.id === room.id);
+      if (!sec) continue;
+      items.push({ kind: "phase", n: p.n, name: p.name, moment: p.moment });
+      items.push(...sec.items);
+      ids.push(...sec.ids);
+    }
+    return { ...room, items, ids };
+  }).filter((x) => x.ids.length);
+}
+
+const punches = [build(base.punches[0], P1), build(base.punches[1], P2)];
+
 export const roomSheet: RoomSheet = {
   ...base,
-  punches: [build(base.punches[0], P1), build(base.punches[1], P2)],
+  punches,
+  walk: walkOf(punches),
 };

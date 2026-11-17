@@ -36,7 +36,7 @@ export function SheetHeader({
   tone?: Tone;
   extra?: React.ReactNode;
 }) {
-  const { punch, t, marks, isClosed } = s;
+  const { t, isClosed } = s;
   const n1 = sheet.subtitle.replace("Vivienda ", "");
   if (tone === "yard") return <YardHeader sheet={sheet} s={s} current={current} />;
   return (
@@ -80,17 +80,15 @@ export function SheetHeader({
         </header>
       )}
 
-      {/* The punch the current section belongs to. It changes with the walk, in place: nothing slides. */}
+      {/* The whole ficha: both punches, every room. It updates in place: nothing slides. */}
       <div className={tone === "leia" ? "mt-0" : "mt-6"}>
         {tone === "leia" ? (
-          // Leia's receipt line: big blue quantity, bold name, the amount on the right.
+          // Leia's receipt line: big blue figure, bold name, the amount on the right.
           <div className="leia-receipt -mx-4 flex items-center gap-4 px-4 py-4">
-            <span className="w-8 text-[40px] font-extralight leading-none text-brand">{punch.n}</span>
+            <span className="text-[40px] font-extralight leading-none text-brand">{n1}</span>
             <span className="min-w-0 flex-1">
-              <span className="block text-[20px] font-semibold leading-tight tracking-[-0.01em] text-ink">{punch.name}</span>
-              <span className="mt-0.5 block text-[13px] text-ink-faint">
-                {isClosed ? "Cerrada" : `Puncheo ${punch.n}`} · {t.total} checks
-              </span>
+              <span className="block text-[20px] font-semibold leading-tight tracking-[-0.01em] text-ink">{isClosed ? "Ficha cerrada" : "Ficha completa"}</span>
+              <span className="mt-0.5 block text-[13px] text-ink-faint">Pre-armado y pre-chorrea · {t.total} checks</span>
             </span>
             <span className="text-right leading-none tabular-nums">
               <span className="text-[26px] font-semibold tracking-[-0.02em] text-ink">{String(t.done).padStart(2, "0")}</span>
@@ -100,39 +98,38 @@ export function SheetHeader({
         ) : (
           <div className="flex items-center gap-3.5 rounded-[20px] bg-ink px-4 py-3.5 shadow-[0_12px_28px_rgba(25,28,34,0.22)]">
             <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-ground">
-              <span className="text-[19px] font-semibold tracking-[-0.02em] text-ink">{punch.n}</span>
+              <span className="text-[17px] font-semibold tracking-[-0.02em] text-ink">{n1}</span>
             </span>
             <span className="min-w-0 flex-1">
               <span className="block text-[13px] font-medium text-ink-faint">
-                {isClosed ? "Cerrada" : "Puncheo " + punch.n} <span className="px-1">·</span> {t.total} checks
+                {isClosed ? "Cerrada" : "Ficha"} <span className="px-1">·</span> {t.total} checks
               </span>
-              <span className="mt-0.5 block text-[17px] font-semibold tracking-[-0.01em] text-ground">{punch.name}</span>
+              <span className="mt-0.5 block text-[17px] font-semibold tracking-[-0.01em] text-ground">Pre-armado y pre-chorrea</span>
             </span>
-              <span className="text-right leading-none">
-                <span className="text-[22px] font-medium tracking-[-0.02em] text-ground tabular-nums">{String(t.done).padStart(2, "0")}</span>
-                <span className="text-[15px] font-medium text-ink-soft tabular-nums">/{String(t.total).padStart(2, "0")}</span>
-              </span>
+            <span className="text-right leading-none">
+              <span className="text-[22px] font-medium tracking-[-0.02em] text-ground tabular-nums">{String(t.done).padStart(2, "0")}</span>
+              <span className="text-[15px] font-medium text-ink-soft tabular-nums">/{t.total}</span>
+            </span>
           </div>
         )}
 
-        <div className="mt-3 flex gap-[3px] px-1">
-          {punch.checks.map((c) => (
-            <span key={c.id} className="h-[5px] flex-1 overflow-hidden rounded-full bg-hair">
-              <motion.span
-                className="block h-full w-full origin-left rounded-full"
-                style={{
-                  background: marks[c.id] ? SEG[marks[c.id]] : "transparent",
-                  backgroundImage: marks[c.id] === "na" ? "repeating-linear-gradient(135deg, transparent 0 2px, rgba(25,28,34,0.25) 2px 3px)" : undefined,
-                }}
-                initial={false}
-                animate={{ scaleX: marks[c.id] ? 1 : 0 }}
-                transition={springs.completing}
-              />
-            </span>
-          ))}
+        {/* One segment per room, sized by its checks, filled as they are marked. */}
+        <div className="mt-3 flex gap-1 px-1">
+          {s.sections.map((x, i) => {
+            const st = s.sectionTallies[i];
+            return (
+              <span key={x.id} className="relative h-[5px] overflow-hidden rounded-full bg-hair" style={{ flexGrow: st.total, flexBasis: 0 }}>
+                <motion.span
+                  className={`absolute inset-y-0 left-0 rounded-full ${st.red ? "bg-bad" : "bg-ok"}`}
+                  initial={false}
+                  animate={{ width: `${(st.done / Math.max(1, st.total)) * 100}%` }}
+                  transition={springs.completing}
+                />
+              </span>
+            );
+          })}
         </div>
         {extra}
-        <p className={`mt-3 px-1 text-[13px] leading-[18px] ${tone === "leia" ? "leia-engrave text-hair" : "text-ink-soft"}`}>{punch.moment}</p>
       </div>
     </>
   );
@@ -292,11 +289,10 @@ function YardHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
           <h1 className="text-[22px] font-bold uppercase leading-tight tracking-[0.01em] text-ink">
             {sheet.title} {n1}
           </h1>
-          <p className="text-[22px] font-bold uppercase leading-tight tracking-[0.01em] text-ink-faint">{s.punch.name}</p>
-          <p className="mx-auto mt-2 max-w-[300px] text-[13px] leading-[18px] text-ink-soft">{s.punch.moment}</p>
+          <p className="text-[22px] font-bold uppercase leading-tight tracking-[0.01em] text-ink-faint">{s.sec.name}</p>
         </div>
         <div className="mt-6 grid gap-3">
-          <ProgressCard title={`Puncheo ${s.punch.n} · ${s.punch.name}`} done={s.t.done} total={s.t.total} />
+          <ProgressCard title="Ficha completa" done={s.t.done} total={s.t.total} />
           <ProgressCard
             title={s.sec.name}
             done={st.done}

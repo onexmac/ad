@@ -4,10 +4,11 @@ import { motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { CheckIcon, LockIcon } from "./Icons";
 import type { PunchSheet } from "./usePunchSheet";
+import { SectionControl } from "./SectionControl";
 
 /*
- * One line at the thumb: a quiet search key, then the close action, then the
- * running total. The punches are sections of the walk now, so there are no tabs.
+ * One line at the thumb: the sections (dots; press for the fan), a quiet search
+ * key, then the close action.
  *   bar  — Leia's full-width bar, flush to the bottom edge (polish: Leia's bevels).
  *   pill — AD Visual's bottom bar: a white panel (radius 16) holding flat grey
  *          keys (radius 10) on a 6 px padding, so the radii stay concentric.
@@ -32,18 +33,6 @@ function Cross() {
     <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="square" aria-hidden>
       <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" />
     </svg>
-  );
-}
-
-function Total({ s, light }: { s: PunchSheet; light: boolean }) {
-  return (
-    <span className="shrink-0 text-right leading-none tabular-nums">
-      <span className="mono block text-ink-faint" style={{ fontSize: 9 }}>
-        {s.punch.name}
-      </span>
-      <span className={`mt-1 inline-block text-[22px] font-light tracking-[-0.03em] ${light ? "text-ground" : "text-ink"}`}>{String(s.t.done).padStart(2, "0")}</span>
-      <span className={`text-[13px] font-light ${light ? "text-ink-soft" : "text-ink-faint"}`}>/{s.t.total}</span>
-    </span>
   );
 }
 
@@ -117,13 +106,9 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
     return (
       <nav className={`fixed inset-x-0 bottom-0 z-30 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: "var(--sab)" }}>
         <div className="mx-auto flex h-[64px] max-w-[560px] items-center gap-2 px-3">
+          {search?.open ? null : <SectionControl s={s} tone={polish ? "leia" : "bar"} />}
           {lens}
           {field ?? action}
-          {search?.open ? null : (
-            <span className="pl-2">
-              <Total s={s} light />
-            </span>
-          )}
         </div>
       </nav>
     );
@@ -132,13 +117,9 @@ export function Footer({ s, kind, search, polish = false }: { s: PunchSheet; kin
   return (
     <nav className="fixed left-1/2 z-30 w-[calc(100%-32px)] max-w-[488px] -translate-x-1/2" style={{ bottom: "calc(var(--sab) + 16px)" }}>
       <div className="flex items-center gap-1.5 rounded-[16px] bg-ground p-1.5 shadow-[var(--shadow-mid)]">
+        {search?.open ? null : <SectionControl s={s} tone="pill" />}
         {lens}
         {field ?? action}
-        {search?.open ? null : (
-          <span className="pl-2 pr-2.5">
-            <Total s={s} light={false} />
-          </span>
-        )}
       </div>
     </nav>
   );

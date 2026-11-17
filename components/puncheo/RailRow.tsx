@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import type { Instance } from "@/data/puncheo/rooms";
 import type { Status } from "@/lib/puncheo/state";
@@ -13,7 +12,7 @@ import { HATCH, SquircleCheck } from "./Squircle";
 import { useSwipeMark } from "./useSwipeMark";
 import { rowState, type PunchSheet } from "./usePunchSheet";
 
-const COLOR: Record<Status, string> = { green: "var(--ok)", yellow: "var(--warn)", red: "var(--bad)", na: "var(--na)" };
+export const COLOR: Record<Status, string> = { green: "var(--ok)", yellow: "var(--warn)", red: "var(--bad)", na: "var(--na)" };
 const EDGE: Record<Exclude<Status, "na">, string> = { green: "var(--ok)", yellow: "var(--warn-deep)", red: "var(--bad)" };
 
 /** How a layout dresses the shared row. */
@@ -104,11 +103,11 @@ function tagsOf(c: Instance, yard = false): Tag[] {
 }
 
 /**
- * One check on the rail: the node on the left fills when it is marked and the
- * rail draws on to the next check; the card slides under the finger (swipe to
- * mark), opens on a tap, and carries the camera and the squircle check.
+ * One check: the card slides under the finger (swipe to mark), opens on a tap,
+ * and carries the camera and the check. Its place in the room shows on the
+ * scroll rail at the right edge.
  */
-export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check: Instance; first: boolean; last: boolean; skin: RowSkin }) {
+export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; skin: RowSkin }) {
   const r = rowState(s, check);
   const [shake, setShake] = useState(0);
   /** A check whose sheet makes the photo mandatory can't be marked, either way, until it has one. */
@@ -134,43 +133,13 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
     onReject: s.say,
     guard: () => photoFirst(),
   });
-  const color = r.status ? COLOR[r.status] : null;
-  const NODE_Y = 31; // level with the title
   const tags = skin.tags ? tagsOf(check, skin.yard) : [];
   const R = skin.radius ?? 20;
 
   return (
     // A freshly marked row sits above its neighbours so its rings spill over them.
     <div className="relative flex" style={{ zIndex: r.pulse ? 2 : undefined }}>
-      {/* The rail sits out in the page's gutter so the card gets the room. */}
-      <div className="relative -ml-3 w-4 shrink-0" aria-hidden>
-        <span
-          className="absolute left-1/2 w-[2px] -translate-x-1/2 bg-hair-2"
-          style={{ top: first ? NODE_Y : 0, bottom: last ? `calc(100% - ${NODE_Y}px)` : 0 }}
-        />
-        {color && !last ? (
-          <motion.span
-            key={`rail-${r.pulse}`}
-            className="absolute left-1/2 w-[2px] origin-top -translate-x-1/2"
-            style={{ top: NODE_Y, bottom: 0, background: color }}
-            initial={r.pulse ? { scaleY: 0 } : false}
-            animate={{ scaleY: 1 }}
-            transition={{ duration: 0.45, delay: 0.12, ease: [0.65, 0, 0.35, 1] }}
-          />
-        ) : null}
-        <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ top: NODE_Y }}>
-          <motion.span
-            key={`node-${r.pulse}`}
-            className="relative block size-3 rounded-full border-2"
-            style={{ borderColor: color ?? "var(--hair-2)", background: color ?? skin.node }}
-            initial={r.pulse ? { scale: 0.4 } : false}
-            animate={{ scale: 1 }}
-            transition={springs.popping}
-          />
-        </span>
-      </div>
-
-      <div className="relative min-w-0 flex-1 pb-2.5 pl-1">
+      <div className="relative min-w-0 flex-1 pb-2.5">
         <div className="relative">
           <SwipeUnder sw={sw} underRef={underRef} radius={R} />
           <motion.div
