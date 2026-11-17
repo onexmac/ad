@@ -17,6 +17,7 @@ import { useOpener } from "./useOpener";
 import { useEdgeSquish } from "./useEdgeSquish";
 import { PullReadout, ReloadScreen, useBottomPull, useEdgePull } from "./Reload";
 import { Editions, EditionsReadout } from "./Editions";
+import { Watching } from "./Watching";
 import { Arrow } from "./Arrow";
 import { GROW_SPRING, Grow } from "./Grow";
 
@@ -27,11 +28,12 @@ const TABS: Tab[] = [
   { id: "issue", label: "Issue", anchor: "top" },
   { id: "latest", label: "Latest", anchor: "latest" },
   { id: "dates", label: "Dates", anchor: "countdown" },
+  { id: "watch", label: "Watch", anchor: "watching" },
   { id: "archive", label: "Archive", anchor: "archive" },
 ];
 
 /** Page numbers in the contents, in reading order. */
-const PAGE = { feature: "04", dossier: "08", wardrobe: "14", latest: "18", briefs: "22", dates: "26", archive: "30" };
+const PAGE = { feature: "04", dossier: "08", wardrobe: "14", latest: "18", briefs: "22", dates: "26", watching: "29", archive: "30" };
 /** Folio of each section, for the home square. */
 const FOLIO: Record<string, string> = {
   Cover: "01",
@@ -44,6 +46,7 @@ const FOLIO: Record<string, string> = {
   Briefs: PAGE.briefs,
   Countdown: PAGE.dates,
   Calendar: "28",
+  Watching: PAGE.watching,
   "All entries": PAGE.archive,
 };
 
@@ -216,6 +219,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
     issue.grid.length && { page: PAGE.latest, label: "Latest", title: `${spell(issue.grid.length)} things that moved`, anchor: "latest" },
     issue.briefs.length && { page: PAGE.briefs, label: "Briefs", title: `${spell(issue.briefs.length)} shorter notes`, anchor: "briefs" },
     issue.next && { page: PAGE.dates, label: "Countdown", title: issue.next.title, anchor: "countdown" },
+    { page: PAGE.watching, label: "Watching", title: "The dates you follow", anchor: "watching" },
     { page: PAGE.archive, label: "Archive", title: `All ${items.length} entries`, anchor: "archive" },
   ].filter(Boolean) as { page: string; label: string; title: string; anchor: string }[];
 
@@ -614,6 +618,12 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
             />
           </Section>
         ) : null}
+
+        {/* ================= WATCHING ================= */}
+
+        <Section name="Watching" tab="watch" id="watching" className="pt-24">
+          <Watching items={items} byId={byId} page={PAGE.watching} onOpen={(item) => opener.open(item.id, undefined, "b")} />
+        </Section>
 
         {/* ================= ARCHIVE ================= */}
 
