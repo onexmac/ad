@@ -104,7 +104,12 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
 
   const query = norm(q.trim());
   const f = FILTERS[filter];
-  const found = searching ? s.punch.checks.filter((c) => f.match(s.marks[c.id]) && (!query || norm(`${c.num} ${c.title} ${c.sub} ${c.room}`).includes(query))) : [];
+  // Search reaches the whole walk (both punches), labelled by section.
+  const label = (id: string) => {
+    const x = s.sectionOf(id);
+    return `${x.phase} · ${x.name}`;
+  };
+  const found = searching ? s.all.filter((c) => f.match(s.marks[c.id]) && (!query || norm(`${c.num} ${c.title} ${c.sub} ${label(c.id)}`).includes(query))) : [];
 
   const toggle = () => {
     haptic.select();
@@ -128,12 +133,12 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
               accent={cfg.filterAccent}
               active={filter}
               onPick={setFilter}
-              items={FILTERS.map((x) => ({ id: x.id, label: x.label, count: s.punch.checks.filter((c) => x.match(s.marks[c.id])).length }))}
+              items={FILTERS.map((x) => ({ id: x.id, label: x.label, count: s.all.filter((c) => x.match(s.marks[c.id])).length }))}
             />
             <ul className="mt-5">
               {found.map((c, i) => (
                 <li key={c.id} data-check={c.id}>
-                  {i === 0 || found[i - 1].room !== c.room ? <span className={`mono block pb-2 pl-2 pt-2 ${cfg.skin.dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>{c.room}</span> : null}
+                  {i === 0 || label(found[i - 1].id) !== label(c.id) ? <span className={`mono block pb-2 pl-2 pt-2 ${cfg.skin.dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>{label(c.id)}</span> : null}
                   <RailRow s={s} check={c} first last skin={cfg.skin} />
                 </li>
               ))}
@@ -153,7 +158,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         <div style={{ height: `calc(var(--sab) + ${cfg.spacer}px)` }} />
       </motion.main>
       <Toast toast={s.toast} bottom={cfg.toast} />
-      <Footer s={s} sheet={sheet} kind={cfg.foot} polish={!!cfg.skin.leia} search={{ open: searching, q, setQ, toggle }} />
+      <Footer s={s} kind={cfg.foot} polish={!!cfg.skin.leia} search={{ open: searching, q, setQ, toggle }} />
     </div>
   );
 }

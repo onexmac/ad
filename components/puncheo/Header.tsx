@@ -35,7 +35,7 @@ export function SheetHeader({
   tone?: Tone;
   extra?: React.ReactNode;
 }) {
-  const { punch, t, marks, isClosed, dir } = s;
+  const { punch, t, marks, isClosed } = s;
   const n1 = sheet.subtitle.replace("Vivienda ", "");
   const pct = t.total ? Math.round((t.done / t.total) * 100) : 0;
   return (
@@ -80,9 +80,8 @@ export function SheetHeader({
         </header>
       )}
 
-      {/* No AnimatePresence around the punch: its initial={false} would reach
-          every row mounted later and swallow the marks' reward animations. */}
-      <motion.div key={punch.id} initial={dir ? { opacity: 0, x: dir * 28 } : false} animate={{ opacity: 1, x: 0 }} transition={springs.snappy} className={tone === "leia" ? "mt-0" : "mt-6"}>
+      {/* The punch the current section belongs to. It changes with the walk, in place: nothing slides. */}
+      <div className={tone === "leia" ? "mt-0" : "mt-6"}>
         {tone === "leia" ? (
           // Leia's receipt line: big blue quantity, bold name, the amount on the right.
           <div className="leia-receipt -mx-4 flex items-center gap-4 px-4 py-4">
@@ -142,7 +141,7 @@ export function SheetHeader({
         </div>
         {extra}
         <p className={`mt-3 px-1 text-[13px] leading-[18px] ${tone === "leia" ? "leia-engrave text-hair" : "text-ink-soft"}`}>{punch.moment}</p>
-      </motion.div>
+      </div>
     </>
   );
 }
