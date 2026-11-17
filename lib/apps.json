@@ -13,6 +13,11 @@
           "slug": "updatr",
           "name": "Updatr",
           "description": "Juegos, collabs, skins, personajes, cine, libros y series que sigo"
+        },
+        {
+          "slug": "noticss",
+          "name": "Noticss",
+          "description": "El diario de la mañana, en papel: política, economía, geopolítica y construcción"
         }
       ]
     },

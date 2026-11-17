@@ -43,6 +43,7 @@ export function HoldImage({
   style,
   index,
   caption,
+  hint,
 }: {
   src?: string;
   alt: string;
@@ -59,6 +60,8 @@ export function HoldImage({
   index?: string;
   /** Shown under the picture while it is lifted. */
   caption?: { kicker: string; title: string };
+  /** The lift's instruction, in the app's language. */
+  hint?: { slide: string; release: string };
 }) {
   const frame = useRef<HTMLButtonElement>(null);
   const slot = useRef<HTMLSpanElement>(null);
@@ -418,7 +421,7 @@ export function HoldImage({
                     className="mono absolute inset-x-0 bottom-[calc(28px+var(--sab))] text-center"
                     animate={{ color: armed ? "var(--accent)" : "var(--ink-soft)" }}
                   >
-                    {armed ? "Release to open" : "Slide up to open"}
+                    {armed ? hint?.release ?? "Release to open" : hint?.slide ?? "Slide up to open"}
                   </motion.p>
                 </motion.div>
               ) : null}

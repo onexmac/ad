@@ -1,0 +1,901 @@
+{
+  "schemaVersion": 5,
+  "date": "2026-09-09",
+  "isSample": false,
+  "weather": {
+    "place": "Cartago",
+    "tempC": 20,
+    "maxC": 21,
+    "minC": 17,
+    "code": 51,
+    "condition": "llovizna",
+    "glyph": "rain",
+    "cloudCover": 96,
+    "rainProb": 100,
+    "sunrise": "05:26",
+    "sunset": "17:39",
+    "sunriseHour": 5.43,
+    "sunsetHour": 17.65,
+    "rainHours": [
+      8,
+      11,
+      16,
+      20,
+      25,
+      30,
+      35,
+      41,
+      48,
+      55,
+      63,
+      72,
+      80,
+      88,
+      96,
+      100,
+      100,
+      100,
+      92,
+      69,
+      39,
+      16,
+      5,
+      1
+    ],
+    "sky": [
+      "#38455c",
+      "#65758d",
+      "#98a5b5",
+      "#c9cdcd",
+      "#ecdccb"
+    ],
+    "source": {
+      "name": "Open-Meteo",
+      "url": "https://open-meteo.com/"
+    }
+  },
+  "indicators": [
+    {
+      "id": "usd_crc",
+      "label": "Dólar",
+      "value": "₡459,00",
+      "delta": null,
+      "unit": "CRC",
+      "note": "BN venta · ventanilla BCCR · 20 ago",
+      "series": null,
+      "seriesNote": "serie no verificada"
+    },
+    {
+      "id": "tba",
+      "label": "Tasa Básica",
+      "value": "3,66 %",
+      "delta": -0.06,
+      "unit": "%",
+      "note": "BCCR · semanal",
+      "series": [
+        3.72,
+        3.66
+      ],
+      "seriesNote": "ene → jul 2026 · BCCR"
+    },
+    {
+      "id": "contenedor",
+      "label": "Contenedor",
+      "value": "$4.465",
+      "delta": -0.2,
+      "unit": "USD/40ft",
+      "note": "Drewry WCI · compuesto global",
+      "series": [
+        4297,
+        4339,
+        4526,
+        4473,
+        4465
+      ],
+      "seriesNote": "6 ago → 3 set 2026 · Drewry World Container Index"
+    },
+    {
+      "id": "cemento",
+      "label": "Cemento",
+      "value": null,
+      "delta": null,
+      "unit": "índice",
+      "note": "último dato: abril · INEC",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "acero",
+      "label": "Varilla",
+      "value": null,
+      "delta": null,
+      "unit": "índice",
+      "note": "último dato: abril · INEC",
+      "series": null,
+      "seriesNote": null
+    }
+  ],
+  "subjects": [
+    {
+      "id": "jornadas-4x3",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 3,
+      "title": "Las jornadas 4x3 entran a la última semana",
+      "synopsis": "Al cierre del martes quedaban 752 mociones de revisión y el plenario iba por la 1.790; a ese ritmo el trámite termina el 14 de setiembre. La modalidad es opcional y solo para operación continua —zona franca, manufactura avanzada, dispositivos médicos—, así que no cambia cómo se programa una cuadrilla. Importa por la otra punta: es la palanca de competitividad de la zona franca.",
+      "snippets": [
+        {
+          "id": "4x3-que-es",
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-07-01",
+          "headline": "Cuatro días de 12 horas, tres de descanso",
+          "body": "El expediente 24.290 propone una modalidad opcional en el Código de Trabajo: cuatro días de trabajo de hasta 12 horas diarias seguidos de tres días consecutivos de descanso.",
+          "why": "El debate lleva más de veinte años. Que llegue a tramo final ahora, y no antes, dice más de la aritmética de esta Asamblea que del proyecto.",
+          "image": {
+            "url": "/shots/4x3-que-es.jpg",
+            "color": "/shots/4x3-que-es-c.jpg",
+            "alt": "Cuatro días de 12 horas, tres de descanso",
+            "credit": "Delfino.cr"
+          },
+          "tags": [
+            "jornadas",
+            "trabajo",
+            "asamblea"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/07/las-jornadas-4x3-anos-de-debate-exigen-una-decision"
+          }
+        },
+        {
+          "id": "4x3-sectores",
+          "kind": "fact",
+          "importance": 3,
+          "published": null,
+          "headline": "Solo operación continua: zona franca, manufactura, dispositivos médicos",
+          "body": "La normativa autorizaría su aplicación en manufactura avanzada, producción de dispositivos e implementos médicos y servicios corporativos. Solo empresas de operación continua 24/7 que cumplan los requisitos del reglamento.",
+          "why": "No toca la construcción de vivienda. Toca exactamente al sector cuyo empleo es el comprador de clase media del Valle Central.",
+          "image": {
+            "url": "/shots/4x3-sectores.jpg",
+            "color": "/shots/4x3-sectores-c.jpg",
+            "alt": "Solo operación continua: zona franca, manufactura, dispositivos médicos",
+            "credit": "El Financiero"
+          },
+          "tags": [
+            "jornadas",
+            "zona franca",
+            "manufactura"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/jornadas-4x3-vuelve-a-discusion-quienes-podrian/R3IC7S5KJFBIBIPRS5YR7B5ROU/story/"
+          }
+        },
+        {
+          "id": "4x3-consulta",
+          "kind": "event",
+          "importance": 3,
+          "published": "2026-08-26",
+          "headline": "El oficialismo quita la consulta a los trabajadores",
+          "body": "El 26 de agosto el oficialismo impulsó regresar al texto original del proyecto y eliminar la consulta a los trabajadores.",
+          "why": null,
+          "image": {
+            "url": "/shots/4x3-consulta.jpg",
+            "color": "/shots/4x3-consulta-c.jpg",
+            "alt": "El oficialismo quita la consulta a los trabajadores",
+            "credit": "Infobae"
+          },
+          "tags": [
+            "jornadas",
+            "oficialismo",
+            "sindicatos"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/08/26/oficialismo-en-costa-rica-impulsa-regreso-al-texto-original-de-jornadas-4x3-y-elimina-consulta-a-trabajadores/"
+          }
+        },
+        {
+          "id": "4x3-mociones",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-09-08",
+          "headline": "752 revisiones, y el 14 de setiembre a la vista",
+          "body": "De las 2.542 mociones de revisión presentadas, al cierre del martes 8 quedaban 752 por votar y el plenario había llegado a la 1.790. El lunes se votaron 301 en dos sesiones.",
+          "why": "Con fecha de cierre a la vista, el proyecto deja de ser una hipótesis y pasa a ser un plazo.",
+          "image": {
+            "url": "/shots/4x3-mociones.jpg",
+            "color": "/shots/4x3-mociones-c.jpg",
+            "alt": "2.542 mociones y contando",
+            "credit": "El Observador CR"
+          },
+          "tags": [
+            "jornadas",
+            "asamblea",
+            "trámite"
+          ],
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/plenario-avanza-con-136-revisiones-mas-de-jornadas-4-3-y-diputados-llegaron-a-la-mocion-1-790/"
+          }
+        }
+      ],
+      "image": {
+        "url": "/shots/4x3-que-es.jpg",
+        "color": "/shots/4x3-que-es-c.jpg",
+        "alt": "Las jornadas 4x3 llegan al tramo final",
+        "credit": "Delfino.cr"
+      }
+    },
+    {
+      "id": "presupuesto-2027",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 3,
+      "title": "El presupuesto 2027 recorta 3,1% y la deuda pasa del 60%",
+      "synopsis": "Hacienda pide ¢12,4 billones para 2027, un 3,1% menos que este año, con la deuda por encima del 60% del PIB y el 40% del presupuesto yéndose a pagarla. Las instituciones ya reclaman: el OIJ dice que no podrá comprar chalecos y el Ministerio Público habla de parálisis digital. Para una constructora la lectura no cambia — no hay obra pública que vaya a arrastrar demanda privada.",
+      "snippets": [
+        {
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-09-01",
+          "why": null,
+          "image": null,
+          "tags": [
+            "presupuesto",
+            "2027",
+            "hacienda"
+          ],
+          "id": "pres-124",
+          "headline": "¢12,4 billones, 3,1% menos, con la deuda sobre el 60%",
+          "body": "El proyecto entregado a la Asamblea el 1.º de setiembre pide ¢12,4 billones —unos US$27.000 millones—, un 3,1% menos que el presupuesto de 2026, con la deuda pública por encima del 60% del PIB.",
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/presupuesto-ordinario-para-2027-es-de-124-billones-se-reduce-en-400-000-millones/"
+          }
+        },
+        {
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-09-01",
+          "why": "Ese 40% es el techo real del gasto discrecional: lo que quede pelea contra planilla antes que contra obra.",
+          "image": null,
+          "tags": [
+            "presupuesto",
+            "deuda",
+            "hacienda"
+          ],
+          "id": "pres-deuda-40",
+          "headline": "Cuarenta de cada cien colones van a la deuda",
+          "body": "Del total presupuestado, el 40% se destina al pago de obligaciones vinculadas con la deuda.",
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/america/agencias/2026/09/01/costa-rica-baja-su-presupuesto-un-31-con-una-deuda-al-alza-por-encima-del-60-del-pib/"
+          }
+        },
+        {
+          "id": "plazas-533",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-09-04",
+          "headline": "533 plazas nuevas, con foco en seguridad y elecciones",
+          "body": "Costa Rica prevé 533 nuevas plazas públicas para 2027, con foco en seguridad y elecciones. El Ejecutivo asignó 271 puestos al Ministerio de Justicia y Paz para operar el nuevo Centro de Alta Contención para el Crimen Organizado (CACCO) en San Rafael de Alajuela, cuya apertura está prevista para finales de setiembre de 2026.",
+          "why": null,
+          "image": {
+            "url": "/shots/plazas-533.jpg",
+            "color": "/shots/plazas-533-c.jpg",
+            "alt": "533 plazas nuevas, con foco en seguridad y elecciones",
+            "credit": "Infobae"
+          },
+          "tags": [
+            "presupuesto",
+            "seguridad",
+            "2027"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/09/04/costa-rica-preve-533-nuevas-plazas-publicas-para-2027-con-foco-en-seguridad-y-elecciones/"
+          }
+        },
+        {
+          "kind": "quote",
+          "importance": 2,
+          "published": "2026-09-08",
+          "why": null,
+          "image": null,
+          "tags": [
+            "presupuesto",
+            "seguridad",
+            "oij"
+          ],
+          "id": "pres-oij",
+          "headline": "El OIJ dice que no podrá comprar chalecos antibalas",
+          "body": "El director del OIJ, Michael Soto, advirtió que no podrán comprar chalecos antibalas en 2027 por un recorte de más de ¢8.600 millones. El fiscal general, Carlo Díaz, alertó de una parálisis digital en el Ministerio Público.",
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-martes-8-de-septiembre-de-2026"
+          }
+        },
+        {
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-09-08",
+          "why": null,
+          "image": {
+            "url": "/shots/pres-judicial.jpg",
+            "color": "/shots/pres-judicial-c.jpg",
+            "alt": "El Poder Judicial advierte por US$65,5 millones bloqueados",
+            "credit": "Infobae"
+          },
+          "tags": [
+            "presupuesto",
+            "poder-judicial"
+          ],
+          "id": "pres-judicial",
+          "headline": "El Poder Judicial advierte por US$65,5 millones bloqueados",
+          "body": "El Poder Judicial advirtió que el bloqueo de casi US$65,5 millones pondría en riesgo sus operaciones, la ciberseguridad y el acceso a la justicia. El proyecto le asigna ¢530.973,2 millones.",
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/09/08/poder-judicial-de-costa-rica-advierte-que-bloqueo-de-casi-usd-655-millones-pondria-en-riesgo-operaciones-ciberseguridad-y-acceso-a-la-justicia/"
+          }
+        },
+        {
+          "id": "eco-fiscal",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-08-10",
+          "headline": "El servicio de la deuda pesa más que el déficit",
+          "body": "El déficit del gobierno central se proyecta en 3,3% del PIB en 2026 y 3,1% en 2027, con un costo de servicio de deuda estimado en 4,6% del PIB. El superávit primario se mantendría en 1,3% bajo la regla fiscal, y la deuda bajaría a 59,5% del PIB a fin de 2026.",
+          "why": null,
+          "image": {
+            "url": "/shots/eco-fiscal.jpg",
+            "color": "/shots/eco-fiscal-c.jpg",
+            "alt": "El servicio de la deuda pesa más que el déficit",
+            "credit": "Infobae · riesgo país"
+          },
+          "tags": [
+            "fiscal",
+            "deuda",
+            "regla fiscal"
+          ],
+          "source": {
+            "name": "Infobae · riesgo país",
+            "url": "https://www.infobae.com/costa-rica/2026/08/10/costa-rica-afianza-su-liderazgo-economico-y-fiscal-en-la-region-segun-el-ultimo-informe-de-riesgo-pais/"
+          }
+        }
+      ],
+      "image": {
+        "url": "/shots/plazas-533.jpg",
+        "color": "/shots/plazas-533-c.jpg",
+        "alt": "El presupuesto 2027 se va a seguridad y elecciones",
+        "credit": "Infobae"
+      }
+    },
+    {
+      "id": "aranceles-zona-franca",
+      "category": "geopolitica",
+      "title": "El arancel a Costa Rica es 12,5% y es por trabajo forzoso",
+      "synopsis": "Desde el 24 de julio los bienes ticos pagan 12,5% al entrar a Estados Unidos, bajo la Sección 301 y por una determinación de trabajo forzoso — no por el desbalance comercial. Sustituye al recargo de 10%, así que el movimiento real fueron 2,5 puntos. Y deja fuera dispositivos médicos, farma, semiconductores y la agrícola grande: el golpe no cae donde parecía.",
+      "importance": 3,
+      "snippets": [
+        {
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-07-25",
+          "why": "El motivo importa: un desbalance comercial se negocia, una determinación de trabajo forzoso se corrige con legislación y fiscalización.",
+          "image": {
+            "url": "/shots/geo-arancel-125.jpg",
+            "color": "/shots/geo-arancel-125-c.jpg",
+            "alt": "12,5% desde el 24 de julio, y el motivo no es comercial",
+            "credit": "Infobae"
+          },
+          "tags": [
+            "aranceles",
+            "eeuu",
+            "trabajo-forzoso"
+          ],
+          "id": "geo-arancel-125",
+          "headline": "12,5% desde el 24 de julio, y el motivo no es comercial",
+          "body": "La USTR fijó 12,5% a los bienes costarricenses a partir de las 12:01 a. m. del 24 de julio, bajo la Sección 301 de la Ley de Comercio de 1974, tras concluir que el país no tiene prohibición ni mecanismos efectivos contra mercancías hechas con trabajo forzoso.",
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/07/25/eeuu-eleva-a-125-el-arancel-para-parte-de-las-exportaciones-de-costa-rica-por-cuestionamientos-sobre-trabajo-forzado/"
+          }
+        },
+        {
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-07-25",
+          "why": "Es la mitad de la tesis: lo que más exporta el país al mercado que más le compra no paga este arancel.",
+          "image": {
+            "url": "/shots/geo-arancel-exclusiones.jpg",
+            "color": "/shots/geo-arancel-exclusiones-c.jpg",
+            "alt": "Dispositivos médicos, farma y semiconductores quedaron fuera",
+            "credit": "The Tico Times"
+          },
+          "tags": [
+            "aranceles",
+            "dispositivos-medicos",
+            "zona-franca"
+          ],
+          "id": "geo-arancel-exclusiones",
+          "headline": "Dispositivos médicos, farma y semiconductores quedaron fuera",
+          "body": "La lista de exclusiones cubre dispositivos médicos, farmacéuticos, semiconductores y electrónica, además de café, piña, banano, aguacate, mango, papaya, jugo de naranja y ciertos azúcares.",
+          "source": {
+            "name": "The Tico Times",
+            "url": "https://ticotimes.net/2026/07/25/us-tariff-costa-rica-exports-12-5-percent"
+          }
+        },
+        {
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-02-20",
+          "why": null,
+          "image": null,
+          "tags": [
+            "aranceles",
+            "eeuu",
+            "corte-suprema"
+          ],
+          "id": "geo-ieepa-caida",
+          "headline": "El régimen anterior murió en la Corte Suprema en febrero",
+          "body": "El 20 de febrero la Corte Suprema de EE.UU. resolvió 6-3 que la IEEPA no autoriza al presidente a imponer aranceles. El recargo de la Sección 122 que la sustituyó venció el 24 de julio, el mismo minuto en que entró la Sección 301.",
+          "source": {
+            "name": "Holland & Knight",
+            "url": "https://www.hklaw.com/en/insights/publications/2026/02/supreme-court-strikes-down-ieepa-tariffs"
+          }
+        },
+        {
+          "kind": "fact",
+          "importance": 3,
+          "published": null,
+          "why": "Ahí sí está expuesto el sector que hoy queda fuera, y con él el empleo formal del Valle Central.",
+          "image": null,
+          "tags": [
+            "aranceles",
+            "dispositivos-medicos",
+            "seccion-232"
+          ],
+          "id": "geo-232-medtech",
+          "headline": "La investigación que sí puede pegar es la 232 de equipo médico",
+          "body": "Comercio mantiene abierta una investigación de Sección 232 sobre equipo y suministros médicos. Costa Rica pidió en octubre de 2025 trato libre de arancel para sus dispositivos.",
+          "source": {
+            "name": "MD+DI",
+            "url": "https://www.mddionline.com/manufacturing/costa-rica-seeks-u-s-tariff-exemption-for-medical-devices"
+          }
+        },
+        {
+          "id": "geo-zona-franca",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-07-31",
+          "headline": "Dispositivos médicos: de 35,1% a 5,6% de crecimiento en un año",
+          "body": "El crecimiento de las exportaciones de dispositivos médicos cayó de 35,1% en abril de 2025 a 5,6% en abril de 2026. Las ventas a Estados Unidos bajaron 1,1% en los primeros cuatro meses del año. La desaceleración de zona franca incluye los cierres de plantas de Intel y Qorvo.",
+          "why": "La desaceleración es real aunque los dispositivos estén excluidos: la duda arancelaria pesa antes que el arancel.",
+          "image": {
+            "url": "/shots/geo-zona-franca.jpg",
+            "color": "/shots/geo-zona-franca-c.jpg",
+            "alt": "Dispositivos médicos: de 35,1% a 5,6% de crecimiento en un año",
+            "credit": "Infobae · BCCR"
+          },
+          "tags": [
+            "zona franca",
+            "intel",
+            "empleo"
+          ],
+          "source": {
+            "name": "Infobae · BCCR",
+            "url": "https://www.infobae.com/costa-rica/2026/07/31/el-banco-central-de-costa-rica-recorta-su-proyeccion-de-crecimiento-para-2026/"
+          }
+        },
+        {
+          "id": "geo-ied",
+          "kind": "number",
+          "importance": 2,
+          "published": null,
+          "headline": "La inversión extranjera cayó 7% por la incertidumbre arancelaria",
+          "body": "La incertidumbre generada por los aranceles impuestos por el gobierno de Estados Unidos a las exportaciones costarricenses provocó una caída del 7% en el flujo de inversión extranjera directa.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "ied",
+            "aranceles",
+            "inversión"
+          ],
+          "source": {
+            "name": "OCDE · swissinfo",
+            "url": "https://www.swissinfo.ch/spa/costa-rica-sufrir%C3%A1-una-desaceleraci%C3%B3n-econ%C3%B3mica-en-2026-por-impacto-de-aranceles-de-eeuu/90569027"
+          }
+        }
+      ],
+      "image": {
+        "url": "/shots/geo-zona-franca.jpg",
+        "color": "/shots/geo-zona-franca-c.jpg",
+        "alt": "El arancel de EE.UU. y la zona franca",
+        "credit": "Infobae · BCCR"
+      },
+      "scope": "mundo"
+    },
+    {
+      "id": "oficialismo-control",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 3,
+      "title": "El oficialismo controla la Asamblea como no se veía en 40 años",
+      "synopsis": "Tras las elecciones de febrero, el gobierno de Laura Fernández tiene en la Asamblea un control que no se veía en más de cuarenta años. Eso corrige la lectura obvia de las votaciones cerradas de julio: un 30 a 24 no era un gobierno peleando, era una mayoría ejerciéndose. Para la constructora la agenda legislativa se vuelve predecible, y la incertidumbre política deja de ser el riesgo principal del año.",
+      "snippets": [
+        {
+          "id": "control-40",
+          "kind": "fact",
+          "importance": 3,
+          "published": null,
+          "headline": "Control legislativo sin precedente en cuatro décadas",
+          "body": "El oficialismo logró un control de la Asamblea Legislativa que no se veía en más de 40 años en Costa Rica.",
+          "why": "Cambia el supuesto de planeación: lo que el Ejecutivo empuje, avanza. La pregunta deja de ser si pasa y pasa a ser qué prioriza.",
+          "image": {
+            "url": "/shots/control-40.jpg",
+            "color": "/shots/control-40-c.jpg",
+            "alt": "Control legislativo sin precedente en cuatro décadas",
+            "credit": "Semanario Universidad"
+          },
+          "tags": [
+            "asamblea",
+            "oficialismo",
+            "gobierno"
+          ],
+          "source": {
+            "name": "Semanario Universidad",
+            "url": "https://semanariouniversidad.com/pais/oficialismo-logra-un-control-de-asamblea-legislativa-que-no-se-veia-en-mas-de-40-anos-en-costa-rica/"
+          }
+        },
+        {
+          "id": "pol-extraordinario",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-07-16",
+          "headline": "Presupuesto extraordinario: 30 a 24",
+          "body": "El 16 de julio los diputados aprobaron en primer debate el primer presupuesto extraordinario de 2026, con 30 votos a favor y 24 en contra, entre críticas por recortes sociales y falta de recursos para seguridad.",
+          "why": null,
+          "image": {
+            "url": "/shots/pol-extraordinario.jpg",
+            "color": "/shots/pol-extraordinario-c.jpg",
+            "alt": "Presupuesto extraordinario: 30 a 24",
+            "credit": "Infobae"
+          },
+          "tags": [
+            "asamblea",
+            "presupuesto",
+            "seguridad"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/07/16/diputados-de-costa-rica-aprueban-en-primer-debate-presupuesto-extraordinario-entre-criticas-por-recortes-sociales-y-falta-de-recursos-para-seguridad/"
+          }
+        }
+      ],
+      "image": {
+        "url": "/shots/control-40.jpg",
+        "color": "/shots/control-40-c.jpg",
+        "alt": "El oficialismo controla la Asamblea como no se veía en 40 años",
+        "credit": "Semanario Universidad"
+      }
+    },
+    {
+      "id": "comercio-global-frena",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 3,
+      "title": "El comercio global se frena y la geopolítica pasa al frente",
+      "synopsis": "La UNCTAD proyecta que el crecimiento mundial baje de 2,9% a 2,6% en 2026 y que el comercio pase de crecer 4,7% a entre 1,5% y 2,5%. Su lectura de fondo es la que importa: la geopolítica desplazó a las disputas comerciales como principal fuente de inestabilidad, el mismo marco que citó el BCCR al recortar su proyección. La demanda de zona franca opera bajo un techo que no se corrige desde aquí.",
+      "snippets": [
+        {
+          "id": "unctad-26",
+          "kind": "number",
+          "importance": 3,
+          "published": null,
+          "headline": "El crecimiento mundial baja a 2,6% y el comercio a la mitad",
+          "body": "La UNCTAD proyecta que el crecimiento económico mundial se desacelere de 2,9% en 2025 a 2,6% en 2026, y que el crecimiento del comercio global pase de 4,7% a un rango de entre 1,5% y 2,5%.",
+          "why": "Un comercio que crece a un tercio de su ritmo es el techo real de la demanda de zona franca, y por ahí del empleo formal que compra vivienda.",
+          "image": {
+            "url": "/shots/unctad-26.jpg",
+            "color": "/shots/unctad-26-c.jpg",
+            "alt": "El crecimiento mundial baja a 2,6% y el comercio a la mitad",
+            "credit": "El Tiempo · UNCTAD"
+          },
+          "tags": [
+            "comercio",
+            "unctad",
+            "crecimiento"
+          ],
+          "source": {
+            "name": "El Tiempo · UNCTAD",
+            "url": "https://www.eltiempo.com/economia/sector-financiero/geopolitica-y-crisis-comercial-golpearan-el-crecimiento-economico-mundial-caera-al-2-6-en-2026-segun-la-onu-y-la-unctad-3556930"
+          }
+        },
+        {
+          "id": "geo-desplaza",
+          "kind": "fact",
+          "importance": 3,
+          "published": null,
+          "headline": "La geopolítica desplaza al comercio como fuente de inestabilidad",
+          "body": "La UNCTAD alertó que 2026 podría marcar el inicio de un periodo de fragilidad económica global: las tensiones geopolíticas están desplazando a las disputas comerciales como principal factor de inestabilidad económica internacional.",
+          "why": "Explica por qué el BCCR nombró la geopolítica y no un shock local. Es un cambio de régimen, no una coyuntura que se corrige.",
+          "image": {
+            "url": "/shots/geo-desplaza.jpg",
+            "color": "/shots/geo-desplaza-c.jpg",
+            "alt": "La geopolítica desplaza al comercio como fuente de inestabilidad",
+            "credit": "Naciones Unidas"
+          },
+          "tags": [
+            "geopolítica",
+            "riesgo",
+            "comercio"
+          ],
+          "source": {
+            "name": "Naciones Unidas",
+            "url": "https://news.un.org/es/story/2026/01/1540989"
+          }
+        },
+        {
+          "id": "fmi-30",
+          "kind": "number",
+          "importance": 2,
+          "published": null,
+          "headline": "El FMI todavía proyecta 3,0%",
+          "body": "El FMI mantuvo su proyección de crecimiento mundial en 3,0% para 2026 y 3,4% para 2027, por encima de la estimación de la UNCTAD.",
+          "why": null,
+          "image": {
+            "url": "/shots/fmi-30.jpg",
+            "color": "/shots/fmi-30-c.jpg",
+            "alt": "El FMI todavía proyecta 3,0%",
+            "credit": "El Tiempo · FMI"
+          },
+          "tags": [
+            "fmi",
+            "proyecciones"
+          ],
+          "source": {
+            "name": "El Tiempo · FMI",
+            "url": "https://www.eltiempo.com/economia/sector-financiero/geopolitica-y-crisis-comercial-golpearan-el-crecimiento-economico-mundial-caera-al-2-6-en-2026-segun-la-onu-y-la-unctad-3556930"
+          }
+        }
+      ],
+      "image": {
+        "url": "/shots/unctad-26.jpg",
+        "color": "/shots/unctad-26-c.jpg",
+        "alt": "El comercio global se frena y la geopolítica pasa al frente",
+        "credit": "El Tiempo · UNCTAD"
+      }
+    },
+    {
+      "id": "central-baja-tasas",
+      "category": "economia",
+      "title": "El Central baja tasas en una economía que se enfría",
+      "synopsis": "El BCCR recortó la TPM a 3,00% en julio con la inflación bajo la meta, y a la vez bajó su proyección de crecimiento a 3,4% citando la política comercial de Estados Unidos. El desempleo se ve plano en 6%, pero por debajo caen la participación y la ocupación y sube el subempleo. Son dos corrientes opuestas: obra más barata de financiar, comprador con menos crédito del que sugiere la tasa titular.",
+      "importance": 3,
+      "snippets": [
+        {
+          "id": "tpm-3",
+          "kind": "number",
+          "importance": 3,
+          "published": null,
+          "headline": "El BCCR bajó la TPM a 3,00% y la inflación sigue bajo meta",
+          "body": "El Banco Central recortó la Tasa de Política Monetaria de 3,25% a 3,00% en julio. Espera inflación cerca de 2% el resto de 2026, por debajo de la meta de 3%.",
+          "why": "Inflación bajo meta con crecimiento revisado a la baja deja espacio para más recortes. Financiamiento de obra más barato y mejor capacidad de pago del comprador — la única corriente a favor en todo el brief.",
+          "image": {
+            "url": "/shots/tpm-3.jpg",
+            "color": "/shots/tpm-3-c.jpg",
+            "alt": "El BCCR bajó la TPM a 3,00% y la inflación sigue bajo meta",
+            "credit": "Proactiva MRF"
+          },
+          "tags": [
+            "tasas",
+            "inflación",
+            "financiamiento"
+          ],
+          "source": {
+            "name": "Proactiva MRF",
+            "url": "https://www.proactivamrf.com/post/bccr-reduce-la-tasa-de-pol%C3%ADtica-monetaria-al-3-ante-inflaci%C3%B3n-negativa-y-desaceleraci%C3%B3n-econ%C3%B3mica"
+          }
+        },
+        {
+          "id": "eco-bccr-recorte",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-07-31",
+          "headline": "El BCCR recortó su proyección de crecimiento a 3,4%",
+          "body": "El 31 de julio el Banco Central bajó la proyección de crecimiento 2026 de 3,5% a 3,4%. Citó la persistencia de la incertidumbre asociada a tensiones geopolíticas, políticas comerciales de Estados Unidos y fragmentación geoeconómica.",
+          "why": "El propio Central nombra la geopolítica como la causa, no un shock local. Eso significa que no hay palanca interna que lo corrija: es un dato de planeación, no de coyuntura.",
+          "image": {
+            "url": "/shots/eco-bccr-recorte.jpg",
+            "color": "/shots/eco-bccr-recorte-c.jpg",
+            "alt": "El BCCR recortó su proyección de crecimiento a 3,4%",
+            "credit": "Infobae · BCCR"
+          },
+          "tags": [
+            "pib",
+            "bccr",
+            "proyecciones"
+          ],
+          "source": {
+            "name": "Infobae · BCCR",
+            "url": "https://www.infobae.com/costa-rica/2026/07/31/el-banco-central-de-costa-rica-recorta-su-proyeccion-de-crecimiento-para-2026/"
+          }
+        },
+        {
+          "id": "eco-empleo",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-07-31",
+          "headline": "El desempleo se ve estable en 6%, pero por debajo se deteriora",
+          "body": "El desempleo se mantiene alrededor del 6%. Sin embargo, las tasas de participación y de ocupación bajaron, mientras el subempleo aumentó.",
+          "why": "Es la señal de demanda de vivienda más honesta del brief. Un 6% plano con participación cayendo y subempleo subiendo significa menos hogares con capacidad de crédito, aunque la tasa titular no se mueva.",
+          "image": {
+            "url": "/shots/eco-empleo.jpg",
+            "color": "/shots/eco-empleo-c.jpg",
+            "alt": "El desempleo se ve estable en 6%, pero por debajo se deteriora",
+            "credit": "Infobae · BCCR"
+          },
+          "tags": [
+            "empleo",
+            "subempleo",
+            "demanda"
+          ],
+          "source": {
+            "name": "Infobae · BCCR",
+            "url": "https://www.infobae.com/costa-rica/2026/07/31/el-banco-central-de-costa-rica-recorta-su-proyeccion-de-crecimiento-para-2026/"
+          }
+        }
+      ],
+      "image": {
+        "url": "/shots/tpm-3.jpg",
+        "color": "/shots/tpm-3-c.jpg",
+        "alt": "El Central baja tasas en una economía que se enfría",
+        "credit": "Proactiva MRF"
+      },
+      "scope": "cr"
+    },
+    {
+      "id": "insumos-a-la-baja",
+      "category": "construccion",
+      "title": "Insumos a la baja, con excepciones que importan",
+      "synopsis": "Los índices INEC de precios de construcción llevan cinco meses cayendo —Edificaciones acumuló −1,00% en el primer trimestre—, así que conviene comprar contra necesidad y recotizar lo presupuestado hace un trimestre. Pero el promedio esconde la mezcla: en abril la tubería PVC subió 7,5% mientras el cemento apenas se movió. El acero es importado: se presupuesta contra el dólar, no contra el índice.",
+      "importance": 3,
+      "snippets": [
+        {
+          "id": "ipcons-baja",
+          "kind": "number",
+          "importance": 3,
+          "published": null,
+          "headline": "Los índices de precios de construcción llevan cinco meses cayendo",
+          "body": "El INEC reporta disminuciones por quinto mes consecutivo. El índice de Edificaciones bajó 0,22% en marzo y acumuló −1,00% en el primer trimestre; el de Vivienda de Interés Social bajó 0,24% y acumuló −0,29%.",
+          "why": "Los insumos se están abaratando, no encareciendo. Eso invierte el reflejo de comprar adelantado: conviene comprar contra necesidad y volver a cotizar lo ya presupuestado con precios de hace un trimestre.",
+          "image": null,
+          "tags": [
+            "costos",
+            "inec",
+            "compras"
+          ],
+          "source": {
+            "name": "INEC",
+            "url": "https://inec.cr/noticias/indices-precios-la-construccion-registran-disminuciones-quinto-mes-consecutivo"
+          }
+        },
+        {
+          "id": "materiales-abril",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-05-19",
+          "headline": "El promedio baja, pero el PVC subió 7,5%",
+          "body": "En abril el cemento hidráulico subió 0,96% y el acero de refuerzo 2,24%. Los plásticos se movieron mucho más: tubería PVC de agua potable +7,52%, PVC de aguas residuales +7,27%, PEAD de agua potable +4,50%.",
+          "why": null,
+          "image": {
+            "url": "/shots/materiales-abril.jpg",
+            "color": "/shots/materiales-abril-c.jpg",
+            "alt": "El promedio baja, pero el PVC subió 7,5%",
+            "credit": "Infobae · INEC"
+          },
+          "tags": [
+            "materiales",
+            "pvc",
+            "acero"
+          ],
+          "source": {
+            "name": "Infobae · INEC",
+            "url": "https://www.infobae.com/costa-rica/2026/05/19/el-costo-de-la-construccion-en-costa-rica-aumento-en-abril-impulsado-por-alzas-en-combustibles-y-materiales-plasticos/"
+          }
+        },
+        {
+          "id": "acero-importado",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-05-14",
+          "headline": "El acero es la línea expuesta al tipo de cambio",
+          "body": "Costa Rica depende en gran medida del acero importado, lo que la vuelve vulnerable a precios internacionales, costos logísticos y variaciones cambiarias. Los costos logísticos y de combustible añaden un 5–6% general en 2026.",
+          "why": null,
+          "image": {
+            "url": "/shots/acero-importado.jpg",
+            "color": "/shots/acero-importado-c.jpg",
+            "alt": "El acero es la línea expuesta al tipo de cambio",
+            "credit": "Forbes Centroamérica"
+          },
+          "tags": [
+            "acero",
+            "importación",
+            "tipo de cambio"
+          ],
+          "source": {
+            "name": "Forbes Centroamérica",
+            "url": "https://forbescentroamerica.com/2026/05/14/fluctuacion-en-los-costos-del-acero-y-sus-repercusiones-en-la-industria-de-la-construccion/"
+          }
+        },
+        {
+          "id": "spread-fx",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-08-20",
+          "headline": "15 colones de diferencia según la ventanilla",
+          "body": "En la ventanilla del 20 de agosto, el Banco Nacional vendía el dólar a ₡459,00 y compraba a ₡445,00; BAC San José 460,00 / 446,00; ARI Casa de Cambio 454,89 / 449,02.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "tipo de cambio",
+            "compras"
+          ],
+          "source": {
+            "name": "BCCR · ventanilla",
+            "url": "https://gee.bccr.fi.cr/IndicadoresEconomicos/Cuadros/frmConsultaTCVentanilla.aspx"
+          }
+        }
+      ],
+      "image": {
+        "url": "/shots/materiales-abril.jpg",
+        "color": "/shots/materiales-abril-c.jpg",
+        "alt": "Insumos a la baja, con excepciones que importan",
+        "credit": "Infobae · INEC"
+      },
+      "scope": "cr"
+    },
+    {
+      "id": "cfia-mas-21",
+      "category": "construccion",
+      "title": "El +21% del CFIA no es demanda de vivienda",
+      "synopsis": "El sector celebra su mejor semestre desde la pandemia: 5,7 millones de m² tramitados, 21% más que en 2025. Pero el desglose describe otro negocio — lo que crece es obra industrial (+68,9%) y urbanística (+40,4%), no vivienda unifamiliar. Y esa obra la levanta la inversión extranjera, la misma que cae 7% por los aranceles, así que es el segmento que se enfría el año entrante.",
+      "importance": 3,
+      "snippets": [
+        {
+          "id": "cfia-h1",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-08-06",
+          "headline": "El +21% del CFIA no es demanda de vivienda",
+          "body": "El CFIA registró 5,7 millones de m² tramitados entre enero y junio, 21% más que en 2025, y proyecta cerrar cerca de 10,5 millones. El crecimiento viene de obra industrial (+68,9%) y urbanística —vialidad, urbanizaciones, condominios— (+40,4%).",
+          "why": "El titular del sector describe otro negocio. Antes de leer «mejor año desde la pandemia» como demanda propia, hay que ver el desglose: lo que crece es industrial y urbanístico, no vivienda unifamiliar.",
+          "image": {
+            "url": "/shots/cfia-h1.jpg",
+            "color": "/shots/cfia-h1-c.jpg",
+            "alt": "El +21% del CFIA no es demanda de vivienda",
+            "credit": "Infobae · CFIA"
+          },
+          "tags": [
+            "cfia",
+            "permisos",
+            "sector"
+          ],
+          "source": {
+            "name": "Infobae · CFIA",
+            "url": "https://www.infobae.com/costa-rica/2026/08/06/permisos-de-construccion-se-disparan-un-21-en-costa-rica-y-apuntan-al-mejor-ano-del-sector-desde-la-pandemia/"
+          }
+        }
+      ],
+      "image": {
+        "url": "/shots/cfia-h1.jpg",
+        "color": "/shots/cfia-h1-c.jpg",
+        "alt": "El +21% del CFIA no es demanda de vivienda",
+        "credit": "Infobae · CFIA"
+      },
+      "scope": "cr"
+    }
+  ]
+}
