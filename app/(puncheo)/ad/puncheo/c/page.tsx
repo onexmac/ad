@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { sheet } from "@/data/puncheo/formaleta-n1";
+import { roomSheet as sheet } from "@/data/puncheo/rooms";
 import { ScreenC } from "@/components/puncheo/ScreenC";
 
 export const metadata: Metadata = { title: "Puncheo — C" };

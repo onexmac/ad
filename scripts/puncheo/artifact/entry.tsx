@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { sheet } from "@/data/puncheo/formaleta-n1";
+import { roomSheet as sheet } from "@/data/puncheo/rooms";
 import { PunchScreen } from "@/components/puncheo/PunchScreen";
 import { ScreenB } from "@/components/puncheo/ScreenB";
 import { ScreenC } from "@/components/puncheo/ScreenC";

@@ -2,7 +2,8 @@
 
 import { useCallback, useRef, useState } from "react";
 import { haptic } from "@/lib/histok/haptic";
-import type { Check, Sheet } from "@/data/puncheo/formaleta-n1";
+import type { Check } from "@/data/puncheo/formaleta-n1";
+import type { Instance, RoomSheet } from "@/data/puncheo/rooms";
 import { needsPhoto, shrinkPhoto, useClosed, useMarks, usePhotos, type Marks, type Status } from "@/lib/puncheo/state";
 
 export type Tally = { done: number; red: number; pending: number; noPhoto: number; total: number };
@@ -25,11 +26,14 @@ export function tally(checks: Check[], marks: Marks, photos: Record<string, stri
 }
 
 /** Everything the three layouts share: marks, photos, the open row, the toast, closing a sheet. */
-export function usePunchSheet(sheet: Sheet) {
+export function usePunchSheet(sheet: RoomSheet) {
   const { marks, mark } = useMarks();
   const { closed, set: setClosed } = useClosed();
   const { photos, add: addPhoto, remove: removePhoto } = usePhotos();
   const [tab, setTab] = useState(0);
+  const [section, setSection] = useState(0);
+  // Direction of the last section change: +1 came from above (slides up), -1 from below.
+  const [secDir, setSecDir] = useState(0);
   // Slide direction of the last switch; 0 until the first one, so the first punch doesn't slide in.
   const [dir, setDir] = useState(0);
   const [open, setOpen] = useState<string | null>(null);
@@ -39,6 +43,7 @@ export function usePunchSheet(sheet: Sheet) {
   const toastTimer = useRef<number | undefined>(undefined);
 
   const punch = sheet.punches[tab];
+  const sec = punch.sections[Math.min(section, punch.sections.length - 1)];
   const t = tally(punch.checks, marks, photos);
   const isClosed = !!closed[punch.id];
   const ready = t.pending === 0 && t.red === 0 && t.noPhoto === 0;
@@ -66,12 +71,26 @@ export function usePunchSheet(sheet: Sheet) {
     }
   };
 
-  const pickPhoto = async (c: Check, file: File) => {
+  /** Into another room of this punch; the page lands on the section's title. */
+  const goSection = (i: number, then?: () => void) => {
+    if (i < 0 || i >= punch.sections.length) return;
+    setSecDir(i > section ? 1 : -1);
+    setSection(i);
+    setOpen(null);
+    setPulses({});
+    requestAnimationFrame(() => {
+      const top = document.getElementById("puncheo-section");
+      if (top) window.scrollTo({ top: Math.max(0, top.getBoundingClientRect().top + window.scrollY - 12) });
+      then?.();
+    });
+  };
+
+  const pickPhoto = async (c: Instance, file: File) => {
     try {
       const url = await shrinkPhoto(file);
       const kept = addPhoto(c.id, url);
       haptic.complete();
-      say(kept ? `Foto agregada · ${c.id}` : "Foto agregada, pero el dispositivo está lleno: no se guardará");
+      say(kept ? `Foto agregada · ${c.num}` : "Foto agregada, pero el dispositivo está lleno: no se guardará");
     } catch {
       haptic.error();
       say("No se pudo leer la foto");
@@ -83,6 +102,8 @@ export function usePunchSheet(sheet: Sheet) {
     haptic.select();
     setDir(n > tab ? 1 : -1);
     setTab(n);
+    setSection(0);
+    setSecDir(0);
     setOpen(null);
     setPulses({});
     window.scrollTo({ top: 0 });
@@ -106,7 +127,10 @@ export function usePunchSheet(sheet: Sheet) {
       if (t.pending) parts.push(`${t.pending} ${t.pending === 1 ? "pendiente" : "pendientes"}`);
       if (t.noPhoto) parts.push(`${t.noPhoto} sin foto`);
       say(parts.join(" · "));
-      document.querySelector(`[data-check="${CSS.escape(offenders[0].id)}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      const show = () => document.querySelector(`[data-check="${CSS.escape(offenders[0].id)}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      const at = punch.sections.findIndex((x) => x.ids.includes(offenders[0].id));
+      if (at >= 0 && at !== section) goSection(at, () => setTimeout(show, 60));
+      else show();
       return;
     }
     haptic.complete();
@@ -115,9 +139,17 @@ export function usePunchSheet(sheet: Sheet) {
   };
 
   const punchTallies = sheet.punches.map((p) => ({ ...tally(p.checks, marks, photos), closed: !!closed[p.id] }));
+  const byId = new Map(punch.checks.map((c) => [c.id, c]));
+  const sectionTallies = punch.sections.map((x) => tally(x.ids.map((id) => byId.get(id)!), marks, photos));
 
   return {
     punch,
+    sec,
+    section: Math.min(section, punch.sections.length - 1),
+    secDir,
+    sectionTallies,
+    byId,
+    goSection,
     tab,
     dir,
     t,
@@ -144,7 +176,7 @@ export function usePunchSheet(sheet: Sheet) {
 export type PunchSheet = ReturnType<typeof usePunchSheet>;
 
 /** What a row needs to know about itself, from the sheet. */
-export function rowState(s: PunchSheet, c: Check) {
+export function rowState(s: PunchSheet, c: Instance) {
   const status = s.marks[c.id] ?? null;
   const photos = s.photos[c.id] ?? [];
   return {

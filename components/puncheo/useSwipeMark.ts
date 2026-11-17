@@ -34,6 +34,8 @@ type Opts = {
   rest: string;
   onMark: (s: Status) => void;
   onReject: (msg: string) => void;
+  /** Return false to refuse a mark (the caller says why); the row then springs back. */
+  guard?: (s: Status) => boolean;
   /** The row element that moves (the caller's ref, so no ref travels in the result). */
   ref: React.RefObject<HTMLDivElement | null>;
   /** The coloured layer under it. */
@@ -63,7 +65,7 @@ export type SwipeMark = {
  * scrolling stays native (the row sets touch-action: pan-y), one finger only,
  * the release velocity carried into the spring home.
  */
-export function useSwipeMark({ id, na, status, pulse, nudge, rest, onMark, onReject, ref, underRef }: Opts): SwipeMark {
+export function useSwipeMark({ id, na, status, pulse, nudge, rest, onMark, onReject, guard, ref, underRef }: Opts): SwipeMark {
   const x = useMotionValue(0);
   const prog = useMotionValue(0);
   const [zone, setZone] = useState<Zone>(null);
@@ -183,6 +185,7 @@ export function useSwipeMark({ id, na, status, pulse, nudge, rest, onMark, onRej
       onReject(`N/A no está permitido en ${id}`);
       return settle(v, springs.snappy);
     }
+    if (guard && !guard(z)) return settle(v, springs.snappy);
     if (z === "green" || z === "yellow") haptic.complete();
     else if (z === "red") haptic.delete();
     else haptic.select();

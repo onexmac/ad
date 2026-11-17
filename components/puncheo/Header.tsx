@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
-import type { Sheet } from "@/data/puncheo/formaleta-n1";
 import type { Status } from "@/lib/puncheo/state";
 import { Chevrons } from "./Icons";
 import { VariantSwitch, type Variant } from "./Chrome";
@@ -29,7 +28,7 @@ export function SheetHeader({
   extra,
   note = false,
 }: {
-  sheet: Sheet;
+  sheet: { title: string; subtitle: string; system: string };
   s: PunchSheet;
   current: Variant;
   aside?: React.ReactNode;
