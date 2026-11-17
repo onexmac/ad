@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* Updatr — technical minimalism. One ground, one ink, hairlines, one accent. */
+:root {
+  --ground: #edebe6;
+  --paper: #f5f3ef;
+  --ink: #0b0b0b;
+  --ink-soft: #6d6a64;
+  --ink-faint: #a29e96;
+  --rule: #0b0b0b;
+  --rule-soft: rgba(11, 11, 11, 0.14);
+  --accent: #e2533b;
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html,
+body {
+  background: var(--ground);
+  color: var(--ink);
+  color-scheme: light;
+}
+
+[data-app],
+[data-app] * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+[data-app] {
+  font-family: var(--font-geist-sans), "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "ss01", "tnum";
+}
+
+[data-app] img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

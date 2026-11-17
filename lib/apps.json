@@ -8,6 +8,11 @@
         {
           "slug": "histok",
           "name": "Histok"
+        },
+        {
+          "slug": "updatr",
+          "name": "Updatr",
+          "description": "Juegos, collabs, skins, personajes, cine, libros y series que sigo"
         }
       ]
     },
