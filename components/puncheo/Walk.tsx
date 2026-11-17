@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion, useMotionValue, useTransform } from "motion/react";
+import { animate, motion, useMotionValue, useTransform } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import type { Key } from "@/data/puncheo/rooms";
 import { CheckIcon } from "./Icons";
 import { RailRow, type RowSkin } from "./RailRow";
 import type { PunchSheet } from "./usePunchSheet";
-import { SCRUB_STEP, useSectionPull, type Scrub } from "./useSectionPull";
+import { useSectionPull, type Scrub } from "./useSectionPull";
 
 export type StripTone = "plain" | "leia" | "yard";
 export type StripItem = { id: string; label: string; count: React.ReactNode };
@@ -105,7 +105,7 @@ export function RoomStrip({ s, tone = "plain" }: { s: PunchSheet; tone?: StripTo
       tone={tone}
       active={s.section}
       onPick={(i) => s.goSection(i)}
-      items={s.punch.sections.map((x, i) => {
+      items={s.sections.map((x, i) => {
         const t = s.sectionTallies[i];
         return {
           id: x.id,
@@ -153,32 +153,27 @@ function GroupLabel({ label, rail, dark }: { label: string; rail: boolean; dark?
   );
 }
 
-/**
- * The foot of a section: where the pull starts. It says where a pull goes and
- * that resting the finger brings up the choice; it arms as the pull passes the mark.
- */
+/** The foot of a section: a quiet cue that lifts with the pull and lights when it arms. No instructions. */
 function EndMarker({ s, armed, pulling, dark }: { s: PunchSheet; armed: boolean; pulling: boolean; dark?: boolean }) {
-  const last = s.section === s.punch.sections.length - 1;
-  const next = s.punch.sections[s.section + 1];
+  const next = s.sections[s.section + 1];
   return (
-    <div className="mt-5 flex flex-col items-center pb-2 text-center">
+    <div className="mt-6 flex flex-col items-center pb-2 text-center" aria-hidden={!next}>
       <motion.span
         className="grid size-9 place-items-center rounded-full"
         animate={{ y: pulling ? -4 : 0, scale: armed ? 1.12 : 1 }}
         transition={{ type: "spring", stiffness: 420, damping: 24 }}
         style={{ background: armed ? "var(--brand)" : dark ? "rgba(255,255,255,0.14)" : "var(--card-2)", color: armed ? "var(--ground)" : dark ? "var(--hair)" : "var(--ink-soft)" }}
-        aria-hidden
       >
         <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="square" strokeLinejoin="miter">
           <path d="M12 19V6M6 11.5l6-6 6 6" />
         </svg>
       </motion.span>
-      <span className={`mt-2 text-[14px] font-semibold ${dark ? "leia-engrave text-ground" : "text-ink"}`}>
-        {last ? `Fin de ${s.sec.name}` : armed ? `Soltá para ${next.name}` : `Tirá para ${next.name}`}
-      </span>
-      <span className={`mt-0.5 text-[12px] ${dark ? "text-hair-2" : "text-ink-faint"}`}>
-        {last ? "Mantené el dedo al tirar para elegir otra sección" : "Mantené el dedo para elegir otra sección"}
-      </span>
+      {next ? (
+        <span className={`mt-2 text-[13px] font-medium ${dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>
+          {next.p !== s.sec.p ? `${next.phase} · ` : ""}
+          {next.name}
+        </span>
+      ) : null}
     </div>
   );
 }
@@ -186,11 +181,12 @@ function EndMarker({ s, armed, pulling, dark }: { s: PunchSheet; armed: boolean;
 /** The sections, brought up over a resting finger: slide sideways to pick, release to go. */
 function Scrubber({ s, scrub }: { s: PunchSheet; scrub: Scrub }) {
   if (!scrub) return null;
-  const n = s.punch.sections.length;
-  const w = typeof window !== "undefined" ? window.innerWidth : 390;
+  const n = s.sections.length;
+  const w = scrub.w;
   // Laid out so the section the finger rests on sits right above it.
-  const x0 = Math.max(16, Math.min(w - 16 - n * SCRUB_STEP, scrub.x - (scrub.start + 0.5) * SCRUB_STEP));
-  const t = s.punch.sections[scrub.target];
+  const step = scrub.step;
+  const x0 = Math.max(16, Math.min(w - 16 - n * step, scrub.x - (scrub.start + 0.5) * step));
+  const t = s.sections[scrub.target];
   return (
     <div className="pointer-events-none fixed inset-0 z-50" aria-hidden>
       <motion.div className="absolute inset-0 bg-ink/25" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.18 }} />
@@ -201,17 +197,19 @@ function Scrubber({ s, scrub }: { s: PunchSheet; scrub: Scrub }) {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ type: "spring", stiffness: 420, damping: 30 }}
       >
-        <div className="mb-3 flex justify-center" style={{ width: n * SCRUB_STEP }}>
+        <div className="mb-3 flex justify-center" style={{ width: n * step }}>
           <span className="rounded-[10px] bg-ink px-3 py-1.5 text-[15px] font-semibold text-ground shadow-[var(--shadow-mid)]">
+            <span className="mr-1.5 text-[12px] font-medium text-ink-faint">{t.phase}</span>
             {t.name}
             <span className="ml-1.5 text-[12px] font-medium text-ink-faint">
               {s.sectionTallies[scrub.target].done}/{s.sectionTallies[scrub.target].total}
             </span>
           </span>
         </div>
-        <div className="flex items-center rounded-full bg-ground py-3 shadow-[var(--shadow-mid)]" style={{ width: n * SCRUB_STEP }}>
-          {s.punch.sections.map((x, i) => (
-            <span key={x.id} className="grid place-items-center" style={{ width: SCRUB_STEP }}>
+        <div className="flex items-center rounded-full bg-ground py-3 shadow-[var(--shadow-mid)]" style={{ width: n * step }}>
+          {s.sections.map((x, i) => (
+            <span key={`${x.p}-${x.id}`} className="relative grid place-items-center" style={{ width: step }}>
+              {i > 0 && s.sections[i - 1].p !== x.p ? <span className="absolute -left-px top-1/2 h-4 w-px -translate-y-1/2 bg-hair-2" /> : null}
               <motion.span
                 className="block rounded-full"
                 animate={{
@@ -254,12 +252,12 @@ function SectionDots({ s, dark }: { s: PunchSheet; dark?: boolean }) {
   }, [p, s.section]);
   return (
     <div className="pointer-events-none fixed right-[5px] top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-[6px]" aria-hidden>
-      {s.punch.sections.map((x, i) => {
+      {s.sections.map((x, i) => {
         const on = i === s.section;
         const done = s.sectionTallies[i].done === s.sectionTallies[i].total;
         return (
           <motion.span
-            key={x.id}
+            key={`${x.p}-${x.id}`}
             layout
             transition={{ type: "spring", stiffness: 420, damping: 32 }}
             className="relative block w-[6px] overflow-hidden rounded-full"
@@ -281,9 +279,24 @@ function SectionDots({ s, dark }: { s: PunchSheet; dark?: boolean }) {
  * group labels and key facts between them, and the pull into the next room.
  */
 export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
-  const { sec, secDir } = s;
-  const pull = useSectionPull({ count: s.punch.sections.length, current: s.section, onCommit: (i) => s.goSection(i) });
-  const y = useTransform(pull.lift, (v) => -v);
+  const { sec } = s;
+  // The screen moves as one: the pull lifts it against friction (the rubber),
+  // and going to another section carries it on, up past the top (or down, going
+  // back), and brings the new section in from the other edge. Nothing inside
+  // animates on its own.
+  const shift = useMotionValue(0);
+  const travel = (to: number) => {
+    const down = to < s.section;
+    const h = window.innerHeight;
+    animate(shift, down ? h * 0.55 : -h * 0.55, { duration: 0.2, ease: [0.4, 0, 1, 1] }).then(() => {
+      pull.raw.set(0);
+      s.goSection(to, undefined, true);
+      shift.set(down ? -h * 0.45 : h * 0.45);
+      animate(shift, 0, { type: "spring", stiffness: 260, damping: 30 });
+    });
+  };
+  const pull = useSectionPull({ count: s.sections.length, current: s.section, onCommit: travel });
+  const y = useTransform([pull.lift, shift], ([l, sh]: number[]) => sh - l);
   const checkIdx = sec.items.map((it, i) => (it.kind === "check" ? i : -1)).filter((i) => i >= 0);
   const firstCheck = checkIdx[0];
   const lastCheck = checkIdx[checkIdx.length - 1];
@@ -292,18 +305,11 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
   return (
     <>
       <motion.div style={{ y }}>
-        <motion.section
-          key={`${s.punch.id}-${sec.id}`}
-          id="puncheo-section"
-          initial={secDir ? { opacity: 0, y: secDir * 70 } : false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={springs.settling}
-          className="mt-7"
-        >
+        <section key={`${sec.p}-${sec.id}`} id="puncheo-section" className="mt-7">
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0">
               <span className={`mono ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>
-                Sección {s.section + 1} de {s.punch.sections.length}
+                {sec.phase} · {s.section + 1} de {s.sections.length}
               </span>
               <h2 className={`mt-1 text-[30px] font-semibold leading-none tracking-[-0.03em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{sec.name}</h2>
               <p className={`mt-1.5 text-[13px] ${skin.dark ? "text-hair-2" : "text-ink-soft"}`}>{sec.note}</p>
@@ -327,7 +333,7 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
               );
             })}
           </ul>
-        </motion.section>
+        </section>
         <EndMarker s={s} armed={pull.armed} pulling={pull.pulling} dark={skin.dark} />
       </motion.div>
       <SectionDots s={s} dark={skin.dark} />

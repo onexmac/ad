@@ -41,9 +41,9 @@ export type RowSkin = {
 };
 
 /**
- * The card's outline, drawn from the left edge to the right: two strokes leave
- * the middle of the left side, one over the top and one under the bottom, and
- * meet at the right.
+ * The card's outline, drawn from the check into the line: two strokes leave the
+ * middle of the right side (where the check is), one over the top and one under
+ * the bottom, and meet at the left.
  */
 function CardEdge({ radius, color, fresh }: { radius: number; color: string; fresh: boolean }) {
   const box = useRef<HTMLSpanElement>(null);
@@ -61,8 +61,9 @@ function CardEdge({ radius, color, fresh }: { radius: number; color: string; fre
     const { w, h } = size;
     const r = Math.min(radius, h / 2, w / 2);
     const m = h / 2;
-    top = `M0 ${m} V${r} A${r} ${r} 0 0 1 ${r} 0 H${w - r} A${r} ${r} 0 0 1 ${w} ${r} V${m}`;
-    bottom = `M0 ${m} V${h - r} A${r} ${r} 0 0 0 ${r} ${h} H${w - r} A${r} ${r} 0 0 0 ${w} ${h - r} V${m}`;
+    // From the check's side (right) into the line, leftward over the top and under the bottom.
+    top = `M${w} ${m} V${r} A${r} ${r} 0 0 0 ${w - r} 0 H${r} A${r} ${r} 0 0 0 0 ${r} V${m}`;
+    bottom = `M${w} ${m} V${h - r} A${r} ${r} 0 0 1 ${w - r} ${h} H${r} A${r} ${r} 0 0 1 0 ${h - r} V${m}`;
   }
   const t = { pathLength: { duration: 0.6, delay: 0.1, ease: [0.65, 0, 0.35, 1] as const }, opacity: { duration: 0.05, delay: 0.1 } };
   return (
@@ -174,7 +175,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
             {...sw.bind}
             className={`no-select relative transition-shadow duration-300 ${r.open ? skin.cardOpen : skin.card}`}
           >
-            {/* A mark draws the card's outline in its colour, from the left edge to the right along top and bottom at once; it stays. */}
+            {/* A mark draws the card's outline in its colour, from the check leftward along top and bottom at once; it stays. */}
             {r.status && r.status !== "na" ? <CardEdge key={`edge-${r.status}-${r.pulse}`} radius={R} color={EDGE[r.status]} fresh={r.pulse > 0} /> : null}
 
             {/* N/A: the item is hatched over, its box hatched too. */}

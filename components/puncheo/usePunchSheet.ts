@@ -1,9 +1,13 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { haptic } from "@/lib/histok/haptic";
 import type { Check } from "@/data/puncheo/formaleta-n1";
-import type { Instance, RoomSheet } from "@/data/puncheo/rooms";
+import type { Instance, RoomSheet, Section } from "@/data/puncheo/rooms";
+
+/** A section in the one walk through the sheet: which punch it belongs to, and its place in it. */
+export type WalkSection = Section & { p: number; phase: string };
 import { needsPhoto, shrinkPhoto, useClosed, useMarks, usePhotos, type Marks, type Status } from "@/lib/puncheo/state";
 
 export type Tally = { done: number; red: number; pending: number; noPhoto: number; total: number };
@@ -30,11 +34,13 @@ export function usePunchSheet(sheet: RoomSheet) {
   const { marks, mark } = useMarks();
   const { closed, set: setClosed } = useClosed();
   const { photos, add: addPhoto, remove: removePhoto } = usePhotos();
-  const [tab, setTab] = useState(0);
+  // One walk through the whole sheet: the pre-armado rooms, then the pre-chorrea
+  // rooms. The punch is no longer a tab, just where the current section belongs.
+  const sections: WalkSection[] = sheet.punches.flatMap((p, pi) => p.sections.map((x) => ({ ...x, p: pi, phase: p.name })));
   const [section, setSection] = useState(0);
   // Direction of the last section change: +1 came from above (slides up), -1 from below.
   const [secDir, setSecDir] = useState(0);
-  // Slide direction of the last switch; 0 until the first one, so the first punch doesn't slide in.
+  // Direction of the last change of punch; 0 until the first one, so the first punch doesn't slide in.
   const [dir, setDir] = useState(0);
   const [open, setOpen] = useState<string | null>(null);
   const [pulses, setPulses] = useState<Record<string, number>>({});
@@ -42,8 +48,10 @@ export function usePunchSheet(sheet: RoomSheet) {
   const [toast, setToast] = useState<{ msg: string; n: number } | null>(null);
   const toastTimer = useRef<number | undefined>(undefined);
 
+  const at = Math.min(section, sections.length - 1);
+  const sec = sections[at];
+  const tab = sec.p;
   const punch = sheet.punches[tab];
-  const sec = punch.sections[Math.min(section, punch.sections.length - 1)];
   const t = tally(punch.checks, marks, photos);
   const isClosed = !!closed[punch.id];
   const ready = t.pending === 0 && t.red === 0 && t.noPhoto === 0;
@@ -71,18 +79,22 @@ export function usePunchSheet(sheet: RoomSheet) {
     }
   };
 
-  /** Into another room of this punch; the page lands on the section's title. */
-  const goSection = (i: number, then?: () => void) => {
-    if (i < 0 || i >= punch.sections.length) return;
-    setSecDir(i > section ? 1 : -1);
+  /** Into another section of the walk; the page lands on the section's title. */
+  const goSection = (i: number, then?: () => void, instant = false) => {
+    if (i < 0 || i >= sections.length) return;
+    setSecDir(i > at ? 1 : -1);
+    if (sections[i].p !== tab) setDir(sections[i].p > tab ? 1 : -1);
     setSection(i);
     setOpen(null);
     setPulses({});
-    requestAnimationFrame(() => {
+    const land = () => {
       const top = document.getElementById("puncheo-section");
-      if (top) window.scrollTo({ top: Math.max(0, top.getBoundingClientRect().top + window.scrollY - 12) });
+      if (top) window.scrollTo({ top: Math.max(0, top.getBoundingClientRect().top + window.scrollY - 12), behavior: "instant" });
       then?.();
-    });
+    };
+    if (instant) flushSync(() => setSection(i));
+    if (instant) land();
+    else requestAnimationFrame(land);
   };
 
   const pickPhoto = async (c: Instance, file: File) => {
@@ -95,18 +107,6 @@ export function usePunchSheet(sheet: RoomSheet) {
       haptic.error();
       say("No se pudo leer la foto");
     }
-  };
-
-  const switchTo = (n: number) => {
-    if (n === tab) return;
-    haptic.select();
-    setDir(n > tab ? 1 : -1);
-    setTab(n);
-    setSection(0);
-    setSecDir(0);
-    setOpen(null);
-    setPulses({});
-    window.scrollTo({ top: 0 });
   };
 
   const close = () => {
@@ -128,24 +128,32 @@ export function usePunchSheet(sheet: RoomSheet) {
       if (t.noPhoto) parts.push(`${t.noPhoto} sin foto`);
       say(parts.join(" · "));
       const show = () => document.querySelector(`[data-check="${CSS.escape(offenders[0].id)}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
-      const at = punch.sections.findIndex((x) => x.ids.includes(offenders[0].id));
-      if (at >= 0 && at !== section) goSection(at, () => setTimeout(show, 60));
+      const where = sections.findIndex((x) => x.ids.includes(offenders[0].id));
+      if (where >= 0 && where !== at) goSection(where, () => setTimeout(show, 60));
       else show();
       return;
     }
     haptic.complete();
+    // An event handler (the close button), not render: the time stamp is the point.
+    // eslint-disable-next-line react-hooks/purity
     setClosed(punch.id, Date.now());
     say(`Ficha cerrada · ${punch.name}`);
   };
 
   const punchTallies = sheet.punches.map((p) => ({ ...tally(p.checks, marks, photos), closed: !!closed[p.id] }));
-  const byId = new Map(punch.checks.map((c) => [c.id, c]));
-  const sectionTallies = punch.sections.map((x) => tally(x.ids.map((id) => byId.get(id)!), marks, photos));
+  const all = sheet.punches.flatMap((p) => p.checks);
+  const byId = new Map(all.map((c) => [c.id, c]));
+  const sectionTallies = sections.map((x) => tally(x.ids.map((id) => byId.get(id)!), marks, photos));
+  /** Each check's section, for labelling search results. */
+  const sectionOf = (id: string) => sections.find((x) => x.ids.includes(id))!;
 
   return {
     punch,
     sec,
-    section: Math.min(section, punch.sections.length - 1),
+    sections,
+    all,
+    sectionOf,
+    section: at,
     secDir,
     sectionTallies,
     byId,
@@ -167,7 +175,6 @@ export function usePunchSheet(sheet: RoomSheet) {
     tapCheck,
     pickPhoto,
     removePhoto,
-    switchTo,
     close,
     say,
   };

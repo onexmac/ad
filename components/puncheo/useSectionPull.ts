@@ -9,11 +9,11 @@ import { CANCEL_SPRING } from "@/lib/updatr/flight";
 export const PULL_COMMIT = 120;
 /** A finger that rests this long during a pull brings up the sections to choose from. */
 const HOLD_MS = 320;
-/** Finger travel per section while choosing. */
+/** Finger travel per section while choosing (at most; less when many sections must fit). */
 export const SCRUB_STEP = 44;
 const liftOf = (r: number) => 150 * (1 - Math.exp((-0.6 * r) / 150));
 
-export type Scrub = { x: number; y: number; target: number; start: number } | null;
+export type Scrub = { x: number; y: number; target: number; start: number; w: number; step: number } | null;
 
 /**
  * Pull up at the end of a section, against friction, to go on to the next one
@@ -40,7 +40,7 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
     let isArmed = false;
     let holdTimer: ReturnType<typeof setTimeout> | null = null;
     let last = { x: 0, y: 0 };
-    let sc: { x: number; y: number; target: number; start: number } | null = null;
+    let sc: { x: number; y: number; target: number; start: number; w: number; step: number } | null = null;
     const max = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
     const atEnd = () => window.scrollY >= max() - 1;
     const next = () => Math.min(live.current.current + 1, live.current.count - 1);
@@ -60,7 +60,9 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
         if (mode !== "pull" || raw.get() < 24) return;
         // The finger rested: bring up the sections over it, the next one under the finger.
         mode = "scrub";
-        sc = { x: last.x, y: last.y, target: next(), start: next() };
+        // The row fits the screen: the step shrinks when there are many sections.
+        const step = Math.min(SCRUB_STEP, (window.innerWidth - 32) / live.current.count);
+        sc = { x: last.x, y: last.y, target: next(), start: next(), w: window.innerWidth, step };
         setScrub(sc);
         arm(false);
         haptic.drag();
@@ -78,7 +80,6 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
         if (commit && t !== live.current.current) {
           haptic.complete();
           live.current.onCommit(t);
-          raw.set(0);
         } else animate(raw, 0, CANCEL_SPRING);
         return;
       }
@@ -88,7 +89,6 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
       if (go) {
         haptic.complete();
         live.current.onCommit(next());
-        raw.set(0);
       } else animate(raw, 0, CANCEL_SPRING);
     };
 
@@ -130,7 +130,7 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
       }
       e.preventDefault();
       if (mode === "scrub" && sc) {
-        const t = Math.max(0, Math.min(live.current.count - 1, sc.start + Math.round((x - sc.x) / SCRUB_STEP)));
+        const t = Math.max(0, Math.min(live.current.count - 1, sc.start + Math.round((x - sc.x) / sc.step)));
         if (t !== sc.target) {
           sc = { ...sc, target: t };
           setScrub(sc);
@@ -149,12 +149,42 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
     const onEnd = () => end(true);
     const onCancel = () => end(false); // the system took the touch
 
+    // Desktop: the wheel or trackpad. Scrolling on past the end, in a fresh run that
+    // starts at the bottom, pulls against the same friction; when the run goes
+    // quiet past the mark it commits. A run that merely arrives there never counts.
+    let idle: ReturnType<typeof setTimeout> | null = null;
+    let fromEnd: boolean | null = null;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (fromEnd === null) {
+        fromEnd = atEnd() && e.deltaY > 0 && live.current.current < live.current.count - 1;
+        if (fromEnd) {
+          mode = "pull";
+          setPulling(true);
+        }
+      }
+      if (idle) clearTimeout(idle);
+      idle = setTimeout(() => {
+        idle = null;
+        const was = fromEnd;
+        fromEnd = null;
+        if (was) end(true);
+      }, 180);
+      if (!fromEnd) return;
+      raw.stop();
+      raw.set(Math.max(0, raw.get() + e.deltaY * 0.5));
+      arm(raw.get() > PULL_COMMIT);
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("touchstart", onStart, { passive: true });
     window.addEventListener("touchmove", onMove, { passive: false });
     window.addEventListener("touchend", onEnd);
     window.addEventListener("touchcancel", onCancel);
     return () => {
       clearHold();
+      if (idle) clearTimeout(idle);
+      window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onStart);
       window.removeEventListener("touchmove", onMove);
       window.removeEventListener("touchend", onEnd);
