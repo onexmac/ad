@@ -5,9 +5,6 @@ import { flushSync } from "react-dom";
 import { haptic } from "@/lib/histok/haptic";
 import type { Check } from "@/data/puncheo/formaleta-n1";
 import type { Instance, RoomSheet, Section } from "@/data/puncheo/rooms";
-
-/** A section in the one walk through the sheet: which punch it belongs to, and its place in it. */
-export type WalkSection = Section & { p: number; phase: string };
 import { needsPhoto, shrinkPhoto, useClosed, useMarks, usePhotos, type Marks, type Status } from "@/lib/puncheo/state";
 
 export type Tally = { done: number; red: number; pending: number; noPhoto: number; total: number };
@@ -34,25 +31,26 @@ export function usePunchSheet(sheet: RoomSheet) {
   const { marks, mark } = useMarks();
   const { closed, set: setClosed } = useClosed();
   const { photos, add: addPhoto, remove: removePhoto } = usePhotos();
-  // One walk through the whole sheet: the pre-armado rooms, then the pre-chorrea
-  // rooms. The punch is no longer a tab, just where the current section belongs.
-  const sections: WalkSection[] = sheet.punches.flatMap((p, pi) => p.sections.map((x) => ({ ...x, p: pi, phase: p.name })));
+  // The walk: one section per room; each room holds its pre-armado and its pre-chorrea checks.
+  const sections: Section[] = sheet.walk;
   const [section, setSection] = useState(0);
   // Direction of the last section change: +1 came from above (slides up), -1 from below.
   const [secDir, setSecDir] = useState(0);
-  // Direction of the last change of punch; 0 until the first one, so the first punch doesn't slide in.
-  const [dir, setDir] = useState(0);
   const [open, setOpen] = useState<string | null>(null);
   const [pulses, setPulses] = useState<Record<string, number>>({});
   const [nudges, setNudges] = useState<Record<string, number>>({});
   const [toast, setToast] = useState<{ msg: string; n: number } | null>(null);
   const toastTimer = useRef<number | undefined>(undefined);
+  // The walk registers how it travels between sections (the whole screen moving),
+  // so other controls (the footer's sections) go the same way.
+  const travelRef = useRef<((i: number) => void) | null>(null);
 
   const at = Math.min(section, sections.length - 1);
   const sec = sections[at];
-  const tab = sec.p;
-  const punch = sheet.punches[tab];
-  const t = tally(punch.checks, marks, photos);
+  const all = sheet.punches.flatMap((p) => p.checks);
+  /** The whole sheet is one ficha now: both punches, closed together. */
+  const punch = { id: "ficha", name: "Ficha", checks: all };
+  const t = tally(all, marks, photos);
   const isClosed = !!closed[punch.id];
   const ready = t.pending === 0 && t.red === 0 && t.noPhoto === 0;
 
@@ -83,7 +81,6 @@ export function usePunchSheet(sheet: RoomSheet) {
   const goSection = (i: number, then?: () => void, instant = false) => {
     if (i < 0 || i >= sections.length) return;
     setSecDir(i > at ? 1 : -1);
-    if (sections[i].p !== tab) setDir(sections[i].p > tab ? 1 : -1);
     setSection(i);
     setOpen(null);
     setPulses({});
@@ -137,11 +134,10 @@ export function usePunchSheet(sheet: RoomSheet) {
     // An event handler (the close button), not render: the time stamp is the point.
     // eslint-disable-next-line react-hooks/purity
     setClosed(punch.id, Date.now());
-    say(`Ficha cerrada · ${punch.name}`);
+    say("Ficha cerrada");
   };
 
   const punchTallies = sheet.punches.map((p) => ({ ...tally(p.checks, marks, photos), closed: !!closed[p.id] }));
-  const all = sheet.punches.flatMap((p) => p.checks);
   const byId = new Map(all.map((c) => [c.id, c]));
   const sectionTallies = sections.map((x) => tally(x.ids.map((id) => byId.get(id)!), marks, photos));
   /** Each check's section, for labelling search results. */
@@ -154,12 +150,15 @@ export function usePunchSheet(sheet: RoomSheet) {
     all,
     sectionOf,
     section: at,
+    registerTravel: (fn: (i: number) => void) => {
+      travelRef.current = fn;
+    },
+    /** Go to a section the way the walk moves: the whole screen travels. */
+    travelTo: (i: number) => (travelRef.current ? travelRef.current(i) : goSection(i)),
     secDir,
     sectionTallies,
     byId,
     goSection,
-    tab,
-    dir,
     t,
     ready,
     isClosed,

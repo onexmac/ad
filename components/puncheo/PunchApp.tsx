@@ -117,9 +117,10 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
   const f = FILTERS[filter];
   // Search reaches the whole walk (both punches), labelled by section.
   const label = (id: string) => {
-    const x = s.sectionOf(id);
-    return `${x.phase} · ${x.name}`;
+    const c = s.byId.get(id)!;
+    return `${s.sectionOf(id).name} · ${c.phase}`;
   };
+
   const found = searching ? s.all.filter((c) => f.match(s.marks[c.id]) && (!query || norm(`${c.num} ${c.title} ${c.sub} ${label(c.id)}`).includes(query))) : [];
 
   const toggle = () => {
@@ -150,7 +151,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
               {found.map((c, i) => (
                 <li key={c.id} data-check={c.id}>
                   {i === 0 || label(found[i - 1].id) !== label(c.id) ? <span className={`mono block pb-2 pl-2 pt-2 ${cfg.skin.dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>{label(c.id)}</span> : null}
-                  <RailRow s={s} check={c} first last skin={cfg.skin} />
+                  <RailRow s={s} check={c} skin={cfg.skin} />
                 </li>
               ))}
             </ul>

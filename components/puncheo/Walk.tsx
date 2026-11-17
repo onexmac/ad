@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { animate, motion, useMotionValue, useTransform } from "motion/react";
+import { animate, motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import type { Key } from "@/data/puncheo/rooms";
 import { CheckIcon } from "./Icons";
-import { RailRow, type RowSkin } from "./RailRow";
+import { COLOR, RailRow, type RowSkin } from "./RailRow";
 import type { PunchSheet } from "./usePunchSheet";
-import { useSectionPull, type Scrub } from "./useSectionPull";
+import { useSectionPull } from "./useSectionPull";
 
 export type StripTone = "plain" | "leia" | "yard";
 export type StripItem = { id: string; label: string; count: React.ReactNode };
@@ -118,13 +118,10 @@ export function RoomStrip({ s, tone = "plain" }: { s: PunchSheet; tone?: StripTo
 }
 
 /** A key fact from the sheet, set apart in AD Visual's hairline table (on Leia's slate, a paper panel). */
-function KeyBlock({ k, rail, skin }: { k: Key; rail: boolean; skin: RowSkin }) {
+function KeyBlock({ k, skin }: { k: Key; skin: RowSkin }) {
   return (
-    <div className="relative flex">
-      <div className="relative -ml-3 w-4 shrink-0" aria-hidden>
-        {rail ? <span className="absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-hair-2" /> : null}
-      </div>
-      <div className="min-w-0 flex-1 pb-4 pl-1 pt-1.5">
+    <div className="pb-4 pt-1.5">
+      <div className="min-w-0">
         <span className={`mono block pb-1.5 ${skin.dark ? "leia-engrave text-hair-2" : "text-ink-faint"}`}>Clave · {k.title}</span>
         <div
           className={`grid grid-cols-[auto_minmax(0,1fr)] ${skin.leia ? "leia-paper rounded-[4px] px-3" : skin.yard ? "rounded-[12px] bg-card px-3 py-1" : "border-y border-ink"}`}
@@ -141,16 +138,22 @@ function KeyBlock({ k, rail, skin }: { k: Key; rail: boolean; skin: RowSkin }) {
   );
 }
 
-function GroupLabel({ label, rail, dark }: { label: string; rail: boolean; dark?: boolean }) {
+function GroupLabel({ label, dark }: { label: string; dark?: boolean }) {
   return (
-    <div className="relative flex">
-      <div className="relative -ml-3 w-4 shrink-0" aria-hidden>
-        {rail ? <span className="absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-hair-2" /> : null}
-        <span className="absolute left-1/2 top-[13px] h-[2px] w-3 bg-hair-2" />
+    <span className={`mono block pb-2.5 pl-1 pt-2 ${dark ? "leia-engrave text-hair" : "text-ink-soft"}`} style={{ fontWeight: 600 }}>
+      {label}
+    </span>
+  );
+}
+
+/** Where the room's checks for one punch begin: the punch, and when it happens. */
+function PhaseHead({ name, moment, first, dark }: { name: string; moment: string; first: boolean; dark?: boolean }) {
+  return (
+    <div className={first ? "" : "pt-4"}>
+      <div className="min-w-0 pb-3 pl-1">
+        <span className={`block text-[17px] font-semibold tracking-[-0.01em] ${dark ? "leia-engrave text-ground" : "text-ink"}`}>{name}</span>
+        <span className={`mt-0.5 block text-[13px] leading-[18px] ${dark ? "text-hair-2" : "text-ink-soft"}`}>{moment}</span>
       </div>
-      <span className={`mono pb-2.5 pl-3 pt-2 ${dark ? "leia-engrave text-hair" : "text-ink-soft"}`} style={{ fontWeight: 600 }}>
-        {label}
-      </span>
     </div>
   );
 }
@@ -158,127 +161,28 @@ function GroupLabel({ label, rail, dark }: { label: string; rail: boolean; dark?
 /** The foot of a section: a quiet cue that lifts with the pull and lights when it arms. No instructions. */
 function EndMarker({ s, armed, pulling, dark }: { s: PunchSheet; armed: boolean; pulling: boolean; dark?: boolean }) {
   const next = s.sections[s.section + 1];
+  if (!next) return <div className="h-6" />;
   return (
-    <div className="mt-6 flex flex-col items-center pb-2 text-center" aria-hidden={!next}>
+    <div className="mt-6 flex flex-col items-center pb-2 text-center">
       <motion.span
         className="grid size-9 place-items-center rounded-full"
         animate={{ y: pulling ? -4 : 0, scale: armed ? 1.12 : 1 }}
         transition={{ type: "spring", stiffness: 420, damping: 24 }}
         style={{ background: armed ? "var(--brand)" : dark ? "rgba(255,255,255,0.14)" : "var(--card-2)", color: armed ? "var(--ground)" : dark ? "var(--hair)" : "var(--ink-soft)" }}
+        aria-hidden
       >
         <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="square" strokeLinejoin="miter">
           <path d="M12 19V6M6 11.5l6-6 6 6" />
         </svg>
       </motion.span>
-      {next ? (
-        <span className={`mt-2 text-[13px] font-medium ${dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>
-          {next.p !== s.sec.p ? `${next.phase} · ` : ""}
-          {next.name}
-        </span>
-      ) : null}
-    </div>
-  );
-}
-
-/** The sections, brought up over a resting finger: slide sideways to pick, release to go. */
-function Scrubber({ s, scrub }: { s: PunchSheet; scrub: Scrub }) {
-  if (!scrub) return null;
-  const n = s.sections.length;
-  const w = scrub.w;
-  // Laid out so the section the finger rests on sits right above it.
-  const step = scrub.step;
-  const x0 = Math.max(16, Math.min(w - 16 - n * step, scrub.x - (scrub.start + 0.5) * step));
-  const t = s.sections[scrub.target];
-  return (
-    <div className="pointer-events-none fixed inset-0 z-50" aria-hidden>
-      <motion.div className="absolute inset-0 bg-ink/25" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.18 }} />
-      <motion.div
-        className="absolute"
-        style={{ left: x0, top: scrub.y - 118 }}
-        initial={{ opacity: 0, y: 12, scale: 0.94 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ type: "spring", stiffness: 420, damping: 30 }}
-      >
-        <div className="mb-3 flex justify-center" style={{ width: n * step }}>
-          <span className="rounded-[10px] bg-ink px-3 py-1.5 text-[15px] font-semibold text-ground shadow-[var(--shadow-mid)]">
-            <span className="mr-1.5 text-[12px] font-medium text-ink-faint">{t.phase}</span>
-            {t.name}
-            <span className="ml-1.5 text-[12px] font-medium text-ink-faint">
-              {s.sectionTallies[scrub.target].done}/{s.sectionTallies[scrub.target].total}
-            </span>
-          </span>
-        </div>
-        <div className="flex items-center rounded-full bg-ground py-3 shadow-[var(--shadow-mid)]" style={{ width: n * step }}>
-          {s.sections.map((x, i) => (
-            <span key={`${x.p}-${x.id}`} className="relative grid place-items-center" style={{ width: step }}>
-              {i > 0 && s.sections[i - 1].p !== x.p ? <span className="absolute -left-px top-1/2 h-4 w-px -translate-y-1/2 bg-hair-2" /> : null}
-              <motion.span
-                className="block rounded-full"
-                animate={{
-                  width: i === scrub.target ? 26 : 8,
-                  height: 8,
-                  background: i === scrub.target ? "var(--brand)" : i === s.section ? "var(--ink-3)" : "var(--hair-2)",
-                }}
-                transition={{ type: "spring", stiffness: 520, damping: 32 }}
-              />
-            </span>
-          ))}
-        </div>
-      </motion.div>
+      <span className={`mt-2 text-[13px] font-medium ${dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>{next.name}</span>
     </div>
   );
 }
 
 /**
- * The sections at the right edge, after Histok's pills: a dot per section, the
- * current one a pill that fills as you scroll through it.
- */
-function SectionDots({ s, dark }: { s: PunchSheet; dark?: boolean }) {
-  const p = useMotionValue(0);
-  const fill = useTransform(p, (v) => `${Math.round(v * 100)}%`);
-  useEffect(() => {
-    const on = () => {
-      const el = document.getElementById("puncheo-list");
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const span = Math.max(1, r.height - window.innerHeight * 0.5);
-      p.set(Math.max(0, Math.min(1, (window.innerHeight * 0.5 - r.top) / span)));
-    };
-    on();
-    window.addEventListener("scroll", on, { passive: true });
-    window.addEventListener("resize", on);
-    return () => {
-      window.removeEventListener("scroll", on);
-      window.removeEventListener("resize", on);
-    };
-  }, [p, s.section]);
-  return (
-    <div className="pointer-events-none fixed right-[5px] top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-[6px]" aria-hidden>
-      {s.sections.map((x, i) => {
-        const on = i === s.section;
-        const done = s.sectionTallies[i].done === s.sectionTallies[i].total;
-        return (
-          <motion.span
-            key={`${x.p}-${x.id}`}
-            layout
-            transition={{ type: "spring", stiffness: 420, damping: 32 }}
-            className="relative block w-[6px] overflow-hidden rounded-full"
-            style={{
-              height: on ? 30 : 6,
-              background: dark ? "rgba(255,255,255,0.28)" : on ? "var(--hair)" : done ? "var(--ok)" : "var(--hair-2)",
-            }}
-          >
-            {on ? <motion.span className="absolute inset-x-0 top-0 block rounded-full" style={{ height: fill, background: dark ? "var(--ground)" : "var(--ink-3)" }} /> : null}
-          </motion.span>
-        );
-      })}
-    </div>
-  );
-}
-
-/**
- * The current room of the punch: its title, its checks on the rail with the
- * group labels and key facts between them, and the pull into the next room.
+ * The current room: its title, then its pre-armado and pre-chorrea checks on the
+ * rail with group labels and key facts between them, and the pull into the next room.
  */
 export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
   const { sec } = s;
@@ -298,48 +202,142 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
     });
   };
   const pull = useSectionPull({ count: s.sections.length, current: s.section, onCommit: travel });
+  useEffect(() => {
+    s.registerTravel(travel);
+  });
   const y = useTransform([pull.lift, shift], ([l, sh]: number[]) => sh - l);
-  const checkIdx = sec.items.map((it, i) => (it.kind === "check" ? i : -1)).filter((i) => i >= 0);
-  const firstCheck = checkIdx[0];
-  const lastCheck = checkIdx[checkIdx.length - 1];
   const st = s.sectionTallies[s.section];
+  const rows = sec.items.map((it, i) => {
+    if (it.kind === "check") {
+      const c = s.byId.get(it.id)!;
+      return (
+        <li key={c.id} data-check={c.id}>
+          <RailRow s={s} check={c} skin={skin} />
+        </li>
+      );
+    }
+    if (it.kind === "phase") return <li key={`p-${it.n}`}><PhaseHead name={it.name} moment={it.moment} first={i === 0} dark={skin.dark} /></li>;
+    if (it.kind === "group") return <li key={`g-${i}-${it.label}`}><GroupLabel label={it.label} dark={skin.dark} /></li>;
+    return <li key={`k-${i}-${it.key.title}`}><KeyBlock k={it.key} skin={skin} /></li>;
+  });
 
   return (
     <>
-      <motion.div style={{ y }}>
-        <section key={`${sec.p}-${sec.id}`} id="puncheo-section" className="mt-7">
-          <div className="flex items-end justify-between gap-3">
-            <div className="min-w-0">
-              <span className={`mono ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>
-                {sec.phase} · {s.section + 1} de {s.sections.length}
-              </span>
-              <h2 className={`mt-1 text-[30px] font-semibold leading-none tracking-[-0.03em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{sec.name}</h2>
-              <p className={`mt-1.5 text-[13px] ${skin.dark ? "text-hair-2" : "text-ink-soft"}`}>{sec.note}</p>
-            </div>
-            <span className="shrink-0 leading-none tabular-nums">
-              <span className={`text-[24px] font-medium tracking-[-0.02em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{String(st.done).padStart(2, "0")}</span>
-              <span className={`text-[14px] ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>/{st.total}</span>
+    <motion.div style={{ y }}>
+      <section key={sec.id} id="puncheo-section" className="mt-7">
+        <div className="flex items-end justify-between gap-3">
+          <div className="min-w-0">
+            <span className={`mono ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>
+              Sección {s.section + 1} de {s.sections.length}
             </span>
+            <h2 className={`mt-1 text-[30px] font-semibold leading-none tracking-[-0.03em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{sec.name}</h2>
+            <p className={`mt-1.5 text-[13px] ${skin.dark ? "text-hair-2" : "text-ink-soft"}`}>{sec.note}</p>
           </div>
+          <span className="shrink-0 leading-none tabular-nums">
+            <span className={`text-[24px] font-medium tracking-[-0.02em] ${skin.dark ? "leia-engrave text-ground" : "text-ink"}`}>{String(st.done).padStart(2, "0")}</span>
+            <span className={`text-[14px] ${skin.dark ? "text-hair-2" : "text-ink-faint"}`}>/{st.total}</span>
+          </span>
+        </div>
+        <ul id="puncheo-list" className="mt-5">
+          {rows}
+        </ul>
+      </section>
+      <EndMarker s={s} armed={pull.armed} pulling={pull.pulling} dark={skin.dark} />
+    </motion.div>
+    {/* Outside the moving layer: a transformed ancestor would trap this fixed rail. */}
+    <ScrollRail s={s} dark={skin.dark} />
+    </>
+  );
+}
 
-          <ul id="puncheo-list" className="mt-5">
-            {sec.items.map((it, i) => {
-              const rail = i > firstCheck && i < lastCheck;
-              if (it.kind === "group") return <li key={`g-${it.label}`}><GroupLabel label={it.label} rail={rail} dark={skin.dark} /></li>;
-              if (it.kind === "key") return <li key={`k-${it.key.title}`}><KeyBlock k={it.key} rail={rail} skin={skin} /></li>;
-              const c = s.byId.get(it.id)!;
-              return (
-                <li key={c.id} data-check={c.id}>
-                  <RailRow s={s} check={c} first={i === firstCheck} last={i === lastCheck} skin={skin} />
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-        <EndMarker s={s} armed={pull.armed} pulling={pull.pulling} dark={skin.dark} />
-      </motion.div>
-      <SectionDots s={s} dark={skin.dark} />
-      <Scrubber s={s} scrub={pull.scrub} />
+/**
+ * The room's checks at the right edge, one dot each in its mark's colour, and a
+ * long pill over the checks on screen that moves as you scroll (after Circa's
+ * scroll indicator). Above the pill, the checks you have passed are joined by
+ * the line; below it, the pending ones wait as loose dots that grow out of the
+ * pill's foot into place.
+ */
+function ScrollRail({ s, dark }: { s: PunchSheet; dark?: boolean }) {
+  const ids = s.sec.ids;
+  const n = ids.length;
+  const STEP = Math.max(7, Math.min(12, Math.floor(260 / Math.max(1, n))));
+  const top = useMotionValue(0);
+  const bot = useMotionValue(0);
+  useEffect(() => {
+    let raf = 0;
+    const measure = () => {
+      raf = 0;
+      const centers = ids.map((id) => {
+        const el = document.querySelector(`[data-check="${CSS.escape(id)}"]`);
+        if (!el) return 0;
+        const r = el.getBoundingClientRect();
+        return r.top + r.height / 2;
+      });
+      // Where a screen line falls among the checks, as a fractional index.
+      const at = (y: number) => {
+        if (!centers.length) return 0;
+        if (y <= centers[0]) return 0;
+        for (let i = 1; i < centers.length; i++) if (y <= centers[i]) return i - 1 + (y - centers[i - 1]) / Math.max(1, centers[i] - centers[i - 1]);
+        return centers.length - 1;
+      };
+      top.set(at(80));
+      bot.set(Math.max(at(80) + 0.6, at(window.innerHeight - 90)));
+    };
+    const on = () => {
+      if (!raf) raf = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", on);
+      window.removeEventListener("resize", on);
+    };
+  }, [ids, top, bot]);
+  const pillY = useTransform(top, (v) => v * STEP - 4);
+  const pillH = useTransform([top, bot], ([a, b]: number[]) => Math.max(18, (b - a) * STEP + 8));
+  return (
+    <div className="pointer-events-none fixed right-[5px] top-1/2 z-20 w-[8px] -translate-y-1/2" style={{ height: (n - 1) * STEP + 8 }} aria-hidden>
+      {ids.map((id, i) => (
+        <RailDot key={id} i={i} step={STEP} top={top} bot={bot} color={s.marks[id] ? COLOR[s.marks[id]] : null} next={i < n - 1 ? (s.marks[ids[i + 1]] ? COLOR[s.marks[ids[i + 1]]] : null) : undefined} dark={dark} />
+      ))}
+      <motion.span className="absolute left-0 w-[8px] rounded-full" style={{ y: pillY, height: pillH, background: dark ? "var(--ground)" : "var(--ink-3)" }} />
+    </div>
+  );
+}
+
+function RailDot({
+  i,
+  step,
+  top,
+  bot,
+  color,
+  next,
+  dark,
+}: {
+  i: number;
+  step: number;
+  top: MotionValue<number>;
+  bot: MotionValue<number>;
+  color: string | null;
+  next: string | null | undefined;
+  dark?: boolean;
+}) {
+  const idle = dark ? "rgba(255,255,255,0.4)" : "var(--hair-2)";
+  // Below the pill: small at its foot, full size a couple of steps on.
+  const scale = useTransform(bot, (b) => (i <= b ? 1 : Math.max(0.35, Math.min(1, (i - b) / 2))));
+  // Above the pill: joined to the next dot by the line.
+  const link = useTransform(top, (t) => (next !== undefined && i + 1 <= t ? 1 : 0));
+  return (
+    <>
+      {next !== undefined ? (
+        <motion.span
+          className="absolute left-[3px] w-[2px] origin-top"
+          style={{ top: i * step + 4, height: step, scaleY: link, background: color ?? idle }}
+        />
+      ) : null}
+      <motion.span className="absolute left-[1px] size-[6px] rounded-full" style={{ top: i * step + 1, scale, background: color ?? idle }} />
     </>
   );
 }
