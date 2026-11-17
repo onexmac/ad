@@ -22,7 +22,7 @@ export function VariantSwitch({ current, dark = false }: { current: "m" | "a" | 
               <motion.span
                 layoutId={`variant-${dark ? "d" : "l"}`}
                 transition={springs.snappy}
-                className={`absolute inset-0 ${dark ? "bg-paper" : "bg-ink"}`}
+                className={`pointer-events-none absolute inset-0 ${dark ? "bg-paper" : "bg-ink"}`}
               />
             ) : null}
             <span
