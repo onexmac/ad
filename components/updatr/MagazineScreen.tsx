@@ -294,7 +294,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         <Section name="Note" tab="issue" id="note" className="px-5 pt-20">
           <div className="grid grid-cols-[88px_1fr] gap-4">
             <span className="text-[14px] font-medium">
-              Note <Arrow dir="turn" weight={1.75} />
+              Note <Arrow dir="downRight" weight={1.75} />
             </span>
             <Reveal>
               <p className="text-[25px] leading-[1.14] tracking-[-0.03em]">
@@ -364,7 +364,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                 onClick={() => opener.openFromKey(issue.feature!.id, `m-feature-${issue.feature!.id}`)}
                 className="mono mt-2 text-ink"
               >
-                Continue <Arrow dir="turn" />
+                Continue <Arrow dir="downRight" />
               </button>
             </div>
           </Section>

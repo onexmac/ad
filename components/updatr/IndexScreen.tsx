@@ -60,7 +60,7 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
         {/* Now */}
         <section className="mt-14 grid grid-cols-[88px_1fr] gap-4 px-5">
           <span className="text-[14px] font-medium">
-            Now <Arrow dir="turn" weight={1.75} />
+            Now <Arrow dir="downRight" weight={1.75} />
           </span>
           <p className="text-[15px] font-medium leading-[1.35] tracking-[-0.01em]">
             {latest ? (
@@ -204,7 +204,7 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
                         "Sample entry"
                       ) : (
                         <>
-                          Read <Arrow dir="turn" />
+                          Read <Arrow dir="downRight" />
                         </>
                       )}
                     </span>
