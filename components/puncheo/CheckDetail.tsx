@@ -17,6 +17,7 @@ export function CheckDetail({
   onClear,
   onRemovePhoto,
   highlight = "var(--ground)",
+  outer = 20,
 }: {
   check: Check;
   status: Status | null;
@@ -25,7 +26,10 @@ export function CheckDetail({
   onRemovePhoto: (i: number) => void;
   /** Background of the criterion that matches the mark. */
   highlight?: string;
+  /** The card's radius: everything inside rounds less (nested radii shrink inward). */
+  outer?: number;
 }) {
+  const inner = Math.max(2, outer - 8);
   const rows = [
     { s: "green" as const, label: "Verde", text: check.green },
     { s: "yellow" as const, label: "Amarillo", text: check.yellow },
@@ -40,8 +44,8 @@ export function CheckDetail({
         {rows.map((r) => (
           <div
             key={r.s}
-            className="flex gap-3 rounded-2xl px-3.5 py-3 transition-colors"
-            style={{ background: status === r.s ? highlight : "transparent", boxShadow: status === r.s ? "var(--shadow-soft)" : "none" }}
+            className="flex gap-3 px-3.5 py-3 transition-colors"
+            style={{ borderRadius: inner, background: status === r.s ? highlight : "transparent", boxShadow: status === r.s ? "var(--shadow-soft)" : "none" }}
           >
             <span className="mt-[5px] size-2.5 shrink-0 rounded-full" style={{ background: DOT[r.s] }} />
             <span className="min-w-0">
@@ -76,8 +80,8 @@ export function CheckDetail({
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.7, opacity: 0 }}
                 transition={springs.popping}
-                className="relative size-[72px] overflow-hidden rounded-xl"
-                style={{ boxShadow: "0 0 0 1px var(--hair-2)" }}
+                className="relative size-[72px] overflow-hidden"
+                style={{ borderRadius: inner, boxShadow: "0 0 0 1px var(--hair-2)" }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={src} alt={`Foto ${i + 1} de ${check.id}`} draggable={false} className="h-full w-full object-cover" />
@@ -88,7 +92,8 @@ export function CheckDetail({
                     haptic.delete();
                     onRemovePhoto(i);
                   }}
-                  className="absolute right-1 top-1 grid size-6 place-items-center rounded-full bg-ink/70 text-ground"
+                  className="absolute right-1 top-1 grid size-6 place-items-center bg-ink/70 text-ground"
+                  style={{ borderRadius: Math.max(2, inner - 4) }}
                 >
                   <CrossIcon size={12} strokeWidth={2.2} />
                 </button>
@@ -109,7 +114,8 @@ export function CheckDetail({
               haptic.select();
               onClear();
             }}
-            className="shrink-0 rounded-full bg-hair px-3.5 py-2 text-[13px] font-semibold text-ink-3 active:bg-hair-2"
+            className="shrink-0 bg-hair px-3.5 py-2 text-[13px] font-semibold text-ink-3 active:bg-hair-2"
+            style={{ borderRadius: Math.min(16, inner) }}
           >
             Reiniciar
           </button>

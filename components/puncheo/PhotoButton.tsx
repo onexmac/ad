@@ -17,6 +17,8 @@ type Props = {
   onPick: (file: File) => void;
   size?: number;
   square?: boolean;
+  /** Leia's bevelled square button. */
+  leia?: boolean;
   className?: string;
 };
 
@@ -25,7 +27,7 @@ type Props = {
  * desktop). Once a photo exists it shows inside the button, with a count when
  * there are more. A photo the check needs and lacks fills it green with a white icon.
  */
-export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, size = 36, square = false, className = "" }: Props) {
+export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, size = 36, square = false, leia = false, className = "" }: Props) {
   const input = useRef<HTMLInputElement>(null);
   const btn = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -33,7 +35,7 @@ export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, size 
     animate(btn.current, { x: [0, -7, 7, -5, 5, -2, 0], rotate: [0, -8, 8, -5, 4, 0, 0] }, { duration: 0.5, ease: "easeOut" });
   }, [shake]);
   const last = photos[photos.length - 1];
-  const radius = square ? 8 : 999;
+  const radius = leia ? 4 : square ? 8 : 999;
   return (
     <>
       <button
@@ -62,13 +64,17 @@ export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, size 
           </motion.span>
         ) : (
           <span
-            className="absolute inset-0 grid place-items-center transition-colors duration-300"
-            style={{
-              borderRadius: radius,
-              background: missing ? "var(--ok)" : "var(--ground)",
-              boxShadow: missing ? "0 4px 10px rgba(136,160,36,0.28)" : "0 0 0 1px var(--hair-2)",
-              color: missing ? "var(--ground)" : "var(--ink-faint)",
-            }}
+            className={`absolute inset-0 grid place-items-center transition-colors duration-300 ${leia ? (missing ? "leia-btn-ok" : "leia-btn") : ""}`}
+            style={
+              leia
+                ? { borderRadius: radius, color: missing ? "var(--ground)" : "var(--ink-soft)" }
+                : {
+                    borderRadius: radius,
+                    background: missing ? "var(--ok)" : "var(--ground)",
+                    boxShadow: missing ? "0 4px 10px rgba(136,160,36,0.28)" : "0 0 0 1px var(--hair-2)",
+                    color: missing ? "var(--ground)" : "var(--ink-faint)",
+                  }
+            }
           >
             <CameraIcon size={Math.round(size * 0.45)} />
           </span>

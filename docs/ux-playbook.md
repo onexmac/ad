@@ -85,6 +85,9 @@ matched; when they differ, Updatr is the newer and better-tested one.
      Characters like ↘ ↗ turn into colour emoji on iOS.
    - The house arrow is a diagonal shaft with a right-angle head
      (`components/updatr/Arrow.tsx`).
+   - Nested radii shrink inward: a container's radius is always bigger than
+     the radius of what it holds (outer = inner + padding is the goal). A
+     round button in a card needs a card radius above the button's.
 
 ## Patterns and where they live
 
@@ -208,6 +211,9 @@ matched; when they differ, Updatr is the newer and better-tested one.
   settle back.
 
 ### Layout and chrome
+- **Don't put a rounder element inside a less round container.** A 17 px
+  radius button in a 12 px radius card reads as broken. Raise the container's
+  radius or square the element.
 - **Don't put a navigation bar at the top.** And don't leave a full-width
   transparent wrapper fixed at the bottom either: Safari tints its toolbar
   from it.

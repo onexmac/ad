@@ -100,3 +100,94 @@ html {
   user-select: none;
   -webkit-touch-callout: none;
 }
+
+/* ── Leia: the polish of an older UI. Subtle gradients, a lit top edge, a
+   darker bottom edge, soft drop shadows, engraved type, a fine texture.
+   Nested radii always shrink inward (container > inner). ───────────────── */
+.leia-ground {
+  background-color: #5d636c;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, #666c76 0%, #575d66 100%);
+  background-attachment: fixed;
+}
+.leia-engrave {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.35);
+}
+.leia-band {
+  background: linear-gradient(180deg, #5d9bf0 0%, #4986eb 55%, #3f78d6 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.22);
+}
+.leia-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f6f7f8 100%);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 0 0 1px rgba(25, 28, 34, 0.18),
+    0 1px 0 rgba(25, 28, 34, 0.22),
+    0 3px 6px rgba(25, 28, 34, 0.18);
+}
+.leia-card-open {
+  background: #ffffff;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 0 0 1px rgba(25, 28, 34, 0.2),
+    0 6px 18px rgba(25, 28, 34, 0.28);
+}
+.leia-paper {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f5f6 100%);
+  box-shadow: inset 0 1px 0 #ffffff, 0 0 0 1px rgba(25, 28, 34, 0.18), 0 2px 4px rgba(25, 28, 34, 0.2);
+}
+.leia-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #e9eaec 100%);
+  box-shadow: inset 0 1px 0 #ffffff, 0 0 0 1px rgba(25, 28, 34, 0.22), 0 1px 1px rgba(25, 28, 34, 0.18);
+}
+.leia-btn-ok {
+  background: linear-gradient(180deg, #a9d46e 0%, #95c955 50%, #84b546 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 0 0 1px rgba(80, 110, 30, 0.55), 0 1px 2px rgba(25, 28, 34, 0.25);
+}
+.leia-fill-green {
+  background: linear-gradient(180deg, #a9d46e 0%, #95c955 50%, #84b546 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 0 0 1px rgba(80, 110, 30, 0.55), 0 1px 2px rgba(25, 28, 34, 0.25);
+}
+.leia-fill-yellow {
+  background: linear-gradient(180deg, #ffe07d 0%, #ffd556 50%, #f5c33a 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 0 0 1px rgba(170, 120, 0, 0.5), 0 1px 2px rgba(25, 28, 34, 0.25);
+}
+.leia-fill-red {
+  background: linear-gradient(180deg, #f27373 0%, #eb5757 50%, #d94848 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(150, 30, 30, 0.55), 0 1px 2px rgba(25, 28, 34, 0.25);
+}
+.leia-glyph {
+  filter: drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.25));
+}
+.leia-tabs {
+  background: linear-gradient(180deg, #fbfbfc 0%, #e9eaec 100%);
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(25, 28, 34, 0.25), 0 2px 4px rgba(25, 28, 34, 0.15);
+}
+.leia-tab-sep {
+  box-shadow: inset -1px 0 0 rgba(25, 28, 34, 0.14), 1px 0 0 rgba(255, 255, 255, 0.85);
+}
+.leia-tab-on {
+  background: linear-gradient(180deg, #3f78d6 0%, #4986eb 60%, #5592ee 100%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.28), inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.leia-bar {
+  background: linear-gradient(180deg, #3b4048 0%, #2c3036 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 -1px 0 rgba(0, 0, 0, 0.35);
+}
+.leia-cta {
+  background: linear-gradient(180deg, #5d9bf0 0%, #4986eb 50%, #3e76d4 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(10, 40, 100, 0.55), 0 1px 2px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+.leia-cta-off {
+  background: linear-gradient(180deg, #555b64 0%, #474c54 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+.leia-receipt {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f4f5 100%);
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(25, 28, 34, 0.2), 0 2px 5px rgba(25, 28, 34, 0.18);
+}

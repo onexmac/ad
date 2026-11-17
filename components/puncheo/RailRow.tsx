@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
@@ -34,7 +34,58 @@ export type RowSkin = {
   radius?: number;
   /** Leia's big light blue numeral for the check number, in its own column. */
   bigNum?: boolean;
+  /** The page ground is dark (Leia's slate): text around the cards goes light. */
+  dark?: boolean;
+  /** Leia's polish on the controls: bevelled square buttons. */
+  leia?: boolean;
 };
+
+/**
+ * The card's outline, drawn from the left edge to the right: two strokes leave
+ * the middle of the left side, one over the top and one under the bottom, and
+ * meet at the right.
+ */
+function CardEdge({ radius, color, fresh }: { radius: number; color: string; fresh: boolean }) {
+  const box = useRef<HTMLSpanElement>(null);
+  const [size, setSize] = useState<{ w: number; h: number } | null>(null);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setSize({ w: el.offsetWidth, h: el.offsetHeight }));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  let top = "";
+  let bottom = "";
+  if (size) {
+    const { w, h } = size;
+    const r = Math.min(radius, h / 2, w / 2);
+    const m = h / 2;
+    top = `M0 ${m} V${r} A${r} ${r} 0 0 1 ${r} 0 H${w - r} A${r} ${r} 0 0 1 ${w} ${r} V${m}`;
+    bottom = `M0 ${m} V${h - r} A${r} ${r} 0 0 0 ${r} ${h} H${w - r} A${r} ${r} 0 0 0 ${w} ${h - r} V${m}`;
+  }
+  const t = { pathLength: { duration: 0.6, delay: 0.1, ease: [0.65, 0, 0.35, 1] as const }, opacity: { duration: 0.05, delay: 0.1 } };
+  return (
+    <span ref={box} className="pointer-events-none absolute inset-0" aria-hidden>
+      {size ? (
+        <svg className="absolute inset-0 overflow-visible" width={size.w} height={size.h}>
+          {[top, bottom].map((d) => (
+            <motion.path
+              key={d.slice(0, 12) + d.length}
+              d={d}
+              fill="none"
+              stroke={color}
+              strokeWidth={2}
+              initial={fresh ? { pathLength: 0, opacity: 0 } : false}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={t}
+            />
+          ))}
+        </svg>
+      ) : null}
+    </span>
+  );
+}
 
 type Tag = { label: string; bg: string; ink: string };
 
@@ -123,25 +174,8 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
             {...sw.bind}
             className={`no-select relative transition-shadow duration-300 ${r.open ? skin.cardOpen : skin.card}`}
           >
-            {/* A mark draws the card's outline in its colour, growing to the right from the top left; it stays. */}
-            {r.status && r.status !== "na" ? (
-              <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden>
-                <motion.rect
-                  key={`edge-${r.status}-${r.pulse}`}
-                  x="0"
-                  y="0"
-                  width="100%"
-                  height="100%"
-                  rx={R}
-                  fill="none"
-                  stroke={EDGE[r.status]}
-                  strokeWidth={2}
-                  initial={r.pulse ? { pathLength: 0, opacity: 0 } : false}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ pathLength: { duration: 0.75, delay: 0.1, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.05, delay: 0.1 } }}
-                />
-              </svg>
-            ) : null}
+            {/* A mark draws the card's outline in its colour, from the left edge to the right along top and bottom at once; it stays. */}
+            {r.status && r.status !== "na" ? <CardEdge key={`edge-${r.status}-${r.pulse}`} radius={R} color={EDGE[r.status]} fresh={r.pulse > 0} /> : null}
 
             {/* N/A: the item is hatched over, its box hatched too. */}
             <AnimatePresence>
@@ -208,6 +242,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                 photos={r.photos}
                 missing={r.missingPhoto || (check.photo.required && !r.photos.length)}
                 shake={shake}
+                leia={skin.leia}
                 dragged={sw.dragged}
                 onPick={(f) => s.pickPhoto(check, f)}
                 size={34}
@@ -222,7 +257,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                 }}
                 className="ml-2.5 shrink-0" // a clear gap from the camera: two different targets
               >
-                <SquircleCheck key={r.pulse} status={r.status} fresh={r.pulse > 0} />
+                <SquircleCheck key={r.pulse} status={r.status} fresh={r.pulse > 0} leia={skin.leia} />
               </button>
             </div>
 
@@ -234,6 +269,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                   status={r.status}
                   photos={r.photos}
                   highlight={skin.highlight}
+                  outer={R}
                   onClear={() => s.setMark(check.id, null)}
                   onRemovePhoto={(i) => s.removePhoto(check.id, i)}
                 />

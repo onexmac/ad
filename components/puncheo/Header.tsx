@@ -20,7 +20,7 @@ export type Tone = "plain" | "leia" | "yard";
  * The sheet's header in three tones. plain: the name, the dark punch card,
  * one segment per check. leia: Leia's blue band and a receipt-style punch
  * line with the big blue numeral. yard: AD Visual pieces (date tile, the dark
- * progress chip, the moment as the italic note).
+ * progress chip).
  */
 export function SheetHeader({
   sheet,
@@ -41,13 +41,13 @@ export function SheetHeader({
   return (
     <>
       {tone === "leia" ? (
-        <header className="-mx-4 bg-brand px-4 pb-5 text-ground" style={{ paddingTop: "calc(var(--sat) + 20px)" }}>
+        <header className="leia-band -mx-4 px-4 pb-5 text-ground" style={{ paddingTop: "calc(var(--sat) + 20px)" }}>
           <div className="flex items-center justify-between">
             <span className="mono text-brand-2">AD · Puncheo</span>
             <VariantSwitch current={current} />
           </div>
           <div className="mt-4 flex items-center gap-3">
-            <span className="grid size-11 shrink-0 place-items-center rounded-[6px] bg-ground/15" aria-hidden>
+            <span className="grid size-11 shrink-0 place-items-center rounded-[6px] bg-ground/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_1px_0_rgba(0,0,0,0.15)]" aria-hidden>
               <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="square">
                 <path d="M3.5 5.5h17v13h-17z" />
                 <circle cx="9" cy="11" r="2" />
@@ -85,7 +85,7 @@ export function SheetHeader({
       <motion.div key={punch.id} initial={dir ? { opacity: 0, x: dir * 28 } : false} animate={{ opacity: 1, x: 0 }} transition={springs.snappy} className={tone === "leia" ? "mt-0" : "mt-6"}>
         {tone === "leia" ? (
           // Leia's receipt line: big blue quantity, bold name, the amount on the right.
-          <div className="-mx-4 flex items-center gap-4 border-b border-hair bg-ground px-4 py-4">
+          <div className="leia-receipt -mx-4 flex items-center gap-4 px-4 py-4">
             <span className="w-8 text-[40px] font-extralight leading-none text-brand">{punch.n}</span>
             <span className="min-w-0 flex-1">
               <span className="block text-[20px] font-semibold leading-tight tracking-[-0.01em] text-ink">{punch.name}</span>
@@ -141,25 +141,16 @@ export function SheetHeader({
           ))}
         </div>
         {extra}
-        {tone === "yard" ? (
-          <div className="relative mt-4 rounded-[12px] bg-ink px-3.5 py-3 shadow-[var(--shadow-mid)]">
-            <span aria-hidden className="absolute -top-1.5 left-6 size-3 rotate-45 rounded-[2px] bg-ink" />
-            <p className="relative text-[15px] leading-[19px] text-hair" style={{ fontFamily: "var(--font-note), Georgia, serif", fontStyle: "italic" }}>
-              {punch.moment}
-            </p>
-          </div>
-        ) : (
-          <p className="mt-3 px-1 text-[13px] leading-[18px] text-ink-soft">{punch.moment}</p>
-        )}
+        <p className={`mt-3 px-1 text-[13px] leading-[18px] ${tone === "leia" ? "leia-engrave text-hair" : "text-ink-soft"}`}>{punch.moment}</p>
       </motion.div>
     </>
   );
 }
 
-export function Legend() {
+export function Legend({ dark = false }: { dark?: boolean }) {
   const item = (dir: "left" | "right", count: 1 | 2, label: string, dot: React.ReactNode) => (
     <span className={`flex items-center gap-1.5 ${dir === "left" ? "" : "flex-row-reverse"}`}>
-      <Chevrons dir={dir} count={count} size={11} className="text-ink-faint" />
+      <Chevrons dir={dir} count={count} size={11} className={dark ? "text-hair-2" : "text-ink-faint"} />
       {dot}
       <span>{label}</span>
     </span>
@@ -171,7 +162,7 @@ export function Legend() {
     />
   );
   return (
-    <div className="mono mt-5 flex items-center justify-between px-1 text-ink-soft" style={{ fontSize: 9.5 }}>
+    <div className={`mono mt-5 flex items-center justify-between px-1 ${dark ? "leia-engrave text-hair" : "text-ink-soft"}`} style={{ fontSize: 9.5 }}>
       <span className="flex gap-3">
         {item("left", 2, "N/A", dot("var(--hair)", true))}
         {item("left", 1, "No pasa", dot("var(--bad)"))}

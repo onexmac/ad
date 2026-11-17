@@ -10,7 +10,7 @@ import { Toast, type Variant } from "./Chrome";
 import { Footer } from "./Footer";
 import { LetterTags, Legend, SheetHeader, type Tone } from "./Header";
 import { RailRow, type RowSkin } from "./RailRow";
-import { RoomStrip, Strip, Walk, type StripTone } from "./Walk";
+import { Strip, Walk, type StripTone } from "./Walk";
 import { usePunchSheet } from "./usePunchSheet";
 
 /*
@@ -47,20 +47,22 @@ const CONFIG: Record<Variant, Config> = {
     toast: 84,
   },
   b: {
-    ground: "bg-card-2",
+    ground: "leia-ground",
     tone: "leia",
     strip: "leia",
     foot: "bar",
     skin: {
-      card: "bg-ground shadow-[0_1px_2px_rgba(25,28,34,0.12),0_2px_8px_rgba(25,28,34,0.06)]",
-      cardOpen: "bg-ground shadow-[var(--shadow-mid)]",
-      rest: "#ffffff",
+      card: "leia-card",
+      cardOpen: "leia-card-open",
+      rest: "#fbfbfc",
       restOpen: "#ffffff",
-      node: "var(--card-2)",
+      node: "#5d636c",
       highlight: "var(--card-2)",
       tags: true,
-      radius: 6,
+      radius: 6, // the buttons inside are 4
       bigNum: true,
+      dark: true,
+      leia: true,
     },
     filterAccent: "var(--brand)",
     counters: false,
@@ -72,7 +74,7 @@ const CONFIG: Record<Variant, Config> = {
     tone: "yard",
     strip: "yard",
     foot: "pill",
-    skin: { card: "bg-ground shadow-[var(--shadow-soft)]", cardOpen: "bg-ground shadow-[var(--shadow-mid)]", rest: "#ffffff", restOpen: "#ffffff", node: "var(--card)", highlight: "var(--card)", tags: true, radius: 12 },
+    skin: { card: "bg-ground shadow-[var(--shadow-soft)]", cardOpen: "bg-ground shadow-[var(--shadow-mid)]", rest: "#ffffff", restOpen: "#ffffff", node: "var(--card)", highlight: "var(--card)", tags: true, radius: 22 }, // bigger than the 17 px round camera inside
     filterAccent: "var(--brand)",
     counters: true,
     spacer: 110,
@@ -131,7 +133,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
             <ul className="mt-5">
               {found.map((c, i) => (
                 <li key={c.id} data-check={c.id}>
-                  {i === 0 || found[i - 1].room !== c.room ? <span className="mono block pb-2 pl-2 pt-2 text-ink-soft">{c.room}</span> : null}
+                  {i === 0 || found[i - 1].room !== c.room ? <span className={`mono block pb-2 pl-2 pt-2 ${cfg.skin.dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>{c.room}</span> : null}
                   <RailRow s={s} check={c} first last skin={cfg.skin} />
                 </li>
               ))}
@@ -144,15 +146,14 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
           </>
         ) : (
           <>
-            <RoomStrip s={s} tone={cfg.strip} />
-            <Legend />
+            <Legend dark={cfg.skin.dark} />
             <Walk s={s} skin={cfg.skin} />
           </>
         )}
         <div style={{ height: `calc(var(--sab) + ${cfg.spacer}px)` }} />
       </motion.main>
       <Toast toast={s.toast} bottom={cfg.toast} />
-      <Footer s={s} sheet={sheet} kind={cfg.foot} search={{ open: searching, q, setQ, toggle }} />
+      <Footer s={s} sheet={sheet} kind={cfg.foot} polish={!!cfg.skin.leia} search={{ open: searching, q, setQ, toggle }} />
     </div>
   );
 }
