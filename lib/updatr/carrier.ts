@@ -28,6 +28,18 @@ function flightLayer() {
   return layer;
 }
 
+/**
+ * The layer leaves the page once its last flight lands: a full-screen fixed
+ * element left behind would be picked up by iOS Safari, which tints its
+ * toolbar from fixed elements at the screen edge.
+ */
+function retireLayer() {
+  if (layer && layer.isConnected && !layer.childElementCount) {
+    layer.remove();
+    layer = null;
+  }
+}
+
 type Spring = { type: "spring"; stiffness: number; damping: number; mass?: number };
 
 export type FlyOptions = {
@@ -215,6 +227,7 @@ export class Carrier {
     into.appendChild(this.piece);
     this.box?.remove();
     this.box = null;
+    retireLayer();
   }
 
   /** Back into its tile. If the tile is gone, the piece is discarded with it. */
@@ -224,6 +237,7 @@ export class Carrier {
     else this.piece.remove();
     this.box?.remove();
     this.box = null;
+    retireLayer();
   }
 
   get atHome() {

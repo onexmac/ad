@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
+import { animate, motion, useMotionValue, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { CANCEL_SPRING, CLOSE_SPRING, freshVelocity, resist } from "@/lib/updatr/flight";
@@ -173,12 +173,18 @@ export function PullReadout({
   issueNo: number;
 }) {
   const opacity = useTransform(lift, [6, 50], [0, 1], { clamp: true });
+  // Mounted only while the page is lifted: iOS Safari tints its toolbar from
+  // elements fixed at the screen edge, and an idle transparent strip there
+  // shows as white while the bar collapses and expands on scroll.
+  const [on, setOn] = useState(false);
+  useMotionValueEvent(lift, "change", (v) => setOn(v > 0.5));
   const fill = useTransform(raw, [0, COMMIT], [0, 1], { clamp: true });
   const pct = useTransform(raw, (r) => pad(Math.min(100, Math.round((r / COMMIT) * 100)), 3));
+  if (!on) return null;
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-0 mx-auto w-full max-w-[520px] pb-[calc(var(--sab)+30px)] pl-5 pr-[88px]"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-0 mx-auto w-full max-w-[520px] bg-ground pb-[calc(var(--sab)+30px)] pl-5 pr-[88px] pt-4"
       style={{ opacity }}
     >
       <div className="mono flex items-center justify-between text-ink-soft">
