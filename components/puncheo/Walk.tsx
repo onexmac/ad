@@ -9,32 +9,83 @@ import { RailRow, type RowSkin } from "./RailRow";
 import type { PunchSheet } from "./usePunchSheet";
 import { PULL_COMMIT, useSectionPull } from "./useSectionPull";
 
-/** The rooms of the punch as tappable chips, with each room's progress. */
-export function RoomStrip({ s }: { s: PunchSheet }) {
+export type StripTone = "plain" | "leia" | "yard";
+export type StripItem = { id: string; label: string; count: React.ReactNode };
+
+/**
+ * A row of choices in three dresses. plain: pill chips (the active one ink, or
+ * blue for filters). leia: Leia's category tabs, full width, the active cell a
+ * solid blue block. yard: AD Visual's folder chips.
+ */
+export function Strip({
+  items,
+  active,
+  onPick,
+  tone,
+  accent = "var(--ink)",
+  id,
+}: {
+  items: StripItem[];
+  active: number;
+  onPick: (i: number) => void;
+  tone: StripTone;
+  accent?: string;
+  id: string;
+}) {
+  const pick = (i: number) => {
+    if (i === active) return;
+    haptic.select();
+    onPick(i);
+  };
+  if (tone === "leia") {
+    return (
+      <div className="-mx-4 mt-5 flex border-y border-hair bg-ground">
+        {items.map((x, i) => {
+          const on = i === active;
+          return (
+            <button
+              key={x.id}
+              type="button"
+              onClick={() => pick(i)}
+              aria-pressed={on}
+              className="relative flex h-[54px] min-w-0 flex-1 flex-col items-center justify-center border-r border-hair last:border-r-0"
+            >
+              {on ? <motion.span layoutId={`strip-${id}`} transition={springs.snappy} className="pointer-events-none absolute -inset-y-px inset-x-0 bg-brand" /> : null}
+              <span className={`relative max-w-full truncate px-1 text-[14px] font-medium ${on ? "text-ground" : "text-ink-2"}`}>{x.label}</span>
+              <span className={`relative mt-0.5 text-[11px] tabular-nums ${on ? "text-brand-2" : "text-ink-faint"}`}>{x.count}</span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
   return (
-    <div className="no-scrollbar -mx-4 mt-5 flex gap-1.5 overflow-x-auto px-4">
-      {s.punch.sections.map((x, i) => {
-        const t = s.sectionTallies[i];
-        const active = i === s.section;
-        const done = t.done === t.total;
+    <div className="no-scrollbar -mx-4 mt-5 flex gap-1.5 overflow-x-auto px-4 py-1">
+      {items.map((x, i) => {
+        const on = i === active;
+        if (tone === "yard") {
+          return (
+            <button
+              key={x.id}
+              type="button"
+              onClick={() => pick(i)}
+              aria-pressed={on}
+              className={`flex h-10 shrink-0 items-center gap-2 rounded-[10px] bg-ground pl-2.5 pr-2 transition-shadow ${on ? "shadow-[var(--shadow-mid)]" : "shadow-[var(--shadow-soft)]"}`}
+            >
+              <svg width={16} height={16} viewBox="0 0 24 24" aria-hidden>
+                <path d="M3 6.5h6l2 2h10v10H3z" fill={on ? "var(--brand)" : "var(--hair-2)"} />
+              </svg>
+              <span className={`text-[14px] ${on ? "font-semibold text-ink" : "font-medium text-ink-3"}`}>{x.label}</span>
+              <span className="rounded-[4px] border border-hair-2 px-1 text-[10px] font-medium tabular-nums text-ink-faint">{x.count}</span>
+            </button>
+          );
+        }
         return (
-          <button
-            key={x.id}
-            type="button"
-            onClick={() => {
-              if (active) return;
-              haptic.select();
-              s.goSection(i);
-            }}
-            aria-current={active ? "true" : undefined}
-            className="relative flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5"
-          >
-            {active ? <motion.span layoutId="room-chip" transition={springs.snappy} className="pointer-events-none absolute inset-0 rounded-full bg-ink" /> : null}
-            {!active ? <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_var(--hair-2)]" /> : null}
-            <span className={`relative text-[14px] font-semibold ${active ? "text-ground" : "text-ink-2"}`}>{x.name}</span>
-            <span className={`relative text-[12px] font-medium tabular-nums ${active ? "text-ink-faint" : "text-ink-faint"}`}>
-              {done ? <CheckIcon size={12} strokeWidth={2.6} className="text-ok" /> : `${t.done}/${t.total}`}
-            </span>
+          <button key={x.id} type="button" onClick={() => pick(i)} aria-pressed={on} className="relative flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5">
+            {on ? <motion.span layoutId={`strip-${id}`} transition={springs.snappy} className="pointer-events-none absolute inset-0 rounded-full" style={{ background: accent }} /> : null}
+            {!on ? <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_0_1px_var(--hair-2)]" /> : null}
+            <span className={`relative text-[14px] font-semibold ${on ? "text-ground" : "text-ink-2"}`}>{x.label}</span>
+            <span className={`relative text-[12px] font-medium tabular-nums ${on ? "text-ground/70" : "text-ink-faint"}`}>{x.count}</span>
           </button>
         );
       })}
@@ -42,14 +93,34 @@ export function RoomStrip({ s }: { s: PunchSheet }) {
   );
 }
 
+/** The rooms of the punch, with each room's progress. */
+export function RoomStrip({ s, tone = "plain" }: { s: PunchSheet; tone?: StripTone }) {
+  return (
+    <Strip
+      id="rooms"
+      tone={tone}
+      active={s.section}
+      onPick={(i) => s.goSection(i)}
+      items={s.punch.sections.map((x, i) => {
+        const t = s.sectionTallies[i];
+        return {
+          id: x.id,
+          label: x.name,
+          count: t.done === t.total ? <CheckIcon size={12} strokeWidth={2.6} className="inline text-ok" /> : `${t.done}/${t.total}`,
+        };
+      })}
+    />
+  );
+}
+
 /** A key fact from the sheet, set apart in AD Visual's hairline table. */
 function KeyBlock({ k, rail }: { k: Key; rail: boolean }) {
   return (
     <div className="relative flex">
-      <div className="relative w-7 shrink-0" aria-hidden>
+      <div className="relative -ml-3 w-4 shrink-0" aria-hidden>
         {rail ? <span className="absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-hair-2" /> : null}
       </div>
-      <div className="min-w-0 flex-1 pb-4 pt-1.5">
+      <div className="min-w-0 flex-1 pb-4 pl-1 pt-1.5">
         <span className="mono block pb-1.5 text-ink-faint">Clave · {k.title}</span>
         <div className="grid grid-cols-[auto_minmax(0,1fr)] border-y border-ink">
           {k.rows.map(([key, val], i) => (
@@ -67,11 +138,11 @@ function KeyBlock({ k, rail }: { k: Key; rail: boolean }) {
 function GroupLabel({ label, rail }: { label: string; rail: boolean }) {
   return (
     <div className="relative flex">
-      <div className="relative w-7 shrink-0" aria-hidden>
+      <div className="relative -ml-3 w-4 shrink-0" aria-hidden>
         {rail ? <span className="absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-hair-2" /> : null}
         <span className="absolute left-1/2 top-[13px] h-[2px] w-3 bg-hair-2" />
       </div>
-      <span className="mono pb-2.5 pl-1 pt-2 text-ink-soft" style={{ fontWeight: 600 }}>
+      <span className="mono pb-2.5 pl-3 pt-2 text-ink-soft" style={{ fontWeight: 600 }}>
         {label}
       </span>
     </div>
@@ -86,7 +157,7 @@ function PullCard({ s, lift, armed, target, pulling }: { s: PunchSheet; lift: Mo
   const fill = useTransform(lift, [0, 170 * (1 - Math.exp((-0.6 * PULL_COMMIT) / 170))], [0, 1]);
   const t = sections[target];
   return (
-    <div className="mt-4 pl-7">
+    <div className="mt-4 pl-2">
       <div className="relative overflow-hidden rounded-[20px] bg-ink px-4 pb-4 pt-3.5 text-ground">
         {/* Fills toward the mark as the pull grows. */}
         <motion.span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left bg-brand" style={{ scaleX: fill }} aria-hidden />

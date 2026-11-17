@@ -14,6 +14,7 @@ import { useSwipeMark } from "./useSwipeMark";
 import { rowState, type PunchSheet } from "./usePunchSheet";
 
 const COLOR: Record<Status, string> = { green: "var(--ok)", yellow: "var(--warn)", red: "var(--bad)", na: "var(--na)" };
+const EDGE: Record<Exclude<Status, "na">, string> = { green: "var(--ok)", yellow: "var(--warn-deep)", red: "var(--bad)" };
 
 /** How a layout dresses the shared row. */
 export type RowSkin = {
@@ -29,6 +30,10 @@ export type RowSkin = {
   highlight: string;
   /** Show the AD Visual tags (FOTO, N/A, 3/5) under the subline. */
   tags?: boolean;
+  /** Corner radius of the card, px. */
+  radius?: number;
+  /** Leia's big light blue numeral for the check number, in its own column. */
+  bigNum?: boolean;
 };
 
 type Tag = { label: string; bg: string; ink: string };
@@ -76,11 +81,13 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
   const color = r.status ? COLOR[r.status] : null;
   const NODE_Y = 31; // level with the title
   const tags = skin.tags ? tagsOf(check) : [];
+  const R = skin.radius ?? 20;
 
   return (
     // A freshly marked row sits above its neighbours so its rings spill over them.
     <div className="relative flex" style={{ zIndex: r.pulse ? 2 : undefined }}>
-      <div className="relative w-7 shrink-0" aria-hidden>
+      {/* The rail sits out in the page's gutter so the card gets the room. */}
+      <div className="relative -ml-3 w-4 shrink-0" aria-hidden>
         <span
           className="absolute left-1/2 w-[2px] -translate-x-1/2 bg-hair-2"
           style={{ top: first ? NODE_Y : 0, bottom: last ? `calc(100% - ${NODE_Y}px)` : 0 }}
@@ -107,23 +114,43 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
         </span>
       </div>
 
-      <div className="relative min-w-0 flex-1 pb-2.5">
+      <div className="relative min-w-0 flex-1 pb-2.5 pl-1">
         <div className="relative">
-          <SwipeUnder sw={sw} underRef={underRef} className="rounded-[20px]" />
+          <SwipeUnder sw={sw} underRef={underRef} radius={R} />
           <motion.div
             ref={ref}
-            style={{ x: sw.x, touchAction: "pan-y" }}
+            style={{ x: sw.x, touchAction: "pan-y", borderRadius: R }}
             {...sw.bind}
-            className={`no-select relative rounded-[20px] transition-shadow duration-300 ${r.open ? skin.cardOpen : skin.card}`}
+            className={`no-select relative transition-shadow duration-300 ${r.open ? skin.cardOpen : skin.card}`}
           >
-            {/* N/A: the item is hatched over, its box stays neutral. */}
+            {/* A mark draws the card's outline in its colour, growing to the right from the top left; it stays. */}
+            {r.status && r.status !== "na" ? (
+              <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden>
+                <motion.rect
+                  key={`edge-${r.status}-${r.pulse}`}
+                  x="0"
+                  y="0"
+                  width="100%"
+                  height="100%"
+                  rx={R}
+                  fill="none"
+                  stroke={EDGE[r.status]}
+                  strokeWidth={2}
+                  initial={r.pulse ? { pathLength: 0, opacity: 0 } : false}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ pathLength: { duration: 0.75, delay: 0.1, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.05, delay: 0.1 } }}
+                />
+              </svg>
+            ) : null}
+
+            {/* N/A: the item is hatched over, its box hatched too. */}
             <AnimatePresence>
               {r.status === "na" ? (
                 <motion.span
                   key="hatch"
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-[20px]"
-                  style={{ backgroundImage: HATCH }}
+                  className="pointer-events-none absolute inset-0"
+                  style={{ backgroundImage: HATCH, borderRadius: R }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -141,10 +168,19 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                   s.toggle(check.id);
                 }}
                 aria-expanded={r.open}
-                className="min-w-0 flex-1 text-left outline-none"
+                className="flex min-w-0 flex-1 items-start gap-3 text-left outline-none"
               >
+                {skin.bigNum ? (
+                  <span
+                    className="w-[50px] shrink-0 pt-0.5 text-[22px] font-extralight leading-none tracking-[-0.03em] tabular-nums"
+                    style={{ color: r.status === "na" ? "var(--ink-faint)" : "var(--brand)" }}
+                  >
+                    {check.num}
+                  </span>
+                ) : null}
+                <span className="block min-w-0 flex-1">
                 <span className="flex items-baseline gap-2">
-                  <span className="text-[12px] font-semibold tabular-nums text-ink-faint">{check.num}</span>
+                  {skin.bigNum ? null : <span className="text-[12px] font-semibold tabular-nums text-ink-faint">{check.num}</span>}
                   <span
                     className="truncate text-[16.5px] font-semibold leading-6 tracking-[-0.015em] transition-colors duration-300"
                     style={{ color: r.status === "na" ? "var(--ink-faint)" : "var(--ink)" }}
@@ -166,6 +202,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                     ))}
                   </span>
                 ) : null}
+                </span>
               </button>
               <PhotoButton
                 photos={r.photos}
@@ -188,18 +225,6 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                 <SquircleCheck key={r.pulse} status={r.status} fresh={r.pulse > 0} />
               </button>
             </div>
-
-            {/* The reward for a pass: a hairline sweeps the card's foot. */}
-            {r.pulse > 0 && r.status === "green" ? (
-              <motion.span
-                key={`sweep-${r.pulse}`}
-                aria-hidden
-                className="pointer-events-none absolute bottom-0 left-4 right-4 h-[2px] origin-left rounded-full bg-ok"
-                initial={{ scaleX: 0, opacity: 1 }}
-                animate={{ scaleX: 1, opacity: [1, 1, 0] }}
-                transition={{ scaleX: { duration: 0.5, delay: 0.1, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 1, delay: 0.1, times: [0, 0.6, 1] } }}
-              />
-            ) : null}
 
             <Expand open={r.open}>
               <div className="relative px-4 pb-4">

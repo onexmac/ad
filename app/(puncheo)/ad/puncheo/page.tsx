@@ -1,6 +1,7 @@
-import { roomSheet as sheet } from "@/data/puncheo/rooms";
-import { PunchScreen } from "@/components/puncheo/PunchScreen";
+import { roomSheet } from "@/data/puncheo/rooms";
+import { PunchApp } from "@/components/puncheo/PunchApp";
+
 
 export default function Page() {
-  return <PunchScreen sheet={sheet} />;
+  return <PunchApp sheet={roomSheet} variant="a" />;
 }

@@ -149,6 +149,30 @@ export function Footer({ s, sheet, kind, search }: { s: PunchSheet; sheet: RoomS
     );
   }
 
+  // dock and pill: floating. In the pill, search uses AD Visual's field (rounded, blue square lens).
+  const floatingLens = search ? (
+    <motion.button
+      type="button"
+      onClick={search.toggle}
+      whileTap={{ scale: 0.94 }}
+      transition={springs.snappy}
+      aria-label={search.open ? "Cerrar búsqueda" : "Buscar"}
+      aria-pressed={search.open}
+      className={`grid h-11 w-11 shrink-0 place-items-center ${kind === "pill" ? "rounded-[12px]" : "rounded-[16px]"}`}
+      style={{
+        background: search.open ? (dark ? "var(--ground)" : "var(--ink)") : kind === "pill" ? "var(--brand)" : "var(--ink-3)",
+        color: search.open ? (dark ? "var(--ink)" : "var(--ground)") : "var(--ground)",
+      }}
+    >
+      {search.open ? (
+        <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="square" aria-hidden>
+          <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" />
+        </svg>
+      ) : (
+        <Lens />
+      )}
+    </motion.button>
+  ) : null;
   return (
     <nav
       className="fixed left-1/2 z-30 w-[calc(100%-32px)] max-w-[488px] -translate-x-1/2"
@@ -160,10 +184,27 @@ export function Footer({ s, sheet, kind, search }: { s: PunchSheet; sheet: RoomS
         }`}
       >
         {tabs}
-        {action}
-        <span className="pl-1 pr-2">
-          <Total done={s.t.done} total={s.t.total} light={dark} big={false} />
-        </span>
+        {search?.open ? (
+          <label className={`flex h-11 min-w-0 flex-1 items-center gap-2 px-3.5 ${kind === "pill" ? "rounded-full bg-card" : "rounded-[16px] bg-ink-2"}`}>
+            <input
+              id="puncheo-buscar"
+              autoFocus
+              value={search.q}
+              onChange={(e) => search.setQ(e.target.value)}
+              placeholder="Buscar check"
+              enterKeyHint="search"
+              className={`min-w-0 flex-1 bg-transparent text-[15px] outline-none ${dark ? "text-ground placeholder:text-ink-soft" : "text-ink placeholder:text-ink-faint"}`}
+            />
+          </label>
+        ) : (
+          action
+        )}
+        {floatingLens}
+        {search?.open || search ? null : (
+          <span className="pl-1 pr-2">
+            <Total done={s.t.done} total={s.t.total} light={dark} big={false} />
+          </span>
+        )}
       </div>
     </nav>
   );
