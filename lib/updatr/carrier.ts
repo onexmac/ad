@@ -156,37 +156,52 @@ export class Carrier {
   /**
    * Spring the box to a rect. The target may be a function, read every frame,
    * so a tile that moves (the page scrolled, a strip settled) is still hit.
+   * The spring starts on the next frame: a flight usually begins in the same
+   * moment as a heavy render (an article mounting, the blurred peek), and
+   * starting its clock then would make the first visible frame skip ahead.
    */
   fly(to: Rect | (() => Rect), spring: Spring, onDone?: () => void, opts: FlyOptions = {}) {
     this.run?.stop();
-    const from = { ...this.rect };
-    const o0 = this.o;
-    const o1 = opts.opacity ?? 1;
-    const target = typeof to === "function" ? to : () => to;
-    const clip = opts.clip;
-    const ctl = animate(0, 1, {
-      ...spring,
-      onUpdate: (t) => {
-        const end = target();
-        this.o = lerp(o0, o1, clamp01(t));
-        if (clip) {
-          const k = clamp01(t);
-          this.area = lerpRect(clip.from ?? viewport(), clip.to ?? viewport(), k);
-        }
-        this.place({
-          x: lerp(from.x, end.x, t),
-          y: lerp(from.y, end.y, t),
-          w: Math.max(1, lerp(from.w, end.w, t)),
-          h: Math.max(1, lerp(from.h, end.h, t)),
-        });
+    let ctl: { stop: () => void } | null = null;
+    let cancelled = false;
+    const handle = {
+      stop: () => {
+        cancelled = true;
+        cancelAnimationFrame(raf);
+        ctl?.stop();
       },
-      onComplete: () => {
-        this.run = null;
-        onDone?.();
-      },
+    };
+    const raf = requestAnimationFrame(() => {
+      if (cancelled) return;
+      const from = { ...this.rect };
+      const o0 = this.o;
+      const o1 = opts.opacity ?? 1;
+      const target = typeof to === "function" ? to : () => to;
+      const clip = opts.clip;
+      ctl = animate(0, 1, {
+        ...spring,
+        onUpdate: (t) => {
+          const end = target();
+          this.o = lerp(o0, o1, clamp01(t));
+          if (clip) {
+            const k = clamp01(t);
+            this.area = lerpRect(clip.from ?? viewport(), clip.to ?? viewport(), k);
+          }
+          this.place({
+            x: lerp(from.x, end.x, t),
+            y: lerp(from.y, end.y, t),
+            w: Math.max(1, lerp(from.w, end.w, t)),
+            h: Math.max(1, lerp(from.h, end.h, t)),
+          });
+        },
+        onComplete: () => {
+          if (this.run === handle) this.run = null;
+          onDone?.();
+        },
+      });
     });
-    this.run = ctl;
-    return ctl;
+    this.run = handle;
+    return handle;
   }
 
   stop() {

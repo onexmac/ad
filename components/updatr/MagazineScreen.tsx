@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
-import { CANCEL_SPRING } from "@/lib/updatr/flight";
+import { AnimatePresence, LayoutGroup, animate, motion, useScroll, useSpring, useTransform } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { kindLabel, kindOrder, type Franchise, type Item, type Kind } from "@/data/updatr/types";
@@ -15,6 +14,7 @@ import { VariantSwitch } from "./VariantSwitch";
 import { SnapStrip } from "./SnapStrip";
 import { BottomBar, type Tab } from "./BottomBar";
 import { useOpener } from "./useOpener";
+import { useEdgeSquish } from "./useEdgeSquish";
 import { Arrow } from "./Arrow";
 import { GROW_SPRING, Grow } from "./Grow";
 
@@ -168,47 +168,8 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
     };
   }, []);
 
-  // Histok's rubber squish at the very top and bottom: the native bounce keeps
-  // its momentum, this adds a little scale toward the edge you push against.
-  const bounce = useMotionValue(1);
-  const bounceOrigin = useMotionValue("50% 0%");
-  useEffect(() => {
-    let pinned: number | null = null;
-    let edge: "top" | "bottom" = "top";
-    const max = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    const onMove = (e: TouchEvent) => {
-      // A held picture owns the finger (it prevents the page's scroll): no squish.
-      if (e.touches.length !== 1 || e.defaultPrevented || document.body.style.overflow === "hidden") return;
-      const y = e.touches[0].clientY;
-      const atTop = window.scrollY <= 0;
-      const atBottom = window.scrollY >= max() - 1;
-      if (atTop || atBottom) {
-        if (pinned === null) {
-          pinned = y;
-          edge = atTop ? "top" : "bottom";
-        }
-        const d = y - pinned;
-        const over = edge === "top" ? Math.max(0, d) : Math.max(0, -d);
-        bounceOrigin.set(edge === "top" ? "50% 0%" : "50% 100%");
-        bounce.set(1 - (Math.min(over, 300) / 300) * 0.05);
-      } else if (pinned !== null) {
-        pinned = null;
-        bounce.set(1);
-      }
-    };
-    const onEnd = () => {
-      pinned = null;
-      animate(bounce, 1, CANCEL_SPRING);
-    };
-    window.addEventListener("touchmove", onMove, { passive: true });
-    window.addEventListener("touchend", onEnd);
-    window.addEventListener("touchcancel", onEnd);
-    return () => {
-      window.removeEventListener("touchmove", onMove);
-      window.removeEventListener("touchend", onEnd);
-      window.removeEventListener("touchcancel", onEnd);
-    };
-  }, [bounce, bounceOrigin]);
+  // Histok's rubber band at the top and bottom of the page.
+  const { scale: bounce, origin: bounceOrigin } = useEdgeSquish();
 
   const worlds = new Set(items.filter((i) => !i.mock).map((i) => i.franchise)).size;
   const archive = filter === "all" ? issue.all : issue.all.filter((i) => i.kind === filter);
