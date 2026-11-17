@@ -183,7 +183,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                   if (r.status !== "green" && !photoFirst()) return;
                   s.tapCheck(check.id);
                 }}
-                className="shrink-0"
+                className="ml-2.5 shrink-0" // a clear gap from the camera: two different targets
               >
                 <SquircleCheck key={r.pulse} status={r.status} fresh={r.pulse > 0} />
               </button>

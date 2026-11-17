@@ -17,6 +17,18 @@ import type { PunchSheet } from "./usePunchSheet";
 
 type Kind = "dock" | "bar" | "pill";
 
+/** Search, where a layout offers it: the lens next to the close action opens a field in its place. */
+export type FooterSearch = { open: boolean; q: string; setQ: (q: string) => void; toggle: () => void };
+
+function Lens({ size = 17 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="square" aria-hidden>
+      <circle cx="10.5" cy="10.5" r="6" />
+      <path d="M15 15l5 5" />
+    </svg>
+  );
+}
+
 function Total({ done, total, light, big = true }: { done: number; total: number; light: boolean; big?: boolean }) {
   return (
     <span className="shrink-0 leading-none tabular-nums">
@@ -26,7 +38,7 @@ function Total({ done, total, light, big = true }: { done: number; total: number
   );
 }
 
-export function Footer({ s, sheet, kind }: { s: PunchSheet; sheet: RoomSheet; kind: Kind }) {
+export function Footer({ s, sheet, kind, search }: { s: PunchSheet; sheet: RoomSheet; kind: Kind; search?: FooterSearch }) {
   const dark = kind !== "pill";
   const tabs = sheet.punches.map((p, i) => {
     const active = s.tab === i;
@@ -39,7 +51,7 @@ export function Footer({ s, sheet, kind }: { s: PunchSheet; sheet: RoomSheet; ki
         aria-pressed={active}
         aria-label={`${p.name}, ${pt.done} de ${pt.total}`}
         className={`relative flex shrink-0 flex-col items-start justify-center px-3 leading-none ${
-          kind === "bar" ? "h-full w-[62px] border-r border-ink" : kind === "pill" ? "h-11 w-[52px] rounded-full" : "h-12 w-[54px] rounded-[16px]"
+          kind === "bar" ? "h-full w-[56px] border-r border-ink" : kind === "pill" ? "h-11 w-[52px] rounded-full" : "h-12 w-[54px] rounded-[16px]"
         }`}
       >
         {active ? (
@@ -74,7 +86,7 @@ export function Footer({ s, sheet, kind }: { s: PunchSheet; sheet: RoomSheet; ki
     >
       {s.isClosed ? (
         <CheckIcon size={15} strokeWidth={2.4} className="text-ground" />
-      ) : !s.ready ? (
+      ) : !s.ready && kind !== "bar" ? (
         <LockIcon size={14} className={dark ? "text-ink-faint" : "text-ink-soft"} />
       ) : null}
       <span
@@ -86,12 +98,52 @@ export function Footer({ s, sheet, kind }: { s: PunchSheet; sheet: RoomSheet; ki
   );
 
   if (kind === "bar") {
+    const lens = search ? (
+      <motion.button
+        type="button"
+        onClick={search.toggle}
+        whileTap={{ scale: 0.94 }}
+        transition={springs.snappy}
+        aria-label={search.open ? "Cerrar búsqueda" : "Buscar"}
+        aria-pressed={search.open}
+        className="grid h-11 w-11 shrink-0 place-items-center rounded-[6px] transition-colors duration-200"
+        style={{ background: search.open ? "var(--ground)" : "var(--ink-3)", color: search.open ? "var(--ink)" : "var(--hair)" }}
+      >
+        {search.open ? (
+          <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="square" aria-hidden>
+            <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" />
+          </svg>
+        ) : (
+          <Lens />
+        )}
+      </motion.button>
+    ) : null;
     return (
       <nav className="fixed inset-x-0 bottom-0 z-30 bg-ink-2" style={{ paddingBottom: "var(--sab)" }}>
-        <div className="mx-auto flex h-[64px] max-w-[560px] items-center gap-3 pr-4">
-          <div className="flex h-full border-r border-ink">{tabs}</div>
-          {action}
-          <Total done={s.t.done} total={s.t.total} light />
+        <div className="mx-auto flex h-[64px] max-w-[560px] items-center gap-2 pr-3">
+          <div className="mr-1 flex h-full border-r border-ink">{tabs}</div>
+          {search?.open ? (
+            <label className="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-[6px] bg-ink px-3 text-ink-faint">
+              <Lens size={15} />
+              <input
+                id="puncheo-buscar"
+                autoFocus
+                value={search.q}
+                onChange={(e) => search.setQ(e.target.value)}
+                placeholder="Buscar check"
+                enterKeyHint="search"
+                className="min-w-0 flex-1 bg-transparent text-[15px] text-ground outline-none placeholder:text-ink-soft"
+              />
+            </label>
+          ) : (
+            action
+          )}
+          {lens}
+          {search?.open ? null : (
+            <span className="pl-1">
+              <Total done={s.t.done} total={s.t.total} light big={false} />
+            </span>
+          )}
         </div>
       </nav>
     );
