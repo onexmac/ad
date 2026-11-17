@@ -133,9 +133,12 @@ export function usePunchSheet(sheet: RoomSheet) {
       if (t.pending) parts.push(`${t.pending} ${t.pending === 1 ? "pendiente" : "pendientes"}`);
       if (t.noPhoto) parts.push(`${t.noPhoto} sin foto`);
       say(parts.join(" · "));
-      const show = () => document.querySelector(`[data-check="${CSS.escape(offenders[0].id)}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      const find = () => document.querySelector(`[data-check="${CSS.escape(offenders[0].id)}"]`);
+      const show = () => find()?.scrollIntoView({ behavior: "smooth", block: "center" });
       const where = sections.findIndex((x) => x.ids.includes(offenders[0].id));
-      if (where >= 0 && where !== at) goSection(where, () => setTimeout(show, 60));
+      // One room on screen at a time (the legacy walk): go to its room first.
+      // The continuous scroll has every room on the page already.
+      if (!find() && where >= 0 && where !== at) goSection(where, () => setTimeout(show, 60));
       else show();
       return;
     }
@@ -162,6 +165,8 @@ export function usePunchSheet(sheet: RoomSheet) {
     registerTravel: (fn: (i: number) => void) => {
       travelRef.current = fn;
     },
+    /** The continuous scroll reports the room being read; nothing else moves. */
+    spy: (i: number) => setSection(i),
     /** Go to a section the way the walk moves: the whole screen travels. */
     travelTo: (i: number) => (travelRef.current ? travelRef.current(i) : goSection(i)),
     fan,
