@@ -29,6 +29,8 @@
     `npm i --no-save esbuild@0.24.2`, then
     `node scripts/updatr/artifact/build.mjs <outDir>`, and publish `updatr.html`
     with its `img/` files.
+- New app? Read `docs/ux-playbook.md` first: the UX learnings from Updatr
+  (principles, patterns with their code and values, iOS traps, QA).
 - Mobile first, native feel: navigation lives at the bottom (tab bar or bottom
   bar), never a top nav bar. Every overlay closes by pull-down and by a
   right swipe (Histok's back-swipe), and a scrolling one also by pushing on past
