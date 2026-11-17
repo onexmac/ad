@@ -1,6 +1,6 @@
 import { franchises, items } from "@/data/updatr/items";
-import { GridScreen } from "@/components/updatr/GridScreen";
+import { MagazineScreen } from "@/components/updatr/MagazineScreen";
 
 export default function Page() {
-  return <GridScreen items={items} franchises={franchises} />;
+  return <MagazineScreen items={items} franchises={franchises} />;
 }

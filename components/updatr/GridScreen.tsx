@@ -250,17 +250,19 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
   );
 }
 
-function Row({
+export function Row({
   index,
   item,
   franchise,
   hidden,
   onOpen,
+  layoutKey,
 }: {
   index: string;
   item: Item;
   franchise: Franchise;
   hidden: boolean;
+  layoutKey?: string;
   onOpen: (fromImage: boolean) => void;
 }) {
   return (
@@ -279,7 +281,7 @@ function Row({
           src={item.image}
           alt={item.title}
           fallbackTitle={franchise.code}
-          layoutId={`a-row-${item.id}`}
+          layoutId={layoutKey ?? `a-row-${item.id}`}
           hidden={hidden}
           onOpen={() => onOpen(true)}
         />

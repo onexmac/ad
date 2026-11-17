@@ -64,3 +64,20 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
+@keyframes updatr-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.updatr-marquee {
+  animation: updatr-marquee 38s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .updatr-marquee {
+    animation: none;
+  }
+}

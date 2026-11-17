@@ -5,12 +5,13 @@ import { motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 
 const variants = [
-  { id: "a", label: "A — Grid", href: "/kit/updatr" },
+  { id: "m", label: "Issue", href: "/kit/updatr" },
+  { id: "a", label: "A — Grid", href: "/kit/updatr/a" },
   { id: "b", label: "B — Index", href: "/kit/updatr/b" },
 ] as const;
 
 /** Prototype-only: jump between the two layouts. */
-export function VariantSwitch({ current, dark = false }: { current: "a" | "b"; dark?: boolean }) {
+export function VariantSwitch({ current, dark = false }: { current: "m" | "a" | "b"; dark?: boolean }) {
   return (
     <div className={`flex border ${dark ? "border-paper/30" : "border-rule"}`}>
       {variants.map((v) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 
@@ -27,6 +27,7 @@ export function HoldImage({
   className,
   style,
   index,
+  parallax = false,
 }: {
   src?: string;
   alt: string;
@@ -42,7 +43,12 @@ export function HoldImage({
   style?: CSSProperties;
   /** Small mono index in the corner, e.g. "01". */
   index?: string;
+  /** Image drifts inside its frame as the page scrolls. */
+  parallax?: boolean;
 }) {
+  const frame = useRef<HTMLButtonElement>(null);
+  const { scrollYProgress } = useScroll({ target: frame, offset: ["start end", "end start"] });
+  const drift = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   const [pressed, setPressed] = useState(false);
   const [lit, setLit] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -75,6 +81,7 @@ export function HoldImage({
 
   return (
     <motion.button
+      ref={frame}
       type="button"
       aria-label={`${alt}. Tap to open, hold for colour.`}
       className={className}
@@ -160,7 +167,11 @@ export function HoldImage({
               filter: lit ? "grayscale(0) contrast(1)" : "grayscale(1) contrast(1.06)",
             }}
             transition={lit ? toColor : toMono}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            style={
+              parallax
+                ? { position: "absolute", left: 0, top: "-9%", width: "100%", height: "118%", objectFit: "cover", y: drift }
+                : { width: "100%", height: "100%", objectFit: "cover", display: "block" }
+            }
           />
         ) : (
           <motion.span
