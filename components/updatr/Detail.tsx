@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { animate, motion, useMotionValue, useTransform, type Variants } from "motion/react";
+import { AnimatePresence, animate, motion, useMotionValue, useTransform, type Variants } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { kindLabel, type Franchise, type Item } from "@/data/updatr/types";
-import { countdown, dot, relative } from "@/lib/updatr/format";
+import { countdown, daysFrom, dot, relative } from "@/lib/updatr/format";
+import { useWatching } from "@/lib/updatr/watch";
 import {
   AXIS_LOCK,
   BACK_COMMIT,
@@ -26,6 +27,7 @@ import {
 } from "@/lib/updatr/flight";
 import type { Carrier } from "@/lib/updatr/carrier";
 import { Arrow } from "./Arrow";
+import { Bookmark } from "./Bookmark";
 
 /** Asymptote for the pull-down: the sheet approaches this travel and grips. */
 const PULL_MAX = 400;
@@ -147,6 +149,15 @@ export function Detail({
   onClosed: () => void;
 }) {
   const [carried] = useState<Carrier | undefined>(() => origin?.carrier);
+  // Follow this entry for updates (the bookmark in the controls).
+  const watch = useWatching();
+  const watched = watch.has(item.id);
+  const [note, setNote] = useState<{ key: number; text: string } | null>(null);
+  useEffect(() => {
+    if (!note) return;
+    const t = setTimeout(() => setNote(null), 1700);
+    return () => clearTimeout(t);
+  }, [note]);
   const [failed, setFailed] = useState(false);
   const ownImage = !carried && !!item.image && !failed;
   const [stage, setStageState] = useState<Stage>(carried ? "opening" : "open");
@@ -758,6 +769,26 @@ export function Detail({
         <span className="mono bg-ground px-2 py-[5px] text-ink">{endArmed ? "Release to go back" : "Back to the issue"}</span>
       </motion.div>
 
+      {/* What the bookmark just did, briefly, above the controls. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-[calc(var(--sab)+80px)]">
+        <div className="mx-auto flex max-w-[520px] justify-end px-4">
+          <AnimatePresence>
+            {note ? (
+              <motion.span
+                key={note.key}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={springs.snappy}
+                className="mono bg-ink px-3 py-2 text-paper"
+              >
+                {note.text}
+              </motion.span>
+            ) : null}
+          </AnimatePresence>
+        </div>
+      </div>
+
       {/* Floating controls under the thumb (Histok's bottom chrome, squared). */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0">
         <motion.div
@@ -785,7 +816,34 @@ export function Detail({
           >
             {position}
           </motion.span>
-          <motion.div style={{ opacity: sideOpacity }}>
+          <motion.div className="flex items-center gap-2" style={{ opacity: sideOpacity }}>
+            <motion.button
+              type="button"
+              aria-label={watched ? `Stop following ${item.title}` : `Follow ${item.title} for updates`}
+              aria-pressed={watched}
+              onClick={() => {
+                const on = watch.toggle(item.id);
+                if (on) haptic.complete();
+                else haptic.select();
+                setNote({
+                  key: Date.now(),
+                  text: on
+                    ? item.when && daysFrom(item.when) >= 0
+                      ? `Watching · ${item.when.slice(8, 10)}.${item.when.slice(5, 7)} · ${countdown(item.when)}`
+                      : "Watching for updates"
+                    : "Stopped watching",
+                });
+              }}
+              animate={{ scale: [1, watched ? 1.14 : 0.9, 1] }}
+              key={watched ? "on" : "off"}
+              transition={{ duration: 0.32, ease: [0.2, 0, 0, 1] }}
+              className={`pointer-events-auto grid h-12 w-12 place-items-center ${
+                watched ? "bg-ink text-paper" : "border border-ink bg-ground/85 text-ink backdrop-blur-md"
+              }`}
+              style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
+            >
+              <Bookmark on={watched} size="18px" />
+            </motion.button>
             {source ? (
               <a
                 href={source}
