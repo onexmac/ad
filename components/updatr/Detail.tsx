@@ -49,6 +49,31 @@ type Exit = "button" | "pull" | "swipe" | "end";
 
 export type DetailOrigin = { rect: Rect; key?: string; carrier?: Carrier };
 
+/** Words the sheet says on its own; another app can put them in its language. */
+const STRINGS = {
+  back: "Back",
+  backTo: "Back to the issue",
+  release: "Release to go back",
+  source: "Source",
+  sample: "Sample",
+  watching: "Watching for updates",
+  stopped: "Stopped watching",
+  follow: "Follow",
+  unfollow: "Stop following",
+};
+
+/**
+ * Another app's article inside the same sheet (same gestures, same flights):
+ * it supplies the body around the hero box, its own words, and its source.
+ */
+export type DetailSkin = {
+  body: (hero: ReactNode, C: typeof Cascade) => ReactNode;
+  strings?: Partial<typeof STRINGS>;
+  source?: { url: string } | null;
+  /** Hero proportions (default 1 / 1 for variant a, 4 / 5 for b). */
+  ratio?: string;
+};
+
 const cascade: Variants = {
   hidden: { opacity: 0, y: 14 },
   show: (i: number) => ({ opacity: 1, y: 0, transition: { ...springs.expanding, delay: 0.1 + i * 0.035 } }),
@@ -137,6 +162,7 @@ export function Detail({
   origin,
   onRelease,
   onClosed,
+  skin,
 }: {
   item: Item;
   franchise: Franchise;
@@ -147,7 +173,9 @@ export function Detail({
   onRelease?: () => void;
   /** Exit finished: unmount. */
   onClosed: () => void;
+  skin?: DetailSkin;
 }) {
+  const t = { ...STRINGS, ...skin?.strings };
   const [carried] = useState<Carrier | undefined>(() => origin?.carrier);
   // Follow this entry for updates (the bookmark in the controls).
   const watch = useWatching();
@@ -608,10 +636,10 @@ export function Detail({
 
   const meta = `${franchise.code} — ${kindLabel[item.kind]} — ${dot(item.date)}`;
   const status = item.status === "upcoming" ? "Upcoming" : item.status === "live" ? "Live now" : "Out";
-  const source = item.url && !item.mock ? item.url : null;
+  const source = skin ? skin.source?.url ?? null : item.url && !item.mock ? item.url : null;
 
   const heroBox = (
-    <div style={{ position: "relative", aspectRatio: variant === "a" ? "1 / 1" : "4 / 5" }}>
+    <div style={{ position: "relative", aspectRatio: skin?.ratio ?? (variant === "a" ? "1 / 1" : "4 / 5") }}>
       {carried ? (
         // The tile's own picture lands here. React renders this empty on purpose.
         <div ref={heroSlot} className="absolute inset-0 overflow-hidden" style={{ containerType: "inline-size" }} />
@@ -670,7 +698,9 @@ export function Detail({
             <span className="block h-[5px] w-10 rounded-full bg-ink/20" />
           </motion.div>
 
-          {variant === "a" ? (
+          {skin ? (
+            skin.body(heroBox, Cascade)
+          ) : variant === "a" ? (
             <>
               <div className="border-y border-rule">{heroBox}</div>
               <motion.div className="px-5" style={{ opacity: contentOpacity }}>
@@ -766,7 +796,7 @@ export function Detail({
         >
           <Arrow dir="up" weight={1.75} />
         </motion.span>
-        <span className="mono bg-ground px-2 py-[5px] text-ink">{endArmed ? "Release to go back" : "Back to the issue"}</span>
+        <span className="mono bg-ground px-2 py-[5px] text-ink">{endArmed ? t.release : t.backTo}</span>
       </motion.div>
 
       {/* What the bookmark just did, briefly, above the controls. */}
@@ -801,7 +831,7 @@ export function Detail({
           style={{ y: ctrlY, opacity: ctrlOpacity }}
         >
           <Halo
-            label="Back"
+            label={t.back}
             onPress={() => close("button")}
             className="grid h-12 w-12 place-items-center bg-ink text-paper"
             style={{ x: swipeX }}
@@ -819,7 +849,7 @@ export function Detail({
           <motion.div className="flex items-center gap-2" style={{ opacity: sideOpacity }}>
             <motion.button
               type="button"
-              aria-label={watched ? `Stop following ${item.title}` : `Follow ${item.title} for updates`}
+              aria-label={watched ? `${t.unfollow}: ${item.title}` : `${t.follow}: ${item.title}`}
               aria-pressed={watched}
               onClick={() => {
                 const on = watch.toggle(item.id);
@@ -830,8 +860,8 @@ export function Detail({
                   text: on
                     ? item.when && daysFrom(item.when) >= 0
                       ? `Watching · ${item.when.slice(8, 10)}.${item.when.slice(5, 7)} · ${countdown(item.when)}`
-                      : "Watching for updates"
-                    : "Stopped watching",
+                      : t.watching
+                    : t.stopped,
                 });
               }}
               animate={{ scale: [1, watched ? 1.14 : 0.9, 1] }}
@@ -851,10 +881,10 @@ export function Detail({
                 rel="noreferrer"
                 className="mono pointer-events-auto flex h-12 items-center gap-2 bg-ink px-4 text-paper"
               >
-                Source <Arrow dir="out" />
+                {t.source} <Arrow dir="out" />
               </a>
             ) : (
-              <span className="mono flex h-12 items-center px-4 text-ink-faint">Sample</span>
+              <span className="mono flex h-12 items-center px-4 text-ink-faint">{t.sample}</span>
             )}
           </motion.div>
         </motion.div>

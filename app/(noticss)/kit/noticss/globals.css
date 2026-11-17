@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/* Noticss: printed paper. Newsprint ground, warm ink, hairlines, printer's red. */
+:root {
+  --ground: #f1ece2;
+  --paper: #f8f5ee;
+  --ink: #1c1915;
+  --ink-soft: #6e665a;
+  --ink-faint: #a59c8e;
+  --rule: #1c1915;
+  --rule-soft: rgba(28, 25, 21, 0.15);
+  --accent: #a3281d;
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --serif: var(--font-newsreader), "Iowan Old Style", "Palatino", Georgia, serif;
+  /* The shared Updatr pieces (strip, home square, held picture) read these. */
+  --font-geist-sans: var(--serif);
+  --font-geist-mono: var(--serif);
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+  --color-accent: var(--accent);
+  --font-sans: var(--serif);
+  --font-serif: var(--serif);
+  --font-mono: var(--serif);
+}
+
+html,
+body {
+  background-color: var(--ground);
+  color: var(--ink);
+  color-scheme: light;
+}
+
+/* Paper tooth: a faint fixed grain under everything, printed not glowing. */
+body {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html,
+body {
+  overscroll-behavior-y: contain;
+}
+
+[data-app],
+[data-app] * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+[data-app] {
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-feature-settings: "kern", "liga", "onum";
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* Figures that line up in tables and counters. */
+.lnum {
+  font-feature-settings: "kern", "lnum", "tnum";
+}
+
+[data-app] img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Photos print: a touch more contrast and a warm paper cast, on the one element. */
+.print {
+  filter: grayscale(1) contrast(1.12) sepia(0.08);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Labels: spaced small capitals instead of a monospace. */
+.mono {
+  font-family: var(--serif);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-feature-settings: "kern", "lnum", "tnum";
+}
+
+.justify {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+@keyframes noticss-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.noticss-marquee {
+  animation: noticss-marquee 46s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .noticss-marquee {
+    animation: none;
+  }
+}
