@@ -108,9 +108,8 @@ export function SectionControl({ s, tone }: { s: PunchSheet; tone: "bar" | "leia
         type="button"
         aria-label={`Secciones: ${s.sec.name}, ${s.section + 1} de ${n}`}
         className={`relative flex h-11 shrink-0 touch-none select-none items-center gap-[5px] px-3 ${
-          tone === "pill" ? "rounded-[10px] bg-hair" : tone === "leia" ? "rounded-[6px] bg-ink" : "rounded-[6px] bg-ink"
+          tone === "pill" ? "rounded-[10px] bg-hair" : tone === "leia" ? "leia-well rounded-[4px]" : "rounded-[6px] bg-ink"
         }`}
-        style={tone === "leia" ? { boxShadow: "inset 0 1px 3px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.08)" } : undefined}
         onPointerDown={(e) => {
           e.currentTarget.setPointerCapture(e.pointerId);
           const x = e.clientX;

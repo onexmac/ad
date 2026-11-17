@@ -139,7 +139,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
   return (
     // A freshly marked row sits above its neighbours so its rings spill over them.
     <div className="relative flex" style={{ zIndex: r.pulse ? 2 : undefined }}>
-      <div className="relative min-w-0 flex-1 pb-2.5">
+      <div className={`relative min-w-0 flex-1 ${skin.leia ? "" : "pb-2.5"}`}>
         <div className="relative">
           <SwipeUnder sw={sw} underRef={underRef} radius={R} />
           <motion.div
@@ -167,7 +167,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
               ) : null}
             </AnimatePresence>
 
-            <div className="relative flex items-center gap-2.5 py-3.5 pl-4 pr-3">
+            <div className={`relative flex items-center gap-2.5 ${skin.leia ? "py-3 pl-3 pr-3" : "py-3.5 pl-4 pr-3"}`}>
               <button
                 type="button"
                 onClick={() => {
@@ -180,7 +180,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
               >
                 {skin.bigNum ? (
                   <span
-                    className="w-[50px] shrink-0 pt-0.5 text-[22px] font-extralight leading-none tracking-[-0.03em] tabular-nums"
+                    className={`shrink-0 font-[200] leading-none tabular-nums ${skin.leia ? "w-[46px] text-[26px] tracking-[-0.04em]" : "w-[50px] pt-0.5 text-[22px] tracking-[-0.03em]"}`}
                     style={{ color: r.status === "na" ? "var(--ink-faint)" : "var(--brand)" }}
                   >
                     {check.num}
@@ -190,13 +190,13 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                 <span className="flex items-baseline gap-2">
                   {skin.bigNum ? null : <span className="text-[12px] font-semibold tabular-nums text-ink-faint">{check.num}</span>}
                   <span
-                    className="truncate text-[16.5px] font-semibold leading-6 tracking-[-0.015em] transition-colors duration-300"
+                    className={`truncate leading-6 transition-colors duration-300 ${skin.leia ? "text-[17px] font-bold" : "text-[16.5px] font-semibold tracking-[-0.015em]"}`}
                     style={{ color: r.status === "na" ? "var(--ink-faint)" : "var(--ink)" }}
                   >
                     {check.title}
                   </span>
                 </span>
-                <span className="mt-0.5 block truncate text-[13.5px] leading-5 text-ink-soft">{check.sub}</span>
+                <span className={`mt-0.5 block truncate text-[13.5px] leading-5 ${skin.leia ? "text-[#8a8d93]" : "text-ink-soft"}`}>{check.sub}</span>
                 {tags.length ? (
                   <span className="mt-2 flex flex-wrap gap-1">
                     {tags.map((t) => (
@@ -220,7 +220,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                 flat={skin.yard}
                 dragged={sw.dragged}
                 onPick={(f) => s.pickPhoto(check, f)}
-                size={34}
+                size={skin.leia ? 38 : 34}
               />
               <button
                 type="button"
@@ -232,7 +232,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                 }}
                 className="ml-2.5 shrink-0" // a clear gap from the camera: two different targets
               >
-                <SquircleCheck key={r.pulse} status={r.status} fresh={r.pulse > 0} leia={skin.leia} flat={skin.yard} />
+                <SquircleCheck key={r.pulse} status={r.status} fresh={r.pulse > 0} leia={skin.leia} flat={skin.yard} size={skin.leia ? 38 : 34} />
               </button>
             </div>
 

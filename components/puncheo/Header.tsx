@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import type { Status } from "@/lib/puncheo/state";
@@ -39,31 +40,9 @@ export function SheetHeader({
   const { t, isClosed } = s;
   const n1 = sheet.subtitle.replace("Vivienda ", "");
   if (tone === "yard") return <YardHeader sheet={sheet} s={s} current={current} />;
+  if (tone === "leia") return <LeiaHeader sheet={sheet} s={s} current={current} />;
   return (
     <>
-      {tone === "leia" ? (
-        <header className="leia-band -mx-4 px-4 pb-5 text-ground" style={{ paddingTop: "calc(var(--sat) + 20px)" }}>
-          <div className="flex items-center justify-between">
-            <span className="mono text-brand-2">AD · Puncheo</span>
-            <VariantSwitch current={current} />
-          </div>
-          <div className="mt-4 flex items-center gap-3">
-            <span className="grid size-11 shrink-0 place-items-center rounded-[6px] bg-ground/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_1px_0_rgba(0,0,0,0.15)]" aria-hidden>
-              <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="square">
-                <path d="M3.5 5.5h17v13h-17z" />
-                <circle cx="9" cy="11" r="2" />
-                <path d="M6 16c.6-1.6 1.7-2.4 3-2.4s2.4.8 3 2.4M14.5 10h3.5M14.5 13h3.5" />
-              </svg>
-            </span>
-            <span className="min-w-0">
-              <h1 className="text-[28px] font-semibold leading-none tracking-[-0.02em]">
-                {sheet.title} <span className="text-brand-2">{n1}</span>
-              </h1>
-              <span className="mt-1.5 block truncate text-[13px] text-brand-2">{sheet.system}</span>
-            </span>
-          </div>
-        </header>
-      ) : (
         <header style={{ paddingTop: "calc(var(--sat) + 28px)" }}>
           <div className="flex items-center justify-between">
             <span className="mono text-ink-faint">AD · Puncheo</span>
@@ -78,24 +57,9 @@ export function SheetHeader({
             </div>
           </div>
         </header>
-      )}
 
       {/* The whole ficha: both punches, every room. It updates in place: nothing slides. */}
-      <div className={tone === "leia" ? "mt-0" : "mt-6"}>
-        {tone === "leia" ? (
-          // Leia's receipt line: big blue figure, bold name, the amount on the right.
-          <div className="leia-receipt -mx-4 flex items-center gap-4 px-4 py-4">
-            <span className="text-[40px] font-extralight leading-none text-brand">{n1}</span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-[20px] font-semibold leading-tight tracking-[-0.01em] text-ink">{isClosed ? "Ficha cerrada" : "Ficha completa"}</span>
-              <span className="mt-0.5 block text-[13px] text-ink-faint">Pre-armado y pre-chorrea · {t.total} checks</span>
-            </span>
-            <span className="text-right leading-none tabular-nums">
-              <span className="text-[26px] font-semibold tracking-[-0.02em] text-ink">{String(t.done).padStart(2, "0")}</span>
-              <span className="text-[15px] text-ink-faint">/{t.total}</span>
-            </span>
-          </div>
-        ) : (
+      <div className="mt-6">
           <div className="flex items-center gap-3.5 rounded-[20px] bg-ink px-4 py-3.5 shadow-[0_12px_28px_rgba(25,28,34,0.22)]">
             <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-ground">
               <span className="text-[17px] font-semibold tracking-[-0.02em] text-ink">{n1}</span>
@@ -111,7 +75,6 @@ export function SheetHeader({
               <span className="text-[15px] font-medium text-ink-soft tabular-nums">/{t.total}</span>
             </span>
           </div>
-        )}
 
         {/* One segment per room, sized by its checks, filled as they are marked. */}
         <div className="mt-3 flex gap-1 px-1">
@@ -299,6 +262,81 @@ function YardHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
             total={st.total}
             note={st.red ? <span className="mr-2 text-bad">−{st.red}</span> : null}
           />
+        </div>
+      </div>
+    </>
+  );
+}
+
+/** Leia's center pill, an engraved outline, holding the layout switch. */
+function LeiaSwitch({ current }: { current: Variant }) {
+  const items = [
+    { id: "a", href: "/ad/puncheo" },
+    { id: "b", href: "/ad/puncheo/b" },
+    { id: "c", href: "/ad/puncheo/c" },
+  ] as const;
+  return (
+    <span className="leia-inset-pill flex h-[30px] items-center gap-0.5 rounded-full p-[2px]">
+      {items.map((v) => (
+        <Link
+          key={v.id}
+          href={v.href}
+          aria-current={v.id === current ? "page" : undefined}
+          className={`grid h-[24px] w-[30px] place-items-center rounded-full text-[12px] font-bold ${v.id === current ? "leia-btn text-[#3d4045]" : "leia-emboss text-[#8a8d93]"}`}
+        >
+          {v.id.toUpperCase()}
+        </Link>
+      ))}
+    </span>
+  );
+}
+
+/**
+ * B's header, after Leia: the light toolbar (the engraved pill in the middle),
+ * then the receipt panel with its blue band and the ficha as a receipt line.
+ */
+function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string }; s: PunchSheet; current: Variant }) {
+  const n1 = sheet.subtitle.replace("Vivienda ", "");
+  return (
+    <>
+      <header className="leia-toolbar relative -mx-4 flex items-center px-3" style={{ paddingTop: "var(--sat)", height: "calc(var(--sat) + 52px)" }}>
+        <span className="leia-emboss flex h-full items-center pr-3 text-[15px] text-[#4d5056] shadow-[1px_0_0_#fff,inset_-1px_0_0_#c3c5c9]">
+          <b className="mr-1">AD</b> Puncheo
+        </span>
+        <span className="flex flex-1 justify-center">
+          <LeiaSwitch current={current} />
+        </span>
+        <span className="w-[86px]" />
+      </header>
+
+      <div className="leia-panel mt-4 overflow-hidden rounded-[6px]">
+        <div className="leia-band flex h-[50px] items-center gap-3 px-3 text-ground">
+          <span className="leia-band-sep flex h-full items-center pr-3" aria-hidden>
+            <svg width={26} height={20} viewBox="0 0 26 20">
+              <rect x="1" y="1" width="24" height="18" rx="2.5" fill="#fff" />
+              <circle cx="8" cy="8.5" r="2.6" fill="#4a8ae2" />
+              <path d="M3.8 15.2c.7-2.2 2.3-3.3 4.2-3.3s3.5 1.1 4.2 3.3z" fill="#4a8ae2" />
+              <rect x="14.5" y="6" width="7.5" height="2" rx="1" fill="#4a8ae2" />
+              <rect x="14.5" y="10.5" width="7.5" height="2" rx="1" fill="#4a8ae2" />
+            </svg>
+          </span>
+          <span className="min-w-0 flex-1 truncate text-[19px]">
+            {sheet.title} {n1}
+          </span>
+        </div>
+        <div className="flex items-center gap-4 px-4 py-3.5">
+          <span className="text-[38px] font-[200] leading-none text-brand">{n1}</span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[18px] font-bold leading-tight text-ink">{s.isClosed ? "Ficha cerrada" : "Ficha completa"}</span>
+            <span className="mt-0.5 block truncate text-[13px] text-[#8a8d93]">{sheet.system}</span>
+          </span>
+          <span className="text-[18px] font-bold tabular-nums text-ink">
+            {String(s.t.done).padStart(2, "0")}
+            <span className="font-normal text-[#8a8d93]">/{s.t.total}</span>
+          </span>
+          <svg width={9} height={14} viewBox="0 0 9 14" aria-hidden>
+            <path d="M1.5 1.5l5.5 5.5-5.5 5.5" fill="none" stroke="#b9bbbf" strokeWidth={2} />
+          </svg>
         </div>
       </div>
     </>

@@ -204,7 +204,13 @@ function LeiaCheck({ status, fresh, size }: { status: Status | null; fresh: bool
   const coloured = status && status !== "na" ? status : null;
   return (
     <span className="relative block" style={{ width: size, height: size }}>
-      <span className="leia-btn absolute inset-0 rounded-[4px]" />
+      <span className="leia-btn absolute inset-0 grid place-items-center rounded-[4px]">
+        {!status ? (
+          <svg width={16} height={16} viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M5 12.5l4.5 4.5L19 7.5" stroke="#c4c6ca" strokeWidth={3} strokeLinecap="square" style={{ filter: "drop-shadow(0 1px 0 #fff)" }} />
+          </svg>
+        ) : null}
+      </span>
       {status === "na" ? <span className="absolute inset-[3px] rounded-[2px]" style={{ backgroundImage: HATCH_DENSE }} /> : null}
       {coloured ? (
         <motion.span
