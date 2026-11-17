@@ -22,6 +22,11 @@
       "tagline": "Adelante",
       "apps": [
         {
+          "slug": "puncheo",
+          "name": "Puncheo",
+          "description": "Puncheo de formaleta N1: pre-armado y pre-chorrea"
+        },
+        {
           "slug": "control-usuarios",
           "name": "Control de usuarios",
           "external": "https://control-usuarios.vercel.app"
