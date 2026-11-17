@@ -38,7 +38,7 @@ function Total({ done, total, light, big = true }: { done: number; total: number
   );
 }
 
-export function Footer({ s, sheet, kind, search }: { s: PunchSheet; sheet: RoomSheet; kind: Kind; search?: FooterSearch }) {
+export function Footer({ s, sheet, kind, search, polish = false }: { s: PunchSheet; sheet: RoomSheet; kind: Kind; search?: FooterSearch; polish?: boolean }) {
   const dark = kind !== "pill";
   const tabs = sheet.punches.map((p, i) => {
     const active = s.tab === i;
@@ -58,7 +58,7 @@ export function Footer({ s, sheet, kind, search }: { s: PunchSheet; sheet: RoomS
           <motion.span
             layoutId={`foot-tab-${kind}`}
             transition={springs.snappy}
-            className={`pointer-events-none absolute inset-0 bg-brand ${kind === "bar" ? "" : kind === "pill" ? "rounded-full" : "rounded-[16px]"}`}
+            className={`pointer-events-none absolute inset-0 ${polish ? "leia-tab-on" : "bg-brand"} ${kind === "bar" ? "" : kind === "pill" ? "rounded-full" : "rounded-[16px]"}`}
           />
         ) : null}
         <span className={`mono relative ${active ? "text-ground" : dark ? "text-ink-soft" : "text-ink-faint"}`} style={{ fontSize: 10, fontWeight: 600 }}>
@@ -79,10 +79,12 @@ export function Footer({ s, sheet, kind, search }: { s: PunchSheet; sheet: RoomS
       transition={springs.snappy}
       className={`flex min-w-0 flex-1 items-center justify-center gap-2 px-3 transition-colors duration-300 ${
         kind === "bar" ? "h-11 rounded-[6px]" : kind === "pill" ? "h-11 rounded-full" : "h-12 rounded-[16px]"
-      }`}
-      style={{
-        background: s.isClosed ? "var(--ok)" : s.ready ? "var(--brand)" : dark ? "var(--ink-3)" : "var(--hair)",
-      }}
+      } ${polish ? (s.isClosed ? "leia-fill-green" : s.ready ? "leia-cta" : "leia-cta-off") : ""}`}
+      style={
+        polish
+          ? undefined
+          : { background: s.isClosed ? "var(--ok)" : s.ready ? "var(--brand)" : dark ? "var(--ink-3)" : "var(--hair)" }
+      }
     >
       {s.isClosed ? (
         <CheckIcon size={15} strokeWidth={2.4} className="text-ground" />
@@ -106,8 +108,12 @@ export function Footer({ s, sheet, kind, search }: { s: PunchSheet; sheet: RoomS
         transition={springs.snappy}
         aria-label={search.open ? "Cerrar búsqueda" : "Buscar"}
         aria-pressed={search.open}
-        className="grid h-11 w-11 shrink-0 place-items-center rounded-[6px] transition-colors duration-200"
-        style={{ background: search.open ? "var(--ground)" : "var(--ink-3)", color: search.open ? "var(--ink)" : "var(--hair)" }}
+        className={`grid h-11 w-11 shrink-0 place-items-center rounded-[6px] transition-colors duration-200 ${polish ? (search.open ? "leia-btn" : "leia-cta-off") : ""}`}
+        style={
+          polish
+            ? { color: search.open ? "var(--ink)" : "var(--hair)" }
+            : { background: search.open ? "var(--ground)" : "var(--ink-3)", color: search.open ? "var(--ink)" : "var(--hair)" }
+        }
       >
         {search.open ? (
           <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="square" aria-hidden>
@@ -119,11 +125,14 @@ export function Footer({ s, sheet, kind, search }: { s: PunchSheet; sheet: RoomS
       </motion.button>
     ) : null;
     return (
-      <nav className="fixed inset-x-0 bottom-0 z-30 bg-ink-2" style={{ paddingBottom: "var(--sab)" }}>
+      <nav className={`fixed inset-x-0 bottom-0 z-30 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: "var(--sab)" }}>
         <div className="mx-auto flex h-[64px] max-w-[560px] items-center gap-2 pr-3">
           <div className="mr-1 flex h-full border-r border-ink">{tabs}</div>
           {search?.open ? (
-            <label className="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-[6px] bg-ink px-3 text-ink-faint">
+            <label
+              className="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-[6px] bg-ink px-3 text-ink-faint"
+              style={polish ? { boxShadow: "inset 0 1px 3px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.08)" } : undefined}
+            >
               <Lens size={15} />
               <input
                 id="puncheo-buscar"

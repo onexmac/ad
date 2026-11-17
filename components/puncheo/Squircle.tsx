@@ -35,7 +35,11 @@ const LAND = 0.14;
  * two squircle rings running out, the check drawing itself). N/A leaves the box
  * hatched like the swipe that set it.
  */
-export function SquircleCheck({ status, fresh, size = 34 }: { status: Status | null; fresh: boolean; size?: number }) {
+export function SquircleCheck({ status, fresh, size = 34, leia = false }: { status: Status | null; fresh: boolean; size?: number; leia?: boolean }) {
+  return leia ? <LeiaCheck status={status} fresh={fresh} size={size} /> : <SquircleBox status={status} fresh={fresh} size={size} />;
+}
+
+function SquircleBox({ status, fresh, size }: { status: Status | null; fresh: boolean; size: number }) {
   const pat = useId().replace(/:/g, "");
   const outline = squircle(size, 0.75);
   const solid = squircle(size, 0);
@@ -146,3 +150,37 @@ export function SquircleCheck({ status, fresh, size = 34 }: { status: Status | n
 
 /** The diagonal hatching laid over a row marked N/A. */
 export const HATCH = "repeating-linear-gradient(135deg, transparent 0 7px, rgba(25,28,34,0.1) 7px 8px)";
+
+/** Leia's check: a bevelled square key that, marked, turns into a lit key of the mark's colour. */
+function LeiaCheck({ status, fresh, size }: { status: Status | null; fresh: boolean; size: number }) {
+  const coloured = status && status !== "na" ? status : null;
+  return (
+    <span className="relative block" style={{ width: size, height: size }}>
+      <span className="leia-btn absolute inset-0 rounded-[4px]" />
+      {status === "na" ? <span className="absolute inset-[3px] rounded-[2px]" style={{ backgroundImage: HATCH_DENSE }} /> : null}
+      {coloured ? (
+        <motion.span
+          key={coloured}
+          className={`leia-fill-${coloured} absolute inset-0 grid place-items-center rounded-[4px]`}
+          initial={fresh ? { scale: 0.6, opacity: 0 } : false}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ ...springs.popping, delay: fresh ? LAND : 0 }}
+        >
+          <svg width={17} height={17} viewBox="0 0 24 24" fill="none" aria-hidden className="leia-glyph">
+            <motion.path
+              d={coloured === "green" ? "M5 12.5l4.5 4.5L19 7.5" : coloured === "yellow" ? "M12 4v10M12 18v1.5" : "M6.5 6.5l11 11M17.5 6.5l-11 11"}
+              stroke={coloured === "yellow" ? "var(--ink)" : "var(--ground)"}
+              strokeWidth={2.6}
+              strokeLinecap="square"
+              initial={fresh ? { pathLength: 0, opacity: 0 } : false}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 0.3, delay: fresh ? LAND + 0.1 : 0, ease: [0.65, 0, 0.35, 1] }}
+            />
+          </svg>
+        </motion.span>
+      ) : null}
+    </span>
+  );
+}
+
+const HATCH_DENSE = "repeating-linear-gradient(135deg, transparent 0 4px, rgba(25,28,34,0.16) 4px 5px)";

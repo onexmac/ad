@@ -46,3 +46,7 @@
   `components/updatr/` (`Detail`, `HoldImage`, `SnapStrip`, `BottomBar`).
 - Look: forced light mode, tokens in `app/globals.css` (ground, card, ink,
   brand). Reuse them; do not add inline colours.
+- Nested radii: a container's corner radius is always bigger than the radius
+  of anything inside it (ideally outer = inner + the padding between them).
+  A round 34 px button needs a card radius above 17; a pill inside a pill
+  needs the outer one taller. Check every nesting before shipping.
