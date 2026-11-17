@@ -719,6 +719,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         active={where.tab}
         section={where.section}
         folio={FOLIO[where.section] ?? "01"}
+        hidden={!!opened}
         onGo={(t) => springScrollTo(t.anchor)}
       />
 
