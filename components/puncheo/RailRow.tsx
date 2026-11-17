@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
-import type { Check } from "@/data/puncheo/formaleta-n1";
+import type { Instance } from "@/data/puncheo/rooms";
 import type { Status } from "@/lib/puncheo/state";
 import { PhotoButton } from "./PhotoButton";
 import { SwipeUnder } from "./SwipeUnder";
@@ -33,7 +33,7 @@ export type RowSkin = {
 
 type Tag = { label: string; bg: string; ink: string };
 
-function tagsOf(c: Check): Tag[] {
+function tagsOf(c: Instance): Tag[] {
   const t: Tag[] = [];
   if (c.photo.required) t.push({ label: "Foto", bg: "var(--brand-2)", ink: "var(--brand)" });
   if (c.tolerance.includes("3/5")) t.push({ label: "Regla 3/5", bg: "var(--warn-soft)", ink: "var(--warn-deep)" });
@@ -47,14 +47,23 @@ function tagsOf(c: Check): Tag[] {
  * rail draws on to the next check; the card slides under the finger (swipe to
  * mark), opens on a tap, and carries the camera and the squircle check.
  */
-export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check: Check; first: boolean; last: boolean; skin: RowSkin }) {
+export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check: Instance; first: boolean; last: boolean; skin: RowSkin }) {
   const r = rowState(s, check);
+  const [shake, setShake] = useState(0);
+  /** A check whose sheet makes the photo mandatory can't be marked, either way, until it has one. */
+  const photoFirst = () => {
+    if (!check.photo.required || r.photos.length) return true;
+    haptic.error();
+    setShake((n) => n + 1);
+    s.say(`Foto obligatoria antes de marcar ${check.num}`);
+    return false;
+  };
   const ref = useRef<HTMLDivElement>(null);
   const underRef = useRef<HTMLDivElement>(null);
   const sw = useSwipeMark({
     ref,
     underRef,
-    id: check.id,
+    id: check.num,
     na: check.na,
     status: r.status,
     pulse: r.pulse,
@@ -62,6 +71,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
     rest: r.open ? skin.restOpen : skin.rest,
     onMark: (m) => s.setMark(check.id, m),
     onReject: s.say,
+    guard: () => photoFirst(),
   });
   const color = r.status ? COLOR[r.status] : null;
   const NODE_Y = 31; // level with the title
@@ -134,7 +144,7 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
                 className="min-w-0 flex-1 text-left outline-none"
               >
                 <span className="flex items-baseline gap-2">
-                  <span className="text-[12px] font-semibold tabular-nums text-ink-faint">{check.id}</span>
+                  <span className="text-[12px] font-semibold tabular-nums text-ink-faint">{check.num}</span>
                   <span
                     className="truncate text-[16.5px] font-semibold leading-6 tracking-[-0.015em] transition-colors duration-300"
                     style={{ color: r.status === "na" ? "var(--ink-faint)" : "var(--ink)" }}
@@ -160,15 +170,17 @@ export function RailRow({ s, check, first, last, skin }: { s: PunchSheet; check:
               <PhotoButton
                 photos={r.photos}
                 missing={r.missingPhoto || (check.photo.required && !r.photos.length)}
+                shake={shake}
                 dragged={sw.dragged}
                 onPick={(f) => s.pickPhoto(check, f)}
                 size={34}
               />
               <button
                 type="button"
-                aria-label={r.status === "green" ? `Quitar pasa de ${check.id}` : `Marcar ${check.id} como pasa`}
+                aria-label={r.status === "green" ? `Quitar pasa de ${check.num}` : `Marcar ${check.num} como pasa`}
                 onClick={() => {
                   if (sw.dragged()) return;
+                  if (r.status !== "green" && !photoFirst()) return;
                   s.tapCheck(check.id);
                 }}
                 className="shrink-0"

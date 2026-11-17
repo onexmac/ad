@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
-import type { Sheet } from "@/data/puncheo/formaleta-n1";
+import type { RoomSheet } from "@/data/puncheo/rooms";
 import { CheckIcon, LockIcon } from "./Icons";
 import type { PunchSheet } from "./usePunchSheet";
 
@@ -26,7 +26,7 @@ function Total({ done, total, light, big = true }: { done: number; total: number
   );
 }
 
-export function Footer({ s, sheet, kind }: { s: PunchSheet; sheet: Sheet; kind: Kind }) {
+export function Footer({ s, sheet, kind }: { s: PunchSheet; sheet: RoomSheet; kind: Kind }) {
   const dark = kind !== "pill";
   const tabs = sheet.punches.map((p, i) => {
     const active = s.tab === i;

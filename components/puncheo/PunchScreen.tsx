@@ -2,11 +2,12 @@
 
 import { motion } from "motion/react";
 import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
-import type { Sheet } from "@/data/puncheo/formaleta-n1";
+import type { RoomSheet } from "@/data/puncheo/rooms";
 import { Toast } from "./Chrome";
 import { Footer } from "./Footer";
 import { Legend, SheetHeader } from "./Header";
-import { RailRow, type RowSkin } from "./RailRow";
+import type { RowSkin } from "./RailRow";
+import { RoomStrip, Walk } from "./Walk";
 import { usePunchSheet } from "./usePunchSheet";
 
 /** Layout A: the dot grid, grey cards on the rail, the moment as a note, A's dark dock. */
@@ -19,21 +20,16 @@ const skin: RowSkin = {
   highlight: "var(--card)",
 };
 
-export function PunchScreen({ sheet }: { sheet: Sheet }) {
+export function PunchScreen({ sheet }: { sheet: RoomSheet }) {
   const s = usePunchSheet(sheet);
-  const { scale, origin } = useEdgeSquish();
+  const { scale, origin } = useEdgeSquish({ bottom: false }); // the bottom pulls into the next room
   return (
     <div data-app className="dot-ground min-h-dvh overflow-x-clip">
       <motion.main style={{ scale, transformOrigin: origin }} className="mx-auto w-full max-w-[520px] px-4">
         <SheetHeader sheet={sheet} s={s} current="a" note />
+        <RoomStrip s={s} />
         <Legend />
-        <ul className="mt-4">
-          {s.punch.checks.map((c, i) => (
-            <li key={c.id} data-check={c.id}>
-              <RailRow s={s} check={c} first={i === 0} last={i === s.punch.checks.length - 1} skin={skin} />
-            </li>
-          ))}
-        </ul>
+        <Walk s={s} skin={skin} />
         <div style={{ height: "calc(var(--sab) + 110px)" }} />
       </motion.main>
       <Toast toast={s.toast} />
