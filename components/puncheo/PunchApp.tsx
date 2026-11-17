@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import MiniSearch from "minisearch";
 import { motion } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
@@ -11,7 +12,7 @@ import { Footer } from "./Footer";
 import { FanLayer } from "./FanLayer";
 import { LetterTags, Legend, SheetHeader, type Tone } from "./Header";
 import { RailRow, type RowSkin } from "./RailRow";
-import { Strip, Walk, type StripTone } from "./Walk";
+import { Walk, type StripTone } from "./Walk";
 import { usePunchSheet } from "./usePunchSheet";
 
 /*
@@ -115,15 +116,38 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState(0);
 
-  const query = norm(q.trim());
+  const query = q.trim();
   const f = FILTERS[filter];
-  // Search reaches the whole walk (both punches), labelled by section.
-  const label = (id: string) => {
-    const c = s.byId.get(id)!;
-    return `${s.sectionOf(id).name} · ${c.phase}`;
-  };
-
-  const found = searching ? s.all.filter((c) => f.match(s.marks[c.id]) && (!query || norm(`${c.num} ${c.title} ${c.sub} ${label(c.id)}`).includes(query))) : [];
+  // Predictive search over every check of the ficha: prefix matches as you type,
+  // forgiving typos, titles weighing most; completions offered as suggestions.
+  const index = useMemo(() => {
+    const ms = new MiniSearch<{ id: string; num: string; title: string; sub: string; what: string; room: string; phase: string }>({
+      fields: ["num", "title", "sub", "what", "room", "phase"],
+      storeFields: ["id"],
+      processTerm: (t) => norm(t),
+      searchOptions: { prefix: true, fuzzy: 0.2, boost: { title: 3, num: 3, sub: 2, room: 1.5 } },
+    });
+    ms.addAll(s.all.map((c) => ({ id: c.id, num: c.num, title: c.title, sub: c.sub, what: c.what, room: s.sectionOf(c.id).name, phase: c.phase })));
+    return ms;
+    // The checks never change while the app runs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const ranked = searching && query ? index.search(query).map((r) => s.byId.get(r.id as string)!) : s.all;
+  const found = searching ? ranked.filter((c) => f.match(s.marks[c.id])) : [];
+  const suggestions =
+    searching && query.length > 0
+      ? [...new Set(index.autoSuggest(query, { prefix: true, fuzzy: 0.2 }).flatMap((r) => r.terms))]
+          .filter((w) => w.length > 2 && w !== norm(query))
+          .slice(0, 5)
+      : [];
+  // Results keep the walk's design: grouped by room, in the same panels and rows.
+  const groups: { sec: (typeof s.sections)[number]; checks: typeof found }[] = [];
+  for (const c of found) {
+    const sec = s.sectionOf(c.id);
+    const g = groups.find((x) => x.sec.id === sec.id);
+    if (g) g.checks.push(c);
+    else groups.push({ sec, checks: [c] });
+  }
 
   const toggle = () => {
     haptic.select();
@@ -141,25 +165,37 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         <SheetHeader sheet={sheet} s={s} current={variant} tone={cfg.tone} extra={cfg.counters ? <LetterTags s={s} /> : undefined} />
         {searching ? (
           <>
-            <Strip
-              id="filters"
-              tone={cfg.strip}
-              accent={cfg.filterAccent}
-              active={filter}
-              onPick={setFilter}
-              items={FILTERS.map((x) => ({ id: x.id, label: x.label, count: s.all.filter((c) => x.match(s.marks[c.id])).length }))}
-            />
-            <ul className="mt-5">
-              {found.map((c, i) => (
-                <li key={c.id} data-check={c.id}>
-                  {i === 0 || label(found[i - 1].id) !== label(c.id) ? <span className={`mono block pb-2 pl-2 pt-2 ${cfg.skin.dark ? "leia-engrave text-hair" : "text-ink-soft"}`}>{label(c.id)}</span> : null}
-                  <RailRow s={s} check={c} skin={cfg.skin} />
-                </li>
-              ))}
-            </ul>
+            {groups.map((g) =>
+              cfg.skin.leia ? (
+                <section key={g.sec.id} className="leia-panel mt-4 overflow-hidden rounded-[6px]">
+                  <div className="leia-band flex h-[44px] items-center gap-3 px-3 text-ground">
+                    <span className="min-w-0 flex-1 truncate text-[18px]">{g.sec.name}</span>
+                    <span className="text-[13px] tabular-nums text-brand-2">{g.checks.length}</span>
+                  </div>
+                  <ul>
+                    {g.checks.map((c) => (
+                      <li key={c.id} data-check={c.id}>
+                        <RailRow s={s} check={c} skin={cfg.skin} />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : (
+                <section key={g.sec.id} className="mt-5">
+                  <span className="mono block pb-2 pl-1 text-ink-soft">{g.sec.name}</span>
+                  <ul>
+                    {g.checks.map((c) => (
+                      <li key={c.id} data-check={c.id}>
+                        <RailRow s={s} check={c} skin={cfg.skin} />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ),
+            )}
             {found.length === 0 ? (
               <p className="py-10 text-center text-[14px] leading-5 text-ink-faint">
-                {query ? `Ningún check coincide con «${q.trim()}»` : "Ningún check"} en {f.label.toLowerCase()}.
+                {query ? `Ningún check coincide con «${query}»` : "Ningún check"} en {f.label.toLowerCase()}.
               </p>
             ) : null}
           </>
@@ -169,11 +205,25 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
             <Walk s={s} skin={cfg.skin} />
           </>
         )}
-        <div style={{ height: `calc(var(--sab) + ${cfg.spacer}px)` }} />
+        <div style={{ height: `calc(var(--sab) + ${cfg.spacer + (searching ? 120 : 0)}px)` }} />
       </motion.main>
       <Toast toast={s.toast} bottom={cfg.toast} />
       <FanLayer s={s} />
-      <Footer s={s} kind={cfg.foot} polish={!!cfg.skin.leia} search={{ open: searching, q, setQ, toggle }} />
+      <Footer
+        s={s}
+        kind={cfg.foot}
+        polish={!!cfg.skin.leia}
+        search={{
+          open: searching,
+          q,
+          setQ,
+          toggle,
+          filters: FILTERS.map((x) => ({ id: x.id, label: x.label, count: s.all.filter((c) => x.match(s.marks[c.id])).length })),
+          filter,
+          setFilter,
+          suggestions,
+        }}
+      />
     </div>
   );
 }

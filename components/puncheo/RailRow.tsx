@@ -13,6 +13,11 @@ import { useSwipeMark } from "./useSwipeMark";
 import { rowState, type PunchSheet } from "./usePunchSheet";
 
 export const COLOR: Record<Status, string> = { green: "var(--ok)", yellow: "var(--warn)", red: "var(--bad)", na: "var(--na)" };
+const TINT: Record<Exclude<Status, "na">, string> = {
+  green: "rgba(149, 201, 85, 0.2)",
+  yellow: "rgba(255, 213, 86, 0.24)",
+  red: "rgba(235, 87, 87, 0.13)",
+};
 const EDGE: Record<Exclude<Status, "na">, string> = { green: "var(--ok)", yellow: "var(--warn-deep)", red: "var(--bad)" };
 
 /** How a layout dresses the shared row. */
@@ -149,7 +154,19 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
             className={`no-select relative transition-shadow duration-300 ${r.open ? skin.cardOpen : skin.card}`}
           >
             {/* A mark draws the card's outline in its colour, from the check leftward along top and bottom at once; it stays. */}
-            {r.status && r.status !== "na" ? <CardEdge key={`edge-${r.status}-${r.pulse}`} radius={R} color={EDGE[r.status]} fresh={r.pulse > 0} /> : null}
+            {r.status && r.status !== "na" && !skin.leia ? <CardEdge key={`edge-${r.status}-${r.pulse}`} radius={R} color={EDGE[r.status]} fresh={r.pulse > 0} /> : null}
+            {/* Leia's rows are flush in the panel: a mark tints the row's ground instead. */}
+            {r.status && r.status !== "na" && skin.leia ? (
+              <motion.span
+                key={`tint-${r.status}`}
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{ background: TINT[r.status] }}
+                initial={r.pulse ? { opacity: 0 } : false}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.35 }}
+              />
+            ) : null}
 
             {/* N/A: the item is hatched over, its box hatched too. */}
             <AnimatePresence>

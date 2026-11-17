@@ -4,10 +4,11 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 
+// B (Leia) is the app now, at /ad/puncheo; A and C stay as legacy layouts.
 const variants = [
-  { id: "a", href: "/ad/puncheo" },
-  { id: "b", href: "/ad/puncheo/b" },
-  { id: "c", href: "/ad/puncheo/c" },
+  { id: "a", href: "/ad/puncheo/legado-a" },
+  { id: "b", href: "/ad/puncheo" },
+  { id: "c", href: "/ad/puncheo/legado-c" },
 ] as const;
 
 export type Variant = (typeof variants)[number]["id"];

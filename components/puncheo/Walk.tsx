@@ -460,9 +460,24 @@ function RoomMark({
     >
       {role === "current" && pos ? (
         <motion.span className="absolute inset-0" style={{ opacity: inner }}>
-          {pos.length > 1 ? (
-            <span className="absolute left-1/2 w-[2px] -translate-x-1/2" style={{ top: pos[0].y, height: pos[pos.length - 1].y - pos[0].y, background: ink }} />
-          ) : null}
+          {/* The wire, segment by segment. From a marked check its colour runs down the
+              segment like current, and waits there, pulsing, until the next check is
+              marked; then it plugs in and the segment is whole. */}
+          {pos.slice(0, -1).map((p, k) => {
+            const m = s.marks[ids[k]];
+            const plugged = !!m && !!s.marks[ids[k + 1]];
+            const h = pos[k + 1].y - p.y;
+            return (
+              <span key={`w-${ids[k]}`} className="absolute left-1/2 w-[2px] -translate-x-1/2" style={{ top: p.y, height: h, background: ink }}>
+                {m ? (
+                  <span
+                    className={`absolute inset-x-0 top-0 block transition-[height] duration-300 ease-out ${plugged ? "" : "wire-wait"}`}
+                    style={{ height: plugged ? "100%" : "62%", background: COLOR_HEX[m], color: COLOR_HEX[m] }}
+                  />
+                ) : null}
+              </span>
+            );
+          })}
           {pos.map((p, k) => {
             const m = s.marks[ids[k]];
             const fill = m ? COLOR_HEX[m] : p.passed ? ink : null;

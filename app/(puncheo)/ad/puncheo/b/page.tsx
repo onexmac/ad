@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
-import { roomSheet } from "@/data/puncheo/rooms";
-import { PunchApp } from "@/components/puncheo/PunchApp";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Puncheo — B" };
-
+// B is the app now.
 export default function Page() {
-  return <PunchApp sheet={roomSheet} variant="b" />;
+  redirect("/ad/puncheo");
 }

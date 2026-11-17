@@ -6,7 +6,7 @@ import { PunchApp } from "@/components/puncheo/PunchApp";
 type View = "a" | "b" | "c";
 const read = (): View => {
   const h = location.hash.slice(1);
-  return h === "b" || h === "c" ? h : "a";
+  return h === "legado-a" ? "a" : h === "legado-c" ? "c" : "b";
 };
 
 function App() {
