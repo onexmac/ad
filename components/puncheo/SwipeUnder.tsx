@@ -26,10 +26,12 @@ export function SwipeUnder({
   sw,
   underRef,
   className = "",
+  radius = 0,
 }: {
   sw: SwipeMark;
   underRef: React.RefObject<HTMLDivElement | null>;
   className?: string;
+  radius?: number;
 }) {
   const { zone, side, prog } = sw;
   const scale = useTransform(prog, [0, 1, 2], [0.55, 1, 1.12]);
@@ -43,6 +45,7 @@ export function SwipeUnder({
       className={`absolute inset-0 flex items-center overflow-hidden px-6 transition-colors duration-150 ${className}`}
       style={{
         visibility: "hidden",
+        borderRadius: radius,
         justifyContent: right ? "flex-start" : "flex-end",
         background: zone ? ZONE_BG[zone] : right ? "var(--ok-soft)" : "var(--bad-soft)",
         backgroundImage:

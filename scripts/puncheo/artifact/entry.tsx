@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { roomSheet as sheet } from "@/data/puncheo/rooms";
-import { PunchScreen } from "@/components/puncheo/PunchScreen";
-import { ScreenB } from "@/components/puncheo/ScreenB";
-import { ScreenC } from "@/components/puncheo/ScreenC";
+import { PunchApp } from "@/components/puncheo/PunchApp";
 
 type View = "a" | "b" | "c";
 const read = (): View => {
@@ -21,9 +19,7 @@ function App() {
     window.addEventListener("hashchange", on);
     return () => window.removeEventListener("hashchange", on);
   }, []);
-  if (v === "b") return <ScreenB sheet={sheet} />;
-  if (v === "c") return <ScreenC sheet={sheet} />;
-  return <PunchScreen sheet={sheet} />;
+  return <PunchApp key={v} sheet={sheet} variant={v} />;
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
