@@ -8,6 +8,7 @@ import type { RoomSheet } from "@/data/puncheo/rooms";
 import type { Status } from "@/lib/puncheo/state";
 import { Toast, type Variant } from "./Chrome";
 import { Footer } from "./Footer";
+import { FanLayer } from "./FanLayer";
 import { LetterTags, Legend, SheetHeader, type Tone } from "./Header";
 import { RailRow, type RowSkin } from "./RailRow";
 import { Strip, Walk, type StripTone } from "./Walk";
@@ -171,6 +172,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         <div style={{ height: `calc(var(--sab) + ${cfg.spacer}px)` }} />
       </motion.main>
       <Toast toast={s.toast} bottom={cfg.toast} />
+      <FanLayer s={s} />
       <Footer s={s} kind={cfg.foot} polish={!!cfg.skin.leia} search={{ open: searching, q, setQ, toggle }} />
     </div>
   );

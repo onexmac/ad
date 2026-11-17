@@ -17,18 +17,46 @@ const liftOf = (r: number) => 150 * (1 - Math.exp((-0.6 * r) / 150));
  * before the mark just returns to scrolling. Momentum alone never pulls: only a
  * finger on the glass (or, on desktop, a fresh wheel run at the end).
  */
-export function useSectionPull({ count, current, onCommit }: { count: number; current: number; onCommit: (target: number) => void }) {
+/** A finger that scrolled and then rests this long brings up the sections around it. */
+const HOLD_MS = 220;
+
+type Hold = { open: (x: number, y: number) => void; move: (x: number, y: number) => void; release: () => void; cancel: () => void };
+
+export function useSectionPull({ count, current, onCommit, hold }: { count: number; current: number; onCommit: (target: number) => void; hold?: Hold }) {
   const raw = useMotionValue(0);
   const lift = useTransform(raw, liftOf);
   const [armed, setArmed] = useState(false);
   const [pulling, setPulling] = useState(false);
-  const live = useRef({ count, current, onCommit });
+  const live = useRef({ count, current, onCommit, hold });
   useEffect(() => {
-    live.current = { count, current, onCommit };
+    live.current = { count, current, onCommit, hold };
   });
 
   useEffect(() => {
-    let mode: "idle" | "track" | "pull" = "idle";
+    let mode: "idle" | "track" | "pull" | "hold" = "idle";
+    let scrolled = false;
+    let rest = { x: 0, y: 0 };
+    let holdTimer: ReturnType<typeof setTimeout> | null = null;
+    const clearHold = () => {
+      if (holdTimer) clearTimeout(holdTimer);
+      holdTimer = null;
+    };
+    // Each real movement restarts the rest timer; once the finger has scrolled and
+    // then stays put, the sections pop up around it (and any pull is dropped).
+    const armHold = (x: number, y: number) => {
+      clearHold();
+      if (!scrolled || !live.current.hold) return;
+      holdTimer = setTimeout(() => {
+        if (mode !== "track" && mode !== "pull") return;
+        if (mode === "pull") {
+          setPulling(false);
+          arm(false);
+          animate(raw, 0, CANCEL_SPRING);
+        }
+        mode = "hold";
+        live.current.hold?.open(x, y);
+      }, HOLD_MS);
+    };
     let sx = 0;
     let sy = 0;
     let lastY = 0;
@@ -44,8 +72,14 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
       if (on) haptic.select();
     };
     const end = (commit: boolean) => {
+      clearHold();
       const m = mode;
       mode = "idle";
+      if (m === "hold") {
+        if (commit) live.current.hold?.release();
+        else live.current.hold?.cancel();
+        return;
+      }
       if (m !== "pull") return;
       setPulling(false);
       const go = commit && isArmed && hasNext();
@@ -65,6 +99,8 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
       sx = e.touches[0].clientX;
       sy = e.touches[0].clientY;
       lastY = sy;
+      scrolled = false;
+      rest = { x: sx, y: sy };
     };
     const onMove = (e: TouchEvent) => {
       if (mode === "idle") return;
@@ -74,6 +110,16 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
       }
       const x = e.touches[0].clientX;
       const y = e.touches[0].clientY;
+      if (mode === "hold") {
+        if (e.cancelable) e.preventDefault();
+        live.current.hold?.move(x, y);
+        return;
+      }
+      if (Math.abs(y - sy) > 24) scrolled = true;
+      if (Math.hypot(x - rest.x, y - rest.y) > 5) {
+        rest = { x, y };
+        armHold(x, y);
+      }
       const up = y < lastY;
       lastY = y;
       if (mode === "track") {
@@ -135,6 +181,7 @@ export function useSectionPull({ count, current, onCommit }: { count: number; cu
     window.addEventListener("touchend", onEnd);
     window.addEventListener("touchcancel", onCancel);
     return () => {
+      clearHold();
       if (idle) clearTimeout(idle);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onStart);
