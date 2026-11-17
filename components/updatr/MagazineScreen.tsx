@@ -15,6 +15,7 @@ import { SnapStrip } from "./SnapStrip";
 import { BottomBar, type Tab } from "./BottomBar";
 import { useOpener } from "./useOpener";
 import { useEdgeSquish } from "./useEdgeSquish";
+import { PullReadout, ReloadScreen, useBottomPull } from "./Reload";
 import { Arrow } from "./Arrow";
 import { GROW_SPRING, Grow } from "./Grow";
 
@@ -126,7 +127,11 @@ function Marquee({ items }: { items: string[] }) {
 
 export function MagazineScreen({ items, franchises }: { items: Item[]; franchises: Franchise[] }) {
   const byId = useMemo(() => Object.fromEntries(franchises.map((f) => [f.id, f])), [franchises]);
-  const issue = useMemo(() => buildIssue(items, franchises), [items, franchises]);
+  // Each fetch from the bottom of the page brings the next edition.
+  const [edition, setEdition] = useState(0);
+  const [fetching, setFetching] = useState(false);
+  const issueNo = isoWeek(SNAPSHOT) + edition;
+  const issue = useMemo(() => buildIssue(items, franchises, edition), [items, franchises, edition]);
   const opener = useOpener();
   const { opened } = opener;
   const [where, setWhere] = useState({ section: "Cover", tab: "issue" });
@@ -169,7 +174,18 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
   }, []);
 
   // Histok's rubber band at the top and bottom of the page.
-  const { scale: bounce, origin: bounceOrigin } = useEdgeSquish();
+  // Histok's rubber band at the top; the bottom pulls a new issue instead.
+  const { scale: bounce, origin: bounceOrigin } = useEdgeSquish({ bottom: false });
+  const pull = useBottomPull({ enabled: !fetching && !opened, onCommit: () => setFetching(true) });
+  const pageY = useTransform(pull.lift, (v) => -v);
+  useEffect(() => {
+    if (!fetching) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [fetching]);
 
   const worlds = new Set(items.filter((i) => !i.mock).map((i) => i.franchise)).size;
   const archive = filter === "all" ? issue.all : issue.all.filter((i) => i.kind === filter);
@@ -196,9 +212,11 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
 
   return (
     <LayoutGroup>
+      <PullReadout raw={pull.raw} lift={pull.lift} armed={pull.armed} issueNo={issueNo} />
       <motion.main
+        key={edition}
         className="mx-auto min-h-dvh w-full max-w-[520px] overflow-x-clip bg-ground pb-[calc(110px+var(--sab))]"
-        style={{ scale: bounce, transformOrigin: bounceOrigin }}
+        style={{ scale: bounce, transformOrigin: bounceOrigin, y: pageY }}
       >
         {/* ================= ISSUE ================= */}
 
@@ -208,7 +226,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
             <div className="mono flex justify-between text-ink-soft">
               <span className="flex items-center gap-2">
                 <span className="block h-[8px] w-[8px] bg-ink" />
-                Issue {isoWeek(SNAPSHOT)}
+                Issue {issueNo}
               </span>
               <span>{dot(SNAPSHOT)}</span>
               <span>{pad(items.length)} entries</span>
@@ -665,7 +683,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
             </div>
           </div>
           <p className="mt-16 text-[19vw] font-bold leading-[0.8] tracking-[-0.07em] text-ink/10 min-[520px]:text-[98px]">
-            Nº{isoWeek(SNAPSHOT)}
+            Nº{issueNo}
           </p>
           <div className="mt-8">
             <VariantSwitch current="m" />
@@ -679,9 +697,22 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         active={where.tab}
         section={where.section}
         folio={FOLIO[where.section] ?? "01"}
-        hidden={!!opened}
+        hidden={!!opened || fetching}
         onGo={(t) => springScrollTo(t.anchor)}
       />
+
+      {fetching ? (
+        <ReloadScreen
+          issueNo={issueNo + 1}
+          onReady={() => {
+            setEdition((e) => e + 1);
+            setFilter("all");
+            window.scrollTo(0, 0);
+          }}
+          onCancel={() => {}}
+          onGone={() => setFetching(false)}
+        />
+      ) : null}
 
       {openItem && opened ? (
         <Detail
