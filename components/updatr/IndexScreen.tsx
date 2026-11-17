@@ -8,6 +8,7 @@ import { kindLabel, kindOrder, type Franchise, type Item, type Kind } from "@/da
 import { SNAPSHOT, countdown, dot, isoWeek, pad, relative } from "@/lib/updatr/format";
 import { HoldImage } from "./HoldImage";
 import { useOpener } from "./useOpener";
+import { useEdgeSquish } from "./useEdgeSquish";
 import { SnapStrip } from "./SnapStrip";
 import { Detail } from "./Detail";
 import { VariantSwitch } from "./VariantSwitch";
@@ -16,6 +17,7 @@ import { Arrow } from "./Arrow";
 export function IndexScreen({ items, franchises }: { items: Item[]; franchises: Franchise[] }) {
   const byId = useMemo(() => Object.fromEntries(franchises.map((f) => [f.id, f])), [franchises]);
   const opener = useOpener();
+  const squish = useEdgeSquish();
   const { opened } = opener;
   const [filter, setFilter] = useState<Kind | null>(null);
 
@@ -41,7 +43,10 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
 
   return (
     <LayoutGroup>
-      <main className="mx-auto min-h-dvh w-full max-w-[520px] bg-paper pb-[calc(40px+var(--sab))]">
+      <motion.main
+        className="mx-auto min-h-dvh w-full max-w-[520px] bg-paper pb-[calc(40px+var(--sab))]"
+        style={{ scale: squish.scale, transformOrigin: squish.origin }}
+      >
         <header className="px-5 pt-[calc(16px+var(--sat))]">
           <div className="flex items-center justify-between">
             <span className="block h-[10px] w-[10px] bg-ink" />
@@ -218,7 +223,7 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
           <VariantSwitch current="b" />
           <p className="mono mt-6 text-ink-faint">Prototype · snapshot {dot(SNAPSHOT)} · images belong to their publishers</p>
         </footer>
-      </main>
+      </motion.main>
 
       {open && opened ? (
         <Detail

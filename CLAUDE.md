@@ -31,9 +31,12 @@
     with its `img/` files.
 - Mobile first, native feel: navigation lives at the bottom (tab bar or bottom
   bar), never a top nav bar. Every overlay closes by pull-down and by a
-  right swipe (Histok's back-swipe), every horizontal strip lands on a card on a
-  spring, and images open and close by flying from and to their place in the
-  layout. One image element per picture, carried between places, never a
+  right swipe (Histok's back-swipe), and a scrolling one also by pushing on past
+  its end against friction (a fresh gesture that starts at the end, released
+  past the mark). Pages rubber-band at their top and bottom
+  (`components/updatr/useEdgeSquish.ts`). Every horizontal strip lands on a
+  card on a spring, and images open and close by flying from and to their place
+  in the layout. One image element per picture, carried between places, never a
   second copy for an effect (black and white is a filter on that element).
   Taps open on the native click, so a touch that stops a scroll opens nothing.
   Springs and haptics: `lib/histok/springs.ts`, `lib/histok/haptic.ts`;

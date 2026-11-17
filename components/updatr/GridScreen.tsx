@@ -8,6 +8,7 @@ import { kindLabel, kindOrder, type Franchise, type Item, type Kind } from "@/da
 import { SNAPSHOT, countdown, dot, isoWeek, pad, relative, spell, weekday } from "@/lib/updatr/format";
 import { HoldImage } from "./HoldImage";
 import { useOpener, type From } from "./useOpener";
+import { useEdgeSquish } from "./useEdgeSquish";
 import { Detail } from "./Detail";
 import { VariantSwitch } from "./VariantSwitch";
 
@@ -16,6 +17,7 @@ type Filter = Kind | "all";
 export function GridScreen({ items, franchises }: { items: Item[]; franchises: Franchise[] }) {
   const byId = useMemo(() => Object.fromEntries(franchises.map((f) => [f.id, f])), [franchises]);
   const opener = useOpener();
+  const squish = useEdgeSquish();
   const { opened } = opener;
   const [focusId, setFocusId] = useState<string | null>(null);
   const [filter, setFilter] = useState<Filter>("all");
@@ -49,7 +51,10 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
 
   return (
     <LayoutGroup>
-      <main className="mx-auto min-h-dvh w-full max-w-[520px] bg-ground pb-[calc(40px+var(--sab))]">
+      <motion.main
+        className="mx-auto min-h-dvh w-full max-w-[520px] bg-ground pb-[calc(40px+var(--sab))]"
+        style={{ scale: squish.scale, transformOrigin: squish.origin }}
+      >
         {/* Bar */}
         <header data-updatr-chrome="top" className="sticky top-0 z-20 border-b border-rule bg-ground/90 px-5 pb-3 pt-[calc(14px+var(--sat))] backdrop-blur-md">
           <div className="flex items-center justify-between">
@@ -230,7 +235,7 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
           <VariantSwitch current="a" />
           <p className="mono mt-6 text-ink-faint">Prototype · snapshot {dot(SNAPSHOT)} · images belong to their publishers</p>
         </footer>
-      </main>
+      </motion.main>
 
       {open && opened ? (
         <Detail

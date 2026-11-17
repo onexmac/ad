@@ -30,6 +30,11 @@ import { Arrow } from "./Arrow";
 /** Asymptote for the pull-down: the sheet approaches this travel and grips. */
 const PULL_MAX = 400;
 const PULL_COMMIT = 110;
+/** Past the end of an article: how far the sheet lifts (asymptote, px)... */
+const END_LIFT_MAX = 200;
+/** ...and how far the finger must push past the end, against that friction, to go back. */
+const END_COMMIT = 130;
+const endLiftOf = (raw: number) => END_LIFT_MAX * (1 - Math.exp((-Math.max(0, raw) * 0.6) / END_LIFT_MAX));
 /** Histok's chrome spring: back button and pills arriving. */
 const CHROME_SPRING = { type: "spring" as const, stiffness: 280, damping: 30, mass: 1 };
 /** A swipe may start this long into the opening flight (the picture is ~95% there). */
@@ -38,7 +43,7 @@ const EARLY_GRAB_MS = 300;
 const EDGE_GUARD_PX = 30;
 
 type Stage = "opening" | "open" | "flying-home" | "leaving";
-type Exit = "button" | "pull" | "swipe";
+type Exit = "button" | "pull" | "swipe" | "end";
 
 export type DetailOrigin = { rect: Rect; key?: string; carrier?: Carrier };
 
@@ -173,14 +178,35 @@ export function Detail({
     };
   }, []);
 
+  // Pushing on past the end of the article (Histok's end of reel): the finger's
+  // raw travel, felt through friction as a lift that grips and slows.
+  const endRaw = useMotionValue(0);
+  const exitY = useMotionValue(0);
+  const endLift = useTransform(endRaw, endLiftOf);
+  const endK = useTransform(endLift, (t) => t / END_LIFT_MAX);
+  const [endArmed, setEndArmed] = useState(false);
+
   // One gesture channel feeds scale, corners and how much of the page shows through.
-  const gesture = useTransform(() => Math.max(Math.min(pullY.get() / 380, 1), Math.min(swipeX.get() / vw(), 1)));
+  const gesture = useTransform(() =>
+    Math.max(Math.min(pullY.get() / 380, 1), Math.min(swipeX.get() / vw(), 1), endK.get() * 0.45),
+  );
   const sheetScale = useTransform(
-    () => 1 - Math.min(pullY.get() / PULL_MAX, 1) * 0.18 - Math.min(swipeX.get() / vw(), 1) * 0.08,
+    () =>
+      1 -
+      Math.min(pullY.get() / PULL_MAX, 1) * 0.18 -
+      Math.min(swipeX.get() / vw(), 1) * 0.08 -
+      endK.get() * 0.16,
   );
   const sheetRadius = useTransform(
-    () => Math.max(Math.min(pullY.get() / 90, 1), Math.min(swipeX.get() / (vw() * 0.25), 1)) * 28,
+    () =>
+      Math.max(Math.min(pullY.get() / 90, 1), Math.min(swipeX.get() / (vw() * 0.25), 1), Math.min(endLift.get() / 50, 1)) *
+      28,
   );
+  // The end lift shrinks the sheet up toward the top, revealing the way back below.
+  const sheetY = useTransform(() => pullY.get() + exitY.get() - endLift.get() * 0.35);
+  const sheetOrigin = useTransform(() => (endLift.get() > 0.5 ? "50% 0%" : "50% 30%"));
+  const signOff = useTransform(endLift, [8, 90], [0, 1], { clamp: true });
+  const signOffY = useTransform(endLift, [0, 90], [18, 0], { clamp: true });
   const backdrop = useTransform(() => Math.max(0, Math.min(1, chrome.get())) * (1 - gesture.get()));
   const sheetBg = useTransform(
     chrome,
@@ -189,7 +215,12 @@ export function Detail({
   const contentOpacity = useTransform(chrome, [0, 1], [0, 1], { clamp: true });
   // Floating controls: rise in on Histok's chrome spring; Back rides the swipe 1:1.
   const ctrlY = useTransform(controlsIn, [0, 1], [110, 0]);
-  const ctrlOpacity = useTransform(() => Math.max(0, Math.min(1, controlsIn.get())) * (1 - Math.min(pullY.get() / 140, 1)));
+  const ctrlOpacity = useTransform(
+    () =>
+      Math.max(0, Math.min(1, controlsIn.get())) *
+      (1 - Math.min(pullY.get() / 140, 1)) *
+      (1 - Math.min(endLift.get() / 60, 1)),
+  );
   const sideOpacity = useTransform(() => 1 - Math.min(swipeX.get() / (vw() * 0.3), 1));
   // The band behind the controls leaves with the sheet on a swipe, too.
   const bandOpacity = useTransform(() => ctrlOpacity.get() * sideOpacity.get());
@@ -278,7 +309,11 @@ export function Detail({
       if (carried && !carried.atHome) carried.goHome();
       if (alive.current) callbacks.current.onClosed();
     };
-    if (how === "pull") {
+    if (how === "end") {
+      // Out the top, the way the finger was pushing.
+      animate(chrome, 0, { duration: 0.35 });
+      animate(exitY, -window.innerHeight * 1.1, { ...CLOSE_SPRING, onComplete: done });
+    } else if (how === "pull") {
       animate(chrome, 0, { duration: 0.35 });
       animate(pullY, window.innerHeight * 1.1, { ...CLOSE_SPRING, onComplete: done });
     } else if (how === "swipe") {
@@ -329,10 +364,22 @@ export function Detail({
   useEffect(() => {
     const el = sheet.current;
     if (!el) return;
-    let mode: "idle" | "pending" | "pull" | "swipe" | "native" = "idle";
+    let mode: "idle" | "pending" | "pull" | "swipe" | "end" | "native" = "idle";
     let sx = 0;
     let sy = 0;
     let atTop = false;
+    // Only a gesture that starts at the end can push past it: a scroll that
+    // merely arrives there (momentum included) never does. That is the friction
+    // that confirms intent, with the resisted lift and the commit distance.
+    let atEnd = false;
+    let baseEnd = 0;
+    let armed = false;
+    const arm = (on: boolean) => {
+      if (on === armed) return;
+      armed = on;
+      setEndArmed(on);
+      if (on) haptic.select();
+    };
     let last = { x: 0, y: 0, t: 0 };
     let vx = 0;
     let vy = 0;
@@ -351,6 +398,7 @@ export function Detail({
       sx = x;
       sy = y;
       atTop = el.scrollTop <= 0;
+      atEnd = el.scrollTop >= el.scrollHeight - el.clientHeight - 1;
       mode = "pending";
       last = { x, y, t: performance.now() };
       vx = 0;
@@ -358,10 +406,12 @@ export function Detail({
       dragged = false;
     };
 
-    const offset = () => pullY.get() !== 0 || swipeX.get() !== 0;
+    const offset = () => pullY.get() !== 0 || swipeX.get() !== 0 || endRaw.get() !== 0;
     const settle = () => {
       animate(pullY, 0, CANCEL_SPRING);
       animate(swipeX, 0, CANCEL_SPRING);
+      animate(endRaw, 0, CANCEL_SPRING);
+      arm(false);
     };
 
     /** The article is still arriving: finish it now (if nearly there) so the gesture can take it. */
@@ -381,12 +431,14 @@ export function Detail({
       const dy = y - sy;
       if (mode === "pending") {
         if (Math.abs(dx) < AXIS_LOCK && Math.abs(dy) < AXIS_LOCK) {
-          // A downward start at the top may become a pull: keep it ours.
-          if (atTop && dy > 0 && cancelable) prevent();
+          // A downward start at the top may become a pull, an upward one at the
+          // end a push past it: keep them ours.
+          if (((atTop && dy > 0) || (atEnd && dy < 0)) && cancelable) prevent();
           return;
         }
         if (Math.abs(dx) > Math.abs(dy) && dx > 0) mode = "swipe";
         else if (atTop && dy > 0 && Math.abs(dy) >= Math.abs(dx)) mode = "pull";
+        else if (atEnd && dy < 0 && Math.abs(dy) >= Math.abs(dx)) mode = "end";
         else {
           mode = "native";
           if (offset()) settle();
@@ -402,10 +454,13 @@ export function Detail({
         // Grab the sheet where it is (it may still be springing back).
         pullY.stop();
         swipeX.stop();
+        endRaw.stop();
         baseX = swipeDistance(swipeX.get() / vw(), vw());
         baseY = unresist(pullY.get(), PULL_MAX);
-        if (mode === "swipe") pullY.set(0);
-        else swipeX.set(0);
+        baseEnd = endRaw.get();
+        if (mode !== "swipe") swipeX.set(0);
+        if (mode !== "pull") pullY.set(0);
+        if (mode !== "end") endRaw.set(0);
         dragged = true;
         if (mode === "swipe") haptic.select();
         else haptic.drag();
@@ -422,7 +477,11 @@ export function Detail({
       vy = ((y - last.y) / dt) * 1000;
       last = { x, y, t: now };
       if (mode === "swipe") swipeX.set(swipeProgress(dx + baseX, vw()) * vw());
-      else pullY.set(resist(Math.max(0, dy + baseY), PULL_MAX));
+      else if (mode === "end") {
+        const raw = Math.max(0, baseEnd - dy);
+        endRaw.set(raw);
+        arm(raw > END_COMMIT);
+      } else pullY.set(resist(Math.max(0, dy + baseY), PULL_MAX));
     };
 
     const end = () => {
@@ -436,6 +495,11 @@ export function Detail({
         const p = swipeX.get() / vw();
         if (p > BACK_COMMIT || (p > 0.1 && rvx > 520)) closeRef.current("swipe");
         else animate(swipeX, 0, { ...CANCEL_SPRING, velocity: rvx });
+      } else if (m === "end") {
+        const raw = endRaw.get();
+        arm(false);
+        if (raw > END_COMMIT) closeRef.current("end");
+        else animate(endRaw, 0, { ...CANCEL_SPRING, velocity: -rvy });
       } else if (m === "pull") {
         const d = pullY.get();
         if (d > PULL_COMMIT || (d > 24 && rvy > 700)) closeRef.current("pull");
@@ -453,7 +517,7 @@ export function Detail({
 
     const onTouchStart = (e: TouchEvent) => {
       if (e.touches.length !== 1) {
-        if (mode === "pull" || mode === "swipe") settle();
+        if (mode === "pull" || mode === "swipe" || mode === "end") settle();
         mode = "native";
         return;
       }
@@ -482,6 +546,32 @@ export function Detail({
       e.stopPropagation();
     };
 
+    // Wheel and trackpad: the same push past the end. A wheel run that started
+    // above the end (momentum carrying into it) never counts; a fresh one at the
+    // end drags the lift, and going quiet decides: back past the mark, or settle.
+    let wheelIdle: ReturnType<typeof setTimeout> | null = null;
+    let wheelFromEnd: boolean | null = null;
+    const onWheel = (e: WheelEvent) => {
+      if (stageRef.current !== "open" || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      const bottom = el.scrollTop >= el.scrollHeight - el.clientHeight - 1;
+      if (wheelFromEnd === null) wheelFromEnd = bottom && e.deltaY > 0;
+      if (wheelIdle) clearTimeout(wheelIdle);
+      wheelIdle = setTimeout(() => {
+        wheelIdle = null;
+        wheelFromEnd = null;
+        const raw = endRaw.get();
+        arm(false);
+        if (raw > END_COMMIT) closeRef.current("end");
+        else if (raw > 0) animate(endRaw, 0, CANCEL_SPRING);
+      }, 160);
+      if (!wheelFromEnd) return;
+      endRaw.stop();
+      const raw = Math.max(0, endRaw.get() + e.deltaY * 0.6);
+      endRaw.set(raw);
+      arm(raw > END_COMMIT);
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: true });
     el.addEventListener("touchstart", onTouchStart, { passive: true });
     el.addEventListener("touchmove", onTouchMove, { passive: false });
     el.addEventListener("touchend", end);
@@ -491,6 +581,8 @@ export function Detail({
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onPointerUp);
     return () => {
+      el.removeEventListener("wheel", onWheel);
+      if (wheelIdle) clearTimeout(wheelIdle);
       el.removeEventListener("touchstart", onTouchStart);
       el.removeEventListener("touchmove", onTouchMove);
       el.removeEventListener("touchend", end);
@@ -553,11 +645,11 @@ export function Detail({
         className={`absolute inset-0 overscroll-none [scrollbar-gutter:stable] ${stage === "open" ? "overflow-y-auto" : "overflow-hidden"}`}
         style={{
           x: swipeX,
-          y: pullY,
+          y: sheetY,
           scale: sheetScale,
           borderRadius: sheetRadius,
           background: sheetBg,
-          transformOrigin: "50% 30%",
+          transformOrigin: sheetOrigin,
           touchAction: "pan-y",
         }}
       >
@@ -648,6 +740,22 @@ export function Detail({
             </div>
           )}
         </div>
+      </motion.div>
+
+      {/* The way back, revealed under the sheet as it is pushed past its end. */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-[calc(var(--sab)+34px)] flex flex-col items-center gap-2"
+        style={{ opacity: signOff, y: signOffY }}
+      >
+        <motion.span
+          className="grid h-10 w-10 place-items-center bg-ink text-paper"
+          animate={{ scale: endArmed ? 1.12 : 1, backgroundColor: endArmed ? "var(--accent)" : "var(--ink)" }}
+          transition={springs.popping}
+        >
+          <Arrow dir="up" weight={1.75} />
+        </motion.span>
+        <span className="mono bg-ground px-2 py-[5px] text-ink">{endArmed ? "Release to go back" : "Back to the issue"}</span>
       </motion.div>
 
       {/* Floating controls under the thumb (Histok's bottom chrome, squared). */}
