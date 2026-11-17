@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { animate, motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useMotionValue, useTransform } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import type { Key } from "@/data/puncheo/rooms";
@@ -229,7 +229,13 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
       animate(shift, 0, { type: "spring", stiffness: 260, damping: 30 });
     });
   };
-  const pull = useSectionPull({ count: s.sections.length, current: s.section, onCommit: travel });
+  const pull = useSectionPull({
+    count: s.sections.length,
+    current: s.section,
+    onCommit: travel,
+    // Scroll, then rest the finger: the sections pop up around it.
+    hold: { open: (x, y) => s.fanOpen(x, y, false), move: s.fanMove, release: s.fanRelease, cancel: s.fanClose },
+  });
   useEffect(() => {
     s.registerTravel(travel);
   });
@@ -251,7 +257,7 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
 
   return (
     <>
-    <motion.div style={{ y }}>
+    <motion.div style={{ y }} className="pr-[26px]">
       {skin.leia ? (
         // Leia: the room is a receipt panel; its blue band is the section's header.
         <section key={sec.id} id="puncheo-section" className="leia-panel mt-6 overflow-hidden rounded-[6px]">
@@ -293,43 +299,47 @@ export function Walk({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
       <EndMarker s={s} armed={pull.armed} pulling={pull.pulling} dark={skin.dark} />
     </motion.div>
     {/* Outside the moving layer: a transformed ancestor would trap this fixed rail. */}
-    <ScrollRail s={s} dark={skin.dark} />
+    <SectionRail s={s} dark={skin.dark} />
     </>
   );
 }
 
 /**
- * The room's checks at the right edge, one dot each in its mark's colour, and a
- * long pill over the checks on screen that moves as you scroll (after Circa's
- * scroll indicator). Above the pill, the checks you have passed are joined by
- * the line; below it, the pending ones wait as loose dots that grow out of the
- * pill's foot into place.
+ * The rail at the right edge (Marcos's sketch): a grey dot per room, and the
+ * current room stretched into a tall pill. Inside the pill, a dot per check,
+ * joined by the line, each one level with its card while the card is on
+ * screen; checks above or below the screen gather at the pill's ends.
+ * Tapping a room's dot goes there.
  */
-function ScrollRail({ s, dark }: { s: PunchSheet; dark?: boolean }) {
+function SectionRail({ s, dark }: { s: PunchSheet; dark?: boolean }) {
   const ids = s.sec.ids;
-  const n = ids.length;
-  const STEP = Math.max(7, Math.min(12, Math.floor(260 / Math.max(1, n))));
-  const top = useMotionValue(0);
-  const bot = useMotionValue(0);
+  const pill = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState<number[]>([]);
   useEffect(() => {
     let raf = 0;
     const measure = () => {
       raf = 0;
-      const centers = ids.map((id) => {
-        const el = document.querySelector(`[data-check="${CSS.escape(id)}"]`);
-        if (!el) return 0;
-        const r = el.getBoundingClientRect();
-        return r.top + r.height / 2;
+      const el = pill.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const pad = 10;
+      const lo = pad;
+      const hi = r.height - pad;
+      const n = ids.length;
+      const gap = Math.min(10, (hi - lo) / Math.max(1, n - 1));
+      // Each check's card centre, in the pill's own coordinates, held inside the pill.
+      const p = ids.map((id) => {
+        const c = document.querySelector(`[data-check="${CSS.escape(id)}"]`);
+        if (!c) return lo;
+        const b = c.getBoundingClientRect();
+        return Math.max(lo, Math.min(hi, b.top + b.height / 2 - r.top));
       });
-      // Where a screen line falls among the checks, as a fractional index.
-      const at = (y: number) => {
-        if (!centers.length) return 0;
-        if (y <= centers[0]) return 0;
-        for (let i = 1; i < centers.length; i++) if (y <= centers[i]) return i - 1 + (y - centers[i - 1]) / Math.max(1, centers[i] - centers[i - 1]);
-        return centers.length - 1;
-      };
-      top.set(at(80));
-      bot.set(Math.max(at(80) + 0.6, at(window.innerHeight - 90)));
+      // Keep them apart: pushed down from the top, then up from the bottom, so the
+      // ones off screen stack at the ends.
+      for (let i = 1; i < n; i++) p[i] = Math.max(p[i], p[i - 1] + gap);
+      p[n - 1] = Math.min(p[n - 1], hi);
+      for (let i = n - 2; i >= 0; i--) p[i] = Math.min(p[i], p[i + 1] - gap);
+      setPos(p);
     };
     const on = () => {
       if (!raf) raf = requestAnimationFrame(measure);
@@ -337,55 +347,54 @@ function ScrollRail({ s, dark }: { s: PunchSheet; dark?: boolean }) {
     measure();
     window.addEventListener("scroll", on, { passive: true });
     window.addEventListener("resize", on);
+    const ro = new ResizeObserver(on);
+    const list = document.getElementById("puncheo-list");
+    if (list) ro.observe(list);
     return () => {
       cancelAnimationFrame(raf);
+      ro.disconnect();
       window.removeEventListener("scroll", on);
       window.removeEventListener("resize", on);
     };
-  }, [ids, top, bot]);
-  const pillY = useTransform(top, (v) => v * STEP - 4);
-  const pillH = useTransform([top, bot], ([a, b]: number[]) => Math.max(18, (b - a) * STEP + 8));
-  return (
-    <div className="pointer-events-none fixed right-[5px] top-1/2 z-20 w-[8px] -translate-y-1/2" style={{ height: (n - 1) * STEP + 8 }} aria-hidden>
-      {ids.map((id, i) => (
-        <RailDot key={id} i={i} step={STEP} top={top} bot={bot} color={s.marks[id] ? COLOR[s.marks[id]] : null} next={i < n - 1 ? (s.marks[ids[i + 1]] ? COLOR[s.marks[ids[i + 1]]] : null) : undefined} dark={dark} />
-      ))}
-      <motion.span className="absolute left-0 w-[8px] rounded-full" style={{ y: pillY, height: pillH, background: dark ? "var(--ground)" : "var(--ink-3)" }} />
-    </div>
-  );
-}
+  }, [ids]);
 
-function RailDot({
-  i,
-  step,
-  top,
-  bot,
-  color,
-  next,
-  dark,
-}: {
-  i: number;
-  step: number;
-  top: MotionValue<number>;
-  bot: MotionValue<number>;
-  color: string | null;
-  next: string | null | undefined;
-  dark?: boolean;
-}) {
-  const idle = dark ? "rgba(255,255,255,0.4)" : "var(--hair-2)";
-  // Below the pill: small at its foot, full size a couple of steps on.
-  const scale = useTransform(bot, (b) => (i <= b ? 1 : Math.max(0.35, Math.min(1, (i - b) / 2))));
-  // Above the pill: joined to the next dot by the line.
-  const link = useTransform(top, (t) => (next !== undefined && i + 1 <= t ? 1 : 0));
+  const roomDot = (i: number) => {
+    const t = s.sectionTallies[i];
+    const done = t.done === t.total;
+    return (
+      <button
+        key={s.sections[i].id}
+        type="button"
+        aria-label={`Ir a ${s.sections[i].name}`}
+        onClick={() => s.travelTo(i)}
+        className="pointer-events-auto block size-[18px] shrink-0 rounded-full"
+        style={{ background: done ? "var(--ok)" : dark ? "rgba(255,255,255,0.28)" : "var(--hair)" }}
+      />
+    );
+  };
+  const ink = dark ? "var(--ground)" : "var(--ink-3)";
   return (
-    <>
-      {next !== undefined ? (
-        <motion.span
-          className="absolute left-[3px] w-[2px] origin-top"
-          style={{ top: i * step + 4, height: step, scaleY: link, background: color ?? idle }}
-        />
-      ) : null}
-      <motion.span className="absolute left-[1px] size-[6px] rounded-full" style={{ top: i * step + 1, scale, background: color ?? idle }} />
-    </>
+    <div
+      className="pointer-events-none fixed right-[7px] z-20 flex w-[20px] flex-col items-center gap-[7px]"
+      style={{ top: "calc(var(--sat) + 76px)", bottom: "calc(var(--sab) + 92px)" }}
+    >
+      {s.sections.slice(0, s.section).map((_, i) => roomDot(i))}
+      <div ref={pill} className="relative w-[20px] min-h-[60px] flex-1 rounded-full" style={{ background: dark ? "rgba(255,255,255,0.16)" : "var(--hair)" }}>
+        {pos.length > 1 ? (
+          <span className="absolute left-1/2 w-[2px] -translate-x-1/2" style={{ top: pos[0], height: pos[pos.length - 1] - pos[0], background: ink }} />
+        ) : null}
+        {pos.map((y, i) => {
+          const m = s.marks[ids[i]];
+          return (
+            <span
+              key={ids[i]}
+              className="absolute left-1/2 size-[10px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{ top: y, background: m ? COLOR[m] : ink, boxShadow: m ? `0 0 0 2px ${dark ? "#5b6376" : "var(--hair)"}` : undefined }}
+            />
+          );
+        })}
+      </div>
+      {s.sections.slice(s.section + 1).map((_, k) => roomDot(s.section + 1 + k))}
+    </div>
   );
 }

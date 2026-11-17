@@ -5,6 +5,7 @@ import { flushSync } from "react-dom";
 import { haptic } from "@/lib/histok/haptic";
 import type { Check } from "@/data/puncheo/formaleta-n1";
 import type { Instance, RoomSheet, Section } from "@/data/puncheo/rooms";
+import { layout, pick, type Fan } from "./fan";
 import { needsPhoto, shrinkPhoto, useClosed, useMarks, usePhotos, type Marks, type Status } from "@/lib/puncheo/state";
 
 export type Tally = { done: number; red: number; pending: number; noPhoto: number; total: number };
@@ -44,6 +45,14 @@ export function usePunchSheet(sheet: RoomSheet) {
   // The walk registers how it travels between sections (the whole screen moving),
   // so other controls (the footer's sections) go the same way.
   const travelRef = useRef<((i: number) => void) | null>(null);
+  // The sections fan, shared by its two ways in: holding the finger after a scroll,
+  // and the footer's sections button.
+  const [fan, setFanState] = useState<Fan | null>(null);
+  const fanRef = useRef<Fan | null>(null);
+  const setFan = (f: Fan | null) => {
+    fanRef.current = f;
+    setFanState(f);
+  };
 
   const at = Math.min(section, sections.length - 1);
   const sec = sections[at];
@@ -155,6 +164,41 @@ export function usePunchSheet(sheet: RoomSheet) {
     },
     /** Go to a section the way the walk moves: the whole screen travels. */
     travelTo: (i: number) => (travelRef.current ? travelRef.current(i) : goSection(i)),
+    fan,
+    /** Bring the sections up around (x, y). Sticky: stays open for a tap instead of following a held finger. */
+    fanOpen: (x: number, y: number, sticky: boolean) => {
+      haptic.drag();
+      setFan({ ox: x, oy: y, w: window.innerWidth, pts: layout(x, y, sections.length), sel: null, sticky });
+    },
+    /** The held finger moved: point at the section it heads for. */
+    fanMove: (x: number, y: number) => {
+      const f = fanRef.current;
+      if (!f || f.sticky) return;
+      const sel = pick(f, x, y);
+      if (sel !== f.sel) {
+        if (sel !== null) haptic.select();
+        setFan({ ...f, sel });
+      }
+    },
+    /** Choose a section from the fan (or nothing) and close it. */
+    fanChoose: (i: number | null) => {
+      setFan(null);
+      if (i === null || i === at) return;
+      haptic.complete();
+      if (travelRef.current) travelRef.current(i);
+      else goSection(i);
+    },
+    /** The held finger let go: go where it pointed. */
+    fanRelease: () => {
+      const f = fanRef.current;
+      if (!f || f.sticky) return;
+      setFan(null);
+      if (f.sel === null || f.sel === at) return;
+      haptic.complete();
+      if (travelRef.current) travelRef.current(f.sel);
+      else goSection(f.sel);
+    },
+    fanClose: () => setFan(null),
     secDir,
     sectionTallies,
     byId,
