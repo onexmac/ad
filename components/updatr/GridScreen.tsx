@@ -60,7 +60,7 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2">
               <span className="block h-[9px] w-[9px] bg-ink" />
-              <span className="mono font-medium text-ink">Updatr®</span>
+              <span className="mono font-medium text-ink">Updatr</span>
             </span>
             <span className="mono text-ink-soft">
               {weekday(SNAPSHOT)} {dot(SNAPSHOT)} · W{isoWeek(SNAPSHOT)}

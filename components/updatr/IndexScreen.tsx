@@ -53,7 +53,7 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
             <span className="mono text-ink">W{isoWeek(SNAPSHOT)} / {dot(SNAPSHOT)}</span>
           </div>
           <h1 className="mt-14 text-[84px] font-bold leading-[0.82] tracking-[-0.065em]">
-            Updatr<span className="align-top text-[30px] tracking-normal">©</span>
+            Updatr
           </h1>
         </header>
 

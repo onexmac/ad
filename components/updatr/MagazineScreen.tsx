@@ -237,7 +237,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
               transition={springs.settling}
               className="mt-4 text-[22vw] font-bold leading-[0.8] tracking-[-0.07em] min-[520px]:text-[112px]"
             >
-              Updatr<span className="align-top text-[0.3em] tracking-normal">©</span>
+              Updatr
             </motion.h1>
           </div>
           {issue.cover ? (
