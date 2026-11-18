@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, animate, motion } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import type { Instance } from "@/data/puncheo/rooms";
 import type { Status } from "@/lib/puncheo/state";
@@ -18,6 +18,8 @@ const TINT: Record<Exclude<Status, "na">, string> = {
   yellow: "rgba(255, 213, 86, 0.24)",
   red: "rgba(235, 87, 87, 0.13)",
 };
+/** The big numeral takes its mark's colour, dark enough to read on the row's tint. */
+const NUM: Record<Status | "none", string> = { none: "var(--brand)", green: "var(--ok-ink)", yellow: "var(--warn-deep)", red: "var(--bad)", na: "var(--ink-faint)" };
 const EDGE: Record<Exclude<Status, "na">, string> = { green: "var(--ok)", yellow: "var(--warn-deep)", red: "var(--bad)" };
 
 /** How a layout dresses the shared row. */
@@ -139,6 +141,18 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
     guard: () => photoFirst(),
   });
   const tags = skin.tags ? tagsOf(check, skin.yard) : [];
+  // A fresh mark pops the row's content: it swells a little and springs back.
+  const content = useRef<HTMLDivElement>(null);
+  const seen = useRef(r.pulse);
+  useEffect(() => {
+    const el = content.current;
+    const fresh = r.pulse > seen.current;
+    seen.current = r.pulse;
+    if (!fresh || !el || !r.status) return;
+    const grow = animate(el, { scale: 1.045 }, { duration: 0.12, ease: [0.3, 0, 0.4, 1], delay: 0.06 });
+    grow.then(() => animate(el, { scale: 1 }, { type: "spring", stiffness: 520, damping: 11 }));
+    return () => grow.stop();
+  }, [r.pulse, r.status]);
   const R = skin.radius ?? 20;
 
   return (
@@ -184,7 +198,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
               ) : null}
             </AnimatePresence>
 
-            <div className={`relative flex items-center gap-2.5 ${skin.leia ? "py-3 pl-3 pr-3" : "py-3.5 pl-4 pr-3"}`}>
+            <div ref={content} className={`relative flex items-center gap-2.5 ${skin.leia ? "py-3 pl-3 pr-3" : "py-3.5 pl-4 pr-3"}`}>
               <button
                 type="button"
                 onClick={() => {
@@ -198,7 +212,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                 {skin.bigNum ? (
                   <span
                     className={`shrink-0 font-[200] leading-none tabular-nums ${skin.leia ? "w-[46px] text-[26px] tracking-[-0.04em]" : "w-[50px] pt-0.5 text-[22px] tracking-[-0.03em]"}`}
-                    style={{ color: r.status === "na" ? "var(--ink-faint)" : "var(--brand)" }}
+                    style={{ color: NUM[r.status ?? "none"], transition: "color 300ms" }}
                   >
                     {check.num}
                   </span>
@@ -237,6 +251,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                 flat={skin.yard}
                 dragged={sw.dragged}
                 onPick={(f) => s.pickPhoto(check, f)}
+                onOpen={(img) => s.viewPhoto(check.id, r.photos.length - 1, img)}
                 size={skin.leia ? 38 : 34}
               />
               <button
@@ -263,7 +278,7 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                   highlight={skin.highlight}
                   outer={R}
                   onClear={() => s.setMark(check.id, null)}
-                  onRemovePhoto={(i) => s.removePhoto(check.id, i)}
+                  onOpenPhoto={(i, img) => s.viewPhoto(check.id, i, img)}
                 />
               </div>
             </Expand>

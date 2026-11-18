@@ -5,7 +5,6 @@ import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import type { Check } from "@/data/puncheo/formaleta-n1";
 import type { Status } from "@/lib/puncheo/state";
-import { CrossIcon } from "./Icons";
 
 const DOT: Record<"green" | "yellow" | "red", string> = { green: "var(--ok)", yellow: "var(--warn)", red: "var(--bad)" };
 
@@ -15,7 +14,7 @@ export function CheckDetail({
   status,
   photos,
   onClear,
-  onRemovePhoto,
+  onOpenPhoto,
   highlight = "var(--ground)",
   outer = 20,
 }: {
@@ -23,7 +22,8 @@ export function CheckDetail({
   status: Status | null;
   photos: string[];
   onClear: () => void;
-  onRemovePhoto: (i: number) => void;
+  /** Open a photo (it flies from its tile into the viewer, where it can be marked up or deleted). */
+  onOpenPhoto: (i: number, img: HTMLImageElement | null) => void;
   /** Background of the criterion that matches the mark. */
   highlight?: string;
   /** The card's radius: everything inside rounds less (nested radii shrink inward). */
@@ -74,7 +74,7 @@ export function CheckDetail({
           <AnimatePresence initial={false}>
             {photos.map((src, i) => (
               <motion.div
-                key={src.slice(-24) + i}
+                key={i}
                 layout
                 initial={{ scale: 0.7, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -83,19 +83,14 @@ export function CheckDetail({
                 className="relative size-[72px] overflow-hidden"
                 style={{ borderRadius: inner, boxShadow: "0 0 0 1px var(--hair-2)" }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt={`Foto ${i + 1} de ${check.id}`} draggable={false} className="h-full w-full object-cover" />
                 <button
                   type="button"
-                  aria-label="Quitar foto"
-                  onClick={() => {
-                    haptic.delete();
-                    onRemovePhoto(i);
-                  }}
-                  className="absolute right-1 top-1 grid size-6 place-items-center bg-ink/70 text-ground"
-                  style={{ borderRadius: Math.max(2, inner - 4) }}
+                  aria-label={`Ver foto ${i + 1}`}
+                  onClick={(e) => onOpenPhoto(i, e.currentTarget.querySelector("img"))}
+                  className="block h-full w-full"
                 >
-                  <CrossIcon size={12} strokeWidth={2.2} />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt={`Foto ${i + 1} de ${check.id}`} draggable={false} className="h-full w-full object-cover" />
                 </button>
               </motion.div>
             ))}

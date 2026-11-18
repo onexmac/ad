@@ -31,7 +31,7 @@ export function tally(checks: Check[], marks: Marks, photos: Record<string, stri
 export function usePunchSheet(sheet: RoomSheet) {
   const { marks, mark } = useMarks();
   const { closed, set: setClosed } = useClosed();
-  const { photos, add: addPhoto, remove: removePhoto } = usePhotos();
+  const { photos, add: addPhoto, remove: removePhoto, replace: replacePhoto } = usePhotos();
   // The walk: one section per room; each room holds its pre-armado and its pre-chorrea checks.
   const sections: Section[] = sheet.walk;
   const [section, setSection] = useState(0);
@@ -40,6 +40,9 @@ export function usePunchSheet(sheet: RoomSheet) {
   const [open, setOpen] = useState<string | null>(null);
   const [pulses, setPulses] = useState<Record<string, number>>({});
   const [nudges, setNudges] = useState<Record<string, number>>({});
+  // The photo open in the viewer, and the picture element it flies from.
+  const [viewing, setViewing] = useState<{ id: string; i: number } | null>(null);
+  const viewFrom = useRef<HTMLImageElement | null>(null);
   const [toast, setToast] = useState<{ msg: string; n: number } | null>(null);
   const toastTimer = useRef<number | undefined>(undefined);
   // The walk registers how it travels between sections (the whole screen moving),
@@ -223,6 +226,18 @@ export function usePunchSheet(sheet: RoomSheet) {
     tapCheck,
     pickPhoto,
     removePhoto,
+    replacePhoto: (id: string, i: number, url: string) => {
+      if (!replacePhoto(id, i, url)) say("El dispositivo está lleno: la anotación no se guardará");
+    },
+    viewing,
+    viewFrom,
+    /** Open a check's photo: the picture flies from where it sits into the viewer. */
+    viewPhoto: (id: string, i: number, from: HTMLImageElement | null) => {
+      haptic.select();
+      viewFrom.current = from;
+      setViewing({ id, i });
+    },
+    closeViewer: () => setViewing(null),
     close,
     say,
   };
