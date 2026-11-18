@@ -2,7 +2,7 @@
 
 import { memo, useRef, type RefObject } from "react";
 import { categoryName, kindName, type Edition, type Indicator, type Note, type Subject } from "@/data/noticss/types";
-import { longDate, shortDate } from "@/lib/noticss/format";
+import { dayMonth, longDate, shortDate } from "@/lib/noticss/format";
 import { Arrow } from "@/components/updatr/Arrow";
 import { SourceLine } from "../Article";
 import { Delta, Sparkline } from "../Figures";
@@ -59,9 +59,9 @@ export const Page = memo(function Page({
       {card.type === "figures" ? (
         <FiguresPage indicators={card.indicators} edition={edition} />
       ) : card.type === "subject" ? (
-        <SubjectPage subject={card.subject} edition={edition} photo={photo} h={h} id={id} onPick={onPick} />
+        <SubjectPage subject={card.subject} edition={card.from ?? edition} earlier={!!card.from} photo={photo} h={h} id={id} onPick={onPick} />
       ) : (
-        <NotePage note={card.note} subject={card.subject} edition={edition} photo={photo} h={h} id={id} next={next} />
+        <NotePage note={card.note} subject={card.subject} edition={card.from ?? edition} photo={photo} h={h} id={id} next={next} />
       )}
     </div>
   );
@@ -82,6 +82,7 @@ function Media({ src, alt, photo, h, id }: { src: string; alt: string; photo: Re
 function SubjectPage({
   subject,
   edition,
+  earlier,
   photo,
   h,
   id,
@@ -89,6 +90,7 @@ function SubjectPage({
 }: {
   subject: Subject;
   edition: Edition;
+  earlier: boolean;
   photo: RefObject<HTMLDivElement | null>;
   h: number;
   id: string;
@@ -107,6 +109,7 @@ function SubjectPage({
             {subject.title}
           </h2>
           <p className={`mt-4 text-[13px] italic ${subject.image ? "text-paper/70" : "text-ink-soft"}`}>
+            {earlier ? `De la edición del ${dayMonth(edition.date)} · ` : ""}
             {subject.notes.length} notas · {shortDate(edition.date)}
             {subject.image?.credit ? ` · Foto: ${subject.image.credit}` : ""}
           </p>

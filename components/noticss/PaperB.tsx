@@ -1,11 +1,10 @@
 "use client";
 
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { animate, motion, motionValue, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
+import { AnimatePresence, animate, motion, motionValue, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import { springs } from "@/lib/histok/springs";
 import type { Edition } from "@/data/noticss/types";
-import { dayMonth } from "@/lib/noticss/format";
 import { Arrow } from "@/components/updatr/Arrow";
 import { AbSwitch } from "./AbSwitch";
 import { Cover } from "./b/Cover";
@@ -13,6 +12,8 @@ import { Gallery } from "./b/Gallery";
 import { TopFill } from "./b/TopFill";
 import { darken, hexToRgb, topTone } from "@/lib/noticss/tone";
 import { Page, titleOf } from "./b/Pages";
+import { useFollowing } from "@/lib/noticss/following";
+import { Bookmark } from "@/components/updatr/Bookmark";
 import {
   BOTTOM,
   COLLAPSE,
@@ -20,6 +21,7 @@ import {
   END_LIFT_MAX,
   EXPAND,
   G,
+  GLIDE,
   PAD,
   PAGE,
   POP,
@@ -59,17 +61,38 @@ const HOLD_MS = 260;
 export function PaperB({ editions }: { editions: Edition[] }) {
   const [edIndex, setEdIndex] = useState(0);
   const ed = editions[edIndex];
-  const sections = useMemo(() => sectionsOf(ed), [ed]);
-  const [sec, setSec] = useState(0);
-  const secRef = useRef(0);
-  const secX = useMemo(() => motionValue(0), []);
-  const trays = useMemo(() => sections.map(() => new Tray()), [sections]);
   const [open, setOpenState] = useState<Open | null>(null);
   const openRef = useRef<Open | null>(null);
   const setOpen = (o: Open | null) => {
     openRef.current = o;
     setOpenState(o);
   };
+  // Followed topics: the section is rebuilt from them only while no page is
+  // open (a page never changes under the finger).
+  const following = useFollowing();
+  const [snap, setSnap] = useState<string[]>(following.ids);
+  if (!open && snap !== following.ids) setSnap(following.ids);
+  const sections = useMemo(() => sectionsOf(ed, editions, snap), [ed, editions, snap]);
+  const [sec, setSec] = useState(0);
+  const secRef = useRef(0);
+  const secX = useMemo(() => motionValue(0), []);
+  // One tray per section, kept across rebuilds of the section list (the
+  // followed section changes its cards; its tray keeps its motion).
+  const [trayCache] = useState(() => new Map<string, Tray>());
+  const trays = useMemo(
+    () =>
+      sections.map((sd) => {
+        const key = `${ed.date}:${sd.id}`;
+        let t = trayCache.get(key);
+        if (!t) {
+          t = new Tray();
+          trayCache.set(key, t);
+        }
+        t.setCount(sd.cards.length);
+        return t;
+      }),
+    [sections, ed, trayCache],
+  );
   const [gallery, setGallery] = useState<GalleryState | null>(null);
   const galleryRef = useRef(false);
   /** Pages that must stay fully drawn while an override carries them. */
@@ -376,6 +399,8 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       resume: boolean;
       /** The touch landed on something moving: it only stops it, it opens nothing. */
       stopped: boolean;
+      /** On a button or link: a tap is its own (the native click), not ours. */
+      onControl: boolean;
       /** This gesture holds the row as its own layer (released at the end). */
       layer: boolean;
       media: HTMLElement | null;
@@ -487,6 +512,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         oxBase: t.ox.get(),
         resume: !!o && t.p.get() < 0.999,
         stopped,
+        onControl: !!tgt?.closest("a,button"),
         layer: false,
         media: media && sc!.contains(media) && !stopped ? media : null,
         hold: 0,
@@ -652,7 +678,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       if (gg.mode === "native" || gg.mode === "held") return;
 
       if (gg.mode === "none") {
-        const tap = !cancelled && !gg.stopped && dist < 10 && quick;
+        const tap = !cancelled && !gg.stopped && !gg.onControl && dist < 10 && quick;
         if (tap && gg.zone === "tray") return expand(gg.card, 0, gg.fx);
         if (tap && gg.zone === "cover") return expand(clamp(Math.round(t.posC.get()), 0, n - 1));
         if (tap && gg.media) return openGallery(gg.media);
@@ -672,10 +698,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         if (gg.mode === "x") {
           // Momentum carries the tray (iOS's deceleration), then it lands on a card.
           const step = (w + G) * S;
-          const projected = t.posC.get() - (vx * 0.32) / step;
+          const projected = t.posC.get() - (vx * GLIDE.power) / step;
           const to = clamp(Math.round(projected), 0, maxPos(n));
           if (Math.round(to) !== Math.round(gg.base)) haptic.select();
-          t.run(t.posC, to, { ...TRAY, velocity: -vx / step });
+          // Momentum: the tray glides on and decelerates, then lands on a card.
+          t.glide(t.posC, -vx / step, 0, maxPos(n));
           return;
         }
         const vp = -vy / travel(gg.fy);
@@ -906,8 +933,32 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     [],
   );
 
+  /** Another edition: everything starts again at the front. */
+  const pickEdition = (i: number) => {
+    if (i === edIndex) return;
+    haptic.complete();
+    secRef.current = 0;
+    setSec(0);
+    secX.jump(0);
+    trays.forEach((t) => t.settle());
+    endLift.jump(0);
+    setEndArmed(false);
+    setKeep([]);
+    setOpen(null);
+    setEdIndex(i);
+  };
+
   const near = (i: number) => Math.abs(i - sec) <= 1;
   const openCard = open ? sections[open.sec].cards[open.card] : null;
+  // The bookmark follows the story's topic (its storyline), from any of its pages.
+  const topic = openCard && openCard.type !== "figures" ? openCard.subject : null;
+  const followed = !!topic && following.has(topic.id);
+  const [note, setNote] = useState<{ key: number; text: string } | null>(null);
+  useEffect(() => {
+    if (!note) return;
+    const t = setTimeout(() => setNote(null), 1600);
+    return () => clearTimeout(t);
+  }, [note]);
   const endY = useTransform(() => Hm.get() - endLift.get() - 44);
   const endO = useTransform(endLift, [0, 40, END_LIFT_MAX], [0, 0.6, 1]);
 
@@ -932,6 +983,8 @@ export function PaperB({ editions }: { editions: Edition[] }) {
               open={open?.sec === i ? open.card : null}
               keep={open?.sec === i ? keep : NONE}
               onPick={onPick}
+              editions={editions}
+              onEdition={pickEdition}
             />
           ) : null,
         )}
@@ -954,6 +1007,24 @@ export function PaperB({ editions }: { editions: Edition[] }) {
           </span>
         </motion.div>
 
+        {/* What the bookmark just did, briefly, above the controls */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-[calc(var(--sab)+80px)] z-30 flex justify-end px-4">
+          <AnimatePresence>
+            {note ? (
+              <motion.span
+                key={note.key}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={springs.snappy}
+                className="rounded-full bg-paper px-4 py-2 text-[14px] italic text-ink shadow-[0_6px_18px_rgba(0,0,0,.25)]"
+              >
+                {note.text}
+              </motion.span>
+            ) : null}
+          </AnimatePresence>
+        </div>
+
         {/* Full page controls, under the thumb */}
         <motion.div
           className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex items-center justify-between px-4 pb-[calc(var(--sab)+16px)]"
@@ -974,45 +1045,40 @@ export function PaperB({ editions }: { editions: Edition[] }) {
               {open.card + 1} de {sections[open.sec].cards.length}
             </span>
           ) : null}
-          {openCard && openCard.type === "note" && openCard.note.source.url ? (
-            <a href={openCard.note.source.url} target="_blank" rel="noreferrer" className="mono pointer-events-auto flex h-12 items-center gap-2 rounded-full bg-ink px-5 text-paper">
-              Fuente <Arrow dir="out" />
-            </a>
-          ) : (
-            <span className="w-12" />
-          )}
+          <span className="flex items-center gap-2">
+            {topic ? (
+              <motion.button
+                type="button"
+                key={followed ? "on" : "off"}
+                aria-pressed={followed}
+                aria-label={followed ? `Dejar de seguir: ${topic.title}` : `Seguir el tema: ${topic.title}`}
+                onClick={() => {
+                  const on = following.toggle(topic.id);
+                  if (on) haptic.complete();
+                  else haptic.select();
+                  setNote({ key: Date.now(), text: on ? "Siguiendo este tema" : "Ya no lo sigue" });
+                }}
+                animate={{ scale: [1, followed ? 1.14 : 0.9, 1] }}
+                transition={{ duration: 0.32, ease: [0.2, 0, 0, 1] }}
+                className={`grid h-12 w-12 place-items-center rounded-full shadow-[0_6px_18px_rgba(0,0,0,.25)] ${open ? "pointer-events-auto" : ""} ${
+                  followed ? "bg-accent text-paper" : "bg-ink text-paper"
+                }`}
+                style={{ touchAction: "manipulation" }}
+              >
+                <Bookmark on={followed} size="18px" />
+              </motion.button>
+            ) : null}
+            {openCard && openCard.type === "note" && openCard.note.source.url ? (
+              <a href={openCard.note.source.url} target="_blank" rel="noreferrer" className="mono pointer-events-auto flex h-12 items-center gap-2 rounded-full bg-ink px-5 text-paper">
+                Fuente <Arrow dir="out" />
+              </a>
+            ) : null}
+          </span>
         </motion.div>
       </div>
 
       <TopFill tone={tone} />
       <AbSwitch current="b" hidden={!!open} tone="dark" />
-
-      {editions.length > 1 && !open && sec === sections.length - 1 ? (
-        <div className="pointer-events-none fixed inset-x-0 top-[calc(42px+var(--sat))] z-20 mx-auto flex max-w-[520px] gap-2 px-4">
-          {editions.map((e, i) => (
-            <button
-              key={e.date}
-              type="button"
-              onClick={() => {
-                if (i === edIndex) return;
-                haptic.complete();
-                secRef.current = 0;
-                setSec(0);
-                secX.jump(0);
-                trays.forEach((t) => t.settle());
-                endLift.jump(0);
-                setEndArmed(false);
-                setKeep([]);
-                setOpen(null);
-                setEdIndex(i);
-              }}
-              className={`pointer-events-auto rounded-full px-3 py-[6px] text-[13px] italic ${i === edIndex ? "bg-paper text-ink" : "bg-ink/50 text-paper/80"}`}
-            >
-              Nº {e.number} · {dayMonth(e.date)}
-            </button>
-          ))}
-        </div>
-      ) : null}
 
       {gallery ? (
         <Gallery
@@ -1058,6 +1124,8 @@ function SectionScreen({
   open,
   keep,
   onPick,
+  editions,
+  onEdition,
 }: {
   section: SectionDef;
   index: number;
@@ -1072,31 +1140,14 @@ function SectionScreen({
   open: number | null;
   keep: number[];
   onPick: (noteId: string, from: DOMRect) => void;
+  editions: Edition[];
+  onEdition: (i: number) => void;
 }) {
   const left = useTransform(() => index * W.get() + secX.get());
   // Push Pop parallax: the cover photo lags its page.
   const photoX = useTransform(() => -(index * W.get() + secX.get()) * 0.4);
-  const { p, posC, cur, ox, fx } = tray;
-  const k = useTransform(p, (v) => S + (1 - S) * v);
-  /*
-   * The row's transform. The page in focus (cur) sits where the tray put it,
-   * plus the finger's drift, and grows from the grabbed point (fx) until it
-   * is the screen; every other page keeps its place beside it.
-   */
-  const tx = useTransform(() => {
-    const v = p.get();
-    const kk = S + (1 - S) * v;
-    const w = W.get();
-    const a = cur.get();
-    const left0 = PAD + (a - posC.get()) * (w + G) * S;
-    const L = (left0 + fx.get() * w * S + ox.get() - fx.get() * w * kk) * (1 - v);
-    return L - a * (w + G) * kk;
-  });
-  const ty = useTransform(() => {
-    const v = p.get();
-    const kk = S + (1 - S) * v;
-    return H.get() - B.get() * (1 - v) - H.get() * kk;
-  });
+  const { p, posC, cur } = tray;
+  useEffect(() => tray.setCount(section.cards.length), [tray, section.cards.length]);
   // The cover sinks to near black from 80% open, so pages turn over the dark.
   const dim = useTransform(p, [0, 0.5, 0.8, 1], [0, 0.14, 0.9, 0.9]);
 
@@ -1123,18 +1174,17 @@ function SectionScreen({
   const [lifted, setLifted] = useState(false);
   useMotionValueEvent(p, "change", (v) => setLifted(v > 0.005));
 
-  const row = useCallback((el: HTMLDivElement | null) => tray.attach(el), [tray]);
 
   return (
     <motion.section className="absolute inset-y-0 w-full overflow-hidden" style={{ x: left }} aria-label={section.name}>
-      <Cover section={section} index={index} count={count} edition={edition} photoX={photoX} />
+      <Cover section={section} index={index} count={count} edition={edition} photoX={photoX} editions={editions} onEdition={onEdition} />
       <motion.div className="pointer-events-none absolute inset-0 bg-black" style={{ opacity: dim }} />
-      <motion.div ref={row} className="absolute left-0 top-0" style={{ x: tx, y: ty, scale: k, originX: 0, originY: 0, zIndex: lifted ? 10 : 1 }}>
+      <div className="absolute left-0 top-0" style={{ zIndex: lifted ? 10 : 1 }}>
         {section.cards.map((c, i) => {
           const heavy = (i >= win[0] && i <= win[1]) || (i >= win[2] && i <= win[3]) || i === open || keep.includes(i);
           const next = section.cards[i + 1];
           return (
-            <RowCard key={c.id} tray={tray} i={i} w={dims.w} h={dims.h}>
+            <RowCard key={c.id} tray={tray} i={i} w={dims.w} h={dims.h} W={W} H={H} B={B} layer={heavy}>
               <Page
                 card={c}
                 edition={edition}
@@ -1148,31 +1198,80 @@ function SectionScreen({
             </RowCard>
           );
         })}
-      </motion.div>
+      </div>
     </motion.section>
   );
 }
 
-/** One page in the row, with its override (where it appears to be, if not its place). */
-const RowCard = memo(function RowCard({ tray, i, w, h, children }: { tray: Tray; i: number; w: number; h: number; children: React.ReactNode }) {
+/**
+ * One page in the row. Its place comes from its own openness (the thread:
+ * the card in focus leads, the others follow), then its override on top
+ * (where it appears to be, if not its place).
+ *
+ * At openness v a card is at scale k = S + (1 - S)v. The focus card (cur)
+ * sits where the tray put it, plus the finger's drift, and grows from the
+ * grabbed point (fx); each other card keeps its place beside it at its own
+ * openness, so a card still low on the thread is smaller and further down.
+ */
+const RowCard = memo(function RowCard({
+  tray,
+  i,
+  w,
+  h,
+  W,
+  H,
+  B,
+  layer,
+  children,
+}: {
+  tray: Tray;
+  i: number;
+  w: number;
+  h: number;
+  W: MotionValue<number>;
+  H: MotionValue<number>;
+  B: MotionValue<number>;
+  /** Near the view: its own compositor layer. */
+  layer: boolean;
+  children: React.ReactNode;
+}) {
   const o = tray.override(i);
+  const v = tray.pi(i);
+  const { posC, cur, ox, fx } = tray;
+  const x = useTransform(() => {
+    const t = v.get();
+    const kk = S + (1 - S) * t;
+    const ww = W.get();
+    const a = cur.get();
+    const left0 = PAD + (a - posC.get()) * (ww + G) * S;
+    const L = (left0 + fx.get() * ww * S + ox.get() - fx.get() * ww * kk) * (1 - t);
+    return L + (i - a) * (ww + G) * kk + o.x.get();
+  });
+  const y = useTransform(() => {
+    const t = v.get();
+    const kk = S + (1 - S) * t;
+    return H.get() - B.get() * (1 - t) - H.get() * kk + o.y.get();
+  });
+  const scale = useTransform(() => (S + (1 - S) * v.get()) * o.s.get());
+  // The card in focus on top, then outward; an override can lift a card above.
+  const zIndex = useTransform(() => 100 - Math.min(90, Math.round(Math.abs(i - cur.get()))) + o.z.get());
   const clipPath = useTransform(o.clip, (b) => (b > 0.5 ? `inset(0px 0px ${b}px 0px round ${RU}px)` : "none"));
   return (
     <motion.div
-      className="absolute top-0 overflow-hidden bg-ground shadow-[0_10px_40px_rgba(0,0,0,.35)]"
+      className="absolute left-0 top-0 overflow-hidden bg-ground shadow-[0_10px_40px_rgba(0,0,0,.35)]"
       style={{
-        left: i * (w + G),
         width: w,
         height: h,
         borderRadius: RU,
-        x: o.x,
-        y: o.y,
-        scale: o.s,
+        x,
+        y,
+        scale,
         opacity: o.o,
-        zIndex: o.z,
+        zIndex,
         originX: 0,
         originY: 0,
         clipPath,
+        willChange: layer ? "transform" : "auto",
       }}
     >
       {children}
