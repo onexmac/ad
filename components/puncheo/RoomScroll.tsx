@@ -58,16 +58,26 @@ export function RoomScroll({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
       haptic.select();
       gliding.current = true;
       s.spy(i);
-      const top = document.getElementById("puncheo-tabs")?.getBoundingClientRect().bottom ?? 0;
-      window.scrollTo({ top: Math.max(0, room.getBoundingClientRect().top + window.scrollY - top - 12), behavior: "smooth" });
+      // Where the room sits in the page's layout: its entry animation (a small
+      // offset until it has been seen) must not count, so walk the offsets.
+      const target = () => {
+        let y = 0;
+        for (let el: HTMLElement | null = room; el; el = el.offsetParent as HTMLElement | null) y += el.offsetTop;
+        const bar = document.getElementById("puncheo-tabs")?.getBoundingClientRect().bottom ?? 0;
+        return Math.max(0, Math.min(y - bar - 12, document.documentElement.scrollHeight - window.innerHeight));
+      };
+      window.scrollTo({ top: target(), behavior: "smooth" });
       let done = 0;
       const end = () => {
         window.clearTimeout(done);
         window.removeEventListener("scrollend", end);
+        // Land exactly: anything that shifted during the glide is made up here.
+        const off = target() - window.scrollY;
+        if (Math.abs(off) > 2) window.scrollTo({ top: target(), behavior: "smooth" });
         gliding.current = false;
       };
       window.addEventListener("scrollend", end, { once: true });
-      done = window.setTimeout(end, 1000); // no scrollend (older Safari, or nowhere to scroll)
+      done = window.setTimeout(end, 1400); // no scrollend (older Safari, or nowhere to scroll)
     });
   });
 
