@@ -15,6 +15,8 @@ type Props = {
   /** Tells a tap from the end of a swipe. */
   dragged: () => boolean;
   onPick: (file: File) => void;
+  /** With a photo in it, a tap opens the photo (flying from this button) instead of the camera. */
+  onOpen?: (img: HTMLImageElement | null) => void;
   size?: number;
   square?: boolean;
   /** Leia's bevelled square button. */
@@ -29,9 +31,10 @@ type Props = {
  * desktop). Once a photo exists it shows inside the button, with a count when
  * there are more. A photo the check needs and lacks fills it green with a white icon.
  */
-export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, size = 36, square = false, leia = false, flat = false, className = "" }: Props) {
+export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, onOpen, size = 36, square = false, leia = false, flat = false, className = "" }: Props) {
   const input = useRef<HTMLInputElement>(null);
   const btn = useRef<HTMLButtonElement>(null);
+  const pic = useRef<HTMLImageElement>(null);
   useEffect(() => {
     if (!shake || !btn.current) return;
     animate(btn.current, { x: [0, -7, 7, -5, 5, -2, 0], rotate: [0, -8, 8, -5, 4, 0, 0] }, { duration: 0.5, ease: "easeOut" });
@@ -43,11 +46,12 @@ export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, size 
       <button
         ref={btn}
         type="button"
-        aria-label={photos.length ? `Agregar foto (${photos.length})` : "Tomar foto"}
+        aria-label={photos.length && onOpen ? `Ver foto (${photos.length})` : photos.length ? `Agregar foto (${photos.length})` : "Tomar foto"}
         onClick={(e) => {
           e.stopPropagation();
           if (dragged()) return;
-          input.current?.click();
+          if (last && onOpen) onOpen(pic.current);
+          else input.current?.click();
         }}
         className={`relative grid shrink-0 place-items-center ${className}`}
         style={{ width: size, height: size, borderRadius: radius }}
@@ -62,7 +66,7 @@ export function PhotoButton({ photos, missing, shake = 0, dragged, onPick, size 
             style={{ borderRadius: radius, boxShadow: "0 0 0 1px var(--hair-2)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={last} alt="" draggable={false} className="h-full w-full object-cover" />
+            <img ref={pic} src={last} alt="" draggable={false} className="h-full w-full object-cover" />
           </motion.span>
         ) : (
           <span

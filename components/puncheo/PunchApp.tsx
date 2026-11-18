@@ -10,6 +10,7 @@ import type { Status } from "@/lib/puncheo/state";
 import { Toast, type Variant } from "./Chrome";
 import { Footer } from "./Footer";
 import { FanLayer } from "./FanLayer";
+import { PhotoViewer } from "./PhotoViewer";
 import { LetterTags, Legend, SheetHeader, type Tone } from "./Header";
 import { RailRow, type RowSkin } from "./RailRow";
 import { Walk, type StripTone } from "./Walk";
@@ -213,6 +214,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
       </motion.main>
       <Toast toast={s.toast} bottom={cfg.toast} />
       {continuous ? null : <FanLayer s={s} />}
+      <PhotoViewer s={s} />
       <Footer
         s={s}
         kind={cfg.foot}
