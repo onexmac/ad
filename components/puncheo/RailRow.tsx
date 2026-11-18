@@ -18,6 +18,24 @@ const TINT: Record<Exclude<Status, "na">, string> = {
   yellow: "rgba(255, 213, 86, 0.24)",
   red: "rgba(235, 87, 87, 0.13)",
 };
+/**
+ * Opening a row lands it at the top, under the pinned rooms bar (or the top
+ * edge), so its whole explanation opens into view. A detail open above it is
+ * closing as this one opens: its height is taken off the target.
+ */
+function snapToTop(el: HTMLElement | null) {
+  const row = el?.closest("[data-check]") as HTMLElement | null;
+  if (!row) return;
+  const top = row.getBoundingClientRect().top;
+  let above = 0;
+  document.querySelectorAll<HTMLElement>("[data-detail]").forEach((d) => {
+    if (d.getBoundingClientRect().top < top) above += d.offsetHeight;
+  });
+  const tabs = document.getElementById("puncheo-tabs");
+  const bar = tabs ? tabs.getBoundingClientRect().bottom : parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0;
+  window.scrollTo({ top: Math.max(0, top + window.scrollY - above - bar - 8), behavior: "smooth" });
+}
+
 /** The big numeral takes its mark's colour, dark enough to read on the row's tint. */
 const NUM: Record<Status | "none", string> = { none: "var(--brand)", green: "var(--ok-ink)", yellow: "var(--warn-deep)", red: "var(--bad)", na: "var(--ink-faint)" };
 const EDGE: Record<Exclude<Status, "na">, string> = { green: "var(--ok)", yellow: "var(--warn-deep)", red: "var(--bad)" };
@@ -204,6 +222,9 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                 onClick={() => {
                   if (sw.dragged()) return;
                   haptic.select();
+                  const el = content.current;
+                  // After the render that opens it: a re-render can reset the scroll.
+                  if (!r.open) requestAnimationFrame(() => requestAnimationFrame(() => snapToTop(el)));
                   s.toggle(check.id);
                 }}
                 aria-expanded={r.open}
