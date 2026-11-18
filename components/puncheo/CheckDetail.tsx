@@ -131,6 +131,7 @@ export function Expand({ open, children }: { open: boolean; children: React.Reac
       {open ? (
         <motion.div
           key="detail"
+          data-detail
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}

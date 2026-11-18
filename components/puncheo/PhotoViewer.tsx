@@ -11,7 +11,8 @@ import type { PunchSheet } from "./usePunchSheet";
 /*
  * A check's photo, opened. The picture itself (the one element on the page)
  * flies from its place into the middle of the screen on a spring, and flies
- * back on close. Under it, Leia's strip: the pencil and camera keys and a
+ * back on close. Under it, Leia's strip: the back key, the pencil (on from the
+ * start, so a finger on the picture draws) and a
  * slide-to-delete. The pencil opens the marker: four colours, three widths
  * (yellow at 16 px to start), undo. What is drawn is burned into the photo.
  * Closes by pulling the picture down, swiping it right, or a tap outside.
@@ -28,6 +29,7 @@ const COLORS = [
 const WIDTHS = [8, 16, 28];
 const SHEET = 64; // the strip's main row
 const TOOLS = 56; // the marker's row above it
+const KNOB = 76; // the slide-to-delete handle: wide, an easy grab
 
 /** A stroke in fractions of the picture (x, y and width over its width), so it holds at any size. */
 type Stroke = { color: string; w: number; pts: [number, number][] };
@@ -69,7 +71,6 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
   const src = (s.photos[id] ?? [])[i];
   const slot = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const camera = useRef<HTMLInputElement>(null);
   const carrier = useRef<Carrier | null>(null);
   const [aspect] = useState(() => {
     const img = s.viewFrom.current;
@@ -81,9 +82,9 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
     return !img || !img.isConnected || !img.parentElement;
   });
   const [landed, setLanded] = useState(own);
-  const [drawing, setDrawing] = useState(false);
+  const [drawing, setDrawing] = useState(true); // the marker is ready on open
   // The stage: the marker's row takes room under the picture, so it shrinks to make it.
-  const rect: Rect = stageRect(aspect, drawing && landed);
+  const rect: Rect = stageRect(aspect, drawing);
   const [color, setColor] = useState(COLORS[0].hex);
   const [width, setWidth] = useState(16);
   const [strokes, setStrokes] = useState<Stroke[]>([]);
@@ -98,7 +99,7 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
   // Open: lift the picture out of its place and fly it to the stage.
   useLayoutEffect(() => {
     const img = s.viewFrom.current;
-    const target = stageRect(aspect, false);
+    const target = stageRect(aspect, true);
     document.body.style.overflow = "hidden";
     animate(dim, 1, { duration: 0.28 });
     animate(sheetY, 0, { type: "spring", stiffness: 380, damping: 34 });
@@ -275,7 +276,7 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
 
   return (
     <div className="leia-root fixed inset-0 z-[60]" style={{ touchAction: "none" }}>
-      <motion.div className="absolute inset-0 bg-[#121417]/90" style={{ opacity: dim }} onClick={() => !drawing && close()} />
+      <motion.div className="absolute inset-0 bg-[#121417]/90" style={{ opacity: dim }} onClick={close} />
       {(
         <motion.div
           ref={slot}
@@ -307,6 +308,7 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
       <motion.div className="leia-strip absolute inset-x-0 bottom-0" style={{ y: sheetPct, paddingBottom: "var(--sab)" }}>
         <AnimatePresence initial={false}>
           {drawing ? (
+            // Open from the start with the strip; folds when the pencil is put down.
             <motion.div
               key="tools"
               initial={{ height: 0, opacity: 0 }}
@@ -364,6 +366,9 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
           ) : null}
         </AnimatePresence>
         <div className="mx-auto flex h-[64px] max-w-[560px] items-center gap-2 px-3">
+          <button type="button" aria-label="Volver" onClick={close} className="leia-btn grid size-11 shrink-0 place-items-center rounded-[4px]">
+            <BackGlyph />
+          </button>
           <button
             type="button"
             aria-label={drawing ? "Terminar anotación" : "Anotar"}
@@ -373,29 +378,9 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
           >
             <PencilGlyph />
           </button>
-          <button
-            type="button"
-            aria-label="Agregar otra foto"
-            onClick={() => camera.current?.click()}
-            className="leia-btn grid size-11 shrink-0 place-items-center rounded-[4px]"
-          >
-            <CameraGlyph />
-          </button>
-          <SlideToDelete onDelete={remove} />
+<SlideToDelete onDelete={remove} />
         </div>
       </motion.div>
-      <input
-        ref={camera}
-        type="file"
-        accept="image/*"
-        capture="environment"
-        className="hidden"
-        onChange={(e) => {
-          const f = e.target.files?.[0];
-          e.target.value = "";
-          if (f) s.pickPhoto(check, f);
-        }}
-      />
     </div>
   );
 }
@@ -426,7 +411,7 @@ function paint(cv: HTMLCanvasElement, strokes: Stroke[], clear = true) {
 function SlideToDelete({ onDelete }: { onDelete: () => void }) {
   const track = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
-  const fill = useTransform(x, (v) => v + 40);
+  const fill = useTransform(x, (v) => v + KNOB);
   const fillOn = useTransform(x, [0, 12], [0, 1]); // the red follows the knob only once it moves
   const hint = useTransform(x, [0, 90], [1, 0]);
   const start = useRef<{ px: number; x: number; max: number } | null>(null);
@@ -434,17 +419,17 @@ function SlideToDelete({ onDelete }: { onDelete: () => void }) {
   return (
     <div ref={track} className="leia-track relative h-11 min-w-0 flex-1 rounded-[6px] p-[2px]">
       <motion.span className="leia-fill-red absolute bottom-[2px] left-[2px] top-[2px] rounded-[4px]" style={{ width: fill, opacity: fillOn }} />
-      <motion.span style={{ opacity: hint }} className="leia-emboss pointer-events-none absolute inset-0 grid place-items-center pl-10 text-[14px] text-[#7d8087]">
+      <motion.span style={{ opacity: hint }} className="leia-emboss pointer-events-none absolute inset-0 grid place-items-center pl-[84px] pr-2 text-[14px] text-[#7d8087]">
         Desliza para borrar
       </motion.span>
       <motion.button
         type="button"
         aria-label="Desliza para borrar la foto"
-        className="leia-btn relative grid size-10 place-items-center rounded-[4px]"
-        style={{ x, touchAction: "none" }}
+        className="leia-btn relative flex h-10 items-center justify-center gap-1.5 rounded-[4px]"
+        style={{ x, width: KNOB, touchAction: "none" }}
         onPointerDown={(e) => {
           if (done.current) return;
-          const max = (track.current?.offsetWidth ?? 200) - 44;
+          const max = (track.current?.offsetWidth ?? 200) - 4 - KNOB;
           start.current = { px: e.clientX, x: x.get(), max };
           (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
           haptic.drag();
@@ -470,6 +455,7 @@ function SlideToDelete({ onDelete }: { onDelete: () => void }) {
         }}
       >
         <BinGlyph />
+        <Chevron />
       </motion.button>
     </div>
   );
@@ -485,12 +471,18 @@ function PencilGlyph() {
   );
 }
 
-function CameraGlyph() {
+function BackGlyph() {
   return (
-    <svg width={22} height={22} viewBox="0 0 24 24" className="leia-glyph" aria-hidden>
-      <path d="M8.2 4.5h7.6l1.4 2.2H21a1 1 0 011 1V19a1 1 0 01-1 1H3a1 1 0 01-1-1V7.7a1 1 0 011-1h3.8z" fill="currentColor" />
-      <circle cx="12" cy="13" r="4.2" fill="#e9eaec" />
-      <circle cx="12" cy="13" r="2.6" fill="currentColor" />
+    <svg width={20} height={20} viewBox="0 0 24 24" fill="none" className="leia-glyph" aria-hidden>
+      <path d="M14.5 5l-7 7 7 7" stroke="currentColor" strokeWidth={3} strokeLinecap="square" />
+    </svg>
+  );
+}
+
+function Chevron() {
+  return (
+    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" className="leia-glyph" aria-hidden>
+      <path d="M8 4l8 8-8 8" stroke="currentColor" strokeWidth={3.4} strokeLinecap="square" />
     </svg>
   );
 }
