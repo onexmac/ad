@@ -105,6 +105,8 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const col = useRef<HTMLDivElement>(null);
   const Wm = useMemo(() => motionValue(390), []);
   const Hm = useMemo(() => motionValue(844), []);
+  /** A page's height: the screen below the status bar (an open page stays below the cut). */
+  const Cm = useMemo(() => motionValue(844), []);
   /** The tray's bottom inset: its margin plus the home indicator's safe area. */
   const Bm = useMemo(() => motionValue(BOTTOM), []);
   const probe = useRef<HTMLDivElement>(null);
@@ -119,6 +121,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const w = el.clientWidth;
       const h = el.clientHeight;
       const sab = probe.current ? parseFloat(getComputedStyle(probe.current).paddingBottom) || 0 : 0;
+      const sat = probe.current ? parseFloat(getComputedStyle(probe.current).paddingTop) || 0 : 0;
       // The screen runs on under the browser's own bottom bar (the cover shows
       // through it); the tray and the controls stay above it.
       const seen = window.visualViewport?.height ?? window.innerHeight;
@@ -127,7 +130,8 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       Bm.set(BOTTOM + sab + bar);
       Wm.set(w);
       Hm.set(h);
-      setDims({ w, h });
+      Cm.set(h - sat);
+      setDims({ w, h: h - sat });
       secX.set(-secRef.current * w);
     };
     measure();
@@ -138,7 +142,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       ro.disconnect();
       window.visualViewport?.removeEventListener("resize", measure);
     };
-  }, [Wm, Hm, Bm, secX]);
+  }, [Wm, Hm, Cm, Bm, secX]);
 
   // A full-screen surface: the document behind must not scroll or bounce.
   useEffect(() => {
@@ -158,7 +162,9 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const H = () => Hm.get();
   const visible = () => (W() - PAD + G * S) / ((W() + G) * S);
   const maxPos = (n: number) => Math.max(0, n - visible());
-  const trayTop = () => H() - H() * S - Bm.get();
+  /** Height of a page (the cards are pages, drawn below the status bar). */
+  const C = () => Cm.get();
+  const trayTop = () => H() - C() * S - Bm.get();
   const pageEl = (s: number, c: number) => col.current?.querySelector<HTMLElement>(`[data-page="${s}-${c}"]`) ?? null;
   const toTop = (s: number, c: number) => {
     const el = pageEl(s, c);
@@ -262,7 +268,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     oi.x.jump((j - i) * (w + G));
     oi.z.jump(1);
     oj.x.jump(from.left - box.left);
-    oj.y.jump(from.top - box.top);
+    oj.y.jump(from.top - box.top - (H() - C()));
     oj.s.jump(k0);
     oj.clip.jump(Math.max(0, h - from.height / k0));
     oj.z.jump(5);
@@ -438,7 +444,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       return { x: cx - r.left, y: cy - r.top };
     };
     /** Finger travel that takes a card from the tray to the page, keeping the grabbed point under the finger. */
-    const travel = (fy: number) => Math.max(170, (1 - fy) * H() * (1 - S) - Bm.get());
+    const travel = (fy: number) => Math.max(170, (1 - fy) * C() * (1 - S) - Bm.get());
     /** Release velocity over the last ~100 ms of the finger (px/s), zero if it rested. */
     const velocity = (gg: NonNullable<typeof g>) => {
       const now = performance.now();
@@ -517,7 +523,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         card,
         base: zone === "cover" ? secX.get() : zone === "tray" ? t.posC.get() : t.cur.get(),
         fx: caught ? t.fx.get() : zone === "tray" ? clamp((x - left0) / (w * S), 0, 1) : clamp(x / w, 0, 1),
-        fy: zone === "tray" ? clamp((y - trayTop()) / (H() * S), 0, 1) : clamp(y / H(), 0, 1),
+        fy: zone === "tray" ? clamp((y - trayTop()) / (C() * S), 0, 1) : clamp((y - (H() - C())) / C(), 0, 1),
         atTop: !sc || sc.scrollTop <= 0,
         atEnd: !sc || sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2,
         pBase: caught ? t.p.get() : o ? t.p.get() : 0,
@@ -878,40 +884,28 @@ export function PaperB({ editions }: { editions: Edition[] }) {
    */
   const [tone, setTone] = useState("rgb(20, 17, 14)");
   const [fill, setFill] = useState<FillMode>("blur");
+  const [bottomTone, setBottomTone] = useState("rgb(14, 13, 12)");
   useEffect(() => {
-    const GROUND = hexToRgb("#f1ece2");
-    const PAPER = hexToRgb("#f8f5ee");
-    // The top inset (status bar), as laid out.
-    const sat = () => (probe.current ? parseFloat(getComputedStyle(probe.current).paddingTop) || 0 : 0);
     /*
-     * On the tray, the content runs up blurred. With a page open, the page
-     * itself fills the top: its photo runs up into it (nothing over it), or,
-     * scrolled past the photo, a solid band in the page's own paper keeps
-     * the words below the cut.
+     * Open, a page is a frame below the status bar with the dark around it,
+     * so the top (and the bottom) read as that dark. On the tray the top is
+     * the cover's own top colour, and the bottom its own bottom colour.
      */
-    const read = (): { tone: string; mode: FillMode } | null => {
-      if (gallery) return { tone: "rgb(0, 0, 0)", mode: "none" };
+    const DARK = "rgb(12, 11, 10)";
+    const read = (): { tone: string; bottom: string; mode: FillMode } | null => {
+      if (gallery) return { tone: "rgb(0, 0, 0)", bottom: "rgb(0, 0, 0)", mode: "none" };
       const o = openRef.current;
       const c = col.current;
       if (!c) return null;
-      if (o) {
-        const card = sections[o.sec]?.cards[o.card];
-        const sc = pageEl(o.sec, o.card);
-        if (!card || !sc) return null;
-        if (card.type === "figures") return { tone: PAPER, mode: "none" };
-        const media = sc.querySelector<HTMLElement>("[data-media]");
-        const frame = media?.parentElement;
-        if (media && frame && sc.scrollTop < frame.clientHeight - sat() - 2) {
-          return { tone: topTone(media.querySelector("img")) ?? "rgb(20, 17, 14)", mode: "none" };
-        }
-        if (!media && card.type === "note" && sc.scrollTop < H() * 0.3) return { tone: PAPER, mode: "none" };
-        return { tone: GROUND, mode: "none" };
-      }
+      if (o) return { tone: DARK, bottom: DARK, mode: "none" };
       const sd = sections[secRef.current];
-      if (sd?.kind === "hoy") return { tone: hexToRgb(ed.weather?.sky?.[0] ?? "#6f6a62"), mode: "blur" };
+      if (sd?.kind === "hoy") {
+        const sky = ed.weather?.sky;
+        return { tone: hexToRgb(sky?.[0] ?? "#6f6a62"), bottom: hexToRgb(sky?.[sky.length - 1] ?? "#ebe6dc"), mode: "blur" };
+      }
       const img = c.querySelector<HTMLImageElement>(`[data-cover="${secRef.current}"] img`);
       const t = topTone(img);
-      return t ? { tone: darken(t, 0.55), mode: "blur" } : null;
+      return { tone: t ? darken(t, 0.55) : DARK, bottom: "rgb(14, 13, 12)", mode: "blur" };
     };
     let raf = 0;
     const apply = () => {
@@ -919,6 +913,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const t = read();
       if (!t) return;
       setTone((p) => (p === t.tone ? p : t.tone));
+      setBottomTone((p) => (p === t.bottom ? p : t.bottom));
       setFill((m) => (m === t.mode ? m : t.mode));
     };
     const soon = () => {
@@ -936,12 +931,15 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       el?.removeEventListener("scroll", soon, true);
       el?.removeEventListener("load", soon, true);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sec, open, gallery, sections, ed]);
   useEffect(() => {
+    // Whatever the browser shows around B (under its bars, on overscroll)
+    // is the page's own background: the top colour above, the bottom below.
     const html = document.documentElement;
     html.style.backgroundColor = tone;
-    document.body.style.backgroundColor = tone;
+    html.style.backgroundImage = `linear-gradient(180deg, ${tone} 0%, ${tone} 50%, ${bottomTone} 50%, ${bottomTone} 100%)`;
+    html.style.minHeight = "100%";
+    document.body.style.background = "transparent";
     let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
     if (!meta) {
       meta = document.createElement("meta");
@@ -949,11 +947,14 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       document.head.appendChild(meta);
     }
     meta.content = tone;
-  }, [tone]);
+  }, [tone, bottomTone]);
   useEffect(
     () => () => {
-      document.documentElement.style.backgroundColor = "";
-      document.body.style.backgroundColor = "";
+      const html = document.documentElement;
+      html.style.backgroundColor = "";
+      html.style.backgroundImage = "";
+      html.style.minHeight = "";
+      document.body.style.background = "";
     },
     [],
   );
@@ -1009,6 +1010,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
               W={Wm}
               H={Hm}
               B={Bm}
+              C={Cm}
               dims={dims}
               open={open?.sec === i ? open.card : null}
               keep={open?.sec === i ? keep : NONE}
@@ -1150,6 +1152,7 @@ function SectionScreen({
   W,
   H,
   B,
+  C: Cpage,
   dims,
   open,
   keep,
@@ -1166,6 +1169,7 @@ function SectionScreen({
   W: MotionValue<number>;
   H: MotionValue<number>;
   B: MotionValue<number>;
+  C: MotionValue<number>;
   dims: { w: number; h: number };
   open: number | null;
   keep: number[];
@@ -1214,7 +1218,7 @@ function SectionScreen({
           const heavy = (i >= win[0] && i <= win[1]) || (i >= win[2] && i <= win[3]) || i === open || keep.includes(i);
           const next = section.cards[i + 1];
           return (
-            <RowCard key={c.id} tray={tray} i={i} w={dims.w} h={dims.h} W={W} H={H} B={B} layer={heavy}>
+            <RowCard key={c.id} tray={tray} i={i} w={dims.w} h={dims.h} W={W} H={H} C={Cpage} B={B} layer={heavy}>
               <Page
                 card={c}
                 edition={edition}
@@ -1250,6 +1254,7 @@ const RowCard = memo(function RowCard({
   h,
   W,
   H,
+  C,
   B,
   layer,
   children,
@@ -1260,6 +1265,7 @@ const RowCard = memo(function RowCard({
   h: number;
   W: MotionValue<number>;
   H: MotionValue<number>;
+  C: MotionValue<number>;
   B: MotionValue<number>;
   /** Near the view: its own compositor layer. */
   layer: boolean;
@@ -1280,7 +1286,8 @@ const RowCard = memo(function RowCard({
   const y = useTransform(() => {
     const t = v.get();
     const kk = S + (1 - S) * t;
-    return H.get() - B.get() * (1 - t) - H.get() * kk + o.y.get();
+    // Anchored to the bottom on the tray; open, a page sits just below the status bar.
+    return H.get() - B.get() * (1 - t) - C.get() * kk + o.y.get();
   });
   const scale = useTransform(() => (S + (1 - S) * v.get()) * o.s.get());
   // The card in focus on top, then outward; an override can lift a card above.

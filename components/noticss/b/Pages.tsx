@@ -36,21 +36,11 @@ export const Page = memo(function Page({
 }) {
   const scroller = useRef<HTMLDivElement>(null);
   const photo = useRef<HTMLDivElement>(null);
-  const band = useRef<HTMLDivElement>(null);
+  // A page is a frame below the status bar, scrolling within; nothing lies over it.
   const onScroll = () => {
-    const sc = scroller.current;
-    const y = sc?.scrollTop ?? 0;
+    const y = scroller.current?.scrollTop ?? 0;
     // The photo drifts at half speed as the page scrolls (depth, Push Pop style).
     if (photo.current) photo.current.style.transform = `translate3d(0, ${Math.max(0, y) * 0.5}px, 0)`;
-    // Past the page's head (its photo or paper top), a band in its own paper
-    // keeps the words below the cut, inside the page's rounded frame.
-    const b = band.current;
-    if (b && sc) {
-      const head = sc.querySelector<HTMLElement>("[data-head]");
-      const cut = b.offsetHeight;
-      const show = y > (head ? head.offsetHeight - cut : 0);
-      b.style.opacity = show ? "1" : "0";
-    }
   };
   if (light) {
     const title = card.type === "figures" ? "Los números del día" : card.type === "subject" ? card.subject.title : card.note.headline;
@@ -67,13 +57,6 @@ export const Page = memo(function Page({
       onScroll={onScroll}
       className={`no-scrollbar h-full w-full overscroll-none ${live ? "pointer-events-auto overflow-y-auto" : "pointer-events-none overflow-hidden"}`}
     >
-      <div aria-hidden className="pointer-events-none sticky top-0 z-20 h-0">
-        <div
-          ref={band}
-          className={`absolute inset-x-0 top-0 ${card.type === "figures" ? "bg-paper" : "bg-ground"}`}
-          style={{ height: "var(--sat)", opacity: 0, transition: "opacity 160ms ease" }}
-        />
-      </div>
       {card.type === "figures" ? (
         <FiguresPage indicators={card.indicators} edition={edition} />
       ) : card.type === "subject" ? (
@@ -185,9 +168,9 @@ function NotePage({
   return (
     <div className="min-h-full bg-ground pb-[calc(120px+var(--sab))]">
       {note.image ? (
-        <Media src={note.image.src} alt={note.image.alt} photo={photo} h={`calc(${Math.round(h * 0.52)}px + var(--sat))`} id={id} />
+        <Media src={note.image.src} alt={note.image.alt} photo={photo} h={Math.round(h * 0.52)} id={id} />
       ) : (
-        <div data-head className="relative flex items-end overflow-hidden bg-paper px-6 pb-6" style={{ height: `calc(${Math.round(h * 0.44)}px + var(--sat))` }}>
+        <div data-head className="relative flex items-end overflow-hidden bg-paper px-6 pb-6" style={{ height: Math.round(h * 0.44) }}>
           <span className="pointer-events-none absolute -right-4 -top-10 select-none text-[260px] italic leading-none text-accent/10">
             {note.kind === "quote" ? "“" : note.kind === "number" ? "№" : "§"}
           </span>
@@ -247,7 +230,7 @@ function NotePage({
 
 function FiguresPage({ indicators, edition }: { indicators: Indicator[]; edition: Edition }) {
   return (
-    <div className="min-h-full bg-paper px-6 pb-[calc(120px+var(--sab))] pt-[calc(64px+var(--sat))]">
+    <div className="min-h-full bg-paper px-6 pb-[calc(120px+var(--sab))] pt-16">
       <p className="mono text-accent">Cifras · {shortDate(edition.date)}</p>
       <h2 className="mt-3 text-[52px] italic leading-[0.95] tracking-[-0.02em]" style={{ fontVariationSettings: '"opsz" 72' }}>
         Los números del día
