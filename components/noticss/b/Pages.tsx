@@ -68,7 +68,7 @@ export const Page = memo(function Page({
 });
 
 /** The media slot: today a photo, later a vertical short. Its holder is where a lifted picture comes home. */
-function Media({ src, alt, photo, h, id }: { src: string; alt: string; photo: RefObject<HTMLDivElement | null>; h: number; id: string }) {
+function Media({ src, alt, photo, h, id }: { src: string; alt: string; photo: RefObject<HTMLDivElement | null>; h: number | string; id: string }) {
   return (
     <div className="relative overflow-hidden bg-ink" style={{ height: h }}>
       <div ref={photo} data-media={id} className="absolute inset-0">
@@ -167,9 +167,9 @@ function NotePage({
   return (
     <div className="min-h-full bg-ground pb-[calc(120px+var(--sab))]">
       {note.image ? (
-        <Media src={note.image.src} alt={note.image.alt} photo={photo} h={Math.round(h * 0.52)} id={id} />
+        <Media src={note.image.src} alt={note.image.alt} photo={photo} h={`calc(${Math.round(h * 0.52)}px + var(--sat))`} id={id} />
       ) : (
-        <div className="relative flex items-end overflow-hidden bg-paper px-6 pb-6" style={{ height: Math.round(h * 0.44) }}>
+        <div className="relative flex items-end overflow-hidden bg-paper px-6 pb-6" style={{ height: `calc(${Math.round(h * 0.44)}px + var(--sat))` }}>
           <span className="pointer-events-none absolute -right-4 -top-10 select-none text-[260px] italic leading-none text-accent/10">
             {note.kind === "quote" ? "“" : note.kind === "number" ? "№" : "§"}
           </span>
