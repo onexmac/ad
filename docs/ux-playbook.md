@@ -237,6 +237,36 @@ matched; when they differ, Updatr is the newer and better-tested one.
 - **Don't fill empty states with nothing.** Say what to do, and use the real
   icon.
 
+## What Noticss B added (`/kit/noticss/b`)
+
+The Paper / Push Pop Press grammar, built on the pieces above. Code in
+`components/noticss/PaperB.tsx` and `components/noticss/b/`.
+
+| Pattern | What it does | Code | Values that felt right |
+|---|---|---|---|
+| Cards are the pages | A tray card is the full page drawn at full size and scaled down (k = 0.4 to 1). Its corner radius lives in page pixels, so it scales with the card. | `RowCard` in `PaperB.tsx` | gap 14 page px (5.6 on the tray); radius 44 page px |
+| Grab point stays put | Lifting keeps the grabbed point under the finger: openness = −dy / ((1 − fy)·H·(1 − k₀) − bottom). The card drifts sideways with the finger too. | `travel()` in `PaperB.tsx` | minimum travel 170 px |
+| The thread (cascade) | Every card has its own openness. The lifted one leads; each other card chases its neighbour on a stiff spring, so they come up in a cascade. Going down, no card is ever more open than the one before it. | `Tray.pi` / `step` in `b/model.ts` | link response 0.22 s, damping 0.86 |
+| Overrides over jumps | A page that arrives from elsewhere (from below, out of a row of notes) is a visual override, drawn on top of a jump the row has already made underneath. The override is released once it is covered. Transitions can always be finished at once (`Tray.begin` / `settle`). | `presentFrom`, `commitNext` in `PaperB.tsx` | pop: response 0.46 s, damping 0.8 |
+| Momentum, then a card | A fling glides on with exponential deceleration (iOS), aimed to stop exactly on a card, starting at the release velocity. | `Tray.glide` in `b/model.ts` | travel = 0.5 s of speed |
+| Springs in the value's units | Springs are given as response and damping ratio. Every spring gets an explicit start velocity (an instant jump must not leave one). Rest tolerance follows the unit: fractions and cards settle finely, pixels at half a pixel. | `spring()` and `Tray.run` in `b/model.ts` | expand 0.5 / 0.86, page 0.4 / 1 |
+| The top of the screen | On the tray, a blurred band under the status bar is tinted from the top of the cover. An open page fills the top itself, inside its rounded frame: its photo runs up under the bar. Once scrolled past it, a sticky band in its own paper keeps the words below the cut. | `b/TopFill.tsx`, `Page` in `b/Pages.tsx` | — |
+| Under Safari's bottom bar | The surface is `100lvh`, so the cover runs on under the browser's bar. The bottom inset adds what the bar covers (visual viewport), re-measured as it shows and hides. | `measure()` in `PaperB.tsx` | — |
+
+More traps found here:
+
+- **React routes events through a carried element's old parents.** A gallery
+  that holds a page's own `<img>` must listen natively, not through React
+  props.
+- **A touch that only stops motion must not act.** Check velocities (and a
+  recent native scroll) before stopping anything.
+- **Every way a gesture ends must put back what its touch stopped**: the
+  section, the tray and the page. Do it before any early return.
+- **`MotionValue.set()` leaves a velocity that `animate()` picks up.** Use
+  `jump()`, or pass `velocity` explicitly.
+- **Don't promote a layer for a motion that changes scale.** Chromium keeps
+  the small raster and blurs the text.
+
 ## Starting a new app
 
 1. Register it in `lib/apps.json` and create `app/<section>/<slug>/`. Give it
