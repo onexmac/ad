@@ -9,7 +9,7 @@ import { Arrow } from "@/components/updatr/Arrow";
 import { AbSwitch } from "./AbSwitch";
 import { Cover } from "./b/Cover";
 import { Gallery } from "./b/Gallery";
-import { TopFill } from "./b/TopFill";
+import { TopFill, type FillMode } from "./b/TopFill";
 import { darken, hexToRgb, topTone } from "@/lib/noticss/tone";
 import { Page, titleOf } from "./b/Pages";
 import { useFollowing } from "@/lib/noticss/following";
@@ -865,11 +865,20 @@ export function PaperB({ editions }: { editions: Edition[] }) {
    * Safari's own chrome and the overscroll take it too.
    */
   const [tone, setTone] = useState("rgb(20, 17, 14)");
+  const [fill, setFill] = useState<FillMode>("blur");
   useEffect(() => {
     const GROUND = hexToRgb("#f1ece2");
     const PAPER = hexToRgb("#f8f5ee");
-    const read = () => {
-      if (gallery) return "rgb(0, 0, 0)";
+    // The top inset (status bar), as laid out.
+    const sat = () => (probe.current ? parseFloat(getComputedStyle(probe.current).paddingTop) || 0 : 0);
+    /*
+     * On the tray, the content runs up blurred. With a page open, the page
+     * itself fills the top: its photo runs up into it (nothing over it), or,
+     * scrolled past the photo, a solid band in the page's own paper keeps
+     * the words below the cut.
+     */
+    const read = (): { tone: string; mode: FillMode } | null => {
+      if (gallery) return { tone: "rgb(0, 0, 0)", mode: "none" };
       const o = openRef.current;
       const c = col.current;
       if (!c) return null;
@@ -877,24 +886,28 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         const card = sections[o.sec]?.cards[o.card];
         const sc = pageEl(o.sec, o.card);
         if (!card || !sc) return null;
-        if (card.type === "figures") return PAPER;
+        if (card.type === "figures") return { tone: PAPER, mode: "solid" };
         const media = sc.querySelector<HTMLElement>("[data-media]");
         const frame = media?.parentElement;
-        if (media && frame && sc.scrollTop < frame.clientHeight * 0.7) return topTone(media.querySelector("img"));
-        if (!media && card.type === "note" && sc.scrollTop < H() * 0.3) return PAPER;
-        return GROUND;
+        if (media && frame && sc.scrollTop < frame.clientHeight - sat() - 2) {
+          return { tone: topTone(media.querySelector("img")) ?? "rgb(20, 17, 14)", mode: "none" };
+        }
+        if (!media && card.type === "note" && sc.scrollTop < H() * 0.3) return { tone: PAPER, mode: "solid" };
+        return { tone: GROUND, mode: "solid" };
       }
       const sd = sections[secRef.current];
-      if (sd?.kind === "hoy") return hexToRgb(ed.weather?.sky?.[0] ?? "#6f6a62");
+      if (sd?.kind === "hoy") return { tone: hexToRgb(ed.weather?.sky?.[0] ?? "#6f6a62"), mode: "blur" };
       const img = c.querySelector<HTMLImageElement>(`[data-cover="${secRef.current}"] img`);
       const t = topTone(img);
-      return t ? darken(t, 0.55) : null;
+      return t ? { tone: darken(t, 0.55), mode: "blur" } : null;
     };
     let raf = 0;
     const apply = () => {
       raf = 0;
       const t = read();
-      if (t) setTone((p) => (p === t ? p : t));
+      if (!t) return;
+      setTone((p) => (p === t.tone ? p : t.tone));
+      setFill((m) => (m === t.mode ? m : t.mode));
     };
     const soon = () => {
       if (!raf) raf = requestAnimationFrame(apply);
@@ -964,7 +977,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-ink" data-app>
-      <div ref={probe} aria-hidden className="pointer-events-none invisible fixed bottom-0 left-0 h-0 w-0 pb-[env(safe-area-inset-bottom)]" />
+      <div ref={probe} aria-hidden className="pointer-events-none invisible fixed bottom-0 left-0 h-0 w-0 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]" />
       <div ref={col} className="relative mx-auto h-full w-full max-w-[520px] overflow-hidden" style={{ touchAction: open ? "pan-y" : "none" }}>
         {sections.map((s, i) =>
           near(i) ? (
@@ -1077,7 +1090,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         </motion.div>
       </div>
 
-      <TopFill tone={tone} />
+      <TopFill tone={tone} mode={fill} />
       <AbSwitch current="b" hidden={!!open} tone="dark" />
 
       {gallery ? (
@@ -1256,13 +1269,24 @@ const RowCard = memo(function RowCard({
   // The card in focus on top, then outward; an override can lift a card above.
   const zIndex = useTransform(() => 100 - Math.min(90, Math.round(Math.abs(i - cur.get()))) + o.z.get());
   const clipPath = useTransform(o.clip, (b) => (b > 0.5 ? `inset(0px 0px ${b}px 0px round ${RU}px)` : "none"));
+  // The top corners square off as the page settles open, so its top fills the
+  // screen to the edge (under the status bar); a page still travelling (rising
+  // from below, popping out of a row) keeps them round until it arrives.
+  const topR = useTransform(() => {
+    const open = Math.max(0, Math.min(1, v.get()));
+    const travelling = Math.min(1, Math.abs(o.y.get()) / 240 + o.clip.get() / 240 + (1 - o.s.get()) * 4);
+    return RU * Math.max(1 - open, travelling);
+  });
   return (
     <motion.div
       className="absolute left-0 top-0 overflow-hidden bg-ground shadow-[0_10px_40px_rgba(0,0,0,.35)]"
       style={{
         width: w,
         height: h,
-        borderRadius: RU,
+        borderTopLeftRadius: topR,
+        borderTopRightRadius: topR,
+        borderBottomLeftRadius: RU,
+        borderBottomRightRadius: RU,
         x,
         y,
         scale,
