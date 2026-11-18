@@ -105,7 +105,15 @@ export function usePhotos() {
     else delete next[id];
     photosStore.save(next);
   };
-  return { photos, add, remove };
+  /** Swap a photo for its annotated copy, in place. */
+  const replace = (id: string, i: number, url: string): boolean => {
+    const cur = photosStore.load();
+    const list = [...(cur[id] ?? [])];
+    if (i < 0 || i >= list.length) return false;
+    list[i] = url;
+    return photosStore.save({ ...cur, [id]: list });
+  };
+  return { photos, add, remove, replace };
 }
 
 /** Shrinks a picked or captured photo to a JPEG data URL of at most `max` px. */
