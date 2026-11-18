@@ -108,6 +108,9 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   /** The tray's bottom inset: its margin plus the home indicator's safe area. */
   const Bm = useMemo(() => motionValue(BOTTOM), []);
   const probe = useRef<HTMLDivElement>(null);
+  const root = useRef<HTMLDivElement>(null);
+  /** How much of the screen the browser's bottom bar covers (0 from the home screen). */
+  const [barBottom, setBarBottom] = useState(0);
   const [dims, setDims] = useState({ w: 390, h: 844 });
   useLayoutEffect(() => {
     const el = col.current;
@@ -116,7 +119,12 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const w = el.clientWidth;
       const h = el.clientHeight;
       const sab = probe.current ? parseFloat(getComputedStyle(probe.current).paddingBottom) || 0 : 0;
-      Bm.set(BOTTOM + sab);
+      // The screen runs on under the browser's own bottom bar (the cover shows
+      // through it); the tray and the controls stay above it.
+      const seen = window.visualViewport?.height ?? window.innerHeight;
+      const bar = Math.max(0, Math.round(h - seen));
+      setBarBottom((b) => (b === bar ? b : bar));
+      Bm.set(BOTTOM + sab + bar);
       Wm.set(w);
       Hm.set(h);
       setDims({ w, h });
@@ -125,7 +133,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
-    return () => ro.disconnect();
+    window.visualViewport?.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.visualViewport?.removeEventListener("resize", measure);
+    };
   }, [Wm, Hm, Bm, secX]);
 
   // A full-screen surface: the document behind must not scroll or bounce.
@@ -886,14 +898,14 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         const card = sections[o.sec]?.cards[o.card];
         const sc = pageEl(o.sec, o.card);
         if (!card || !sc) return null;
-        if (card.type === "figures") return { tone: PAPER, mode: "solid" };
+        if (card.type === "figures") return { tone: PAPER, mode: "none" };
         const media = sc.querySelector<HTMLElement>("[data-media]");
         const frame = media?.parentElement;
         if (media && frame && sc.scrollTop < frame.clientHeight - sat() - 2) {
           return { tone: topTone(media.querySelector("img")) ?? "rgb(20, 17, 14)", mode: "none" };
         }
-        if (!media && card.type === "note" && sc.scrollTop < H() * 0.3) return { tone: PAPER, mode: "solid" };
-        return { tone: GROUND, mode: "solid" };
+        if (!media && card.type === "note" && sc.scrollTop < H() * 0.3) return { tone: PAPER, mode: "none" };
+        return { tone: GROUND, mode: "none" };
       }
       const sd = sections[secRef.current];
       if (sd?.kind === "hoy") return { tone: hexToRgb(ed.weather?.sky?.[0] ?? "#6f6a62"), mode: "blur" };
@@ -976,7 +988,12 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const endO = useTransform(endLift, [0, 40, END_LIFT_MAX], [0, 0.6, 1]);
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-ink" data-app>
+    <div
+      ref={root}
+      className="fixed inset-x-0 top-0 h-[100lvh] overflow-hidden bg-ink"
+      data-app
+      style={{ ["--sab" as string]: `calc(env(safe-area-inset-bottom, 0px) + ${barBottom}px)` }}
+    >
       <div ref={probe} aria-hidden className="pointer-events-none invisible fixed bottom-0 left-0 h-0 w-0 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]" />
       <div ref={col} className="relative mx-auto h-full w-full max-w-[520px] overflow-hidden" style={{ touchAction: open ? "pan-y" : "none" }}>
         {sections.map((s, i) =>
@@ -1269,24 +1286,13 @@ const RowCard = memo(function RowCard({
   // The card in focus on top, then outward; an override can lift a card above.
   const zIndex = useTransform(() => 100 - Math.min(90, Math.round(Math.abs(i - cur.get()))) + o.z.get());
   const clipPath = useTransform(o.clip, (b) => (b > 0.5 ? `inset(0px 0px ${b}px 0px round ${RU}px)` : "none"));
-  // The top corners square off as the page settles open, so its top fills the
-  // screen to the edge (under the status bar); a page still travelling (rising
-  // from below, popping out of a row) keeps them round until it arrives.
-  const topR = useTransform(() => {
-    const open = Math.max(0, Math.min(1, v.get()));
-    const travelling = Math.min(1, Math.abs(o.y.get()) / 240 + o.clip.get() / 240 + (1 - o.s.get()) * 4);
-    return RU * Math.max(1 - open, travelling);
-  });
   return (
     <motion.div
       className="absolute left-0 top-0 overflow-hidden bg-ground shadow-[0_10px_40px_rgba(0,0,0,.35)]"
       style={{
         width: w,
         height: h,
-        borderTopLeftRadius: topR,
-        borderTopRightRadius: topR,
-        borderBottomLeftRadius: RU,
-        borderBottomRightRadius: RU,
+        borderRadius: RU,
         x,
         y,
         scale,
