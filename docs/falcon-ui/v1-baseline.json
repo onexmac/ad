@@ -1,0 +1,6054 @@
+{
+ "file": "Falcon UI",
+ "fileKey": "10uxO79DzZzFbgBpeN90vT",
+ "url": "https://www.figma.com/design/10uxO79DzZzFbgBpeN90vT",
+ "page": "Puncheo (0:1)",
+ "version": "v1 · Claude baseline",
+ "date": "2026-11-18",
+ "source": "onexmac/ad /ad/puncheo (B, Leia skin) as of PR #40",
+ "scope": "Page Puncheo only. The file also holds a Noticss page with its own collections (Noticss · Paper, Noticss · Space) and Noticss/* styles; not part of this baseline.",
+ "format": "node = [id, type, name, [x,y,w,h], {h: hidden, f: fills ($variable | #hex[@opacity] | lg(gradient stops)), r: corner radius, fx: effect style, al: auto layout 'dir gap pl pt pr pb', tx: text, ft: 'style size' (SF Pro unless noted), mc: main component, p: component props, txs: texts inside an instance, nest: nested keys/icons}, [children]]. Instances are not expanded; component definitions are.",
+ "variables": {
+  "Puncheo · Leia": {
+   "slate": "#5b6376",
+   "panel": "#e7e8ea",
+   "panel-open": "#f4f4f5",
+   "ink": "#191c22",
+   "ink-faint": "#8a8d93",
+   "glyph": "#55585e",
+   "white": "#ffffff",
+   "brand": "#4986eb",
+   "brand-2": "#b9d6ff",
+   "ok": "#95c955",
+   "ok-ink": "#4f8a22",
+   "warn": "#ffd556",
+   "warn-deep": "#ffad00",
+   "bad": "#eb5757",
+   "na": "#bdbdbd",
+   "etch": "#cbccd0"
+  }
+ },
+ "effectStyles": [
+  "Leia/Key",
+  "Leia/Key pressed",
+  "Leia/Key lit",
+  "Leia/Panel",
+  "Leia/Well dark",
+  "Leia/Well light",
+  "Leia/Band"
+ ],
+ "fonts": [
+  "SF Pro (Thin, Regular, Semibold, Bold, Condensed Bold)",
+  "Roboto Mono Medium (legend)"
+ ],
+ "nodeCount": 310,
+ "nodes": [
+  [
+   "1:26",
+   "Fram",
+   "Iconos",
+   [
+    0,
+    0,
+    416,
+    56
+   ],
+   {
+    "f": [
+     "#ffffff"
+    ],
+    "al": "H 16 16 16 16 16"
+   },
+   [
+    [
+     "1:27",
+     "Comp",
+     "icon/camera",
+     [
+      16,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:29",
+       "Vect",
+       "Vector",
+       [
+        2,
+        5,
+        20,
+        16
+       ],
+       {
+        "f": [
+         "#55585e"
+        ]
+       }
+      ],
+      [
+       "1:30",
+       "Vect",
+       "Vector",
+       [
+        8,
+        9,
+        8,
+        8
+       ],
+       {
+        "f": [
+         "#e9eaec"
+        ]
+       }
+      ],
+      [
+       "1:31",
+       "Vect",
+       "Vector",
+       [
+        9,
+        10,
+        5,
+        5
+       ],
+       {
+        "f": [
+         "#55585e"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "1:32",
+     "Comp",
+     "icon/check",
+     [
+      56,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:34",
+       "Vect",
+       "Vector",
+       [
+        5,
+        8,
+        14,
+        10
+       ],
+       {}
+      ]
+     ]
+    ],
+    [
+     "1:35",
+     "Comp",
+     "icon/lens",
+     [
+      96,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:37",
+       "Vect",
+       "Vector",
+       [
+        5,
+        5,
+        12,
+        12
+       ],
+       {}
+      ],
+      [
+       "1:38",
+       "Vect",
+       "Vector",
+       [
+        15,
+        15,
+        5,
+        5
+       ],
+       {}
+      ]
+     ]
+    ],
+    [
+     "1:39",
+     "Comp",
+     "icon/cross",
+     [
+      136,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:41",
+       "Vect",
+       "Vector",
+       [
+        7,
+        7,
+        11,
+        11
+       ],
+       {}
+      ]
+     ]
+    ],
+    [
+     "1:42",
+     "Comp",
+     "icon/warn",
+     [
+      176,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:44",
+       "Vect",
+       "Vector",
+       [
+        12,
+        4,
+        0,
+        16
+       ],
+       {}
+      ]
+     ]
+    ],
+    [
+     "1:45",
+     "Comp",
+     "icon/pencil",
+     [
+      216,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:47",
+       "Vect",
+       "Vector",
+       [
+        3,
+        3,
+        18,
+        18
+       ],
+       {
+        "f": [
+         "#55585e"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "1:48",
+     "Comp",
+     "icon/back",
+     [
+      256,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:50",
+       "Vect",
+       "Vector",
+       [
+        8,
+        5,
+        7,
+        14
+       ],
+       {}
+      ]
+     ]
+    ],
+    [
+     "1:51",
+     "Comp",
+     "icon/bin",
+     [
+      296,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:53",
+       "Vect",
+       "Vector",
+       [
+        4,
+        3,
+        16,
+        4
+       ],
+       {
+        "f": [
+         "#55585e"
+        ]
+       }
+      ],
+      [
+       "1:54",
+       "Vect",
+       "Vector",
+       [
+        6,
+        9,
+        13,
+        12
+       ],
+       {
+        "f": [
+         "#55585e"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "1:55",
+     "Comp",
+     "icon/chevron",
+     [
+      336,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:57",
+       "Vect",
+       "Vector",
+       [
+        8,
+        4,
+        8,
+        16
+       ],
+       {}
+      ]
+     ]
+    ],
+    [
+     "1:58",
+     "Comp",
+     "icon/undo",
+     [
+      376,
+      16,
+      24,
+      24
+     ],
+     {},
+     [
+      [
+       "1:60",
+       "Vect",
+       "Vector",
+       [
+        4,
+        5,
+        5,
+        10
+       ],
+       {}
+      ],
+      [
+       "1:61",
+       "Vect",
+       "Vector",
+       [
+        5,
+        10,
+        15,
+        12
+       ],
+       {}
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "1:90",
+   "Comp",
+   "Key",
+   [
+    0,
+    100,
+    436,
+    76
+   ],
+   {
+    "r": 5,
+    "al": "H 16 16 16 16 16"
+   },
+   [
+    [
+     "1:62",
+     "Comp",
+     "Style=Light",
+     [
+      16,
+      16,
+      44,
+      44
+     ],
+     {
+      "f": [
+       "lg(#fbfbfc,#e4e5e7)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key",
+      "al": "H 0 0 0 0 0"
+     },
+     [
+      [
+       "1:63",
+       "Inst",
+       "Icon",
+       [
+        12,
+        12,
+        20,
+        20
+       ],
+       {
+        "mc": "icon/lens"
+       }
+      ]
+     ]
+    ],
+    [
+     "1:66",
+     "Comp",
+     "Style=Pressed",
+     [
+      76,
+      16,
+      44,
+      44
+     ],
+     {
+      "f": [
+       "lg(#d3d5d9,#e6e7e9)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key pressed",
+      "al": "H 0 0 0 0 0"
+     },
+     [
+      [
+       "1:67",
+       "Inst",
+       "Icon",
+       [
+        12,
+        12,
+        20,
+        20
+       ],
+       {
+        "mc": "icon/lens"
+       }
+      ]
+     ]
+    ],
+    [
+     "1:70",
+     "Comp",
+     "Style=Blue",
+     [
+      136,
+      16,
+      44,
+      44
+     ],
+     {
+      "f": [
+       "lg(#6ba2e6,#4f8ad9,#3c73c6)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key lit",
+      "al": "H 0 0 0 0 0"
+     },
+     [
+      [
+       "1:71",
+       "Inst",
+       "Icon",
+       [
+        12,
+        12,
+        20,
+        20
+       ],
+       {
+        "mc": "icon/lens"
+       }
+      ]
+     ]
+    ],
+    [
+     "1:74",
+     "Comp",
+     "Style=Charcoal",
+     [
+      196,
+      16,
+      44,
+      44
+     ],
+     {
+      "f": [
+       "lg(#7a7d84,#5b5e64,#4b4e54)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key lit",
+      "al": "H 0 0 0 0 0"
+     },
+     [
+      [
+       "1:75",
+       "Inst",
+       "Icon",
+       [
+        12,
+        12,
+        20,
+        20
+       ],
+       {
+        "mc": "icon/lens"
+       }
+      ]
+     ]
+    ],
+    [
+     "1:78",
+     "Comp",
+     "Style=Green",
+     [
+      256,
+      16,
+      44,
+      44
+     ],
+     {
+      "f": [
+       "lg(#a8d46c,#8fc24f)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key lit",
+      "al": "H 0 0 0 0 0"
+     },
+     [
+      [
+       "1:79",
+       "Inst",
+       "Icon",
+       [
+        12,
+        12,
+        20,
+        20
+       ],
+       {
+        "mc": "icon/lens"
+       }
+      ]
+     ]
+    ],
+    [
+     "1:82",
+     "Comp",
+     "Style=Yellow",
+     [
+      316,
+      16,
+      44,
+      44
+     ],
+     {
+      "f": [
+       "lg(#ffe17a,#f6c63c)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key lit",
+      "al": "H 0 0 0 0 0"
+     },
+     [
+      [
+       "1:83",
+       "Inst",
+       "Icon",
+       [
+        12,
+        12,
+        20,
+        20
+       ],
+       {
+        "mc": "icon/lens"
+       }
+      ]
+     ]
+    ],
+    [
+     "1:86",
+     "Comp",
+     "Style=Red",
+     [
+      376,
+      16,
+      44,
+      44
+     ],
+     {
+      "f": [
+       "lg(#f07171,#d94a4a)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key lit",
+      "al": "H 0 0 0 0 0"
+     },
+     [
+      [
+       "1:87",
+       "Inst",
+       "Icon",
+       [
+        12,
+        12,
+        20,
+        20
+       ],
+       {
+        "mc": "icon/lens"
+       }
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "1:184",
+   "Comp",
+   "Fila de check",
+   [
+    0,
+    200,
+    390,
+    435
+   ],
+   {
+    "r": 5,
+    "al": "V 12 16 16 16 16"
+   },
+   [
+    [
+     "1:91",
+     "Comp",
+     "Estado=Pendiente",
+     [
+      16,
+      16,
+      358,
+      71
+     ],
+     {
+      "f": [
+       "$panel"
+      ],
+      "al": "H 10 12 12 12 12"
+     },
+     [
+      [
+       "1:92",
+       "Text",
+       "Num",
+       [
+        12,
+        20,
+        46,
+        31
+       ],
+       {
+        "f": [
+         "$brand"
+        ],
+        "tx": "1.1",
+        "ft": "Thin 26"
+       }
+      ],
+      [
+       "1:93",
+       "Fram",
+       "Texto",
+       [
+        68,
+        12,
+        162,
+        46
+       ],
+       {
+        "al": "V 2 0 0 0 0"
+       },
+       [
+        [
+         "1:94",
+         "Text",
+         "Título",
+         [
+          0,
+          0,
+          162,
+          24
+         ],
+         {
+          "f": [
+           "$ink"
+          ],
+          "tx": "Plomos de losa",
+          "ft": "Bold 17"
+         }
+        ],
+        [
+         "1:95",
+         "Text",
+         "Subtítulo",
+         [
+          0,
+          26,
+          162,
+          20
+         ],
+         {
+          "f": [
+           "$ink-faint"
+          ],
+          "tx": "Revisión conjunta Losa / Formaleta",
+          "ft": "Regular 13.5"
+         }
+        ]
+       ]
+      ],
+      [
+       "1:96",
+       "Inst",
+       "Foto",
+       [
+        240,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        },
+        "nest": [
+         "icon/camera"
+        ]
+       }
+      ],
+      [
+       "1:103",
+       "Fram",
+       "·",
+       [
+        288,
+        35,
+        10,
+        1
+       ],
+       {}
+      ],
+      [
+       "1:104",
+       "Inst",
+       "Check",
+       [
+        308,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        },
+        "nest": [
+         "icon/check"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "1:109",
+     "Comp",
+     "Estado=Pasa",
+     [
+      16,
+      99,
+      358,
+      71
+     ],
+     {
+      "f": [
+       "$panel",
+       "#95c955@0.2"
+      ],
+      "al": "H 10 12 12 12 12"
+     },
+     [
+      [
+       "1:110",
+       "Text",
+       "Num",
+       [
+        12,
+        20,
+        46,
+        31
+       ],
+       {
+        "f": [
+         "$ok-ink"
+        ],
+        "tx": "1.1",
+        "ft": "Thin 26"
+       }
+      ],
+      [
+       "1:111",
+       "Fram",
+       "Texto",
+       [
+        68,
+        12,
+        162,
+        46
+       ],
+       {
+        "al": "V 2 0 0 0 0"
+       },
+       [
+        [
+         "1:112",
+         "Text",
+         "Título",
+         [
+          0,
+          0,
+          162,
+          24
+         ],
+         {
+          "f": [
+           "$ink"
+          ],
+          "tx": "Plomos de losa",
+          "ft": "Bold 17"
+         }
+        ],
+        [
+         "1:113",
+         "Text",
+         "Subtítulo",
+         [
+          0,
+          26,
+          162,
+          20
+         ],
+         {
+          "f": [
+           "$ink-faint"
+          ],
+          "tx": "Revisión conjunta Losa / Formaleta",
+          "ft": "Regular 13.5"
+         }
+        ]
+       ]
+      ],
+      [
+       "1:114",
+       "Inst",
+       "Foto",
+       [
+        240,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        },
+        "nest": [
+         "icon/camera"
+        ]
+       }
+      ],
+      [
+       "1:121",
+       "Fram",
+       "·",
+       [
+        288,
+        35,
+        10,
+        1
+       ],
+       {}
+      ],
+      [
+       "1:122",
+       "Inst",
+       "Check",
+       [
+        308,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#a8d46c,#8fc24f)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key lit",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Green",
+        "p": {
+         "Style": "Green"
+        },
+        "nest": [
+         "icon/check"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "1:127",
+     "Comp",
+     "Estado=Observación",
+     [
+      16,
+      182,
+      358,
+      71
+     ],
+     {
+      "f": [
+       "$panel",
+       "#ffd556@0.24"
+      ],
+      "al": "H 10 12 12 12 12"
+     },
+     [
+      [
+       "1:128",
+       "Text",
+       "Num",
+       [
+        12,
+        20,
+        46,
+        31
+       ],
+       {
+        "f": [
+         "$warn-deep"
+        ],
+        "tx": "1.1",
+        "ft": "Thin 26"
+       }
+      ],
+      [
+       "1:129",
+       "Fram",
+       "Texto",
+       [
+        68,
+        12,
+        162,
+        46
+       ],
+       {
+        "al": "V 2 0 0 0 0"
+       },
+       [
+        [
+         "1:130",
+         "Text",
+         "Título",
+         [
+          0,
+          0,
+          162,
+          24
+         ],
+         {
+          "f": [
+           "$ink"
+          ],
+          "tx": "Plomos de losa",
+          "ft": "Bold 17"
+         }
+        ],
+        [
+         "1:131",
+         "Text",
+         "Subtítulo",
+         [
+          0,
+          26,
+          162,
+          20
+         ],
+         {
+          "f": [
+           "$ink-faint"
+          ],
+          "tx": "Revisión conjunta Losa / Formaleta",
+          "ft": "Regular 13.5"
+         }
+        ]
+       ]
+      ],
+      [
+       "1:132",
+       "Inst",
+       "Foto",
+       [
+        240,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        },
+        "nest": [
+         "icon/camera"
+        ]
+       }
+      ],
+      [
+       "1:139",
+       "Fram",
+       "·",
+       [
+        288,
+        35,
+        10,
+        1
+       ],
+       {}
+      ],
+      [
+       "1:140",
+       "Inst",
+       "Check",
+       [
+        308,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#ffe17a,#f6c63c)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key lit",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Yellow",
+        "p": {
+         "Style": "Yellow"
+        },
+        "nest": [
+         "icon/warn"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "1:145",
+     "Comp",
+     "Estado=No pasa",
+     [
+      16,
+      265,
+      358,
+      71
+     ],
+     {
+      "f": [
+       "$panel",
+       "#eb5757@0.13"
+      ],
+      "al": "H 10 12 12 12 12"
+     },
+     [
+      [
+       "1:146",
+       "Text",
+       "Num",
+       [
+        12,
+        20,
+        46,
+        31
+       ],
+       {
+        "f": [
+         "$bad"
+        ],
+        "tx": "1.1",
+        "ft": "Thin 26"
+       }
+      ],
+      [
+       "1:147",
+       "Fram",
+       "Texto",
+       [
+        68,
+        12,
+        162,
+        46
+       ],
+       {
+        "al": "V 2 0 0 0 0"
+       },
+       [
+        [
+         "1:148",
+         "Text",
+         "Título",
+         [
+          0,
+          0,
+          162,
+          24
+         ],
+         {
+          "f": [
+           "$ink"
+          ],
+          "tx": "Plomos de losa",
+          "ft": "Bold 17"
+         }
+        ],
+        [
+         "1:149",
+         "Text",
+         "Subtítulo",
+         [
+          0,
+          26,
+          162,
+          20
+         ],
+         {
+          "f": [
+           "$ink-faint"
+          ],
+          "tx": "Revisión conjunta Losa / Formaleta",
+          "ft": "Regular 13.5"
+         }
+        ]
+       ]
+      ],
+      [
+       "1:150",
+       "Inst",
+       "Foto",
+       [
+        240,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        },
+        "nest": [
+         "icon/camera"
+        ]
+       }
+      ],
+      [
+       "1:157",
+       "Fram",
+       "·",
+       [
+        288,
+        35,
+        10,
+        1
+       ],
+       {}
+      ],
+      [
+       "1:158",
+       "Inst",
+       "Check",
+       [
+        308,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#f07171,#d94a4a)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key lit",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Red",
+        "p": {
+         "Style": "Red"
+        },
+        "nest": [
+         "icon/cross"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "1:163",
+     "Comp",
+     "Estado=N/A",
+     [
+      16,
+      348,
+      358,
+      71
+     ],
+     {
+      "f": [
+       "$panel"
+      ],
+      "al": "H 10 12 12 12 12"
+     },
+     [
+      [
+       "1:164",
+       "Text",
+       "Num",
+       [
+        12,
+        20,
+        46,
+        31
+       ],
+       {
+        "f": [
+         "$na"
+        ],
+        "tx": "1.1",
+        "ft": "Thin 26"
+       }
+      ],
+      [
+       "1:165",
+       "Fram",
+       "Texto",
+       [
+        68,
+        12,
+        162,
+        46
+       ],
+       {
+        "al": "V 2 0 0 0 0"
+       },
+       [
+        [
+         "1:166",
+         "Text",
+         "Título",
+         [
+          0,
+          0,
+          162,
+          24
+         ],
+         {
+          "f": [
+           "$ink-faint"
+          ],
+          "tx": "Plomos de losa",
+          "ft": "Bold 17"
+         }
+        ],
+        [
+         "1:167",
+         "Text",
+         "Subtítulo",
+         [
+          0,
+          26,
+          162,
+          20
+         ],
+         {
+          "f": [
+           "$ink-faint"
+          ],
+          "tx": "Revisión conjunta Losa / Formaleta",
+          "ft": "Regular 13.5"
+         }
+        ]
+       ]
+      ],
+      [
+       "1:168",
+       "Inst",
+       "Foto",
+       [
+        240,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        },
+        "nest": [
+         "icon/camera"
+        ]
+       }
+      ],
+      [
+       "1:175",
+       "Fram",
+       "·",
+       [
+        288,
+        35,
+        10,
+        1
+       ],
+       {}
+      ],
+      [
+       "1:176",
+       "Inst",
+       "Check",
+       [
+        308,
+        16,
+        38,
+        38
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        }
+       }
+      ],
+      [
+       "1:180",
+       "Fram",
+       "Rayado N/A",
+       [
+        0,
+        0,
+        358,
+        64
+       ],
+       {
+        "f": [
+         "#ffffff"
+        ]
+       },
+       [
+        [
+         "1:181",
+         "Vect",
+         "Vector",
+         [
+          -64,
+          0,
+          544,
+          64
+         ],
+         {}
+        ]
+       ]
+      ],
+      [
+       "1:182",
+       "Fram",
+       "Rayado check",
+       [
+        311,
+        20,
+        32,
+        32
+       ],
+       {
+        "f": [
+         "#ffffff"
+        ]
+       },
+       [
+        [
+         "1:183",
+         "Vect",
+         "Vector",
+         [
+          -32,
+          0,
+          120,
+          32
+         ],
+         {}
+        ]
+       ]
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "4:51",
+   "Comp",
+   "Tab de cuarto",
+   [
+    0,
+    640,
+    130,
+    46
+   ],
+   {
+    "f": [
+     "lg(#f1f1f2,#dedfe1)"
+    ],
+    "r": 5,
+    "al": "H 0 0 0 0 0"
+   },
+   [
+    [
+     "4:45",
+     "Comp",
+     "Estado=Normal",
+     [
+      0,
+      0,
+      65,
+      46
+     ],
+     {
+      "al": "V 0 0 0 0 0"
+     },
+     [
+      [
+       "4:46",
+       "Text",
+       "Nombre",
+       [
+        16,
+        9,
+        32,
+        16
+       ],
+       {
+        "f": [
+         "$ink"
+        ],
+        "tx": "Casa",
+        "ft": "Regular 13.5"
+       }
+      ],
+      [
+       "4:47",
+       "Text",
+       "Conteo",
+       [
+        24,
+        25,
+        16,
+        12
+       ],
+       {
+        "f": [
+         "$ink-faint"
+        ],
+        "tx": "0/6",
+        "ft": "Regular 10"
+       }
+      ]
+     ]
+    ],
+    [
+     "4:48",
+     "Comp",
+     "Estado=Activo",
+     [
+      65,
+      0,
+      65,
+      46
+     ],
+     {
+      "f": [
+       "lg(#6ba2e6,#4f8ad9,#3c73c6)"
+      ],
+      "al": "V 0 0 0 0 0"
+     },
+     [
+      [
+       "4:49",
+       "Text",
+       "Nombre",
+       [
+        16,
+        9,
+        32,
+        16
+       ],
+       {
+        "f": [
+         "$white"
+        ],
+        "tx": "Casa",
+        "ft": "Regular 13.5"
+       }
+      ],
+      [
+       "4:50",
+       "Text",
+       "Conteo",
+       [
+        24,
+        25,
+        16,
+        12
+       ],
+       {
+        "f": [
+         "$brand-2"
+        ],
+        "tx": "0/6",
+        "ft": "Regular 10"
+       }
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "4:52",
+   "Comp",
+   "Banda de cuarto",
+   [
+    0,
+    726,
+    358,
+    54
+   ],
+   {
+    "f": [
+     "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+    ],
+    "fx": "Leia/Band",
+    "al": "H 12 12 0 12 0"
+   },
+   [
+    [
+     "4:53",
+     "Fram",
+     "Índice",
+     [
+      12,
+      0,
+      32,
+      54
+     ],
+     {
+      "al": "H 0 0 0 12 0"
+     },
+     [
+      [
+       "4:54",
+       "Text",
+       "Índice",
+       [
+        0,
+        19,
+        19,
+        16
+       ],
+       {
+        "f": [
+         "$brand-2"
+        ],
+        "tx": "1/6",
+        "ft": "Regular 13"
+       }
+      ]
+     ]
+    ],
+    [
+     "4:55",
+     "Fram",
+     "Texto",
+     [
+      56,
+      9,
+      238,
+      37
+     ],
+     {
+      "al": "V 0 0 0 0 0"
+     },
+     [
+      [
+       "4:56",
+       "Text",
+       "Nombre",
+       [
+        0,
+        0,
+        45,
+        23
+       ],
+       {
+        "f": [
+         "$white"
+        ],
+        "tx": "Casa",
+        "ft": "Regular 19"
+       }
+      ],
+      [
+       "4:57",
+       "Text",
+       "Nota",
+       [
+        0,
+        23,
+        146,
+        14
+       ],
+       {
+        "f": [
+         "$brand-2"
+        ],
+        "tx": "Losa, perímetro y paneles",
+        "ft": "Regular 12"
+       }
+      ]
+     ]
+    ],
+    [
+     "4:58",
+     "Text",
+     "Conteo",
+     [
+      306,
+      17,
+      40,
+      21
+     ],
+     {
+      "f": [
+       "$white"
+      ],
+      "tx": "00/6",
+      "ft": "Regular 18"
+     }
+    ]
+   ]
+  ],
+  [
+   "4:59",
+   "Comp",
+   "Fase",
+   [
+    0,
+    820,
+    358,
+    72
+   ],
+   {
+    "f": [
+     "lg(#f0f0f2,#d9dadd)"
+    ],
+    "al": "V 2 12 10 12 10"
+   },
+   [
+    [
+     "4:60",
+     "Text",
+     "Nombre",
+     [
+      12,
+      10,
+      96,
+      20
+     ],
+     {
+      "f": [
+       "$ink"
+      ],
+      "tx": "Pre-armado",
+      "ft": "Regular 17"
+     }
+    ],
+    [
+     "4:61",
+     "Text",
+     "Momento",
+     [
+      12,
+      32,
+      334,
+      30
+     ],
+     {
+      "f": [
+       "#6c6f75"
+      ],
+      "tx": "Losa recibida, acero y previstas de muro colocados, antes de parar el primer panel.",
+      "ft": "Regular 12.5"
+     }
+    ]
+   ]
+  ],
+  [
+   "4:62",
+   "Comp",
+   "Grupo",
+   [
+    0,
+    932,
+    358,
+    28
+   ],
+   {
+    "f": [
+     "lg(#f0f0f2,#d9dadd)"
+    ],
+    "al": "H 0 12 6 12 6"
+   },
+   [
+    [
+     "4:63",
+     "Text",
+     "Etiqueta",
+     [
+      12,
+      6,
+      52,
+      16
+     ],
+     {
+      "f": [
+       "#5f6268"
+      ],
+      "tx": "Paneles",
+      "ft": "Bold 13"
+     }
+    ]
+   ]
+  ],
+  [
+   "4:64",
+   "Comp",
+   "Clave",
+   [
+    0,
+    1000,
+    358,
+    160
+   ],
+   {
+    "f": [
+     "$panel-open"
+    ],
+    "al": "V 4 12 8 12 8"
+   },
+   [
+    [
+     "4:65",
+     "Text",
+     "Título",
+     [
+      12,
+      8,
+      119,
+      13
+     ],
+     {
+      "f": [
+       "$ink-faint"
+      ],
+      "tx": "CLAVE · EVIDENCIA",
+      "ft": "Bold 11"
+     }
+    ],
+    [
+     "4:66",
+     "Fram",
+     "Fila 1",
+     [
+      12,
+      25,
+      334,
+      32
+     ],
+     {
+      "al": "H 16 0 6 0 6"
+     },
+     [
+      [
+       "4:67",
+       "Text",
+       "Clave 1",
+       [
+        0,
+        6,
+        72,
+        18
+       ],
+       {
+        "f": [
+         "$ink-faint"
+        ],
+        "tx": "Amarillo",
+        "ft": "Regular 13"
+       }
+      ],
+      [
+       "4:68",
+       "Text",
+       "Valor 1",
+       [
+        88,
+        6,
+        246,
+        20
+       ],
+       {
+        "f": [
+         "$ink"
+        ],
+        "tx": "pasa con nota y foto, no bloquea",
+        "ft": "Bold 14"
+       }
+      ]
+     ]
+    ],
+    [
+     "4:69",
+     "Fram",
+     "Fila 2",
+     [
+      12,
+      61,
+      334,
+      33
+     ],
+     {
+      "al": "H 16 0 6 0 6"
+     },
+     [
+      [
+       "4:70",
+       "Text",
+       "Clave 2",
+       [
+        0,
+        7,
+        72,
+        18
+       ],
+       {
+        "f": [
+         "$ink-faint"
+        ],
+        "tx": "Rojo",
+        "ft": "Regular 13"
+       }
+      ],
+      [
+       "4:71",
+       "Text",
+       "Valor 2",
+       [
+        88,
+        7,
+        246,
+        20
+       ],
+       {
+        "f": [
+         "$ink"
+        ],
+        "tx": "nota y foto; bloquea cerrar la ficha",
+        "ft": "Bold 14"
+       }
+      ]
+     ]
+    ],
+    [
+     "4:72",
+     "Fram",
+     "Fila 3",
+     [
+      12,
+      98,
+      334,
+      53
+     ],
+     {
+      "al": "H 16 0 6 0 6"
+     },
+     [
+      [
+       "4:73",
+       "Text",
+       "Clave 3",
+       [
+        0,
+        7,
+        72,
+        18
+       ],
+       {
+        "f": [
+         "$ink-faint"
+        ],
+        "tx": "Control",
+        "ft": "Regular 13"
+       }
+      ],
+      [
+       "4:74",
+       "Text",
+       "Valor 3",
+       [
+        88,
+        7,
+        246,
+        40
+       ],
+       {
+        "f": [
+         "$ink"
+        ],
+        "tx": "2 puntos al azar, ±3 mm contra el registro",
+        "ft": "Bold 14"
+       }
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "4:81",
+   "Comp",
+   "Filtro",
+   [
+    0,
+    1200,
+    192,
+    52
+   ],
+   {
+    "r": 5,
+    "al": "H 8 8 8 8 8"
+   },
+   [
+    [
+     "4:75",
+     "Comp",
+     "Estado=Normal",
+     [
+      8,
+      8,
+      84,
+      36
+     ],
+     {
+      "f": [
+       "lg(#fbfbfc,#e4e5e7)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key",
+      "al": "H 4 4 0 4 0"
+     },
+     [
+      [
+       "4:76",
+       "Text",
+       "Etiqueta",
+       [
+        12,
+        10,
+        40,
+        17
+       ],
+       {
+        "f": [
+         "$ink"
+        ],
+        "tx": "Todas",
+        "ft": "Regular 14"
+       }
+      ],
+      [
+       "4:77",
+       "Text",
+       "Conteo",
+       [
+        56,
+        11,
+        16,
+        14
+       ],
+       {
+        "f": [
+         "$ink-faint"
+        ],
+        "tx": "64",
+        "ft": "Regular 12"
+       }
+      ]
+     ]
+    ],
+    [
+     "4:78",
+     "Comp",
+     "Estado=Activo",
+     [
+      100,
+      8,
+      84,
+      36
+     ],
+     {
+      "f": [
+       "lg(#6ba2e6,#4f8ad9,#3c73c6)"
+      ],
+      "r": 4,
+      "fx": "Leia/Key lit",
+      "al": "H 4 4 0 4 0"
+     },
+     [
+      [
+       "4:79",
+       "Text",
+       "Etiqueta",
+       [
+        12,
+        10,
+        40,
+        17
+       ],
+       {
+        "f": [
+         "$white"
+        ],
+        "tx": "Todas",
+        "ft": "Regular 14"
+       }
+      ],
+      [
+       "4:80",
+       "Text",
+       "Conteo",
+       [
+        56,
+        11,
+        16,
+        14
+       ],
+       {
+        "f": [
+         "$brand-2"
+        ],
+        "tx": "64",
+        "ft": "Regular 12"
+       }
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "4:82",
+   "Comp",
+   "Sugerencia",
+   [
+    0,
+    1292,
+    63,
+    32
+   ],
+   {
+    "f": [
+     "lg(#fbfbfc,#e4e5e7)"
+    ],
+    "r": 4,
+    "fx": "Leia/Key",
+    "al": "H 0 10 0 10 0"
+   },
+   [
+    [
+     "4:83",
+     "Text",
+     "Palabra",
+     [
+      11,
+      8,
+      41,
+      17
+     ],
+     {
+      "f": [
+       "$ink"
+      ],
+      "tx": "plomo",
+      "ft": "Regular 14"
+     }
+    ]
+   ]
+  ],
+  [
+   "4:140",
+   "Comp",
+   "Barra superior",
+   [
+    480,
+    640,
+    390,
+    143
+   ],
+   {
+    "al": "V 0 0 0 0 0"
+   },
+   [
+    [
+     "4:141",
+     "Fram",
+     "Toolbar",
+     [
+      0,
+      0,
+      390,
+      97
+     ],
+     {
+      "f": [
+       "lg(#f6f6f7,#e6e7e9,#cdcfd3)"
+      ],
+      "al": "H 0 12 0 12 0"
+     },
+     [
+      [
+       "4:142",
+       "Fram",
+       "Marca",
+       [
+        12,
+        47,
+        102,
+        50
+       ],
+       {
+        "al": "H 4 0 0 12 0"
+       },
+       [
+        [
+         "4:143",
+         "Text",
+         "AD",
+         [
+          0,
+          16,
+          23,
+          18
+         ],
+         {
+          "f": [
+           "#4d5056"
+          ],
+          "tx": "AD",
+          "ft": "Bold 15"
+         }
+        ],
+        [
+         "4:144",
+         "Text",
+         "Puncheo",
+         [
+          27,
+          16,
+          62,
+          18
+         ],
+         {
+          "f": [
+           "#4d5056"
+          ],
+          "tx": "Puncheo",
+          "ft": "Regular 15"
+         }
+        ]
+       ]
+      ],
+      [
+       "4:145",
+       "Fram",
+       "Centro",
+       [
+        114,
+        47,
+        178,
+        50
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "4:146",
+         "Fram",
+         "Variante",
+         [
+          39,
+          10,
+          100,
+          30
+         ],
+         {
+          "f": [
+           "lg(#e3e4e7,#f3f3f4)"
+          ],
+          "r": 15,
+          "al": "H 2 2 2 2 2"
+         },
+         [
+          [
+           "4:147",
+           "Fram",
+           "A",
+           [
+            3,
+            3,
+            30,
+            24
+           ],
+           {
+            "r": 12,
+            "al": "H 0 0 0 0 0"
+           },
+           [
+            [
+             "4:148",
+             "Text",
+             "A",
+             [
+              11,
+              5,
+              9,
+              14
+             ],
+             {
+              "f": [
+               "#8a8d93"
+              ],
+              "tx": "A",
+              "ft": "Bold 12"
+             }
+            ]
+           ]
+          ],
+          [
+           "4:149",
+           "Fram",
+           "B",
+           [
+            35,
+            3,
+            30,
+            24
+           ],
+           {
+            "f": [
+             "lg(#fbfbfc,#e4e5e7)"
+            ],
+            "r": 12,
+            "fx": "Leia/Key",
+            "al": "H 0 0 0 0 0"
+           },
+           [
+            [
+             "4:150",
+             "Text",
+             "B",
+             [
+              11,
+              5,
+              9,
+              14
+             ],
+             {
+              "f": [
+               "#3d4045"
+              ],
+              "tx": "B",
+              "ft": "Bold 12"
+             }
+            ]
+           ]
+          ],
+          [
+           "4:151",
+           "Fram",
+           "C",
+           [
+            67,
+            3,
+            30,
+            24
+           ],
+           {
+            "r": 12,
+            "al": "H 0 0 0 0 0"
+           },
+           [
+            [
+             "4:152",
+             "Text",
+             "C",
+             [
+              11,
+              5,
+              9,
+              14
+             ],
+             {
+              "f": [
+               "#8a8d93"
+              ],
+              "tx": "C",
+              "ft": "Bold 12"
+             }
+            ]
+           ]
+          ]
+         ]
+        ]
+       ]
+      ],
+      [
+       "4:153",
+       "Fram",
+       "·",
+       [
+        292,
+        47,
+        86,
+        50
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       }
+      ],
+      [
+       "4:154",
+       "Text",
+       "Hora",
+       [
+        32,
+        14,
+        37,
+        20
+       ],
+       {
+        "f": [
+         "#191c22"
+        ],
+        "tx": "9:41",
+        "ft": "Semibold 17"
+       }
+      ]
+     ]
+    ],
+    [
+     "4:155",
+     "Fram",
+     "Cuartos",
+     [
+      0,
+      97,
+      390,
+      46
+     ],
+     {
+      "f": [
+       "lg(#f1f1f2,#dedfe1)"
+      ],
+      "al": "H 0 0 0 0 0"
+     },
+     [
+      [
+       "4:156",
+       "Inst",
+       "Tab de cuarto",
+       [
+        0,
+        0,
+        65,
+        46
+       ],
+       {
+        "f": [
+         "lg(#6ba2e6,#4f8ad9,#3c73c6)"
+        ],
+        "al": "V 0 0 0 0 0",
+        "mc": "Tab de cuarto/Estado=Activo",
+        "p": {
+         "Conteo": "0/6",
+         "Nombre": "Casa",
+         "Estado": "Activo"
+        }
+       }
+      ],
+      [
+       "4:159",
+       "Inst",
+       "Tab de cuarto",
+       [
+        65,
+        0,
+        65,
+        46
+       ],
+       {
+        "al": "V 0 0 0 0 0",
+        "mc": "Tab de cuarto/Estado=Normal",
+        "p": {
+         "Conteo": "0/18",
+         "Nombre": "Sala",
+         "Estado": "Normal"
+        }
+       }
+      ],
+      [
+       "4:162",
+       "Inst",
+       "Tab de cuarto",
+       [
+        130,
+        0,
+        65,
+        46
+       ],
+       {
+        "al": "V 0 0 0 0 0",
+        "mc": "Tab de cuarto/Estado=Normal",
+        "p": {
+         "Conteo": "0/18",
+         "Nombre": "Cuartos",
+         "Estado": "Normal"
+        }
+       }
+      ],
+      [
+       "4:165",
+       "Inst",
+       "Tab de cuarto",
+       [
+        195,
+        0,
+        65,
+        46
+       ],
+       {
+        "al": "V 0 0 0 0 0",
+        "mc": "Tab de cuarto/Estado=Normal",
+        "p": {
+         "Conteo": "0/18",
+         "Nombre": "Baños",
+         "Estado": "Normal"
+        }
+       }
+      ],
+      [
+       "4:168",
+       "Inst",
+       "Tab de cuarto",
+       [
+        260,
+        0,
+        65,
+        46
+       ],
+       {
+        "al": "V 0 0 0 0 0",
+        "mc": "Tab de cuarto/Estado=Normal",
+        "p": {
+         "Conteo": "0/2",
+         "Nombre": "Techos",
+         "Estado": "Normal"
+        }
+       }
+      ],
+      [
+       "4:171",
+       "Inst",
+       "Tab de cuarto",
+       [
+        325,
+        0,
+        65,
+        46
+       ],
+       {
+        "al": "V 0 0 0 0 0",
+        "mc": "Tab de cuarto/Estado=Normal",
+        "p": {
+         "Conteo": "0/2",
+         "Nombre": "Cierre",
+         "Estado": "Normal"
+        }
+       }
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "4:174",
+   "Comp",
+   "Panel ficha",
+   [
+    900,
+    640,
+    358,
+    117
+   ],
+   {
+    "f": [
+     "$panel"
+    ],
+    "r": 6,
+    "fx": "Leia/Panel",
+    "al": "V 0 0 0 0 0"
+   },
+   [
+    [
+     "4:175",
+     "Fram",
+     "Banda",
+     [
+      0,
+      0,
+      358,
+      44
+     ],
+     {
+      "f": [
+       "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+      ],
+      "fx": "Leia/Band",
+      "al": "H 0 16 0 16 0"
+     },
+     [
+      [
+       "4:176",
+       "Text",
+       "Formaleta N1",
+       [
+        16,
+        12,
+        165,
+        21
+       ],
+       {
+        "f": [
+         "$white"
+        ],
+        "tx": "Formaleta N1",
+        "ft": "Regular 18"
+       }
+      ],
+      [
+       "4:177",
+       "Text",
+       "Pre-armado y pre-chorrea",
+       [
+        181,
+        14,
+        161,
+        16
+       ],
+       {
+        "f": [
+         "$brand-2"
+        ],
+        "tx": "Pre-armado y pre-chorrea",
+        "ft": "Regular 13"
+       }
+      ]
+     ]
+    ],
+    [
+     "4:178",
+     "Fram",
+     "Recibo",
+     [
+      0,
+      44,
+      358,
+      73
+     ],
+     {
+      "al": "H 16 16 14 16 14"
+     },
+     [
+      [
+       "4:179",
+       "Text",
+       "N1",
+       [
+        16,
+        14,
+        40,
+        45
+       ],
+       {
+        "f": [
+         "$brand"
+        ],
+        "tx": "N1",
+        "ft": "Thin 38"
+       }
+      ],
+      [
+       "4:180",
+       "Fram",
+       "Texto",
+       [
+        72,
+        17,
+        200,
+        39
+       ],
+       {
+        "al": "V 2 0 0 0 0"
+       },
+       [
+        [
+         "4:181",
+         "Text",
+         "Estado",
+         [
+          0,
+          0,
+          137,
+          21
+         ],
+         {
+          "f": [
+           "$ink"
+          ],
+          "tx": "Ficha completa",
+          "ft": "Bold 18"
+         }
+        ],
+        [
+         "4:182",
+         "Text",
+         "Aluminio Precise Forms · muros sobre losa flotante",
+         [
+          0,
+          23,
+          200,
+          16
+         ],
+         {
+          "f": [
+           "$ink-faint"
+          ],
+          "tx": "Aluminio Precise Forms · muros sobre losa flotante",
+          "ft": "Regular 13"
+         }
+        ]
+       ]
+      ],
+      [
+       "4:183",
+       "Text",
+       "Total",
+       [
+        288,
+        26,
+        54,
+        21
+       ],
+       {
+        "tx": "00/64",
+        "ft": "mixed"
+       }
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "4:184",
+   "Comp",
+   "Leyenda de gestos",
+   [
+    900,
+    800,
+    358,
+    15
+   ],
+   {
+    "al": "H 0 4 0 4 0"
+   },
+   [
+    [
+     "4:185",
+     "Fram",
+     "Frame",
+     [
+      4,
+      0,
+      130,
+      15
+     ],
+     {
+      "al": "H 12 0 0 0 0"
+     },
+     [
+      [
+       "4:187",
+       "Fram",
+       "Frame",
+       [
+        0,
+        0,
+        46,
+        15
+       ],
+       {
+        "al": "H 6 0 0 0 0"
+       },
+       [
+        [
+         "4:188",
+         "Text",
+         "«",
+         [
+          0,
+          0,
+          7,
+          15
+         ],
+         {
+          "f": [
+           "#d0d3d8"
+          ],
+          "tx": "«",
+          "ft": "Medium 11"
+         }
+        ],
+        [
+         "4:189",
+         "Rect",
+         "Rectangle",
+         [
+          13,
+          4,
+          8,
+          8
+         ],
+         {
+          "f": [
+           "$na"
+          ],
+          "r": 3
+         }
+        ],
+        [
+         "4:190",
+         "Text",
+         "N/A",
+         [
+          27,
+          1,
+          19,
+          13
+         ],
+         {
+          "f": [
+           "#e6e6e8"
+          ],
+          "tx": "N/A",
+          "ft": "Medium 9.5"
+         }
+        ]
+       ]
+      ],
+      [
+       "4:191",
+       "Fram",
+       "Frame",
+       [
+        58,
+        0,
+        72,
+        15
+       ],
+       {
+        "al": "H 6 0 0 0 0"
+       },
+       [
+        [
+         "4:192",
+         "Text",
+         "‹",
+         [
+          0,
+          0,
+          7,
+          15
+         ],
+         {
+          "f": [
+           "#d0d3d8"
+          ],
+          "tx": "‹",
+          "ft": "Medium 11"
+         }
+        ],
+        [
+         "4:193",
+         "Rect",
+         "Rectangle",
+         [
+          13,
+          4,
+          8,
+          8
+         ],
+         {
+          "f": [
+           "$bad"
+          ],
+          "r": 3
+         }
+        ],
+        [
+         "4:194",
+         "Text",
+         "NO PASA",
+         [
+          27,
+          1,
+          45,
+          13
+         ],
+         {
+          "f": [
+           "#e6e6e8"
+          ],
+          "tx": "NO PASA",
+          "ft": "Medium 9.5"
+         }
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "4:186",
+     "Fram",
+     "Frame",
+     [
+      236,
+      0,
+      118,
+      15
+     ],
+     {
+      "al": "H 12 0 0 0 0"
+     },
+     [
+      [
+       "4:195",
+       "Fram",
+       "Frame",
+       [
+        0,
+        0,
+        53,
+        15
+       ],
+       {
+        "al": "H 6 0 0 0 0"
+       },
+       [
+        [
+         "4:198",
+         "Text",
+         "PASA",
+         [
+          0,
+          1,
+          26,
+          13
+         ],
+         {
+          "f": [
+           "#e6e6e8"
+          ],
+          "tx": "PASA",
+          "ft": "Medium 9.5"
+         }
+        ],
+        [
+         "4:197",
+         "Rect",
+         "Rectangle",
+         [
+          32,
+          4,
+          8,
+          8
+         ],
+         {
+          "f": [
+           "$ok"
+          ],
+          "r": 3
+         }
+        ],
+        [
+         "4:196",
+         "Text",
+         "›",
+         [
+          46,
+          0,
+          7,
+          15
+         ],
+         {
+          "f": [
+           "#d0d3d8"
+          ],
+          "tx": "›",
+          "ft": "Medium 11"
+         }
+        ]
+       ]
+      ],
+      [
+       "4:199",
+       "Fram",
+       "Frame",
+       [
+        65,
+        0,
+        53,
+        15
+       ],
+       {
+        "al": "H 6 0 0 0 0"
+       },
+       [
+        [
+         "4:202",
+         "Text",
+         "OBS.",
+         [
+          0,
+          1,
+          26,
+          13
+         ],
+         {
+          "f": [
+           "#e6e6e8"
+          ],
+          "tx": "OBS.",
+          "ft": "Medium 9.5"
+         }
+        ],
+        [
+         "4:201",
+         "Rect",
+         "Rectangle",
+         [
+          32,
+          4,
+          8,
+          8
+         ],
+         {
+          "f": [
+           "$warn"
+          ],
+          "r": 3
+         }
+        ],
+        [
+         "4:200",
+         "Text",
+         "»",
+         [
+          46,
+          0,
+          7,
+          15
+         ],
+         {
+          "f": [
+           "#d0d3d8"
+          ],
+          "tx": "»",
+          "ft": "Medium 11"
+         }
+        ]
+       ]
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "4:203",
+   "Comp",
+   "Barra inferior",
+   [
+    1300,
+    640,
+    390,
+    94
+   ],
+   {
+    "f": [
+     "lg(#50555d,#3b3f46,#30343a)"
+    ],
+    "al": "V 0 0 0 0 34"
+   },
+   [
+    [
+     "4:204",
+     "Fram",
+     "Fila",
+     [
+      0,
+      0,
+      390,
+      60
+     ],
+     {
+      "al": "H 8 12 0 12 0"
+     },
+     [
+      [
+       "4:205",
+       "Inst",
+       "Buscar",
+       [
+        12,
+        8,
+        44,
+        44
+       ],
+       {
+        "f": [
+         "lg(#7a7d84,#5b5e64,#4b4e54)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key lit",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Charcoal",
+        "p": {
+         "Style": "Charcoal"
+        },
+        "nest": [
+         "icon/lens"
+        ]
+       }
+      ],
+      [
+       "4:209",
+       "Fram",
+       "Cerrar ficha",
+       [
+        64,
+        8,
+        314,
+        44
+       ],
+       {
+        "f": [
+         "lg(#62676f,#4e535a)"
+        ],
+        "r": 6,
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "4:210",
+         "Text",
+         "Acción",
+         [
+          104,
+          12,
+          106,
+          21
+         ],
+         {
+          "f": [
+           "#c9cbcf"
+          ],
+          "tx": "CERRAR FICHA",
+          "ft": "Condensed Bold 18"
+         }
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "4:211",
+     "Rect",
+     "Indicador",
+     [
+      128,
+      81,
+      134,
+      5
+     ],
+     {
+      "f": [
+       "#ffffff"
+      ],
+      "r": 3
+     }
+    ]
+   ]
+  ],
+  [
+   "4:212",
+   "Fram",
+   "Puncheo · Ficha (Casa)",
+   [
+    1800,
+    0,
+    390,
+    844
+   ],
+   {
+    "f": [
+     "$slate"
+    ]
+   },
+   [
+    [
+     "4:213",
+     "Fram",
+     "Contenido",
+     [
+      0,
+      143,
+      390,
+      1591
+     ],
+     {
+      "al": "V 20 16 16 16 120"
+     },
+     [
+      [
+       "4:214",
+       "Inst",
+       "Panel ficha",
+       [
+        16,
+        16,
+        358,
+        117
+       ],
+       {
+        "f": [
+         "$panel"
+        ],
+        "r": 6,
+        "fx": "Leia/Panel",
+        "al": "V 0 0 0 0 0",
+        "mc": "Panel ficha",
+        "p": {
+         "Estado": "Ficha completa"
+        },
+        "txs": [
+         "Formaleta N1",
+         "Pre-armado y pre-chorrea",
+         "N1",
+         "Aluminio Precise Forms · muros sobre losa flotante",
+         "00/64"
+        ]
+       }
+      ],
+      [
+       "4:224",
+       "Inst",
+       "Leyenda de gestos",
+       [
+        16,
+        153,
+        358,
+        15
+       ],
+       {
+        "al": "H 0 4 0 4 0",
+        "mc": "Leyenda de gestos",
+        "txs": [
+         "«",
+         "N/A",
+         "‹",
+         "NO PASA",
+         "PASA",
+         "›",
+         "OBS.",
+         "»"
+        ]
+       }
+      ],
+      [
+       "4:243",
+       "Fram",
+       "Cuarto · Casa",
+       [
+        16,
+        188,
+        358,
+        855
+       ],
+       {
+        "f": [
+         "$panel"
+        ],
+        "r": 6,
+        "fx": "Leia/Panel",
+        "al": "V 0 0 0 0 0"
+       },
+       [
+        [
+         "4:244",
+         "Inst",
+         "Banda de cuarto",
+         [
+          0,
+          0,
+          358,
+          54
+         ],
+         {
+          "f": [
+           "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+          ],
+          "fx": "Leia/Band",
+          "al": "H 12 12 0 12 0",
+          "mc": "Banda de cuarto",
+          "p": {
+           "Conteo": "03/6",
+           "Nota": "Losa, perímetro y paneles",
+           "Nombre": "Casa",
+           "Índice": "1/6"
+          }
+         }
+        ],
+        [
+         "4:251",
+         "Inst",
+         "Fase",
+         [
+          0,
+          54,
+          358,
+          72
+         ],
+         {
+          "f": [
+           "lg(#f0f0f2,#d9dadd)"
+          ],
+          "al": "V 2 12 10 12 10",
+          "mc": "Fase",
+          "p": {
+           "Momento": "Losa recibida, acero y previstas de muro colocados, antes de parar el primer panel.",
+           "Nombre": "Pre-armado"
+          }
+         }
+        ],
+        [
+         "4:254",
+         "Inst",
+         "Clave",
+         [
+          0,
+          126,
+          358,
+          160
+         ],
+         {
+          "f": [
+           "$panel-open"
+          ],
+          "al": "V 4 12 8 12 8",
+          "mc": "Clave",
+          "p": {
+           "Fila 3": true,
+           "Valor 3": "2 puntos al azar, ±3 mm contra el registro",
+           "Clave 2": "Rojo",
+           "Valor 1": "pasa con nota y foto, no bloquea",
+           "Clave 3": "Control",
+           "Clave 1": "Amarillo",
+           "Valor 2": "nota y foto; bloquea cerrar la ficha",
+           "Título": "CLAVE · EVIDENCIA"
+          }
+         }
+        ],
+        [
+         "4:265",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          286,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel",
+           "#95c955@0.2"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pasa",
+          "p": {
+           "Subtítulo": "Revisión conjunta Losa + Muros, 2 puntos al azar",
+           "Título": "Plomos de losa",
+           "Num": "1.1",
+           "Estado": "Pasa"
+          },
+          "nest": [
+           "Style=Light",
+           "icon/camera",
+           "Style=Green",
+           "icon/check"
+          ]
+         }
+        ],
+        [
+         "4:279",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          357,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel",
+           "#95c955@0.2"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pasa",
+          "p": {
+           "Subtítulo": "Perímetro completo, a nivel y en línea",
+           "Título": "Guía de losa",
+           "Num": "1.3",
+           "Estado": "Pasa"
+          },
+          "nest": [
+           "Style=Light",
+           "icon/camera",
+           "Style=Green",
+           "icon/check"
+          ]
+         }
+        ],
+        [
+         "4:293",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          428,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel",
+           "#ffd556@0.24"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Observación",
+          "p": {
+           "Subtítulo": "Cantidad, separación y apriete",
+           "Título": "Prensas en guía de losa",
+           "Num": "1.4",
+           "Estado": "Observación"
+          },
+          "nest": [
+           "Style=Light",
+           "icon/camera",
+           "Style=Yellow",
+           "icon/warn"
+          ]
+         }
+        ],
+        [
+         "4:307",
+         "Inst",
+         "Clave",
+         [
+          0,
+          499,
+          358,
+          143
+         ],
+         {
+          "f": [
+           "$panel-open"
+          ],
+          "al": "V 4 12 8 12 8",
+          "mc": "Clave",
+          "p": {
+           "Valor 3": "2 puntos al azar, ±3 mm contra el registro",
+           "Fila 3": false,
+           "Clave 2": "Concreto",
+           "Valor 1": "máximo 3 mm con regla sobre la cara",
+           "Clave 3": "Control",
+           "Clave 1": "Abolladura",
+           "Valor 2": "en rieles o costra: sale antes de armar",
+           "Título": "CLAVE · PANELES"
+          }
+         }
+        ],
+        [
+         "4:318",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          642,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pendiente",
+          "p": {
+           "Subtítulo": "Caras, rieles y agujeros de pin",
+           "Título": "Estado físico de formaleta",
+           "Num": "1.7",
+           "Estado": "Pendiente"
+          },
+          "nest": [
+           "Style=Light",
+           "icon/camera",
+           "Style=Light",
+           "icon/check"
+          ]
+         }
+        ],
+        [
+         "4:332",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          713,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pendiente",
+          "p": {
+           "Subtítulo": "Concreto adherido: marcar y separar",
+           "Título": "Paneles a limpieza profunda",
+           "Num": "1.8",
+           "Estado": "Pendiente"
+          },
+          "nest": [
+           "Style=Green",
+           "icon/camera",
+           "Style=Light",
+           "icon/check"
+          ]
+         }
+        ],
+        [
+         "4:350",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          784,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel",
+           "#eb5757@0.13"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=No pasa",
+          "p": {
+           "Subtítulo": "Base firme, nivelada y asegurada",
+           "Título": "Nivel de escalera de trabajo",
+           "Num": "1.10",
+           "Estado": "No pasa"
+          },
+          "nest": [
+           "Style=Light",
+           "icon/camera",
+           "Style=Red",
+           "icon/cross"
+          ]
+         }
+        ]
+       ]
+      ],
+      [
+       "4:364",
+       "Fram",
+       "Cuarto · Sala",
+       [
+        16,
+        1063,
+        358,
+        408
+       ],
+       {
+        "f": [
+         "$panel"
+        ],
+        "r": 6,
+        "fx": "Leia/Panel",
+        "al": "V 0 0 0 0 0"
+       },
+       [
+        [
+         "4:365",
+         "Inst",
+         "Banda de cuarto",
+         [
+          0,
+          0,
+          358,
+          54
+         ],
+         {
+          "f": [
+           "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+          ],
+          "fx": "Leia/Band",
+          "al": "H 12 12 0 12 0",
+          "mc": "Banda de cuarto",
+          "p": {
+           "Conteo": "00/18",
+           "Nota": "Sala, comedor y cocina",
+           "Nombre": "Sala",
+           "Índice": "2/6"
+          }
+         }
+        ],
+        [
+         "4:372",
+         "Inst",
+         "Fase",
+         [
+          0,
+          54,
+          358,
+          72
+         ],
+         {
+          "f": [
+           "lg(#f0f0f2,#d9dadd)"
+          ],
+          "al": "V 2 12 10 12 10",
+          "mc": "Fase",
+          "p": {
+           "Momento": "Losa recibida, acero y previstas de muro colocados, antes de parar el primer panel.",
+           "Nombre": "Pre-armado"
+          }
+         }
+        ],
+        [
+         "4:375",
+         "Inst",
+         "Clave",
+         [
+          0,
+          126,
+          358,
+          140
+         ],
+         {
+          "f": [
+           "$panel-open"
+          ],
+          "al": "V 4 12 8 12 8",
+          "mc": "Clave",
+          "p": {
+           "Fila 3": true,
+           "Valor 3": "más de 5 mm",
+           "Clave 2": "Amarillo",
+           "Valor 1": "hasta 3 mm",
+           "Clave 3": "Rojo",
+           "Clave 1": "Verde",
+           "Valor 2": "4 a 5 mm",
+           "Título": "CLAVE · REGLA 3/5"
+          }
+         }
+        ],
+        [
+         "4:386",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          266,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=N/A",
+          "p": {
+           "Subtítulo": "Ejes contra plano, escuadra por diagonales",
+           "Título": "Trazo",
+           "Num": "1.2",
+           "Estado": "N/A"
+          },
+          "nest": [
+           "Style=Light",
+           "icon/camera",
+           "Style=Light"
+          ]
+         }
+        ],
+        [
+         "4:407",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          337,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pendiente",
+          "p": {
+           "Subtítulo": "Arranque de muros completo sobre el trazo",
+           "Título": "Guía de paredes",
+           "Num": "1.5",
+           "Estado": "Pendiente"
+          },
+          "nest": [
+           "Style=Light",
+           "icon/camera",
+           "Style=Light",
+           "icon/check"
+          ]
+         }
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "4:421",
+     "Inst",
+     "Barra superior",
+     [
+      0,
+      0,
+      390,
+      143
+     ],
+     {
+      "al": "V 0 0 0 0 0",
+      "mc": "Barra superior",
+      "txs": [
+       "AD",
+       "Puncheo",
+       "A",
+       "B",
+       "C",
+       "9:41"
+      ]
+     }
+    ],
+    [
+     "4:455",
+     "Inst",
+     "Barra inferior",
+     [
+      0,
+      750,
+      390,
+      94
+     ],
+     {
+      "f": [
+       "lg(#50555d,#3b3f46,#30343a)"
+      ],
+      "al": "V 0 0 0 0 34",
+      "mc": "Barra inferior",
+      "p": {
+       "Acción": "CERRAR FICHA"
+      },
+      "nest": [
+       "Style=Charcoal",
+       "icon/lens"
+      ]
+     }
+    ]
+   ]
+  ],
+  [
+   "4:607",
+   "Comp",
+   "Barra inferior · Búsqueda",
+   [
+    1300,
+    780,
+    390,
+    186
+   ],
+   {
+    "al": "V 0 0 0 0 0"
+   },
+   [
+    [
+     "4:608",
+     "Fram",
+     "Franja",
+     [
+      0,
+      0,
+      390,
+      92
+     ],
+     {
+      "f": [
+       "lg(#f0f0f2,#d9dadd)"
+      ],
+      "al": "V 8 12 8 12 8"
+     },
+     [
+      [
+       "4:609",
+       "Fram",
+       "Sugerencias",
+       [
+        12,
+        8,
+        140,
+        32
+       ],
+       {
+        "al": "H 6 0 0 0 0"
+       },
+       [
+        [
+         "4:610",
+         "Inst",
+         "Sugerencia",
+         [
+          0,
+          0,
+          63,
+          32
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 0 10 0 10 0",
+          "mc": "Sugerencia",
+          "p": {
+           "Palabra": "plomo"
+          }
+         }
+        ],
+        [
+         "4:612",
+         "Inst",
+         "Sugerencia",
+         [
+          69,
+          0,
+          71,
+          32
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 0 10 0 10 0",
+          "mc": "Sugerencia",
+          "p": {
+           "Palabra": "plomos"
+          }
+         }
+        ]
+       ]
+      ],
+      [
+       "4:614",
+       "Fram",
+       "Filtros",
+       [
+        12,
+        48,
+        366,
+        36
+       ],
+       {
+        "al": "H 6 0 0 0 0"
+       },
+       [
+        [
+         "4:615",
+         "Inst",
+         "Filtro",
+         [
+          0,
+          0,
+          86,
+          36
+         ],
+         {
+          "f": [
+           "lg(#6ba2e6,#4f8ad9,#3c73c6)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key lit",
+          "al": "H 4 4 0 4 0",
+          "mc": "Filtro/Estado=Activo",
+          "p": {
+           "Conteo": "64",
+           "Etiqueta": "Todas",
+           "Estado": "Activo"
+          }
+         }
+        ],
+        [
+         "4:618",
+         "Inst",
+         "Filtro",
+         [
+          92,
+          0,
+          88,
+          36
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 4 4 0 4 0",
+          "mc": "Filtro/Estado=Normal",
+          "p": {
+           "Conteo": "0",
+           "Etiqueta": "Pasan",
+           "Estado": "Normal"
+          }
+         }
+        ],
+        [
+         "4:621",
+         "Inst",
+         "Filtro",
+         [
+          185,
+          0,
+          88,
+          36
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 4 4 0 4 0",
+          "mc": "Filtro/Estado=Normal",
+          "p": {
+           "Conteo": "0",
+           "Etiqueta": "Apenas",
+           "Estado": "Normal"
+          }
+         }
+        ],
+        [
+         "4:624",
+         "Inst",
+         "Filtro",
+         [
+          279,
+          0,
+          88,
+          36
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 4 4 0 4 0",
+          "mc": "Filtro/Estado=Normal",
+          "p": {
+           "Conteo": "0",
+           "Etiqueta": "No pasan",
+           "Estado": "Normal"
+          }
+         }
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "4:627",
+     "Fram",
+     "Barra",
+     [
+      0,
+      92,
+      390,
+      94
+     ],
+     {
+      "f": [
+       "lg(#50555d,#3b3f46,#30343a)"
+      ],
+      "al": "V 0 0 0 0 34"
+     },
+     [
+      [
+       "4:628",
+       "Fram",
+       "Fila",
+       [
+        0,
+        0,
+        390,
+        60
+       ],
+       {
+        "al": "H 8 12 0 12 0"
+       },
+       [
+        [
+         "4:629",
+         "Inst",
+         "Cerrar búsqueda",
+         [
+          12,
+          8,
+          44,
+          44
+         ],
+         {
+          "f": [
+           "lg(#7a7d84,#5b5e64,#4b4e54)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key lit",
+          "al": "H 0 0 0 0 0",
+          "mc": "Key/Style=Charcoal",
+          "p": {
+           "Style": "Charcoal"
+          },
+          "nest": [
+           "icon/cross"
+          ]
+         }
+        ],
+        [
+         "4:634",
+         "Fram",
+         "Campo",
+         [
+          64,
+          8,
+          314,
+          44
+         ],
+         {
+          "f": [
+           "lg(#1f2125,#2b2e33,#30333a)"
+          ],
+          "r": 6,
+          "fx": "Leia/Well dark",
+          "al": "H 0 0 0 12 0"
+         },
+         [
+          [
+           "4:635",
+           "Fram",
+           "Lupa",
+           [
+            1,
+            0,
+            36,
+            44
+           ],
+           {
+            "al": "H 0 0 0 0 0"
+           },
+           [
+            [
+             "4:636",
+             "Inst",
+             "icon/lens",
+             [
+              11,
+              15,
+              15,
+              15
+             ],
+             {
+              "mc": "icon/lens"
+             }
+            ]
+           ]
+          ],
+          [
+           "4:639",
+           "Text",
+           "Consulta",
+           [
+            37,
+            13,
+            264,
+            19
+           ],
+           {
+            "f": [
+             "$white"
+            ],
+            "tx": "plom",
+            "ft": "Regular 16"
+           }
+          ]
+         ]
+        ]
+       ]
+      ],
+      [
+       "4:640",
+       "Rect",
+       "Indicador",
+       [
+        128,
+        81,
+        134,
+        5
+       ],
+       {
+        "f": [
+         "#ffffff"
+        ],
+        "r": 3
+       }
+      ]
+     ]
+    ]
+   ]
+  ],
+  [
+   "4:641",
+   "Fram",
+   "Puncheo · Búsqueda",
+   [
+    2240,
+    0,
+    390,
+    844
+   ],
+   {
+    "f": [
+     "$slate"
+    ]
+   },
+   [
+    [
+     "4:642",
+     "Fram",
+     "Resultados",
+     [
+      0,
+      143,
+      390,
+      494
+     ],
+     {
+      "al": "V 16 16 16 16 0"
+     },
+     [
+      [
+       "4:643",
+       "Fram",
+       "Grupo · Casa",
+       [
+        16,
+        16,
+        358,
+        125
+       ],
+       {
+        "f": [
+         "$panel"
+        ],
+        "r": 6,
+        "fx": "Leia/Panel",
+        "al": "V 0 0 0 0 0"
+       },
+       [
+        [
+         "4:644",
+         "Inst",
+         "Banda de cuarto",
+         [
+          0,
+          0,
+          358,
+          54
+         ],
+         {
+          "f": [
+           "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+          ],
+          "fx": "Leia/Band",
+          "al": "H 12 12 0 12 0",
+          "mc": "Banda de cuarto",
+          "p": {
+           "Conteo": "1",
+           "Nota": "Losa, perímetro y paneles",
+           "Nombre": "Casa",
+           "Índice": "1/6"
+          }
+         }
+        ],
+        [
+         "4:651",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          54,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pendiente",
+          "p": {
+           "Subtítulo": "Revisión conjunta Losa + Muros, 2 puntos al azar",
+           "Título": "Plomos de losa",
+           "Num": "1.1",
+           "Estado": "Pendiente"
+          },
+          "nest": [
+           "Style=Green",
+           "icon/camera",
+           "Style=Light",
+           "icon/check"
+          ]
+         }
+        ]
+       ]
+      ],
+      [
+       "4:669",
+       "Fram",
+       "Grupo · Sala",
+       [
+        16,
+        157,
+        358,
+        196
+       ],
+       {
+        "f": [
+         "$panel"
+        ],
+        "r": 6,
+        "fx": "Leia/Panel",
+        "al": "V 0 0 0 0 0"
+       },
+       [
+        [
+         "4:670",
+         "Inst",
+         "Banda de cuarto",
+         [
+          0,
+          0,
+          358,
+          54
+         ],
+         {
+          "f": [
+           "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+          ],
+          "fx": "Leia/Band",
+          "al": "H 12 12 0 12 0",
+          "mc": "Banda de cuarto",
+          "p": {
+           "Conteo": "2",
+           "Nota": "Sala, comedor y cocina",
+           "Nombre": "Sala",
+           "Índice": "2/6"
+          }
+         }
+        ],
+        [
+         "4:677",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          54,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pendiente",
+          "p": {
+           "Subtítulo": "Cada esquina en dos direcciones",
+           "Título": "Plomo de esquinas",
+           "Num": "2.6",
+           "Estado": "Pendiente"
+          },
+          "nest": [
+           "Style=Green",
+           "icon/camera",
+           "Style=Light",
+           "icon/check"
+          ]
+         }
+        ],
+        [
+         "4:695",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          125,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pendiente",
+          "p": {
+           "Subtítulo": "Extremos y centro de muros > 1,5 m",
+           "Título": "Plomo de paños",
+           "Num": "2.7",
+           "Estado": "Pendiente"
+          },
+          "nest": [
+           "Style=Green",
+           "icon/camera",
+           "Style=Light",
+           "icon/check"
+          ]
+         }
+        ]
+       ]
+      ],
+      [
+       "4:713",
+       "Fram",
+       "Grupo · Cierre",
+       [
+        16,
+        369,
+        358,
+        125
+       ],
+       {
+        "f": [
+         "$panel"
+        ],
+        "r": 6,
+        "fx": "Leia/Panel",
+        "al": "V 0 0 0 0 0"
+       },
+       [
+        [
+         "4:714",
+         "Inst",
+         "Banda de cuarto",
+         [
+          0,
+          0,
+          358,
+          54
+         ],
+         {
+          "f": [
+           "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+          ],
+          "fx": "Leia/Band",
+          "al": "H 12 12 0 12 0",
+          "mc": "Banda de cuarto",
+          "p": {
+           "Conteo": "1",
+           "Nota": "Toda la casa, antes de chorrear",
+           "Nombre": "Cierre",
+           "Índice": "6/6"
+          }
+         }
+        ],
+        [
+         "4:721",
+         "Inst",
+         "Fila de check",
+         [
+          0,
+          54,
+          358,
+          71
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "al": "H 10 12 12 12 12",
+          "mc": "Fila de check/Estado=Pendiente",
+          "p": {
+           "Subtítulo": "Segundo plomo antes de chorrear",
+           "Título": "Replomo final",
+           "Num": "2.16",
+           "Estado": "Pendiente"
+          },
+          "nest": [
+           "Style=Green",
+           "icon/camera",
+           "Style=Light",
+           "icon/check"
+          ]
+         }
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "4:739",
+     "Inst",
+     "Barra superior",
+     [
+      0,
+      0,
+      390,
+      143
+     ],
+     {
+      "al": "V 0 0 0 0 0",
+      "mc": "Barra superior",
+      "txs": [
+       "AD",
+       "Puncheo",
+       "A",
+       "B",
+       "C",
+       "9:41"
+      ]
+     }
+    ],
+    [
+     "4:773",
+     "Inst",
+     "Barra inferior · Búsqueda",
+     [
+      0,
+      658,
+      390,
+      186
+     ],
+     {
+      "al": "V 0 0 0 0 0",
+      "mc": "Barra inferior · Búsqueda",
+      "p": {
+       "Sugerencias": true,
+       "Consulta": "plom"
+      },
+      "nest": [
+       "Style=Charcoal",
+       "icon/cross",
+       "icon/lens"
+      ]
+     }
+    ]
+   ]
+  ],
+  [
+   "5:487",
+   "Comp",
+   "Visor · franja",
+   [
+    1300,
+    1020,
+    390,
+    154
+   ],
+   {
+    "f": [
+     "lg(#f0f0f2,#d9dadd)"
+    ],
+    "al": "V 0 0 0 0 34"
+   },
+   [
+    [
+     "5:488",
+     "Fram",
+     "Marcador",
+     [
+      0,
+      0,
+      390,
+      56
+     ],
+     {
+      "al": "H 6 12 0 12 0"
+     },
+     [
+      [
+       "5:489",
+       "Fram",
+       "Color Amarillo",
+       [
+        12,
+        10,
+        36,
+        36
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "5:490",
+         "Inst",
+         "Key",
+         [
+          0,
+          0,
+          36,
+          36
+         ],
+         {
+          "f": [
+           "lg(#d3d5d9,#e6e7e9)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key pressed",
+          "al": "H 0 0 0 0 0",
+          "mc": "Key/Style=Pressed",
+          "p": {
+           "Style": "Pressed"
+          }
+         }
+        ],
+        [
+         "5:494",
+         "Rect",
+         "Muestra",
+         [
+          8,
+          8,
+          20,
+          20
+         ],
+         {
+          "f": [
+           "#ffd23f"
+          ],
+          "r": 2
+         }
+        ]
+       ]
+      ],
+      [
+       "5:495",
+       "Fram",
+       "Color Rojo",
+       [
+        54,
+        10,
+        36,
+        36
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "5:496",
+         "Inst",
+         "Key",
+         [
+          0,
+          0,
+          36,
+          36
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 0 0 0 0 0",
+          "mc": "Key/Style=Light",
+          "p": {
+           "Style": "Light"
+          }
+         }
+        ],
+        [
+         "5:500",
+         "Rect",
+         "Muestra",
+         [
+          8,
+          8,
+          20,
+          20
+         ],
+         {
+          "f": [
+           "#eb3b3b"
+          ],
+          "r": 2
+         }
+        ]
+       ]
+      ],
+      [
+       "5:501",
+       "Fram",
+       "Color Blanco",
+       [
+        96,
+        10,
+        36,
+        36
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "5:502",
+         "Inst",
+         "Key",
+         [
+          0,
+          0,
+          36,
+          36
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 0 0 0 0 0",
+          "mc": "Key/Style=Light",
+          "p": {
+           "Style": "Light"
+          }
+         }
+        ],
+        [
+         "5:506",
+         "Rect",
+         "Muestra",
+         [
+          8,
+          8,
+          20,
+          20
+         ],
+         {
+          "f": [
+           "#ffffff"
+          ],
+          "r": 2
+         }
+        ]
+       ]
+      ],
+      [
+       "5:507",
+       "Fram",
+       "Color Negro",
+       [
+        138,
+        10,
+        36,
+        36
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "5:508",
+         "Inst",
+         "Key",
+         [
+          0,
+          0,
+          36,
+          36
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 0 0 0 0 0",
+          "mc": "Key/Style=Light",
+          "p": {
+           "Style": "Light"
+          }
+         }
+        ],
+        [
+         "5:512",
+         "Rect",
+         "Muestra",
+         [
+          8,
+          8,
+          20,
+          20
+         ],
+         {
+          "f": [
+           "#1c1e22"
+          ],
+          "r": 2
+         }
+        ]
+       ]
+      ],
+      [
+       "5:513",
+       "Rect",
+       "Separador",
+       [
+        180,
+        14,
+        1,
+        28
+       ],
+       {
+        "f": [
+         "#b9bbc0"
+        ]
+       }
+      ],
+      [
+       "5:514",
+       "Fram",
+       "Trazo 8",
+       [
+        187,
+        10,
+        36,
+        36
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "5:515",
+         "Inst",
+         "Key",
+         [
+          0,
+          0,
+          36,
+          36
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 0 0 0 0 0",
+          "mc": "Key/Style=Light",
+          "p": {
+           "Style": "Light"
+          }
+         }
+        ],
+        [
+         "5:519",
+         "Rect",
+         "Muestra",
+         [
+          15,
+          15,
+          6,
+          6
+         ],
+         {
+          "f": [
+           "#ffd23f"
+          ],
+          "r": 99
+         }
+        ]
+       ]
+      ],
+      [
+       "5:520",
+       "Fram",
+       "Trazo 16",
+       [
+        229,
+        10,
+        36,
+        36
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "5:521",
+         "Inst",
+         "Key",
+         [
+          0,
+          0,
+          36,
+          36
+         ],
+         {
+          "f": [
+           "lg(#d3d5d9,#e6e7e9)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key pressed",
+          "al": "H 0 0 0 0 0",
+          "mc": "Key/Style=Pressed",
+          "p": {
+           "Style": "Pressed"
+          }
+         }
+        ],
+        [
+         "5:525",
+         "Rect",
+         "Muestra",
+         [
+          12,
+          12,
+          11,
+          11
+         ],
+         {
+          "f": [
+           "#ffd23f"
+          ],
+          "r": 99
+         }
+        ]
+       ]
+      ],
+      [
+       "5:526",
+       "Fram",
+       "Trazo 28",
+       [
+        271,
+        10,
+        36,
+        36
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       },
+       [
+        [
+         "5:527",
+         "Inst",
+         "Key",
+         [
+          0,
+          0,
+          36,
+          36
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 0 0 0 0 0",
+          "mc": "Key/Style=Light",
+          "p": {
+           "Style": "Light"
+          }
+         }
+        ],
+        [
+         "5:531",
+         "Rect",
+         "Muestra",
+         [
+          8,
+          8,
+          20,
+          20
+         ],
+         {
+          "f": [
+           "#ffd23f"
+          ],
+          "r": 99
+         }
+        ]
+       ]
+      ],
+      [
+       "5:532",
+       "Fram",
+       "·",
+       [
+        313,
+        -22,
+        23,
+        100
+       ],
+       {
+        "al": "H 0 0 0 0 0"
+       }
+      ],
+      [
+       "5:533",
+       "Inst",
+       "Deshacer",
+       [
+        342,
+        10,
+        36,
+        36
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        },
+        "nest": [
+         "icon/undo"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "5:539",
+     "Fram",
+     "Fila",
+     [
+      0,
+      56,
+      390,
+      64
+     ],
+     {
+      "al": "H 8 12 0 12 0"
+     },
+     [
+      [
+       "5:540",
+       "Inst",
+       "Volver",
+       [
+        12,
+        10,
+        44,
+        44
+       ],
+       {
+        "f": [
+         "lg(#fbfbfc,#e4e5e7)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Light",
+        "p": {
+         "Style": "Light"
+        },
+        "nest": [
+         "icon/back"
+        ]
+       }
+      ],
+      [
+       "5:545",
+       "Inst",
+       "Lápiz (activo)",
+       [
+        64,
+        10,
+        44,
+        44
+       ],
+       {
+        "f": [
+         "lg(#6ba2e6,#4f8ad9,#3c73c6)"
+        ],
+        "r": 4,
+        "fx": "Leia/Key lit",
+        "al": "H 0 0 0 0 0",
+        "mc": "Key/Style=Blue",
+        "p": {
+         "Style": "Blue"
+        },
+        "nest": [
+         "icon/pencil"
+        ]
+       }
+      ],
+      [
+       "5:550",
+       "Fram",
+       "Desliza para borrar",
+       [
+        116,
+        10,
+        262,
+        44
+       ],
+       {
+        "f": [
+         "lg(#c9cbcf,#dcdde0)"
+        ],
+        "r": 6,
+        "fx": "Leia/Well light",
+        "al": "H 0 2 0 2 0"
+       },
+       [
+        [
+         "5:551",
+         "Fram",
+         "Agarre",
+         [
+          2,
+          2,
+          76,
+          40
+         ],
+         {
+          "f": [
+           "lg(#fbfbfc,#e4e5e7)"
+          ],
+          "r": 4,
+          "fx": "Leia/Key",
+          "al": "H 6 0 0 0 0"
+         },
+         [
+          [
+           "5:552",
+           "Inst",
+           "icon/bin",
+           [
+            20,
+            11,
+            18,
+            18
+           ],
+           {
+            "mc": "icon/bin"
+           }
+          ],
+          [
+           "5:555",
+           "Inst",
+           "icon/chevron",
+           [
+            44,
+            14,
+            12,
+            12
+           ],
+           {
+            "mc": "icon/chevron"
+           }
+          ]
+         ]
+        ],
+        [
+         "5:557",
+         "Text",
+         "Desliza para borrar",
+         [
+          78,
+          14,
+          182,
+          17
+         ],
+         {
+          "f": [
+           "#7d8087"
+          ],
+          "tx": "Desliza para borrar",
+          "ft": "Regular 14"
+         }
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "5:558",
+     "Rect",
+     "Indicador",
+     [
+      128,
+      141,
+      134,
+      5
+     ],
+     {
+      "f": [
+       "#191c22"
+      ],
+      "r": 3
+     }
+    ]
+   ]
+  ],
+  [
+   "5:559",
+   "Fram",
+   "Puncheo · Foto (anotar)",
+   [
+    2680,
+    0,
+    390,
+    844
+   ],
+   {},
+   [
+    [
+     "5:560",
+     "Fram",
+     "Ficha (debajo)",
+     [
+      0,
+      0,
+      390,
+      844
+     ],
+     {
+      "f": [
+       "$slate"
+      ]
+     },
+     [
+      [
+       "5:561",
+       "Fram",
+       "Contenido",
+       [
+        0,
+        143,
+        390,
+        1591
+       ],
+       {
+        "al": "V 20 16 16 16 120"
+       },
+       [
+        [
+         "5:562",
+         "Inst",
+         "Panel ficha",
+         [
+          16,
+          16,
+          358,
+          117
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "r": 6,
+          "fx": "Leia/Panel",
+          "al": "V 0 0 0 0 0",
+          "mc": "Panel ficha",
+          "p": {
+           "Estado": "Ficha completa"
+          },
+          "txs": [
+           "Formaleta N1",
+           "Pre-armado y pre-chorrea",
+           "N1",
+           "Aluminio Precise Forms · muros sobre losa flotante",
+           "00/64"
+          ]
+         }
+        ],
+        [
+         "5:563",
+         "Inst",
+         "Leyenda de gestos",
+         [
+          16,
+          153,
+          358,
+          15
+         ],
+         {
+          "al": "H 0 4 0 4 0",
+          "mc": "Leyenda de gestos",
+          "txs": [
+           "«",
+           "N/A",
+           "‹",
+           "NO PASA",
+           "PASA",
+           "›",
+           "OBS.",
+           "»"
+          ]
+         }
+        ],
+        [
+         "5:564",
+         "Fram",
+         "Cuarto · Casa",
+         [
+          16,
+          188,
+          358,
+          855
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "r": 6,
+          "fx": "Leia/Panel",
+          "al": "V 0 0 0 0 0"
+         },
+         [
+          [
+           "5:565",
+           "Inst",
+           "Banda de cuarto",
+           [
+            0,
+            0,
+            358,
+            54
+           ],
+           {
+            "f": [
+             "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+            ],
+            "fx": "Leia/Band",
+            "al": "H 12 12 0 12 0",
+            "mc": "Banda de cuarto",
+            "p": {
+             "Conteo": "03/6",
+             "Nota": "Losa, perímetro y paneles",
+             "Nombre": "Casa",
+             "Índice": "1/6"
+            }
+           }
+          ],
+          [
+           "5:566",
+           "Inst",
+           "Fase",
+           [
+            0,
+            54,
+            358,
+            72
+           ],
+           {
+            "f": [
+             "lg(#f0f0f2,#d9dadd)"
+            ],
+            "al": "V 2 12 10 12 10",
+            "mc": "Fase",
+            "p": {
+             "Momento": "Losa recibida, acero y previstas de muro colocados, antes de parar el primer panel.",
+             "Nombre": "Pre-armado"
+            }
+           }
+          ],
+          [
+           "5:567",
+           "Inst",
+           "Clave",
+           [
+            0,
+            126,
+            358,
+            160
+           ],
+           {
+            "f": [
+             "$panel-open"
+            ],
+            "al": "V 4 12 8 12 8",
+            "mc": "Clave",
+            "p": {
+             "Fila 3": true,
+             "Valor 3": "2 puntos al azar, ±3 mm contra el registro",
+             "Clave 2": "Rojo",
+             "Valor 1": "pasa con nota y foto, no bloquea",
+             "Clave 3": "Control",
+             "Clave 1": "Amarillo",
+             "Valor 2": "nota y foto; bloquea cerrar la ficha",
+             "Título": "CLAVE · EVIDENCIA"
+            }
+           }
+          ],
+          [
+           "5:568",
+           "Inst",
+           "Fila de check",
+           [
+            0,
+            286,
+            358,
+            71
+           ],
+           {
+            "f": [
+             "$panel",
+             "#95c955@0.2"
+            ],
+            "al": "H 10 12 12 12 12",
+            "mc": "Fila de check/Estado=Pasa",
+            "p": {
+             "Subtítulo": "Revisión conjunta Losa + Muros, 2 puntos al azar",
+             "Título": "Plomos de losa",
+             "Num": "1.1",
+             "Estado": "Pasa"
+            },
+            "nest": [
+             "Style=Light",
+             "icon/camera",
+             "Style=Green",
+             "icon/check"
+            ]
+           }
+          ],
+          [
+           "5:569",
+           "Inst",
+           "Fila de check",
+           [
+            0,
+            357,
+            358,
+            71
+           ],
+           {
+            "f": [
+             "$panel",
+             "#95c955@0.2"
+            ],
+            "al": "H 10 12 12 12 12",
+            "mc": "Fila de check/Estado=Pasa",
+            "p": {
+             "Subtítulo": "Perímetro completo, a nivel y en línea",
+             "Título": "Guía de losa",
+             "Num": "1.3",
+             "Estado": "Pasa"
+            },
+            "nest": [
+             "Style=Light",
+             "icon/camera",
+             "Style=Green",
+             "icon/check"
+            ]
+           }
+          ],
+          [
+           "5:570",
+           "Inst",
+           "Fila de check",
+           [
+            0,
+            428,
+            358,
+            71
+           ],
+           {
+            "f": [
+             "$panel",
+             "#ffd556@0.24"
+            ],
+            "al": "H 10 12 12 12 12",
+            "mc": "Fila de check/Estado=Observación",
+            "p": {
+             "Subtítulo": "Cantidad, separación y apriete",
+             "Título": "Prensas en guía de losa",
+             "Num": "1.4",
+             "Estado": "Observación"
+            },
+            "nest": [
+             "Style=Light",
+             "icon/camera",
+             "Style=Yellow",
+             "icon/warn"
+            ]
+           }
+          ],
+          [
+           "5:571",
+           "Inst",
+           "Clave",
+           [
+            0,
+            499,
+            358,
+            143
+           ],
+           {
+            "f": [
+             "$panel-open"
+            ],
+            "al": "V 4 12 8 12 8",
+            "mc": "Clave",
+            "p": {
+             "Valor 3": "2 puntos al azar, ±3 mm contra el registro",
+             "Fila 3": false,
+             "Clave 2": "Concreto",
+             "Valor 1": "máximo 3 mm con regla sobre la cara",
+             "Clave 3": "Control",
+             "Clave 1": "Abolladura",
+             "Valor 2": "en rieles o costra: sale antes de armar",
+             "Título": "CLAVE · PANELES"
+            }
+           }
+          ],
+          [
+           "5:572",
+           "Inst",
+           "Fila de check",
+           [
+            0,
+            642,
+            358,
+            71
+           ],
+           {
+            "f": [
+             "$panel"
+            ],
+            "al": "H 10 12 12 12 12",
+            "mc": "Fila de check/Estado=Pendiente",
+            "p": {
+             "Subtítulo": "Caras, rieles y agujeros de pin",
+             "Título": "Estado físico de formaleta",
+             "Num": "1.7",
+             "Estado": "Pendiente"
+            },
+            "nest": [
+             "Style=Light",
+             "icon/camera",
+             "Style=Light",
+             "icon/check"
+            ]
+           }
+          ],
+          [
+           "5:573",
+           "Inst",
+           "Fila de check",
+           [
+            0,
+            713,
+            358,
+            71
+           ],
+           {
+            "f": [
+             "$panel"
+            ],
+            "al": "H 10 12 12 12 12",
+            "mc": "Fila de check/Estado=Pendiente",
+            "p": {
+             "Subtítulo": "Concreto adherido: marcar y separar",
+             "Título": "Paneles a limpieza profunda",
+             "Num": "1.8",
+             "Estado": "Pendiente"
+            },
+            "nest": [
+             "Style=Green",
+             "icon/camera",
+             "Style=Light",
+             "icon/check"
+            ]
+           }
+          ],
+          [
+           "5:574",
+           "Inst",
+           "Fila de check",
+           [
+            0,
+            784,
+            358,
+            71
+           ],
+           {
+            "f": [
+             "$panel",
+             "#eb5757@0.13"
+            ],
+            "al": "H 10 12 12 12 12",
+            "mc": "Fila de check/Estado=No pasa",
+            "p": {
+             "Subtítulo": "Base firme, nivelada y asegurada",
+             "Título": "Nivel de escalera de trabajo",
+             "Num": "1.10",
+             "Estado": "No pasa"
+            },
+            "nest": [
+             "Style=Light",
+             "icon/camera",
+             "Style=Red",
+             "icon/cross"
+            ]
+           }
+          ]
+         ]
+        ],
+        [
+         "5:575",
+         "Fram",
+         "Cuarto · Sala",
+         [
+          16,
+          1063,
+          358,
+          408
+         ],
+         {
+          "f": [
+           "$panel"
+          ],
+          "r": 6,
+          "fx": "Leia/Panel",
+          "al": "V 0 0 0 0 0"
+         },
+         [
+          [
+           "5:576",
+           "Inst",
+           "Banda de cuarto",
+           [
+            0,
+            0,
+            358,
+            54
+           ],
+           {
+            "f": [
+             "lg(#5c9be8,#4a8ae2,#3f7dd8)"
+            ],
+            "fx": "Leia/Band",
+            "al": "H 12 12 0 12 0",
+            "mc": "Banda de cuarto",
+            "p": {
+             "Conteo": "00/18",
+             "Nota": "Sala, comedor y cocina",
+             "Nombre": "Sala",
+             "Índice": "2/6"
+            }
+           }
+          ],
+          [
+           "5:577",
+           "Inst",
+           "Fase",
+           [
+            0,
+            54,
+            358,
+            72
+           ],
+           {
+            "f": [
+             "lg(#f0f0f2,#d9dadd)"
+            ],
+            "al": "V 2 12 10 12 10",
+            "mc": "Fase",
+            "p": {
+             "Momento": "Losa recibida, acero y previstas de muro colocados, antes de parar el primer panel.",
+             "Nombre": "Pre-armado"
+            }
+           }
+          ],
+          [
+           "5:578",
+           "Inst",
+           "Clave",
+           [
+            0,
+            126,
+            358,
+            140
+           ],
+           {
+            "f": [
+             "$panel-open"
+            ],
+            "al": "V 4 12 8 12 8",
+            "mc": "Clave",
+            "p": {
+             "Fila 3": true,
+             "Valor 3": "más de 5 mm",
+             "Clave 2": "Amarillo",
+             "Valor 1": "hasta 3 mm",
+             "Clave 3": "Rojo",
+             "Clave 1": "Verde",
+             "Valor 2": "4 a 5 mm",
+             "Título": "CLAVE · REGLA 3/5"
+            }
+           }
+          ],
+          [
+           "5:579",
+           "Inst",
+           "Fila de check",
+           [
+            0,
+            266,
+            358,
+            71
+           ],
+           {
+            "f": [
+             "$panel"
+            ],
+            "al": "H 10 12 12 12 12",
+            "mc": "Fila de check/Estado=N/A",
+            "p": {
+             "Subtítulo": "Ejes contra plano, escuadra por diagonales",
+             "Título": "Trazo",
+             "Num": "1.2",
+             "Estado": "N/A"
+            },
+            "nest": [
+             "Style=Light",
+             "icon/camera",
+             "Style=Light"
+            ]
+           }
+          ],
+          [
+           "5:580",
+           "Inst",
+           "Fila de check",
+           [
+            0,
+            337,
+            358,
+            71
+           ],
+           {
+            "f": [
+             "$panel"
+            ],
+            "al": "H 10 12 12 12 12",
+            "mc": "Fila de check/Estado=Pendiente",
+            "p": {
+             "Subtítulo": "Arranque de muros completo sobre el trazo",
+             "Título": "Guía de paredes",
+             "Num": "1.5",
+             "Estado": "Pendiente"
+            },
+            "nest": [
+             "Style=Light",
+             "icon/camera",
+             "Style=Light",
+             "icon/check"
+            ]
+           }
+          ]
+         ]
+        ]
+       ]
+      ],
+      [
+       "5:581",
+       "Inst",
+       "Barra superior",
+       [
+        0,
+        0,
+        390,
+        143
+       ],
+       {
+        "al": "V 0 0 0 0 0",
+        "mc": "Barra superior",
+        "txs": [
+         "AD",
+         "Puncheo",
+         "A",
+         "B",
+         "C",
+         "9:41"
+        ]
+       }
+      ],
+      [
+       "5:582",
+       "Inst",
+       "Barra inferior",
+       [
+        0,
+        750,
+        390,
+        94
+       ],
+       {
+        "f": [
+         "lg(#50555d,#3b3f46,#30343a)"
+        ],
+        "al": "V 0 0 0 0 34",
+        "mc": "Barra inferior",
+        "p": {
+         "Acción": "CERRAR FICHA"
+        },
+        "nest": [
+         "Style=Charcoal",
+         "icon/lens"
+        ]
+       }
+      ]
+     ]
+    ],
+    [
+     "5:583",
+     "Rect",
+     "Fondo",
+     [
+      0,
+      0,
+      390,
+      844
+     ],
+     {
+      "f": [
+       "#121417@0.9"
+      ]
+     }
+    ],
+    [
+     "5:584",
+     "Fram",
+     "Foto",
+     [
+      12,
+      64,
+      366,
+      488
+     ],
+     {
+      "f": [
+       "lg(#9a9ca0,#6f7277,#55585d)"
+      ],
+      "r": 4
+     },
+     [
+      [
+       "5:585",
+       "Rect",
+       "Panel 1",
+       [
+        18,
+        54,
+        78,
+        380
+       ],
+       {
+        "f": [
+         "lg(#c8cbd0,#aeb2b8)"
+        ],
+        "r": 2
+       }
+      ],
+      [
+       "5:586",
+       "Rect",
+       "Panel 2",
+       [
+        102,
+        54,
+        78,
+        380
+       ],
+       {
+        "f": [
+         "lg(#c8cbd0,#aeb2b8)"
+        ],
+        "r": 2
+       }
+      ],
+      [
+       "5:587",
+       "Rect",
+       "Panel 3",
+       [
+        186,
+        54,
+        78,
+        380
+       ],
+       {
+        "f": [
+         "lg(#c8cbd0,#aeb2b8)"
+        ],
+        "r": 2
+       }
+      ],
+      [
+       "5:588",
+       "Rect",
+       "Panel 4",
+       [
+        270,
+        54,
+        78,
+        380
+       ],
+       {
+        "f": [
+         "lg(#c8cbd0,#aeb2b8)"
+        ],
+        "r": 2
+       }
+      ],
+      [
+       "5:589",
+       "Rect",
+       "Corbata",
+       [
+        18,
+        240,
+        330,
+        6
+       ],
+       {
+        "f": [
+         "#6c6f75"
+        ]
+       }
+      ],
+      [
+       "5:590",
+       "Fram",
+       "Anotación (amarillo, 16 px)",
+       [
+        0,
+        0,
+        366,
+        488
+       ],
+       {
+        "f": [
+         "#ffffff"
+        ]
+       },
+       [
+        [
+         "5:591",
+         "Vect",
+         "Vector",
+         [
+          101,
+          126,
+          178,
+          135
+         ],
+         {}
+        ],
+        [
+         "5:592",
+         "Vect",
+         "Vector",
+         [
+          262,
+          330,
+          46,
+          46
+         ],
+         {}
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "5:593",
+     "Inst",
+     "Visor · franja",
+     [
+      0,
+      690,
+      390,
+      154
+     ],
+     {
+      "f": [
+       "lg(#f0f0f2,#d9dadd)"
+      ],
+      "al": "V 0 0 0 0 34",
+      "mc": "Visor · franja",
+      "p": {
+       "Marcador": true
+      },
+      "txs": [
+       "Desliza para borrar"
+      ]
+     }
+    ]
+   ]
+  ],
+  [
+   "7:714",
+   "Fram",
+   "Nota de versión · v1",
+   [
+    0,
+    -320,
+    610,
+    296
+   ],
+   {
+    "f": [
+     "#fff5c7"
+    ],
+    "r": 12,
+    "al": "V 8 24 20 24 20"
+   },
+   [
+    [
+     "7:715",
+     "Text",
+     "v1 · Claude baseline — 18 nov 2026",
+     [
+      25,
+      21,
+      367,
+      26
+     ],
+     {
+      "f": [
+       "#1a1c21"
+      ],
+      "tx": "v1 · Claude baseline — 18 nov 2026",
+      "ft": "Bold 22"
+     }
+    ],
+    [
+     "7:716",
+     "Text",
+     "Hasta acá llega lo que construyó Claude desde onexmac/ad (/ad/puncheo, skin Leia). Todo lo que cambie después de este punto son modificaciones de Marcos. La foto completa de esta versión (cada capa, texto, color y propiedad) está guardada en onexmac/ad → docs/falcon-ui/v1-baseline.json. En la próxima sesión, Claude lee el archivo de nuevo, lo compara contra esa foto y anota los cambios. No borres esta nota: marca dónde empieza tu versión.",
+     [
+      25,
+      55,
+      560,
+      220
+     ],
+     {
+      "f": [
+       "#1a1c21"
+      ],
+      "tx": "Hasta acá llega lo que construyó Claude desde onexmac/ad (/ad/puncheo, skin Leia). Todo lo que cambie después de este punto son modificaciones de Marcos.\n\nLa foto completa de esta versión (cada capa, texto, color y propiedad) está guardada en onexmac/ad → docs/falcon-ui/v1-baseline.json. En la próxima sesión, Claude lee el archivo de nuevo, lo compara contra esa foto y anota los cambios.\n\nNo borres esta nota: marca dónde empieza tu versión.",
+      "ft": "Regular 15"
+     }
+    ]
+   ]
+  ]
+ ]
+}
