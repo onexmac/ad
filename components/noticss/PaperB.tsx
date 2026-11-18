@@ -936,8 +936,12 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     // Whatever the browser shows around B (under its bars, on overscroll)
     // is the page's own background: the top colour above, the bottom below.
     const html = document.documentElement;
-    html.style.backgroundColor = tone;
-    html.style.backgroundImage = `linear-gradient(180deg, ${tone} 0%, ${tone} 50%, ${bottomTone} 50%, ${bottomTone} 100%)`;
+    // The canvas outside B (below it, under the browser's bottom bar) takes the
+    // root's background colour, so that is the bottom colour; the status bar
+    // takes the theme colour, the top one. (A gradient image here would end
+    // with the root's box and leave the colour showing below it.)
+    html.style.backgroundColor = bottomTone;
+    html.style.backgroundImage = "";
     html.style.minHeight = "100%";
     document.body.style.background = "transparent";
     let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
@@ -1292,10 +1296,15 @@ const RowCard = memo(function RowCard({
   const scale = useTransform(() => (S + (1 - S) * v.get()) * o.s.get());
   // The card in focus on top, then outward; an override can lift a card above.
   const zIndex = useTransform(() => 100 - Math.min(90, Math.round(Math.abs(i - cur.get()))) + o.z.get());
-  const clipPath = useTransform(o.clip, (b) => (b > 0.5 ? `inset(0px 0px ${b}px 0px round ${RU}px)` : "none"));
+  // The page is clipped to its rounded frame by a clip path, always: Safari
+  // does not clip a composited child (the page's scroller, the photo) to a
+  // parent's border radius with overflow alone, and the square page showed.
+  const clipPath = useTransform(o.clip, (b) => `inset(0px 0px ${Math.max(0, b)}px 0px round ${RU}px)`);
+  // The frame's shadow, except while the page grows out of a row (its window is smaller).
+  const boxShadow = useTransform(o.clip, (b) => (b > 0.5 ? "none" : "0 10px 40px rgba(0,0,0,.35)"));
   return (
     <motion.div
-      className="absolute left-0 top-0 overflow-hidden bg-ground shadow-[0_10px_40px_rgba(0,0,0,.35)]"
+      className="absolute left-0 top-0"
       style={{
         width: w,
         height: h,
@@ -1307,11 +1316,14 @@ const RowCard = memo(function RowCard({
         zIndex,
         originX: 0,
         originY: 0,
-        clipPath,
+        boxShadow,
         willChange: layer ? "transform" : "auto",
       }}
     >
-      {children}
+      {/* The page inside, clipped to the frame (the card keeps its shadow). */}
+      <motion.div className="absolute inset-0 bg-ground" style={{ clipPath, WebkitClipPath: clipPath }}>
+        {children}
+      </motion.div>
     </motion.div>
   );
 });
