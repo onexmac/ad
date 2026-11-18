@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { motion, motionValue, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
+import { animate, motion, motionValue, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import { springs } from "@/lib/histok/springs";
 import type { Edition } from "@/data/noticss/types";
@@ -256,7 +256,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     oj.x.set(0);
     oi.x.set(w + G);
     setOpen({ sec: s, card: j });
-    let left = 3;
+    let left = 2;
     const done = () => {
       if (--left) return;
       t.resetOverride(i);
@@ -265,8 +265,28 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       toTop(s, i);
     };
     t.run(oj.y, 0, { ...PAGE, velocity: v }, done);
-    t.run(oi.y, -h * 0.22, { ...PAGE, velocity: v * 0.4 }, done);
-    t.run(oi.o, 0.35, PAGE, done);
+    // The page we leave becomes the background: it sinks back from its centre
+    // and fades all the way out, a little slower than the new one rises, so
+    // nothing is left to vanish when it is put back in its place.
+    const y0 = oi.y.get();
+    const o0 = oi.o.get();
+    const q = motionValue(0);
+    t.hold();
+    animate(q, 1, {
+      duration: 0.62,
+      ease: [0.33, 0, 0.2, 1],
+      onUpdate: (k) => {
+        const sc = 1 - 0.08 * k;
+        oi.s.set(sc);
+        oi.x.set(w + G + (w * (1 - sc)) / 2);
+        oi.y.set(y0 + (-h * 0.06 - y0) * k + (h * (1 - sc)) / 2);
+        oi.o.set(o0 * Math.pow(1 - k, 1.35));
+      },
+      onComplete: () => {
+        t.release();
+        done();
+      },
+    });
     t.run(endLift, 0, SETTLE);
   };
 
