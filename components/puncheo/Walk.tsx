@@ -118,7 +118,7 @@ export function RoomStrip({ s, tone = "plain" }: { s: PunchSheet; tone?: StripTo
 }
 
 /** A key fact from the sheet, set apart in AD Visual's hairline table (on Leia's slate, a paper panel). */
-function KeyBlock({ k, skin }: { k: Key; skin: RowSkin }) {
+export function KeyBlock({ k, skin }: { k: Key; skin: RowSkin }) {
   if (skin.leia)
     return (
       <div className="leia-row bg-[#f4f4f5] px-3 py-2">
@@ -152,7 +152,7 @@ function KeyBlock({ k, skin }: { k: Key; skin: RowSkin }) {
   );
 }
 
-function GroupLabel({ label, dark, leia }: { label: string; dark?: boolean; leia?: boolean }) {
+export function GroupLabel({ label, dark, leia }: { label: string; dark?: boolean; leia?: boolean }) {
   if (leia)
     return (
       <div className="leia-strip px-3 py-1.5">
@@ -167,7 +167,7 @@ function GroupLabel({ label, dark, leia }: { label: string; dark?: boolean; leia
 }
 
 /** Where the room's checks for one punch begin: the punch, and when it happens. */
-function PhaseHead({ name, moment, first, dark, leia }: { name: string; moment: string; first: boolean; dark?: boolean; leia?: boolean }) {
+export function PhaseHead({ name, moment, first, dark, leia }: { name: string; moment: string; first: boolean; dark?: boolean; leia?: boolean }) {
   // Leia: the "Taxes" strip, a taller lit bar with the name and its moment.
   if (leia)
     return (
