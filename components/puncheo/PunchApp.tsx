@@ -220,6 +220,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         kind={cfg.foot}
         polish={!!cfg.skin.leia}
         sections={!continuous}
+        rooms={continuous}
         search={{
           open: searching,
           q,

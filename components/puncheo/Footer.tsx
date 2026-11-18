@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useTransform } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { CheckIcon, LockIcon } from "./Icons";
@@ -39,6 +39,18 @@ function Lens({ size = 17 }: { size?: number }) {
   );
 }
 
+/** A floor plan: the rooms key. */
+function Plan() {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <rect x="3" y="3" width="8" height="10" rx="1.2" />
+      <rect x="13" y="3" width="8" height="6" rx="1.2" />
+      <rect x="3" y="15" width="8" height="6" rx="1.2" />
+      <rect x="13" y="11" width="8" height="10" rx="1.2" />
+    </svg>
+  );
+}
+
 function Cross() {
   return (
     <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="square" aria-hidden>
@@ -53,6 +65,7 @@ export function Footer({
   search,
   polish = false,
   sections = true,
+  rooms = false,
 }: {
   s: PunchSheet;
   kind: Kind;
@@ -60,12 +73,26 @@ export function Footer({
   polish?: boolean;
   /** The sections chip at the left (the legacy walks); B navigates from the rooms bar on top. */
   sections?: boolean;
+  /** B: a rooms key that raises the rooms as filter keys from behind the bar. */
+  rooms?: boolean;
 }) {
   const bar = kind === "bar";
   const round = bar ? "rounded-[6px]" : "rounded-[10px]";
   const gap = bar ? 8 : 6;
   const input = useRef<HTMLInputElement>(null);
   const open = !!search?.open;
+  const nav = useRef<HTMLElement>(null);
+  const [roomsOpen, setRoomsOpen] = useState(false);
+  const showRooms = rooms && roomsOpen && !open;
+  // The rooms strip closes on a tap anywhere outside the bar.
+  useEffect(() => {
+    if (!showRooms) return;
+    const off = (e: PointerEvent) => {
+      if (!nav.current?.contains(e.target as Node)) setRoomsOpen(false);
+    };
+    window.addEventListener("pointerdown", off);
+    return () => window.removeEventListener("pointerdown", off);
+  }, [showRooms]);
 
   // One spring drives the whole change: the field grows out of the key and pushes
   // the close action, which shrinks away as the field takes its room. They share
@@ -84,6 +111,7 @@ export function Footer({
 
   const toggle = () => {
     if (!search) return;
+    setRoomsOpen(false);
     // Focus inside the tap itself, so the phone raises its keyboard.
     if (!open) input.current?.focus({ preventScroll: true });
     else input.current?.blur();
@@ -183,8 +211,45 @@ export function Footer({
   // from behind the bar (the bar stays on top of it, the clip hides what's below).
   const panel = (
     <div className="pointer-events-none absolute inset-x-0 bottom-full overflow-hidden">
-      <AnimatePresence>
-        {search?.open ? (
+      <AnimatePresence mode="wait">
+        {showRooms ? (
+          <motion.div
+            key="rooms"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", stiffness: 380, damping: 36 }}
+            className={`pointer-events-auto ${polish ? "leia-strip" : bar ? "bg-ink" : "rounded-t-[16px] bg-ground"}`}
+          >
+            {/* The rooms in the filters' dress: the one being read is the pressed blue key. */}
+            <div className="grid grid-cols-3 gap-1.5 px-3 py-2">
+              {s.sections.map((x, i) => {
+                const on = i === s.section;
+                const t = s.sectionTallies[i];
+                const done = t.done === t.total;
+                return (
+                  <button
+                    key={x.id}
+                    type="button"
+                    onClick={() => {
+                      setRoomsOpen(false);
+                      s.travelTo(i);
+                    }}
+                    aria-current={on ? "true" : undefined}
+                    className={`flex h-10 min-w-0 items-center justify-center gap-1.5 rounded-[4px] px-1 leading-none ${
+                      polish ? (on ? "leia-tab-on text-ground" : "leia-btn text-ink") : on ? "bg-brand text-ground" : bar ? "bg-ink-3 text-hair" : "bg-card text-ink-2"
+                    }`}
+                  >
+                    <span className={`min-w-0 truncate text-[14px] ${polish && !on ? "leia-emboss" : ""}`}>{x.name}</span>
+                    <span className={`text-[12px] tabular-nums ${on ? "text-brand-2" : done ? "text-ok-deep" : polish ? "text-[#8a8d93]" : "opacity-60"}`}>
+                      {t.done}/{t.total}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+        ) : search?.open ? (
           <motion.div
             key="panel"
             initial={{ y: "100%" }}
@@ -246,6 +311,27 @@ export function Footer({
           </div>
         </motion.div>
       ) : null}
+      {rooms ? (
+        <motion.div
+          className="shrink-0 overflow-hidden"
+          initial={false}
+          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1 }}
+          transition={{ type: "spring", stiffness: 380, damping: 36 }}
+        >
+          <div style={{ paddingRight: gap }}>
+            <button
+              type="button"
+              onClick={() => setRoomsOpen((o) => !o)}
+              aria-label="Cuartos"
+              aria-expanded={showRooms}
+              tabIndex={open ? -1 : 0}
+              className={`grid size-11 place-items-center ${round} ${polish ? (showRooms ? "leia-tab-on text-ground" : "leia-search text-ground") : showRooms ? "bg-brand text-ground" : "bg-ink-3 text-ground"}`}
+            >
+              <Plan />
+            </button>
+          </div>
+        </motion.div>
+      ) : null}
       {key}
       {field}
       <motion.div style={{ flexGrow: ctaGrow, marginLeft: ctaGap, pointerEvents: open ? "none" : "auto" }} className="flex min-w-0 basis-0 overflow-hidden">
@@ -256,7 +342,7 @@ export function Footer({
 
   if (bar) {
     return (
-      <nav className="fixed inset-x-0 bottom-0 z-30">
+      <nav ref={nav} className="fixed inset-x-0 bottom-0 z-30">
         {panel}
         <div className={`relative z-10 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: "var(--sab)" }}>
           <div className="mx-auto flex h-[60px] max-w-[560px] items-center px-3">{row}</div>
@@ -266,7 +352,7 @@ export function Footer({
   }
 
   return (
-    <nav className="fixed left-1/2 z-30 w-[calc(100%-32px)] max-w-[488px] -translate-x-1/2" style={{ bottom: "calc(var(--sab) + 16px)" }}>
+    <nav ref={nav} className="fixed left-1/2 z-30 w-[calc(100%-32px)] max-w-[488px] -translate-x-1/2" style={{ bottom: "calc(var(--sab) + 16px)" }}>
       {panel}
       <div className="relative z-10 flex items-center rounded-[16px] bg-ground p-1.5 shadow-[var(--shadow-mid)]">{row}</div>
     </nav>
