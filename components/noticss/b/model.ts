@@ -118,16 +118,27 @@ export type Override = {
   clip: MotionValue<number>;
 };
 
+/** A transition carried by overrides: it can always be finished at once. */
+export type Transition = { finish: () => void; anims: { stop: () => void }[] };
+
 export class Tray {
+  /** Values counted in fractions or cards, not pixels: they settle finely. */
+  private unitless = new WeakSet<MotionValue<number>>();
+  private frac(v: MotionValue<number>) {
+    this.unitless.add(v);
+    return v;
+  }
   /** 0 on the tray, 1 open. */
-  p = motionValue(0);
+  p = this.frac(motionValue(0));
   /** Tray scroll, in cards. */
-  posC = motionValue(0);
+  posC = this.frac(motionValue(0));
   /** The page in view (or being lifted): float while paging. */
-  cur = motionValue(0);
-  /** Where the growth comes from (screen x) and which point of the card it is (0..1). */
+  cur = this.frac(motionValue(0));
+  /** The finger's sideways drift while lifting (screen px), and which point of the card grows (0..1). */
   ox = motionValue(0);
-  fx = motionValue(0.5);
+  fx = this.frac(motionValue(0.5));
+  /** The override transition in flight, if any. */
+  private pending: Transition | null = null;
   private ov = new Map<number, Override>();
   private moving = 0;
   row: HTMLDivElement | null = null;
@@ -140,10 +151,42 @@ export class Tray {
   override(i: number): Override {
     let o = this.ov.get(i);
     if (!o) {
-      o = { x: motionValue(0), y: motionValue(0), s: motionValue(1), o: motionValue(1), z: motionValue(0), clip: motionValue(0) };
+      o = {
+        x: motionValue(0),
+        y: motionValue(0),
+        s: this.frac(motionValue(1)),
+        o: this.frac(motionValue(1)),
+        z: motionValue(0),
+        clip: motionValue(0),
+      };
       this.ov.set(i, o);
     }
     return o;
+  }
+
+  /** Start a transition; any earlier one is finished first (its pages put back). */
+  begin(finish: () => void): Transition {
+    this.settle();
+    const tr: Transition = { finish, anims: [] };
+    this.pending = tr;
+    return tr;
+  }
+  isPending(tr: Transition) {
+    return this.pending === tr;
+  }
+  /** The transition's own end (only if it is still the one in flight). */
+  complete(tr: Transition) {
+    if (this.pending !== tr) return;
+    this.pending = null;
+    tr.finish();
+  }
+  /** Finish whatever transition is in flight, now: a new gesture or flow starts. */
+  settle() {
+    const tr = this.pending;
+    if (!tr) return;
+    this.pending = null;
+    tr.anims.forEach((a) => a.stop());
+    tr.finish();
   }
 
   resetOverride(i: number) {
@@ -164,6 +207,11 @@ export class Tray {
    * not, so the browser re-draws the text crisp at the size it landed at
    * (a layer kept from the tray would stay rasterised at 40%).
    */
+  /** Something on this tray is moving (springs, transitions). */
+  get busy() {
+    return this.moving > 0;
+  }
+
   hold() {
     this.moving++;
     if (this.row) this.row.style.willChange = "transform";
@@ -175,16 +223,18 @@ export class Tray {
 
   /** animate(), with the layer held for the length of the motion. */
   run(mv: MotionValue<number>, to: number, opts: SpringOpts, done?: () => void) {
-    this.hold();
-    let released = false;
+    // A motion that changes the row's scale is never drawn from a frozen
+    // layer (Chromium would keep the 40% raster and blur the grown text).
+    const layer = mv !== this.p;
+    if (layer) this.hold();
+    let released = !layer;
     const rel = () => {
       if (released) return;
       released = true;
       this.release();
     };
     // Rest tolerance in the value's own units: fractions settle finely, pixels at half a pixel.
-    const span = Math.max(Math.abs(to), Math.abs(mv.get()));
-    const fine = span <= 2;
+    const fine = this.unitless.has(mv) || Math.max(Math.abs(to), Math.abs(mv.get())) <= 2;
     // A spring starts with the velocity it is given (a finger's), never one
     // the value picked up from an instant jump (set) a moment before.
     return animate(mv, to, {

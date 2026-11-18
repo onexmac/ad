@@ -67,23 +67,33 @@ export function Gallery({
 
   const rectFor = (i: number): Rect => centredRect(aspects[i] ?? 1.6, 0.92, 480, 0.62);
 
-  // Lift the page's own picture and fly it to the middle.
+  // Lift the page's own picture and fly it to the middle. It starts where it
+  // is really drawn (the page's scroll parallax included), cut to the window
+  // its page shows it through, and opens out of that window.
   useLayoutEffect(() => {
     const aspect = aspects[start];
-    const from = rectOf(home.parentElement ?? home);
-    const c = new Carrier(piece, home, from);
+    const frame = home.parentElement ?? home;
+    const c = new Carrier(piece, home, rectOf(home));
+    c.clipTo(rectOf(frame));
     c.shadow(true);
     carrier.current = c;
     animate(dim, 0.94, { duration: 0.32, ease: [0.2, 0, 0, 1] });
-    c.fly(centredRect(aspect, 0.92, 480, 0.62), OPEN, () => {
-      const box = boxes.current[start];
-      if (box) {
-        c.shadow(false);
-        c.land(box);
-      }
-      setStage("open");
-      animate(shown, 1, { duration: 0.22 });
-    });
+    c.fly(
+      centredRect(aspect, 0.92, 480, 0.62),
+      OPEN,
+      () => {
+        const box = boxes.current[start];
+        if (box) {
+          // Shown in the same tick it lands (React's opening style would hide it a frame).
+          box.style.visibility = "";
+          c.shadow(false);
+          c.land(box);
+        }
+        setStage("open");
+        animate(shown, 1, { duration: 0.22 });
+      },
+      { clip: { from: rectOf(frame), to: null } },
+    );
     return () => {
       // Unmounted mid-way: the picture always goes home.
       if (!c.atHome) c.goHome();
@@ -108,43 +118,56 @@ export function Gallery({
     const box = boxes.current[i];
     const c = carrier.current;
     animate(dim, 0, { duration: 0.42, ease: [0.4, 0, 0.2, 1] });
+    /** The finger's release (px/s) as progress per second along the flight, toward home only. */
+    const progressVelocity = (from: Rect, to: Rect) => {
+      const d = to.y - from.y;
+      return Math.abs(d) > 1 ? clamp(vy / d, 0, 3) : 0;
+    };
+    // The drag keeps its place while everything fades from where it is
+    // (resetting it would flash the dark and the captions back).
     if (i === start && c && box) {
-      // The page's own picture: lift it from here and fly it home.
+      // The page's own picture: lift it from here and fly it home, into the
+      // window its page shows it through.
       c.lift(rectOf(box));
       // The slide's frame stays behind empty: it must not show as a dark box.
       box.style.visibility = "hidden";
-      dragY.set(0);
-      c.fly(() => rectOf(home.parentElement ?? home), { ...HOME, velocity: vy } as typeof HOME, () => {
+      const frame = home.parentElement ?? home;
+      c.fly(() => rectOf(home), { ...HOME, velocity: progressVelocity(c.rect, rectOf(home)) }, () => {
         c.goHome();
         onClosed();
-      });
+      }, { clip: { from: null, to: rectOf(frame) } });
       return;
     }
-    // Another story's picture: the row moves to that page behind the dark,
-    // then this picture flies into its place there and hands over to it.
+    // Another story's picture: the row moves to that page behind the dark, then
+    // that page's OWN picture is lifted to where this slide shows it and flies
+    // home (one element per picture; the slide's copy only stood in for it).
     c?.goHome();
     const target = items[i];
     onNavigate(target.card);
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        const dest = homeOf(target.card);
-        const own = imgs.current[i];
-        if (!dest || !box || !own) {
-          onClosed();
-          return;
-        }
-        const destImg = dest.querySelector("img");
-        if (destImg) destImg.style.visibility = "hidden";
-        const c2 = new Carrier(own, box, rectOf(box));
-        box.style.visibility = "hidden";
-        dragY.set(0);
-        c2.fly(() => rectOf(dest.parentElement ?? dest), HOME, () => {
-          if (destImg) destImg.style.visibility = "";
-          c2.goHome();
-          onClosed();
-        });
-      }),
-    );
+    const t0 = performance.now();
+    const carry = async () => {
+      const dest = homeOf(target.card);
+      const destImg = dest?.querySelector("img") ?? null;
+      if ((!dest || !destImg) && performance.now() - t0 < 400) {
+        requestAnimationFrame(carry);
+        return;
+      }
+      if (!dest || !destImg || !box) {
+        onClosed();
+        return;
+      }
+      // Decoded before it is shown, so neither end of the flight can be an empty box.
+      await Promise.race([destImg.decode().catch(() => {}), new Promise((r) => setTimeout(r, 250))]);
+      const from = rectOf(box);
+      const c2 = new Carrier(destImg, dest, from);
+      box.style.visibility = "hidden";
+      const frame = dest.parentElement ?? dest;
+      c2.fly(() => rectOf(dest), { ...HOME, velocity: progressVelocity(from, rectOf(dest)) }, () => {
+        c2.goHome();
+        onClosed();
+      }, { clip: { from: null, to: rectOf(frame) } });
+    };
+    requestAnimationFrame(() => requestAnimationFrame(carry));
   };
 
   // Escape closes.
@@ -160,7 +183,11 @@ export function Gallery({
   }, []);
 
   // One finger: sideways steps through the gallery, down closes.
-  const g = useRef<{ id: number; x0: number; y0: number; axis: "none" | "x" | "y"; base: number; t: number; vx: number; vy: number; lx: number; ly: number } | null>(null);
+  const g = useRef<{ id: number; x0: number; y0: number; axis: "none" | "x" | "y"; base: number; t: number; vx: number; vy: number; lx: number; ly: number; moving: boolean; yb: number } | null>(null);
+  /** Put the strip back on its slide (a touch may have stopped it between two). */
+  const settleStrip = () => {
+    if (Math.abs(gx.get() - indexRef.current) > 0.001) go(indexRef.current);
+  };
   const onPointerDown = (e: PointerEvent) => {
     if (stageRef.current !== "open") return;
     if (g.current) {
@@ -170,8 +197,9 @@ export function Gallery({
       animate(dragY, 0, { ...PAGE, velocity: 0 });
       return;
     }
+    const moving = Math.abs(gx.getVelocity()) > 0.05;
     gx.stop();
-    g.current = { id: e.pointerId, x0: e.clientX, y0: e.clientY, axis: "none", base: gx.get(), t: performance.now(), vx: 0, vy: 0, lx: e.clientX, ly: e.clientY };
+    g.current = { id: e.pointerId, x0: e.clientX, y0: e.clientY, axis: "none", base: gx.get(), t: performance.now(), vx: 0, vy: 0, lx: e.clientX, ly: e.clientY, moving, yb: 0 };
   };
   const onPointerMove = (e: PointerEvent) => {
     const s = g.current;
@@ -188,6 +216,11 @@ export function Gallery({
     if (s.axis === "none") {
       if (Math.hypot(dx, dy) < 8) return;
       s.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+      if (s.axis === "y") {
+        // Catch the picture where it is (it may still be springing back).
+        dragY.stop();
+        s.yb = dragY.get() - dy;
+      }
       haptic.drag();
     }
     const step = vw + SLIDE_GAP;
@@ -197,7 +230,10 @@ export function Gallery({
       if (v < 0) v = rubber(v * step, vw) / step;
       else if (v > max) v = max + rubber((v - max) * step, vw) / step;
       gx.set(v);
-    } else dragY.set(dy > 0 ? dy : rubber(dy, 300));
+    } else {
+      const v = s.yb + dy;
+      dragY.set(v > 0 ? v : rubber(v, 300));
+    }
   };
   const onPointerUp = (e: PointerEvent) => {
     const s = g.current;
@@ -209,9 +245,10 @@ export function Gallery({
     const dx = e.clientX - s.x0;
     const dy = e.clientY - s.y0;
     if (s.axis === "none") {
-      // A tap on the dark (not on the picture or its words) closes.
+      settleStrip();
+      // A tap on the dark (not on the picture or its words) closes, unless it only stopped the strip.
       const t = e.target as HTMLElement;
-      if (!t.closest("[data-slide-media],[data-caption],button")) close();
+      if (!s.moving && !t.closest("[data-slide-media],[data-caption],button")) close();
       return;
     }
     const step = vw + SLIDE_GAP;
@@ -222,6 +259,7 @@ export function Gallery({
       go(to, -vx / step);
       return;
     }
+    settleStrip();
     if (dy > 110 || vy > 520) close(vy);
     else animate(dragY, 0, { ...PAGE, velocity: vy });
   };

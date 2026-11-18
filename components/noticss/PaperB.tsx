@@ -10,6 +10,8 @@ import { Arrow } from "@/components/updatr/Arrow";
 import { AbSwitch } from "./AbSwitch";
 import { Cover } from "./b/Cover";
 import { Gallery } from "./b/Gallery";
+import { TopFill } from "./b/TopFill";
+import { darken, hexToRgb, topTone } from "@/lib/noticss/tone";
 import { Page, titleOf } from "./b/Pages";
 import {
   BOTTOM,
@@ -80,6 +82,9 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const col = useRef<HTMLDivElement>(null);
   const Wm = useMemo(() => motionValue(390), []);
   const Hm = useMemo(() => motionValue(844), []);
+  /** The tray's bottom inset: its margin plus the home indicator's safe area. */
+  const Bm = useMemo(() => motionValue(BOTTOM), []);
+  const probe = useRef<HTMLDivElement>(null);
   const [dims, setDims] = useState({ w: 390, h: 844 });
   useLayoutEffect(() => {
     const el = col.current;
@@ -87,6 +92,8 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     const measure = () => {
       const w = el.clientWidth;
       const h = el.clientHeight;
+      const sab = probe.current ? parseFloat(getComputedStyle(probe.current).paddingBottom) || 0 : 0;
+      Bm.set(BOTTOM + sab);
       Wm.set(w);
       Hm.set(h);
       setDims({ w, h });
@@ -96,7 +103,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [Wm, Hm, secX]);
+  }, [Wm, Hm, Bm, secX]);
 
   // A full-screen surface: the document behind must not scroll or bounce.
   useEffect(() => {
@@ -116,7 +123,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const H = () => Hm.get();
   const visible = () => (W() - PAD + G * S) / ((W() + G) * S);
   const maxPos = (n: number) => Math.max(0, n - visible());
-  const trayTop = () => H() - H() * S - BOTTOM;
+  const trayTop = () => H() - H() * S - Bm.get();
   const pageEl = (s: number, c: number) => col.current?.querySelector<HTMLElement>(`[data-page="${s}-${c}"]`) ?? null;
   const toTop = (s: number, c: number) => {
     const el = pageEl(s, c);
@@ -203,6 +210,12 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     const w = W();
     const h = H();
     const k0 = from.width / w;
+    const tr = t.begin(() => {
+      t.resetOverride(i);
+      t.resetOverride(j);
+      setKeep([]);
+      toTop(s, i);
+    });
     const oi = t.override(i);
     const oj = t.override(j);
     setKeep([i, j]);
@@ -210,32 +223,34 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     toTop(s, j);
     // The jump underneath, with both pages held where they look to be.
     t.cur.stop();
-    t.cur.set(j);
-    oi.x.set((j - i) * (w + G));
-    oi.z.set(1);
-    oj.x.set(from.left - box.left);
-    oj.y.set(from.top - box.top);
-    oj.s.set(k0);
-    oj.clip.set(Math.max(0, h - from.height / k0));
-    oj.z.set(5);
+    t.cur.jump(j);
+    oi.x.jump((j - i) * (w + G));
+    oi.z.jump(1);
+    oj.x.jump(from.left - box.left);
+    oj.y.jump(from.top - box.top);
+    oj.s.jump(k0);
+    oj.clip.jump(Math.max(0, h - from.height / k0));
+    oj.z.jump(5);
     setOpen({ sec: s, card: j });
-    let left = 8;
-    const done = () => {
-      if (--left) return;
-      t.resetOverride(i);
-      t.resetOverride(j);
-      setKeep([]);
-      toTop(s, i);
-    };
-    t.run(oj.x, 0, POP, done);
-    t.run(oj.y, 0, POP, done);
-    t.run(oj.s, 1, POP, done);
-    t.run(oj.clip, 0, POP, done);
-    // The page we leave recedes a little, from its centre.
-    t.run(oi.s, 0.94, POP, done);
-    t.run(oi.o, 0.45, POP, done);
-    t.run(oi.x, (j - i) * (w + G) + w * 0.03, POP, done);
-    t.run(oi.y, h * 0.03, POP, done);
+    // The springs start on the next frame: this one mounts the page.
+    requestAnimationFrame(() => {
+      if (!t.isPending(tr)) return;
+      let left = 8;
+      const done = () => {
+        if (!--left) t.complete(tr);
+      };
+      tr.anims.push(
+        t.run(oj.x, 0, POP, done),
+        t.run(oj.y, 0, POP, done),
+        t.run(oj.s, 1, POP, done),
+        t.run(oj.clip, 0, POP, done),
+        // The page we leave recedes a little, from its centre.
+        t.run(oi.s, 0.94, POP, done),
+        t.run(oi.o, 0.45, POP, done),
+        t.run(oi.x, (j - i) * (w + G) + w * 0.03, POP, done),
+        t.run(oi.y, h * 0.03, POP, done),
+      );
+    });
   };
 
   /** The end pull committed: the next page rises from below; the row is already there. */
@@ -248,23 +263,25 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     const j = i + 1;
     const w = W();
     const h = H();
-    const oi = t.override(i);
-    const oj = t.override(j);
-    haptic.complete();
-    t.cur.stop();
-    t.cur.set(j);
-    oj.x.set(0);
-    oi.x.set(w + G);
-    setOpen({ sec: s, card: j });
-    let left = 2;
-    const done = () => {
-      if (--left) return;
+    const tr = t.begin(() => {
       t.resetOverride(i);
       t.resetOverride(j);
       setKeep([]);
       toTop(s, i);
+    });
+    const oi = t.override(i);
+    const oj = t.override(j);
+    haptic.complete();
+    t.cur.stop();
+    t.cur.jump(j);
+    oj.x.jump(0);
+    oi.x.jump(w + G);
+    setOpen({ sec: s, card: j });
+    let left = 2;
+    const done = () => {
+      if (!--left) t.complete(tr);
     };
-    t.run(oj.y, 0, { ...PAGE, velocity: v }, done);
+    tr.anims.push(t.run(oj.y, 0, { ...PAGE, velocity: v }, done));
     // The page we leave becomes the background: it sinks back from its centre
     // and fades all the way out, a little slower than the new one rises, so
     // nothing is left to vanish when it is put back in its place.
@@ -272,21 +289,30 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     const o0 = oi.o.get();
     const q = motionValue(0);
     t.hold();
-    animate(q, 1, {
-      duration: 0.62,
-      ease: [0.33, 0, 0.2, 1],
-      onUpdate: (k) => {
-        const sc = 1 - 0.08 * k;
-        oi.s.set(sc);
-        oi.x.set(w + G + (w * (1 - sc)) / 2);
-        oi.y.set(y0 + (-h * 0.06 - y0) * k + (h * (1 - sc)) / 2);
-        oi.o.set(o0 * Math.pow(1 - k, 1.35));
-      },
-      onComplete: () => {
-        t.release();
-        done();
-      },
-    });
+    let held = true;
+    const letGo = () => {
+      if (!held) return;
+      held = false;
+      t.release();
+    };
+    tr.anims.push(
+      animate(q, 1, {
+        duration: 0.62,
+        ease: [0.33, 0, 0.2, 1],
+        onUpdate: (k) => {
+          const sc = 1 - 0.08 * k;
+          oi.s.set(sc);
+          oi.x.set(w + G + (w * (1 - sc)) / 2);
+          oi.y.set(y0 + (-h * 0.06 - y0) * k + (h * (1 - sc)) / 2);
+          oi.o.set(o0 * Math.pow(1 - k, 1.35));
+        },
+        onStop: letGo,
+        onComplete: () => {
+          letGo();
+          done();
+        },
+      }),
+    );
     t.run(endLift, 0, SETTLE);
   };
 
@@ -295,18 +321,19 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     if (!o) return;
     const t = trays[o.sec];
     const i = o.card;
-    const oi = t.override(i);
-    const oj = sections[o.sec].cards[i + 1] ? t.override(i + 1) : null;
-    let left = oj ? 3 : 2;
-    const done = () => {
-      if (--left) return;
+    const hasNext = !!sections[o.sec].cards[i + 1];
+    const tr = t.begin(() => {
       t.resetOverride(i);
-      if (oj) t.resetOverride(i + 1);
+      if (hasNext) t.resetOverride(i + 1);
       setKeep([]);
+    });
+    const oi = t.override(i);
+    let left = hasNext ? 3 : 2;
+    const done = () => {
+      if (!--left) t.complete(tr);
     };
-    t.run(oi.y, 0, SETTLE, done);
-    t.run(oi.o, 1, SETTLE, done);
-    if (oj) t.run(oj.y, H(), SETTLE, done);
+    tr.anims.push(t.run(oi.y, 0, SETTLE, done), t.run(oi.o, 1, SETTLE, done));
+    if (hasNext) tr.anims.push(t.run(t.override(i + 1).y, H(), SETTLE, done));
     t.run(endLift, 0, SETTLE);
   };
 
@@ -347,12 +374,21 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       oxBase: number;
       /** Caught while opening: whatever this gesture does, the page finishes opening. */
       resume: boolean;
+      /** The touch landed on something moving: it only stops it, it opens nothing. */
+      stopped: boolean;
+      /** This gesture holds the row as its own layer (released at the end). */
+      layer: boolean;
       media: HTMLElement | null;
       hold: number;
       armed: boolean;
-      last: { x: number; y: number; t: number; vx: number; vy: number };
+      samples: { x: number; y: number; t: number }[];
+      last: { x: number; y: number; t: number };
       id: number | "mouse";
     } | null = null;
+    /** A finger that held a picture up: its touches no longer pass through the column. */
+    let heldFinger: number | null = null;
+    /** When the open page last scrolled (a touch that stops momentum is not a tap). */
+    let lastScroll = 0;
 
     const cardAt = (x: number) => {
       const t = trays[secRef.current];
@@ -365,7 +401,43 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       return { x: cx - r.left, y: cy - r.top };
     };
     /** Finger travel that takes a card from the tray to the page, keeping the grabbed point under the finger. */
-    const travel = (fy: number) => Math.max(170, (1 - fy) * H() * (1 - S) - BOTTOM);
+    const travel = (fy: number) => Math.max(170, (1 - fy) * H() * (1 - S) - Bm.get());
+    /** Release velocity over the last ~100 ms of the finger (px/s), zero if it rested. */
+    const velocity = (gg: NonNullable<typeof g>) => {
+      const now = performance.now();
+      const sm = gg.samples.filter((p) => now - p.t < 100);
+      if (sm.length < 2 || now - sm[sm.length - 1].t > 80) return { vx: 0, vy: 0 };
+      const a = sm[0];
+      const b = sm[sm.length - 1];
+      const dt = Math.max(16, b.t - a.t) / 1000;
+      return { vx: (b.x - a.x) / dt, vy: (b.y - a.y) / dt };
+    };
+
+    /**
+     * Put back whatever the touch stopped and this gesture will not drive:
+     * the section between two, the tray between cards, a page between pages
+     * or half open. Branches that animate afterwards replace these.
+     */
+    const settleRest = (gg: NonNullable<typeof g>) => {
+      const s = secRef.current;
+      const t = trays[s];
+      const n = sections[s].cards.length;
+      const w = W();
+      if (!(gg.zone === "cover" && gg.mode === "x") && Math.abs(secX.get() + s * w) > 0.5) goSection(s);
+      const o = openRef.current;
+      if (o) {
+        if (gg.mode !== "collapse" && t.p.get() < 0.999) t.run(t.p, 1, EXPAND);
+        if (gg.mode !== "x" && Math.abs(t.cur.get() - o.card) > 0.001) t.run(t.cur, o.card, PAGE);
+        if (gg.mode !== "collapse" && Math.abs(t.ox.get()) > 0.5) t.run(t.ox, 0, EXPAND);
+      } else {
+        if (!(gg.zone === "tray" && gg.mode === "x")) {
+          const rest = clamp(Math.round(t.posC.get()), 0, maxPos(n));
+          if (Math.abs(t.posC.get() - rest) > 0.001) t.run(t.posC, rest, TRAY);
+        }
+        if (!(gg.zone === "tray" && gg.mode === "y") && t.p.get() > 0.001) t.run(t.p, 0, COLLAPSE);
+        if (!(gg.zone === "tray" && gg.mode === "y") && Math.abs(t.ox.get()) > 0.5) t.run(t.ox, 0, COLLAPSE);
+      }
+    };
 
     const start = (cx: number, cy: number, id: number | "mouse", target: EventTarget | null) => {
       if (galleryRef.current) return;
@@ -373,56 +445,79 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const o = openRef.current;
       const s = secRef.current;
       const t = trays[s];
-      // Whatever moves stops where it is, and the finger takes it from there.
+      const w = W();
+      // Was anything moving? Then this touch only stops it (iOS): it opens nothing.
+      const sc0 = o ? pageEl(s, o.card) : null;
+      const stopped =
+        Math.abs(secX.getVelocity()) > 40 ||
+        Math.abs(t.posC.getVelocity()) * (w + G) * S > 40 ||
+        Math.abs(t.cur.getVelocity()) * (w + G) > 40 ||
+        Math.abs(t.p.getVelocity()) > 0.3 ||
+        (!!sc0 && performance.now() - lastScroll < 120);
+      const sliding = !o && Math.abs(secX.get() + s * w) > 0.5;
+      // A page arriving from elsewhere is finished at once; whatever moves stops
+      // where it is, and the finger takes it from there.
+      t.settle();
       t.stopAll();
       secX.stop();
-      // A card caught on its way back to the tray belongs to the tray gesture.
-      const caught = !o && t.p.get() > 0.02;
-      const zone: Zone = o ? "page" : caught || y >= trayTop() - 6 ? "tray" : "cover";
-      const step = (W() + G) * S;
+      // A card caught on its way back to the tray belongs to the tray gesture;
+      // a section caught sliding belongs to the cover.
+      const caught = !o && !sliding && t.p.get() > 0.02;
+      const zone: Zone = o ? "page" : sliding ? "cover" : caught || y >= trayTop() - 6 ? "tray" : "cover";
+      const step = (w + G) * S;
       const card = caught ? Math.round(t.cur.get()) : zone === "tray" ? cardAt(x) : o?.card ?? Math.round(t.cur.get());
       const left0 = PAD + (card - t.posC.get()) * step;
-      const sc = o ? pageEl(s, o.card) : null;
+      const sc = sc0;
       const tgt = target as HTMLElement | null;
       const media = o && sc && tgt ? (tgt.closest("[data-media]") as HTMLElement | null) : null;
+      const now = performance.now();
       g = {
         zone,
         mode: "none",
         x0: x,
         y0: y,
-        t0: performance.now(),
+        t0: now,
         card,
         base: zone === "cover" ? secX.get() : zone === "tray" ? t.posC.get() : t.cur.get(),
-        fx: caught ? t.fx.get() : zone === "tray" ? clamp((x - left0) / (W() * S), 0, 1) : clamp(x / W(), 0, 1),
+        fx: caught ? t.fx.get() : zone === "tray" ? clamp((x - left0) / (w * S), 0, 1) : clamp(x / w, 0, 1),
         fy: zone === "tray" ? clamp((y - trayTop()) / (H() * S), 0, 1) : clamp(y / H(), 0, 1),
         atTop: !sc || sc.scrollTop <= 0,
         atEnd: !sc || sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2,
         pBase: caught ? t.p.get() : o ? t.p.get() : 0,
         oxBase: t.ox.get(),
         resume: !!o && t.p.get() < 0.999,
-        media: media && sc!.contains(media) ? media : null,
+        stopped,
+        layer: false,
+        media: media && sc!.contains(media) && !stopped ? media : null,
         hold: 0,
         armed: false,
-        last: { x, y, t: performance.now(), vx: 0, vy: 0 },
+        samples: [{ x, y, t: now }],
+        last: { x, y, t: now },
         id,
       };
       if (g.media) {
         const gg = g;
         gg.hold = window.setTimeout(() => {
           if (g !== gg || gg.mode !== "none") return;
+          // The gesture ends here: the picture leaves the column, and so do
+          // this finger's touches. Put back what it stopped, then lift.
+          g = null;
           gg.mode = "held";
+          settleRest(gg);
+          if (gg.id !== "mouse") heldFinger = gg.id;
           openGallery(gg.media!);
         }, HOLD_MS);
       }
     };
 
     /** True when the move is ours (the caller then blocks the native scroll). */
-    const move = (cx: number, cy: number): boolean => {
+    const move = (cx: number, cy: number, cancelable = true): boolean => {
       if (!g) return false;
       const { x, y } = local(cx, cy);
       const now = performance.now();
-      const dt = Math.max(1, now - g.last.t);
-      g.last = { x, y, t: now, vx: ((x - g.last.x) / dt) * 1000, vy: ((y - g.last.y) / dt) * 1000 };
+      g.samples.push({ x, y, t: now });
+      if (g.samples.length > 12) g.samples.shift();
+      g.last = { x, y, t: now };
       const dx = x - g.x0;
       const dy = y - g.y0;
       if (g.mode === "native") return false;
@@ -431,8 +526,18 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const t = trays[s];
       const n = sections[s].cards.length;
       if (g.mode === "none") {
-        if (Math.hypot(dx, dy) < 8) return g.zone !== "page";
+        if (Math.hypot(dx, dy) < 8) {
+          if (g.zone !== "page") return true;
+          // Inside the slop on a page: hold iOS off whatever may become ours
+          // (sideways, a pull at the top, a push at the end); let a scroll start.
+          return Math.abs(dx) > Math.abs(dy) || (dy > 0 && g.atTop) || (dy < 0 && g.atEnd);
+        }
         clearTimeout(g.hold);
+        // iOS already owns this touch: give it back before changing anything.
+        if (!cancelable) {
+          g.mode = "native";
+          return false;
+        }
         if (Math.abs(dx) > Math.abs(dy) && !(g.zone === "tray" && g.pBase > 0)) g.mode = "x";
         else if (g.zone === "page") {
           if (dy > 0 && g.atTop) {
@@ -462,7 +567,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
             haptic.drag();
           }
         }
-        t.hold();
+        // Moving the row without scaling it: it may be its own layer meanwhile.
+        if (g.mode === "x" || g.mode === "end") {
+          t.hold();
+          g.layer = true;
+        }
       }
       const w = W();
       const h = H();
@@ -530,49 +639,28 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const gg = g;
       g = null;
       clearTimeout(gg.hold);
-      const fresh = performance.now() - gg.last.t < 80;
-      const vx = fresh ? gg.last.vx : 0;
-      const vy = fresh ? gg.last.vy : 0;
+      const { vx, vy } = velocity(gg);
       const w = W();
       const s = secRef.current;
       const t = trays[s];
       const n = sections[s].cards.length;
       const dist = Math.hypot(gg.last.x - gg.x0, gg.last.y - gg.y0);
       const quick = performance.now() - gg.t0 < 420;
-      const o0 = openRef.current;
-      // Caught while opening and not taken anywhere: it finishes opening.
-      if (gg.resume && gg.mode !== "collapse" && o0) {
-        t.run(t.p, 1, EXPAND);
-        if (gg.mode !== "x") t.run(t.cur, o0.card, PAGE);
-      }
+      if (gg.layer) t.release();
+      // First, everything this gesture stopped and will not drive goes back to rest.
+      settleRest(gg);
       if (gg.mode === "native" || gg.mode === "held") return;
-      t.release();
 
       if (gg.mode === "none") {
-        const tap = !cancelled && dist < 10 && quick;
+        const tap = !cancelled && !gg.stopped && dist < 10 && quick;
         if (tap && gg.zone === "tray") return expand(gg.card, 0, gg.fx);
-        if (tap && gg.zone === "cover") {
-          t.posC.set(0);
-          return expand(0);
-        }
+        if (tap && gg.zone === "cover") return expand(clamp(Math.round(t.posC.get()), 0, n - 1));
         if (tap && gg.media) return openGallery(gg.media);
-        // Nothing happened: put back whatever the touch stopped (only what is off its rest).
-        const o = openRef.current;
-        if (gg.zone === "cover") {
-          if (Math.abs(secX.get() + secRef.current * w) > 0.5) goSection(secRef.current);
-        } else if (gg.zone === "tray") {
-          const rest = clamp(Math.round(t.posC.get()), 0, maxPos(n));
-          if (Math.abs(t.posC.get() - rest) > 0.001) t.run(t.posC, rest, TRAY);
-          if (t.p.get() > 0.001) t.run(t.p, 0, COLLAPSE);
-        } else if (o) {
-          if (t.p.get() < 0.999) t.run(t.p, 1, EXPAND);
-          if (Math.abs(t.cur.get() - o.card) > 0.001) t.run(t.cur, o.card, PAGE);
-        } else if (t.p.get() > 0.001) t.run(t.p, 0, COLLAPSE);
         return;
       }
 
       if (gg.zone === "cover") {
-        if (gg.mode !== "x") return goSection(secRef.current);
+        if (gg.mode !== "x") return;
         const dx = gg.last.x - gg.x0;
         let to = secRef.current;
         if (!cancelled && (dx < -w * 0.2 || vx < -350)) to += 1;
@@ -631,16 +719,16 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       if (!g || g.id === "mouse") return;
       const t = [...e.changedTouches].find((c) => c.identifier === g!.id);
       if (!t) return;
-      if (move(t.clientX, t.clientY)) {
-        if (e.cancelable) e.preventDefault();
-        else if (g && g.mode === "none") g.mode = "native"; // iOS already owns it
-      }
+      if (move(t.clientX, t.clientY, e.cancelable) && e.cancelable) e.preventDefault();
     };
     const onTouchEnd = (e: TouchEvent) => {
       if (!g || g.id === "mouse") return;
       if ([...e.changedTouches].some((c) => c.identifier === g!.id)) end(false);
     };
     const onTouchCancel = () => end(true);
+    const onScroll = () => {
+      lastScroll = performance.now();
+    };
 
     // Mouse, for desktop.
     const onPointerDown = (e: PointerEvent) => {
@@ -657,21 +745,48 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       end(false);
     };
 
+    // Document level: the left edge is ours, not Safari's history swipe (B is
+    // sideways edge to edge); and a finger that held a picture up must not
+    // scroll the page underneath while the gallery takes over.
+    const docStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t || t.clientX > 30 || !e.cancelable) return;
+      if ((e.target as HTMLElement | null)?.closest("a,button")) return;
+      e.preventDefault();
+    };
+    const docMove = (e: TouchEvent) => {
+      if (heldFinger === null) return;
+      if ([...e.changedTouches].some((c) => c.identifier === heldFinger) && e.cancelable) e.preventDefault();
+    };
+    const docEnd = (e: TouchEvent) => {
+      if (heldFinger !== null && [...e.changedTouches].some((c) => c.identifier === heldFinger)) heldFinger = null;
+    };
+
     el.addEventListener("touchstart", onTouchStart, { passive: true });
     el.addEventListener("touchmove", onTouchMove, { passive: false });
     el.addEventListener("touchend", onTouchEnd);
     el.addEventListener("touchcancel", onTouchCancel);
+    el.addEventListener("scroll", onScroll, { capture: true, passive: true });
     el.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onPointerUp);
+    document.addEventListener("touchstart", docStart, { capture: true, passive: false });
+    document.addEventListener("touchmove", docMove, { capture: true, passive: false });
+    document.addEventListener("touchend", docEnd, true);
+    document.addEventListener("touchcancel", docEnd, true);
     return () => {
       el.removeEventListener("touchstart", onTouchStart);
       el.removeEventListener("touchmove", onTouchMove);
       el.removeEventListener("touchend", onTouchEnd);
       el.removeEventListener("touchcancel", onTouchCancel);
+      el.removeEventListener("scroll", onScroll, true);
       el.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerup", onPointerUp);
+      document.removeEventListener("touchstart", docStart, true);
+      document.removeEventListener("touchmove", docMove, true);
+      document.removeEventListener("touchend", docEnd, true);
+      document.removeEventListener("touchcancel", docEnd, true);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sections, trays]);
@@ -699,6 +814,98 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const onPick = useCallback((noteId: string, from: DOMRect) => presentFrom(noteId, from), // eslint-disable-next-line react-hooks/exhaustive-deps
   [sections, trays]);
 
+  // A story opened: its notes' photos are fetched and decoded now, so a note
+  // popped from its list arrives with its picture.
+  const warmed = useRef(new Map<string, HTMLImageElement>());
+  useEffect(() => {
+    if (!open) return;
+    const c = sections[open.sec]?.cards[open.card];
+    if (!c || c.type !== "subject") return;
+    for (const n of c.subject.notes) {
+      const src = n.image?.src;
+      if (!src || warmed.current.has(src)) continue;
+      const im = new Image();
+      im.src = src;
+      im.decode().catch(() => {});
+      warmed.current.set(src, im);
+    }
+  }, [open, sections]);
+
+  /*
+   * The colour at the top of what is showing, for the status bar: the top of
+   * the open page's photo (or its paper once scrolled past it), the cover's
+   * sky or photo under its dark gradient on the tray, black in the gallery.
+   * Safari's own chrome and the overscroll take it too.
+   */
+  const [tone, setTone] = useState("rgb(20, 17, 14)");
+  useEffect(() => {
+    const GROUND = hexToRgb("#f1ece2");
+    const PAPER = hexToRgb("#f8f5ee");
+    const read = () => {
+      if (gallery) return "rgb(0, 0, 0)";
+      const o = openRef.current;
+      const c = col.current;
+      if (!c) return null;
+      if (o) {
+        const card = sections[o.sec]?.cards[o.card];
+        const sc = pageEl(o.sec, o.card);
+        if (!card || !sc) return null;
+        if (card.type === "figures") return PAPER;
+        const media = sc.querySelector<HTMLElement>("[data-media]");
+        const frame = media?.parentElement;
+        if (media && frame && sc.scrollTop < frame.clientHeight * 0.7) return topTone(media.querySelector("img"));
+        if (!media && card.type === "note" && sc.scrollTop < H() * 0.3) return PAPER;
+        return GROUND;
+      }
+      const sd = sections[secRef.current];
+      if (sd?.kind === "hoy") return hexToRgb(ed.weather?.sky?.[0] ?? "#6f6a62");
+      const img = c.querySelector<HTMLImageElement>(`[data-cover="${secRef.current}"] img`);
+      const t = topTone(img);
+      return t ? darken(t, 0.55) : null;
+    };
+    let raf = 0;
+    const apply = () => {
+      raf = 0;
+      const t = read();
+      if (t) setTone((p) => (p === t ? p : t));
+    };
+    const soon = () => {
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    apply();
+    // Pictures may still be arriving: look again once they have.
+    const later = window.setTimeout(apply, 450);
+    const el = col.current;
+    el?.addEventListener("scroll", soon, { capture: true, passive: true });
+    el?.addEventListener("load", soon, true);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      clearTimeout(later);
+      el?.removeEventListener("scroll", soon, true);
+      el?.removeEventListener("load", soon, true);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sec, open, gallery, sections, ed]);
+  useEffect(() => {
+    const html = document.documentElement;
+    html.style.backgroundColor = tone;
+    document.body.style.backgroundColor = tone;
+    let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "theme-color";
+      document.head.appendChild(meta);
+    }
+    meta.content = tone;
+  }, [tone]);
+  useEffect(
+    () => () => {
+      document.documentElement.style.backgroundColor = "";
+      document.body.style.backgroundColor = "";
+    },
+    [],
+  );
+
   const near = (i: number) => Math.abs(i - sec) <= 1;
   const openCard = open ? sections[open.sec].cards[open.card] : null;
   const endY = useTransform(() => Hm.get() - endLift.get() - 44);
@@ -706,6 +913,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-ink" data-app>
+      <div ref={probe} aria-hidden className="pointer-events-none invisible fixed bottom-0 left-0 h-0 w-0 pb-[env(safe-area-inset-bottom)]" />
       <div ref={col} className="relative mx-auto h-full w-full max-w-[520px] overflow-hidden" style={{ touchAction: open ? "pan-y" : "none" }}>
         {sections.map((s, i) =>
           near(i) ? (
@@ -719,6 +927,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
               secX={secX}
               W={Wm}
               H={Hm}
+              B={Bm}
               dims={dims}
               open={open?.sec === i ? open.card : null}
               keep={open?.sec === i ? keep : NONE}
@@ -775,6 +984,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         </motion.div>
       </div>
 
+      <TopFill tone={tone} />
       <AbSwitch current="b" hidden={!!open} tone="dark" />
 
       {editions.length > 1 && !open && sec === sections.length - 1 ? (
@@ -788,7 +998,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
                 haptic.complete();
                 secRef.current = 0;
                 setSec(0);
-                secX.set(0);
+                secX.jump(0);
+                trays.forEach((t) => t.settle());
+                endLift.jump(0);
+                setEndArmed(false);
+                setKeep([]);
                 setOpen(null);
                 setEdIndex(i);
               }}
@@ -839,6 +1053,7 @@ function SectionScreen({
   secX,
   W,
   H,
+  B,
   dims,
   open,
   keep,
@@ -852,6 +1067,7 @@ function SectionScreen({
   secX: MotionValue<number>;
   W: MotionValue<number>;
   H: MotionValue<number>;
+  B: MotionValue<number>;
   dims: { w: number; h: number };
   open: number | null;
   keep: number[];
@@ -879,24 +1095,31 @@ function SectionScreen({
   const ty = useTransform(() => {
     const v = p.get();
     const kk = S + (1 - S) * v;
-    return H.get() - BOTTOM * (1 - v) - H.get() * kk;
+    return H.get() - B.get() * (1 - v) - H.get() * kk;
   });
   // The cover sinks to near black from 80% open, so pages turn over the dark.
   const dim = useTransform(p, [0, 0.5, 0.8, 1], [0, 0.14, 0.9, 0.9]);
 
   // Which pages are drawn in full: a few around the one in view, plus any an override carries.
-  const winOf = () => {
-    const c = p.get() > 0.5 || open !== null ? Math.round(cur.get()) : Math.floor(posC.get());
-    return p.get() > 0.5 || open !== null ? [c - 2, c + 2] : [c - 1, c + 4];
+  // Two windows, always both: around the page in view, and around the tray's
+  // view, each leading in the direction it moves. Nothing changes while a
+  // card grows or shrinks, so no page is mounted mid-flight by the window.
+  const winOf = (): [number, number, number, number] => {
+    const c = Math.round(cur.get());
+    const t = Math.floor(posC.get());
+    const vc = cur.getVelocity();
+    const vt = posC.getVelocity();
+    const lc = Math.ceil(Math.abs(vc) * 0.15);
+    const lt = Math.ceil(Math.abs(vt) * 0.15);
+    return [c - 2 - (vc < 0 ? lc : 0), c + 2 + (vc > 0 ? lc : 0), t - 1 - (vt < 0 ? lt : 0), t + 4 + (vt > 0 ? lt : 0)];
   };
-  const [win, setWin] = useState<[number, number]>([-1, 4]);
+  const [win, setWin] = useState<[number, number, number, number]>([-2, 2, -1, 4]);
   const syncWin = () => {
-    const [a, b] = winOf();
-    setWin((w) => (w[0] === a && w[1] === b ? w : [a, b]));
+    const nw = winOf();
+    setWin((w) => (w.every((v, k) => v === nw[k]) ? w : nw));
   };
   useMotionValueEvent(cur, "change", syncWin);
   useMotionValueEvent(posC, "change", syncWin);
-  useMotionValueEvent(p, "change", syncWin);
   const [lifted, setLifted] = useState(false);
   useMotionValueEvent(p, "change", (v) => setLifted(v > 0.005));
 
@@ -908,7 +1131,7 @@ function SectionScreen({
       <motion.div className="pointer-events-none absolute inset-0 bg-black" style={{ opacity: dim }} />
       <motion.div ref={row} className="absolute left-0 top-0" style={{ x: tx, y: ty, scale: k, originX: 0, originY: 0, zIndex: lifted ? 10 : 1 }}>
         {section.cards.map((c, i) => {
-          const heavy = (i >= win[0] && i <= win[1]) || i === open || keep.includes(i);
+          const heavy = (i >= win[0] && i <= win[1]) || (i >= win[2] && i <= win[3]) || i === open || keep.includes(i);
           const next = section.cards[i + 1];
           return (
             <RowCard key={c.id} tray={tray} i={i} w={dims.w} h={dims.h}>
