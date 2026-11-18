@@ -113,31 +113,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const root = useRef<HTMLDivElement>(null);
   /** How much of the screen the browser's bottom bar covers (0 from the home screen). */
   const [barBottom, setBarBottom] = useState(0);
-  /*
-   * iPhone Safari stops a fixed surface (even at 100lvh) above the area its
-   * bottom bar uses, and paints the page's background colour below it. There,
-   * B takes the whole physical screen (its height), so the covers and pages
-   * run to the bottom edge; the tray and the controls are kept above what the
-   * browser covers (the bar inset below). Not in a frame (the artifact) and
-   * not on desktop, where the window, not the screen, is the surface.
-   */
-  const [screenH, setScreenH] = useState<number | null>(null);
-  useLayoutEffect(() => {
-    const read = () => {
-      const ios = /iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1 && /Mobile/.test(navigator.userAgent));
-      if (!ios || window.top !== window.self) return setScreenH(null);
-      const portrait = window.innerHeight >= window.innerWidth;
-      const h = portrait ? Math.max(window.screen.height, window.screen.width) : Math.min(window.screen.height, window.screen.width);
-      setScreenH(h > window.innerHeight ? h : null);
-    };
-    read();
-    window.addEventListener("orientationchange", read);
-    window.addEventListener("resize", read);
-    return () => {
-      window.removeEventListener("orientationchange", read);
-      window.removeEventListener("resize", read);
-    };
-  }, []);
+
   const [dims, setDims] = useState({ w: 390, h: 844 });
   useLayoutEffect(() => {
     const el = col.current;
@@ -922,7 +898,20 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const o = openRef.current;
       const c = col.current;
       if (!c) return null;
-      if (o) return { tone: DARK, bottom: DARK, mode: "none" };
+      if (o) {
+        // Safari paints the strip below B (under its bar) with the page's
+        // background colour and never draws B there, so that colour must be
+        // what touches B's bottom edge: the open page's paper, or its photo's
+        // dark while a story's full-bleed photo still fills the page.
+        const card = sections[o.sec]?.cards[o.card];
+        const sc = pageEl(o.sec, o.card);
+        const PAPERB = hexToRgb("#f8f5ee");
+        const GROUNDB = hexToRgb("#f1ece2");
+        let bottom = GROUNDB;
+        if (card?.type === "figures") bottom = PAPERB;
+        else if (card?.type === "subject" && card.subject.image && sc && sc.scrollTop < sc.clientHeight * 0.6) bottom = DARK;
+        return { tone: DARK, bottom, mode: "none" };
+      }
       const sd = sections[secRef.current];
       if (sd?.kind === "hoy") {
         const sky = ed.weather?.sky;
@@ -1022,7 +1011,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       ref={root}
       className="fixed inset-x-0 top-0 h-[100lvh] overflow-hidden bg-ink"
       data-app
-      style={{ ["--sab" as string]: `calc(env(safe-area-inset-bottom, 0px) + ${barBottom}px)`, ...(screenH ? { height: screenH } : null) }}
+      style={{ ["--sab" as string]: `calc(env(safe-area-inset-bottom, 0px) + ${barBottom}px)` }}
     >
       <div ref={probe} aria-hidden className="pointer-events-none invisible fixed bottom-0 left-0 h-0 w-0 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]" />
       <div ref={col} className="relative mx-auto h-full w-full max-w-[520px] overflow-hidden" style={{ touchAction: open ? "pan-y" : "none" }}>
