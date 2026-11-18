@@ -1,6 +1,11 @@
 import { animate, motionValue, type MotionValue } from "motion/react";
 import { categoryName, categoryOrder, type Category, type Edition, type Indicator, type Note, type Subject } from "@/data/noticss/types";
 
+/** iOS's deceleration: a fling travels about half a second's worth of its speed. */
+export const GLIDE = { power: 0.5 };
+/** The thread between cards when one is lifted: each follows the one before it this tightly. */
+const LINK = { k: Math.pow((2 * Math.PI) / 0.22, 2), c: 2 * 0.86 * ((2 * Math.PI) / 0.22) };
+
 /*
  * Version B's geometry and physics, in one place.
  *
@@ -43,6 +48,8 @@ export const TRAY = spring(0.46, 1);
 export const SECTION = spring(0.48, 1);
 export const POP = spring(0.46, 0.8);
 export const SETTLE = spring(0.36, 1);
+/** A slow flick's landing on its card. */
+const SNAP = spring(0.42, 1);
 
 /** iOS rubber band: travel past an edge, felt through resistance. */
 export const rubber = (over: number, dim: number, c = 0.55) => {
@@ -60,23 +67,59 @@ export const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b
 
 /* ---------- content ---------- */
 
+/** A story card; `from` is set when it comes from an earlier edition (a followed topic). */
 export type Card =
-  | { type: "subject"; id: string; subject: Subject }
-  | { type: "note"; id: string; subject: Subject; note: Note }
+  | { type: "subject"; id: string; subject: Subject; from?: Edition }
+  | { type: "note"; id: string; subject: Subject; note: Note; from?: Edition }
   | { type: "figures"; id: string; indicators: Indicator[] };
 
-export type SectionDef = { id: string; name: string; kind: "hoy" | Category; lead?: Subject; cards: Card[] };
+export type SectionDef = {
+  id: string;
+  name: string;
+  kind: "hoy" | Category | "siguiendo";
+  lead?: Subject;
+  cards: Card[];
+  /** Siguiendo: how many followed topics are in today's edition, and how many only in earlier ones. */
+  current?: number;
+  previous?: number;
+};
 
 /** Media a card shows at its top: photos today, vertical shorts later. */
 export type Media = { card: number; kind: "image"; src: string; alt: string; kicker: string; title: string; credit: string | null };
 
-const storyCards = (prefix: string, subs: Subject[]) =>
+const storyCards = (prefix: string, subs: Subject[], from?: Edition) =>
   subs.flatMap((s): Card[] => [
-    { type: "subject", id: `${prefix}-${s.id}`, subject: s },
-    ...s.notes.map((n): Card => ({ type: "note", id: `${prefix}-${n.id}`, subject: s, note: n })),
+    { type: "subject", id: `${prefix}-${s.id}`, subject: s, from },
+    ...s.notes.map((n): Card => ({ type: "note", id: `${prefix}-${n.id}`, subject: s, note: n, from })),
   ]);
 
-export function sectionsOf(ed: Edition): SectionDef[] {
+/**
+ * Followed topics, newest follow first: today's version of each storyline
+ * when today's edition carries it, else its latest earlier version.
+ */
+function followingOf(ed: Edition, editions: Edition[], follows: string[]): SectionDef {
+  const older = editions.filter((e) => e.date < ed.date).sort((a, b) => b.date.localeCompare(a.date));
+  const cards: Card[] = [];
+  let current = 0;
+  let previous = 0;
+  for (const id of follows) {
+    const now = ed.subjects.find((s) => s.id === id);
+    if (now) {
+      current++;
+      cards.push(...storyCards("sig", [now]));
+      continue;
+    }
+    const before = older.find((e) => e.subjects.some((s) => s.id === id));
+    const s = before?.subjects.find((x) => x.id === id);
+    if (before && s) {
+      previous++;
+      cards.push(...storyCards(`sig-${before.date}`, [s], before));
+    }
+  }
+  return { id: "siguiendo", name: "Siguiendo", kind: "siguiendo", cards, current, previous };
+}
+
+export function sectionsOf(ed: Edition, editions: Edition[] = [ed], follows: string[] = []): SectionDef[] {
   // Hoy is the whole edition in reading order; the others are its sections.
   const hoy: SectionDef = {
     id: "hoy",
@@ -91,7 +134,7 @@ export function sectionsOf(ed: Edition): SectionDef[] {
       return { id: c, name: categoryName[c], kind: c, lead: subs.find((s) => s.image) ?? subs[0], cards: storyCards(c, subs) };
     })
     .filter(Boolean) as SectionDef[];
-  return [hoy, ...cats];
+  return [hoy, ...cats, followingOf(ed, editions, follows)];
 }
 
 export function mediaOf(section: SectionDef): Media[] {
@@ -139,6 +182,89 @@ export class Tray {
   fx = this.frac(motionValue(0.5));
   /** The override transition in flight, if any. */
   private pending: Transition | null = null;
+
+  /*
+   * The thread. Each card has its own openness; the card in focus is p, and
+   * every other card follows its neighbour toward the focus on a stiff
+   * spring, so a lifted card leads and the rest come up after it in a
+   * cascade. Going down, no card is ever more open than the one before it,
+   * so they settle together.
+   */
+  private links = new Map<number, { v: MotionValue<number>; vel: number }>();
+  private count = 0;
+  private raf = 0;
+  private last = 0;
+
+  constructor() {
+    this.p.on("change", () => this.kick());
+    this.cur.on("change", () => this.kick());
+  }
+
+  setCount(n: number) {
+    this.count = n;
+  }
+
+  /** Card i's own openness (0 tray, 1 page). */
+  pi(i: number) {
+    let l = this.links.get(i);
+    if (!l) {
+      l = { v: motionValue(this.p.get()), vel: 0 };
+      this.links.set(i, l);
+    }
+    return l.v;
+  }
+
+  private kick() {
+    if (this.raf || typeof window === "undefined") return;
+    this.last = performance.now();
+    this.raf = requestAnimationFrame(this.step);
+  }
+
+  private step = (now: number) => {
+    this.raf = 0;
+    const dt = Math.min(1 / 30, Math.max(0.001, (now - this.last) / 1000));
+    this.last = now;
+    const n = this.count;
+    const a = clamp(Math.round(this.cur.get()), 0, Math.max(0, n - 1));
+    const lead = this.p.get();
+    let busy = false;
+    const self = this.links.get(a);
+    if (self) {
+      self.v.set(lead);
+      self.vel = 0;
+    }
+    // Outward from the focus, each card chasing the one before it.
+    for (const dir of [1, -1]) {
+      let prev = lead;
+      for (let i = a + dir; i >= 0 && i < n; i += dir) {
+        const l = this.links.get(i);
+        if (!l) {
+          continue;
+        }
+        // Far from the focus (off screen), a card simply matches its neighbour.
+        if (Math.abs(i - a) > 6) {
+          l.v.set(prev);
+          l.vel = 0;
+          continue;
+        }
+        let x = l.v.get();
+        const f = LINK.k * (prev - x) - LINK.c * l.vel;
+        l.vel += f * dt;
+        x += l.vel * dt;
+        // Never more open than the card before it (going down they settle together).
+        if (x > prev) {
+          x = prev;
+          l.vel = Math.min(0, l.vel);
+        }
+        l.v.set(x);
+        if (Math.abs(prev - x) > 0.0005 || Math.abs(l.vel) > 0.005) busy = true;
+        prev = x;
+      }
+    }
+    if (busy) {
+      this.raf = requestAnimationFrame(this.step);
+    }
+  };
   private ov = new Map<number, Override>();
   private moving = 0;
   row: HTMLDivElement | null = null;
@@ -246,6 +372,36 @@ export class Tray {
         rel();
         done?.();
       },
+      onStop: rel,
+    });
+  }
+
+  /**
+   * A fling: the value glides on at the finger's speed and decelerates the
+   * way iOS scroll views do (exponentially), aimed so it comes to rest
+   * exactly on a card. The glide starts at the release velocity, so the hand
+   * off from the finger is continuous. A flick too slow to carry, or one
+   * pointed away from its card, settles there on a spring instead.
+   */
+  glide(mv: MotionValue<number>, velocity: number, min: number, max: number) {
+    const x0 = mv.get();
+    const target = clamp(Math.round(x0 + velocity * GLIDE.power), min, max);
+    const amp = target - x0;
+    const tau = Math.abs(velocity) > 0.05 && Math.sign(amp) === Math.sign(velocity) ? amp / velocity : 0;
+    if (tau < 0.06 || tau > 1.2) return this.run(mv, target, { ...SNAP, velocity });
+    const D = 5 * tau;
+    const norm = 1 - Math.exp(-5);
+    this.hold();
+    let released = false;
+    const rel = () => {
+      if (released) return;
+      released = true;
+      this.release();
+    };
+    return animate(mv, target, {
+      duration: D,
+      ease: (t: number) => (1 - Math.exp(-5 * t)) / norm,
+      onComplete: rel,
       onStop: rel,
     });
   }
