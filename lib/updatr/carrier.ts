@@ -40,7 +40,7 @@ function retireLayer() {
   }
 }
 
-type Spring = { type: "spring"; stiffness: number; damping: number; mass?: number };
+type Spring = { type: "spring"; stiffness: number; damping: number; mass?: number; velocity?: number };
 
 export type FlyOptions = {
   /** Opacity to arrive at (a tile inside a dimmed card lands dimmed). Default 1. */
@@ -112,6 +112,12 @@ export class Carrier {
 
   get flying() {
     return !!this.box;
+  }
+
+  /** Where the picture may show right now (null: anywhere), outside a flight. */
+  clipTo(area: Rect | null) {
+    this.area = area;
+    this.paint();
   }
 
   place(r: Rect) {
