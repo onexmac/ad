@@ -57,6 +57,8 @@ type Open = { sec: number; card: number };
 type GalleryState = { sec: number; items: Media[]; start: number; piece: HTMLElement; home: HTMLElement };
 
 const HOLD_MS = 260;
+/** Open, a page stops this far above the bottom edge: a card, its rounded corners in view. */
+const OPEN_GAP = 8;
 
 export function PaperB({ editions }: { editions: Edition[] }) {
   const [edIndex, setEdIndex] = useState(0);
@@ -131,8 +133,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       Bm.set(BOTTOM + sab + bar);
       Wm.set(w);
       Hm.set(h);
-      Cm.set(h - sat);
-      setDims({ w, h: h - sat });
+      // An open page is a card: below the status bar, and stopping just short
+      // of the bottom edge so its rounded corners show there (Safari will not
+      // draw anything under its own bar, so the card ends where it can).
+      Cm.set(h - sat - OPEN_GAP);
+      setDims({ w, h: h - sat - OPEN_GAP });
       secX.set(-secRef.current * w);
     };
     measure();
@@ -898,20 +903,10 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const o = openRef.current;
       const c = col.current;
       if (!c) return null;
-      if (o) {
-        // Safari paints the strip below B (under its bar) with the page's
-        // background colour and never draws B there, so that colour must be
-        // what touches B's bottom edge: the open page's paper, or its photo's
-        // dark while a story's full-bleed photo still fills the page.
-        const card = sections[o.sec]?.cards[o.card];
-        const sc = pageEl(o.sec, o.card);
-        const PAPERB = hexToRgb("#f8f5ee");
-        const GROUNDB = hexToRgb("#f1ece2");
-        let bottom = GROUNDB;
-        if (card?.type === "figures") bottom = PAPERB;
-        else if (card?.type === "subject" && card.subject.image && sc && sc.scrollTop < sc.clientHeight * 0.6) bottom = DARK;
-        return { tone: DARK, bottom, mode: "none" };
-      }
+      // Open, the page is a card that ends just above the bottom edge with
+      // the dark around it; what lies below it (Safari's strip, which Safari
+      // fills with the page's background and never draws over) is that dark.
+      if (o) return { tone: DARK, bottom: DARK, mode: "none" };
       const sd = sections[secRef.current];
       if (sd?.kind === "hoy") {
         const sky = ed.weather?.sky;
@@ -1305,7 +1300,7 @@ const RowCard = memo(function RowCard({
     const t = v.get();
     const kk = S + (1 - S) * t;
     // Anchored to the bottom on the tray; open, a page sits just below the status bar.
-    return H.get() - B.get() * (1 - t) - C.get() * kk + o.y.get();
+    return H.get() - OPEN_GAP * t - B.get() * (1 - t) - C.get() * kk + o.y.get();
   });
   const scale = useTransform(() => (S + (1 - S) * v.get()) * o.s.get());
   // The card in focus on top, then outward; an override can lift a card above.
