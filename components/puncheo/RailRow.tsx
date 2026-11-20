@@ -26,15 +26,38 @@ const TINT: Record<Exclude<Status, "na">, string> = {
 function snapToTop(el: HTMLElement | null) {
   const row = el?.closest("[data-check]") as HTMLElement | null;
   if (!row) return;
-  const top = row.getBoundingClientRect().top;
-  let above = 0;
-  document.querySelectorAll<HTMLElement>("[data-detail]").forEach((d) => {
-    if (d.getBoundingClientRect().top < top) above += d.offsetHeight;
-  });
   const tabs = document.getElementById("puncheo-tabs");
-  const bar = tabs ? tabs.getBoundingClientRect().bottom : parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0;
-  window.scrollTo({ top: Math.max(0, top + window.scrollY - above - bar - 8), behavior: "smooth" });
+  const sat = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0;
+  // Where the page should rest so the row sits just under the bar, read fresh each
+  // frame: a detail closing above keeps pulling the row up while we scroll, so the
+  // glide follows the row instead of aiming at where it was when the tap happened.
+  const target = () => {
+    const bar = tabs ? tabs.getBoundingClientRect().bottom : sat;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    return Math.max(0, Math.min(max, row.getBoundingClientRect().top + window.scrollY - bar - 8));
+  };
+  const from = window.scrollY;
+  snapRun?.stop();
+  snapRun = animate(0, 1, {
+    duration: 0.5,
+    ease: [0.25, 0.1, 0.25, 1],
+    onUpdate: (t) => window.scrollTo({ top: from + (target() - from) * t, behavior: "instant" }),
+    onComplete: () => {
+      window.scrollTo({ top: target(), behavior: "instant" });
+      snapRun = null;
+    },
+  });
+  // A finger on the page takes over.
+  const stop = () => {
+    snapRun?.stop();
+    snapRun = null;
+    window.removeEventListener("touchstart", stop);
+    window.removeEventListener("wheel", stop);
+  };
+  window.addEventListener("touchstart", stop, { once: true, passive: true });
+  window.addEventListener("wheel", stop, { once: true, passive: true });
 }
+let snapRun: { stop: () => void } | null = null;
 
 /** The big numeral takes its mark's colour, dark enough to read on the row's tint. */
 const NUM: Record<Status | "none", string> = { none: "var(--brand)", green: "var(--ok-ink)", yellow: "var(--warn-deep)", red: "var(--bad)", na: "var(--ink-faint)" };

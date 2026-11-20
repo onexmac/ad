@@ -405,31 +405,35 @@ function paint(cv: HTMLCanvasElement, strokes: Stroke[], clear = true) {
 }
 
 /**
- * Slide to delete: a sunk track, the knob a key with the bin. Drag it to the
- * end and the photo goes; let go short and it springs back.
+ * Slide to delete: a sunk track, the handle a key with the bin. The handle
+ * stretches with the finger and reddens as it goes; at the end the photo goes,
+ * let go short and it springs back.
  */
 function SlideToDelete({ onDelete }: { onDelete: () => void }) {
   const track = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const fill = useTransform(x, (v) => v + KNOB);
-  const fillOn = useTransform(x, [0, 12], [0, 1]); // the red follows the knob only once it moves
+  const x = useMotionValue(0); // how far the finger has stretched the handle
+  const room = useMotionValue(200); // how far it can stretch
+  const width = useTransform(x, (v) => KNOB + v);
+  const red = useTransform([x, room], ([v, r]: number[]) => Math.min(1, v / Math.max(1, r * 0.9)));
+  const ink = useTransform(red, [0, 0.5], ["#55585e", "#ffffff"]);
   const hint = useTransform(x, [0, 90], [1, 0]);
   const start = useRef<{ px: number; x: number; max: number } | null>(null);
   const done = useRef(false);
+  const back = () => animate(x, 0, { type: "spring", stiffness: 500, damping: 32 });
   return (
     <div ref={track} className="leia-track relative h-11 min-w-0 flex-1 rounded-[6px] p-[2px]">
-      <motion.span className="leia-fill-red absolute bottom-[2px] left-[2px] top-[2px] rounded-[4px]" style={{ width: fill, opacity: fillOn }} />
       <motion.span style={{ opacity: hint }} className="leia-emboss pointer-events-none absolute inset-0 grid place-items-center pl-[84px] pr-2 text-[14px] text-[#7d8087]">
         Desliza para borrar
       </motion.span>
       <motion.button
         type="button"
         aria-label="Desliza para borrar la foto"
-        className="leia-btn relative flex h-10 items-center justify-center gap-1.5 rounded-[4px]"
-        style={{ x, width: KNOB, touchAction: "none" }}
+        className="leia-btn relative flex h-10 items-center justify-end overflow-hidden rounded-[4px]"
+        style={{ width, touchAction: "none" }}
         onPointerDown={(e) => {
           if (done.current) return;
           const max = (track.current?.offsetWidth ?? 200) - 4 - KNOB;
+          room.set(max);
           start.current = { px: e.clientX, x: x.get(), max };
           (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
           haptic.drag();
@@ -447,15 +451,19 @@ function SlideToDelete({ onDelete }: { onDelete: () => void }) {
             done.current = true;
             animate(x, st.max, { type: "spring", stiffness: 600, damping: 40 });
             onDelete();
-          } else animate(x, 0, { type: "spring", stiffness: 500, damping: 30 });
+          } else back();
         }}
         onPointerCancel={() => {
           start.current = null;
-          animate(x, 0, { type: "spring", stiffness: 500, damping: 30 });
+          back();
         }}
       >
-        <BinGlyph />
-        <Chevron />
+        {/* The red comes up through the key as it stretches. */}
+        <motion.span aria-hidden className="leia-fill-red pointer-events-none absolute inset-0" style={{ opacity: red }} />
+        <motion.span className="relative flex w-[76px] shrink-0 items-center justify-center gap-1.5" style={{ color: ink }}>
+          <BinGlyph />
+          <Chevron />
+        </motion.span>
       </motion.button>
     </div>
   );
