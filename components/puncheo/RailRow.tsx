@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, animate, motion } from "motion/react";
+import { AnimatePresence, animate, cancelFrame, frame, motion } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import type { Instance } from "@/data/puncheo/rooms";
 import type { Status } from "@/lib/puncheo/state";
@@ -28,25 +28,43 @@ function snapToTop(el: HTMLElement | null) {
   if (!row) return;
   const tabs = document.getElementById("puncheo-tabs");
   const sat = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0;
-  // Where the page should rest so the row sits just under the bar, read fresh each
-  // frame: a detail closing above keeps pulling the row up while we scroll, so the
-  // glide follows the row instead of aiming at where it was when the tap happened.
-  const target = () => {
-    const bar = tabs ? tabs.getBoundingClientRect().bottom : sat;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    return Math.max(0, Math.min(max, row.getBoundingClientRect().top + window.scrollY - bar - 8));
+  // The tapped row is the anchor. Each frame we decide where it should sit on the
+  // screen, on one smooth path from where it was tapped to just under the bar,
+  // and move the page so it is exactly there. Whatever opens or closes above it
+  // (the previous row's detail folding away) can't nudge it: the page absorbs
+  // that change in the same frame.
+  // Measured from the layout, not the painted box: a row still rising into view
+  // carries a passing offset the anchor must not chase.
+  const top = () => {
+    let y = 0;
+    for (let n: HTMLElement | null = row; n; n = n.offsetParent as HTMLElement | null) y += n.offsetTop;
+    return y - window.scrollY;
   };
-  const from = window.scrollY;
-  snapRun?.stop();
-  snapRun = animate(0, 1, {
-    duration: 0.5,
-    ease: [0.25, 0.1, 0.25, 1],
-    onUpdate: (t) => window.scrollTo({ top: from + (target() - from) * t, behavior: "instant" }),
-    onComplete: () => {
-      window.scrollTo({ top: target(), behavior: "instant" });
+  const from = top();
+  const to = () => (tabs ? tabs.getBoundingClientRect().bottom : sat) + 8;
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const GLIDE = 460;
+  const HOLD = 760; // keep anchoring while the folding detail finishes
+  const t0 = performance.now();
+  // Runs in motion's frame loop after it has rendered this frame's heights, so
+  // the anchor reads the layout the screen is about to show (no one-frame lag).
+  const frame_ = () => {
+    const now = performance.now();
+    const t = Math.min(1, (now - t0) / GLIDE);
+    const want = from + (to() - from) * ease(t);
+    const off = top() - want;
+    if (Math.abs(off) > 0.5) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo({ top: Math.max(0, Math.min(max, window.scrollY + off)), behavior: "instant" });
+    }
+    if (now - t0 >= HOLD) {
+      cancelFrame(frame_);
       snapRun = null;
-    },
-  });
+    }
+  };
+  snapRun?.stop();
+  frame.postRender(frame_, true);
+  snapRun = { stop: () => cancelFrame(frame_) };
   // A finger on the page takes over.
   const stop = () => {
     snapRun?.stop();
@@ -245,9 +263,8 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                 onClick={() => {
                   if (sw.dragged()) return;
                   haptic.select();
-                  const el = content.current;
-                  // After the render that opens it: a re-render can reset the scroll.
-                  if (!r.open) requestAnimationFrame(() => requestAnimationFrame(() => snapToTop(el)));
+                  // Anchor from this very frame, before the previous detail starts folding.
+                  if (!r.open) snapToTop(content.current);
                   s.toggle(check.id);
                 }}
                 aria-expanded={r.open}
