@@ -310,31 +310,8 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
         </span>
         <span className="w-[86px]" />
       </header>
-      {/* Behind the status bar while the rooms bar is pinned under it. */}
+      {/* Behind the status bar, so content scrolling under it stays legible. */}
       <div className="leia-toolbar fixed inset-x-0 top-0 z-[22]" style={{ height: "var(--sat)" }} />
-      {/* The sub-bar: the rooms, as Leia's category cells. It stays pinned at the top
-          and follows the room being read; the blue cell slides to it. */}
-      <nav id="puncheo-tabs" className="leia-tabs sticky z-20 -mx-4 flex h-[46px]" style={{ top: "var(--sat)" }}>
-        {s.sections.map((x, i) => {
-          const on = i === s.section;
-          const t = s.sectionTallies[i];
-          return (
-            <button
-              key={x.id}
-              type="button"
-              onClick={() => s.travelTo(i)}
-              aria-current={on ? "true" : undefined}
-              className={`relative flex min-w-0 flex-1 flex-col items-center justify-center ${i < s.sections.length - 1 ? "leia-tab-sep" : ""}`}
-            >
-              {on ? <motion.span layoutId="leia-room" transition={springs.snappy} className="leia-tab-on pointer-events-none absolute inset-0" /> : null}
-              <span className={`relative max-w-full truncate px-0.5 text-[13.5px] transition-colors duration-150 ${on ? "text-ground" : "leia-emboss text-ink"}`}>{x.name}</span>
-              <span className={`relative text-[10px] tabular-nums ${on ? "text-brand-2" : t.done === t.total ? "text-ok-deep" : "text-[#8a8d93]"}`}>
-                {t.done}/{t.total}
-              </span>
-            </button>
-          );
-        })}
-      </nav>
 
       <div className="leia-panel mt-4 overflow-hidden rounded-[6px]">
         <div className="leia-band flex h-[44px] items-center px-4 text-ground">

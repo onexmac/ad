@@ -39,6 +39,37 @@ function Lens({ size = 17 }: { size?: number }) {
   );
 }
 
+type Cell = { id: string; label: string; count: React.ReactNode; on: boolean; done?: boolean };
+
+/**
+ * Leia's category cells: a lit strip split by etched lines, the chosen cell a
+ * pressed blue block, the name over its count. More cells than fit scroll
+ * sideways; the chosen one is brought into view when the strip appears.
+ */
+function Cells({ items, onPick, label }: { items: Cell[]; onPick: (i: number) => void; label: string }) {
+  const strip = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const on = strip.current?.querySelector<HTMLElement>("[aria-current='true']");
+    on?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, []);
+  return (
+    <div ref={strip} role="group" aria-label={label} className="leia-tabs no-scrollbar flex overflow-x-auto overscroll-x-contain">
+      {items.map((x, i) => (
+        <button
+          key={x.id}
+          type="button"
+          onClick={() => onPick(i)}
+          aria-current={x.on ? "true" : undefined}
+          className={`relative flex h-[50px] min-w-[60px] flex-1 shrink-0 flex-col items-center justify-center px-1 ${i < items.length - 1 ? "leia-tab-sep" : ""} ${x.on ? "leia-tab-on" : ""}`}
+        >
+          <span className={`max-w-full truncate text-[13.5px] ${x.on ? "text-ground" : "leia-emboss text-ink"}`}>{x.label}</span>
+          <span className={`text-[10px] tabular-nums ${x.on ? "text-brand-2" : x.done ? "text-ok-deep" : "text-[#8a8d93]"}`}>{x.count}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 /** A floor plan: the rooms key. */
 function Plan() {
   return (
@@ -221,33 +252,44 @@ export function Footer({
             transition={{ type: "spring", stiffness: 380, damping: 36 }}
             className={`pointer-events-auto ${polish ? "leia-strip" : bar ? "bg-ink" : "rounded-t-[16px] bg-ground"}`}
           >
-            {/* The rooms in the filters' dress: the one being read is the pressed blue key. */}
-            <div className="grid grid-cols-3 gap-1.5 px-3 py-2">
-              {s.sections.map((x, i) => {
-                const on = i === s.section;
-                const t = s.sectionTallies[i];
-                const done = t.done === t.total;
-                return (
-                  <button
-                    key={x.id}
-                    type="button"
-                    onClick={() => {
-                      setRoomsOpen(false);
-                      s.travelTo(i);
-                    }}
-                    aria-current={on ? "true" : undefined}
-                    className={`flex h-10 min-w-0 items-center justify-center gap-1.5 rounded-[4px] px-1 leading-none ${
-                      polish ? (on ? "leia-tab-on text-ground" : "leia-btn text-ink") : on ? "bg-brand text-ground" : bar ? "bg-ink-3 text-hair" : "bg-card text-ink-2"
-                    }`}
-                  >
-                    <span className={`min-w-0 truncate text-[14px] ${polish && !on ? "leia-emboss" : ""}`}>{x.name}</span>
-                    <span className={`text-[12px] tabular-nums ${on ? "text-brand-2" : done ? "text-ok-deep" : polish ? "text-[#8a8d93]" : "opacity-60"}`}>
-                      {t.done}/{t.total}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+            {/* The rooms as Leia's category cells: the one being read is the blue cell. */}
+            {polish ? (
+              <Cells
+                label="Cuartos"
+                items={s.sections.map((x, i) => {
+                  const t = s.sectionTallies[i];
+                  return { id: x.id, label: x.name, count: `${t.done}/${t.total}`, on: i === s.section, done: t.done === t.total };
+                })}
+                onPick={(i) => {
+                  setRoomsOpen(false);
+                  s.travelTo(i);
+                }}
+              />
+            ) : (
+              <div className="grid grid-cols-3 gap-1.5 px-3 py-2">
+                {s.sections.map((x, i) => {
+                  const on = i === s.section;
+                  const t = s.sectionTallies[i];
+                  return (
+                    <button
+                      key={x.id}
+                      type="button"
+                      onClick={() => {
+                        setRoomsOpen(false);
+                        s.travelTo(i);
+                      }}
+                      aria-current={on ? "true" : undefined}
+                      className={`flex h-10 min-w-0 items-center justify-center gap-1.5 rounded-[4px] px-1 leading-none ${on ? "bg-brand text-ground" : bar ? "bg-ink-3 text-hair" : "bg-card text-ink-2"}`}
+                    >
+                      <span className="min-w-0 truncate text-[14px]">{x.name}</span>
+                      <span className="text-[12px] tabular-nums opacity-70">
+                        {t.done}/{t.total}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </motion.div>
         ) : search?.open ? (
           <motion.div
@@ -272,6 +314,11 @@ export function Footer({
                 ))}
               </div>
             ) : null}
+            {polish ? (
+              <div className="mt-2">
+                <Cells label="Filtros" items={search.filters.map((f, i) => ({ id: f.id, label: f.label, count: f.count, on: i === search.filter }))} onPick={(i) => search.setFilter(i)} />
+              </div>
+            ) : (
             <div className="flex gap-1.5 px-3 py-2">
               {search.filters.map((f, i) => {
                 const on = i === search.filter;
@@ -291,6 +338,7 @@ export function Footer({
                 );
               })}
             </div>
+            )}
           </motion.div>
         ) : null}
       </AnimatePresence>
