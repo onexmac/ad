@@ -121,7 +121,7 @@ export function RoomStrip({ s, tone = "plain" }: { s: PunchSheet; tone?: StripTo
 export function KeyBlock({ k, skin }: { k: Key; skin: RowSkin }) {
   if (skin.leia)
     return (
-      <div className="leia-row bg-[#f4f4f5] px-3 py-2">
+      <div className="leia-row leia-key bg-[#f4f4f5] px-3 py-2">
         <span className="block pb-1 text-[11px] font-bold uppercase tracking-[0.06em] text-[#8a8d93]">Clave · {k.title}</span>
         <div className="grid grid-cols-[auto_minmax(0,1fr)]">
           {k.rows.map(([key, val], i) => (

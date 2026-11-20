@@ -167,17 +167,22 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
       return;
     }
     c.lift(rectOf(piece));
+    // The picture has left its frame: the empty frame (and its big shadow) must
+    // not linger on screen while the picture flies home.
+    if (slot.current) slot.current.style.visibility = "hidden";
     dx.set(0);
     dy.set(0);
-    c.fly(
-      () => rectOf(c.home),
-      CLOSE,
-      () => {
-        c.goHome();
-        carrier.current = null;
-        s.closeViewer();
-      },
-    );
+    let landedHome = false;
+    const finish = () => {
+      if (landedHome) return;
+      landedHome = true;
+      c.goHome();
+      carrier.current = null;
+      s.closeViewer();
+    };
+    c.fly(() => rectOf(c.home), CLOSE, finish);
+    // If the flight never reports landing (a backgrounded tab, a busy frame), close anyway.
+    window.setTimeout(finish, 1400);
   };
 
   const remove = () => {
