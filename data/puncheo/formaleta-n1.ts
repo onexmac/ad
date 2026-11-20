@@ -31,6 +31,9 @@ export type Sheet = {
   title: string;
   subtitle: string;
   system: string;
+  /** The condominium the house is in, and the house's number: the ficha's header. */
+  condo: string;
+  house: string;
   punches: Punch[];
 };
 
@@ -41,6 +44,8 @@ export const sheet: Sheet = {
   title: "Formaleta",
   subtitle: "Vivienda N1",
   system: "Aluminio Precise Forms · muros sobre losa flotante",
+  condo: "Valle Castilla",
+  house: "E.11",
   punches: [
     {
       id: "p1",
