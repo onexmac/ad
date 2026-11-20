@@ -68,6 +68,9 @@ body {
 
 html {
   scrollbar-gutter: stable;
+  /* The rows anchor the page themselves when one opens (RailRow snapToTop);
+     the browser's own scroll anchoring would fight it. */
+  overflow-anchor: none;
 }
 
 [data-app],
