@@ -1,9 +1,10 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
+import { haptic } from "@/lib/histok/haptic";
 import type { Status } from "@/lib/puncheo/state";
 import { Chevrons } from "./Icons";
 import { VariantSwitch, type Variant } from "./Chrome";
@@ -31,7 +32,7 @@ export function SheetHeader({
   tone = "plain",
   extra,
 }: {
-  sheet: { title: string; subtitle: string; system: string; condo: string; house: string };
+  sheet: { title: string; subtitle: string; system: string; condo: string; house: string; plans: { id: string; name: string; url: string | null }[] };
   s: PunchSheet;
   current: Variant;
   tone?: Tone;
@@ -268,6 +269,17 @@ function YardHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
   );
 }
 
+/** A rolled drawing sheet: the plans key's glyph. */
+function PlanGlyph() {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" className="leia-glyph" aria-hidden>
+      <path d="M4 4h11l5 5v11H4z" fill="currentColor" />
+      <path d="M15 4v5h5" fill="#c9cbcf" />
+      <path d="M7 12h10M7 15h10M7 18h6" stroke="#e9eaec" strokeWidth={1.4} />
+    </svg>
+  );
+}
+
 /** Leia's center pill, an engraved outline, holding the layout switch. */
 function LeiaSwitch({ current }: { current: Variant }) {
   const items = [
@@ -297,7 +309,8 @@ function LeiaSwitch({ current }: { current: Variant }) {
  * pressed blue cell (a tap goes there). Then the receipt panel: the blue band
  * and the ficha as a receipt line.
  */
-function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string; condo: string; house: string }; s: PunchSheet; current: Variant }) {
+function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string; condo: string; house: string; plans: { id: string; name: string; url: string | null }[] }; s: PunchSheet; current: Variant }) {
+  const [plans, setPlans] = useState(false);
   const n1 = sheet.subtitle.replace("Vivienda ", "");
   return (
     <>
@@ -322,8 +335,25 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
         <div className="flex items-center gap-4 px-4 py-3.5">
           <span className="shrink-0 text-[38px] font-[200] leading-none tracking-[-0.02em] text-brand">{sheet.house}</span>
           <span className="min-w-0 flex-1">
-            <span className="block text-[18px] font-bold leading-tight text-ink">{s.isClosed ? "Ficha cerrada" : "Ficha completa"}</span>
-            <span className="mt-0.5 block truncate text-[13px] text-[#8a8d93]">
+            {/* The house's drawings: a Leia key that opens their list in the panel. */}
+            <button
+              type="button"
+              onClick={() => {
+                haptic.select();
+                setPlans(!plans);
+              }}
+              aria-expanded={plans}
+              className={`flex h-9 items-center gap-1.5 rounded-[4px] pl-2.5 pr-2 ${plans ? "leia-btn-on" : "leia-btn"}`}
+            >
+              <PlanGlyph />
+              <span className="leia-emboss text-[15px] font-bold text-ink">Planos</span>
+              <motion.span initial={false} animate={{ rotate: plans ? 180 : 0 }} transition={springs.snappy} className="grid place-items-center text-[#55585e]">
+                <svg width={12} height={12} viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M5 9l7 7 7-7" stroke="currentColor" strokeWidth={3.2} strokeLinecap="square" />
+                </svg>
+              </motion.span>
+            </button>
+            <span className="mt-1 block truncate text-[13px] text-[#8a8d93]">
               {sheet.title} {n1} · {sheet.system}
             </span>
           </span>
@@ -332,6 +362,46 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
             <span className="font-normal text-[#8a8d93]">/{s.t.total}</span>
           </span>
         </div>
+        <AnimatePresence initial={false}>
+          {plans ? (
+            <motion.ul
+              key="plans"
+              initial={{ height: 0 }}
+              animate={{ height: "auto" }}
+              exit={{ height: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 30 }}
+              className="overflow-hidden shadow-[inset_0_1px_0_#cbccd0]"
+            >
+              {sheet.plans.map((pl, i) => (
+                <motion.li
+                  key={pl.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 380, damping: 28, delay: 0.04 + i * 0.04 } }}
+                  exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      haptic.select();
+                      if (pl.url) window.open(pl.url, "_blank", "noopener");
+                      else s.say(`${pl.name}: todavía no está cargado`);
+                    }}
+                    className="leia-row flex h-12 w-full items-center gap-3 bg-[#f4f4f5] px-4 text-left active:bg-[#e9eaec]"
+                  >
+                    <span className="text-[#55585e]">
+                      <PlanGlyph />
+                    </span>
+                    <span className="min-w-0 flex-1 truncate text-[16px] text-ink">{pl.name}</span>
+                    <span className={`text-[12px] ${pl.url ? "text-brand" : "text-[#8a8d93]"}`}>{pl.url ? "Abrir" : "Sin archivo"}</span>
+                    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" aria-hidden className="text-[#a3a6ab]">
+                      <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth={3} strokeLinecap="square" />
+                    </svg>
+                  </button>
+                </motion.li>
+              ))}
+            </motion.ul>
+          ) : null}
+        </AnimatePresence>
       </div>
     </>
   );
