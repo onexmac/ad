@@ -98,7 +98,7 @@ export function RoomScroll({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
             key={sec.id}
             data-room={si}
             {...rise}
-            className={skin.leia ? "leia-panel mt-5 overflow-hidden rounded-[6px]" : "mt-7"}
+            className={skin.leia ? `leia-panel mt-5 overflow-hidden rounded-[6px] ${st.done === st.total ? "room-done" : ""}` : "mt-7"}
           >
             <div className="leia-band relative flex h-[54px] items-center gap-3 px-3 text-ground">
               {/* Every check marked: the band turns Leia's green. */}
