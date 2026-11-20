@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import MiniSearch from "minisearch";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
 import type { RoomSheet } from "@/data/puncheo/rooms";
@@ -98,6 +98,13 @@ const CONFIG: Record<Variant, Config> = {
   },
 };
 
+/** The search results' cascade: in one after another on a spring, out quicker, last first. */
+const RISE = {
+  hide: { opacity: 0, y: 22 },
+  show: (i: number) => ({ opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 380, damping: 28, delay: Math.min(i, 14) * 0.035 } }),
+  out: (i: number) => ({ opacity: 0, y: -10, transition: { duration: 0.14, delay: Math.max(0, 6 - Math.min(i, 6)) * 0.015 } }),
+};
+
 type Filter = { id: string; label: string; match: (st: Status | undefined) => boolean };
 
 /** While searching, the room strip becomes filters by result. */
@@ -169,41 +176,49 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
       <motion.main style={{ scale, transformOrigin: origin }} className="mx-auto w-full max-w-[520px] px-4">
         <SheetHeader sheet={sheet} s={s} current={variant} tone={cfg.tone} extra={cfg.counters ? <LetterTags s={s} /> : undefined} />
         {searching ? (
-          <>
-            {groups.map((g) =>
-              cfg.skin.leia ? (
-                <section key={g.sec.id} className="leia-panel mt-4 overflow-hidden rounded-[6px]">
-                  <div className="leia-band flex h-[44px] items-center gap-3 px-3 text-ground">
-                    <span className="min-w-0 flex-1 truncate text-[18px]">{g.sec.name}</span>
-                    <span className="text-[13px] tabular-nums text-brand-2">{g.checks.length}</span>
-                  </div>
-                  <ul>
-                    {g.checks.map((c) => (
-                      <li key={c.id} data-check={c.id}>
-                        <RailRow s={s} check={c} skin={cfg.skin} />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ) : (
-                <section key={g.sec.id} className="mt-5">
-                  <span className="mono block pb-2 pl-1 text-ink-soft">{g.sec.name}</span>
-                  <ul>
-                    {g.checks.map((c) => (
-                      <li key={c.id} data-check={c.id}>
-                        <RailRow s={s} check={c} skin={cfg.skin} />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ),
-            )}
-            {found.length === 0 ? (
-              <p className="py-10 text-center text-[14px] leading-5 text-ink-faint">
-                {query ? `Ningún check coincide con «${query}»` : "Ningún check"} en {f.label.toLowerCase()}.
-              </p>
-            ) : null}
-          </>
+          // Opening the search or changing the filter: the results cascade in on a
+          // spring, and the previous ones cascade out first. Typing updates in place.
+          <AnimatePresence mode="wait">
+            <motion.div key={f.id} initial="hide" animate="show" exit="out">
+              {(() => {
+                let n = 0;
+                return groups.map((g) => {
+                  const gi = n++;
+                  const t = s.sectionTallies[s.sections.indexOf(g.sec)];
+                  const done = t.done === t.total;
+                  const rows = (
+                    <ul>
+                      {g.checks.map((c) => (
+                        <motion.li key={c.id} data-check={c.id} variants={RISE} custom={n++}>
+                          <RailRow s={s} check={c} skin={cfg.skin} />
+                        </motion.li>
+                      ))}
+                    </ul>
+                  );
+                  return cfg.skin.leia ? (
+                    <motion.section key={g.sec.id} variants={RISE} custom={gi} className="leia-panel mt-4 overflow-hidden rounded-[6px]">
+                      <div className="leia-band relative flex h-[44px] items-center gap-3 px-3 text-ground">
+                        <span aria-hidden className={`leia-band-done pointer-events-none absolute inset-0 transition-opacity duration-500 ${done ? "opacity-100" : "opacity-0"}`} />
+                        <span className="relative min-w-0 flex-1 truncate text-[18px]">{g.sec.name}</span>
+                        <span className={`relative text-[13px] tabular-nums ${done ? "text-[#eaf6db]" : "text-brand-2"}`}>{g.checks.length}</span>
+                      </div>
+                      {rows}
+                    </motion.section>
+                  ) : (
+                    <motion.section key={g.sec.id} variants={RISE} custom={gi} className="mt-5">
+                      <span className="mono block pb-2 pl-1 text-ink-soft">{g.sec.name}</span>
+                      {rows}
+                    </motion.section>
+                  );
+                });
+              })()}
+              {found.length === 0 ? (
+                <motion.p variants={RISE} custom={0} className="py-10 text-center text-[14px] leading-5 text-ink-faint">
+                  {query ? `Ningún check coincide con «${query}»` : "Ningún check"} en {f.label.toLowerCase()}.
+                </motion.p>
+              ) : null}
+            </motion.div>
+          </AnimatePresence>
         ) : (
           <>
             <Legend dark={cfg.skin.dark} />
