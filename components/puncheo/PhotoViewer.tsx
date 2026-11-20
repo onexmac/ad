@@ -11,11 +11,11 @@ import type { PunchSheet } from "./usePunchSheet";
 /*
  * A check's photo, opened. The picture itself (the one element on the page)
  * flies from its place into the middle of the screen on a spring, and flies
- * back on close. Under it, Leia's strip: the back key, the pencil (on from the
- * start, so a finger on the picture draws) and a
- * slide-to-delete. The pencil opens the marker: four colours, three widths
- * (yellow at 16 px to start), undo. What is drawn is burned into the photo.
- * Closes by pulling the picture down, swiping it right, or a tap outside.
+ * back on close. Under it, Leia's strip: the marker always out (four colours,
+ * three widths, yellow at 16 px to start, undo; a finger on the picture draws
+ * and the drawing is burned into the photo), then the back key, a
+ * slide-to-delete and, at the far right, the camera key for another photo.
+ * Closes with the back key, a tap outside or Escape.
  */
 
 const OPEN = { type: "spring" as const, stiffness: 230, damping: 21 };
@@ -82,7 +82,10 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
     return !img || !img.isConnected || !img.parentElement;
   });
   const [landed, setLanded] = useState(own);
-  const [drawing, setDrawing] = useState(true); // the marker is ready on open
+  // The marker is always out: a finger on the picture draws. (Closing is the back
+  // key, a tap outside or Escape; the picture itself no longer drags away.)
+  const drawing = true;
+  const camera = useRef<HTMLInputElement>(null);
   // The stage: the marker's row takes room under the picture, so it shrinks to make it.
   const rect: Rect = stageRect(aspect, drawing);
   const [color, setColor] = useState(COLORS[0].hex);
@@ -155,7 +158,6 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
     if (closing.current) return;
     closing.current = true;
     commit();
-    setDrawing(false);
     animate(dim, 0, { duration: 0.24 });
     animate(sheetY, 1, { type: "spring", stiffness: 380, damping: 34 });
     const c = carrier.current;
@@ -268,12 +270,6 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
     if (st) setStrokes((p) => [...p, st]);
   };
 
-  const togglePen = () => {
-    haptic.select();
-    if (drawing) commit();
-    setDrawing(!drawing);
-  };
-
   return (
     <div className="leia-root fixed inset-0 z-[60]" style={{ touchAction: "none" }}>
       <motion.div className="absolute inset-0 bg-[#121417]/90" style={{ opacity: dim }} onClick={close} />
@@ -308,7 +304,7 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
       <motion.div className="leia-strip absolute inset-x-0 bottom-0" style={{ y: sheetPct, paddingBottom: "var(--sab)" }}>
         <AnimatePresence initial={false}>
           {drawing ? (
-            // Open from the start with the strip; folds when the pencil is put down.
+            // The marker's row, always open with the strip.
             <motion.div
               key="tools"
               initial={{ height: 0, opacity: 0 }}
@@ -369,16 +365,28 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
           <button type="button" aria-label="Volver" onClick={close} className="leia-btn grid size-11 shrink-0 place-items-center rounded-[4px]">
             <BackGlyph />
           </button>
+          <SlideToDelete onDelete={remove} />
+          {/* Another photo for this check, without leaving the viewer. */}
           <button
             type="button"
-            aria-label={drawing ? "Terminar anotación" : "Anotar"}
-            aria-pressed={drawing}
-            onClick={togglePen}
-            className={`grid size-11 shrink-0 place-items-center rounded-[4px] ${drawing ? "leia-tab-on text-ground" : "leia-btn"}`}
+            aria-label="Agregar otra foto"
+            onClick={() => camera.current?.click()}
+            className="leia-btn grid size-11 shrink-0 place-items-center rounded-[4px]"
           >
-            <PencilGlyph />
+            <CameraGlyph />
           </button>
-<SlideToDelete onDelete={remove} />
+          <input
+            ref={camera}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              e.target.value = "";
+              if (f) s.pickPhoto(check, f);
+            }}
+          />
         </div>
       </motion.div>
     </div>
@@ -470,11 +478,12 @@ function SlideToDelete({ onDelete }: { onDelete: () => void }) {
 }
 
 // Leia's keys carry solid glyphs, engraved.
-function PencilGlyph() {
+function CameraGlyph() {
   return (
-    <svg width={20} height={20} viewBox="0 0 24 24" className="leia-glyph" aria-hidden>
-      <path d="M15.3 3.6a2 2 0 012.8 0l2.3 2.3a2 2 0 010 2.8L9 20.1l-5.6 1.2a.6.6 0 01-.7-.7L3.9 15z" fill="currentColor" />
-      <path d="M13.6 5.3l5.1 5.1" stroke="#e4e5e7" strokeWidth={1.4} />
+    <svg width={22} height={22} viewBox="0 0 24 24" className="leia-glyph" aria-hidden>
+      <path d="M8.2 4.5h7.6l1.4 2.2H21a1 1 0 011 1V19a1 1 0 01-1 1H3a1 1 0 01-1-1V7.7a1 1 0 011-1h3.8z" fill="currentColor" />
+      <circle cx="12" cy="13" r="4.2" fill="#e9eaec" />
+      <circle cx="12" cy="13" r="2.6" fill="currentColor" />
     </svg>
   );
 }
