@@ -31,7 +31,7 @@ export function SheetHeader({
   tone = "plain",
   extra,
 }: {
-  sheet: { title: string; subtitle: string; system: string };
+  sheet: { title: string; subtitle: string; system: string; condo: string; house: string };
   s: PunchSheet;
   current: Variant;
   tone?: Tone;
@@ -297,7 +297,7 @@ function LeiaSwitch({ current }: { current: Variant }) {
  * pressed blue cell (a tap goes there). Then the receipt panel: the blue band
  * and the ficha as a receipt line.
  */
-function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string }; s: PunchSheet; current: Variant }) {
+function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string; condo: string; house: string }; s: PunchSheet; current: Variant }) {
   const n1 = sheet.subtitle.replace("Vivienda ", "");
   return (
     <>
@@ -315,16 +315,17 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
 
       <div className="leia-panel mt-4 overflow-hidden rounded-[6px]">
         <div className="leia-band flex h-[44px] items-center px-4 text-ground">
-          <span className="min-w-0 flex-1 truncate text-[18px]">
-            {sheet.title} {n1}
-          </span>
+          {/* The condominium, and the house as the receipt's big numeral. */}
+          <span className="min-w-0 flex-1 truncate text-[18px]">{sheet.condo}</span>
           <span className="text-[13px] text-brand-2">Pre-armado y pre-chorrea</span>
         </div>
         <div className="flex items-center gap-4 px-4 py-3.5">
-          <span className="text-[38px] font-[200] leading-none text-brand">{n1}</span>
+          <span className="shrink-0 text-[38px] font-[200] leading-none tracking-[-0.02em] text-brand">{sheet.house}</span>
           <span className="min-w-0 flex-1">
             <span className="block text-[18px] font-bold leading-tight text-ink">{s.isClosed ? "Ficha cerrada" : "Ficha completa"}</span>
-            <span className="mt-0.5 block truncate text-[13px] text-[#8a8d93]">{sheet.system}</span>
+            <span className="mt-0.5 block truncate text-[13px] text-[#8a8d93]">
+              {sheet.title} {n1} · {sheet.system}
+            </span>
           </span>
           <span className="text-[18px] font-bold tabular-nums text-ink">
             {String(s.t.done).padStart(2, "0")}
