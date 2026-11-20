@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import MiniSearch from "minisearch";
 import { AnimatePresence, motion } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
@@ -127,6 +127,8 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
   const [searching, setSearching] = useState(false);
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState(0);
+  const walkScroll = useRef(0);
+  const landAt = useRef<number | null>(null);
 
   const query = q.trim();
   const f = FILTERS[filter];
@@ -167,64 +169,75 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
       setQ("");
       setFilter(0);
     }
+    // Where the page lands once the old content has faded out: the top of the
+    // results, or back where the walk was when the search opened.
+    if (!searching) walkScroll.current = window.scrollY;
+    landAt.current = searching ? walkScroll.current : 0;
     setSearching(!searching);
-    window.scrollTo({ top: 0 });
   };
 
   return (
     <div data-app className={`min-h-dvh overflow-x-clip ${cfg.ground}`}>
       <motion.main style={{ scale, transformOrigin: origin }} className="mx-auto w-full max-w-[520px] px-4">
         <SheetHeader sheet={sheet} s={s} current={variant} tone={cfg.tone} extra={cfg.counters ? <LetterTags s={s} /> : undefined} />
-        {searching ? (
-          // Opening the search or changing the filter: the results cascade in on a
-          // spring, and the previous ones cascade out first. Typing updates in place.
-          <AnimatePresence mode="wait">
-            <motion.div key={f.id} initial="hide" animate="show" exit="out">
-              {(() => {
-                let n = 0;
-                return groups.map((g) => {
-                  const gi = n++;
-                  const t = s.sectionTallies[s.sections.indexOf(g.sec)];
-                  const done = t.done === t.total;
-                  const rows = (
-                    <ul>
-                      {g.checks.map((c) => (
-                        <motion.li key={c.id} data-check={c.id} variants={RISE} custom={n++}>
-                          <RailRow s={s} check={c} skin={cfg.skin} />
-                        </motion.li>
-                      ))}
-                    </ul>
-                  );
-                  return cfg.skin.leia ? (
-                    <motion.section key={g.sec.id} variants={RISE} custom={gi} className="leia-panel mt-4 overflow-hidden rounded-[6px]">
-                      <div className="leia-band relative flex h-[44px] items-center gap-3 px-3 text-ground">
-                        <span aria-hidden className={`leia-band-done pointer-events-none absolute inset-0 transition-opacity duration-500 ${done ? "opacity-100" : "opacity-0"}`} />
-                        <span className="relative min-w-0 flex-1 truncate text-[18px]">{g.sec.name}</span>
-                        <span className={`relative text-[13px] tabular-nums ${done ? "text-[#eaf6db]" : "text-brand-2"}`}>{g.checks.length}</span>
-                      </div>
-                      {rows}
-                    </motion.section>
-                  ) : (
-                    <motion.section key={g.sec.id} variants={RISE} custom={gi} className="mt-5">
-                      <span className="mono block pb-2 pl-1 text-ink-soft">{g.sec.name}</span>
-                      {rows}
-                    </motion.section>
-                  );
-                });
-              })()}
-              {found.length === 0 ? (
-                <motion.p variants={RISE} custom={0} className="py-10 text-center text-[14px] leading-5 text-ink-faint">
-                  {query ? `Ningún check coincide con «${query}»` : "Ningún check"} en {f.label.toLowerCase()}.
-                </motion.p>
-              ) : null}
+        {/* One stage for the walk and the search results: the outgoing content fades
+            out first (the results in a quick cascade), then the incoming one comes in
+            (the results cascading on a spring, the walk's rows rising as they show).
+            Changing the filter swaps the results the same way. Typing updates in place. */}
+        <AnimatePresence
+          mode="wait"
+          onExitComplete={() => {
+            if (landAt.current !== null) window.scrollTo({ top: landAt.current, behavior: "instant" });
+            landAt.current = null;
+          }}
+        >
+          {searching ? (
+              <motion.div key={`search:${f.id}`} initial="hide" animate="show" exit="out">
+                {(() => {
+                  let n = 0;
+                  return groups.map((g) => {
+                    const gi = n++;
+                    const t = s.sectionTallies[s.sections.indexOf(g.sec)];
+                    const done = t.done === t.total;
+                    const rows = (
+                      <ul>
+                        {g.checks.map((c) => (
+                          <motion.li key={c.id} data-check={c.id} variants={RISE} custom={n++}>
+                            <RailRow s={s} check={c} skin={cfg.skin} />
+                          </motion.li>
+                        ))}
+                      </ul>
+                    );
+                    return cfg.skin.leia ? (
+                      <motion.section key={g.sec.id} variants={RISE} custom={gi} className="leia-panel mt-4 overflow-hidden rounded-[6px]">
+                        <div className="leia-band relative flex h-[44px] items-center gap-3 px-3 text-ground">
+                          <span aria-hidden className={`leia-band-done pointer-events-none absolute inset-0 transition-opacity duration-500 ${done ? "opacity-100" : "opacity-0"}`} />
+                          <span className="relative min-w-0 flex-1 truncate text-[18px]">{g.sec.name}</span>
+                          <span className={`relative text-[13px] tabular-nums ${done ? "text-[#eaf6db]" : "text-brand-2"}`}>{g.checks.length}</span>
+                        </div>
+                        {rows}
+                      </motion.section>
+                    ) : (
+                      <motion.section key={g.sec.id} variants={RISE} custom={gi} className="mt-5">
+                        <span className="mono block pb-2 pl-1 text-ink-soft">{g.sec.name}</span>
+                        {rows}
+                      </motion.section>
+                    );
+                  });
+                })()}
+                {found.length === 0 ? (
+                  <motion.p variants={RISE} custom={0} className="py-10 text-center text-[14px] leading-5 text-ink-faint">
+                    {query ? `Ningún check coincide con «${query}»` : "Ningún check"} en {f.label.toLowerCase()}.
+                  </motion.p>
+                ) : null}
+              </motion.div>
+          ) : (
+            <motion.div key="walk" initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.25 } }} exit={{ opacity: 0, y: -12, transition: { duration: 0.18 } }}>
+              <Legend dark={cfg.skin.dark} />
+              {continuous ? <RoomScroll s={s} skin={cfg.skin} /> : <Walk s={s} skin={cfg.skin} />}
             </motion.div>
-          </AnimatePresence>
-        ) : (
-          <>
-            <Legend dark={cfg.skin.dark} />
-            {continuous ? <RoomScroll s={s} skin={cfg.skin} /> : <Walk s={s} skin={cfg.skin} />}
-          </>
-        )}
+          )}
+        </AnimatePresence>
         <div style={{ height: `calc(var(--sab) + ${cfg.spacer + (searching ? 120 : 0)}px)` }} />
       </motion.main>
       <Toast toast={s.toast} bottom={cfg.toast} />

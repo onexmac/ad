@@ -140,6 +140,26 @@ export function Footer({
   const ctaInk = useTransform(p, [0, 0.4], [1, 0]);
   const fieldInk = useTransform(p, [0.25, 0.7], [0, 1]);
 
+  // The phone's keyboard covers the bottom of the screen; while the search is open
+  // the bar rides on top of it (the visual viewport says how much it covers).
+  useEffect(() => {
+    const vv = window.visualViewport;
+    const el = nav.current;
+    if (!open || !vv || !el) return;
+    const fit = () => {
+      const kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      el.style.transform = kb > 40 ? `translateY(${-kb}px)` : "";
+    };
+    fit();
+    vv.addEventListener("resize", fit);
+    vv.addEventListener("scroll", fit);
+    return () => {
+      vv.removeEventListener("resize", fit);
+      vv.removeEventListener("scroll", fit);
+      el.style.transform = "";
+    };
+  }, [open]);
+
   const toggle = () => {
     if (!search) return;
     setRoomsOpen(false);
@@ -187,6 +207,8 @@ export function Footer({
         polish ? "leia-field-dark" : bar ? "leia-well" : "bg-ground shadow-[inset_0_0_0_1.5px_var(--hair-2)]"
       }`}
     >
+      {/* The input keeps a real width while the field is folded, clipped by it: iOS
+          won't raise the keyboard for an input with no size. */}
       <motion.span style={{ opacity: fieldInk }} className="flex h-full min-w-0 flex-1 items-center">
         <span className={`grid w-9 shrink-0 place-items-center ${bar ? "text-[#8a8d93]" : "text-ink-faint"}`}>
           <Lens size={15} />
@@ -201,7 +223,7 @@ export function Footer({
           placeholder="Buscar check"
           enterKeyHint="search"
           autoComplete="off"
-          className={`h-full min-w-0 flex-1 bg-transparent pr-3 text-[16px] outline-none ${
+          className={`h-full min-w-[200px] flex-1 bg-transparent pr-3 text-[16px] outline-none ${
             bar ? "text-ground placeholder:text-[#7d8087]" : "text-ink placeholder:text-ink-faint"
           }`}
         />
@@ -249,7 +271,7 @@ export function Footer({
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
-            transition={{ type: "spring", stiffness: 380, damping: 36 }}
+            transition={{ type: "spring", stiffness: 200, damping: 26 }}
             className={`pointer-events-auto ${polish ? "leia-strip" : bar ? "bg-ink" : "rounded-t-[16px] bg-ground"}`}
           >
             {/* The rooms as Leia's category cells: the one being read is the blue cell. */}
