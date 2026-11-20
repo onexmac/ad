@@ -417,6 +417,11 @@ export function Footer({
         <div className={`relative z-10 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: "var(--sab)" }}>
           <div className="mx-auto flex h-[60px] max-w-[560px] items-center px-3">{row}</div>
         </div>
+        {/* The bar's skirt: riding on the keyboard, the phone's see-through accessory
+            row and address pill sit between the two, so the bar carries its own
+            colour down behind them instead of letting the page show through. Out of
+            sight below the screen while the keyboard is down. */}
+        <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-full z-10 h-[100vh] ${polish ? "bg-[#30343a]" : "bg-ink-2"}`} />
       </nav>
     );
   }
