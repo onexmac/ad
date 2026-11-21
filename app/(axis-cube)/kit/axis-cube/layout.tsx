@@ -6,7 +6,7 @@ const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], weight
 
 export const metadata: Metadata = {
   title: "Axis Cube",
-  description: "Un Axis Cube flotando en un cuarto al atardecer: deslizá los aros para girar sus capas, mantenelo para armarlo o desarmarlo.",
+  description: "Tres cubos sobre una cama al atardecer: un Axis Cube, un 3×3 y un 2×2. Tocá uno para levantarlo y girá sus capas con el dedo.",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Axis Cube" },
 };
 

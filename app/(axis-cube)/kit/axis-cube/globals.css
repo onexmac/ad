@@ -1,7 +1,8 @@
-/* Axis Cube: a full-bleed 3D stage and six rings over the bed that turn the cube.
-   The rings sit where Marcos marked them on a phone (390 x 844): a column on the left
-   for the horizontal layers, a row for the vertical slices. On wider screens they keep
-   that layout in a phone-wide column at the centre.
+/* Axis Cube: a full-bleed 3D stage and a cross of rings that turns the puzzle in hand.
+   The room opens looking down at the bed, with no interface at all; the rings come in when a
+   puzzle is picked up. Their vertical arm turns its horizontal layers, their horizontal arm
+   its vertical slices; the middle ring is in both. On wider screens the cross stays in a
+   phone-wide column at the centre.
    Tokens live here; the scene's own colours live in lib/axis-cube/scene.js. */
 :root {
   --font-body: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -35,14 +36,17 @@ html, body { height: 100%; margin: 0; background: #0c0705; overflow: hidden; ove
 .axis #stage:focus-visible { outline: 2px solid var(--ring-on); outline-offset: -4px; }
 
 /* the rings: drawn here; their reach is worked out in the scene and runs along the way each is swiped
-   (a layer ring owns its whole row, a slice ring a tall column) */
+   (a layer ring owns its whole row, a slice ring its whole column) */
 .axis .pad {
+  --arm: clamp(64px, 9.5vh, 92px);
   position: fixed; top: 0; bottom: 0; left: 50%;
   width: min(100%, 430px); transform: translateX(-50%);
   pointer-events: none;
+  opacity: 0; transition: opacity 0.35s ease;
 }
+.axis.play .pad { opacity: 1; transition: opacity 0.6s ease 0.45s; }
 .axis .dot {
-  position: absolute; width: 30px; height: 30px; box-sizing: border-box;
+  position: absolute; left: 50%; top: 78%; width: 30px; height: 30px; box-sizing: border-box;
   border: 1.5px solid var(--ring); border-radius: 50%;
   box-shadow: 0 0 0 1px var(--ring-shade), inset 0 0 0 1px var(--ring-shade);
   transform: translate(-50%, -50%);
@@ -51,16 +55,15 @@ html, body { height: 100%; margin: 0; background: #0c0705; overflow: hidden; ove
 .axis .dot.aim { border-color: var(--ring-on); }
 .axis .dot.on { border-color: var(--ring-on); background: var(--ring-fill); transform: translate(-50%, -50%) scale(1.18); }
 .axis.busy .dot { opacity: 0.25; }
-.axis .l0 { left: 20%; top: 67.5%; }
-.axis .l1 { left: 20%; top: 78.5%; }
-.axis .l2 { left: 20%; top: 88.5%; }
-.axis .s0 { left: 57%; top: 78.5%; }
-.axis .s1 { left: 72.5%; top: 78.5%; }
-.axis .s2 { left: 88%; top: 78.5%; }
+.axis .dot.up { top: calc(78% - var(--arm)); }
+.axis .dot.down { top: calc(78% + var(--arm)); }
+.axis .dot.left { left: calc(50% - var(--arm)); }
+.axis .dot.right { left: calc(50% + var(--arm)); }
+.axis.two .dot.mid { opacity: 0; }                  /* a 2×2 has no middle layer */
 
 .axis .fallback {
   position: fixed; inset: 0; display: grid; place-items: center; padding: 24px;
   text-align: center; font-size: 15px; background: var(--stage); color: var(--ink);
 }
 .axis .fallback[hidden] { display: none; }
-@media (prefers-reduced-motion: reduce) { .axis .dot { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .axis .dot, .axis .pad, .axis.play .pad { transition: none; } }
