@@ -4,7 +4,7 @@
 //   npm i --no-save esbuild@0.24.2      (once per session)
 //   node scripts/axis-cube/artifact/build.mjs <outDir>
 //
-// Then publish <outDir>/axis-cube.html.
+// Then publish <outDir>/axis-cube.html with the files in <outDir>/tex/ (photo textures from public/).
 import fs from "node:fs";
 import path from "node:path";
 import * as esbuild from "esbuild";
@@ -12,7 +12,9 @@ import * as esbuild from "esbuild";
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../..");
 const HERE = path.join(ROOT, "scripts/axis-cube/artifact");
 const OUT = path.resolve(process.argv[2] ?? "axis-cube-artifact");
-fs.mkdirSync(OUT, { recursive: true });
+fs.mkdirSync(path.join(OUT, "tex"), { recursive: true });
+const TEX = path.join(ROOT, "public/kit/axis-cube/tex");
+for (const f of fs.readdirSync(TEX)) fs.copyFileSync(path.join(TEX, f), path.join(OUT, "tex", f));
 
 const js = await esbuild.build({
   entryPoints: [path.join(HERE, "entry.js")],
