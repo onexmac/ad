@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Axis Cube" },
 };
 
-// The room opens at dusk; the scene retints this colour when the look changes.
+// The room is always at dusk.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
