@@ -18,6 +18,11 @@
           "slug": "noticss",
           "name": "Noticss",
           "description": "El diario de la mañana, en papel: política, economía, geopolítica y construcción"
+        },
+        {
+          "slug": "axis-cube",
+          "name": "Axis Cube",
+          "description": "Un Axis Cube flotando en un cuarto al atardecer: se desarma, se arma y se abre en sus 26 piezas"
         }
       ]
     },
