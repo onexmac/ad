@@ -34,7 +34,8 @@ html, body { height: 100%; margin: 0; background: #0c0705; overflow: hidden; ove
 .axis #stage.dragging { cursor: grabbing; }
 .axis #stage:focus-visible { outline: 2px solid var(--ring-on); outline-offset: -4px; }
 
-/* the rings: drawn here, hit-tested in the scene with a much larger reach than they show */
+/* the rings: drawn here; their reach is worked out in the scene and runs along the way each is swiped
+   (a layer ring owns its whole row, a slice ring a tall column) */
 .axis .pad {
   position: fixed; top: 0; bottom: 0; left: 50%;
   width: min(100%, 430px); transform: translateX(-50%);
@@ -47,6 +48,7 @@ html, body { height: 100%; margin: 0; background: #0c0705; overflow: hidden; ove
   transform: translate(-50%, -50%);
   transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, opacity 0.3s ease;
 }
+.axis .dot.aim { border-color: var(--ring-on); }
 .axis .dot.on { border-color: var(--ring-on); background: var(--ring-fill); transform: translate(-50%, -50%) scale(1.18); }
 .axis.busy .dot { opacity: 0.25; }
 .axis .l0 { left: 20%; top: 67.5%; }
