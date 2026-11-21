@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Unbounded } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], weight: ["500", "700"] });
-const unbounded = Unbounded({ variable: "--font-unbounded", subsets: ["latin"], weight: ["600"] });
 
 export const metadata: Metadata = {
   title: "Axis Cube",
-  description: "Un Axis Cube flotando en un cuarto al atardecer: tocalo para desarmarlo, mantenelo para abrirlo en sus 26 piezas.",
+  description: "Un Axis Cube flotando en un cuarto al atardecer: deslizá los aros para girar sus capas, mantenelo para armarlo o desarmarlo.",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Axis Cube" },
 };
 
@@ -23,7 +22,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${manrope.variable} ${unbounded.variable}`}>
+    <html lang="es" className={manrope.variable}>
       <body data-app>{children}</body>
     </html>
   );

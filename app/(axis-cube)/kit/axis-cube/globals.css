@@ -1,17 +1,18 @@
-/* Axis Cube: a full-bleed 3D stage; small chips float in the corners and never cover the cube.
-   The room is at dusk; the chips are dark glass over it.
+/* Axis Cube: a full-bleed 3D stage and six rings over the bed that turn the cube.
+   The rings sit where Marcos marked them on a phone (390 x 844): a column on the left
+   for the horizontal layers, a row for the vertical slices. On wider screens they keep
+   that layout in a phone-wide column at the centre.
    Tokens live here; the scene's own colours live in lib/axis-cube/scene.js. */
 :root {
-  --font-display: var(--font-unbounded), "Arial Black", system-ui, sans-serif;
   --font-body: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 .axis {
   --ink: #f7e8cf;
   --stage: #0c0705;
-  --chip: rgba(30, 18, 10, 0.6);
-  --chip-line: rgba(255, 214, 160, 0.2);
-  --accent: #ffb347;
-  --muted: rgba(247, 232, 207, 0.72);
+  --ring: rgba(255, 240, 220, 0.5);
+  --ring-on: rgba(255, 244, 228, 0.95);
+  --ring-fill: rgba(255, 240, 220, 0.12);
+  --ring-shade: rgba(20, 10, 4, 0.28);
   color-scheme: dark;
 }
 html, body { height: 100%; margin: 0; background: #0c0705; overflow: hidden; overscroll-behavior: none; }
@@ -31,36 +32,33 @@ html, body { height: 100%; margin: 0; background: #0c0705; overflow: hidden; ove
   display: block; touch-action: none; cursor: grab; outline: none;
 }
 .axis #stage.dragging { cursor: grabbing; }
-.axis .hud {
-  position: fixed; inset: 0; pointer-events: none;
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding:
-    calc(14px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right))
-    calc(18px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+.axis #stage:focus-visible { outline: 2px solid var(--ring-on); outline-offset: -4px; }
+
+/* the rings: drawn here, hit-tested in the scene with a much larger reach than they show */
+.axis .pad {
+  position: fixed; top: 0; bottom: 0; left: 50%;
+  width: min(100%, 430px); transform: translateX(-50%);
+  pointer-events: none;
 }
-.axis .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.axis .chip {
-  background: var(--chip);
-  border: 1px solid var(--chip-line);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  color: var(--ink);
+.axis .dot {
+  position: absolute; width: 30px; height: 30px; box-sizing: border-box;
+  border: 1.5px solid var(--ring); border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--ring-shade), inset 0 0 0 1px var(--ring-shade);
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, opacity 0.3s ease;
 }
-.axis .mark { display: flex; flex-direction: column; gap: 3px; padding: 9px 14px 10px; border-radius: 14px; }
-.axis .mark b { font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: 0.16em; }
-.axis .mark span { font-size: 12px; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
-.axis #stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.axis .hint {
-  align-self: center; display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 2px 12px; padding: 9px 14px; border-radius: 14px;
-  font-size: 12.5px; font-weight: 500; max-width: 100%; box-sizing: border-box;
-  transition: opacity 0.9s ease;
-}
-.axis .hint b { font-weight: 700; color: var(--accent); }
-.axis .hint.gone { opacity: 0; }
+.axis .dot.on { border-color: var(--ring-on); background: var(--ring-fill); transform: translate(-50%, -50%) scale(1.18); }
+.axis.busy .dot { opacity: 0.25; }
+.axis .l0 { left: 20%; top: 67.5%; }
+.axis .l1 { left: 20%; top: 78.5%; }
+.axis .l2 { left: 20%; top: 88.5%; }
+.axis .s0 { left: 57%; top: 78.5%; }
+.axis .s1 { left: 72.5%; top: 78.5%; }
+.axis .s2 { left: 88%; top: 78.5%; }
+
 .axis .fallback {
   position: fixed; inset: 0; display: grid; place-items: center; padding: 24px;
   text-align: center; font-size: 15px; background: var(--stage); color: var(--ink);
 }
 .axis .fallback[hidden] { display: none; }
-@media (prefers-reduced-motion: reduce) { .axis .hint { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .axis .dot { transition: none; } }

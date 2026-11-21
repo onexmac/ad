@@ -30,9 +30,9 @@ const css = fs.readFileSync(path.join(ROOT, "app/(axis-cube)/kit/axis-cube/globa
 
 const page = `<title>Axis Cube</title>
 <meta name="theme-color" content="#0c0705">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=Unbounded:wght@600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap">
 <style>
-:root { --font-manrope: "Manrope"; --font-unbounded: "Unbounded"; }
+:root { --font-manrope: "Manrope"; }
 ${css.replace(/<\/style/g, "<\\/style")}
 </style>
 <div id="root"></div>
