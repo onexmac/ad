@@ -37,18 +37,18 @@
           "description": "Puncheo de formaleta N1: pre-armado y pre-chorrea"
         },
         {
-          "slug": "control-usuarios/p2",
-          "name": "Control de usuarios · P2",
-          "description": "Mobile: el + verde se abre en Nuevo usuario"
+          "slug": "pads/pad01",
+          "name": "Pad 01",
+          "description": "Usuarios mobile: el + verde se abre en Nuevo usuario"
         },
         {
-          "slug": "control-usuarios/slider",
-          "name": "Control de usuarios · Slider",
+          "slug": "pads/pad02",
+          "name": "Pad 02",
           "description": "Deslizá para crear: el slider viene armado"
         },
         {
-          "slug": "control-usuarios/swift",
-          "name": "Control de usuarios · Swift",
+          "slug": "pads/pad03",
+          "name": "Pad 03",
           "description": "La pantalla P2 de SwiftUI, con sus botones a presión"
         },
         {
