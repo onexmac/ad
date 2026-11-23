@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Axis Cube",
-  description: "Tres cubos sobre el otomano de una biblioteca de los noventa, al atardecer: un Axis Cube, un 3×3 y un 2×2. Tocá uno para levantarlo y girá sus capas con el dedo.",
+  description: "Cuatro cubos sobre el otomano de una biblioteca de los noventa, al atardecer: un Axis Cube, un 3×3, un 2×2 y un Ghost Cube. Tocá uno para levantarlo y girá sus capas con el dedo.",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Axis Cube" },
 };
 
