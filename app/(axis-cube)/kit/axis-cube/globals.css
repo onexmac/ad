@@ -69,9 +69,11 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
 /* the loader: a black screen, a cube and a bar, in the page as it arrives, before any script. Only transforms move,
    so the browser keeps both going while the scene is being built; the scene then runs the bar to its end and
    lifts the black.
-   The cube is at the centre: a two-by-two, flat, each face four tiles that are white or black with a white edge. It
-   has no perspective, and it flips a quarter turn at a time: about its upright axis, then the one across, and
-   again; three such pairs bring it back to where it began, so the loop has no seam.
+   The cube is at the centre: a two-by-two, flat, with no perspective. It is eight corner pieces, each carrying its
+   three tiles, white or black with a white edge; a tile sits in its quarter of a face on a black backing, so the
+   body between tiles is black too. The pieces are turned a layer at a time, as a cube is when it is being solved;
+   which piece turns when, and the keyframes for it, are worked out in lib/axis-cube/loader.js and arrive with the
+   markup.
    The bar is three quarters of the way down. Its radius is its fill's radius plus the gap and the stroke. */
 .axis-loader {
   position: fixed; inset: 0; z-index: 10;
@@ -85,37 +87,30 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   margin: calc(var(--edge) / -2) 0 0 calc(var(--edge) / -2);
   -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
   transform: rotateX(-28deg) rotateY(-40deg);
-  animation: axis-flip 4.5s infinite;
 }
-.axis-loader .face {
-  position: absolute; inset: 0; box-sizing: border-box; padding: 4%;
-  display: grid; grid-template: 1fr 1fr / 1fr 1fr; gap: 8%;
+.axis-loader .c { position: absolute; inset: 0; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
+.axis-loader .p {
+  position: absolute; width: 50%; height: 50%; box-sizing: border-box; padding: 4%;
   background: var(--load-ground);
   -webkit-backface-visibility: hidden; backface-visibility: hidden;
 }
-.axis-loader .face i { box-sizing: border-box; border: 1.5px solid var(--load-ink); border-radius: 14%; }
-.axis-loader .face.w i { background: var(--load-ink); }
-.axis-loader .face.front { transform: translateZ(calc(var(--edge) / 2)); }
-.axis-loader .face.back { transform: rotateY(180deg) translateZ(calc(var(--edge) / 2)); }
-.axis-loader .face.right { transform: rotateY(90deg) translateZ(calc(var(--edge) / 2)); }
-.axis-loader .face.left { transform: rotateY(-90deg) translateZ(calc(var(--edge) / 2)); }
-.axis-loader .face.top { transform: rotateX(90deg) translateZ(calc(var(--edge) / 2)); }
-.axis-loader .face.bottom { transform: rotateX(-90deg) translateZ(calc(var(--edge) / 2)); }
-@keyframes axis-flip {
-  0.00% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(0deg); animation-timing-function: cubic-bezier(0.6, 0.04, 0.2, 1); }
-  10.33% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(90deg); animation-timing-function: linear; }
-  16.67% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(90deg); animation-timing-function: cubic-bezier(0.6, 0.04, 0.2, 1); }
-  27.00% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(0deg) rotateX(90deg) rotateY(90deg); animation-timing-function: linear; }
-  33.33% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(0deg) rotateX(90deg) rotateY(90deg); animation-timing-function: cubic-bezier(0.6, 0.04, 0.2, 1); }
-  43.67% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(90deg) rotateX(90deg) rotateY(90deg); animation-timing-function: linear; }
-  50.00% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(0deg) rotateY(90deg) rotateX(90deg) rotateY(90deg); animation-timing-function: cubic-bezier(0.6, 0.04, 0.2, 1); }
-  60.33% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(90deg) rotateY(90deg) rotateX(90deg) rotateY(90deg); animation-timing-function: linear; }
-  66.67% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(0deg) rotateX(90deg) rotateY(90deg) rotateX(90deg) rotateY(90deg); animation-timing-function: cubic-bezier(0.6, 0.04, 0.2, 1); }
-  77.00% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(90deg) rotateX(90deg) rotateY(90deg) rotateX(90deg) rotateY(90deg); animation-timing-function: linear; }
-  83.33% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(0deg) rotateY(90deg) rotateX(90deg) rotateY(90deg) rotateX(90deg) rotateY(90deg); animation-timing-function: cubic-bezier(0.6, 0.04, 0.2, 1); }
-  93.67% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(90deg) rotateY(90deg) rotateX(90deg) rotateY(90deg) rotateX(90deg) rotateY(90deg); animation-timing-function: linear; }
-  100% { transform: rotateX(-28deg) rotateY(-40deg) rotateX(90deg) rotateY(90deg) rotateX(90deg) rotateY(90deg) rotateX(90deg) rotateY(90deg); }
-}
+.axis-loader .p i { display: block; height: 100%; box-sizing: border-box; border: 1.5px solid var(--load-ink); border-radius: 14%; }
+.axis-loader .p.w i { background: var(--load-ink); }
+/* which quarter of its face a tile is in; it turns about the cube's centre, which is that quarter's inner corner */
+.axis-loader .p.ql { left: 0; }
+.axis-loader .p.qr { left: 50%; }
+.axis-loader .p.qt { top: 0; }
+.axis-loader .p.qb { top: 50%; }
+.axis-loader .p.ql.qt { transform-origin: 100% 100%; }
+.axis-loader .p.qr.qt { transform-origin: 0 100%; }
+.axis-loader .p.ql.qb { transform-origin: 100% 0; }
+.axis-loader .p.qr.qb { transform-origin: 0 0; }
+.axis-loader .p.front { transform: translateZ(calc(var(--edge) / 2)); }
+.axis-loader .p.back { transform: rotateY(180deg) translateZ(calc(var(--edge) / 2)); }
+.axis-loader .p.right { transform: rotateY(90deg) translateZ(calc(var(--edge) / 2)); }
+.axis-loader .p.left { transform: rotateY(-90deg) translateZ(calc(var(--edge) / 2)); }
+.axis-loader .p.top { transform: rotateX(90deg) translateZ(calc(var(--edge) / 2)); }
+.axis-loader .p.bottom { transform: rotateX(-90deg) translateZ(calc(var(--edge) / 2)); }
 .axis-loader .bar {
   position: absolute; left: 50%; top: 75%; transform: translate(-50%, -50%);
   box-sizing: border-box; display: block; width: min(48vw, 200px); height: 12px; padding: 2px;
@@ -128,7 +123,7 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   animation: axis-load 14s cubic-bezier(0.08, 0.72, 0.12, 1) forwards;
 }
 @keyframes axis-load { to { transform: translateX(-8%); } }
-@media (prefers-reduced-motion: reduce) { .axis-loader .cube { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .axis-loader .c { animation: none !important; } }
 
 .axis .fallback {
   position: fixed; inset: 0; display: grid; place-items: center; padding: 24px;
