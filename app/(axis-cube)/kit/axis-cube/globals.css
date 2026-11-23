@@ -5,7 +5,8 @@
    slice. On wider screens the grid stays in a phone-wide column at the centre.
    Tokens live here; the scene's own colours live in lib/axis-cube/scene.js. */
 :root {
-  --font-body: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* no web font: the app shows no text but the fallback message, and fetching one at build time is what made Vercel builds fail at random */
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 .axis {
   --ink: #f7e8cf;

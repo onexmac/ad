@@ -1,8 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
 import "./globals.css";
-
-const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], weight: ["500", "700"] });
 
 export const metadata: Metadata = {
   title: "Axis Cube",
@@ -22,7 +19,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={manrope.variable}>
+    <html lang="es">
       <body data-app>{children}</body>
     </html>
   );
