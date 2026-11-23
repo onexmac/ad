@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { LOADER_HTML } from "@/lib/axis-cube/loader";
 import { mountAxisCube } from "@/lib/axis-cube/scene";
 
 type Look = "a" | "b" | "c";
@@ -17,7 +18,9 @@ function keepForNextTime() {
 
 /**
  * The room and its puzzles, behind a loading screen. The loader is plain markup and CSS, so it is in the page as the
- * server sends it and its bar is already filling before any script arrives; the scene finishes the bar and lifts it.
+ * server sends it, its cube already flipping and its bar already filling before any script arrives; the scene
+ * finishes the bar and lifts it. Its markup is a string the scene later reaches into, so React is told to leave
+ * what is inside alone.
  * A service worker keeps the page, its scripts and the room's photographs on the device, so the app opens from the
  * home screen without waiting for the network.
  */
@@ -36,13 +39,7 @@ export function Stage({ look = "a" }: { look?: Look }) {
   return (
     <>
       <div ref={host} className="axis" />
-      <div ref={loader} className="axis-loader" role="progressbar" aria-label="Cargando">
-        <span className="bar">
-          <span className="track">
-            <i />
-          </span>
-        </span>
-      </div>
+      <div ref={loader} className="axis-loader" role="progressbar" aria-label="Cargando" dangerouslySetInnerHTML={{ __html: LOADER_HTML }} />
     </>
   );
 }

@@ -10,6 +10,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import * as esbuild from "esbuild";
+import { LOADER_HTML } from "../../../lib/axis-cube/loader.js";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../..");
 const HERE = path.join(ROOT, "scripts/axis-cube/artifact");
@@ -39,7 +40,7 @@ const page = `<title>${TITLE}</title>
 ${css.replace(/<\/style/g, "<\\/style")}
 </style>
 <div id="root"></div>
-<div class="axis-loader" id="loader" role="progressbar" aria-label="Cargando"><span class="bar"><span class="track"><i></i></span></span></div>
+<div class="axis-loader" id="loader" role="progressbar" aria-label="Cargando">${LOADER_HTML}</div>
 <script>window.AXIS_LOOK = "${LOOK}";</script>
 <script>${js.outputFiles[0].text.replace(/<\/script/g, "<\\/script")}</script>
 `;
