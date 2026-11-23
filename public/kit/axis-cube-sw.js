@@ -10,17 +10,33 @@ const WAIT = 500;   // how long the page is asked of the network before the kept
 const ours = (path) => path === HOME || path.startsWith(HOME + "/");
 const built = (path) => path.startsWith("/_next/static/");
 const keepable = (res) => res && res.ok && res.type === "basic";
+const got = (cache, key) => cache.match(key, { ignoreVary: true });
+// the built files a page names (its styles and scripts)
+const named = (html) => Array.from(new Set(html.match(/\/_next\/static\/[^"'\\<>\s)]+/g) || []));
 
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) => e.waitUntil(self.clients.claim()));
+
+// A page is kept only once the built files it names are kept too, so what is kept always opens with no network:
+// a new page never takes the place of the old one while its scripts are still missing.
+async function keepPage(cache, path, res) {
+  const html = await res.clone().text();
+  for (const key of named(html)) {
+    if (await got(cache, key)) continue;
+    const file = await fetch(key);
+    if (!keepable(file)) return;
+    await cache.put(key, file);
+  }
+  await cache.put(path, res);
+}
 
 // The page: the network if it answers within half a second, so a new version shows the first time it is opened;
 // otherwise the kept copy at once, and the answer is kept for next time when it comes.
 async function page(e, path) {
   const cache = await caches.open(CACHE);
-  const kept = await cache.match(path, { ignoreVary: true });
+  const kept = await got(cache, path);
   const fresh = fetch(e.request).then((res) => {
-    if (keepable(res)) e.waitUntil(cache.put(path, res.clone()));
+    if (keepable(res)) e.waitUntil(keepPage(cache, path, res.clone()).catch(() => {}));
     return res;
   });
   if (!kept) return fresh;
@@ -33,12 +49,12 @@ async function page(e, path) {
 
 // Built files never change under the same name: the kept copy, always. The room's own files keep their names when
 // they change, so the kept copy is shown and a new one is fetched behind it.
-async function file(e, path) {
+async function file(e, key, fixed) {
   const cache = await caches.open(CACHE);
-  const kept = await cache.match(path, { ignoreVary: true });
-  if (kept && built(path)) return kept;
+  const kept = await got(cache, key);
+  if (kept && fixed) return kept;
   const fresh = fetch(e.request).then((res) => {
-    if (keepable(res)) e.waitUntil(cache.put(path, res.clone()));
+    if (keepable(res)) e.waitUntil(cache.put(key, res.clone()).catch(() => {}));
     return res;
   });
   if (!kept) return fresh;
@@ -50,16 +66,15 @@ self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
-  if (url.origin !== self.location.origin || url.search) return;
-  if (req.mode === "navigate") {
-    if (ours(url.pathname)) e.respondWith(page(e, url.pathname));
-    return;
-  }
-  if (built(url.pathname) || ours(url.pathname)) e.respondWith(file(e, url.pathname));
+  if (url.origin !== self.location.origin) return;
+  if (built(url.pathname)) { e.respondWith(file(e, url.pathname + url.search, true)); return; }
+  if (url.search || !ours(url.pathname)) return;
+  e.respondWith(req.mode === "navigate" ? page(e, url.pathname) : file(e, url.pathname, false));
 });
 
 // When the room is on screen the page says what it loaded. Whatever of that is not kept yet is fetched now (the first
-// visit happens before this worker is in charge), and built files from older versions are let go.
+// visit happens before this worker is in charge). Built files that neither this page loaded nor any kept page names
+// belong to older versions, and are let go.
 self.addEventListener("message", (e) => {
   const d = e.data || {};
   if (d.type !== "keep" || !Array.isArray(d.urls)) return;
@@ -68,18 +83,27 @@ self.addEventListener("message", (e) => {
     for (const u of d.urls) {
       try {
         const url = new URL(u, self.location.origin);
-        if (url.origin === self.location.origin && !url.search && (built(url.pathname) || ours(url.pathname))) want.add(url.pathname);
+        if (url.origin !== self.location.origin) continue;
+        if (built(url.pathname)) want.add(url.pathname + url.search);
+        else if (!url.search && ours(url.pathname)) want.add(url.pathname);
       } catch (err) { /* not an address */ }
     }
     if (!want.size) return;
     const cache = await caches.open(CACHE);
-    for (const path of want) {
-      if (await cache.match(path, { ignoreVary: true })) continue;
-      try { const res = await fetch(path); if (keepable(res)) await cache.put(path, res); } catch (err) { /* offline: next time */ }
+    for (const key of want) {
+      if (await got(cache, key)) continue;
+      try { const res = await fetch(key); if (keepable(res)) await cache.put(key, res); } catch (err) { /* offline: next time */ }
     }
-    for (const req of await cache.keys()) {
-      const path = new URL(req.url).pathname;
-      if (built(path) && !want.has(path)) await cache.delete(req);
+    const keys = await cache.keys();
+    for (const req of keys) {                              // every kept page keeps what it names
+      const url = new URL(req.url);
+      if (built(url.pathname) || /\.[a-z0-9]+$/i.test(url.pathname)) continue;
+      const res = await cache.match(req);
+      if (res) for (const key of named(await res.text())) want.add(key);
+    }
+    for (const req of keys) {
+      const url = new URL(req.url);
+      if (built(url.pathname) && !want.has(url.pathname + url.search)) await cache.delete(req);
     }
   })());
 });
