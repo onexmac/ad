@@ -1,10 +1,6 @@
-"use client";
+import { Stage } from "@/components/axis-cube/Stage";
 
-import { useEffect, useRef } from "react";
-import { mountAxisCube } from "@/lib/axis-cube/scene";
-
+// The analogue look is the default; /a, /b and /c show each of the three.
 export default function Page() {
-  const host = useRef<HTMLDivElement>(null);
-  useEffect(() => (host.current ? mountAxisCube(host.current) : undefined), []);
-  return <div ref={host} className="axis" />;
+  return <Stage look="a" />;
 }
