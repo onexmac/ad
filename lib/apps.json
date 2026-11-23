@@ -37,9 +37,19 @@
           "description": "Puncheo de formaleta N1: pre-armado y pre-chorrea"
         },
         {
-          "slug": "control-usuarios",
-          "name": "Control de usuarios",
-          "external": "https://control-usuarios.vercel.app"
+          "slug": "control-usuarios/p2",
+          "name": "Control de usuarios · P2",
+          "description": "Mobile: el + verde se abre en Nuevo usuario"
+        },
+        {
+          "slug": "control-usuarios/slider",
+          "name": "Control de usuarios · Slider",
+          "description": "Deslizá para crear: el slider viene armado"
+        },
+        {
+          "slug": "control-usuarios/swift",
+          "name": "Control de usuarios · Swift",
+          "description": "La pantalla P2 de SwiftUI, con sus botones a presión"
         },
         {
           "slug": "kpi",
