@@ -39,6 +39,7 @@ const page = `<title>${TITLE}</title>
 ${css.replace(/<\/style/g, "<\\/style")}
 </style>
 <div id="root"></div>
+<div class="axis-loader" id="loader" role="progressbar" aria-label="Cargando"><span class="bar"><span class="track"><i></i></span></span></div>
 <script>window.AXIS_LOOK = "${LOOK}";</script>
 <script>${js.outputFiles[0].text.replace(/<\/script/g, "<\\/script")}</script>
 `;

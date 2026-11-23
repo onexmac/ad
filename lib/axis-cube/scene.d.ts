@@ -1,7 +1,2 @@
-/**
- * Builds the scene and its rings inside `host`; returns a function that tears it all down.
- * `texBase` is where the photo textures live (default: the portal's /kit/axis-cube/tex/).
- * `look` picks one of the three looks of the same room: "a" analogue (film and a lens, the default),
- * "b" brush (inked and painted), "c" classic (a cel-era night).
- */
-export function mountAxisCube(host: HTMLElement, opts?: { texBase?: string; look?: "a" | "b" | "c"; onLook?: (look: "a" | "b" | "c") => void }): () => void;
+/** Mounts the room and its puzzles in `host`. `loader` is the loading screen already in the page: the scene finishes its bar and lifts it when the room is ready. Returns the function that takes the scene down. */
+export function mountAxisCube(host: HTMLElement, opts?: { texBase?: string; look?: "a" | "b" | "c"; loader?: HTMLElement }): () => void;
