@@ -2,9 +2,10 @@
 
 # MAGI portal — working rules
 
-- This repo is **public**. Never commit secrets, tokens, `.env` files, or content
-  copied from a private repo (including `onexmac/magi`) without Marcos's explicit
-  yes on the exact diff.
+- This repo is **public**; `onexmac/magi` is the private one. Never commit
+  secrets, tokens, `.env` files, or content copied from `onexmac/magi` without
+  Marcos's explicit yes on the exact diff. App code from the legacy repos
+  (`onexmac/root` and the per-app repos) belongs here: move it in without asking.
 - All apps live in this repo under `app/<section>/<slug>/`, listed in
   `lib/apps.json`. Sections are `kit` (personal) and `ad` (Adelante). Do not
   create or suggest new repositories for apps.
@@ -24,7 +25,7 @@
     is there now.
   - Never a Vercel branch preview (it sits behind a Vercel login), never
     screenshots instead of the artifact or the link. The only stop before
-    `main` is the first rule above: secrets or private-repo content.
+    `main` is the first rule above: secrets or content from `magi`.
   - The artifact is built from this repo's own code, not a copy. For Updatr:
     `npm i --no-save esbuild@0.24.2`, then
     `node scripts/updatr/artifact/build.mjs <outDir>`, and publish `updatr.html`
