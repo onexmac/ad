@@ -19,7 +19,7 @@
   --ring-shade: rgba(20, 10, 4, 0.28);
   color-scheme: dark;
 }
-html, body { height: 100%; margin: 0; background: #0c0705; overflow: hidden; overscroll-behavior: none; }
+html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: hidden; overscroll-behavior: none; }
 .axis {
   position: fixed; inset: 0;
   background: var(--stage);

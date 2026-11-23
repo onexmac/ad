@@ -34,7 +34,7 @@ const js = await esbuild.build({
 const css = fs.readFileSync(path.join(ROOT, "app/(axis-cube)/kit/axis-cube/globals.css"), "utf8");
 
 const page = `<title>${TITLE}</title>
-<meta name="theme-color" content="#0c0705">
+<meta name="theme-color" content="#000000">
 <style>
 ${css.replace(/<\/style/g, "<\\/style")}
 </style>
