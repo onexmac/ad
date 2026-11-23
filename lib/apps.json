@@ -37,24 +37,31 @@
           "description": "Puncheo de formaleta N1: pre-armado y pre-chorrea"
         },
         {
-          "slug": "pads/pad01",
-          "name": "Pad 01",
-          "description": "Usuarios mobile: el + verde se abre en Nuevo usuario"
-        },
-        {
-          "slug": "pads/pad02",
-          "name": "Pad 02",
-          "description": "Deslizá para crear: el slider viene armado"
-        },
-        {
-          "slug": "pads/pad03",
-          "name": "Pad 03",
-          "description": "La pantalla P2 de SwiftUI, con sus botones a presión"
-        },
-        {
-          "slug": "kpi",
-          "name": "KPI",
-          "external": "https://adelante-kpi.vercel.app"
+          "slug": "pads",
+          "name": "Pads",
+          "description": "Prototipos: pad01, pad02, pad03 y KPI",
+          "apps": [
+            {
+              "slug": "pad01",
+              "name": "Pad 01",
+              "description": "Usuarios mobile: el + verde se abre en Nuevo usuario"
+            },
+            {
+              "slug": "pad02",
+              "name": "Pad 02",
+              "description": "Deslizá para crear: el slider viene armado"
+            },
+            {
+              "slug": "pad03",
+              "name": "Pad 03",
+              "description": "La pantalla P2 de SwiftUI, con sus botones a presión"
+            },
+            {
+              "slug": "kpi",
+              "name": "KPI",
+              "external": "https://adelante-kpi.vercel.app"
+            }
+          ]
         }
       ]
     }

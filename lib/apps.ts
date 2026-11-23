@@ -11,6 +11,8 @@ export type PortalApp = {
    * app/<section>/<slug>/ in this repo.
    */
   external?: string;
+  /** A folder: its apps live at /<section>/<slug>/<child>, listed on its own index. */
+  apps?: PortalApp[];
 };
 
 export type PortalSection = {
@@ -26,4 +28,16 @@ export function getSection(slug: string): PortalSection {
   const section = sections.find((s) => s.slug === slug);
   if (!section) throw new Error(`Unknown portal section: ${slug}`);
   return section;
+}
+
+/** A folder inside a section, e.g. AD › Pads. */
+export function getFolder(section: string, slug: string): PortalApp & { apps: PortalApp[] } {
+  const folder = getSection(section).apps.find((a) => a.slug === slug);
+  if (!folder?.apps) throw new Error(`Unknown portal folder: ${section}/${slug}`);
+  return folder as PortalApp & { apps: PortalApp[] };
+}
+
+/** Apps under a list, counting what is inside folders rather than the folders. */
+export function countApps(apps: PortalApp[]): number {
+  return apps.reduce((n, a) => n + (a.apps ? countApps(a.apps) : 1), 0);
 }
