@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { mountAxisCube } from "@/lib/axis-cube/scene";
 
-/** The scene, mounted into one element. `look`: a analogue (film), b brush (ink and paint), c classic (cel-era night). */
-export function Stage({ look = "a" }: { look?: "a" | "b" | "c" }) {
+type Look = "a" | "b" | "c";
+
+/** The room and its puzzles. Each look has its own route; the picker in the scene moves between them. */
+export function Stage({ look = "a" }: { look?: Look }) {
   const host = useRef<HTMLDivElement>(null);
-  useEffect(() => (host.current ? mountAxisCube(host.current, { look }) : undefined), [look]);
+  const router = useRouter();
+  useEffect(
+    () => (host.current ? mountAxisCube(host.current, { look, onLook: (k: Look) => router.replace(`/kit/axis-cube/${k}`) }) : undefined),
+    [look, router],
+  );
   return <div ref={host} className="axis" />;
 }
