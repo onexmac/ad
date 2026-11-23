@@ -1,18 +1,9 @@
 import { mountAxisCube } from "../../../lib/axis-cube/scene.js";
 
-// The look comes from the page (set by the build) or from the address: axis-cube.html#b.
-// The picker in the scene changes it in place: the scene is taken down and put up again in the new look.
-const root = document.getElementById("root");
-let dispose = null;
-function mount(look) {
-  if (dispose) dispose();
-  dispose = mountAxisCube(root, {
-    texBase: "tex/",
-    look,
-    onLook: (k) => {
-      try { history.replaceState(null, "", "#" + k); } catch (e) { /* a sandboxed page may not rewrite its address */ }
-      mount(k);
-    },
-  });
-}
-mount((location.hash || "").replace("#", "") || window.AXIS_LOOK || "a");
+// The look comes from the page (set by the build) or from the address: axis-cube.html#b
+const look = (location.hash || "").replace("#", "") || window.AXIS_LOOK || "a";
+// Here the script is part of the page itself, so the scene waits two frames: the loader is on screen before the
+// building of the room takes the main thread.
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  mountAxisCube(document.getElementById("root"), { texBase: "tex/", look, loader: document.getElementById("loader") });
+}));

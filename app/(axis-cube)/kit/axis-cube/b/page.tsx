@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Stage } from "@/components/axis-cube/Stage";
 
-export const metadata: Metadata = { title: "Axis Cube — B, pincel" };
+// Reached by its address only: nothing links here and search engines are asked to leave it out.
+export const metadata: Metadata = { title: "Axis Cube — B, pincel", robots: { index: false } };
 
 export default function Page() {
   return <Stage look="b" />;
