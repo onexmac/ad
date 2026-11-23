@@ -1,14 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader } from "next/font/google";
+import localFont from "next/font/local";
+import "@fontsource-variable/newsreader/opsz.css";
+import "@fontsource-variable/newsreader/opsz-italic.css";
+import { fontVars } from "@/lib/fonts";
 import "./globals.css";
 
 // One serif for everything, in its optical sizes: the display cut on the
 // masthead and headlines, the text cut in the body, small caps for labels.
-const serif = Newsreader({
-  variable: "--font-newsreader",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz"],
+const serif = localFont({
+  src: [
+    { path: "../../../../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2", style: "normal" },
+    { path: "../../../../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-italic.woff2", style: "italic" },
+  ],
+  weight: "200 800",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${serif.variable} h-full antialiased`}>
+    <html lang="es" className="h-full antialiased" style={fontVars({ "--font-newsreader": [serif, "Newsreader Variable"] })}>
       <body data-app className="min-h-full">
         {children}
       </body>

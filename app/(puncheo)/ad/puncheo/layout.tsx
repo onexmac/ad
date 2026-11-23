@@ -1,11 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Roboto_Condensed } from "next/font/google";
+import localFont from "next/font/local";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/roboto-condensed/index.css";
+import "@fontsource-variable/jetbrains-mono/index.css";
+import { fontVars } from "@/lib/fonts";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const inter = localFont({ src: "../../../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2", weight: "100 900" });
 // Leia's CHECK OUT is Helvetica Neue Condensed Bold; this is its web stand-in where iOS lacks it.
-const cond = Roboto_Condensed({ variable: "--font-cond", subsets: ["latin"], weight: ["700"] });
-const mono = JetBrains_Mono({ variable: "--font-mono-face", subsets: ["latin"], weight: ["500", "600"] });
+const cond = localFont({ src: "../../../../node_modules/@fontsource-variable/roboto-condensed/files/roboto-condensed-latin-wght-normal.woff2", weight: "100 900" });
+const mono = localFont({ src: "../../../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2", weight: "100 800" });
 
 export const metadata: Metadata = {
   title: "Puncheo",
@@ -24,7 +28,15 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${inter.variable} ${mono.variable} ${cond.variable} h-full antialiased`}>
+    <html
+      lang="es"
+      className="h-full antialiased"
+      style={fontVars({
+        "--font-inter": [inter, "Inter Variable"],
+        "--font-mono-face": [mono, "JetBrains Mono Variable"],
+        "--font-cond": [cond, "Roboto Condensed Variable"],
+      })}
+    >
       <body className="min-h-full">{children}</body>
     </html>
   );
