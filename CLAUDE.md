@@ -60,7 +60,7 @@
   each edge (`useVvvCorner`), never the frame's radius itself.
 - Look: technical minimalism is the starting point for a new app, not a
   mandate: an app can take its own look when Marcos wants one. It is what the
-  portal's own pages (`/`, `/ad`, `/kit`) and the Pads index wear:
+  portal's own pages (`/`, `/ad`, `/kit`) wear:
   `components/tech-index/` (`TechIndex.tsx`, `tech.css`, `lib/tech-fonts.ts`),
   black beyond a vvs frame, light panels on a 6 px gutter, mono labels,
   Chakra Petch numerals, signal green `#86AD00`. Whatever the look, each app
