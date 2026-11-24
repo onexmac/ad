@@ -25,9 +25,9 @@
     scroll up after each push. Not necessarily the literal last line; a short
     note after them is fine.
   - Changelog: an app with a `CHANGELOG.md` in its folder (The Cubes:
-    `app/(axis-cube)/kit/axis-cube/CHANGELOG.md`) gets an entry in the same PR
-    as every change to it: the next version (minor for something new, patch
-    for the rest) and what changed.
+    `app/(axis-cube)/kit/axis-cube/CHANGELOG.md`) gets an entry in every
+    commit that changes it: the next version (minor for something new, patch
+    for the rest), the date and time, and what changed in detail.
   - He can set it in his first message (`eva sim …`, `eva launch …`) and switch
     any time by typing `sim` or `launch`; `launch` mid-session also ships what
     is there now.
