@@ -19,7 +19,7 @@
   --signal-night: #141c06; /* the dark the hatch sits on */
   --gutter: 6px;
   --cell: 22px; /* panel radius */
-  --frame: 30px; /* viewport radius = panel + gutter, or more */
+  --frame: 32px; /* the frame: panel radius + gutter, and a little more */
   --sat: env(safe-area-inset-top, 0px);
   --sab: env(safe-area-inset-bottom, 0px);
 }
@@ -52,10 +52,6 @@ body {
   min-height: 100lvh;
 }
 
-/* Snap on scroll: every block is a stop. */
-html {
-  scroll-snap-type: y mandatory;
-}
 
 /* Diagonal hatch, two weights. */
 .hatch {
@@ -99,16 +95,5 @@ html {
   transition-duration: 90ms;
 }
 
-/* The viewport's own corners: black quarter rounds pinned to the screen, so
-   panels scrolling past an edge are cut on the frame's curve. */
-.frame-corner {
-  position: fixed;
-  width: var(--frame);
-  height: var(--frame);
-  pointer-events: none;
-  z-index: 50;
-}
-.frame-corner.tl { top: 0; left: 0; background: radial-gradient(circle at 100% 100%, transparent calc(var(--frame) - 0.5px), var(--void) var(--frame)); }
-.frame-corner.tr { top: 0; right: 0; background: radial-gradient(circle at 0 100%, transparent calc(var(--frame) - 0.5px), var(--void) var(--frame)); }
-.frame-corner.bl { bottom: 0; left: 0; background: radial-gradient(circle at 100% 0, transparent calc(var(--frame) - 0.5px), var(--void) var(--frame)); }
-.frame-corner.br { bottom: 0; right: 0; background: radial-gradient(circle at 0 0, transparent calc(var(--frame) - 0.5px), var(--void) var(--frame)); }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

@@ -1,64 +1,167 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+} from "react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import type { PortalApp } from "@/lib/apps";
-import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
-import { Grow } from "@/components/updatr/Grow";
+import { GROW_SPRING } from "@/components/updatr/Grow";
 
 /**
  * The Pads index. No title: the screen is an instrument panel. Black ground,
  * panels on a 6 px gutter, every label in mono, numerals in a squared face,
- * one signal green. The viewport's corners are rounded by the frame.
+ * one signal green.
+ *
+ * The page is a rounded frame on a black screen. The document never scrolls:
+ * the frame does, inside itself, so everything beyond its edge (under the
+ * status bar, under Safari's bottom bar, past its corners) is black, and
+ * nothing of the content shows there.
  */
 export function PadsHome({ apps }: { apps: PortalApp[] }) {
-  const { scale, origin } = useEdgeSquish();
   const n = String(apps.length).padStart(2, "0");
+  const frame = useRef<HTMLDivElement>(null);
+  const inset = useFrameInset();
+  useLockDocument();
 
   return (
-    <>
-      <motion.main
-        style={{ scale, transformOrigin: origin }}
-        className="mx-auto flex w-full max-w-[460px] flex-col gap-[var(--gutter)] p-[var(--gutter)] pt-[calc(var(--gutter)+var(--sat))] pb-[calc(var(--gutter)+var(--sab)+24px)]"
+    <div className="fixed inset-x-0 top-0 h-[100lvh] overflow-hidden bg-void">
+      <div
+        ref={frame}
+        className="no-scrollbar absolute inset-x-0 mx-auto max-w-[460px] snap-y snap-mandatory overflow-y-auto overscroll-contain rounded-[var(--frame)] [-webkit-overflow-scrolling:touch]"
+        // A clip path as well as the radius: Safari won't clip composited
+        // children (the growing blocks) to a scroller's radius alone.
+        style={{ top: inset.top, bottom: inset.bottom, clipPath: "inset(0 round var(--frame))" }}
       >
-        {/* Every block is a snap stop, and grows into place as it comes up
-            from the bottom of the screen (Noticss A's Grow, both ways). */}
-        <Snap>
-          <Grow>
-            <Header count={n} />
-          </Grow>
-        </Snap>
-        <Snap>
-          <Grow>
-            <Bench count={n} />
-          </Grow>
-        </Snap>
-        {apps.map((app, i) => (
-          <Snap key={app.slug}>
-            <Entry app={app} index={i} />
-          </Snap>
-        ))}
-        <Snap end>
-          <Grow>
-            <Footer />
-          </Grow>
-        </Snap>
-      </motion.main>
+        <FrameContext.Provider value={frame}>
+          <main className="flex w-full flex-col gap-[var(--gutter)] p-[var(--gutter)]">
+            {/* Every block is a snap stop, and grows into place as it comes up
+                from the bottom of the frame (Noticss A's Grow, both ways). */}
+            <Snap>
+              <Grow>
+                <Header count={n} />
+              </Grow>
+            </Snap>
+            <Snap>
+              <Grow>
+                <Bench count={n} />
+              </Grow>
+            </Snap>
+            {apps.map((app, i) => (
+              <Snap key={app.slug}>
+                <Entry app={app} index={i} />
+              </Snap>
+            ))}
+            <Snap end>
+              <Grow>
+                <Footer />
+              </Grow>
+            </Snap>
+          </main>
+        </FrameContext.Provider>
+      </div>
+    </div>
+  );
+}
 
-      <i aria-hidden className="frame-corner tl" />
-      <i aria-hidden className="frame-corner tr" />
-      <i aria-hidden className="frame-corner bl" />
-      <i aria-hidden className="frame-corner br" />
-    </>
+/* ── The frame ─────────────────────────────────────────────────────────── */
+
+const FrameContext = createContext<RefObject<HTMLDivElement | null> | null>(null);
+
+/**
+ * Where the frame sits: below the status bar, and above whatever the browser
+ * keeps at the bottom (Safari's bar, or the home indicator), a gutter from
+ * each. Safari's bar is the larger of what the small and dynamic viewports and
+ * the visual viewport leave out of the large one; re-measured as it changes.
+ */
+function useFrameInset() {
+  const [inset, setInset] = useState({ top: 6, bottom: 6 });
+  useLayoutEffect(() => {
+    const probe = document.createElement("div");
+    probe.style.cssText =
+      "position:fixed;left:0;top:0;width:0;visibility:hidden;pointer-events:none;" +
+      "padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)";
+    const lvh = document.createElement("div");
+    const svh = document.createElement("div");
+    const dvh = document.createElement("div");
+    for (const [el, h] of [[lvh, "100lvh"], [svh, "100svh"], [dvh, "100dvh"]] as const) {
+      el.style.cssText = `position:fixed;left:0;top:0;width:0;height:${h};visibility:hidden;pointer-events:none`;
+      document.body.appendChild(el);
+    }
+    document.body.appendChild(probe);
+    const measure = () => {
+      const cs = getComputedStyle(probe);
+      const sat = parseFloat(cs.paddingTop) || 0;
+      const sab = parseFloat(cs.paddingBottom) || 0;
+      const L = lvh.getBoundingClientRect().height;
+      const seen = window.visualViewport?.height ?? window.innerHeight;
+      const bar = Math.max(0, L - svh.getBoundingClientRect().height, L - dvh.getBoundingClientRect().height, L - seen);
+      const g = 6;
+      setInset({ top: Math.round(sat + g), bottom: Math.round(Math.max(bar, sab) + g) });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    window.visualViewport?.addEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.visualViewport?.removeEventListener("resize", measure);
+      for (const el of [probe, lvh, svh, dvh]) el.remove();
+    };
+  }, []);
+  return inset;
+}
+
+/** The document behind the frame must not scroll or bounce. */
+function useLockDocument() {
+  useEffect(() => {
+    const html = document.documentElement;
+    const prev = [html.style.overflow, html.style.overscrollBehavior, document.body.style.overflow];
+    html.style.overflow = "hidden";
+    html.style.overscrollBehavior = "none";
+    document.body.style.overflow = "hidden";
+    return () => {
+      [html.style.overflow, html.style.overscrollBehavior, document.body.style.overflow] = prev;
+    };
+  }, []);
+}
+
+/**
+ * Noticss A's Grow, measured against the frame instead of the window: a block
+ * grows into place on a spring as it comes up from the frame's bottom, and
+ * shrinks back the same way going down.
+ */
+function Grow({ children, className, lag = 0 }: { children: ReactNode; className?: string; lag?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const container = useContext(FrameContext) ?? undefined;
+  const { scrollYProgress } = useScroll({
+    container,
+    target: ref,
+    offset: ["start end", `start ${80 - lag * 4}%`],
+  });
+  const p = useSpring(scrollYProgress, GROW_SPRING);
+  const scale = useTransform(p, [0, 1], [0.94, 1], { clamp: false });
+  const y = useTransform(p, [0, 1], [18, 0], { clamp: false });
+  const opacity = useTransform(p, [0, 1], [0.35, 1]);
+  return (
+    <motion.div ref={ref} className={className} style={{ scale, y, opacity, transformOrigin: "50% 100%" }}>
+      {children}
+    </motion.div>
   );
 }
 
 /** A snap stop: the block lands one gutter below the frame's top (or, last, on the bottom). */
-function Snap({ children, end }: { children: React.ReactNode; end?: boolean }) {
+function Snap({ children, end }: { children: ReactNode; end?: boolean }) {
   return (
     <div
       className={end ? "snap-end" : "snap-start"}
-      style={{ scrollMarginTop: "calc(var(--gutter) + var(--sat))", scrollMarginBottom: "calc(var(--gutter) + var(--sab))" }}
+      style={{ scrollMarginTop: "var(--gutter)", scrollMarginBottom: "var(--gutter)" }}
     >
       {children}
     </div>
@@ -241,7 +344,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   );
 }
 
-function Badge({ children, dark, invert }: { children: React.ReactNode; dark?: boolean; invert?: boolean }) {
+function Badge({ children, dark, invert }: { children: ReactNode; dark?: boolean; invert?: boolean }) {
   return (
     <span
       className={`grid h-9 w-9 place-items-center rounded-full ${
