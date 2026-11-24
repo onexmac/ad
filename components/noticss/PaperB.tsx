@@ -934,7 +934,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
    * Safari's own chrome and the overscroll take it too.
    */
   const [tone, setTone] = useState("rgb(20, 17, 14)");
-  const [fill, setFill] = useState<FillMode>("blur");
+  const [fill, setFill] = useState<FillMode>("none");
   useEffect(() => {
     /*
      * Open, a page is a frame below the status bar with the dark around it,
@@ -969,11 +969,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const sd = sections[secRef.current];
       if (sd?.kind === "hoy") {
         const sky = ed.weather?.sky;
-        return { tone: hexToRgb(sky?.[0] ?? "#6f6a62"), mode: "blur" };
+        return { tone: hexToRgb(sky?.[0] ?? "#6f6a62"), mode: "none" };
       }
       const img = c.querySelector<HTMLImageElement>(`[data-cover="${secRef.current}"] img`);
       const t = topTone(img);
-      return { tone: t ? darken(t, 0.55) : DARK, mode: "blur" };
+      return { tone: t ? darken(t, 0.55) : DARK, mode: "none" };
     };
     let raf = 0;
     const apply = () => {
