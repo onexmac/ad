@@ -166,7 +166,9 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
     const run = ++peekRun.current;
     headY.set(-el.offsetHeight - 24);
     setPeek(true);
-    animate(headY, 0, { type: "spring", stiffness: 360, damping: 30 }).then(() => {
+    // A springy pop: it slides down past its place (about a tenth of its height)
+    // and settles back up.
+    animate(headY, 0, { type: "spring", stiffness: 300, damping: 20, velocity: 900 }).then(() => {
       if (run === peekRun.current) haptic.select();
     });
   };
@@ -276,9 +278,10 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
   const page = (
       <motion.main style={{ scale, transformOrigin: origin }} className="mx-auto w-full max-w-[520px] px-4">
         <motion.div ref={head} data-head style={{ y: headY }} className={peek ? "sticky top-0 z-[25]" : "relative"}>
-          {/* While it peeks, the page's own ground behind it, with a soft edge under it. */}
+          {/* While it peeks, the page's own ground behind it, with a soft edge under it.
+              It reaches well above the header, so the pop's overshoot never opens a gap. */}
           {peek ? (
-            <div aria-hidden className={`${cfg.ground} pointer-events-none absolute -inset-x-4 -bottom-3 top-0 -z-10 shadow-[0_10px_18px_-12px_rgba(0,0,0,0.55)]`} />
+            <div aria-hidden className={`${cfg.ground} pointer-events-none absolute -inset-x-4 -bottom-3 -top-16 -z-10 shadow-[0_10px_18px_-12px_rgba(0,0,0,0.55)]`} />
           ) : null}
           <SheetHeader sheet={sheet} s={s} current={variant} tone={cfg.tone} extra={cfg.counters ? <LetterTags s={s} /> : undefined} />
         </motion.div>
