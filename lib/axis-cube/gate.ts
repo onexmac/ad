@@ -1,10 +1,11 @@
 // The screens before the room. On a phone, in a browser, the first time: the install screen, the cube of the
 // home-screen icon, how to put the app on the home screen, and a button to go on. On an iPhone or iPad every other
-// time, from the home screen too: the welcome, the loading cube already turning, the app's name and an OK. The room is built behind
-// either; the loader is lifted once it is gone, so after the tap the bar runs out quickly and the room comes in.
+// time, from the home screen too: the welcome, the loading cube already turning, the app's name and Start. The
+// room is built behind either; the loader is lifted once it is gone, so after the tap the bar runs out quickly and
+// the room comes in.
 //
 // Why the welcome: an iPhone lets a page make sound only after a touch, so without one the notes at the end of
-// loading could not be heard. The tap on OK (or on Listo) is that touch. Android lets an installed app play
+// loading could not be heard. The tap on Start (or on Listo) is that touch. Android lets an installed app play
 // without one, and its install screen's button is the touch in a browser, so it has no welcome.
 //
 // What a browser allows:

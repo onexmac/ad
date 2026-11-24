@@ -168,9 +168,9 @@ html.axis-ask .axis-gate {
 }
 html.axis-ask-out .axis-gate { opacity: 0; pointer-events: none; }
 html.axis-ask:not(.axis-ask-hello) .axis-loader .c, html.axis-ask:not(.axis-ask-hello) .axis-loader .o, html.axis-ask .axis-loader .track i { animation-play-state: paused; }
-/* The welcome is the loader itself, with the name and an OK where its bar will be: the screen in front lets it
+/* The welcome is the loader itself, with the name and Start where its bar will be: the screen in front lets it
    through, the loading cube is already turning in the middle, and the bar waits out of sight. When the welcome
-   goes, the bar comes up under the OK as it fades and runs out to the room. */
+   goes, the bar comes up under Start as it fades and runs out to the room. */
 html.axis-ask-hello .axis-gate { background: transparent; }
 html.axis-ask-hello .axis-gate .mark { display: none; }
 .axis-loader .bar { transition: opacity 0.2s ease; }

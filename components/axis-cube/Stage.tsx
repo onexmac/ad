@@ -125,7 +125,7 @@ export function Stage({ look = "a" }: { look?: Look }) {
         <button type="button" className="ok" onClick={tapOk}>
           <span className="listo">Listo</span>
           <span className="instalar">Instalar</span>
-          <span className="hola">OK</span>
+          <span className="hola">Start</span>
         </button>
       </div>
     </>
