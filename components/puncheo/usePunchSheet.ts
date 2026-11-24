@@ -7,6 +7,7 @@ import type { Check } from "@/data/puncheo/formaleta-n1";
 import type { Instance, RoomSheet, Section } from "@/data/puncheo/rooms";
 import { layout, pick, type Fan } from "./fan";
 import { needsPhoto, shrinkPhoto, useClosed, useMarks, usePhotos, type Marks, type Status } from "@/lib/puncheo/state";
+import { layoutY, scrollToY } from "@/lib/puncheo/scroller";
 
 export type Tally = { done: number; red: number; pending: number; noPhoto: number; total: number };
 
@@ -98,7 +99,7 @@ export function usePunchSheet(sheet: RoomSheet) {
     setPulses({});
     const land = () => {
       const top = document.getElementById("puncheo-section");
-      if (top) window.scrollTo({ top: Math.max(0, top.getBoundingClientRect().top + window.scrollY - 12), behavior: "instant" });
+      if (top) scrollToY(layoutY(top) - 12);
       then?.();
     };
     if (instant) flushSync(() => setSection(i));

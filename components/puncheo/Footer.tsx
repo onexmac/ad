@@ -97,6 +97,7 @@ export function Footer({
   polish = false,
   sections = true,
   rooms = false,
+  framed = false,
 }: {
   s: PunchSheet;
   kind: Kind;
@@ -106,6 +107,9 @@ export function Footer({
   sections?: boolean;
   /** B: a rooms key that raises the rooms as filter keys from behind the bar. */
   rooms?: boolean;
+  /** Inside a vvv frame: the bar sticks to the frame's bottom (the frame itself
+      shrinks above the keyboard), and the home indicator is out in the black. */
+  framed?: boolean;
 }) {
   const bar = kind === "bar";
   const round = bar ? "rounded-[6px]" : "rounded-[10px]";
@@ -145,7 +149,7 @@ export function Footer({
   useEffect(() => {
     const vv = window.visualViewport;
     const el = nav.current;
-    if (!open || !vv || !el) return;
+    if (framed || !open || !vv || !el) return;
     const fit = () => {
       const kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
       el.style.transform = kb > 40 ? `translateY(${-kb}px)` : "";
@@ -158,7 +162,7 @@ export function Footer({
       vv.removeEventListener("scroll", fit);
       el.style.transform = "";
     };
-  }, [open]);
+  }, [open, framed]);
 
   const toggle = () => {
     if (!search) return;
@@ -412,16 +416,16 @@ export function Footer({
 
   if (bar) {
     return (
-      <nav ref={nav} className="fixed inset-x-0 bottom-0 z-30">
+      <nav ref={nav} className={`${framed ? "sticky" : "fixed inset-x-0"} bottom-0 z-30`}>
         {panel}
-        <div className={`relative z-10 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: "var(--sab)" }}>
+        <div className={`relative z-10 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: framed ? undefined : "var(--sab)" }}>
           <div className="mx-auto flex h-[60px] max-w-[560px] items-center px-3">{row}</div>
         </div>
         {/* The bar's skirt: riding on the keyboard, the phone's see-through accessory
             row and address pill sit between the two, so the bar carries its own
             colour down behind them instead of letting the page show through. Out of
             sight below the screen while the keyboard is down. */}
-        <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-full z-10 h-[100vh] ${polish ? "bg-[#30343a]" : "bg-ink-2"}`} />
+        {framed ? null : <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-full z-10 h-[100vh] ${polish ? "bg-[#30343a]" : "bg-ink-2"}`} />}
       </nav>
     );
   }
