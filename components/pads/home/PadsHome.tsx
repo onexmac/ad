@@ -17,7 +17,7 @@ export function PadsHome({ apps }: { apps: PortalApp[] }) {
   const n = String(apps.length).padStart(2, "0");
 
   return (
-    <Vvv radius={32} maxWidth={460} snap>
+    <Vvv radius={32} maxWidth={460} snap ground="var(--void)">
           <main className="flex w-full flex-col gap-[var(--gutter)] p-[var(--gutter)]">
             {/* Every block is a snap stop, and grows into place as it comes up
                 from the bottom of the frame (Noticss A's Grow, both ways). */}
@@ -89,7 +89,7 @@ function Header({ count }: { count: string }) {
           </p>
         </div>
       </div>
-      <div className="grid h-[118px] place-items-center rounded-[var(--cell)] bg-ink">
+      <div className="grid h-[118px] place-items-center rounded-[var(--cell)] bg-black">
         <AdelanteMark className="w-[64px] text-signal" />
       </div>
     </section>
@@ -238,7 +238,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
     );
   }
   return (
-    <div className="flex-1 flex flex-col justify-between rounded-[var(--cell)] bg-ink p-4">
+    <div className="flex-1 flex flex-col justify-between rounded-[var(--cell)] bg-black p-4">
       <div className="flex gap-[5px]">
         {Array.from({ length: 5 }).map((_, i) => (
           <i key={i} className="block h-[5px] w-[5px] bg-signal" style={{ opacity: 1 - i * 0.17 }} />
