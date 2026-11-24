@@ -18,7 +18,7 @@ export function TopFill({ tone, mode }: { tone: string; mode: FillMode }) {
     <>
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-x-0 top-0 z-[38]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-[38]"
         style={{
           height: "calc(var(--sat) + 40px)",
           opacity: blur ? 1 : 0,
@@ -32,7 +32,7 @@ export function TopFill({ tone, mode }: { tone: string; mode: FillMode }) {
       />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-x-0 top-0 z-[38]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-[38]"
         style={{
           height: "var(--sat)",
           background: tone,
