@@ -180,7 +180,9 @@ html.axis-ask .axis-loader .c, html.axis-ask .axis-loader .o, html.axis-ask .axi
   font-size: 15px; line-height: 1.4; letter-spacing: 0.01em; text-align: center;
 }
 .axis-gate .how svg { flex: none; }
-html.axis-ask-ios .axis-gate .how.ios, html.axis-ask-android .axis-gate .how.android { display: flex; }
+html.axis-ask-ios .axis-gate .how.ios, html.axis-ask-android .axis-gate .how.android, html.axis-ask-hello .axis-gate .how.hello { display: flex; }
+/* the welcome's line is the app's name */
+.axis-gate .how.hello { font-size: 17px; font-weight: 600; letter-spacing: 0.06em; }
 html.axis-ask-native .axis-gate .how.ios, html.axis-ask-native .axis-gate .how.android { display: none; }
 .axis-gate .ok {
   position: absolute; left: 50%; top: 75%; transform: translate(-50%, -50%);
@@ -192,8 +194,8 @@ html.axis-ask-native .axis-gate .how.ios, html.axis-ask-native .axis-gate .how.a
 }
 .axis-gate .ok:active { background: var(--load-ink); color: var(--load-ground); }
 .axis-gate .ok:focus-visible { outline: 2px solid var(--load-ink); outline-offset: 3px; }
-.axis-gate .ok .instalar, html.axis-ask-native .axis-gate .ok .listo { display: none; }
-html.axis-ask-native .axis-gate .ok .instalar { display: inline; }
+.axis-gate .ok .instalar, .axis-gate .ok .hola, html.axis-ask-native .axis-gate .ok .listo, html.axis-ask-hello .axis-gate .ok .listo { display: none; }
+html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .ok .hola { display: inline; }
 
 .axis .fallback {
   position: absolute; inset: 0; display: grid; place-items: center; padding: 24px;
