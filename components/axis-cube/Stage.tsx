@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { useVvvInset } from "@/components/vvv/inset";
+import { gateUp, leaveGate, passGate, subscribeGate } from "@/lib/axis-cube/gate";
 import { LOADER_HTML } from "@/lib/axis-cube/loader";
 import { mountAxisCube } from "@/lib/axis-cube/scene";
 
@@ -63,19 +64,29 @@ function startOverIfNewer() {
  * The room is a vvv (docs/ux-playbook.md): a rounded frame on a black ground, clear of the status bar and of
  * whatever the browser keeps at the bottom: the short fit, vvs. It is a canvas and not a scrolling page, so the
  * frame is the app's own (its stylesheet) and where it sits is the Vvv component's own measuring.
+ * On a phone, in a browser, the install screen comes first (lib/axis-cube/gate.ts): its markup is in the page as the
+ * server sends it, shown or not by a class the page's inline script sets before the first paint. While it is up
+ * the room is not built: the scene would take the main thread, and the button has to answer at once.
  */
 export function Stage({ look = "a" }: { look?: Look }) {
   const host = useRef<HTMLDivElement>(null);
   const loader = useRef<HTMLDivElement>(null);
   const inset = useVvvInset(GUTTER);
+  // on the server, and until the page has looked, the screen counts as up: nothing is built in the meantime
+  const gated = useSyncExternalStore(subscribeGate, gateUp, () => true);
+  useEffect(() => {
+    // installed from the browser's own menu while the screen was up: there is nothing left to ask
+    window.addEventListener("appinstalled", leaveGate);
+    return () => window.removeEventListener("appinstalled", leaveGate);
+  }, []);
   useEffect(() => {
     if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
     navigator.serviceWorker.register(WORKER, { scope: SCOPE }).catch(() => {});
     return startOverIfNewer();
   }, []);
   useEffect(
-    () => (host.current ? mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime }) : undefined),
-    [look],
+    () => (host.current && !gated ? mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime }) : undefined),
+    [look, gated],
   );
   return (
     <>
@@ -83,6 +94,23 @@ export function Stage({ look = "a" }: { look?: Look }) {
         <div ref={host} className="axis" style={{ top: inset.top, bottom: inset.bottom }} />
       </div>
       <div ref={loader} className="axis-loader" role="progressbar" aria-label="Cargando" dangerouslySetInnerHTML={{ __html: LOADER_HTML }} />
+      <div className="axis-gate" role="dialog" aria-label="Instalar Axis Cube">
+        {/* eslint-disable-next-line @next/next/no-img-element -- the app's own icon, as it is on the home screen */}
+        <img className="mark" src="/kit/axis-cube/icon-512.png" alt="" width={512} height={512} draggable={false} />
+        <p className="how ios">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 15V3.5M8 7l4-4 4 4M8 10.5H6.5A1.5 1.5 0 0 0 5 12v7a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19v-7a1.5 1.5 0 0 0-1.5-1.5H16" />
+          </svg>
+          <span>Compartir → Agregar a inicio</span>
+        </p>
+        <p className="how android">
+          <span>⋮ → Agregar a pantalla principal</span>
+        </p>
+        <button type="button" className="ok" onClick={passGate}>
+          <span className="listo">Listo</span>
+          <span className="instalar">Instalar</span>
+        </button>
+      </div>
     </>
   );
 }
