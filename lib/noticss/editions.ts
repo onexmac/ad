@@ -1,14 +1,19 @@
 import type { Category, Edition, Indicator, Note, Picture, Subject, Weather } from "@/data/noticss/types";
-import e0906 from "@/data/noticss/2026-09-06.json";
-import e0909 from "@/data/noticss/2026-09-09.json";
+import { rawEditions } from "@/data/noticss/index";
 
-/* The raw edition files are Circa's, verbatim. This maps them to the app's shape. */
+/*
+ * The raw edition files: Circa's schema (v5) for the first two, v6 since
+ * (morning and afternoon editions, with a suggestion pool), written by
+ * scripts/noticss/edition.mjs and listed in data/noticss/index.ts. This maps
+ * them to the app's shape.
+ */
 
 type RawImage = { url: string; color?: string | null; alt: string; credit: string | null } | null | undefined;
 type RawNote = Omit<Note, "image" | "corrected" | "why"> & { image: RawImage; corrected?: string | null; why: string | null };
 type RawSubject = Omit<Subject, "image" | "notes" | "scope"> & { image?: RawImage; scope?: "cr" | "mundo"; snippets: RawNote[] };
 type RawEdition = {
   date: string;
+  suggestions?: RawSubject[];
   weather?: (Weather & Record<string, unknown>) | null;
   indicators: Indicator[];
   subjects: RawSubject[];
@@ -19,12 +24,14 @@ export const SHOTS = "/kit/noticss/shots/";
 
 const picture = (im: RawImage): Picture | null => {
   if (!im) return null;
-  const file = (im.color ?? im.url).split("/").pop()!;
-  return { src: SHOTS + file, alt: im.alt, credit: im.credit };
+  const url = im.color ?? im.url;
+  // Newer editions link the outlet's own photo; the first ones carry theirs.
+  if (/^https?:\/\//.test(url)) return { src: url, alt: im.alt, credit: im.credit };
+  return { src: SHOTS + url.split("/").pop()!, alt: im.alt, credit: im.credit };
 };
 
-function edition(raw: RawEdition, number: number): Edition {
-  const subjects: Subject[] = raw.subjects.map((s) => ({
+const subjectsOf = (list: RawSubject[] = []): Subject[] =>
+  list.map((s) => ({
     id: s.id,
     category: s.category as Category,
     scope: s.scope ?? (s.category === "geopolitica" ? "mundo" : "cr"),
@@ -46,9 +53,13 @@ function edition(raw: RawEdition, number: number): Edition {
       source: n.source,
     })),
   }));
+
+function edition(raw: RawEdition, number: number, slot: Edition["slot"]): Edition {
+  const subjects = subjectsOf(raw.subjects);
   const w = raw.weather;
   return {
     date: raw.date,
+    slot,
     number,
     weather: w
       ? {
@@ -67,11 +78,15 @@ function edition(raw: RawEdition, number: number): Edition {
       : null,
     indicators: raw.indicators,
     subjects,
+    suggestions: subjectsOf(raw.suggestions),
   };
 }
 
 /** Newest first. Nº counts from the first edition (Circa started on 6 Sept). */
-export const editions: Edition[] = [edition(e0909 as RawEdition, 2), edition(e0906 as RawEdition, 1)];
+export const editions: Edition[] = rawEditions.map((e) => edition(e.raw as unknown as RawEdition, e.number, e.slot as Edition["slot"]));
+
+/** An edition's identity: two can share a date (morning and afternoon). */
+export const editionKey = (ed: Pick<Edition, "date" | "slot">) => (ed.slot ? `${ed.date}-${ed.slot}` : ed.date);
 
 /** Every note of an edition with the subject it belongs to, in edition order. */
 export function notesOf(ed: Edition) {
@@ -84,5 +99,6 @@ export function rebase(list: Edition[], to: string): Edition[] {
   return list.map((ed) => ({
     ...ed,
     subjects: ed.subjects.map((s) => ({ ...s, image: fix(s.image), notes: s.notes.map((n) => ({ ...n, image: fix(n.image) })) })),
+    suggestions: ed.suggestions.map((s) => ({ ...s, image: fix(s.image), notes: s.notes.map((n) => ({ ...n, image: fix(n.image) })) })),
   }));
 }

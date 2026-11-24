@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, type MotionValue } from "motion/react";
-import type { Edition } from "@/data/noticss/types";
-import { dayMonth, longDate, weekday } from "@/lib/noticss/format";
+import { slotName, type Edition } from "@/data/noticss/types";
+import { editionKey } from "@/lib/noticss/editions";
+import { dayMonth, longDate, shortDate, weekday } from "@/lib/noticss/format";
 import { RainStrip } from "../Figures";
 import { Bookmark } from "@/components/updatr/Bookmark";
 import { BOTTOM, S, type SectionDef } from "./model";
@@ -37,6 +38,7 @@ export function Cover({
         >
           <p className="mono text-paper/80">
             Nº {edition.number} · {weekday(edition.date)}
+            {edition.slot ? ` · ${slotName[edition.slot]}` : ""}
           </p>
           <h1 className="mt-1 text-[19vw] italic leading-[0.86] tracking-[-0.03em] text-paper min-[520px]:text-[98px]" style={{ fontVariationSettings: '"opsz" 72' }}>
             Noticss
@@ -44,17 +46,21 @@ export function Cover({
           <p className="mt-2 text-[16px] italic text-paper/90">{longDate(edition.date)}</p>
           {editions.length > 1 ? (
             <div className="mt-3 flex flex-wrap gap-2">
-              {editions.map((e, i) => (
-                <button
-                  key={e.date}
-                  type="button"
-                  onClick={() => onEdition?.(i)}
-                  aria-current={e.date === edition.date ? "true" : undefined}
-                  className={`rounded-full px-3 py-[6px] text-[13px] italic ${e.date === edition.date ? "bg-paper text-ink" : "bg-ink/35 text-paper/85"}`}
-                >
-                  Nº {e.number} · {dayMonth(e.date)}
-                </button>
-              ))}
+              {/* The latest few; the current one stays in the row even when older. */}
+              {editions
+                .map((e, i) => ({ e, i }))
+                .filter(({ e, i }) => i < 3 || editionKey(e) === editionKey(edition))
+                .map(({ e, i }) => (
+                  <button
+                    key={editionKey(e)}
+                    type="button"
+                    onClick={() => onEdition?.(i)}
+                    aria-current={editionKey(e) === editionKey(edition) ? "true" : undefined}
+                    className={`rounded-full px-3 py-[6px] text-[13px] italic ${editionKey(e) === editionKey(edition) ? "bg-paper text-ink" : "bg-ink/35 text-paper/85"}`}
+                  >
+                    Nº {e.number} · {e.slot ? `${shortDate(e.date)} · ${slotName[e.slot]}` : dayMonth(e.date)}
+                  </button>
+                ))}
             </div>
           ) : null}
           <div className="mt-auto flex items-end gap-4 pt-3">
