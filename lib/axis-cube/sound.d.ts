@@ -2,6 +2,8 @@
 export interface AxisSound {
   /** Start, or wake, the page's audio. Only does anything from inside a touch. */
   wake(): void;
+  /** The loading is over: heard only if the browser already lets the page make sound. */
+  ready(): void;
   select(): void;
   pick(): void;
   drop(): void;
