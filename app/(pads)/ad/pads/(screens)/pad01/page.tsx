@@ -5,7 +5,7 @@ import { WorkerCard } from "@/components/pads/p2/worker-card";
 import { MobileMorphSheet } from "@/components/pads/p2/mobile-morph-sheet";
 import { mockWorkers } from "@/lib/pads/mock-workers";
 import { BurgerMenu } from "@/components/pads/burger-menu";
-import { PadCardsSkeleton } from "@/components/skeleton/shapes";
+import { Pad01Skeleton } from "@/components/loading/apps";
 
 export default function P2Page() {
   const [expandedId, setExpandedId] = useState<string | null>("2");
@@ -31,7 +31,7 @@ export default function P2Page() {
 
         <MobileMorphSheet onOpenChange={setSheetOpen} />
       </div>
-      <PadCardsSkeleton />
+      <Pad01Skeleton />
     </>
   );
 }

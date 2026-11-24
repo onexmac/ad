@@ -1,0 +1,1801 @@
+{
+  "schemaVersion": 6,
+  "date": "2026-11-23",
+  "slot": "tarde",
+  "number": 3,
+  "generatedAt": "2026-11-24T03:43:36.292Z",
+  "isSample": false,
+  "weather": {
+    "place": "Cartago",
+    "tempC": 17,
+    "maxC": 24,
+    "minC": 16,
+    "code": 45,
+    "condition": "neblina",
+    "glyph": "cloud",
+    "cloudCover": 61,
+    "rainProb": 0,
+    "sunrise": "05:33",
+    "sunset": "17:11",
+    "rainHours": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sky": [
+      "#21385a",
+      "#4c6287",
+      "#8592aa",
+      "#c6bcb0",
+      "#e6c59e"
+    ],
+    "source": {
+      "name": "Open-Meteo",
+      "url": "https://open-meteo.com/"
+    }
+  },
+  "indicators": [
+    {
+      "id": "usd_crc",
+      "label": "Dólar",
+      "value": "₡446,17",
+      "delta": null,
+      "unit": "CRC",
+      "note": "venta · BCCR · 23 nov",
+      "series": [
+        446.1,
+        444.85,
+        444.45,
+        443.97,
+        443.55
+      ],
+      "seriesNote": "Promedio ponderado de Monex (no es la venta de referencia): 13, 18, 19, 20 y 23 nov 2026, según El Observador y El Financiero"
+    },
+    {
+      "id": "tba",
+      "label": "Tasa Básica",
+      "value": "3,56 %",
+      "delta": 0,
+      "unit": "%",
+      "note": "BCCR · vigente desde 19 nov",
+      "series": [
+        3.55,
+        3.56,
+        3.56
+      ],
+      "seriesNote": "BCCR, avisos semanales: vigencias del 5, 12 y 19 nov 2026"
+    },
+    {
+      "id": "contenedor",
+      "label": "Contenedor",
+      "value": "$4.176",
+      "delta": -129,
+      "unit": "USD/40ft",
+      "note": "Drewry WCI · 19 nov",
+      "series": [
+        4585,
+        4429,
+        4389,
+        4305,
+        4176
+      ],
+      "seriesNote": "Drewry WCI compuesto, semanas del 22 oct al 19 nov 2026 (Drewry; ShipUniverse)"
+    },
+    {
+      "id": "cemento",
+      "label": "Cemento",
+      "value": null,
+      "delta": null,
+      "unit": "índice",
+      "note": "INEC",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "acero",
+      "label": "Varilla",
+      "value": null,
+      "delta": null,
+      "unit": "índice",
+      "note": "INEC",
+      "series": null,
+      "seriesNote": null
+    }
+  ],
+  "subjects": [
+    {
+      "id": "presupuesto-2027",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 3,
+      "title": "Presupuesto 2027: la Sala IV obliga a corregir y el plazo vence el 29",
+      "synopsis": "La Sala IV ordenó sacar del Presupuesto 2027 el congelamiento de fondos al Poder Judicial y el recorte de ₡8.048 millones al FEES, y los Supremos Poderes acordaron acatar. El plan de ₡12,4 billones, 3,2 % menor que el de 2026, define cuánta obra pública y cuántas transferencias habrá el próximo año. Falta el segundo debate: PPSO espera el voto íntegro y el plazo vence el 29 de noviembre.",
+      "image": {
+        "url": "https://img.delfino.cr/wp-content/uploads/2026/08/IMG_5176.JPG-scaled.jpeg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2026/08/IMG_5176.JPG-scaled.jpeg?w=1536",
+        "alt": "Presupuesto 2027: la Sala IV obliga a corregir y el plazo vence el 29",
+        "credit": "Delfino.cr"
+      },
+      "snippets": [
+        {
+          "id": "presupuesto-2027-fallo",
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-11-20",
+          "headline": "Sala IV anula normas del Poder Judicial y la moción del FEES",
+          "body": "Las sentencias 2026-045630 y 2026-045631 hallaron vicios de procedimiento en las normas 9 a 12, que condicionaban unos ₡29.800 millones y 2.463 plazas judiciales, y en la moción que recortó ₡8.048 millones al FEES. Si la Asamblea no las elimina, se tienen por excluidas.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "sala iv",
+            "presupuesto"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/presupuesto-2027-sala-iv-declara-inconstitucionales-restricciones-al-poder-judicial-y-recorte-de-8048-millones-al-fees"
+          }
+        },
+        {
+          "id": "presupuesto-2027-acatamiento",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Los Supremos Poderes se comprometen a respetar el fallo",
+          "body": "En una reunión el viernes 20, la presidenta de la Corte, Patricia Vargas, la presidenta Laura Fernández, la presidenta legislativa Yara Jiménez y la presidenta del TSE, Eugenia Zamora, acordaron acatar la resolución.",
+          "why": null,
+          "image": {
+            "url": "https://images.hoy.cr/wp-content/uploads/2026/11/Patricia-Vargas-Presidenta-de-la-Corte-Suprema-de-Justicia.jpg",
+            "color": "https://images.hoy.cr/wp-content/uploads/2026/11/Patricia-Vargas-Presidenta-de-la-Corte-Suprema-de-Justicia.jpg",
+            "alt": "Los Supremos Poderes se comprometen a respetar el fallo",
+            "credit": "CRHoy"
+          },
+          "tags": [
+            "presupuesto",
+            "poderes"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/nacionales/presidenta-de-la-corte-supremos-poderes-acordaron-acatar-fallo-de-la-sala-iv-sobre-presupuesto/"
+          }
+        },
+        {
+          "id": "presupuesto-2027-ppso",
+          "kind": "quote",
+          "importance": 3,
+          "published": "2026-11-23",
+          "headline": "PPSO esperará el voto completo antes de decidir",
+          "body": "“Tendremos que esperar a la redacción del voto completo para tomar una decisión”, dijo el jefe de fracción Nogui Acosta; PLN, Frente Amplio y Agenda Ciudadana sostienen que la orden es de acatamiento obligatorio.",
+          "why": "Según la resolución, si el texto no se corrige a tiempo, las normas quedan eliminadas de todos modos.",
+          "image": {
+            "url": "https://observador.cr/wp-content/uploads/2026/10/VILLALTAPLENA-scaled.jpg.webp",
+            "color": "https://observador.cr/wp-content/uploads/2026/10/VILLALTAPLENA-scaled.jpg.webp",
+            "alt": "PPSO esperará el voto completo antes de decidir",
+            "credit": "El Observador"
+          },
+          "tags": [
+            "presupuesto",
+            "asamblea"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/oposicion-dice-que-resolucion-de-sala-iv-sobre-presupuesto-es-de-acatamiento-obligatorio-ppso-dice-que-esperara-el-voto-completo/"
+          }
+        },
+        {
+          "id": "presupuesto-2027-notificacion",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Notificaciones completas; votación pendiente",
+          "body": "La Sala notificó al Directorio la resolución del FEES el 20 de noviembre y la del Poder Judicial el 23; ese lunes Yara Jiménez no sometió el proyecto a votación y dijo esperar el documento íntegro del voto.",
+          "why": null,
+          "image": {
+            "url": "https://www.nacion.com/resizer/v2/3WXCTT452NGQPMFUNWWFZVD3T4.JPG?smart=true&auth=2bb70044771fb2f7a3e253403eb9bf2e31fb5f6f7fa237df953f124fac67f674&width=1440",
+            "color": "https://www.nacion.com/resizer/v2/3WXCTT452NGQPMFUNWWFZVD3T4.JPG?smart=true&auth=2bb70044771fb2f7a3e253403eb9bf2e31fb5f6f7fa237df953f124fac67f674&width=1440",
+            "alt": "Notificaciones completas; votación pendiente",
+            "credit": "La Nación"
+          },
+          "tags": [
+            "presupuesto",
+            "asamblea"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/politica/sala-constitucional-ya-notifico-a-diputados/I62O77M3CRGOXJBZ5NJKE63W5I/story/"
+          }
+        },
+        {
+          "id": "presupuesto-2027-monto",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-05",
+          "headline": "₡12,4 billones, 3,2 % menos que en 2026",
+          "body": "El proyecto pasó el primer debate con 31 votos a favor y 23 en contra; se estima que los ingresos de 2027 caerán en ₡392.839 millones.",
+          "why": "Un presupuesto más corto reduce el margen para inversión pública y transferencias en 2027.",
+          "image": {
+            "url": "https://teletica-static.ray.media/Files/Sizes/2026/11/4/discusin-de-presupuesto-nacional_1630563138_760x520.JPG",
+            "color": "https://teletica-static.ray.media/Files/Sizes/2026/11/4/discusin-de-presupuesto-nacional_1630563138_760x520.JPG",
+            "alt": "₡12,4 billones, 3,2 % menos que en 2026",
+            "credit": "Teletica"
+          },
+          "tags": [
+            "presupuesto",
+            "gasto público"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/politica/congreso-aprueba-presupuesto-de-2027-con-recortes-al-poder-judicial-y-universidades_420483"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dolar-minimo",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 3,
+      "title": "Dólar en nuevo mínimo y el BCCR revisa su tasa el jueves",
+      "synopsis": "El dólar cerró el lunes en ₡443,55 en Monex, otro mínimo histórico, aunque el BCCR compra este mes más divisas para estabilizar que en cualquier otro de 2026. Abarata insumos importados como acero y equipo, pero reduce en colones el valor de precios y cobros pactados en dólares. El jueves 26 la Junta del BCCR hace su última revisión del año de la tasa de política, hoy en 3 %.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2026/11/AFP__20260416__baglietto-notitle260415_npzYF__v1__HighRes__DollarEconomy.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2026/11/AFP__20260416__baglietto-notitle260415_npzYF__v1__HighRes__DollarEconomy.jpg.webp",
+        "alt": "Dólar en nuevo mínimo y el BCCR revisa su tasa el jueves",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "dolar-minimo-monex",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-11-23",
+          "headline": "₡443,55 en Monex",
+          "body": "El promedio ponderado del lunes 23 bajó ₡0,42 frente al viernes y, según El Observador, es el nivel más bajo desde noviembre de 2006; en noviembre el dólar acumula una caída de ₡8,53.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "tipo de cambio",
+            "monex"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/dolar-marca-otro-minimo-historico-en-monex-y-acumula-caida-de-853-en-noviembre/"
+          }
+        },
+        {
+          "id": "dolar-minimo-compras",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-20",
+          "headline": "Compras de estabilización, récord del año",
+          "body": "Al 20 de noviembre, el BCCR había comprado $261,3 millones para estabilizar el tipo de cambio, el mayor monto mensual de 2026; las reservas internacionales netas sumaban $20.389,9 millones al 15 de noviembre.",
+          "why": "El BCCR compra para evitar una caída más brusca del dólar.",
+          "image": null,
+          "tags": [
+            "bccr",
+            "reservas"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/compras-del-banco-central-para-evitar-volatilidad-del-dolar-alcanzan-su-mayor-nivel-mensual-de-2026/"
+          }
+        },
+        {
+          "id": "dolar-minimo-pronostico",
+          "kind": "quote",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Analistas no ven un rebote cercano",
+          "body": "“No se extrañen si, por ejemplo, estamos cerca de los ₡440 por dólar”, dijo Daniel Ortiz (CEFSA); la oferta de aguinaldos y la temporada alta pesan, mientras Mercado de Valores prevé un cierre de año entre ₡455 y ₡465 por la factura petrolera.",
+          "why": null,
+          "image": {
+            "url": "https://images.hoy.cr/wp-content/uploads/2026/09/dolares_-economia-_9_.jpg",
+            "color": "https://images.hoy.cr/wp-content/uploads/2026/09/dolares_-economia-_9_.jpg",
+            "alt": "Analistas no ven un rebote cercano",
+            "credit": "CRHoy"
+          },
+          "tags": [
+            "tipo de cambio",
+            "pronóstico"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/economia/tipo-de-cambio-mantendra-tendencia-a-la-baja-al-cierre-del-ano-segun-especialistas/"
+          }
+        },
+        {
+          "id": "dolar-minimo-tpm",
+          "kind": "event",
+          "importance": 3,
+          "published": "2026-10-13",
+          "headline": "26 de noviembre: última reunión de política monetaria",
+          "body": "En setiembre la Junta mantuvo la tasa en 3 % por 5 votos a 2, apartándose de la División Económica, que había recomendado bajarla 25 puntos base.",
+          "why": null,
+          "image": {
+            "url": "https://www.nacion.com/resizer/v2/G3LQYHH6A5FP5MVSNQ5RHBHBVQ.JPG?smart=true&auth=719d37f1d1c11dd0edce1bc348bab4f80aa8c9d554535a945247c758d5b3b40e&width=1440",
+            "color": "https://www.nacion.com/resizer/v2/G3LQYHH6A5FP5MVSNQ5RHBHBVQ.JPG?smart=true&auth=719d37f1d1c11dd0edce1bc348bab4f80aa8c9d554535a945247c758d5b3b40e&width=1440",
+            "alt": "26 de noviembre: última reunión de política monetaria",
+            "credit": "La Nación"
+          },
+          "tags": [
+            "bccr",
+            "tasas"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/directiva-del-banco-central-se-aparta-de/5GJJJUGNT5DQDCSR2QF3DAZ5BY/story/"
+          }
+        },
+        {
+          "id": "dolar-minimo-supen",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-21",
+          "headline": "Supen: el colón fuerte recorta el valor del ROP",
+          "body": "La caída del dólar redujo en 2026 el valor en colones de parte de las inversiones del ROPC; la Supen recomienda evaluar rendimientos a 3, 5 y 10 años.",
+          "why": null,
+          "image": {
+            "url": "https://observador.cr/wp-content/uploads/2026/11/AFP__20240919__cfoto-fedcutsi240919_np2J2__v1__HighRes__FedCutsInterestRates.jpg.webp",
+            "color": "https://observador.cr/wp-content/uploads/2026/11/AFP__20240919__cfoto-fedcutsi240919_np2J2__v1__HighRes__FedCutsInterestRates.jpg.webp",
+            "alt": "Supen: el colón fuerte recorta el valor del ROP",
+            "credit": "El Observador"
+          },
+          "tags": [
+            "pensiones",
+            "tipo de cambio"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/caida-del-dolar-ha-reducido-el-valor-en-colones-de-parte-de-las-inversiones-del-ropc-advierte-supen/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "costos-obra-combustible",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 3,
+      "title": "El combustible encarece la obra; cemento y varilla, quietos",
+      "synopsis": "En octubre, el índice de combustibles para obra del INEC subió 16,16 % en el mes y 37,89 % en un año, mientras el cemento no varió y la varilla bajó 0,15 %. El golpe está más en acarreo, maquinaria y transporte de agregados que en los materiales. El diésel subió ₡253 por litro en un año y Recope solo propone bajarlo ₡9 en diciembre; falta la decisión de Aresep.",
+      "image": {
+        "url": "https://images.hoy.cr/wp-content/uploads/2026/11/gasolinas.jpg",
+        "color": "https://images.hoy.cr/wp-content/uploads/2026/11/gasolinas.jpg",
+        "alt": "El combustible encarece la obra; cemento y varilla, quietos",
+        "credit": "CRHoy"
+      },
+      "snippets": [
+        {
+          "id": "costos-obra-combustible-inec",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-11-12",
+          "headline": "Combustibles para obra: +37,89 % interanual",
+          "body": "El Índice de Precios de Combustibles de la construcción subió 16,16 % en octubre; el de lubricantes acumula 16,91 % interanual.",
+          "why": "Es el mayor aumento entre los 23 índices de insumos para infraestructura del INEC.",
+          "image": null,
+          "tags": [
+            "insumos",
+            "combustibles"
+          ],
+          "source": {
+            "name": "INEC",
+            "url": "https://admin.inec.cr/sites/default/files/2026-11/coEconomicIPCONS102026-01.pdf"
+          }
+        },
+        {
+          "id": "costos-obra-combustible-materiales",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-12",
+          "headline": "Cemento estable; varilla y PVC, arriba en el año",
+          "body": "En octubre, cemento hidráulico 0,00 % mensual y 3,46 % interanual; acero de refuerzo -0,15 % mensual y 6,47 % interanual; tubería PVC para agua potable 17,92 % interanual.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cemento",
+            "acero",
+            "insumos"
+          ],
+          "source": {
+            "name": "INEC",
+            "url": "https://admin.inec.cr/sites/default/files/2026-11/coEconomicIPCONS102026-01.pdf"
+          }
+        },
+        {
+          "id": "costos-obra-combustible-vis",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-12",
+          "headline": "Costo de vivienda de interés social baja 0,10 %",
+          "body": "El índice de precios de viviendas de interés social quedó en 101,341 en octubre (1,81 % interanual); el de edificios subió 0,15 %, a 97,957.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "vivienda social",
+            "costos"
+          ],
+          "source": {
+            "name": "INEC",
+            "url": "https://admin.inec.cr/sites/default/files/2026-11/coEconomicIPCONS102026-01.pdf"
+          }
+        },
+        {
+          "id": "costos-obra-combustible-diesel",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-03",
+          "headline": "Diésel a ₡808, ₡253 más que hace un año",
+          "body": "Con el ajuste de noviembre, el litro de diésel pasó de ₡555 en noviembre de 2025 a ₡808; la súper quedó en ₡806 y la regular en ₡808.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "diésel",
+            "recope"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/nacionales/precios-de-los-combustibles-subieron-hasta-en-%E2%82%A1253-por-litro-en-el-ultimo-ano/"
+          }
+        },
+        {
+          "id": "costos-obra-combustible-diciembre",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-13",
+          "headline": "Recope pide rebaja para diciembre",
+          "body": "La propuesta lleva la regular de ₡807 a ₡704, la súper de ₡805 a ₡777 y el diésel de ₡807 a ₡798; el cilindro de gas de 25 libras subiría ₡912. Solo rige si Aresep la aprueba.",
+          "why": "La rebaja grande es en gasolina regular; el diésel, que mueve maquinaria y camiones, baja poco.",
+          "image": {
+            "url": "https://teletica-static.ray.media/Files/Sizes/2026/10/1/combustibles_216991873_760x520.png",
+            "color": "https://teletica-static.ray.media/Files/Sizes/2026/10/1/combustibles_216991873_760x520.png",
+            "alt": "Recope pide rebaja para diciembre",
+            "credit": "Teletica"
+          },
+          "tags": [
+            "combustibles",
+            "aresep"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/nacional/combustibles-bajaran-de-precio-en-diciembre_421147"
+          }
+        }
+      ]
+    },
+    {
+      "id": "economia-se-enfria",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "La economía pierde impulso: consumo y empleo se frenan",
+      "synopsis": "El PIB creció 2,7 % en el tercer trimestre, el consumo de los hogares 2,06 %, su menor ritmo desde 2022, y el desempleo subió a 6,5 %. Menos ingreso disponible y crédito más lento enfrían la demanda de vivienda, aunque la construcción fue la actividad que más creció (7,6 %). Vigile si las empresas mantienen congeladas contrataciones e inversiones al cierre del año.",
+      "image": {
+        "url": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2026/10/1495948-fb4cae5207f847ac075a5599e816a28db7667e5456ad79955e108e263c6798bc.jpg",
+        "color": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2026/10/1495948-fb4cae5207f847ac075a5599e816a28db7667e5456ad79955e108e263c6798bc.jpg",
+        "alt": "La economía pierde impulso: consumo y empleo se frenan",
+        "credit": "Diario Extra"
+      },
+      "snippets": [
+        {
+          "id": "economia-se-enfria-pib",
+          "kind": "number",
+          "importance": 2,
+          "published": null,
+          "headline": "PIB crece 2,7 %; construcción, 7,6 %",
+          "body": "El crecimiento interanual del tercer trimestre bajó desde 3,5 % en el segundo; la construcción lideró y la manufactura se contrajo. El BCCR proyecta 3,2 % para 2026 y 3,3 % para 2027.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "pib",
+            "bccr"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/noticia/economia-se-desacelera-y-crece-un-27-en-el-tercer-trimestre/"
+          }
+        },
+        {
+          "id": "economia-se-enfria-consumo",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Consumo de los hogares, en su menor ritmo desde 2022",
+          "body": "Creció 2,06 % interanual en el tercer trimestre, frente a 3,82 % a fines de 2025; el BCCR lo atribuye a un menor crecimiento del ingreso disponible real y del crédito al sector privado.",
+          "why": null,
+          "image": {
+            "url": "https://www.nacion.com/resizer/v2/4XY7MF3MCFDEBDSOXVX3CDS7CY.JPG?smart=true&auth=8671bd43b0c60b05ac0fef89da3d3ac9f07d40aba03534e542bf936fcbcf7b58&width=1440",
+            "color": "https://www.nacion.com/resizer/v2/4XY7MF3MCFDEBDSOXVX3CDS7CY.JPG?smart=true&auth=8671bd43b0c60b05ac0fef89da3d3ac9f07d40aba03534e542bf936fcbcf7b58&width=1440",
+            "alt": "Consumo de los hogares, en su menor ritmo desde 2022",
+            "credit": "La Nación"
+          },
+          "tags": [
+            "consumo",
+            "crédito"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/dos-factores-generan-la-desaceleracion-del-consumo/FUX5OURDKRCJHF4KIU7GJEXU6Y/story/"
+          }
+        },
+        {
+          "id": "economia-se-enfria-desempleo",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-11-05",
+          "headline": "Desempleo sube a 6,5 %",
+          "body": "Unas 155.000 personas buscaban trabajo entre julio y setiembre, 20.000 más que un año antes; el subempleo llegó a 3,3 %.",
+          "why": null,
+          "image": {
+            "url": "https://teletica-static.ray.media/Files/Sizes/2026/11/6/aumenta-desempleo-155-mil-personas-estn-sin-trabajo_1443601294_760x520.jpg",
+            "color": "https://teletica-static.ray.media/Files/Sizes/2026/11/6/aumenta-desempleo-155-mil-personas-estn-sin-trabajo_1443601294_760x520.jpg",
+            "alt": "Desempleo sube a 6,5 %",
+            "credit": "Teletica"
+          },
+          "tags": [
+            "empleo",
+            "inec"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/nacional/aumenta-desempleo-155-mil-personas-estan-sin-trabajo_420619"
+          }
+        },
+        {
+          "id": "economia-se-enfria-empresas",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Empresas frenan inversión y contrataciones",
+          "body": "En una encuesta de la Cámara de Industrias, 31,3 % suspendió expansiones o nuevas inversiones, 30,3 % dejó plazas sin llenar y 58,8 % reportó menores ingresos en colones.",
+          "why": null,
+          "image": {
+            "url": "https://www.elfinancierocr.com/resizer/v2/75VYNO6HOBH4NB62E2ZZLZEVGE.jpg?smart=true&auth=bfdfdb30cfbec3cbd0e525c03d218a7b3e374d2cfc92d2d288dba5c33d64d4c7&width=1440",
+            "color": "https://www.elfinancierocr.com/resizer/v2/75VYNO6HOBH4NB62E2ZZLZEVGE.jpg?smart=true&auth=bfdfdb30cfbec3cbd0e525c03d218a7b3e374d2cfc92d2d288dba5c33d64d4c7&width=1440",
+            "alt": "Empresas frenan inversión y contrataciones",
+            "credit": "El Financiero"
+          },
+          "tags": [
+            "empresas",
+            "inversión"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/negocios/como-se-preparan-las-empresas-ante-la/YMYCH6C6INFTRKVN2S3W4SZCRQ/story/"
+          }
+        },
+        {
+          "id": "economia-se-enfria-manufactura",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Manufactura y zonas francas, sin tracción",
+          "body": "Según el economista Fernando Naranjo, con datos del BCCR, a setiembre la manufactura cayó 3,7 % y el régimen especial de zonas francas llegó a crecimiento cero por primera vez desde la pandemia.",
+          "why": null,
+          "image": {
+            "url": "https://images.hoy.cr/wp-content/uploads/2025/08/aranceles-exportaciones.jpg",
+            "color": "https://images.hoy.cr/wp-content/uploads/2025/08/aranceles-exportaciones.jpg",
+            "alt": "Manufactura y zonas francas, sin tracción",
+            "credit": "CRHoy"
+          },
+          "tags": [
+            "manufactura",
+            "zonas francas"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/economia/economia-costarricense-terminara-2026-con-menor-impulso/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "salarios-minimos-2027",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Salarios mínimos suben 1,70 % desde enero",
+      "synopsis": "El decreto 45944-MTSS, publicado el 23 de noviembre, sube 1,70 % los salarios mínimos del sector privado a partir del 1 de enero de 2027. Es el dato base para presupuestar mano de obra en obras y contratos que se firmen ahora para el próximo año, con una inflación interanual de 0,55 % en octubre. Un trabajador no calificado pasa a ₡12.648 por jornada.",
+      "image": {
+        "url": "https://www.elfinancierocr.com/resizer/v2/D2RLTZAWDFF5JFZQOM6FA4ECPM.png?smart=true&auth=76074e8d9c0fa9bb52d199b265faca83eca69b1f02ca9a3917081eae2c7d563f&width=1440",
+        "color": "https://www.elfinancierocr.com/resizer/v2/D2RLTZAWDFF5JFZQOM6FA4ECPM.png?smart=true&auth=76074e8d9c0fa9bb52d199b265faca83eca69b1f02ca9a3917081eae2c7d563f&width=1440",
+        "alt": "Salarios mínimos suben 1,70 % desde enero",
+        "credit": "El Financiero"
+      },
+      "snippets": [
+        {
+          "id": "salarios-minimos-2027-decreto",
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-11-23",
+          "headline": "Aumento general de 1,70 %",
+          "body": "Lo aprobó el Consejo Nacional de Salarios y rige desde el 1 de enero de 2027 para los salarios mínimos del sector privado.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "salarios",
+            "mano de obra"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/salarios-minimos-2027-en-costa-rica-estos-seran/STROGGJU65BFZL5MQ2FWCBPFII/story/"
+          }
+        },
+        {
+          "id": "salarios-minimos-2027-montos",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Montos por jornada ordinaria",
+          "body": "Trabajador no calificado, ₡12.648; semicalificado, ₡13.754; calificado, ₡14.230.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "salarios",
+            "mano de obra"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/salarios-minimos-2027-en-costa-rica-estos-seran/STROGGJU65BFZL5MQ2FWCBPFII/story/"
+          }
+        },
+        {
+          "id": "salarios-minimos-2027-inflacion",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-06",
+          "headline": "Inflación de 0,55 % en octubre",
+          "body": "El IPC subió 0,39 % en el mes, empujado por el diésel (+17,4 %) y el transporte; entre enero y octubre la variación acumulada es de -0,01 %.",
+          "why": "El ajuste salarial supera la inflación reciente, así que la mano de obra se encarece en términos reales.",
+          "image": {
+            "url": "https://observador.cr/wp-content/uploads/2020/07/gasolina-diesel-gasolineria-combustibles.jpeg.webp",
+            "color": "https://observador.cr/wp-content/uploads/2020/07/gasolina-diesel-gasolineria-combustibles.jpeg.webp",
+            "alt": "Inflación de 0,55 % en octubre",
+            "credit": "El Observador"
+          },
+          "tags": [
+            "inflación",
+            "inec"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/inflacion-sube-a-055-en-octubre-y-acumula-dos-meses-en-terreno-positivo/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comercio-exterior-giro",
+      "category": "geopolitica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Costa Rica sale del CPTPP y cambia a toda la cúpula de Comex",
+      "synopsis": "Costa Rica notificó que no firmará la adhesión al CPTPP y en pocas semanas cambió ministra, viceministra y pronto la gerencia de Procomer. Las exportaciones de bienes crecen 3 % a octubre, pero las ventas a Norteamérica caen y 38 empresas de zona franca pidieron bajar sus compromisos de empleo, que sostienen parte de la demanda de vivienda. Vigile la agenda del nuevo ministro, Francisco Gamboa.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2026/10/REUNION-ACUERDO-TRANSPACIFICO-24-scaled.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2026/10/REUNION-ACUERDO-TRANSPACIFICO-24-scaled.jpg.webp",
+        "alt": "Costa Rica sale del CPTPP y cambia a toda la cúpula de Comex",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "comercio-exterior-giro-cptpp",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Carta formal: no habrá firma del CPTPP",
+          "body": "La ministra interina Arianna Arce comunicó el 13 de noviembre a los miembros del acuerdo que Costa Rica no firmará el protocolo de adhesión, tras la decisión anunciada por la presidenta Fernández el 28 de octubre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cptpp",
+            "comercio"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/costa-rica-comunico-de-manera-formal-que-no-procedera-a-firmar-el-protocolo-de-adhesion-al-transpacifico/"
+          }
+        },
+        {
+          "id": "comercio-exterior-giro-comex",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "Relevo completo en Comex y Procomer",
+          "body": "Arce dejó el cargo el 21 de noviembre; el vicepresidente Francisco Gamboa asumió Comex tras la destitución de Indiana Trejos, y la gerente de Procomer, Laura López, saldrá en diciembre.",
+          "why": null,
+          "image": {
+            "url": "https://www.elfinancierocr.com/resizer/v2/QSH7PMG7RZEQTIPTPS47W7N3QI.png?smart=true&auth=2bef6b875d2d21f749e4d70da1cbca1553c4b3ae537a6a12495b61b383b8e574&width=1440",
+            "color": "https://www.elfinancierocr.com/resizer/v2/QSH7PMG7RZEQTIPTPS47W7N3QI.png?smart=true&auth=2bef6b875d2d21f749e4d70da1cbca1553c4b3ae537a6a12495b61b383b8e574&width=1440",
+            "alt": "Relevo completo en Comex y Procomer",
+            "credit": "El Financiero"
+          },
+          "tags": [
+            "comex",
+            "gobierno"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/salida-de-viceministra-se-suma-a-cambios-en-la/GHS265OO2BFBHKGIV266YTG3MU/story/"
+          }
+        },
+        {
+          "id": "comercio-exterior-giro-exportaciones",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Exportaciones de bienes: $19.621 millones, +3 %",
+          "body": "Entre enero y octubre, Europa (+9 %), Asia (+9 %) y Centroamérica (+7 %) compensaron la baja de 1 % en Norteamérica, destino del 48 % de las ventas.",
+          "why": null,
+          "image": {
+            "url": "https://img.delfino.cr/wp-content/uploads/2025/06/container-489933_1920.jpg?w=1536",
+            "color": "https://img.delfino.cr/wp-content/uploads/2025/06/container-489933_1920.jpg?w=1536",
+            "alt": "Exportaciones de bienes: $19.621 millones, +3 %",
+            "credit": "Delfino.cr"
+          },
+          "tags": [
+            "exportaciones",
+            "procomer"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/exportaciones-de-bienes-crecieron-3-a-octubre-y-alcanzaron-19-621-millones"
+          }
+        },
+        {
+          "id": "comercio-exterior-giro-eeuu",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Ventas a Estados Unidos bajan 1,22 %",
+          "body": "A setiembre sumaron $7.970,3 millones, frente a $8.068,9 millones un año antes; ese mercado recibió el 45,4 % de las exportaciones de bienes.",
+          "why": null,
+          "image": {
+            "url": "https://www.nacion.com/resizer/v2/ZAYWAZGGO5CANCA3HDMONFCAHQ.JPG?smart=true&auth=25a9aa1d7539f310bce97681f177ce151c7359aef0ae32b92283fe01b2b4dff1&width=1440",
+            "color": "https://www.nacion.com/resizer/v2/ZAYWAZGGO5CANCA3HDMONFCAHQ.JPG?smart=true&auth=25a9aa1d7539f310bce97681f177ce151c7359aef0ae32b92283fe01b2b4dff1&width=1440",
+            "alt": "Ventas a Estados Unidos bajan 1,22 %",
+            "credit": "La Nación"
+          },
+          "tags": [
+            "exportaciones",
+            "estados unidos"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/caen-exportaciones-de-bienes-hacia-el-principal/DHXHLINHBZHXBD7MG3XJW2ZTO4/story/"
+          }
+        },
+        {
+          "id": "comercio-exterior-giro-zonas-francas",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "38 empresas de zona franca piden bajar compromisos de empleo",
+          "body": "Lo solicitaron entre enero de 2023 y agosto de 2026; el artículo cita menores costos en India, avances de la inteligencia artificial, la apreciación del colón y la escasez de talento especializado.",
+          "why": null,
+          "image": {
+            "url": "https://www.elfinancierocr.com/resizer/v2/QSH7PMG7RZEQTIPTPS47W7N3QI.png?smart=true&auth=2bef6b875d2d21f749e4d70da1cbca1553c4b3ae537a6a12495b61b383b8e574&width=1440",
+            "color": "https://www.elfinancierocr.com/resizer/v2/QSH7PMG7RZEQTIPTPS47W7N3QI.png?smart=true&auth=2bef6b875d2d21f749e4d70da1cbca1553c4b3ae537a6a12495b61b383b8e574&width=1440",
+            "alt": "38 empresas de zona franca piden bajar compromisos de empleo",
+            "credit": "El Financiero"
+          },
+          "tags": [
+            "zonas francas",
+            "empleo"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/salida-de-viceministra-se-suma-a-cambios-en-la/GHS265OO2BFBHKGIV266YTG3MU/story/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "eurobonos-hacienda",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Eurobonos: PPSO pide $13.500 millones y le faltan votos",
+      "synopsis": "Hacendarios vota esta semana 44 mociones del proyecto de eurobonos, con el que PPSO busca colocar $13.500 millones en nueve años; la oposición ofrece entre $1.000 y $6.000 millones. Lo que Hacienda no coloque afuera lo buscará en el mercado local, donde compite por el mismo ahorro que financia el crédito. El segundo debate exige 38 votos y PPSO tiene 31, mientras los ingresos tributarios caen.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2026/06/HACENDARIOS202612.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2026/06/HACENDARIOS202612.jpg.webp",
+        "alt": "Eurobonos: PPSO pide $13.500 millones y le faltan votos",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "eurobonos-hacienda-monto",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "$1.500 millones por año hasta 2034",
+          "body": "El oficialismo propone $13.500 millones en nueve años; el PLN plantea $6.000 millones en cuatro años y el Frente Amplio una sola emisión de $1.000 millones en 2027. La primera colocación, prevista para diciembre de 2026, ya no es posible.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "eurobonos",
+            "deuda"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/tenemos-que-discutir-cual-es-el-monto-eurobonos-vuelve-a-la-agenda-legislativa-con-dos-temas-por-definir/"
+          }
+        },
+        {
+          "id": "eurobonos-hacienda-acosta",
+          "kind": "quote",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "“Yo no sé el monto”",
+          "body": "“Yo no sé el monto, otra vez tenemos que discutir cuál es el monto”, dijo Nogui Acosta, presidente de Hacendarios; sobre el plazo, rechaza cuatro años y pide al menos seis.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "eurobonos",
+            "asamblea"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/tenemos-que-discutir-cual-es-el-monto-eurobonos-vuelve-a-la-agenda-legislativa-con-dos-temas-por-definir/"
+          }
+        },
+        {
+          "id": "eurobonos-hacienda-ingresos",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-10",
+          "headline": "Ingresos tributarios caen ₡13.806 millones",
+          "body": "De enero a setiembre sumaron ₡4.940.227 millones (9,3 % del PIB), 0,3 % menos que en 2025; la renta subió 11,2 %, pero el IVA, el selectivo de consumo y los aranceles bajaron.",
+          "why": null,
+          "image": {
+            "url": "https://semanariouniversidad.com/og-image/397551.jpg",
+            "color": "https://semanariouniversidad.com/og-image/397551.jpg",
+            "alt": "Ingresos tributarios caen ₡13.806 millones",
+            "credit": "Semanario Universidad"
+          },
+          "tags": [
+            "hacienda",
+            "impuestos"
+          ],
+          "source": {
+            "name": "Semanario Universidad",
+            "url": "https://semanariouniversidad.com/?p=397551"
+          }
+        },
+        {
+          "id": "eurobonos-hacienda-deficit",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-09-29",
+          "headline": "Déficit de 2,3 % del PIB y deuda de 61,1 %",
+          "body": "A agosto, el déficit financiero del Gobierno Central subió desde 2 % del PIB un año antes; los intereses explicaron el 44,3 % del aumento del gasto.",
+          "why": null,
+          "image": {
+            "url": "https://www.elfinancierocr.com/resizer/v2/5L67Y5FJBFACHLDV6MWTKI7NJM.jpg?smart=true&auth=496770b21e3184bce8cb7e17b7aa5cd51be95fe9540a08cf11afbb970e48d4b5&width=1440",
+            "color": "https://www.elfinancierocr.com/resizer/v2/5L67Y5FJBFACHLDV6MWTKI7NJM.jpg?smart=true&auth=496770b21e3184bce8cb7e17b7aa5cd51be95fe9540a08cf11afbb970e48d4b5&width=1440",
+            "alt": "Déficit de 2,3 % del PIB y deuda de 61,1 %",
+            "credit": "El Financiero"
+          },
+          "tags": [
+            "déficit",
+            "deuda"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/finanzas/intereses-y-mayor-gasto-elevan-el-deficit-fiscal-a/3CJB72NNLREMTDYEGCNP2KO4SQ/story/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ormuz-petroleo-fletes",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 2,
+      "title": "Ormuz sigue sin abrir; petróleo y fletes ceden poco",
+      "synopsis": "Irán y Omán negocian un corredor de navegación por Ormuz que aún no tiene aprobación formal, y el Brent cerró el 18 de noviembre en $91,95. De ese petróleo dependen el diésel local y el costo de traer acero, equipo y acabados; el índice de contenedores de Drewry baja hace cuatro semanas, pero sigue 126 % arriba de hace un año. Lo que hay que vigilar es si el corredor se formaliza y el tránsito se normaliza.",
+      "image": {
+        "url": "https://media.assettype.com/gulfnews%2F2026-11-19%2Fsfx1aliv%2FScreenshot-2026-11-19-at-2.42.47-PM.png?w=1200&ar=40%3A21&auto=format%2Ccompress&ogImage=true&mode=crop&enlarge=true&overlay=false&overlay_position=bottom&overlay_width=100",
+        "color": "https://media.assettype.com/gulfnews%2F2026-11-19%2Fsfx1aliv%2FScreenshot-2026-11-19-at-2.42.47-PM.png?w=1200&ar=40%3A21&auto=format%2Ccompress&ogImage=true&mode=crop&enlarge=true&overlay=false&overlay_position=bottom&overlay_width=100",
+        "alt": "Ormuz sigue sin abrir; petróleo y fletes ceden poco",
+        "credit": "Gulf News"
+      },
+      "snippets": [
+        {
+          "id": "ormuz-petroleo-fletes-corredor",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-19",
+          "headline": "Corredor Irán–Omán, aún sin aprobación",
+          "body": "El 15 de noviembre un comité parlamentario iraní anunció un acuerdo con dos Estados costeros sobre corredores de navegación; el 16 Irán habló de un entendimiento mutuo con Omán, pero el arreglo requiere la aprobación de ambos gobiernos.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "ormuz",
+            "irán"
+          ],
+          "source": {
+            "name": "Gulf News",
+            "url": "https://gulfnews.com/world/gulf/oman/iran-oman-move-closer-to-hormuz-shipping-deal-what-it-means-for-global-oil-trade-1.500753065"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-brent",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-18",
+          "headline": "Brent, $91,95 por barril",
+          "body": "El contrato de enero bajó 1,27 % el 18 de noviembre por mayor oferta de Rusia y la OPEP+, pese a nuevos ataques en Medio Oriente y la incertidumbre sobre Ormuz.",
+          "why": null,
+          "image": {
+            "url": "https://storage.googleapis.com/bucket.timesbrasil.com.br/sites/2026/11/2095de10-petroleo-4.webp",
+            "color": "https://storage.googleapis.com/bucket.timesbrasil.com.br/sites/2026/11/2095de10-petroleo-4.webp",
+            "alt": "Brent, $91,95 por barril",
+            "credit": "Times Brasil (CNBC)"
+          },
+          "tags": [
+            "petróleo",
+            "brent"
+          ],
+          "source": {
+            "name": "Times Brasil (CNBC)",
+            "url": "https://timesbrasil.com.br/mundo/petroleo/petroleo-fecha-em-queda-com-expectativa-de-aumento-da-oferta-global/"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-wci",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-19",
+          "headline": "Contenedor de 40 pies: $4.176",
+          "body": "El índice compuesto WCI bajó 3 % en la semana, su cuarta caída seguida, pero sigue 126 % por encima del nivel de hace un año.",
+          "why": "El flete global de contenedores sigue en más del doble que hace un año, lo que encarece importar materiales y equipo.",
+          "image": null,
+          "tags": [
+            "fletes",
+            "contenedores"
+          ],
+          "source": {
+            "name": "Drewry",
+            "url": "https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry"
+          }
+        }
+      ]
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "nvidia-huang-ia",
+      "category": "tecnologia",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "Nvidia repone a Huang y la bolsa rebota tras una semana de fuertes caídas",
+      "synopsis": "La junta de Nvidia restituyó a Jensen Huang como director ejecutivo tras 11 días de crisis, y la acción subió 31,48 % el lunes. La semana previa, las dudas sobre el gasto en inteligencia artificial llevaron al S&P 500 a siete sesiones seguidas de pérdidas. El efecto local es indirecto, vía tasas y apetito de inversión; vigile las investigaciones de Nvidia y de la SEC sobre el caso.",
+      "image": {
+        "url": "https://www.elfinancierocr.com/resizer/v2/ER2BBNJQZRCWXPTU4HCQICGF5I.jpg?smart=true&auth=7b2b73be7c77776df09dffdbbfc4892105fbd82004c00e200e0efd40e3563821&width=1440",
+        "color": "https://www.elfinancierocr.com/resizer/v2/ER2BBNJQZRCWXPTU4HCQICGF5I.jpg?smart=true&auth=7b2b73be7c77776df09dffdbbfc4892105fbd82004c00e200e0efd40e3563821&width=1440",
+        "alt": "Nvidia repone a Huang y la bolsa rebota tras una semana de fuertes caídas",
+        "credit": "El Financiero"
+      },
+      "snippets": [
+        {
+          "id": "nvidia-huang-ia-regreso",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Huang vuelve a dirigir Nvidia",
+          "body": "La junta lo restituyó por unanimidad como presidente, director ejecutivo y miembro de la junta, tras consultar a altos funcionarios de Estados Unidos; Nvidia y la SEC investigan aspectos del caso, según Reuters con base en The Wall Street Journal.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "nvidia",
+            "ia"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/internacionales/nvidia-restituye-a-jensen-huang-como-consejero/VFIIRK3CZBEDPDNAV3O74IMBQA/story/"
+          }
+        },
+        {
+          "id": "nvidia-huang-ia-rebote",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Nasdaq +6,51 % en un día",
+          "body": "El lunes, Nvidia subió 31,48 % hasta $165,05; el S&P 500 ganó 4,73 % y el Dow Jones 3,01 %.",
+          "why": null,
+          "image": {
+            "url": "https://images.hoy.cr/wp-content/uploads/2025/06/7-6.jpg",
+            "color": "https://images.hoy.cr/wp-content/uploads/2025/06/7-6.jpg",
+            "alt": "Nasdaq +6,51 % en un día",
+            "credit": "CRHoy (AFP)"
+          },
+          "tags": [
+            "bolsa",
+            "nvidia"
+          ],
+          "source": {
+            "name": "CRHoy (AFP)",
+            "url": "https://crhoy.com/wall-street-se-dispara-tras-regreso-de-huang-a-nvidia/"
+          }
+        },
+        {
+          "id": "nvidia-huang-ia-caida",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-20",
+          "headline": "El viernes previo, el Nasdaq cayó 5,3 %",
+          "body": "El S&P 500 perdió 3,7 % en su séptima sesión seguida a la baja, la racha más larga desde febrero de 2020, por temores a una burbuja de inversión en IA.",
+          "why": null,
+          "image": {
+            "url": "https://observador.cr/wp-content/uploads/2026/11/BBC-NO-USAR-BOLSA.png.webp",
+            "color": "https://observador.cr/wp-content/uploads/2026/11/BBC-NO-USAR-BOLSA.png.webp",
+            "alt": "El viernes previo, el Nasdaq cayó 5,3 %",
+            "credit": "El Observador (BBC Mundo)"
+          },
+          "tags": [
+            "bolsa",
+            "ia"
+          ],
+          "source": {
+            "name": "El Observador (BBC Mundo)",
+            "url": "https://observador.cr/la-bolsa-de-wall-street-cae-con-fuerza-en-medio-del-desplome-de-las-acciones-de-las-tecnologicas-y-registra-su-peor-semana-desde-la-pandemia/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fed-alza-diciembre",
+      "category": "economia",
+      "scope": "mundo",
+      "importance": 2,
+      "title": "La Fed se encamina a subir tasas en diciembre",
+      "synopsis": "Tras un IPC de octubre de 0,4 % mensual en Estados Unidos, la Reserva Federal quedó en ruta a subir su tasa un cuarto de punto o más en diciembre. Tasas más altas allá encarecen el crédito en dólares y elevan los rendimientos de los bonos del Tesoro, que mueven las hipotecas. Vigile si la Fed sube medio punto, como plantea el gobernador Christopher Waller.",
+      "image": {
+        "url": "https://www.nationalmortgagenews.com/wp-content/uploads/sites/9/2026/11/472811287.jpg?resize=1200,630",
+        "color": "https://www.nationalmortgagenews.com/wp-content/uploads/sites/9/2026/11/472811287.jpg?resize=1200,630",
+        "alt": "La Fed se encamina a subir tasas en diciembre",
+        "credit": "National Mortgage News"
+      },
+      "snippets": [
+        {
+          "id": "fed-alza-diciembre-ipc",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-10",
+          "headline": "IPC de Estados Unidos: +0,4 % en octubre",
+          "body": "La inflación mensual superó lo esperado y empujó al alza los rendimientos del Tesoro y las tasas hipotecarias de largo plazo.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fed",
+            "inflación"
+          ],
+          "source": {
+            "name": "National Mortgage News",
+            "url": "https://www.nationalmortgagenews.com/news/hot-inflation-report-puts-fed-on-track-for-december-rate-hike"
+          }
+        },
+        {
+          "id": "fed-alza-diciembre-waller",
+          "kind": "quote",
+          "importance": 1,
+          "published": "2026-11-10",
+          "headline": "Waller pide considerar 50 puntos base",
+          "body": "“Creo que en la reunión de diciembre debería considerarse un alza de 50 puntos base en la tasa de política”, dijo el gobernador de la Fed Christopher Waller (traducción).",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fed",
+            "tasas"
+          ],
+          "source": {
+            "name": "National Mortgage News",
+            "url": "https://www.nationalmortgagenews.com/news/hot-inflation-report-puts-fed-on-track-for-december-rate-hike"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congreso-eeuu-democratas",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "Demócratas toman la Cámara de Estados Unidos en enero",
+      "synopsis": "Los demócratas recuperaron la Cámara de Representantes en las elecciones de medio periodo y el nuevo Congreso jura el 3 de enero de 2027. Un Congreso con mayoría opositora puede condicionar la agenda de Trump, incluida la comercial, de la que dependen los aranceles a las exportaciones costarricenses. Antes, el 11 de diciembre vence el financiamiento del gobierno federal.",
+      "image": {
+        "url": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6aea81ed-1793753581.jpg?resize=1920%2C1440",
+        "color": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6aea81ed-1793753581.jpg?resize=1920%2C1440",
+        "alt": "Demócratas toman la Cámara de Estados Unidos en enero",
+        "credit": "Al Jazeera"
+      },
+      "snippets": [
+        {
+          "id": "congreso-eeuu-democratas-camara",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-04",
+          "headline": "Demócratas recuperan la Cámara",
+          "body": "Necesitaban una ganancia neta de cinco escaños; se espera que Hakeem Jeffries presida la Cámara y el Congreso 120 jura el 3 de enero de 2027.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "estados unidos",
+            "elecciones"
+          ],
+          "source": {
+            "name": "Al Jazeera",
+            "url": "https://www.aljazeera.com/news/2026/11/4/democratic-party-gains-us-house-majority-in-2026-midterm-elections"
+          }
+        },
+        {
+          "id": "congreso-eeuu-democratas-cierre",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-10-20",
+          "headline": "Fondos federales vencen el 11 de diciembre",
+          "body": "Sin un nuevo acuerdo hay riesgo de otro cierre del gobierno; los demócratas evaluaban si cerrar el presupuesto antes o llevar la negociación al año nuevo.",
+          "why": null,
+          "image": {
+            "url": "https://news-api.bgov.com/v1/resize-image?url=https%3A%2F%2Fbloomberg-bna-brightspot.s3.us-east-1.amazonaws.com%2F51%2F74%2Fc1707cae4cee8899c5bbc0d66eff%2F435293735-2.jpg&width=1200&height=630&fit=cover&removeAnimation=true",
+            "color": "https://news-api.bgov.com/v1/resize-image?url=https%3A%2F%2Fbloomberg-bna-brightspot.s3.us-east-1.amazonaws.com%2F51%2F74%2Fc1707cae4cee8899c5bbc0d66eff%2F435293735-2.jpg&width=1200&height=630&fit=cover&removeAnimation=true",
+            "alt": "Fondos federales vencen el 11 de diciembre",
+            "credit": "Bloomberg Government"
+          },
+          "tags": [
+            "estados unidos",
+            "presupuesto"
+          ],
+          "source": {
+            "name": "Bloomberg Government",
+            "url": "https://news.bgov.com/bloomberg-government-news/democrats-face-key-post-election-decision-on-government-funding"
+          }
+        }
+      ]
+    },
+    {
+      "id": "acero-china-baja",
+      "category": "construccion",
+      "scope": "mundo",
+      "importance": 2,
+      "title": "La varilla china toca su precio más bajo del año",
+      "synopsis": "El contrato principal de varilla en la bolsa de Shanghái cerró el 17 de noviembre en 2.965 yuanes por tonelada, su nivel más bajo de 2026, y el precio spot quedó en mínimo de tres meses. China exporta más barras que en 2025 mientras su demanda interna se debilita. Vigile si la baja llega a las cotizaciones locales, donde la varilla sube 6,47 % en un año según el INEC.",
+      "image": {
+        "url": "https://cs.mysteelcdn.com/web/pc/english-station-static/img/og-image.9aff406.png",
+        "color": "https://cs.mysteelcdn.com/web/pc/english-station-static/img/og-image.9aff406.png",
+        "alt": "La varilla china toca su precio más bajo del año",
+        "credit": "Mysteel"
+      },
+      "snippets": [
+        {
+          "id": "acero-china-baja-shfe",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-18",
+          "headline": "Varilla en Shanghái: 2.965 yuanes por tonelada",
+          "body": "El contrato para enero de 2027 cayó 1,89 % el 17 de noviembre; la varilla HRB400E de 20 mm se cotizó en 3.267 yuanes en el mercado spot, mínimo de tres meses, por débil demanda interna.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "acero",
+            "china"
+          ],
+          "source": {
+            "name": "Mysteel",
+            "url": "https://www.mysteel.net/analysis/5149431-weak-market-sentiment-sends-main-shfe-rebar-contract-to-intra-year-low-"
+          }
+        },
+        {
+          "id": "acero-china-baja-exportaciones",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-18",
+          "headline": "Exportaciones chinas de barras, +3,1 %",
+          "body": "Sumaron 17,59 millones de toneladas entre enero y octubre; solo en octubre fueron 1,83 millones, 12,7 % más que un año antes.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "acero",
+            "china"
+          ],
+          "source": {
+            "name": "SteelOrbis",
+            "url": "https://www.steelorbis.com/steel-news/latest-news/chinas-steel-bar-exports-increase-by-31-percent-in-january-october-2026-1491744.htm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mexico-china-desequilibrio",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "México presiona a China por su déficit comercial",
+      "synopsis": "El secretario de Economía de México, Marcelo Ebrard, pidió en Pekín reducir un desequilibrio en el que China venderá a México más de $130.000 millones este año y comprará unos $10.000 millones. México también invitó a China a trasladar parte de su producción a su territorio. Es la misma disputa por manufactura e inversión extranjera en la que compiten las zonas francas costarricenses.",
+      "image": {
+        "url": "https://www.nacion.com/resizer/v2/SZ3E6NB55FHJVBL42IT2OX6WPU.jpg?smart=true&auth=48088af174883c1c72f4a4e64291c032e594a9a12cccefa1b644a50ef279f361&width=1440",
+        "color": "https://www.nacion.com/resizer/v2/SZ3E6NB55FHJVBL42IT2OX6WPU.jpg?smart=true&auth=48088af174883c1c72f4a4e64291c032e594a9a12cccefa1b644a50ef279f361&width=1440",
+        "alt": "México presiona a China por su déficit comercial",
+        "credit": "La Nación (AFP)"
+      },
+      "snippets": [
+        {
+          "id": "mexico-china-desequilibrio-ebrard",
+          "kind": "quote",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Ebrard pide cerrar la brecha “de manera decidida y rápida”",
+          "body": "Ebrard propuso al ministro chino de Comercio, Wang Wentao, “reducir esta disparidad entre importaciones y exportaciones de manera decidida y rápida”.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "méxico",
+            "china"
+          ],
+          "source": {
+            "name": "La Nación (AFP)",
+            "url": "https://www.nacion.com/economia/mexico-pide-a-china-disminuir-su-creciente/PCBP4YKMYJGH7OELF5RMCW4DLA/story/"
+          }
+        },
+        {
+          "id": "mexico-china-desequilibrio-cifras",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "$130.000 millones contra $10.000 millones",
+          "body": "Las exportaciones chinas a México superarían $130.000 millones este año y las mexicanas a China rondarían $10.000 millones; China es el segundo socio comercial de México.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "comercio",
+            "méxico"
+          ],
+          "source": {
+            "name": "La Nación (AFP)",
+            "url": "https://www.nacion.com/economia/mexico-pide-a-china-disminuir-su-creciente/PCBP4YKMYJGH7OELF5RMCW4DLA/story/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "grynspan-onu",
+      "category": "geopolitica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Candidatura de Grynspan a la ONU enfrenta oposición en Washington",
+      "synopsis": "Nueve congresistas republicanos pidieron al secretario de Estado Marco Rubio vetar a la costarricense Rebeca Grynspan como secretaria general de la ONU por sus posiciones sobre aborto. Según Teletica, la candidatura sufrió vetos en las dos últimas votaciones preliminares del Consejo de Seguridad, sin confirmación oficial de quién los emitió. Un veto formal de un miembro permanente la cerraría.",
+      "image": {
+        "url": "https://teletica-static.ray.media/Files/Sizes/2026/11/24/carta-sobre-rebeca-grynspan_95330706_760x520.png",
+        "color": "https://teletica-static.ray.media/Files/Sizes/2026/11/24/carta-sobre-rebeca-grynspan_95330706_760x520.png",
+        "alt": "Candidatura de Grynspan a la ONU enfrenta oposición en Washington",
+        "credit": "Teletica"
+      },
+      "snippets": [
+        {
+          "id": "grynspan-onu-carta",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Carta a Rubio del 20 de noviembre",
+          "body": "La firmaron nueve representantes republicanos y se copió al embajador de Estados Unidos ante la ONU, Michael Waltz; cita un informe de ONU Mujeres de 2017 y una guía de la SEGIB de 2016.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "onu",
+            "grynspan"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/politica/nueve-congresistas-de-ee-uu-piden-vetar-a-rebeca-grynspan-por-su-postura-sobre-aborto_421690"
+          }
+        },
+        {
+          "id": "grynspan-onu-votaciones",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Dos votaciones preliminares en contra",
+          "body": "Teletica reporta vetos en los dos últimos sondeos del Consejo de Seguridad y aclara que no hay confirmación oficial de que Estados Unidos los haya emitido.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "onu",
+            "consejo de seguridad"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/politica/nueve-congresistas-de-ee-uu-piden-vetar-a-rebeca-grynspan-por-su-postura-sobre-aborto_421690"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reforma-contraloria",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Reforma a la Contraloría necesitará 38 votos",
+      "synopsis": "Corte Plena concluyó, contra el criterio de la magistrada ponente, que la reforma del Ejecutivo a la ley de la Contraloría afecta al Poder Judicial, por lo que requerirá 38 votos; PPSO tiene 31. El proyecto limita el control de la Contraloría a la legalidad y le impediría suspender contratos sin orden judicial, lo que cambiaría el ritmo y el control de la contratación pública. Vigile si PPSO suma votos de oposición.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2023/01/Contraloria-General-de-la-Republica-4-scaled.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2023/01/Contraloria-General-de-la-Republica-4-scaled.jpg.webp",
+        "alt": "Reforma a la Contraloría necesitará 38 votos",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "reforma-contraloria-corte",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Corte Plena: sí afecta al Poder Judicial",
+          "body": "Diez magistrados votaron contra el informe de la magistrada Iris Rocío Rojas, cinco se abstuvieron y uno lo apoyó; por el artículo 167 de la Constitución, apartarse del criterio exige dos tercios.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "contraloría",
+            "corte"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/corte-determina-que-reformas-a-la-ley-de-la-contraloria-afectan-al-poder-judicial-y-requieren-38-votos/"
+          }
+        },
+        {
+          "id": "reforma-contraloria-alcance",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Qué cambia el proyecto",
+          "body": "Reforma 15 artículos de la Ley Orgánica de la Contraloría y nueve de la Ley de Control Interno; el control de oportunidad y conveniencia desaparece y parte del texto proviene de la Ley Jaguar, declarada inconstitucional.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "contraloría",
+            "contratación pública"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/corte-determina-que-reformas-a-la-ley-de-la-contraloria-afectan-al-poder-judicial-y-requieren-38-votos/"
+          }
+        },
+        {
+          "id": "reforma-contraloria-zamora",
+          "kind": "quote",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "“Una simple oficina de revisión contable”",
+          "body": "El magistrado Carlos Zamora advirtió que la reforma “convierte a un órgano constitucionalmente adscrito a la Corte Plena en una simple oficina de revisión contable”, en referencia a la auditoría judicial.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "contraloría",
+            "corte"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/corte-determina-que-reformas-a-la-ley-de-la-contraloria-afectan-al-poder-judicial-y-requieren-38-votos/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ciudad-gobierno",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Ciudad Gobierno: 210.000 m² con arrendamiento del BCIE",
+      "synopsis": "La Contraloría advirtió que Ciudad Gobierno, oficinas para 35 instituciones y casi 11.000 funcionarios junto a la plaza González Víquez, implica endeudamiento y requiere 38 votos. Se financiaría con un arrendamiento de bienes por construir con el BCIE por 30 años, prorrogable a 50. La comisión aprobó un texto sustitutivo el 10 de noviembre, sin criterio previo de la Contraloría sobre esa versión.",
+      "image": {
+        "url": "https://www.nacion.com/resizer/v2/6M5CVXSWPBCCHMTT7Q5SKSSJ7U.jpg?smart=true&auth=da5e324e3ef6564504daaad53f26061f549a8ae18804a596a9784d0c313cae80&width=1440",
+        "color": "https://www.nacion.com/resizer/v2/6M5CVXSWPBCCHMTT7Q5SKSSJ7U.jpg?smart=true&auth=da5e324e3ef6564504daaad53f26061f549a8ae18804a596a9784d0c313cae80&width=1440",
+        "alt": "Ciudad Gobierno: 210.000 m² con arrendamiento del BCIE",
+        "credit": "La Nación"
+      },
+      "snippets": [
+        {
+          "id": "ciudad-gobierno-votos",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Contraloría: es endeudamiento y exige 38 votos",
+          "body": "Por el artículo 121 inciso 15 de la Constitución, los contratos con capital extranjero de este tipo requieren dos tercios; PPSO tiene 31 diputados y necesitaría al menos siete más.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "obra pública",
+            "contraloría"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/politica/ciudad-gobierno-requiere-38-votos-en-la-asamblea/5QZCJAGO5NHMDCGNAREPLV4FPA/story/"
+          }
+        },
+        {
+          "id": "ciudad-gobierno-proyecto",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "210.000 m² para 35 instituciones",
+          "body": "El complejo sumaría 210.000 m² de construcción y áreas verdes en terrenos mayoritariamente del MOPT; el texto sustitutivo traslada un lote de 10.010 m² ligado al Liceo de Costa Rica y cierra tramos de calles 7 y 9.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "obra pública",
+            "san josé"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/politica/ciudad-gobierno-requiere-38-votos-en-la-asamblea/5QZCJAGO5NHMDCGNAREPLV4FPA/story/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "banhvi-40-anos",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 1,
+      "title": "BANHVI llega a 450.000 bonos con la meta anual recortada",
+      "synopsis": "Al cumplir 40 años, el BANHVI reporta 450.000 bonos de vivienda y estima que una de cada cuatro viviendas del país se construyó o reparó con ese subsidio. Para 2026 el Ministerio de Vivienda proyecta 11.700 bonos, 16 % menos que la meta, tras el recorte de ₡30.000 millones al Fosuvi, y la meta de 2027 es igual. Para quien construye vivienda social, ese volumen define la demanda.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2026/11/Familia.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2026/11/Familia.jpg.webp",
+        "alt": "BANHVI llega a 450.000 bonos con la meta anual recortada",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "banhvi-40-anos-hito",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-20",
+          "headline": "450.000 bonos en cuatro décadas",
+          "body": "El BANHVI estima que las obras financiadas suman unos 19 millones de m² y que el programa generó más de 1,5 millones de empleos directos e indirectos.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "banhvi",
+            "vivienda social"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/una-de-cada-cuatro-viviendas-en-costa-rica-se-construyo-o-reparo-con-un-bono-de-vivienda-del-banhvi/"
+          }
+        },
+        {
+          "id": "banhvi-40-anos-meta",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-08-14",
+          "headline": "11.700 bonos en 2026 y en 2027",
+          "body": "El BANHVI había planeado 14.000 bonos para 2026 con casi ₡187.000 millones; el recorte de ₡30.000 millones al Fosuvi en el primer presupuesto extraordinario bajó la proyección a 11.700.",
+          "why": null,
+          "image": {
+            "url": "https://images.hoy.cr/wp-content/uploads/2026/08/vivienda-social-construccion.jpeg",
+            "color": "https://images.hoy.cr/wp-content/uploads/2026/08/vivienda-social-construccion.jpeg",
+            "alt": "11.700 bonos en 2026 y en 2027",
+            "credit": "CRHoy"
+          },
+          "tags": [
+            "banhvi",
+            "fosuvi"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/nacionales/2-300-familias-se-quedaran-sin-bono-de-vivienda-por-recortes-del-gobierno/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cartago-construccion-cae",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Cartago, a contramano: la intención de construir cae 19 %",
+      "synopsis": "Entre enero y setiembre, los metros cuadrados registrados ante el CFIA crecieron 12,8 % en el país, pero en Cartago cayeron 19 %. La vivienda apenas creció 0,5 % a nivel nacional, con la de interés social al alza (9,1 %), mientras el empuje vino de la obra industrial (55,7 %). Vigile si la caída provincial se sostiene al cierre del año.",
+      "image": {
+        "url": "https://img.delfino.cr/wp-content/uploads/2026/08/staplerworldtv2-construction-site-6747104_1920.jpg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2026/08/staplerworldtv2-construction-site-6747104_1920.jpg?w=1536",
+        "alt": "Cartago, a contramano: la intención de construir cae 19 %",
+        "credit": "Delfino.cr"
+      },
+      "snippets": [
+        {
+          "id": "cartago-construccion-cae-provincia",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-10-26",
+          "headline": "País +12,8 %, Cartago -19 %",
+          "body": "El CFIA registró 8.317.521 m² de intención de construcción entre enero y setiembre, 942.026 m² más que un año antes; Cartago fue a la baja.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cfia",
+            "cartago"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/10/cfia-reporta-que-la-intencion-de-construccion-crecio-128-durante-los-primeros-nueve-meses-de-2026"
+          }
+        },
+        {
+          "id": "cartago-construccion-cae-vivienda",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-10-26",
+          "headline": "Vivienda, estancada en 2,7 millones de m²",
+          "body": "La obra habitacional sumó 2.703.241 m² (32,5 % del total) y creció 0,5 %; la vivienda de interés social llegó a 440.015 m² (+9,1 %) y las oficinas cayeron 51,3 %.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cfia",
+            "vivienda"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/10/cfia-reporta-que-la-intencion-de-construccion-crecio-128-durante-los-primeros-nueve-meses-de-2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "clorotalonil-cartago",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Clorotalonil sigue en nacientes del norte de Cartago",
+      "synopsis": "Pese a su prohibición en 2023, derivados del fungicida clorotalonil siguen apareciendo en nacientes que abastecen a comunidades del norte de Cartago, según Teletica. Salud fijó nuevos valores máximos por derivado, de 12 a 80 microgramos por litro frente al 0,1 anterior, cifra que cuestionan investigadores de la UNA y el TEC. Para proyectos en la zona, la calidad del agua de las nacientes es un factor a revisar.",
+      "image": {
+        "url": "https://teletica-static.ray.media/Files/Sizes/2026/11/24/un-qumico-que-sigue-dejando-rastros-en-cartago_105499191_760x520.jpg",
+        "color": "https://teletica-static.ray.media/Files/Sizes/2026/11/24/un-qumico-que-sigue-dejando-rastros-en-cartago_105499191_760x520.jpg",
+        "alt": "Clorotalonil sigue en nacientes del norte de Cartago",
+        "credit": "Teletica"
+      },
+      "snippets": [
+        {
+          "id": "clorotalonil-cartago-limites",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Límite pasa de 0,1 a 12–80 µg/L",
+          "body": "El Ministerio de Salud, asesorado por toxicólogos de la OPS, fijó valores máximos por cada derivado; investigadores del IRET-UNA y del TEC cuestionan cómo se calcularon.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "agua",
+            "cartago"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/reportajes/un-quimico-que-sigue-dejando-rastros-en-cartago_421658"
+          }
+        },
+        {
+          "id": "clorotalonil-cartago-uso",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "La prohibición no cerró el problema",
+          "body": "El fungicida se usó por décadas en papa, cebolla y hortalizas de la zona; un agricultor que pidió anonimato dijo a Teletica que aún lo usa y que es fácil de conseguir.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "agua",
+            "agroquímicos"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/reportajes/un-quimico-que-sigue-dejando-rastros-en-cartago_421658"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hacienda-digital",
+      "category": "tecnologia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Hacienda Digital: buzón único y registro de Sinpe Móvil",
+      "synopsis": "Desde el 1 de enero, Hacienda notificará a personas y empresas solo por el buzón de TRIBU-CR, y los plazos correrán aunque el mensaje no se abra. Desde el 18 de enero, quien cobre por Sinpe Móvil en su actividad deberá registrar el número, con multas de hasta 100 salarios base. La misma ley permite a Hacienda usar herramientas de valoración en traspasos de inmuebles y ganancias de capital inmobiliarias.",
+      "image": {
+        "url": "https://img.delfino.cr/wp-content/uploads/2018/08/Ministerio-de-Hacienda-DCR-LMM.jpg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2018/08/Ministerio-de-Hacienda-DCR-LMM.jpg?w=1536",
+        "alt": "Hacienda Digital: buzón único y registro de Sinpe Móvil",
+        "credit": "Delfino.cr"
+      },
+      "snippets": [
+        {
+          "id": "hacienda-digital-buzon",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Buzón de TRIBU-CR, medio único de notificación",
+          "body": "La Ley 10.982 reforma el artículo 134 del Código Tributario: se tiene por notificado al contribuyente el día hábil siguiente al depósito, aunque no abra el mensaje; los avisos por SMS o correo son solo informativos.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "hacienda",
+            "tribu-cr"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/hacienda-notificara-a-contribuyentes-mediante-buzon-digital-a-partir-de-enero-de-2027"
+          }
+        },
+        {
+          "id": "hacienda-digital-sinpe",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "Registro obligatorio de números de Sinpe Móvil",
+          "body": "La resolución MH-DGT-RES-0037-2026 rige desde el 18 de enero de 2027; los ya inscritos tienen 12 meses para cumplir y la multa es de 2 % de los ingresos brutos, entre 3 y 100 salarios base.",
+          "why": null,
+          "image": {
+            "url": "https://observador.cr/wp-content/uploads/2021/04/154777085_279720583524927_5138316004700293582_n.jpg.webp",
+            "color": "https://observador.cr/wp-content/uploads/2021/04/154777085_279720583524927_5138316004700293582_n.jpg.webp",
+            "alt": "Registro obligatorio de números de Sinpe Móvil",
+            "credit": "El Observador"
+          },
+          "tags": [
+            "sinpe móvil",
+            "tributación"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/cobra-por-sinpe-movil-hacienda-le-pedira-registrar-el-numero-esto-lo-que-debe-saber-para-no-exponerse-a-una-multa/"
+          }
+        },
+        {
+          "id": "hacienda-digital-valoracion",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Valoración de inmuebles con herramientas de Hacienda",
+          "body": "La ley permite usar herramientas de valoración del Órgano de Normalización Técnica en traspasos de inmuebles, ganancias de capital inmobiliarias y el impuesto a casas de lujo.",
+          "why": "Puede cambiar la base sobre la que se tributa la venta de casas y lotes.",
+          "image": null,
+          "tags": [
+            "inmuebles",
+            "impuestos"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/hacienda-notificara-a-contribuyentes-mediante-buzon-digital-a-partir-de-enero-de-2027"
+          }
+        }
+      ]
+    },
+    {
+      "id": "techos-solares-ucr",
+      "category": "tecnologia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "UCR estrena planta solar en techos con modelo de alquiler",
+      "synopsis": "La UCR inauguró una planta fotovoltaica de 1,16 MW en techos de la Facultad de Ingeniería, el Aula Magna y un edificio de parqueos, financiada por Enertiva y operada con la CNFL por 20 años. La CNFL paga ₡500.000 al mes por el espacio y vende el excedente a clientes de San Pedro. El programa SER Solar muestra cómo sacar ingreso de techos sin poner capital propio.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2026/11/Paneles-Solares-UCR-2.jpeg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2026/11/Paneles-Solares-UCR-2.jpeg.webp",
+        "alt": "UCR estrena planta solar en techos con modelo de alquiler",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "techos-solares-ucr-modelo",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Alianza UCR–CNFL–Enertiva por 20 años",
+          "body": "La UCR aporta los techos, Enertiva financia la solución fotovoltaica y la CNFL opera y mantiene; es el cuarto proyecto del programa SER Solar.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "energía solar",
+            "cnfl"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/ucr-inaugura-planta-solar-que-tambien-abastece-a-san-pedro/"
+          }
+        },
+        {
+          "id": "techos-solares-ucr-cifras",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "1,16 MW y ₡500.000 de alquiler mensual",
+          "body": "La CNFL estima que la planta evitará unas 193 toneladas de CO₂ al año; la mayor parte de la energía se consume en la universidad.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "energía solar",
+            "techos"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/ucr-inaugura-planta-solar-que-tambien-abastece-a-san-pedro/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "temporada-alta-asientos",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Temporada alta con 15 % menos asientos desde Estados Unidos",
+      "synopsis": "El ICT proyecta cerrar 2026 con 15 % menos asientos aéreos desde Estados Unidos, por la volatilidad del petróleo y ajustes de aerolíneas, con alzas de tarifas superiores a 20 % en la mayoría de rutas. Las llegadas aéreas cayeron 1,9 % en octubre, tercer mes seguido. La caída ya pesa en el empleo: 43 % de las empresas turísticas redujo contrataciones, según Canatur.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2023/04/Aeropuerto-Juan-Santa-Maria-Aviones-gente-15-scaled.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2023/04/Aeropuerto-Juan-Santa-Maria-Aviones-gente-15-scaled.jpg.webp",
+        "alt": "Temporada alta con 15 % menos asientos desde Estados Unidos",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "temporada-alta-asientos-ict",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-21",
+          "headline": "Juan Santamaría podría perder 21 % de asientos",
+          "body": "Según Canaeco, la reducción en el aeropuerto Juan Santamaría abarcaría de octubre de 2026 a agosto de 2027; la salida de Spirit implica 95.000 asientos menos.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "turismo",
+            "aerolíneas"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/ict-atribuye-disminucion-de-asientos-desde-ee-uu-al-costo-del-combustible/"
+          }
+        },
+        {
+          "id": "temporada-alta-asientos-empleo",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "43 % de empresas turísticas redujo contrataciones",
+          "body": "Según Canatur, otro 23 % congeló contrataciones; las llegadas internacionales crecieron solo 0,1 % entre abril y setiembre.",
+          "why": null,
+          "image": {
+            "url": "https://www.elfinancierocr.com/resizer/v2/75VYNO6HOBH4NB62E2ZZLZEVGE.jpg?smart=true&auth=bfdfdb30cfbec3cbd0e525c03d218a7b3e374d2cfc92d2d288dba5c33d64d4c7&width=1440",
+            "color": "https://www.elfinancierocr.com/resizer/v2/75VYNO6HOBH4NB62E2ZZLZEVGE.jpg?smart=true&auth=bfdfdb30cfbec3cbd0e525c03d218a7b3e374d2cfc92d2d288dba5c33d64d4c7&width=1440",
+            "alt": "43 % de empresas turísticas redujo contrataciones",
+            "credit": "El Financiero"
+          },
+          "tags": [
+            "turismo",
+            "empleo"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/negocios/como-se-preparan-las-empresas-ante-la/YMYCH6C6INFTRKVN2S3W4SZCRQ/story/"
+          }
+        }
+      ]
+    }
+  ]
+}
