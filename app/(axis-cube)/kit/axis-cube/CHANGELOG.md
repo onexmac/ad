@@ -44,6 +44,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.18** On iOS, no sound before a touch.
 - **0.6.27** A known object's form isn't built from boxes.
 - **0.6.30** Real objects are modelled from photographs, not memory.
+- **0.6.35** Nothing on a loading screen waits for the app's scripts or a long task.
 
 Open:
 
@@ -53,6 +54,27 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.35 · 2026-11-24 09:25
+
+- **Bug fix.** Marcos, 24 Nov 08:37: "For some reason the start button is not responding on press."
+  - Causes:
+    - The button was React's, so a tap did nothing until the app's scripts had arrived and React had taken over the page.
+    - Behind the welcome, the room was built in one piece.
+    - The first frame then compiled every one of the GPU's shader programs at once, and swapped in photographs that made it compile some of them again.
+    - A tap waited for all of that. Measured here on a CPU slowed fourfold, it waited 8.8 s.
+  - Don't: let a button on a loading screen wait for the app's scripts, or let anything block the page for more than a moment while it is up. Answer the button from the page's first script, build in slices, and wait for each shader program on its own before the first frame.
+- Start springs. It presses in under the finger and, let go, springs back past its size (4%) and settles. The page's first script answers it, so it works from the first paint.
+- After Start, the bar starts empty and runs all the way, at least 0.85 s from the press, however ready the room already was. If the room was waiting, the run starts the moment the welcome goes.
+- The audio is started by the page's first script inside the tap, which is the only place an iPhone allows it, and the app takes it up from there.
+- Loading hands the page back every few milliseconds, so a tap is answered at once:
+  - The room is built in slices.
+  - Before the first frame, the textures are sent up to the GPU one by one. Its programs are made one at a time, each waited for on its own, and the first capture for the reflections is made then too.
+  - Each photograph is sent up to the GPU as it arrives, in its own turn.
+  - Each photograph has a slot in its material from the start, holding a single texel that changes nothing. So a photograph only swaps a texture and never makes the GPU rebuild a program.
+  - The reflections start with a blank of the same kind, so the materials that reflect are made once.
+  - The scene (three.js and the room) comes in a script of its own, after the page's.
+- Measured here on a CPU slowed fourfold, a tap during loading now waits 0.13 s at the median and 0.6 s at most. The first frame's drawing isn't in that figure: it is slow here, where the GPU is software, and it takes milliseconds on a phone. (#PR)
 
 ## 0.6.30 · 2026-11-24 08:03
 
