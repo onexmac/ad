@@ -6,6 +6,7 @@ import { springs } from "@/lib/histok/springs";
 import { CheckIcon, LockIcon } from "./Icons";
 import type { PunchSheet } from "./usePunchSheet";
 import { SectionControl } from "./SectionControl";
+import { useVvvCorner } from "@/components/vvv/Vvv";
 
 /*
  * One line at the thumb: the sections (dots; press for the fan), a quiet search
@@ -98,7 +99,6 @@ export function Footer({
   sections = true,
   rooms = false,
   framed = false,
-  frameRadius = 28,
 }: {
   s: PunchSheet;
   kind: Kind;
@@ -111,8 +111,6 @@ export function Footer({
   /** Inside a vvv frame: the bar sticks to the frame's bottom (the frame itself
       shrinks above the keyboard), and the home indicator is out in the black. */
   framed?: boolean;
-  /** The frame's corner radius, which the keys in the bar's corners follow. */
-  frameRadius?: number;
 }) {
   const bar = kind === "bar";
   const round = bar ? "rounded-[6px]" : "rounded-[10px]";
@@ -120,13 +118,11 @@ export function Footer({
   const input = useRef<HTMLInputElement>(null);
   const open = !!search?.open;
   // In a vvv frame, a key in one of the bar's bottom corners rounds that corner
-  // as the frame's own curve drawn inward by the key's distance from it (12 px
-  // from the side, 8 px from the bottom): an elliptical corner, never the
-  // frame's full radius. The other corners keep the bar's 6.
-  const inner = (d: number) => Math.max(6, frameRadius - d);
-  const curve = `${inner(12)}px ${inner(8)}px`;
-  const cornerL = framed ? { borderBottomLeftRadius: curve } : undefined;
-  const cornerR = framed ? { borderBottomRightRadius: curve } : undefined;
+  // after the frame's (vvv's corner rule): 12 px from the side, 8 from the bottom.
+  // The other corners keep the bar's 6.
+  const curve = useVvvCorner(12, 8, 6);
+  const cornerL = framed && curve ? { borderBottomLeftRadius: curve } : undefined;
+  const cornerR = framed && curve ? { borderBottomRightRadius: curve } : undefined;
   const glide = { transition: "border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)" };
   const nav = useRef<HTMLElement>(null);
   const [roomsOpen, setRoomsOpen] = useState(false);
