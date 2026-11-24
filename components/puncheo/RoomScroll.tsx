@@ -14,7 +14,11 @@ import { layoutY, scrollMax, scrollTarget, scrollToY, scrollTop, viewHeight, vie
  * into view. The rooms bar at the top follows the room being read, and a tap on
  * a room glides the page to it.
  */
-export function RoomScroll({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
+export function RoomScroll({ s, skin, onArrive }: { s: PunchSheet; skin: RowSkin; onArrive?: () => void }) {
+  const arrive = useRef(onArrive);
+  useEffect(() => {
+    arrive.current = onArrive;
+  });
   const gliding = useRef(false);
   const spy = useRef(s.spy);
   useEffect(() => {
@@ -62,7 +66,13 @@ export function RoomScroll({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
       s.spy(i);
       // Where the room sits in the page's layout: its entry animation (a small
       // offset until it has been seen) must not count, so walk the offsets.
-      const target = () => Math.max(0, Math.min(layoutY(room) - 12, scrollMax()));
+      // Deep in the page the top bar drops in on arrival, so the room lands just
+      // under where the bar will sit.
+      const bar = (document.querySelector("[data-head]") as HTMLElement | null)?.offsetHeight ?? 0;
+      const target = () => {
+        const y = layoutY(room) - 12;
+        return Math.max(0, Math.min(y > bar ? y - bar : y, scrollMax()));
+      };
       const scroller = scrollTarget();
       scrollToY(target(), "smooth");
       let done = 0;
@@ -73,6 +83,7 @@ export function RoomScroll({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
         const off = target() - scrollTop();
         if (Math.abs(off) > 2) scrollToY(target(), "smooth");
         gliding.current = false;
+        arrive.current?.();
       };
       scroller.addEventListener("scrollend", end, { once: true });
       done = window.setTimeout(end, 1400); // no scrollend (older Safari, or nowhere to scroll)
