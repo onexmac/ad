@@ -1,22 +1,6 @@
-import type { Metadata, Viewport } from "next";
-import { editions } from "@/lib/noticss/editions";
-import { PaperB } from "@/components/noticss/PaperB";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Noticss — B",
-  // From the home screen, B runs up under the status bar (it fills it itself).
-  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Noticss" },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  viewportFit: "cover",
-  themeColor: "#14110e",
-  colorScheme: "light",
-};
-
+/* B is Noticss's front door now: an old /b link lands there. */
 export default function Page() {
-  return <PaperB editions={editions} />;
+  redirect("/kit/noticss");
 }
