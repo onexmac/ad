@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef } from "react";
 import { useVvvInset } from "@/components/vvv/inset";
-import { gateUp, leaveGate, passGate, subscribeGate } from "@/lib/axis-cube/gate";
+import { gateUp, leaveGate, passGate } from "@/lib/axis-cube/gate";
 import { LOADER_HTML } from "@/lib/axis-cube/loader";
 import { mountAxisCube } from "@/lib/axis-cube/scene";
 import { makeSound, type AxisSound } from "@/lib/axis-cube/sound";
@@ -65,9 +65,10 @@ function startOverIfNewer() {
  * The room is a vvv (docs/ux-playbook.md): a rounded frame on a black ground, clear of the status bar and of
  * whatever the browser keeps at the bottom: the short fit, vvs. It is a canvas and not a scrolling page, so the
  * frame is the app's own (its stylesheet) and where it sits is the Vvv component's own measuring.
- * On a phone, in a browser, the install screen comes first (lib/axis-cube/gate.ts): its markup is in the page as the
- * server sends it, shown or not by a class the page's inline script sets before the first paint. While it is up
- * the room is not built: the scene would take the main thread, and the button has to answer at once.
+ * On a phone a screen can come first (lib/axis-cube/gate.ts): the install screen in a browser the first time, the
+ * welcome on iOS every other time. Its markup is in the page as the server sends it, shown or not by a class the
+ * page's inline script sets before the first paint. The room is built behind it all the same and the loader waits
+ * for it to go, so after the tap the bar runs out quickly and the room comes in to its notes.
  * The sounds (lib/axis-cube/sound.js) belong to the page, not to the scene: the install screen's button is heard
  * too, and its tap is what wakes the audio, so the room that follows is not silent until a second touch.
  */
@@ -75,13 +76,19 @@ export function Stage({ look = "a" }: { look?: Look }) {
   const host = useRef<HTMLDivElement>(null);
   const loader = useRef<HTMLDivElement>(null);
   const inset = useVvvInset(GUTTER);
-  // on the server, and until the page has looked, the screen counts as up: nothing is built in the meantime
-  const gated = useSyncExternalStore(subscribeGate, gateUp, () => true);
   const voice = useRef<AxisSound | null>(null);
   useEffect(() => {
     const made = (voice.current = makeSound());
     return () => { made.dispose(); if (voice.current === made) voice.current = null; };
   }, []);
+  // The screen's button. Its tap is the touch that lets the page make sound. If the room is ready behind it, it comes
+  // in at once and its notes at the end of loading are the answer to the tap; if not, the tap gets a bolololip of
+  // its own and the end of loading its notes when it comes.
+  const tapOk = () => {
+    voice.current?.wake();
+    if (host.current?.dataset.room !== "ready") voice.current?.select();
+    passGate();
+  };
   useEffect(() => {
     // installed from the browser's own menu while the screen was up: there is nothing left to ask
     window.addEventListener("appinstalled", leaveGate);
@@ -93,8 +100,8 @@ export function Stage({ look = "a" }: { look?: Look }) {
     return startOverIfNewer();
   }, []);
   useEffect(
-    () => (host.current && !gated ? mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime, sound: voice.current ?? undefined }) : undefined),
-    [look, gated],
+    () => (host.current ? mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime, sound: voice.current ?? undefined, hold: gateUp }) : undefined),
+    [look],
   );
   return (
     <>
@@ -102,7 +109,7 @@ export function Stage({ look = "a" }: { look?: Look }) {
         <div ref={host} className="axis" style={{ top: inset.top, bottom: inset.bottom }} />
       </div>
       <div ref={loader} className="axis-loader" role="progressbar" aria-label="Cargando" dangerouslySetInnerHTML={{ __html: LOADER_HTML }} />
-      <div className="axis-gate" role="dialog" aria-label="Instalar The Cubes">
+      <div className="axis-gate" role="dialog" aria-label="The Cubes">
         {/* eslint-disable-next-line @next/next/no-img-element -- the app's own icon, as it is on the home screen */}
         <img className="mark" src="/kit/axis-cube/icon-512.png" alt="" width={512} height={512} draggable={false} />
         <p className="how ios">
@@ -114,9 +121,11 @@ export function Stage({ look = "a" }: { look?: Look }) {
         <p className="how android">
           <span>⋮ → Agregar a pantalla principal</span>
         </p>
-        <button type="button" className="ok" onClick={() => { voice.current?.wake(); voice.current?.select(); passGate(); }}>
+        <p className="how hello">The Cubes</p>
+        <button type="button" className="ok" onClick={tapOk}>
           <span className="listo">Listo</span>
           <span className="instalar">Instalar</span>
+          <span className="hola">OK</span>
         </button>
       </div>
     </>
