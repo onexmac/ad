@@ -29,7 +29,7 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
   - Seen from the side, its top runs back level and then down in one long arc to a round end, and its bottom lifts toward the back.
   - The shell rolls over the edge of the face as a lip.
 - The face and the band of speakers under it are cushions: rounded at the edges, a little domed.
-- The handle sits lower on the shell. ([#151](https://github.com/onexmac/ad/pull/151))
+- The handle sits lower on the shell. ([#150](https://github.com/onexmac/ad/pull/150))
 
 ## 0.6.25 · 2026-11-24 06:54
 
