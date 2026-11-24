@@ -13,7 +13,7 @@ const OUT = path.resolve(process.argv[2] ?? "axis-cube-artifact");
 fs.mkdirSync(OUT, { recursive: true });
 const css = fs.readFileSync(path.join(ROOT, "app/(axis-cube)/kit/axis-cube/globals.css"), "utf8");
 
-const page = `<title>Axis Cube Loader</title>
+const page = `<title>The Cubes Loader</title>
 <meta name="theme-color" content="#000000">
 <style>
 ${css.replace(/<\/style/g, "<\\/style")}

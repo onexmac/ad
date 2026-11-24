@@ -1,4 +1,4 @@
-# Axis Cube textures: credits
+# The Cubes textures: credits
 
 The surface textures (`*_diff`, `*_nor`, `*_rough`) are CC0 scans from Poly Haven.
 

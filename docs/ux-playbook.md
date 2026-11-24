@@ -312,7 +312,7 @@ section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
 | Bottom | above Safari's bar, rounded | same |
 | Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
 
-Pads uses vvs. Noticss B (`/kit/noticss/b`) uses vvt: like Axis Cube it lays
+Pads uses vvs. Noticss B (`/kit/noticss/b`) uses vvt: like The Cubes it lays
 its own frame (`useVvvInset`), and an open page fills that frame, its top
 corners going square as it opens and its bottom ones the frame's (44 px, the
 same as a card's).
@@ -382,7 +382,7 @@ same as a card's).
 | Snap | mandatory, a stop per block |
 | Grow | from 0.94, 18 px, opacity 0.35, `GROW_SPRING` |
 
-### A page that doesn't scroll (Axis Cube)
+### A page that doesn't scroll (The Cubes, `/kit/axis-cube`)
 
 A canvas has nothing to scroll, so it doesn't take the `Vvv` scroller. It lays
 the same two boxes in its own stylesheet (a black ground `100lvh` tall, and

@@ -1,4 +1,4 @@
-// Axis Cube keeps itself on the device: the page with its loading screen, its styles and scripts, and the room's
+// The Cubes keeps itself on the device: the page with its loading screen, its styles and scripts, and the room's
 // photographs. Opened from the home screen it starts from here, without waiting for the network.
 //
 // This file sits beside the app's folder, not inside it, so that its scope can be "/kit/axis-cube": the app's own
