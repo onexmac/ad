@@ -191,6 +191,7 @@ export function IndexScreen({ items, franchises }: { items: Item[]; franchises: 
                       flightKey={key}
                       away={opener.isAway(key)}
                       onOpen={(from) => opener.open(item.id, { key, ...from }, "b")}
+                      like={item.mock ? undefined : item}
                     />
                   </div>
                   <button type="button" className="mt-5 block text-left" onClick={() => opener.openFromKey(item.id, key, "b")}>

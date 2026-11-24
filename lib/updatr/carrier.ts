@@ -65,7 +65,9 @@ export class Carrier {
   readonly home: HTMLElement;
   rect: Rect;
   private box: HTMLDivElement | null = null;
+  private dx = 0;
   private dy = 0;
+  private rot = 0;
   private s = 1;
   private o = 1;
   private area: Rect | null = null;
@@ -104,7 +106,9 @@ export class Carrier {
     // Keep the look it had where it was: a dimmed tile starts dimmed.
     this.o = fromHome ? this.homeOpacity() : 1;
     this.box.appendChild(this.piece);
+    this.dx = 0;
     this.dy = 0;
+    this.rot = 0;
     this.s = 1;
     this.area = null;
     this.place(at);
@@ -112,6 +116,11 @@ export class Carrier {
 
   get flying() {
     return !!this.box;
+  }
+
+  /** The flight box, while there is one (a locked picture puts its keys in it). */
+  get el(): HTMLElement | null {
+    return this.box;
   }
 
   /** Where the picture may show right now (null: anywhere), outside a flight. */
@@ -125,9 +134,11 @@ export class Carrier {
     this.paint();
   }
 
-  /** Extra offset and scale from a finger, on top of the rect. */
-  nudge(dy: number, scale: number) {
+  /** Extra offset, tilt (degrees) and scale from a finger, on top of the rect. */
+  nudge(dy: number, scale: number, dx = 0, rot = 0) {
+    this.dx = dx;
     this.dy = dy;
+    this.rot = rot;
     this.s = scale;
     this.paint();
   }
@@ -139,7 +150,9 @@ export class Carrier {
     this.box.style.clipPath = "";
     this.place(rectOf(this.box));
     this.box.style.clipPath = prev;
+    this.dx = 0;
     this.dy = 0;
+    this.rot = 0;
     this.s = 1;
     this.paint();
     return this.rect;
@@ -155,17 +168,18 @@ export class Carrier {
     const r = this.rect;
     b.style.width = `${Math.max(1, r.w)}px`;
     b.style.height = `${Math.max(1, r.h)}px`;
-    b.style.transform = `translate3d(${r.x}px, ${r.y + this.dy}px, 0) scale(${this.s})`;
+    b.style.transform = `translate3d(${r.x + this.dx}px, ${r.y + this.dy}px, 0)${this.rot ? ` rotate(${this.rot}deg)` : ""} scale(${this.s})`;
     b.style.opacity = this.o >= 0.999 ? "" : String(this.o);
     const a = this.area;
     if (!a) {
       b.style.clipPath = "";
       return;
     }
+    const x = r.x + this.dx;
     const y = r.y + this.dy;
     const top = Math.max(0, a.y - y);
-    const left = Math.max(0, a.x - r.x);
-    const right = Math.max(0, r.x + r.w - (a.x + a.w));
+    const left = Math.max(0, a.x - x);
+    const right = Math.max(0, x + r.w - (a.x + a.w));
     const bottom = Math.max(0, y + r.h - (a.y + a.h));
     b.style.clipPath =
       top || left || right || bottom ? `inset(${top}px ${right}px ${bottom}px ${left}px)` : "";
