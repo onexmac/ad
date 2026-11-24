@@ -45,6 +45,10 @@
   Springs and haptics: `lib/histok/springs.ts`, `lib/histok/haptic.ts`;
   Updatr's gesture pieces: `lib/updatr/flight.ts`, `lib/updatr/carrier.ts`,
   `components/updatr/` (`Detail`, `HoldImage`, `SnapStrip`, `BottomBar`).
+- **vvv** = vintage vignette viewport: the page as a rounded frame on a black
+  screen, scrolling inside itself, black beyond (status bar, Safari's bar,
+  corners, bounce). Use `components/vvv/Vvv.tsx`; how-to and don'ts in
+  `docs/ux-playbook.md` ("vvv"). When Marcos says vvv, this is it.
 - Look: forced light mode, tokens in `app/globals.css` (ground, card, ink,
   brand). Reuse them; do not add inline colours.
 - Nested radii: a container's corner radius is always bigger than the radius

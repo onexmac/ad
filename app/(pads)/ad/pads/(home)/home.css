@@ -85,5 +85,3 @@ body {
   transition-duration: 90ms;
 }
 
-.no-scrollbar { scrollbar-width: none; }
-.no-scrollbar::-webkit-scrollbar { display: none; }
