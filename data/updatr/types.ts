@@ -31,6 +31,11 @@ export type Item = {
   image?: string;
   /** True for placeholder entries invented for the prototype. */
   mock?: boolean;
+  /** 3 changes what the reader does this week, 2 worth knowing, 1 context. */
+  importance?: number;
+  tags?: string[];
+  /** Picked by the reader's taste from the suggestion pool or an earlier week. */
+  suggested?: { reason: string | null; week?: number };
 };
 
 export const kindLabel: Record<Kind, string> = {
