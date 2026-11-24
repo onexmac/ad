@@ -400,6 +400,12 @@ doesn't load the scroller or its animation library. Two things to carry over:
   The frame's full radius on a key inset from it bulges past the frame's
   line; the key's small radius leaves a square corner under a round one.
   Draw the frame's curve inward (rule 7).
+- **Don't clip a corner key's outline.** A key's dark ring and the shadow
+  under it sit just outside the key. If its wrapper clips (a fold-away
+  wrapper with `overflow: hidden`), the ring vanishes on the straight edges
+  and survives only along the big corner curve, where the box leaves room:
+  a stroke of uneven width. Give the wrapper a few px of padding around the
+  key and take them back with a negative margin (Puncheo's Footer: 3 px).
 - **Don't make beyond the frame anything but black.** Marcos: "vvv se queda
   en negro". A dark grey there once lost the vignette. Colour the frame's
   surface instead, and keep `themeColor` and the `html` background black, or
