@@ -1,0 +1,1273 @@
+{
+  "schemaVersion": 6,
+  "date": "2026-11-24",
+  "slot": "tarde",
+  "number": 5,
+  "generatedAt": "2026-11-24T21:38:16.819Z",
+  "isSample": false,
+  "weather": {
+    "place": "Cartago",
+    "tempC": 23,
+    "maxC": 26,
+    "minC": 13,
+    "code": 1,
+    "condition": "mayormente despejado",
+    "glyph": "sun",
+    "cloudCover": 48,
+    "rainProb": 60,
+    "sunrise": "05:33",
+    "sunset": "17:11",
+    "rainHours": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      16,
+      39,
+      55,
+      60,
+      59,
+      53,
+      38,
+      18,
+      4,
+      1,
+      2
+    ],
+    "sky": [
+      "#204474",
+      "#4e74a4",
+      "#8ca5c1",
+      "#d5cbbc",
+      "#edc79c"
+    ],
+    "source": {
+      "name": "Open-Meteo",
+      "url": "https://open-meteo.com/"
+    }
+  },
+  "indicators": [
+    {
+      "id": "usd_crc",
+      "label": "Dólar",
+      "value": "₡446,17",
+      "delta": null,
+      "unit": "CRC",
+      "note": "venta · BCCR",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "tba",
+      "label": "Tasa Básica",
+      "value": "3,56 %",
+      "delta": 0.01,
+      "unit": "%",
+      "note": "BCCR",
+      "series": [
+        3.55,
+        3.56
+      ],
+      "seriesNote": "BCCR: valor anterior y vigente desde el 12/11/2026"
+    },
+    {
+      "id": "contenedor",
+      "label": "Contenedor",
+      "value": "US$4.176",
+      "delta": null,
+      "unit": "USD/40ft",
+      "note": "Drewry WCI",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "cemento",
+      "label": "Cemento",
+      "value": null,
+      "delta": null,
+      "unit": "índice",
+      "note": "INEC",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "acero",
+      "label": "Varilla",
+      "value": null,
+      "delta": null,
+      "unit": "índice",
+      "note": "INEC",
+      "series": null,
+      "seriesNote": null
+    }
+  ],
+  "subjects": [
+    {
+      "id": "ormuz-petroleo-fletes",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 2,
+      "title": "El Brent se da vuelta y cierra arriba de US$91 por nuevos ataques en Ormuz",
+      "synopsis": "El Brent empezó el día cerca de mínimos de tres meses y cerró en US$91,40 tras nuevos ataques a petroleros en Ormuz. Para quien mueve agregados y concreto con diésel, el precio sigue dentro del rango de US$90 a US$110 que Recope previó, así que la rebaja de hasta ₡103 por litro para diciembre no debería cambiar por un solo día. Hay que vigilar la resolución de Aresep y si el Brent se sostiene arriba de US$90.",
+      "image": {
+        "url": "https://www.euribor.com.es/wp-content/uploads/2026/11/el-petroleo-cae-pese-a-los-petroleros-en.webp",
+        "color": "https://www.euribor.com.es/wp-content/uploads/2026/11/el-petroleo-cae-pese-a-los-petroleros-en.webp",
+        "alt": "El Brent se da vuelta y cierra arriba de US$91 por nuevos ataques en Ormuz",
+        "credit": "Euribor.com.es (Reuters)"
+      },
+      "snippets": [
+        {
+          "id": "ormuz-petroleo-fletes-cierre",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-11-24",
+          "headline": "Brent cierra en US$91,40",
+          "body": "El Brent para enero subió 2,27% y cerró en US$91,40, frente a US$89,37 del cierre anterior, tras nuevos ataques a petroleros en el estrecho de Ormuz.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "petróleo",
+            "brent",
+            "ormuz"
+          ],
+          "source": {
+            "name": "EFE vía Infobae",
+            "url": "https://www.infobae.com/america/agencias/2026/11/24/el-brent-sube-mas-de-2-y-supera-los-91-dolares-tras-nuevos-ataques-a-buques-en-ormuz/"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-manana",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "La mañana fue a la baja",
+          "body": "A las 8:00 de Europa central el Brent estaba en US$89,11, en su segunda caída seguida, por la vuelta de Libia a exportar y el aumento de existencias.",
+          "why": "El titular de la mañana se invirtió en la misma sesión.",
+          "image": null,
+          "tags": [
+            "petróleo",
+            "brent"
+          ],
+          "source": {
+            "name": "Euribor.com.es (Reuters)",
+            "url": "https://www.euribor.com.es/2026/11/24/precio-petroleo-hoy-24-noviembre-2026/"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-rebaja",
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-11-20",
+          "headline": "Rebaja de hasta ₡103 por litro, pendiente",
+          "body": "Recope pidió a Aresep una rebaja de hasta ₡103 por litro en los combustibles para diciembre. Todavía no está aprobada.",
+          "why": null,
+          "image": {
+            "url": "https://www.infobae.com/resizer/v2/OTT4GJXJQFBBVKQMBZHKJCB7KI.jpg?auth=5b6936e5ca8e15a1a387400f1d38a06d4630d358e1bb41e76720dc51eba602c7&smart=true&width=1200&height=630&quality=85",
+            "color": "https://www.infobae.com/resizer/v2/OTT4GJXJQFBBVKQMBZHKJCB7KI.jpg?auth=5b6936e5ca8e15a1a387400f1d38a06d4630d358e1bb41e76720dc51eba602c7&smart=true&width=1200&height=630&quality=85",
+            "alt": "Rebaja de hasta ₡103 por litro, pendiente",
+            "credit": "Infobae"
+          },
+          "tags": [
+            "combustibles",
+            "recope",
+            "aresep"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/20/gobierno-de-costa-rica-confirma-propuesta-de-rebaja-de-hasta-103-usd-022-por-litro-en-los-combustibles-para-diciembre/"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-rango",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-10",
+          "headline": "Recope preveía US$90 a US$110",
+          "body": "Recope esperaba precios internacionales de entre US$90 y US$110 por barril en las semanas siguientes.",
+          "why": "Con el Brent en US$91, el cierre de hoy cae dentro de lo previsto.",
+          "image": {
+            "url": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2026/11/1502017-87de2e92238315ef7d9dd290244793163c4a6e4a1e9f405812703e1dbdd13f7a.jpg",
+            "color": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2026/11/1502017-87de2e92238315ef7d9dd290244793163c4a6e4a1e9f405812703e1dbdd13f7a.jpg",
+            "alt": "Recope preveía US$90 a US$110",
+            "credit": "Diario Extra"
+          },
+          "tags": [
+            "recope",
+            "petróleo"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/noticia/autoridades-descartan-que-litro-de-combustible-llegue-a-%C2%A21-000/"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-diesel",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-10",
+          "headline": "Diésel sube ₡259 en 2026",
+          "body": "El litro de diésel pasó de ₡549 a ₡807 en lo que va de 2026.",
+          "why": "Es el insumo que más pesa en el acarreo de agregados y concreto.",
+          "image": {
+            "url": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2026/11/1502017-87de2e92238315ef7d9dd290244793163c4a6e4a1e9f405812703e1dbdd13f7a.jpg",
+            "color": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2026/11/1502017-87de2e92238315ef7d9dd290244793163c4a6e4a1e9f405812703e1dbdd13f7a.jpg",
+            "alt": "Diésel sube ₡259 en 2026",
+            "credit": "Diario Extra"
+          },
+          "tags": [
+            "diésel",
+            "insumos"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/noticia/autoridades-descartan-que-litro-de-combustible-llegue-a-%C2%A21-000/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "presupuesto-extraordinario-sala-iv",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Sala IV congela el segundo debate del presupuesto extraordinario 2026",
+      "synopsis": "La Sala IV prohibió votar en segundo debate el presupuesto extraordinario 2026, que recorta ₡8.048 millones a universidades, antes del 26 de noviembre, día en que vence el plazo. En las fuentes no aparecen partidas de vivienda ni obra pública afectadas, pero el choque entre Sala y Congreso abarca dos presupuestos a la vez. Fechas a vigilar: jueves 26 para el extraordinario y domingo 29 para el presupuesto 2027.",
+      "image": {
+        "url": "https://teletica-static.ray.media/Files/Sizes/2025/9/24/sala-constitucional_35405246_760x520.png",
+        "color": "https://teletica-static.ray.media/Files/Sizes/2025/9/24/sala-constitucional_35405246_760x520.png",
+        "alt": "Sala IV congela el segundo debate del presupuesto extraordinario 2026",
+        "credit": "Teletica"
+      },
+      "snippets": [
+        {
+          "id": "presupuesto-extraordinario-sala-iv-cautelar",
+          "kind": "event",
+          "importance": 3,
+          "published": "2026-11-24",
+          "headline": "Cautelar del magistrado Cruz",
+          "body": "El magistrado Fernando Cruz concedió una medida cautelar pedida por diputados de oposición que frena la aprobación definitiva del presupuesto extraordinario.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "sala iv",
+            "presupuesto"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/amp/politica/sala-iv-frena-en-seco-discusion-y-aprobacion-definitiva-de-recortes-a-presupuesto-de-2026_421739"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-sala-iv-plazo",
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-11-24",
+          "headline": "No antes del 26 de noviembre",
+          "body": "La resolución ordena no discutir ni aprobar en segundo debate el expediente 25.803 antes del 26 de noviembre, el mismo día en que vence el plazo reglamentario. La Sala aún no lo declara inconstitucional.",
+          "why": "Deja al Congreso sin margen para votarlo dentro del plazo.",
+          "image": {
+            "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1511411-0105c0d63fa11082b15aaeb748622fd57d6e52f96383ebef88a63a0e09644e58.jpg",
+            "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1511411-0105c0d63fa11082b15aaeb748622fd57d6e52f96383ebef88a63a0e09644e58.jpg",
+            "alt": "No antes del 26 de noviembre",
+            "credit": "Diario Extra"
+          },
+          "tags": [
+            "sala iv",
+            "plazos"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/noticia/sala-iv-frena-segundo-debate-de-presupuesto-extraordinario-por-recorte-al-fees/"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-sala-iv-pln",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "13 diputados del PLN",
+          "body": "La medida la pidieron 13 diputados del PLN, por el recorte de ₡8.048 millones a las universidades. Yara Jiménez dijo que esperará el fallo completo.",
+          "why": null,
+          "image": {
+            "url": "https://elmundo.cr/wp-content/uploads/2024/11/Sala-Constitucional-Sala-IV-0811-1.jpg",
+            "color": "https://elmundo.cr/wp-content/uploads/2024/11/Sala-Constitucional-Sala-IV-0811-1.jpg",
+            "alt": "13 diputados del PLN",
+            "credit": "El Mundo"
+          },
+          "tags": [
+            "pln",
+            "universidades"
+          ],
+          "source": {
+            "name": "El Mundo",
+            "url": "https://elmundo.cr/costa-rica/sala-iv-frena-votacion-del-presupuesto-extraordinario-2026-por-recorte-de-%E2%82%A18-048-millones-a-universidades/"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-sala-iv-cuido",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-13",
+          "headline": "₡991 millones para licencias de cuido",
+          "body": "Hacienda dijo que ₡991 millones del programa de licencias de cuido dependen de este presupuesto extraordinario.",
+          "why": null,
+          "image": {
+            "url": "https://teletica-static.ray.media/Files/Sizes/2026/11/13/licencias-de-cuido-de-la-ccss-se-financiarn-con-presupuesto-extr_788814091_760x520.jpg",
+            "color": "https://teletica-static.ray.media/Files/Sizes/2026/11/13/licencias-de-cuido-de-la-ccss-se-financiarn-con-presupuesto-extr_788814091_760x520.jpg",
+            "alt": "₡991 millones para licencias de cuido",
+            "credit": "Teletica"
+          },
+          "tags": [
+            "hacienda",
+            "presupuesto"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/salud/hacienda-fondos-para-licencias-de-cuido-dependen-de-segundo-presupuesto-extraordinario_421103"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-sala-iv-2027",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-10",
+          "headline": "Presupuesto 2027, no antes del 29",
+          "body": "La Sala prohibió votar en definitiva el presupuesto 2027 antes del 29 de noviembre.",
+          "why": null,
+          "image": {
+            "url": "https://www.infobae.com/resizer/v2/GEX5CO3RHVCNTF6FMXOQITY5EE.jpg?auth=88895cf6435b3f462e39c5465d8f825e0483c6dbad04f9a7300676fe797b66ed&smart=true&width=1200&height=630&quality=85",
+            "color": "https://www.infobae.com/resizer/v2/GEX5CO3RHVCNTF6FMXOQITY5EE.jpg?auth=88895cf6435b3f462e39c5465d8f825e0483c6dbad04f9a7300676fe797b66ed&smart=true&width=1200&height=630&quality=85",
+            "alt": "Presupuesto 2027, no antes del 29",
+            "credit": "Infobae"
+          },
+          "tags": [
+            "presupuesto 2027",
+            "sala iv"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/10/sala-constitucional-frena-aprobacion-del-presupuesto-2027-en-costa-rica-y-prohibe-a-diputados-votarlo-antes-del-29-de-noviembre/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reforma-contraloria",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Contraloría rechaza reforma que limita sus poderes; necesitará 38 votos",
+      "synopsis": "La Contraloría se opuso al expediente 25.722, que le quita el control de eficiencia, y la Corte Plena concluyó que el proyecto necesitará 38 votos. Para quien desarrolla con fondos públicos, como bono de vivienda, la reforma impediría que una investigación de la CGR suspenda contratos sin orden judicial. Hay que vigilar si el oficialismo, que sumó 31 votos en el presupuesto, consigue apoyo opositor.",
+      "image": {
+        "url": "https://img.delfino.cr/wp-content/uploads/2026/06/Rodrigo-Chaves-Laura-Fernandez-Delgado-030626-scaled-e1780896181760.jpg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2026/06/Rodrigo-Chaves-Laura-Fernandez-Delgado-030626-scaled-e1780896181760.jpg?w=1536",
+        "alt": "Contraloría rechaza reforma que limita sus poderes; necesitará 38 votos",
+        "credit": "Delfino"
+      },
+      "snippets": [
+        {
+          "id": "reforma-contraloria-rechazo",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "CGR advierte vicios de inconstitucionalidad",
+          "body": "La Contraloría dice que el expediente 25.722 repite restricciones que la Sala IV ya declaró inconstitucionales en la llamada ley jaguar.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "contraloría",
+            "ley jaguar"
+          ],
+          "source": {
+            "name": "Delfino",
+            "url": "https://delfino.cr/2026/11/contraloria-rechaza-proyecto-25-722-y-advierte-vicios-de-inconstitucionalidad-similares-a-las-leyes-jaguar"
+          }
+        },
+        {
+          "id": "reforma-contraloria-38-votos",
+          "kind": "event",
+          "importance": 3,
+          "published": "2026-11-23",
+          "headline": "Corte Plena exige 38 votos",
+          "body": "Diez magistrados se apartaron del informe de la magistrada Iris Rocío Rojas y concluyeron que el proyecto afecta al Poder Judicial.",
+          "why": null,
+          "image": {
+            "url": "https://www.nacion.com/resizer/v2/MSR6XX5F3JHP7HZSPV5ACJ6NRI.JPG?smart=true&auth=cce8f514394ff2036ad3f0b512d70f2f75866248158b8b28ad28d0380523fdf5&width=1440",
+            "color": "https://www.nacion.com/resizer/v2/MSR6XX5F3JHP7HZSPV5ACJ6NRI.JPG?smart=true&auth=cce8f514394ff2036ad3f0b512d70f2f75866248158b8b28ad28d0380523fdf5&width=1440",
+            "alt": "Corte Plena exige 38 votos",
+            "credit": "La Nación"
+          },
+          "tags": [
+            "corte plena",
+            "votación"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/politica/corte-plena-contradice-a-magistrada-y-concluye-que/6U3ZAPS5DZHT7PRZO3LWO6E5A4/story/"
+          }
+        },
+        {
+          "id": "reforma-contraloria-contratos",
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-11-24",
+          "headline": "Contratos solo se suspenden con orden judicial",
+          "body": "El proyecto prohíbe que una investigación de la CGR suspenda actos o contratos del Estado, salvo por orden judicial.",
+          "why": "Cambia el riesgo de que un contrato con fondos públicos quede detenido.",
+          "image": {
+            "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1510942-fe829f99d709d6b11b0e24c21077adf824a2795008aa317bd0b975e781320f11.jpg",
+            "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1510942-fe829f99d709d6b11b0e24c21077adf824a2795008aa317bd0b975e781320f11.jpg",
+            "alt": "Contratos solo se suspenden con orden judicial",
+            "credit": "Diario Extra"
+          },
+          "tags": [
+            "contratación pública",
+            "contraloría"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/noticia/reforma-a-la-contraloria-necesitara-el-apoyo-de-38-diputados/"
+          }
+        },
+        {
+          "id": "reforma-contraloria-referencia",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-05",
+          "headline": "Presupuesto 2027 pasó 31 a 23",
+          "body": "El presupuesto 2027 se aprobó en primer debate con 31 votos a favor y 23 en contra.",
+          "why": "Si 31 refleja la fuerza oficialista, faltarían siete votos de oposición.",
+          "image": {
+            "url": "https://teletica-static.ray.media/Files/Sizes/2026/11/4/discusin-de-presupuesto-nacional_1630563138_760x520.JPG",
+            "color": "https://teletica-static.ray.media/Files/Sizes/2026/11/4/discusin-de-presupuesto-nacional_1630563138_760x520.JPG",
+            "alt": "Presupuesto 2027 pasó 31 a 23",
+            "credit": "Teletica"
+          },
+          "tags": [
+            "votación",
+            "asamblea"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/politica/congreso-aprueba-presupuesto-de-2027-con-recortes-al-poder-judicial-y-universidades_420483"
+          }
+        }
+      ]
+    },
+    {
+      "id": "deuda-vencimientos-2027-2031",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "El 43% de la deuda del Gobierno vence entre 2027 y 2031",
+      "synopsis": "Según CEFSA, ₡21,9 billones del servicio de la deuda, el 43%, vencen entre 2027 y 2031, con picos en 2028-2030 y dos tercios en colones. Si Hacienda sale a buscar más colones, compite con el crédito privado, incluido el hipotecario que financia la venta de vivienda. Hay que vigilar las subastas de Hacienda y la Tasa Básica Pasiva en 2027.",
+      "image": {
+        "url": "https://images.hoy.cr/wp-content/uploads/2025/09/Deuda-publica.jpeg",
+        "color": "https://images.hoy.cr/wp-content/uploads/2025/09/Deuda-publica.jpeg",
+        "alt": "El 43% de la deuda del Gobierno vence entre 2027 y 2031",
+        "credit": "CrHoy"
+      },
+      "snippets": [
+        {
+          "id": "deuda-vencimientos-2027-2031-monto",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-11-24",
+          "headline": "₡21,9 billones en cinco años",
+          "body": "El 43% del servicio de la deuda se concentra en 2027-2031, unos ₡4,4 billones por año; los años más pesados son 2028, 2029 y 2030.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "deuda",
+            "hacienda"
+          ],
+          "source": {
+            "name": "CrHoy",
+            "url": "https://crhoy.com/economia/gobierno-debe-enfrentar-43-de-su-deuda-en-los-proximos-cinco-anos/"
+          }
+        },
+        {
+          "id": "deuda-vencimientos-2027-2031-colones",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "66% se paga en colones",
+          "body": "Dos tercios de los vencimientos son en colones, según datos a septiembre de 2026.",
+          "why": "Más demanda de colones por parte de Hacienda presiona las tasas locales.",
+          "image": null,
+          "tags": [
+            "deuda",
+            "tasas"
+          ],
+          "source": {
+            "name": "CrHoy",
+            "url": "https://crhoy.com/economia/gobierno-debe-enfrentar-43-de-su-deuda-en-los-proximos-cinco-anos/"
+          }
+        },
+        {
+          "id": "deuda-vencimientos-2027-2031-ratios",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Déficit 3,7%, deuda 61,3% del PIB",
+          "body": "El déficit financiero está en 3,7% del PIB y la deuda en 61,3% del PIB.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "déficit",
+            "deuda"
+          ],
+          "source": {
+            "name": "CrHoy",
+            "url": "https://crhoy.com/economia/gobierno-debe-enfrentar-43-de-su-deuda-en-los-proximos-cinco-anos/"
+          }
+        },
+        {
+          "id": "deuda-vencimientos-2027-2031-ortiz",
+          "kind": "quote",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "\"Presión al mercado local\"",
+          "body": "El economista Daniel Ortiz, de CEFSA, advierte que esos vencimientos \"trasladarán la presión al mercado local\".",
+          "why": null,
+          "image": null,
+          "tags": [
+            "deuda",
+            "crédito"
+          ],
+          "source": {
+            "name": "CrHoy",
+            "url": "https://crhoy.com/economia/gobierno-debe-enfrentar-43-de-su-deuda-en-los-proximos-cinco-anos/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ley-plataformas-uber",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Qué dice el proyecto para regular Uber",
+      "synopsis": "El trámite no cambió, pero se conoció el detalle del proyecto: rentabilidad mínima por kilómetro, autorización del Cosevi, criterio del MICITT y restricciones en aeropuertos. Para una constructora en Cartago el efecto es indirecto, en el costo de traslado de personal y clientes si las tarifas suben como advierte Uber. Hay que vigilar si avanza en comisión.",
+      "image": {
+        "url": "https://www.elfinancierocr.com/resizer/v2/6WC4DXEWRRCZ3F6FKMEISL3UQM.jpg?smart=true&auth=fcb899b85a7b8b7e0bd29b44b416ffb32bb028cc144fa28a45f811c94fa4b4e6&width=1440",
+        "color": "https://www.elfinancierocr.com/resizer/v2/6WC4DXEWRRCZ3F6FKMEISL3UQM.jpg?smart=true&auth=fcb899b85a7b8b7e0bd29b44b416ffb32bb028cc144fa28a45f811c94fa4b4e6&width=1440",
+        "alt": "Qué dice el proyecto para regular Uber",
+        "credit": "El Financiero"
+      },
+      "snippets": [
+        {
+          "id": "ley-plataformas-uber-detalle",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "Rentabilidad mínima por kilómetro",
+          "body": "El proyecto fija una rentabilidad bruta mínima por kilómetro para conductores y restricciones en aeropuertos y terminales.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "uber",
+            "plataformas"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/que-dice-el-proyecto-de-ley-para-regular-uber-que/5J7PC2WHPJHBLH2HI7IOUBIHZQ/story/"
+          }
+        },
+        {
+          "id": "ley-plataformas-uber-permisos",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Cosevi autoriza, MICITT opina",
+          "body": "Las plataformas necesitarían autorización del Cosevi y un criterio técnico del MICITT.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cosevi",
+            "micitt"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/que-dice-el-proyecto-de-ley-para-regular-uber-que/5J7PC2WHPJHBLH2HI7IOUBIHZQ/story/"
+          }
+        },
+        {
+          "id": "ley-plataformas-uber-usuarios",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "2 millones de usuarios",
+          "body": "Uber dice que 2 millones de personas usaron la plataforma en el último año y advierte que el proyecto duplicaría las tarifas.",
+          "why": null,
+          "image": {
+            "url": "https://acontecer.co.cr/wp-content/uploads/2026/11/panel_investigada_1795491319152.webp",
+            "color": "https://acontecer.co.cr/wp-content/uploads/2026/11/panel_investigada_1795491319152.webp",
+            "alt": "2 millones de usuarios",
+            "credit": "Acontecer"
+          },
+          "tags": [
+            "uber",
+            "tarifas"
+          ],
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/economia/uber-advierte-proyecto-ley-duplicaria-tarifas-costa-rica"
+          }
+        }
+      ]
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "gabinete-renuncias",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Renuncia la viceministra de Comex: van 10 salidas del gabinete",
+      "synopsis": "Renunció la viceministra de Comercio Exterior, Arianna Arce, y suman 10 las salidas del gabinete. La inestabilidad en Comex, tras archivar el ingreso al Acuerdo Transpacífico, pesa en la política comercial que define el costo de insumos importados. Hay que vigilar quién asume y si cambia la agenda comercial.",
+      "image": {
+        "url": "https://www.lateja.cr/resizer/v2/QSH7PMG7RZEQTIPTPS47W7N3QI.png?smart=true&auth=2bef6b875d2d21f749e4d70da1cbca1553c4b3ae537a6a12495b61b383b8e574&width=1440",
+        "color": "https://www.lateja.cr/resizer/v2/QSH7PMG7RZEQTIPTPS47W7N3QI.png?smart=true&auth=2bef6b875d2d21f749e4d70da1cbca1553c4b3ae537a6a12495b61b383b8e574&width=1440",
+        "alt": "Renuncia la viceministra de Comex: van 10 salidas del gabinete",
+        "credit": "La Teja"
+      },
+      "snippets": [
+        {
+          "id": "gabinete-renuncias-arce",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "Sale Arianna Arce",
+          "body": "La viceministra de Comex, Arianna Arce, renunció; con ella son 10 las salidas del gabinete.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "gabinete",
+            "comex"
+          ],
+          "source": {
+            "name": "La Teja",
+            "url": "https://lateja.cr/nacional/viceministra-de-comercio-exterior-renuncia-y-se/XANF2UR6ENGWXKGGSOTBPFMBVM/story"
+          }
+        },
+        {
+          "id": "gabinete-renuncias-cptpp",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-10-28",
+          "headline": "Acuerdo Transpacífico archivado",
+          "body": "El Gobierno había despedido a la ministra de Comex y rechazado el ingreso al Acuerdo Transpacífico.",
+          "why": null,
+          "image": {
+            "url": "https://img.delfino.cr/wp-content/uploads/2026/05/Indiana-Trejos-Gallo-scaled.jpg?w=1536",
+            "color": "https://img.delfino.cr/wp-content/uploads/2026/05/Indiana-Trejos-Gallo-scaled.jpg?w=1536",
+            "alt": "Acuerdo Transpacífico archivado",
+            "credit": "Delfino"
+          },
+          "tags": [
+            "cptpp",
+            "comercio"
+          ],
+          "source": {
+            "name": "Delfino",
+            "url": "https://delfino.cr/2026/10/laura-fernandez-despide-a-ministra-del-comex-y-rechaza-ingreso-de-costa-rica-al-acuerdo-transpacifico"
+          }
+        }
+      ]
+    },
+    {
+      "id": "defensoria-comision",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Comisión especial sobre la defensora Angie Cruickshank",
+      "synopsis": "Yara Jiménez integró una comisión especial sobre la defensora Angie Cruickshank, con mayoría oficialista. Es otra señal de la tensión entre el oficialismo y las instituciones de control, que afecta la previsibilidad institucional. Hay que vigilar si avanza la destitución.",
+      "image": {
+        "url": "https://www.larepublica.net/media-library/image.png?id=68758838&width=1200&height=600&coordinates=0%2C14%2C0%2C14",
+        "color": "https://www.larepublica.net/media-library/image.png?id=68758838&width=1200&height=600&coordinates=0%2C14%2C0%2C14",
+        "alt": "Comisión especial sobre la defensora Angie Cruickshank",
+        "credit": "La República"
+      },
+      "snippets": [
+        {
+          "id": "defensoria-comision-integracion",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Tres oficialistas, una PLN, una FA",
+          "body": "La comisión la integran tres diputadas oficialistas, una del PLN y una del Frente Amplio.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "defensoría",
+            "asamblea"
+          ],
+          "source": {
+            "name": "La República",
+            "url": "https://larepublica.net/pueblo-soberano-avanza-con-plan-para-destituir-a-defensora-angie-cruickshank"
+          }
+        },
+        {
+          "id": "defensoria-comision-destitucion",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Plan para destituir",
+          "body": "Pueblo Soberano avanza con su plan para destituir a la defensora.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "pueblo soberano",
+            "defensoría"
+          ],
+          "source": {
+            "name": "La República",
+            "url": "https://larepublica.net/pueblo-soberano-avanza-con-plan-para-destituir-a-defensora-angie-cruickshank"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bccr-proyecciones",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "BCCR prevé crecer 3,3% en 2027 y mantiene la TPM en 3%",
+      "synopsis": "El Banco Central proyecta crecimiento de 3,2% en 2026, 3,3% en 2027 y 3,6% en 2028, con la tasa de política en 3%. Un crecimiento moderado y tasas estables sostienen la demanda de vivienda y el costo del crédito hipotecario. Hay que vigilar la advertencia sobre más inflación.",
+      "image": {
+        "url": "https://www.infobae.com/resizer/v2/CTHIVLLOF5BBXFXAYLOX4XJEIQ.png?auth=5cb3cc612db3e99f41f768d2dbe0d7b242af7fcbdc28d0a7742c97941eeac696&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/CTHIVLLOF5BBXFXAYLOX4XJEIQ.png?auth=5cb3cc612db3e99f41f768d2dbe0d7b242af7fcbdc28d0a7742c97941eeac696&smart=true&width=1200&height=630&quality=85",
+        "alt": "BCCR prevé crecer 3,3% en 2027 y mantiene la TPM en 3%",
+        "credit": "Infobae"
+      },
+      "snippets": [
+        {
+          "id": "bccr-proyecciones-crecimiento",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "3,2%, 3,3% y 3,6%",
+          "body": "El BCCR proyecta crecimiento de 3,2% en 2026, 3,3% en 2027 y 3,6% en 2028.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "bccr",
+            "crecimiento"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/21/banco-central-preve-que-economia-de-costa-rica-crezca-un-33-en-2027-y-advierte-sobre-aumento-de-la-inflacion/"
+          }
+        },
+        {
+          "id": "bccr-proyecciones-tpm",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "TPM sigue en 3%",
+          "body": "La tasa de política monetaria se mantiene en 3%, mientras el banco advierte un aumento de la inflación.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "tpm",
+            "inflación"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/21/banco-central-preve-que-economia-de-costa-rica-crezca-un-33-en-2027-y-advierte-sobre-aumento-de-la-inflacion/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "deficit-deuda-agosto",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "La deuda crece 8,3% anual, casi cuatro veces el PIB nominal",
+      "synopsis": "A agosto la deuda del Gobierno creció 8,3% interanual, frente a 2,2% del PIB nominal, y se proyecta un déficit de 3,8% y deuda de 62% del PIB para 2026. Más necesidades de financiamiento presionan las tasas que pagan compradores de vivienda. Hay que vigilar el cierre fiscal de 2026.",
+      "image": {
+        "url": "https://images.hoy.cr/wp-content/uploads/2025/06/Ministerio-de-Hacienda.jpg",
+        "color": "https://images.hoy.cr/wp-content/uploads/2025/06/Ministerio-de-Hacienda.jpg",
+        "alt": "La deuda crece 8,3% anual, casi cuatro veces el PIB nominal",
+        "credit": "CrHoy"
+      },
+      "snippets": [
+        {
+          "id": "deficit-deuda-agosto-crecimiento",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-16",
+          "headline": "+8,3% contra +2,2%",
+          "body": "La deuda creció 8,3% interanual a agosto, contra 2,2% del PIB nominal.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "deuda",
+            "pib"
+          ],
+          "source": {
+            "name": "CrHoy",
+            "url": "https://crhoy.com/economia/aumentan-el-deficit-fiscal-y-la-deuda-del-gobierno/"
+          }
+        },
+        {
+          "id": "deficit-deuda-agosto-proyeccion",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-16",
+          "headline": "Déficit 3,8%, deuda 62%",
+          "body": "Para 2026 se proyecta un déficit de 3,8% del PIB y una deuda de 62% del PIB.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "déficit",
+            "proyección"
+          ],
+          "source": {
+            "name": "CrHoy",
+            "url": "https://crhoy.com/economia/aumentan-el-deficit-fiscal-y-la-deuda-del-gobierno/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "desempleo-tercer-trimestre",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Desempleo sube a 6,5% en el tercer trimestre",
+      "synopsis": "El desempleo subió a 6,5% en el tercer trimestre, 0,8 puntos más que hace un año, y la informalidad es de 36,7%. Menos empleo formal reduce la cantidad de compradores que califican para crédito hipotecario. Hay que vigilar el dato del cuarto trimestre del INEC.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "desempleo-tercer-trimestre-tasa",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-06",
+          "headline": "6,5%, unas 155.000 personas",
+          "body": "El desempleo llegó a 6,5%, 0,8 puntos más que un año atrás, unas 155.000 personas.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "empleo",
+            "inec"
+          ],
+          "source": {
+            "name": "PymeNoticias (INEC)",
+            "url": "https://www.pymenoticias.com/post/costa-rica-desempleo-informalidad-tercer-trimestre-inec"
+          }
+        },
+        {
+          "id": "desempleo-tercer-trimestre-informalidad",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-06",
+          "headline": "Informalidad de 36,7%",
+          "body": "La informalidad laboral se ubicó en 36,7%.",
+          "why": "Los trabajadores informales difícilmente acceden a crédito hipotecario.",
+          "image": null,
+          "tags": [
+            "informalidad",
+            "inec"
+          ],
+          "source": {
+            "name": "PymeNoticias (INEC)",
+            "url": "https://www.pymenoticias.com/post/costa-rica-desempleo-informalidad-tercer-trimestre-inec"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uned-cierre-2026",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "UNED: dólar bajo ₡450 y tasas estables al cierre de 2026",
+      "synopsis": "La UNED anticipa que el dólar cerrará el año por debajo de ₡450 y que la TPM y la Tasa Básica Pasiva se mantendrán estables. Un tipo de cambio bajo abarata insumos importados como varilla, pero afecta a compradores con ingresos en dólares. Hay que vigilar el tipo de cambio en diciembre.",
+      "image": {
+        "url": "https://www.infobae.com/resizer/v2/TAWTWVSBHRBETAMZCHYSTAFNPE.png?auth=52cd3d5af2d5c6e63d98f27024470cb6b5757b34efbf3293ce78b739e7816252&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/TAWTWVSBHRBETAMZCHYSTAFNPE.png?auth=52cd3d5af2d5c6e63d98f27024470cb6b5757b34efbf3293ce78b739e7816252&smart=true&width=1200&height=630&quality=85",
+        "alt": "UNED: dólar bajo ₡450 y tasas estables al cierre de 2026",
+        "credit": "Infobae"
+      },
+      "snippets": [
+        {
+          "id": "uned-cierre-2026-dolar",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-20",
+          "headline": "Dólar por debajo de ₡450",
+          "body": "Según la UNED, el dólar seguiría por debajo de ₡450 al cierre de 2026.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "tipo de cambio",
+            "uned"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/20/dolar-por-debajo-de-450-y-tasas-de-interes-estables-uned-anticipa-como-cerrara-la-economia-de-costa-rica-en-2026/"
+          }
+        },
+        {
+          "id": "uned-cierre-2026-tasas",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-20",
+          "headline": "TPM y TBP estables",
+          "body": "La UNED prevé que la tasa de política monetaria y la Tasa Básica Pasiva se mantengan estables.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "tasas",
+            "uned"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/20/dolar-por-debajo-de-450-y-tasas-de-interes-estables-uned-anticipa-como-cerrara-la-economia-de-costa-rica-en-2026/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dolar-fed",
+      "category": "economia",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "El dólar se fortalece ante una posible nueva alza de la Fed",
+      "synopsis": "El dólar gana terreno en el mundo por las expectativas de que la Reserva Federal vuelva a subir tasas. Una Fed más restrictiva puede presionar al alza las tasas en dólares y, con el tiempo, las locales. Hay que vigilar la próxima decisión de la Fed.",
+      "image": {
+        "url": "https://www.elimparcial.com/resizer/v2/OWT5B2EOBVDSZN6VB2QZEYFMRI.jpg?auth=6f65f8ff61481ab569eb55a566e84647c813fbcfa6b2bec1309b6a6de1a55d07&smart=true&width=1200&height=630&quality=70",
+        "color": "https://www.elimparcial.com/resizer/v2/OWT5B2EOBVDSZN6VB2QZEYFMRI.jpg?auth=6f65f8ff61481ab569eb55a566e84647c813fbcfa6b2bec1309b6a6de1a55d07&smart=true&width=1200&height=630&quality=70",
+        "alt": "El dólar se fortalece ante una posible nueva alza de la Fed",
+        "credit": "El Imparcial"
+      },
+      "snippets": [
+        {
+          "id": "dolar-fed-expectativas",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Crecen apuestas de alza",
+          "body": "El dólar se fortalece globalmente porque crecen las expectativas de que la Fed vuelva a subir tasas.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fed",
+            "dólar"
+          ],
+          "source": {
+            "name": "El Imparcial",
+            "url": "https://www.elimparcial.com/dinero/2026/11/24/peso-mexicano-resiste-ante-la-presion-de-un-dolar-fortalecido-por-el-auge-de-la-ia-y-asi-cotiza-el-tipo-de-cambio-este-martes-24-de-noviembre/"
+          }
+        },
+        {
+          "id": "dolar-fed-peso",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "El peso mexicano resiste",
+          "body": "El peso mexicano resiste la presión de un dólar fortalecido.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "divisas"
+          ],
+          "source": {
+            "name": "El Imparcial",
+            "url": "https://www.elimparcial.com/dinero/2026/11/24/peso-mexicano-resiste-ante-la-presion-de-un-dolar-fortalecido-por-el-auge-de-la-ia-y-asi-cotiza-el-tipo-de-cambio-este-martes-24-de-noviembre/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fletes-recargos-diciembre",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 2,
+      "title": "Navieras preparan recargos de hasta US$1.600 por contenedor en diciembre",
+      "synopsis": "El índice Drewry bajó 3%, pero sigue 126% arriba del año pasado, y las navieras planean recargos de temporada alta de US$1.000 a US$1.600 en diciembre. Eso encarece la llegada de insumos importados para obra. Conviene revisar contratos de flete indexados para estabilizar costos.",
+      "image": {
+        "url": "https://www.indexbox.io/landing/img/blog/telegram-fallback/a09085c5fd5dec12b75ea864334e2ba2.webp",
+        "color": "https://www.indexbox.io/landing/img/blog/telegram-fallback/a09085c5fd5dec12b75ea864334e2ba2.webp",
+        "alt": "Navieras preparan recargos de hasta US$1.600 por contenedor en diciembre",
+        "credit": "IndexBox"
+      },
+      "snippets": [
+        {
+          "id": "fletes-recargos-diciembre-drewry",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "Drewry -3%, +126% anual",
+          "body": "El índice Drewry bajó 3% en la semana, pero sigue 126% arriba del año pasado.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fletes",
+            "drewry"
+          ],
+          "source": {
+            "name": "IndexBox",
+            "url": "https://www.indexbox.io/blog/drewry-world-container-index-falls-3-as-transpacific-rates-weaken/"
+          }
+        },
+        {
+          "id": "fletes-recargos-diciembre-recargos",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "Recargos de US$1.000 a US$1.600",
+          "body": "Las navieras planean recargos de temporada alta de US$1.000 a US$1.600 en diciembre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fletes",
+            "importaciones"
+          ],
+          "source": {
+            "name": "IndexBox",
+            "url": "https://www.indexbox.io/blog/drewry-world-container-index-falls-3-as-transpacific-rates-weaken/"
+          }
+        },
+        {
+          "id": "fletes-recargos-diciembre-indexar",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Contratos amarrados a índices",
+          "body": "Freightos explica cómo vincular los contratos de flete a índices como el de Drewry para estabilizar costos.",
+          "why": "Es una herramienta para presupuestar insumos importados con menos sorpresas.",
+          "image": {
+            "url": "https://www.freightos.com/wp-content/themes/freightos/assets/img/freightos-blog.jpg",
+            "color": "https://www.freightos.com/wp-content/themes/freightos/assets/img/freightos-blog.jpg",
+            "alt": "Contratos amarrados a índices",
+            "credit": "Freightos"
+          },
+          "tags": [
+            "gestión",
+            "fletes"
+          ],
+          "source": {
+            "name": "Freightos",
+            "url": "https://freightos.com/freight-resources/index-linking-the-future-of-stable-market-aligned-contracts"
+          }
+        }
+      ]
+    },
+    {
+      "id": "arancel-eeuu-12-5",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "Rige arancel adicional de 12,5% de EE. UU. a productos costarricenses",
+      "synopsis": "Desde el 24 de julio, EE. UU. aplica un arancel adicional de 12,5% a productos de Costa Rica, con excepciones, por una investigación sobre trabajo forzoso. Golpea a exportadores y puede enfriar el empleo y la demanda de vivienda en zonas productoras. Hay que vigilar si se amplían las excepciones.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2025/05/APM-Terminals-Moin-2-.png",
+        "color": "https://observador.cr/wp-content/uploads/2025/05/APM-Terminals-Moin-2-.png",
+        "alt": "Rige arancel adicional de 12,5% de EE. UU. a productos costarricenses",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "arancel-eeuu-12-5-tasa",
+          "kind": "number",
+          "importance": 1,
+          "published": null,
+          "headline": "12,5% desde el 24 de julio",
+          "body": "Desde el 24 de julio rige un arancel adicional de 12,5% de EE. UU. a productos costarricenses, con excepciones.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "aranceles",
+            "exportaciones"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/estados-unidos-impone-arancel-de-125-a-productos-de-costa-rica-por-investigacion-sobre-trabajo-forzoso/"
+          }
+        },
+        {
+          "id": "arancel-eeuu-12-5-motivo",
+          "kind": "fact",
+          "importance": 1,
+          "published": null,
+          "headline": "Investigación por trabajo forzoso",
+          "body": "El arancel se impuso a raíz de una investigación estadounidense sobre trabajo forzoso.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "eeuu",
+            "comercio"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/estados-unidos-impone-arancel-de-125-a-productos-de-costa-rica-por-investigacion-sobre-trabajo-forzoso/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ied-zonas-francas",
+      "category": "geopolitica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Inversión extranjera en zonas francas crece 266%",
+      "synopsis": "En el primer trimestre, la inversión extranjera directa en zonas francas creció 266% y el total llegó a US$4.584,8 millones. Las zonas francas generan empleo formal bien pagado, base de la demanda de vivienda de clase media. Hay que vigilar el dato de los trimestres siguientes.",
+      "image": {
+        "url": "https://www.revistaeyn.com/binrepository/994x630/0c0/0d0/none/26086/RXQY/coyol-free-zone_14875609_20260701111538.jpg",
+        "color": "https://www.revistaeyn.com/binrepository/994x630/0c0/0d0/none/26086/RXQY/coyol-free-zone_14875609_20260701111538.jpg",
+        "alt": "Inversión extranjera en zonas francas crece 266%",
+        "credit": "Revista EyN (BCCR)"
+      },
+      "snippets": [
+        {
+          "id": "ied-zonas-francas-crecimiento",
+          "kind": "number",
+          "importance": 1,
+          "published": null,
+          "headline": "+266% en zonas francas",
+          "body": "La inversión extranjera directa en zonas francas creció 266% en el primer trimestre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "ied",
+            "zonas francas"
+          ],
+          "source": {
+            "name": "Revista EyN (BCCR)",
+            "url": "https://www.revistaeyn.com/empresasymanagement/inversion-en-zonas-francas-de-costa-rica-crecio-266-al-primer-trimestre-JH31278199"
+          }
+        },
+        {
+          "id": "ied-zonas-francas-total",
+          "kind": "number",
+          "importance": 1,
+          "published": null,
+          "headline": "US$4.584,8 millones",
+          "body": "La inversión extranjera directa total del primer trimestre fue de US$4.584,8 millones.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "ied",
+            "bccr"
+          ],
+          "source": {
+            "name": "Revista EyN (BCCR)",
+            "url": "https://www.revistaeyn.com/empresasymanagement/inversion-en-zonas-francas-de-costa-rica-crecio-266-al-primer-trimestre-JH31278199"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aya-el-nino",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 1,
+      "title": "AyA pide ahorrar agua por El Niño en la estación seca",
+      "synopsis": "El AyA pidió ahorrar agua ante El Niño en la estación seca, sin racionamiento por ahora. Para obras y proyectos nuevos, un verano seco puede complicar el abastecimiento en obra y las disponibilidades de agua. Hay que vigilar si se anuncian restricciones.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "aya-el-nino-llamado",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-09",
+          "headline": "Llamado a ahorrar",
+          "body": "El AyA pide ahorrar agua por El Niño durante la estación seca.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "aya",
+            "agua"
+          ],
+          "source": {
+            "name": "Tico Times",
+            "url": "https://ticotimes.net/2026/11/09/costa-rica-aya-save-water-el-nino-dry-season"
+          }
+        },
+        {
+          "id": "aya-el-nino-racionamiento",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-09",
+          "headline": "Sin racionamiento",
+          "body": "Por ahora no hay racionamiento.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "aya",
+            "el niño"
+          ],
+          "source": {
+            "name": "Tico Times",
+            "url": "https://ticotimes.net/2026/11/09/costa-rica-aya-save-water-el-nino-dry-season"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ley-forestal-areas-proteccion",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Sala IV anuló en parte la ley sobre obras en áreas de protección",
+      "synopsis": "La Sala IV anuló parcialmente la Ley 10210, que regulaba las obras en áreas de protección de la Ley Forestal. Cambia lo que se puede construir cerca de ríos y nacientes, clave al diseñar lotes y urbanizaciones. Conviene revisar con el profesional responsable qué quedó vigente.",
+      "image": {
+        "url": "https://elmundo.cr/wp-content/uploads/2022/03/WhatsApp-Image-2020-12-11-at-09.12.52-1-1024x682.jpeg",
+        "color": "https://elmundo.cr/wp-content/uploads/2022/03/WhatsApp-Image-2020-12-11-at-09.12.52-1-1024x682.jpeg",
+        "alt": "Sala IV anuló en parte la ley sobre obras en áreas de protección",
+        "credit": "El Mundo"
+      },
+      "snippets": [
+        {
+          "id": "ley-forestal-areas-proteccion-fallo",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-07-23",
+          "headline": "Anulación parcial de la Ley 10210",
+          "body": "La Sala IV anuló parcialmente la Ley 10210.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "sala iv",
+            "ley forestal"
+          ],
+          "source": {
+            "name": "El Mundo",
+            "url": "https://elmundo.cr/costa-rica/sala-iv-redefine-las-reglas-para-construir-en-areas-de-proteccion-que-cambio-realmente-con-la-ley-forestal/"
+          }
+        },
+        {
+          "id": "ley-forestal-areas-proteccion-alcance",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-07-23",
+          "headline": "Obras en áreas de protección",
+          "body": "La ley regulaba las obras permitidas en las áreas de protección definidas por la Ley Forestal.",
+          "why": "Afecta el aprovechamiento de lotes cercanos a cauces.",
+          "image": null,
+          "tags": [
+            "permisos",
+            "construcción"
+          ],
+          "source": {
+            "name": "El Mundo",
+            "url": "https://elmundo.cr/costa-rica/sala-iv-redefine-las-reglas-para-construir-en-areas-de-proteccion-que-cambio-realmente-con-la-ley-forestal/"
+          }
+        }
+      ]
+    }
+  ]
+}

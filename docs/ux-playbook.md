@@ -259,6 +259,10 @@ matched; when they differ, Updatr is the newer and better-tested one.
 - **Don't tie scroll-linked growth to a line on the screen inside snapped
   pages.** A block low on a page never passes the line once the page has
   landed and stays half grown. Tie it to the page's arrival.
+- **Don't let a text-only module be the overflow.** Updatr's briefs took
+  every entry the picture modules hadn't used, pictured or not, and became
+  three pages of text with their pictures unseen. Pictured entries go to
+  picture modules; text-only ones are capped.
 - **Don't put `block` next to `line-clamp-*`.** It overrides the clamp's
   `display`, and the text runs on and is cut mid-line.
 - **Don't test snapping with `Input.synthesizeScrollGesture`.** In headless

@@ -3,9 +3,165 @@
   "year": 2026,
   "week": 48,
   "date": "2026-11-24",
-  "updatedAt": "2026-11-24T12:45:37.180Z",
+  "updatedAt": "2026-11-24T20:25:45.210Z",
   "isSample": false,
   "items": [
+    {
+      "id": "tfd-1410",
+      "franchise": "descendant",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 3,
+      "title": "Patch 1.4.10 lands November 25",
+      "dek": "Nexon has set Patch 1.4.10 for November 25 at 23:00 PST. The contents haven't been announced, so plan around the update window.",
+      "body": [
+        "Nexon posted a notice on November 23 that sets Patch 1.4.10 for November 25, 2026, at 23:00 PST. The notice doesn't list what's in the patch, so don't expect new descendants or skins until Nexon publishes patch notes.",
+        "The same notice gives the results of a cheating crackdown that ran November 13–19 and ended in two permanent bans.",
+        "Watch for the full patch notes on the day."
+      ],
+      "date": "2026-11-23",
+      "when": "2026-11-25",
+      "tags": [
+        "patch",
+        "maintenance"
+      ],
+      "source": "Steam Community – The First Descendant",
+      "url": "https://steamcommunity.com/app/2074920",
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/a0bbb9bbd1a4f897439add27c46df6639b5cd149.png"
+    },
+    {
+      "id": "tfd-descendants-weekend",
+      "franchise": "descendant",
+      "kind": "game",
+      "status": "live",
+      "importance": 3,
+      "title": "Descendant's Weekend boosts run to December 6",
+      "dek": "+20% Descendant EXP, Weapon Proficiency and Unique Arche Factor EXP on weekends. The next window opens November 26.",
+      "body": [
+        "The Descendant's Weekend event runs from November 19, 23:00 PST, to December 6, 22:59 PST. During its weekend windows you get +20% to Descendant EXP, Weapon Proficiency and Unique Arche Factor EXP.",
+        "The remaining windows are November 26–29 and December 3–6, each running from 23:00 to 22:59 PST. Save your leveling for those days."
+      ],
+      "date": "2026-11-16",
+      "when": "2026-11-19",
+      "tags": [
+        "event",
+        "exp boost"
+      ],
+      "source": "Steam Community – The First Descendant",
+      "url": "https://steamcommunity.com/app/2074920",
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/377cbe7f2dcfb4d66a21de01c26f91f97cfa82ef.jpg"
+    },
+    {
+      "id": "tfd-black-friday-sale",
+      "franchise": "descendant",
+      "kind": "skin",
+      "status": "live",
+      "importance": 3,
+      "title": "Black Friday sale on older skins until December 3",
+      "dek": "Skins over six months old are discounted in descendant-specific bundles through December 3.",
+      "body": [
+        "Nexon announced a Black Friday sale in its November 16 developer livestream. It runs from November 17 to December 3.",
+        "Skins released more than six months ago are discounted and grouped into bundles for each descendant. If you skipped a skin earlier in the year, this is a cheaper chance to get it."
+      ],
+      "date": null,
+      "when": "2026-11-17",
+      "tags": [
+        "sale",
+        "skins"
+      ],
+      "source": "The First Descendant official site",
+      "url": "https://tfd.nexon.com/en/news/3582131",
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2074920/capsule_616x353.jpg"
+    },
+    {
+      "id": "tfd-abyss-raptor",
+      "franchise": "descendant",
+      "kind": "skin",
+      "status": "out",
+      "importance": 2,
+      "title": "Kyle's Abyss Raptor skin is out; The Frozen One returns",
+      "dek": "Kyle's new premium skin arrived November 17 alongside Monet's Chrono Fluid, and Ice Maiden's The Frozen One skin is coming back.",
+      "body": [
+        "Kyle's premium skin \"Abyss Raptor\" released on November 17, together with Monet's Chrono Fluid. Nexon announced both in its November 16 developer livestream.",
+        "The same livestream summary says Ice Maiden's \"The Frozen One\" skin is returning. The summary doesn't give a date for its return."
+      ],
+      "date": null,
+      "when": "2026-11-17",
+      "tags": [
+        "skins",
+        "kyle"
+      ],
+      "source": "The First Descendant official site",
+      "url": "https://tfd.nexon.com/en/news/3582131",
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/e025013a4536b9054a640d702f08c14f9e1c6ea7.jpg"
+    },
+    {
+      "id": "cod-s1-reloaded",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Season 1 Reloaded still expected December 2",
+      "dek": "The in-game countdown points to December 2, 10pm PT, but Activision hasn't confirmed the date yet.",
+      "body": [
+        "Gamelevate (around November 21) still gives December 2, 2026, at 10pm PT (December 3, 6am GMT) for MW4 and Warzone Season 1 Reloaded. It bases this on the in-game countdown for the Season 1 Battle Pass bonus rewards, not on an announcement from Activision.",
+        "Noping says players who finish the Season 1 Battle Pass can unlock eight more operator skins during the mid-season update. Dot Esports names Ministry and Overflow as expected maps.",
+        "There is no official Call of Duty blog post yet, so treat the date as expected."
+      ],
+      "date": "2026-11-21",
+      "when": "2026-12-02",
+      "tags": [
+        "mid-season",
+        "warzone"
+      ],
+      "source": "Gamelevate",
+      "url": "https://gamelevate.com/mw4-warzone-season-1-reloaded-release-date-content/",
+      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
+    },
+    {
+      "id": "sb-ost-9cd",
+      "franchise": "stellar",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "9-CD Original Soundtrack set, pre-orders December 8",
+      "dek": "Shift Up's 9-CD soundtrack box comes with a special outer box and a wide lenticular card. Pre-orders open December 8.",
+      "body": [
+        "Shift Up has announced a Stellar Blade Original Soundtrack set on 9 CDs. It comes with a special outer box, a wide lenticular card and other extras.",
+        "Pre-orders open December 8. The release date and price haven't been given yet."
+      ],
+      "date": "2026-11-18",
+      "tags": [
+        "soundtrack",
+        "merch"
+      ],
+      "source": "RPG Site",
+      "url": "https://www.rpgsite.net/news/21787-stellar-blade-original-soundtrack-9cd-release-preorder-contents",
+      "image": "https://images.rpgsite.net/articles/thumbnail/a3ecf1c/21787/original/stellar-blade-cd-soundtrack-full-album-preorder.png"
+    },
+    {
+      "id": "zzz-34-program",
+      "franchise": "zzz",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Version 3.4 confirmed for December 2",
+      "dek": "HoYoverse's press release confirms the date, Sunbringer, a free Robin and Kafka in the second half, plus an Alice rerun.",
+      "body": [
+        "HoYoverse's November 20 press release confirms that Version 3.4, \"The Finality of the Day\", launches on December 2. It includes Sunbringer, Robin free to claim, Robin's Cosmic Beat outfit, and Kafka in the second half of the version.",
+        "Alice gets a rerun in the second half. Her W-Engine is officially called \"Practiced Perfection\", even though some outlets list it under another name.",
+        "Yahoo Tech says the Sunbringer and Robin banners run from December 2 to January 12, 2027, at 2:59 PM UTC+8."
+      ],
+      "date": "2026-11-20",
+      "when": "2026-12-02",
+      "tags": [
+        "version 3.4",
+        "banners"
+      ],
+      "source": "Games Press (HoYoverse)",
+      "url": "https://www.gamespress.com/Zenless-Zone-Zero-Version-34-The-Finality-of-the-Day-Launches-December",
+      "image": "https://clan.akamai.steamstatic.com/images/46096005/b0ad9d562ae08b67dee2750b1abb0c0b615f733d.png"
+    },
     {
       "id": "zzz-hsr-collab",
       "franchise": "zzz",
@@ -30,29 +186,6 @@
       "image": "https://images.genshin-builds.com/news/honkai-star-rail/hsr-x-zzz-crossover-kafka-robin-in-3-4.png"
     },
     {
-      "id": "zzz-34-program",
-      "franchise": "zzz",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 2,
-      "title": "ZZZ 3.4: free Robin, new outfits, Agent buffs",
-      "dek": "Version 3.4 lands December 2 with a free Robin, four outfits, buffs for Vivian and Ju Fufu, and a Make-A-Wish tie-in.",
-      "body": [
-        "Version 3.4, \"The Finality of the Day,\" launches December 2, 2026. Everyone who logs in after the update gets Robin, along with materials to reach Level 40 and a Drive Disc set (Inven Global). Sunbringer is an S-Rank Armorer Agent made of three characters who fight as one unit.",
-        "The update adds four new outfits (Yahoo). The official @ZZZ_EN account says Robin's \"Cosmic Beat\" outfit goes on sale in the Store after the update. The other three outfits haven't been named. Vivian and Ju Fufu receive Agent enhancements. During 3.4, ZZZ partners with Make-A-Wish, per HoYoverse's November 20 press release."
-      ],
-      "date": "2026-11-20",
-      "when": "2026-12-02",
-      "tags": [
-        "update",
-        "outfits",
-        "free agent"
-      ],
-      "source": "HoYoverse (Games Press)",
-      "url": "https://www.gamespress.com/Zenless-Zone-Zero-Version-34-The-Finality-of-the-Day-Launches-December",
-      "image": "https://clan.akamai.steamstatic.com/images/46096005/b0ad9d562ae08b67dee2750b1abb0c0b615f733d.png"
-    },
-    {
       "id": "tf-12-3",
       "franchise": "finals",
       "kind": "game",
@@ -73,28 +206,6 @@
       "source": "THE FINALS (official)",
       "url": "https://www.reachthefinals.com/patchnotes/tgm26-seedings",
       "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
-    },
-    {
-      "id": "cod-s1-reloaded",
-      "franchise": "cod",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 2,
-      "title": "MW4 Season 1 Reloaded expected December 2",
-      "dek": "An in-game countdown points to Dec 2 for the midseason update, which opens eight bonus operator skins for players who finish the pass.",
-      "body": [
-        "Activision has not announced a time, but the in-game countdown to the Season 1 Battle Pass Bonus Rewards points to Wednesday, December 2 at 10 p.m. PT (Thursday, December 3 in Europe) for Modern Warfare 4 and Warzone Season 1 Reloaded. Activision has confirmed the bonus rewards open with Reloaded: eight extra operator skins for players who complete the premium Season 1 pass.",
-        "Content named in the Season 1 material: the Ministry and Overflow maps, Counter Attack mode, the JAK 12 shotgun, the ZLR Talonhawk melee weapon and an M16 Burst attachment, plus Extreme Resurgence and Rockets and Snipers in Warzone. No midseason operator names have been published yet."
-      ],
-      "date": "2026-11-19",
-      "tags": [
-        "mw4",
-        "warzone",
-        "operators"
-      ],
-      "source": "U4N",
-      "url": "https://www.u4n.com/news/mw4-and-warzone-season-1-reloaded-what-drops-and-when.html",
-      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
     },
     {
       "id": "cod-s1-bundles",
@@ -131,7 +242,8 @@
         "cosmetics"
       ],
       "source": "THE FINALS (Embark Studios)",
-      "url": "https://www.reachthefinals.com/patchnotes/12-40"
+      "url": "https://www.reachthefinals.com/patchnotes/12-40",
+      "image": "https://pbs.twimg.com/card_img/2123359288638758912/Ym1iZlxk?format=jpg&name=medium"
     },
     {
       "id": "tf-ai-casters",
@@ -174,7 +286,7 @@
       ],
       "source": "GameLeap",
       "url": "https://www.gameleap.com/articles/the-first-descendant-in-game-11-17-tue-event-info",
-      "image": "https://cdn.gameleap.com/images/articles/art_WbLfuXWF4r/feature/0.6x.webp"
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/e686adbfa4eb172fe20be5a53f843553dc8d4fd1.png"
     },
     {
       "id": "tfd-legacy-pass",
@@ -196,7 +308,7 @@
       ],
       "source": "GameLeap",
       "url": "https://www.gameleap.com/articles/the-first-descendant-1-4-9-patch-notes-all-changes",
-      "image": "https://cdn.gameleap.com/images/articles/art_WbLfuXWF4r/feature/0.6x.webp"
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/a0f83a539442a70ca696fc388ef8c67c42a10382.jpg"
     },
     {
       "id": "cod-mw4-tga",
@@ -350,7 +462,8 @@
         "extraction shooter"
       ],
       "source": "Worthplaying",
-      "url": "https://worthplaying.com/article/2026/11/17/news/151460-arc-raiders-rolls-out-v26-update-with-bug-fixes-new-content-cosmetics-and-sale-v27-next-week-with-flickering-flames-raider-project-part-1/"
+      "url": "https://worthplaying.com/article/2026/11/17/news/151460-arc-raiders-rolls-out-v26-update-with-bug-fixes-new-content-cosmetics-and-sale-v27-next-week-with-flickering-flames-raider-project-part-1/",
+      "image": "https://storage.ghost.io/c/50/c6/50c61f91-0165-4605-93bc-f8598149e466/content/images/size/w1200/2026/11/image--14--1-1.jpeg"
     },
     {
       "id": "rdr-apex-godzilla",
@@ -394,7 +507,8 @@
         "hero shooter"
       ],
       "source": "NetEase Games (press release)",
-      "url": "https://www.gamespress.com/BAMF-Nightcrawler-and-Dracula-Join-the-Marvel-Rivals-Battle-as-Season-"
+      "url": "https://www.gamespress.com/BAMF-Nightcrawler-and-Dracula-Join-the-Marvel-Rivals-Battle-as-Season-",
+      "image": "https://storage.ghost.io/c/50/c6/50c61f91-0165-4605-93bc-f8598149e466/content/images/size/w1200/2026/11/official-f5ed4aae-290e-49f1-9e11-9b626ab93a7e.jpg"
     },
     {
       "id": "rdr-overwatch-hudson",

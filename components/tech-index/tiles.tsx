@@ -184,6 +184,11 @@ export function Tile({ className, style, children }: { className?: string; style
   );
 }
 
+/** The squares inside belong to `name`'s group (they go last when one of its links is tapped). */
+export function TileGroup({ name, children }: { name: string; children: ReactNode }) {
+  return <GroupContext.Provider value={name}>{children}</GroupContext.Provider>;
+}
+
 /**
  * A link whose tap empties the page first: every square inside it belongs to
  * its group, and goes last. Modified clicks (new tab, and so on) go straight
@@ -193,12 +198,15 @@ export function TileLink({
   href,
   group,
   className,
+  label,
   children,
 }: {
   href: string;
   group: string;
   className?: string;
-  children: ReactNode;
+  /** For a link with no text of its own (one stretched over a panel). */
+  label?: string;
+  children?: ReactNode;
 }) {
   const stage = useContext(StageContext);
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -207,7 +215,14 @@ export function TileLink({
     stage.leave(group, href);
   };
   return (
-    <Link href={href} prefetch={false} className={className} onClick={onClick} onPointerDown={() => stage?.prime(href)}>
+    <Link
+      href={href}
+      prefetch={false}
+      className={className}
+      aria-label={label}
+      onClick={onClick}
+      onPointerDown={() => stage?.prime(href)}
+    >
       <GroupContext.Provider value={group}>{children}</GroupContext.Provider>
     </Link>
   );

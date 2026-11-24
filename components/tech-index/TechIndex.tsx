@@ -1,9 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { countApps, type PortalApp } from "@/lib/apps";
+import { codeUrl, countApps, type PortalApp } from "@/lib/apps";
 import { Vvs, VvvGrow as Grow } from "@/components/vvv/Vvv";
-import { Tile, TileLink, TileStage } from "./tiles";
+import { Tile, TileGroup, TileLink, TileStage } from "./tiles";
 
 /**
  * An index in technical minimalism: the portal's front page and its /ad and
@@ -214,42 +214,68 @@ function Entry({
   const folder = app.apps ? countApps(app.apps) : 0;
   const code = app.slug.toUpperCase();
 
-  return (
-    <TileLink
-      href={`${base}/${app.slug}`}
-      group={app.slug}
-      className="press grid h-[208px] grid-cols-[40%_1fr] gap-[var(--gutter)] outline-none"
-    >
-      <Grow className="flex">
-        <Column kind={column} no={no} glyph={glyph} />
-      </Grow>
+  const href = `${base}/${app.slug}`;
 
-      <Grow className="flex" lag={1}>
-        <Tile className="flex flex-1 flex-col justify-between rounded-[var(--cell)] bg-panel p-5">
-          <div className="flex items-center justify-between font-mono text-[11px]">
-            <span className="text-ink-soft">
-              {folder ? "dir" : kind}: <span className="text-ink">{code}</span>
-            </span>
-            <span className="grid h-7 w-7 place-items-center rounded-full bg-panel-2 text-ink">
-              {external ? "↗" : "→"}
-            </span>
-          </div>
-          <div>
-            <p className="font-tech text-[30px] font-semibold uppercase leading-[0.95] tracking-[-0.005em] text-ink">
-              {app.name}
-            </p>
-            {app.description ? (
-              <p className="mt-2 line-clamp-2 text-[13px] leading-[1.3] text-ink-soft">{app.description}</p>
-            ) : null}
-            <p className="mt-3 font-mono text-[9px] tracking-[0.04em] text-ink-faint">
-              {external ? "EXT · " : ""}
-              {base}/{app.slug}
-              {folder ? ` · ${String(folder).padStart(2, "0")} APPS` : ""}
-            </p>
-          </div>
-        </Tile>
-      </Grow>
-    </TileLink>
+  // The entry opens on a tap anywhere but its code key: the column is a link, and the plate has one stretched
+  // over it, under its text. The code key (the small round one, top right) is a link of its own, to the app's
+  // code on GitHub, so it can't sit inside the entry's link.
+  return (
+    <TileGroup name={app.slug}>
+      <div className="press grid h-[208px] grid-cols-[40%_1fr] gap-[var(--gutter)]">
+        <Grow className="flex">
+          <TileLink href={href} group={app.slug} label={app.name} className="flex flex-1 outline-none">
+            <Column kind={column} no={no} glyph={glyph} />
+          </TileLink>
+        </Grow>
+
+        <Grow className="flex" lag={1}>
+          <Tile className="relative flex flex-1 flex-col justify-between rounded-[var(--cell)] bg-panel p-5">
+            <TileLink href={href} group={app.slug} label={app.name} className="absolute inset-0 rounded-[inherit] outline-none" />
+            <div className="pointer-events-none relative flex items-center justify-between font-mono text-[11px]">
+              <span className="text-ink-soft">
+                {folder ? "dir" : kind}: <span className="text-ink">{code}</span>
+              </span>
+              <a
+                href={codeUrl(app)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`El código de ${app.name} en GitHub`}
+                className="code-key pointer-events-auto -m-2 grid h-11 w-11 place-items-center rounded-full outline-none"
+              >
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-panel-2 text-ink">
+                  <BranchGlyph />
+                </span>
+              </a>
+            </div>
+            <div className="pointer-events-none relative">
+              <p className="font-tech text-[30px] font-semibold uppercase leading-[0.95] tracking-[-0.005em] text-ink">
+                {app.name}
+              </p>
+              {app.description ? (
+                <p className="mt-2 line-clamp-2 text-[13px] leading-[1.3] text-ink-soft">{app.description}</p>
+              ) : null}
+              <p className="mt-3 font-mono text-[9px] tracking-[0.04em] text-ink-faint">
+                {external ? "EXT · " : ""}
+                {href}
+                {folder ? ` · ${String(folder).padStart(2, "0")} APPS` : ""}
+              </p>
+            </div>
+          </Tile>
+        </Grow>
+      </div>
+    </TileGroup>
+  );
+}
+
+/** A branch: the code key's mark. */
+function BranchGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <circle cx="4" cy="3" r="1.6" />
+      <circle cx="4" cy="13" r="1.6" />
+      <circle cx="12" cy="5" r="1.6" />
+      <path d="M4 4.6v6.8M12 6.6c0 3-8 2.4-8 4.8" />
+    </svg>
   );
 }
 

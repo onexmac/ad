@@ -94,19 +94,33 @@ async function pool(items, n, fn) {
 }
 
 /**
- * A photo for each entry that has none: the share image its source page
- * offers, linked, not copied (the repository is public). A site's generic
- * card (one image on three or more pages, or named like a logo) is dropped.
+ * A photo for each entry that has none: the share image of its source page,
+ * or else of the first of its other pages (`also`) that has one. Linked, not
+ * copied (the repository is public). A site's generic card (one image on three
+ * or more pages, or named like a logo) is not a photo and is passed over.
  */
 async function attachShots(entries) {
-  const want = [...new Set(entries.filter((e) => e.url && !e.image).map((e) => e.url))];
+  const pagesOf = (e) => [e.url, ...(e.also ?? [])].filter(Boolean);
+  const want = [...new Set(entries.filter((e) => !e.image).flatMap(pagesOf))];
   const found = await pool(want, 6, shareImage);
   const uses = new Map();
   for (const im of found) if (im) uses.set(im, (uses.get(im) ?? 0) + 1);
   const generic = (im) => !im || uses.get(im) >= 3 || /logo|favicon|placeholder|default[-_]?(share|image|og)/i.test(im);
   const byUrl = new Map(want.map((u, i) => [u, generic(found[i]) ? null : found[i]]));
-  const out = entries.map((e) => (e.image || !e.url || !byUrl.get(e.url) ? e : { ...e, image: byUrl.get(e.url) }));
-  console.log(`photos: ${out.filter((e) => e.image).length} of ${entries.length} entries, ${want.length} pages read`);
+  // A picture another entry already has is not this entry's picture (a studio's
+  // news pages often share one share image): look on its other pages instead.
+  const inUse = new Set(entries.map((e) => e.image).filter(Boolean));
+  let fromOther = 0;
+  const out = entries.map((e) => {
+    if (e.image) return e;
+    const pages = pagesOf(e);
+    const hit = pages.find((u) => byUrl.get(u) && !inUse.has(byUrl.get(u)));
+    if (!hit) return e;
+    if (hit !== e.url) fromOther++;
+    inUse.add(byUrl.get(hit));
+    return { ...e, image: byUrl.get(hit) };
+  });
+  console.log(`photos: ${out.filter((e) => e.image).length} of ${entries.length} entries (${fromOther} from another page on the story), ${want.length} pages read`);
   return out;
 }
 
@@ -136,18 +150,27 @@ async function main() {
     .filter((e, i, all) => all.findIndex((x) => x.id === e.id) === i)
     .slice(0, 40)
     .map((e) => ({ id: e.id, title: e.title, when: e.when ?? null }));
+  // This week's entries still without a picture: the research looks for other pages on them.
+  const bare = [...(current?.items ?? []), ...(current?.suggestions ?? [])]
+    .filter((e) => !e.image && !e.mock && e.url)
+    .slice(0, 12)
+    .map((e) => ({ id: e.id, title: e.title, url: e.url }));
 
   let brief;
   const from = arg("from");
   if (from) {
-    brief = Brief.parse(JSON.parse(await fs.readFile(path.resolve(from), "utf8")));
+    const raw = JSON.parse(await fs.readFile(path.resolve(from), "utf8"));
+    // Briefs written before these fields existed.
+    raw.pictures ??= [];
+    for (const e of [...raw.items, ...raw.suggestions]) e.also ??= [];
+    brief = Brief.parse(raw);
   } else {
     if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
       console.log("No ANTHROPIC_API_KEY: the editions already published stay as they are.");
       return;
     }
     const { generate } = await import("./generate.mjs");
-    brief = await generate({ date, label, days, known });
+    brief = await generate({ date, label, days, known, bare });
   }
 
   const { brief: clean, problems } = tidy(brief);
@@ -158,9 +181,12 @@ async function main() {
   const earlier = new Map((previous?.items ?? []).map((e) => [e.id, e]));
   const withOld = (list) => list.map((e) => ({ ...e, image: e.image ?? earlier.get(e.id)?.image ?? null }));
 
-  const items = merge(current?.items ?? [], withOld(clean.items).map(store));
+  // Other pages found for an entry that had no picture: its picture is looked for there.
+  const morePages = new Map(clean.pictures.map((p) => [p.id, p.also]));
+  const withPages = (list) => list.map((e) => (!e.image && morePages.has(e.id) ? { ...e, also: [...(e.also ?? []), ...morePages.get(e.id)] } : e));
+  const items = withPages(merge(current?.items ?? [], withOld(clean.items).map(store)));
   const itemIds = new Set(items.map((e) => e.id));
-  const suggestions = merge(current?.suggestions ?? [], withOld(clean.suggestions).map(store), POOL).filter((e) => !itemIds.has(e.id));
+  const suggestions = withPages(merge(current?.suggestions ?? [], withOld(clean.suggestions).map(store), POOL).filter((e) => !itemIds.has(e.id)));
   const shot = await attachShots([...items, ...suggestions]);
 
   const edition = Edition.parse({

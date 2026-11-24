@@ -13,7 +13,18 @@ export type PortalApp = {
   external?: string;
   /** A folder: its apps live at /<section>/<slug>/<child>, listed on its own index. */
   apps?: PortalApp[];
+  /** Where its code is: a path in this repo (its route folder), or a full URL for an app still elsewhere. */
+  code?: string;
 };
+
+/** This repo on GitHub (public). */
+export const REPO = "https://github.com/onexmac/ad";
+
+/** The page on GitHub with an app's code: its folder on main, or the repo itself for an entry with none. */
+export function codeUrl(app: PortalApp): string {
+  if (!app.code) return REPO;
+  return /^https?:/.test(app.code) ? app.code : `${REPO}/tree/main/${app.code}`;
+}
 
 export type PortalSection = {
   slug: string;
