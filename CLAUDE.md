@@ -24,10 +24,15 @@
     of the message, after the explanation, never at the top, so Marcos doesn't
     scroll up after each push. Not necessarily the literal last line; a short
     note after them is fine.
-  - Changelog: an app with a `CHANGELOG.md` in its folder (The Cubes:
-    `app/(axis-cube)/kit/axis-cube/CHANGELOG.md`) gets an entry in every
-    commit that changes it: the next version (minor for something new, patch
-    for the rest), the date and time, and what changed in detail.
+  - Changelog (an Eva rule): every app keeps a `CHANGELOG.md` in its folder
+    (The Cubes: `app/(axis-cube)/kit/axis-cube/CHANGELOG.md`). Its first push
+    to Vercel is 0.1.0; every push after it that changes the app adds an entry
+    in that same commit: the version, the date and time (Costa Rica) and what
+    changed, in detail. The jump says how big the push was: +0.0.1 small,
+    +0.0.2 or +0.0.3 bigger, +0.0.5 big, +0.1.0 too big for that (the last
+    number back to 0), +0.5.0 only for something massive. 1.0.0 is a
+    milestone Marcos names. An app without one starts it at its next push,
+    counted from its first push to Vercel.
   - He can set it in his first message (`eva sim …`, `eva launch …`) and switch
     any time by typing `sim` or `launch`; `launch` mid-session also ships what
     is there now.
