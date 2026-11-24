@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { techFontVars } from "@/lib/tech-fonts";
 import "@/components/tech-index/tech.css";
 
-// The section indices (/ad, /kit): technical minimalism in a vvs, like the Pads index.
+// The portal's own pages (/, /ad, /kit): technical minimalism in a vvs.
 export const metadata: Metadata = {
   title: "MAGI",
   description: "Portal de apps: Kit y AD.",

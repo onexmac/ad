@@ -21,9 +21,10 @@ const externalRedirects = registry.sections.flatMap((section) =>
     })),
 );
 
-// Old portal paths of apps that moved into a folder.
+// Old portal paths of apps that moved. The pads lived in a Pads folder (/ad/pads/<pad>); they are AD apps now.
 const movedRedirects = [
-  { source: "/ad/kpi", destination: "/ad/pads/kpi", permanent: false },
+  { source: "/ad/pads", destination: "/ad", permanent: false },
+  { source: "/ad/pads/:slug", destination: "/ad/:slug", permanent: false },
 ];
 
 const nextConfig: NextConfig = {

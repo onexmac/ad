@@ -308,7 +308,7 @@ More traps found here:
 - **Don't promote a layer for a motion that changes scale.** Chromium keeps
   the small raster and blurs the text.
 
-## vvv: the vintage vignette viewport (`/ad/pads`)
+## vvv: the vintage vignette viewport (`/`, `/ad`, `/kit`)
 
 **vvv** (vintage vignette viewport) is what Marcos calls the page as a rounded
 frame on a black screen. It works like an old screen's vignette: the page
@@ -316,12 +316,13 @@ lives inside the frame, and beyond its edge everything is black. That covers
 under the status bar, under Safari's bottom bar, past the four corners and
 in the bounce. When he says "vvv", this is what he means.
 
-Code: `components/vvv/Vvv.tsx`. First used on the Pads index
-(`components/pads/home/PadsHome.tsx`).
-The Pads look (technical minimalism) is now a component of its own,
-`components/tech-index/TechIndex.tsx`, with its stylesheet `tech.css` and its
-faces in `lib/tech-fonts.ts`. The Pads index and the `/ad` and `/kit`
-section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
+Code: `components/vvv/Vvv.tsx`. First used on a Pads index that has since
+been folded into `/ad` (the pads are AD apps now, at `/ad/pad01` and so on;
+the old `/ad/pads/…` paths redirect). Its look (technical minimalism) is a
+component of its own, `components/tech-index/TechIndex.tsx`, with its
+stylesheet `tech.css` and its faces in `lib/tech-fonts.ts`. The portal's own
+pages (`/`, `/ad`, `/kit`; `app/(index)/`, `PortalHome`, `SectionHome`) wear it
+in a vvs.
 
 ### Two fits: vvs and vvt
 
@@ -334,7 +335,7 @@ section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
 | Bottom | above Safari's bar, rounded | same |
 | Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
 
-Pads uses vvs. Noticss B (`/kit/noticss/b`) uses vvt: like The Cubes it lays
+The portal's indices use vvs. Noticss B (`/kit/noticss/b`) uses vvt: like The Cubes it lays
 its own frame (`useVvvInset`), and an open page fills that frame, its top
 corners going square as it opens and its bottom ones the frame's (44 px, the
 same as a card's).
@@ -345,7 +346,7 @@ same as a card's).
    layout sets `html, body` background black, `themeColor: "#000000"` and
    `viewportFit: "cover"`, so Safari's own bars and the overscroll are black
    too. The frame's own surface (its gutters) can be another colour, given
-   through `<Vvv className>`. Pads uses `#191C22`, with its darkest plates in
+   through `<Vvv className>`. The indices use `#191C22`, with its darkest plates in
    true black on it, so the frame reads against the black around it.
 2. **Wrap the page in `<Vvv>`.** It is a fixed, black, `100lvh` surface. On
    it sits the frame: a scroller with `border-radius` **and**
@@ -368,7 +369,7 @@ same as a card's).
      `useScroll({ container })`.
    - Anything else: `useVvvScroller()` gives you the scroller.
 6. **Radii nest.** The frame's radius must be at least the panels' radius
-   plus the padding between them. Pads uses a 32 px frame, 22 px panels and
+   plus the padding between them. The indices use a 32 px frame, 22 px panels and
    a 6 px gutter.
 7. **Corners near the frame's corners follow its curve.** Anything that sits
    close to one of the frame's corners (a key at the end of a bottom bar, a
@@ -394,7 +395,7 @@ same as a card's).
 | Their other corners | 6 px |
 | Which keys | left: the rooms key, or the close key while searching; right: Cerrar ficha, or the open search field |
 
-| Value | Pads |
+| Value | The indices |
 |---|---|
 | Frame radius | 32 px |
 | Gutter (frame to bars, panel to panel) | 6 px |
@@ -460,7 +461,7 @@ doesn't load the scroller or its animation library. Two things to carry over:
 How the portal moves between pages. Code: `components/tech-index/tiles.tsx`
 (the indices) and `components/loading/` (the apps).
 
-### Leaving an index (`/`, `/ad`, `/kit`, `/ad/pads`)
+### Leaving an index (`/`, `/ad`, `/kit`)
 
 Every square of a technical-minimalism index is a `Tile`; every link on it is
 a `TileLink`. A tap empties the page before it goes:
