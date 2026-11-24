@@ -895,14 +895,30 @@ export function PaperB({ editions }: { editions: Edition[] }) {
      * the cover's own top colour, and the bottom its own bottom colour.
      */
     const DARK = "rgb(12, 11, 10)";
+    const PAPER = "rgb(248, 245, 238)";
+    const GROUND = "rgb(241, 236, 226)";
     const read = (): { tone: string; mode: FillMode } | null => {
       if (gallery) return { tone: "rgb(0, 0, 0)", mode: "none" };
       const o = openRef.current;
       const c = col.current;
       if (!c) return null;
-      // Open, the page fills the frame up to the screen's top: its own top
-      // (photo or paper) runs under the status bar.
-      if (o) return { tone: DARK, mode: "none" };
+      // Open, the page fills the frame up to the screen's top: its photo runs
+      // up under the status bar; scrolled past it, a band in the page's own
+      // paper keeps the words below the cut.
+      if (o) {
+        const card = sections[o.sec]?.cards[o.card];
+        const sc = pageEl(o.sec, o.card);
+        if (!card || !sc) return null;
+        if (card.type === "figures") return { tone: PAPER, mode: "none" };
+        const sat = parseFloat(getComputedStyle(c).getPropertyValue("--sat-px")) || 0;
+        const media = sc.querySelector<HTMLElement>("[data-media]");
+        const head = sc.querySelector<HTMLElement>("[data-head]");
+        const top = media?.parentElement ?? head;
+        const inTop = !!top && sc.scrollTop < top.offsetTop + top.clientHeight - sat - 2;
+        if (media && inTop) return { tone: topTone(media.querySelector("img")) ?? DARK, mode: "none" };
+        if (inTop) return { tone: PAPER, mode: "none" };
+        return { tone: GROUND, mode: "solid" };
+      }
       const sd = sections[secRef.current];
       if (sd?.kind === "hoy") {
         const sky = ed.weather?.sky;
@@ -996,22 +1012,35 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   return (
     <div
       ref={root}
-      className="fixed inset-x-0 top-0 h-[100lvh] overflow-hidden"
+      // Absolute, not fixed (the document never scrolls): Safari reads its bar
+      // colours from fixed layers at the edges, and this one spans both.
+      className="absolute inset-x-0 top-0 h-[100lvh] overflow-hidden"
       data-app
       // The frame ends above the bottom bar and the home indicator: nothing inside needs their inset.
-      style={{ background: "#000", ["--sab" as string]: "0px" }}
+      style={{ ["--sab" as string]: "0px" }}
     >
+      {/*
+       * What lies behind the frame, as two fixed layers: Safari colours its
+       * status bar from a fixed layer at the top edge, and the strip at the
+       * bottom from one at the bottom. The top takes the colour at the top of
+       * what shows; the bottom (beyond the frame, under the bar) is black.
+       */}
+      <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 mx-auto h-[50lvh] max-w-[520px]" style={{ backgroundColor: tone, transition: "background-color 240ms ease" }} />
+      <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 h-[50lvh]" style={{ backgroundColor: "#000" }} />
       {/* vvt: no top curve (the phone's own corners round it), the bottom rounded above the bar. */}
       <div
         ref={col}
         data-vvv
-        className="absolute inset-x-0 top-0 mx-auto w-full max-w-[520px] overflow-hidden bg-ink"
+        className="absolute inset-x-0 top-0 mx-auto w-full max-w-[520px] overflow-hidden"
         style={{
           bottom: inset.bottom,
           borderRadius: `0 0 ${FRAME_R}px ${FRAME_R}px`,
           clipPath: `inset(0 round 0 0 ${FRAME_R}px ${FRAME_R}px)`,
           WebkitClipPath: `inset(0 round 0 0 ${FRAME_R}px ${FRAME_R}px)`,
+          // The frame's own surface is the top colour too, wherever Safari samples it.
+          backgroundColor: tone,
           touchAction: open ? "pan-y" : "none",
+          ["--sat-px" as string]: `${inset.sat}`,
         }}
       >
         {sections.map((s, i) =>
