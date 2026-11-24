@@ -43,13 +43,30 @@ function Glyph({ app }: { app: PortalApp }) {
           <path d="M8 1v3M8 12v3M1 8h3M12 8h3" strokeWidth={1.6} />
         </svg>
       );
-    case "pads": // a folder of pads: four squares
+    case "pad01": // the green + that opens into Nuevo usuario
       return (
         <svg {...GLYPH} aria-hidden>
-          <rect x="2" y="2" width="5" height="5" rx="1.4" fill="currentColor" stroke="none" />
-          <rect x="9" y="2" width="5" height="5" rx="1.4" fill="currentColor" stroke="none" />
-          <rect x="2" y="9" width="5" height="5" rx="1.4" fill="currentColor" stroke="none" />
-          <rect x="9" y="9" width="5" height="5" rx="1.4" strokeWidth={1.4} />
+          <path d="M8 2v12M2 8h12" />
+        </svg>
+      );
+    case "pad02": // the slider, ready to slide
+      return (
+        <svg {...GLYPH} aria-hidden>
+          <path d="M1.5 8h13" strokeWidth={1.4} />
+          <rect x="8" y="4.5" width="6" height="7" rx="2" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "pad03": // the pressed squircle
+      return (
+        <svg {...GLYPH} aria-hidden>
+          <rect x="4" y="4" width="8" height="8" rx="2.6" fill="currentColor" stroke="none" />
+          <rect x="1.5" y="1.5" width="13" height="13" rx="4.5" strokeWidth={1.2} />
+        </svg>
+      );
+    case "kpi": // the bars
+      return (
+        <svg {...GLYPH} aria-hidden>
+          <path d="M3 14V9M8 14V3M13 14V6" />
         </svg>
       );
     case "histok": // history: an hourglass

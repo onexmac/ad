@@ -4,7 +4,7 @@ import "@fontsource-variable/roboto/index.css";
 import { fontVars } from "@/lib/fonts";
 import "./globals.css";
 
-const roboto = localFont({ src: "../../../../../node_modules/@fontsource-variable/roboto/files/roboto-latin-wght-normal.woff2", weight: "100 900" });
+const roboto = localFont({ src: "../../../../node_modules/@fontsource-variable/roboto/files/roboto-latin-wght-normal.woff2", weight: "100 900" });
 
 export const metadata: Metadata = {
   title: "Pads",
