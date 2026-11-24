@@ -79,14 +79,9 @@ function check(message, label) {
 }
 
 async function research(client, ctx) {
-  const tools = [
-    {
-      type: "web_search_20260209",
-      name: "web_search",
-      max_uses: 24,
-      user_location: { type: "approximate", country: "CR", city: "Cartago", timezone: "America/Costa_Rica" },
-    },
-  ];
+  // No user_location: web search refuses country "CR" (400, "Country code CR
+  // is not supported"), and the prompt already places the reader in Cartago.
+  const tools = [{ type: "web_search_20260209", name: "web_search", max_uses: 24 }];
   let messages = [{ role: "user", content: RESEARCH(ctx) }];
   // The server's search loop can pause; resume it as it is, a few times at most.
   for (let turn = 0; turn < 5; turn++) {
