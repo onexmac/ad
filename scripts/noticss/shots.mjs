@@ -74,7 +74,7 @@ async function pool(items, n, fn) {
   return out;
 }
 
-const picture = (url, alt, outlet) => ({ url, color: url, alt, credit: outlet ? `Foto: ${outlet}` : null });
+const picture = (url, alt, outlet) => ({ url, color: url, alt, credit: outlet || null });
 
 /**
  * Fills `image` on every storyline (from the first of its notes whose page has
