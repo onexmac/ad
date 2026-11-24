@@ -33,7 +33,7 @@ Still open: none reported.
 
 - A picture is never shown twice in an issue. Sources often share one share image (Nexon's First Descendant pages do, and so does Steam's store page), and the cover and the spotlight, and Latest's wide picture and the first of Two to see, had shown the same picture for different entries. The issue now places each picture once; an entry whose only picture is already on a page counts as having none.
 - The edition pipeline no longer gives an entry a picture another entry already has: it looks on the entry's other pages instead.
-- This week's edition (Nº48, refreshed this afternoon with seven new or updated entries) has a picture of its own for each of its 28 entries. Eight were filled by hand from the stories' other coverage and from Nexon's own announcements on Steam, each checked to load as an image; all are linked, not copied. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- This week's edition (Nº48, refreshed this afternoon with seven new or updated entries) has a picture of its own for each of its 28 entries. Eight were filled by hand from the stories' other coverage and from Nexon's own announcements on Steam, each checked to load as an image; all are linked, not copied. ([#160](https://github.com/onexmac/ad/pull/160))
 
 ## 0.5.5 · 2026-11-24 14:14
 
