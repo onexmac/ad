@@ -3,31 +3,135 @@
   "year": 2026,
   "week": 48,
   "date": "2026-11-24",
-  "updatedAt": "2026-11-24T06:01:54.350Z",
+  "updatedAt": "2026-11-24T12:45:37.180Z",
   "isSample": false,
   "items": [
+    {
+      "id": "zzz-hsr-collab",
+      "franchise": "zzz",
+      "kind": "character",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Kafka's ZZZ banner set for January 1, 2027",
+      "dek": "Kafka, an S-Rank Electric Anomaly Agent, gets a firm banner start in 3.4's second half. Plan your pulls now.",
+      "body": [
+        "Guide sites now date Kafka's debut banner, \"Final Act's Nocturne,\" in Phase 2 of version 3.4. AccountShark gives January 1, 2027 12:00 to January 21, 2027 14:59 and credits the official Signal Search Preview. Game8 gives the same January 1 to 21 window. Her signature W-Engine, \"Requiem Araneae,\" runs in the same phase. Kafka is a banner character, not a free login reward. Alice and her W-Engine \"Practiced Perfection\" return as a rerun in the same half.",
+        "Phase 1's end date is unresolved. Yahoo says the Sunbringer and Robin banners run December 2, 2026 to January 12, 2027, 2:59 PM (UTC+8). CBR says they stay open for all of 3.4. HoYoverse's own banner notice hasn't been found, and both AccountShark and Game8 are guide sites, not official sources."
+      ],
+      "date": null,
+      "when": "2027-01-01",
+      "tags": [
+        "banner",
+        "crossover",
+        "honkai star rail"
+      ],
+      "source": "AccountShark",
+      "url": "https://accountshark.net/blog/zenless-zone-zero-3-4-the-finality-of-the-day-december-2-sunbringer-free-robin-kafka-banner-date-honkai-star-rail-crossover",
+      "image": "https://images.genshin-builds.com/news/honkai-star-rail/hsr-x-zzz-crossover-kafka-robin-in-3-4.png"
+    },
+    {
+      "id": "zzz-34-program",
+      "franchise": "zzz",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "ZZZ 3.4: free Robin, new outfits, Agent buffs",
+      "dek": "Version 3.4 lands December 2 with a free Robin, four outfits, buffs for Vivian and Ju Fufu, and a Make-A-Wish tie-in.",
+      "body": [
+        "Version 3.4, \"The Finality of the Day,\" launches December 2, 2026. Everyone who logs in after the update gets Robin, along with materials to reach Level 40 and a Drive Disc set (Inven Global). Sunbringer is an S-Rank Armorer Agent made of three characters who fight as one unit.",
+        "The update adds four new outfits (Yahoo). The official @ZZZ_EN account says Robin's \"Cosmic Beat\" outfit goes on sale in the Store after the update. The other three outfits haven't been named. Vivian and Ju Fufu receive Agent enhancements. During 3.4, ZZZ partners with Make-A-Wish, per HoYoverse's November 20 press release."
+      ],
+      "date": "2026-11-20",
+      "when": "2026-12-02",
+      "tags": [
+        "update",
+        "outfits",
+        "free agent"
+      ],
+      "source": "HoYoverse (Games Press)",
+      "url": "https://www.gamespress.com/Zenless-Zone-Zero-Version-34-The-Finality-of-the-Day-Launches-December",
+      "image": "https://clan.akamai.steamstatic.com/images/46096005/b0ad9d562ae08b67dee2750b1abb0c0b615f733d.png"
+    },
     {
       "id": "tf-12-3",
       "franchise": "finals",
       "kind": "game",
       "status": "upcoming",
       "importance": 3,
-      "title": "The Grand Major 2026: seeds set, Pick'em closes Nov 26",
-      "dek": "Embark revealed the 16-team field for THE FINALS world championship at DreamHack Stockholm, Nov 27-29, with $150,000 on the line.",
+      "title": "Grand Major seedings out; Pick'ems lock Nov 26",
+      "dek": "Embark's official seeding post sets the Pick'em deadline: midnight CET at the end of Thursday, November 26.",
       "body": [
-        "Embark posted the seeding reveal for The Grand Major 2026 on November 23. Sixteen teams play at DreamHack Stockholm from November 27 to 29 for a $150,000 prize pool: seven from the Americas, six from EMEA and three from APAC. Each region's Online Series winner (Luminon Gaming, Five Fears, Kingzero) is seeded first, and the seeds are spread across four opening Cashouts.",
-        "Day 1 splits teams into upper and lower brackets from those Cashouts. Day 2 decides the last three seats for the final day, the last one in a best-of-three. On Day 3 five teams play best-of-three Final Rounds for the Throne; first to three crowns is world champion. First matches start at 12:00 CET on Friday and Saturday and 10:45 CET on Sunday, live on twitch.tv/thefinals.",
-        "Pick'ems lock at midnight CET at the end of Thursday, November 26. You pick the five teams you expect to reach the Throne, and the reward is an exclusive in-game badge."
+        "Embark posted the Grand Major seeding reveal on November 23. The event runs at DreamHack Stockholm, November 27 to 29. Sixteen teams from the Americas, EMEA and APAC compete for a $150,000 prize pool, and a best-of-three Grand Final decides the champion.",
+        "The only new detail is the deadline. Pick'ems lock at midnight CET at the end of Thursday, November 26, so submit your picks before then. In-game, there is no patch after 12.4.0 and no new cosmetics. Season 13 hasn't been announced, and there is no official Season 12 end date."
       ],
       "date": "2026-11-23",
       "when": "2026-11-27",
       "tags": [
         "esports",
-        "tgm26"
+        "pick'em"
       ],
-      "source": "THE FINALS (Embark Studios)",
+      "source": "THE FINALS (official)",
       "url": "https://www.reachthefinals.com/patchnotes/tgm26-seedings",
       "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
+    },
+    {
+      "id": "cod-s1-reloaded",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Season 1 Reloaded expected Dec 2 PT (unconfirmed)",
+      "dek": "Two press sites expect Reloaded at 10 PM PT on December 2, which is December 3 in ET and GMT. Activision hasn't confirmed it.",
+      "body": [
+        "Gamelevate (indexed November 21) says Season 1 Reloaded arrives at 10 PM PT on December 2, which is December 3 in ET and GMT. Timesaver.gg (updated November 21) also expects December 3, or December 2 on the US West Coast, based on the in-game countdown.",
+        "Neither site is official, and Activision hasn't published its Season 1 Reloaded blog yet. Treat the timing as likely but not confirmed until that blog goes up."
+      ],
+      "date": null,
+      "tags": [
+        "season 1",
+        "reloaded"
+      ],
+      "source": "Gamelevate",
+      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
+    },
+    {
+      "id": "cod-s1-bundles",
+      "franchise": "cod",
+      "kind": "skin",
+      "status": "upcoming",
+      "importance": 1,
+      "title": "Eight more Operator skins due with Reloaded",
+      "dek": "Activision's Season 1 blog promised eight more Operator skins, with details saved for the Reloaded blog.",
+      "body": [
+        "Timesaver.gg quotes Activision's Season 1 blog, which says \"eight additional Operator Skins\" are coming and that details will follow in the Reloaded blog.",
+        "None of these skins has been revealed yet, including any new women Operators. Watch for the Reloaded blog, likely shortly before the expected early-December drop."
+      ],
+      "date": "2026-11-21",
+      "tags": [
+        "operators",
+        "skins"
+      ],
+      "source": "Timesaver.gg",
+      "image": "https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/body/mw4/s1-bc-bp-mtx/MW4-SEASON-1-BP-BC-BUNDLES-061.webp"
+    },
+    {
+      "id": "sb-blood-rain-ai",
+      "franchise": "stellar",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 1,
+      "title": "Shift Up: Blood Rain will be \"handmade\" after AI backlash",
+      "dek": "After criticism of a largely AI-made music video, Shift Up's CEO says the sequel will be handmade, though AI still has support roles.",
+      "body": [
+        "Stellar Blade: Blood Rain is the title of the sequel. A music video for it, made largely with AI, drew criticism. CEO Kim Hyung-tae told Inven Global the game will be \"handmade from start to finish.\"",
+        "Shift Up will still use AI for support tasks such as texture aging, model simplification, lighting checks and bug detection (ixbt.games). GamesRadar's headline note that the devs are \"still using AI\" is the outlet's own view. No release date was given."
+      ],
+      "date": "2026-11-20",
+      "tags": [
+        "sequel",
+        "ai"
+      ],
+      "source": "GamesRadar"
     },
     {
       "id": "tf-12-4",
@@ -116,28 +220,6 @@
       "image": "https://cdn.gameleap.com/images/articles/art_WbLfuXWF4r/feature/0.6x.webp"
     },
     {
-      "id": "cod-s1-reloaded",
-      "franchise": "cod",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 2,
-      "title": "MW4 Season 1 Reloaded expected December 2",
-      "dek": "An in-game countdown points to Dec 2 for the midseason update, which opens eight bonus operator skins for players who finish the pass.",
-      "body": [
-        "Activision has not announced a time, but the in-game countdown to the Season 1 Battle Pass Bonus Rewards points to Wednesday, December 2 at 10 p.m. PT (Thursday, December 3 in Europe) for Modern Warfare 4 and Warzone Season 1 Reloaded. Activision has confirmed the bonus rewards open with Reloaded: eight extra operator skins for players who complete the premium Season 1 pass.",
-        "Content named in the Season 1 material: the Ministry and Overflow maps, Counter Attack mode, the JAK 12 shotgun, the ZLR Talonhawk melee weapon and an M16 Burst attachment, plus Extreme Resurgence and Rockets and Snipers in Warzone. No midseason operator names have been published yet."
-      ],
-      "date": "2026-11-19",
-      "tags": [
-        "mw4",
-        "warzone",
-        "operators"
-      ],
-      "source": "U4N",
-      "url": "https://www.u4n.com/news/mw4-and-warzone-season-1-reloaded-what-drops-and-when.html",
-      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
-    },
-    {
       "id": "cod-mw4-tga",
       "franchise": "cod",
       "kind": "game",
@@ -201,28 +283,6 @@
       "source": "Guided",
       "url": "https://guided.news/en/news/zenless-zone-zero-honkai-star-rail-kafka-robin-version-3-4/",
       "image": "https://guided.news/wp-content/uploads/2026/10/HUMAjguW8AAlxYr.webp"
-    },
-    {
-      "id": "zzz-hsr-collab",
-      "franchise": "zzz",
-      "kind": "collab",
-      "status": "upcoming",
-      "importance": 3,
-      "title": "Star Rail crossover: Robin free in 3.4, Kafka later",
-      "dek": "Every player can claim S-Rank Robin after the Dec 2 update; Kafka arrives in the version's second half with an Alice rerun.",
-      "body": [
-        "HoYoverse's 3.4 announcement confirms Honkai: Star Rail's Robin joins for free: players can claim the S-Rank Ether Defense Agent after the December 2 update. Kafka, an Electric Anomaly Agent, arrives in the second half of the version alongside a rerun for S-Rank Physical Anomaly Agent Alice.",
-        "The crossover event \"Lost in a Theatrical Dream\" teams players with Robin, Kafka and their New Eridu companions and pays Polychromes plus the crossover Bangboo Pom-Pom. On the Star Rail side, Version 4.8 will add Ellen Joe and Astra Yao; its date is still unconfirmed."
-      ],
-      "date": "2026-11-20",
-      "when": "2026-12-02",
-      "tags": [
-        "honkai star rail",
-        "crossover"
-      ],
-      "source": "Guided",
-      "url": "https://guided.news/en/news/zenless-zone-zero-honkai-star-rail-kafka-robin-version-3-4/",
-      "image": "https://images.genshin-builds.com/news/honkai-star-rail/hsr-x-zzz-crossover-kafka-robin-in-3-4.png"
     },
     {
       "id": "flm-sunrise-reaping",
