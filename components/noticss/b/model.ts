@@ -74,7 +74,7 @@ export const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b
  */
 export type Suggested = { reason: string | null };
 export type Card =
-  | { type: "subject"; id: string; subject: Subject; from?: Edition; suggested?: Suggested }
+  | { type: "subject"; id: string; subject: Subject; from?: Edition; suggested?: Suggested; more?: { count: number; section: string } }
   | { type: "note"; id: string; subject: Subject; note: Note; from?: Edition; suggested?: Suggested }
   | { type: "figures"; id: string; indicators: Indicator[] };
 
@@ -106,6 +106,8 @@ const storyCards = (prefix: string, subs: Subject[], from?: Edition, suggested?:
 
 /** The share of every section's cards the reader's taste picks. */
 export const SUGGESTED_SHARE = 0.3;
+/** On Hoy a storyline is a highlight: its synopsis and this many of its notes. */
+const HOY_NOTES = 1;
 /** A suggested storyline brings its first notes, not all of them. */
 const SUGGESTED_NOTES = 2;
 
@@ -228,30 +230,46 @@ export function sectionsOf(ed: Edition, editions: Edition[] = [ed], follows: str
   const take = (list: Candidate[]) => list.filter((c) => !used.has(c.subject.id));
   const mark = (cards: Card[]) => cards.forEach((c) => c.type !== "figures" && c.suggested && used.add(c.subject.id));
 
-  // Hoy is the front page: the most important storyline of each lens, most
-  // important first, then the day's figures. Those storylines leave their own
-  // sections; a section left with nothing of its own is not shown.
+  // Hoy is the front page, in highlights: the most important storyline of
+  // each lens, most important first, each as its synopsis and its single most
+  // important note, then the day's figures. The rest of those storylines'
+  // notes stay in their own sections (nothing is shown twice, nothing lost).
   const order = (a: Subject, b: Subject) => b.importance - a.importance || ed.subjects.indexOf(a) - ed.subjects.indexOf(b);
   const front = categoryOrder
     .map((c) => ed.subjects.filter((s) => s.category === c).sort(order)[0])
     .filter((s): s is Subject => !!s)
     .sort(order);
   const onFront = new Set(front.map((s) => s.id));
-  const hoyCards = withSuggestions("hoy", front.map((s) => storyCards("hoy", [s])), take(pool), [{ type: "figures", id: "hoy-cifras", indicators: ed.indicators }]);
+  const top = (s: Subject) => [...s.notes].sort((a, b) => b.importance - a.importance || s.notes.indexOf(a) - s.notes.indexOf(b)).slice(0, HOY_NOTES);
+  const highlight = (s: Subject): Card[] => {
+    const notes = top(s);
+    const rest = s.notes.length - notes.length;
+    const brief: Subject = { ...s, notes };
+    return [
+      { type: "subject", id: `hoy-${s.id}`, subject: brief, more: rest ? { count: rest, section: categoryName[s.category] } : undefined },
+      ...notes.map((n): Card => ({ type: "note", id: `hoy-${n.id}`, subject: s, note: n })),
+    ];
+  };
+  const hoyCards = withSuggestions("hoy", front.map(highlight), take(pool), [{ type: "figures", id: "hoy-cifras", indicators: ed.indicators }]);
   mark(hoyCards);
   const hoy: SectionDef = { id: "hoy", name: "Hoy", kind: "hoy", cards: hoyCards };
   const cats = categoryOrder
     .map((c): SectionDef | null => {
-      const subs = ed.subjects.filter((s) => s.category === c && !onFront.has(s.id));
-      if (!subs.length) return null;
+      const all = ed.subjects.filter((s) => s.category === c);
+      // A storyline on the front page carries on here with its other notes.
+      const blocks = all
+        .map((s): Card[] => {
+          if (!onFront.has(s.id)) return storyCards(c, [s]);
+          const shown = new Set(top(s).map((n) => n.id));
+          return s.notes.filter((n) => !shown.has(n.id)).map((n): Card => ({ type: "note", id: `${c}-${n.id}`, subject: s, note: n }));
+        })
+        .filter((b) => b.length);
+      if (!blocks.length) return null;
       const own = take(pool).filter((x) => x.subject.category === c);
-      const cards = withSuggestions(
-        c,
-        subs.map((s) => storyCards(c, [s])),
-        own.length ? own : pool.filter((x) => x.subject.category === c),
-      );
+      const cards = withSuggestions(c, blocks, own.length ? own : pool.filter((x) => x.subject.category === c));
       mark(cards);
-      return { id: c, name: categoryName[c], kind: c, lead: subs.find((s) => s.image) ?? subs[0], cards };
+      const lead = all.find((s) => !onFront.has(s.id) && s.image) ?? all.find((s) => s.image) ?? all[0];
+      return { id: c, name: categoryName[c], kind: c, lead, cards };
     })
     .filter(Boolean) as SectionDef[];
   return [hoy, ...cats, followingOf(ed, editions, follows, take(pool))];
