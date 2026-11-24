@@ -96,6 +96,7 @@ export function GridScreen({ items, franchises }: { items: Item[]; franchises: F
                   flightKey={`a-grid-${item.id}`}
                   away={opener.isAway(`a-grid-${item.id}`)}
                   onOpen={(from) => opener.open(item.id, { key: `a-grid-${item.id}`, ...from })}
+                  like={item.mock ? undefined : item}
                   onHoldChange={(h) => setFocusId(h ? item.id : null)}
                 />
               </div>
@@ -294,6 +295,7 @@ export function Row({
           flightKey={flightKey}
           away={away}
           onOpen={(from) => onOpen({ key: flightKey, ...from })}
+          like={item.mock ? undefined : item}
         />
       </div>
     </div>

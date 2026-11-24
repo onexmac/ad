@@ -17,6 +17,7 @@ import { useOpener } from "./useOpener";
 import { useEdgeSquish } from "./useEdgeSquish";
 import { PullReadout, ReloadScreen, useBottomPull, useEdgePull } from "./Reload";
 import { ItemLike } from "./ItemLike";
+import { PressLike } from "./PressLike";
 import { catalog, fetchLatest, LATEST_URL, newer, type Edition } from "@/lib/updatr/editions";
 import { markSeen, nudge, pickSuggestions, useFrozenTaste } from "@/lib/updatr/taste";
 import { Editions, EditionsReadout } from "./Editions";
@@ -186,6 +187,8 @@ export function MagazineScreen({ editions: initial, franchises }: { editions: Ed
     flightKey: key,
     away: opener.isAway(key),
     onOpen: (from: OpenFrom) => opener.open(item.id, { key, ...from }, variant),
+    // A long hold locks the picture up, with its verdict keys.
+    like: item.mock ? undefined : item,
   });
 
   // Where am I: the last section whose top has passed 45% of the screen (read on
@@ -585,21 +588,21 @@ export function MagazineScreen({ editions: initial, franchises }: { editions: Ed
             <div className="mt-6 columns-2 gap-5 [column-rule:1px_solid_var(--rule-soft)]">
               {issue.briefs.map((item, i) => (
                 <Grow key={item.id} lag={i % 2} y={12} className="mb-6 break-inside-avoid">
-                  <motion.button
-                    type="button"
-                    whileTap={{ scale: 0.97 }}
-                    transition={springs.snappy}
-                    onClick={() => opener.open(item.id)}
-                    className="block w-full text-left"
-                  >
-                  <span className="mono block text-ink-soft">
-                    {byId[item.franchise]?.code} · {dot(item.date)}
-                    {item.suggested ? <span className="text-accent"> · Suggested</span> : null}
-                  </span>
-                  <span className="mt-1 block text-[16px] font-medium leading-[1.12] tracking-[-0.02em]">{item.title}</span>
-                  <span className="mt-1 block text-[13px] leading-[1.42] text-ink/75">{item.body[0]}</span>
-                  {item.mock ? <span className="mono mt-1 block text-ink-faint">Sample</span> : null}
-                  </motion.button>
+                  {/* Tap opens it; a long press pops the like fan where the finger is. */}
+                  <PressLike item={item} onOpen={() => opener.open(item.id)} className="block w-full text-left">
+                    {(verdict) => (
+                      <>
+                        <span className="mono block text-ink-soft">
+                          {byId[item.franchise]?.code} · {dot(item.date)}
+                          {item.suggested ? <span className="text-accent"> · Suggested</span> : null}
+                          {verdict === "like" ? <span className="text-accent"> · More</span> : verdict === "dislike" ? <span className="text-ink-faint"> · Less</span> : null}
+                        </span>
+                        <span className="mt-1 block text-[16px] font-medium leading-[1.12] tracking-[-0.02em]">{item.title}</span>
+                        <span className="mt-1 block text-[13px] leading-[1.42] text-ink/75">{item.body[0]}</span>
+                        {item.mock ? <span className="mono mt-1 block text-ink-faint">Sample</span> : null}
+                      </>
+                    )}
+                  </PressLike>
                 </Grow>
               ))}
             </div>

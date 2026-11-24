@@ -1,0 +1,1213 @@
+{
+  "schemaVersion": 6,
+  "date": "2026-11-24",
+  "slot": "manana",
+  "number": 4,
+  "generatedAt": "2026-11-24T13:41:35.949Z",
+  "isSample": false,
+  "weather": null,
+  "indicators": [
+    {
+      "id": "usd_crc",
+      "label": "Dólar",
+      "value": "₡445,20",
+      "delta": null,
+      "unit": "CRC",
+      "note": "venta · BCCR",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "tba",
+      "label": "Tasa Básica",
+      "value": "3,56 %",
+      "delta": 0,
+      "unit": "%",
+      "note": "BCCR",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "contenedor",
+      "label": "Contenedor",
+      "value": "US$4.176",
+      "delta": null,
+      "unit": "USD/40ft",
+      "note": "Drewry WCI",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "cemento",
+      "label": "Cemento",
+      "value": null,
+      "delta": null,
+      "unit": "índice",
+      "note": "INEC",
+      "series": null,
+      "seriesNote": null
+    },
+    {
+      "id": "acero",
+      "label": "Varilla",
+      "value": null,
+      "delta": null,
+      "unit": "índice",
+      "note": "INEC",
+      "series": null,
+      "seriesNote": null
+    }
+  ],
+  "subjects": [
+    {
+      "id": "dolar-minimo",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 3,
+      "title": "Dólar en cuarto mínimo seguido; el BCCR compra al mayor ritmo del año",
+      "synopsis": "El dólar marcó el lunes su cuarto mínimo histórico seguido en Monex y cae 10,8 % en el año, aunque el BCCR compra al mayor ritmo mensual de 2026. Abarata el acero y los equipos que se pagan en dólares, pero deja menos colones por cada venta fijada en dólares y resta poder de compra a los clientes que ganan en dólares. Vigilar la decisión de tasa del BCCR el jueves y si Monex baja de ¢440.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2026/11/AFP__20260416__baglietto-notitle260415_npzYF__v1__HighRes__DollarEconomy.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2026/11/AFP__20260416__baglietto-notitle260415_npzYF__v1__HighRes__DollarEconomy.jpg.webp",
+        "alt": "Dólar en cuarto mínimo seguido; el BCCR compra al mayor ritmo del año",
+        "credit": "El Observador CR"
+      },
+      "snippets": [
+        {
+          "id": "dolar-minimo-cuarto",
+          "kind": "event",
+          "importance": 3,
+          "published": "2026-11-23",
+          "headline": "Cuarto mínimo histórico seguido en Monex",
+          "body": "El lunes 23 el dólar volvió a romper su mínimo histórico en Monex, el cuarto seguido desde el miércoles 18. En noviembre acumula una caída de ¢8,53 (1,9 %) y en el año, de 10,8 %.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "tipo de cambio",
+            "monex"
+          ],
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/dolar-marca-otro-minimo-historico-en-monex-y-acumula-caida-de-853-en-noviembre/"
+          }
+        },
+        {
+          "id": "dolar-minimo-viernes",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-20",
+          "headline": "¢443,97: el promedio más bajo desde 2007",
+          "body": "El viernes 20 el promedio de Monex cerró en ¢443,97, el más bajo desde que el BCCR inició la serie en 2007. El promedio exacto del lunes 23 no se confirmó.",
+          "why": null,
+          "image": {
+            "url": "https://www.elfinancierocr.com/resizer/v2/YB2MLQRYXZBUDBIZGEOLS2RUAU.jpg?smart=true&auth=299499038b257f38b9e8bfb297a6cc27570608bf219ca61c720cb2170ef408c1&width=1440",
+            "color": "https://www.elfinancierocr.com/resizer/v2/YB2MLQRYXZBUDBIZGEOLS2RUAU.jpg?smart=true&auth=299499038b257f38b9e8bfb297a6cc27570608bf219ca61c720cb2170ef408c1&width=1440",
+            "alt": "¢443,97: el promedio más bajo desde 2007",
+            "credit": "El Financiero"
+          },
+          "tags": [
+            "tipo de cambio",
+            "monex"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/finanzas/dolar-en-costa-rica-cierra-la-semana-en-44397-y/6GBWUPIOWNDJ3C5T3DH2HALGDY/story/"
+          }
+        },
+        {
+          "id": "dolar-minimo-compras-bccr",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-11-23",
+          "headline": "BCCR: más de $316 millones en compras en noviembre",
+          "body": "El BCCR superó los $316 millones en compras para estabilizar el tipo de cambio, su nivel mensual más alto de 2026. Aparte, compró $331,5 millones para el sector público no bancario.",
+          "why": "El banco está frenando la caída, pero no la está revirtiendo.",
+          "image": null,
+          "tags": [
+            "bccr",
+            "tipo de cambio"
+          ],
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/dolar-marca-otro-minimo-historico-en-monex-y-acumula-caida-de-853-en-noviembre/"
+          }
+        },
+        {
+          "id": "dolar-minimo-bloomberg",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "El colón, la moneda más fuerte de América Latina",
+          "body": "Bloomberg Línea calcula que el colón se apreció casi 12 % frente al dólar en 2026, aunque esa fortaleza \"está generando muchos desafíos a lo interno\".",
+          "why": null,
+          "image": {
+            "url": "https://www.bloomberglinea.com/resizer/v2/4MA5CEMPTBCOHFPV7K5Z7WLA4E.jpg?auth=3556a27e654380533b6f8d7ff461e93b43478c31cac78038ec9c2696c646e963&width=1200&height=630&quality=80&smart=true",
+            "color": "https://www.bloomberglinea.com/resizer/v2/4MA5CEMPTBCOHFPV7K5Z7WLA4E.jpg?auth=3556a27e654380533b6f8d7ff461e93b43478c31cac78038ec9c2696c646e963&width=1200&height=630&quality=80&smart=true",
+            "alt": "El colón, la moneda más fuerte de América Latina",
+            "credit": "Bloomberg Línea"
+          },
+          "tags": [
+            "colón",
+            "américa latina"
+          ],
+          "source": {
+            "name": "Bloomberg Línea",
+            "url": "https://www.bloomberglinea.com/mercados/por-que-costa-rica-tiene-la-moneda-mas-apreciada-frente-al-dolar-en-2026-y-aun-asi-genera-alerta/"
+          }
+        },
+        {
+          "id": "dolar-minimo-referencia",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "Referencia de hoy: ¢445,20 a la venta",
+          "body": "El tipo de cambio de referencia del BCCR para el martes 24 es ¢440,90 a la compra y ¢445,20 a la venta. La tasa de política monetaria sigue en 3 % desde septiembre y se revisa el jueves.",
+          "why": null,
+          "image": {
+            "url": "https://www.nacion.com/resizer/v2/KZHHD64KWJAY5JGJE2ZPWPOZOQ.png?smart=true&auth=a6eb38fa7916efc7506d1f9f61f147ae9fcb53afb046b271a455150d20d82ded&width=1440",
+            "color": "https://www.nacion.com/resizer/v2/KZHHD64KWJAY5JGJE2ZPWPOZOQ.png?smart=true&auth=a6eb38fa7916efc7506d1f9f61f147ae9fcb53afb046b271a455150d20d82ded&width=1440",
+            "alt": "Referencia de hoy: ¢445,20 a la venta",
+            "credit": "La Nación"
+          },
+          "tags": [
+            "tipo de cambio",
+            "bccr"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/indicadores/tipo-de-cambio-del-dolar-miercoles-30-de-agosto/PXD4E7KMCFFHVP2L4ULJYU5Y6I/story/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ormuz-petroleo-fletes",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 2,
+      "title": "El Brent cae a mínimos de tres meses con Ormuz todavía cerrado",
+      "synopsis": "El Brent tocó US$87,10 el lunes, su menor nivel en tres meses, porque las reservas liberadas compensan el cierre de Ormuz. Para la obra, el diésel de diciembre baja apenas ¢9 (a ¢798) y la caída posterior al 12 de noviembre solo entraría en la revisión siguiente, sin precio anunciado. Vigilar la resolución de ARESEP, si el Brent se sostiene bajo US$90 y el dato de Drewry del jueves.",
+      "image": {
+        "url": "https://assets.mdzol.com/social/1997332-62690a7242.jpg",
+        "color": "https://assets.mdzol.com/social/1997332-62690a7242.jpg",
+        "alt": "El Brent cae a mínimos de tres meses con Ormuz todavía cerrado",
+        "credit": "MDZ"
+      },
+      "snippets": [
+        {
+          "id": "ormuz-petroleo-fletes-brent",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-11-23",
+          "headline": "Brent en US$87,10, mínimo desde agosto",
+          "body": "El lunes el Brent tocó US$87,10 en la sesión (−3,17 %) tras cerrar el viernes en US$92,57; el WTI bajó a US$80,30. Esta mañana bajaba 0,8 %, a US$88,62.",
+          "why": "Las fuentes difieren en la fecha del mínimo previo: 25 o 27 de agosto.",
+          "image": null,
+          "tags": [
+            "petróleo",
+            "brent"
+          ],
+          "source": {
+            "name": "MDZ",
+            "url": "https://www.mdzol.com/economia/2026/11/23/el-precio-del-petroleo-brent-cae-mas-de-3-hasta-los-us87-el-barril-el-menor-nivel-en-tres-meses-1997332.html"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-ubs",
+          "kind": "quote",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "UBS: el mercado descuenta parte del riesgo",
+          "body": "Giovanni Staunovo, de UBS: los mercados están \"descontando parte del riesgo geopolítico a corto plazo en Oriente Medio\". Ormuz sigue cerrado, pero la liberación de reservas estratégicas mantiene holgada la oferta.",
+          "why": null,
+          "image": {
+            "url": "https://global.gbm.com/prd/media/wp-content/uploads/thumb.png",
+            "color": "https://global.gbm.com/prd/media/wp-content/uploads/thumb.png",
+            "alt": "UBS: el mercado descuenta parte del riesgo",
+            "credit": "Reuters vía GBM"
+          },
+          "tags": [
+            "ormuz",
+            "petróleo"
+          ],
+          "source": {
+            "name": "Reuters vía GBM",
+            "url": "https://gbm.com/media/noticia/crudo-toca-minimos-de-tres-meses-ya-que-aumento-de-oferta-compensa-amenaza-de-ormuz"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-jpmorgan",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "JPMorgan prevé petróleo en la parte alta de US$70",
+          "body": "JPMorgan, citado por Reuters, espera que los futuros bajen a la parte alta de los US$70 en el primer semestre de 2027 por exceso de oferta.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "petróleo",
+            "pronóstico"
+          ],
+          "source": {
+            "name": "MDZ",
+            "url": "https://www.mdzol.com/economia/2026/11/23/el-precio-del-petroleo-brent-cae-mas-de-3-hasta-los-us87-el-barril-el-menor-nivel-en-tres-meses-1997332.html"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-recope",
+          "kind": "number",
+          "importance": 3,
+          "published": "2026-11-13",
+          "headline": "Diésel de diciembre: −¢9 por litro",
+          "body": "RECOPE pidió a ARESEP bajar el diésel de ¢807 a ¢798 y la regular de ¢807 a ¢704 en diciembre, con precios internacionales del 9 de octubre al 12 de noviembre. ARESEP aún no lo aprueba.",
+          "why": "El diésel mueve maquinaria y acarreo; la baja reciente del Brent queda fuera de este cálculo.",
+          "image": {
+            "url": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/06/COMBUSTIBLES-700x437-1.jpg",
+            "color": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/06/COMBUSTIBLES-700x437-1.jpg",
+            "alt": "Diésel de diciembre: −¢9 por litro",
+            "credit": "Monumental"
+          },
+          "tags": [
+            "combustibles",
+            "diésel",
+            "aresep"
+          ],
+          "source": {
+            "name": "Monumental",
+            "url": "https://www.monumental.co.cr/2026/11/13/recope-anticipa-rebaja-de-%C2%A2103-por-litro-de-gasolina-regular-en-diciembre-cilindro-de-gas-aumentaria-mas-de-%C2%A2900/"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-drewry",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-19",
+          "headline": "Contenedor de 40 pies: US$4.176",
+          "body": "El índice Drewry bajó 3 % el 19 de noviembre, a US$4.176 por contenedor de 40 pies, y la firma espera más bajas.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fletes",
+            "drewry"
+          ],
+          "source": {
+            "name": "Drewry",
+            "url": "https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ccc-agenda-tramites",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 2,
+      "title": "La Cámara de la Construcción arma una agenda contra el exceso de trámites",
+      "synopsis": "La CCC reunió el lunes a sector público y privado para trazar una agenda sobre trámites, vivienda, infraestructura y agua, apoyada en un estudio de CEFSA. Permisos y disponibilidad de agua son lo que más atrasa un desarrollo de vivienda en Cartago, pero por ahora es un evento, no una medida. Vigilar que se publiquen las cifras del estudio y compromisos del gobierno con nombre y fecha.",
+      "image": {
+        "url": "https://img.delfino.cr/wp-content/uploads/2026/11/alfredo-volio-construyedo-pais.jpg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2026/11/alfredo-volio-construyedo-pais.jpg?w=1536",
+        "alt": "La Cámara de la Construcción arma una agenda contra el exceso de trámites",
+        "credit": "Delfino.cr"
+      },
+      "snippets": [
+        {
+          "id": "ccc-agenda-tramites-encuentro",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Encuentro \"Construyendo País\"",
+          "body": "La Cámara Costarricense de la Construcción reunió a representantes públicos y privados en \"Construyendo País: una agenda para el desarrollo\". No se confirmó qué autoridades asistieron.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "ccc",
+            "trámites"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/camara-costarricense-de-la-construccion-reune-a-autoridades-y-sector-privado-para-trazar-una-agenda-de-desarrollo-para"
+          }
+        },
+        {
+          "id": "ccc-agenda-tramites-temas",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Agua y trámites en la mesa",
+          "body": "Se discutió competitividad, vivienda, infraestructura, agua y trámites, además del aporte del sector a la economía.",
+          "why": "Son los dos cuellos de botella que más atrasan un proyecto de vivienda.",
+          "image": null,
+          "tags": [
+            "agua",
+            "vivienda",
+            "trámites"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/camara-costarricense-de-la-construccion-reune-a-autoridades-y-sector-privado-para-trazar-una-agenda-de-desarrollo-para"
+          }
+        },
+        {
+          "id": "ccc-agenda-tramites-estudio",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Estudio de CEFSA sobre tramitología",
+          "body": "La base fue el estudio \"El sector construcción en Costa Rica: importancia e impacto de la tramitología\", de CEFSA, complementado con mesas de trabajo de la CCC. Sus cifras no se encontraron.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cefsa",
+            "trámites"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/camara-costarricense-de-la-construccion-reune-a-autoridades-y-sector-privado-para-trazar-una-agenda-de-desarrollo-para"
+          }
+        },
+        {
+          "id": "ccc-agenda-tramites-volio",
+          "kind": "quote",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Volio: \"que esas decisiones se conviertan en obras\"",
+          "body": "Alfredo Volio, presidente de la CCC: \"Nuestro trabajo, el de todos los que estamos aquí, es que esas decisiones se conviertan en obras\".",
+          "why": null,
+          "image": null,
+          "tags": [
+            "ccc"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/camara-costarricense-de-la-construccion-reune-a-autoridades-y-sector-privado-para-trazar-una-agenda-de-desarrollo-para"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ley-plataformas-uber",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Uber dice que la ley de plataformas duplicaría sus tarifas",
+      "synopsis": "Uber advirtió que el proyecto para regular las plataformas de transporte podría duplicar sus tarifas en Costa Rica; es la cifra de la empresa, no una estimación independiente. Para un desarrollador, el efecto sería indirecto: el costo de mover personal y clientes. Vigilar si el proyecto avanza en comisión durante las sesiones extraordinarias.",
+      "image": {
+        "url": "https://acontecer.co.cr/wp-content/uploads/2026/06/ACONTECER-MATUTINO.webp",
+        "color": "https://acontecer.co.cr/wp-content/uploads/2026/06/ACONTECER-MATUTINO.webp",
+        "alt": "Uber dice que la ley de plataformas duplicaría sus tarifas",
+        "credit": "Acontecer"
+      },
+      "snippets": [
+        {
+          "id": "ley-plataformas-uber-advertencia",
+          "kind": "quote",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Uber: costo hasta el doble",
+          "body": "Uber advirtió que el proyecto de ley para regular las plataformas digitales de transporte subiría el costo de sus servicios en Costa Rica hasta el doble.",
+          "why": "Es la posición de una parte interesada.",
+          "image": null,
+          "tags": [
+            "uber",
+            "plataformas"
+          ],
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-martes-24-de-noviembre-de-2026"
+          }
+        },
+        {
+          "id": "ley-plataformas-uber-pendiente",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Sin expediente ni etapa confirmados",
+          "body": "No se encontró el número de expediente, la etapa del proyecto ni la respuesta de diputados o del Ejecutivo.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "asamblea",
+            "plataformas"
+          ],
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-martes-24-de-noviembre-de-2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comercio-exterior-giro",
+      "category": "geopolitica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Fernández frenó el viaje de la ministra de Comex dos días antes de destituirla",
+      "synopsis": "Un acuerdo del 26 de octubre muestra que la presidenta impidió el viaje a Europa de la entonces ministra Trejos antes de destituirla y archivar la adhesión al CPTPP. El detalle no cambia el fondo: el arancel de 12,5 % de EE. UU. sigue y no hay estrategia comercial nueva, lo que pesa en la demanda de vivienda ligada a zonas francas. Vigilar los primeros anuncios de Francisco Gamboa en Comex.",
+      "image": {
+        "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1511064-bef7a7ce4bb3ee1301ce6fe88586231084e079e7ddbbb1f8321600681fe6bb8c.jpg",
+        "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1511064-bef7a7ce4bb3ee1301ce6fe88586231084e079e7ddbbb1f8321600681fe6bb8c.jpg",
+        "alt": "Fernández frenó el viaje de la ministra de Comex dos días antes de destituirla",
+        "credit": "Diario Extra"
+      },
+      "snippets": [
+        {
+          "id": "comercio-exterior-giro-acuerdo",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Acuerdo N.º 114-P frenó el viaje",
+          "body": "Con el Acuerdo N.º 114-P, del 26 de octubre, la presidenta impidió que Indiana Trejos viajara a Europa un día antes de salir; el 28 de octubre la destituyó y archivó la adhesión al CPTPP.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "comex",
+            "cptpp"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/noticia/laura-fernandez-freno-viaje-a-europa-de-la-entonces-ministra-de-comex-a-un-dia-de-partir/"
+          }
+        },
+        {
+          "id": "comercio-exterior-giro-carta",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Aviso formal al CPTPP el 13 de noviembre",
+          "body": "El gobierno comunicó a los miembros del CPTPP, con carta de la ministra interina Arianna Arce, que no firmará la adhesión. Fernández descartó retomarla en su gobierno.",
+          "why": null,
+          "image": {
+            "url": "https://observador.cr/wp-content/uploads/2026/10/REUNION-ACUERDO-TRANSPACIFICO-24-scaled.jpg.webp",
+            "color": "https://observador.cr/wp-content/uploads/2026/10/REUNION-ACUERDO-TRANSPACIFICO-24-scaled.jpg.webp",
+            "alt": "Aviso formal al CPTPP el 13 de noviembre",
+            "credit": "El Observador CR"
+          },
+          "tags": [
+            "cptpp",
+            "comercio"
+          ],
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/costa-rica-comunico-de-manera-formal-que-no-procedera-a-firmar-el-protocolo-de-adhesion-al-transpacifico/"
+          }
+        },
+        {
+          "id": "comercio-exterior-giro-gamboa",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-11-20",
+          "headline": "Gamboa asume Comex",
+          "body": "El vicepresidente Francisco Gamboa asumió Comex el 20 de noviembre sin dejar la vicepresidencia.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "comex"
+          ],
+          "source": {
+            "name": "Tico Times",
+            "url": "https://ticotimes.net/2026/11/20/francisco-gamboa-costa-rica-trade-minister-cptpp"
+          }
+        },
+        {
+          "id": "comercio-exterior-giro-arancel",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-20",
+          "headline": "Arancel de EE. UU. sigue en 12,5 %",
+          "body": "El arancel de 12,5 % de EE. UU. sigue vigente y no se anunció cambio de política comercial.",
+          "why": "Afecta a exportadores y zonas francas, motores de empleo y demanda de vivienda.",
+          "image": null,
+          "tags": [
+            "aranceles",
+            "ee. uu."
+          ],
+          "source": {
+            "name": "Tico Times",
+            "url": "https://ticotimes.net/2026/11/20/francisco-gamboa-costa-rica-trade-minister-cptpp"
+          }
+        }
+      ]
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "margen-fiscal",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Caen los ingresos tributarios y el déficit sube",
+      "synopsis": "De enero a septiembre los ingresos tributarios bajaron 0,3 % mientras el gasto siguió creciendo, y el BCCR proyecta un déficit de 3,8 % del PIB en 2026. Más déficit presiona tasas y recorta inversión pública en obras e infraestructura. Vigilar el cierre fiscal de octubre y el efecto en la Tasa Básica.",
+      "image": {
+        "url": "https://www.elfinancierocr.com/resizer/v2/JDLEG5F2ARCS3OSB23PSADRQYM.jpg?smart=true&auth=9e460561daba2f7c991b6e15f94782c0250cd3e86261c6da2cca317c69a01089&width=1440",
+        "color": "https://www.elfinancierocr.com/resizer/v2/JDLEG5F2ARCS3OSB23PSADRQYM.jpg?smart=true&auth=9e460561daba2f7c991b6e15f94782c0250cd3e86261c6da2cca317c69a01089&width=1440",
+        "alt": "Caen los ingresos tributarios y el déficit sube",
+        "credit": "El Financiero"
+      },
+      "snippets": [
+        {
+          "id": "margen-fiscal-ingresos",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-11",
+          "headline": "Déficit de ¢1,276 billones a septiembre",
+          "body": "Los ingresos tributarios bajaron 0,3 % y el déficit financiero llegó a ¢1,276 billones, 2,4 % del PIB.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fiscal",
+            "hacienda"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/finanzas/ingresos-tributarios-caen-y-el-gasto-crece-se/2DCGUQPBXBBMJFHFTY4BGCXRW4/story/"
+          }
+        },
+        {
+          "id": "margen-fiscal-proyeccion",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-16",
+          "headline": "BCCR proyecta déficit de 3,8 % del PIB",
+          "body": "El Informe de Política Monetaria proyecta un déficit de 3,8 % del PIB para 2026, 0,4 puntos más que en 2025.",
+          "why": null,
+          "image": {
+            "url": "https://images.hoy.cr/wp-content/uploads/2025/06/Ministerio-de-Hacienda.jpg",
+            "color": "https://images.hoy.cr/wp-content/uploads/2025/06/Ministerio-de-Hacienda.jpg",
+            "alt": "BCCR proyecta déficit de 3,8 % del PIB",
+            "credit": "CRHoy"
+          },
+          "tags": [
+            "fiscal",
+            "bccr"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/economia/aumentan-el-deficit-fiscal-y-la-deuda-del-gobierno/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "presupuesto-extraordinario-recortes",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Hueco de $882 millones obliga a recortes y más deuda",
+      "synopsis": "El segundo presupuesto extraordinario de 2026 recorta ₡167.968 millones netos, pide ₡187.000 millones más de deuda y pasa 10 escuelas nuevas a 2027. Menos obra pública este año implica menos licitaciones y más presión sobre tasas. Vigilar su trámite legislativo y las advertencias de la Contraloría.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "presupuesto-extraordinario-recortes-cifras",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-10-19",
+          "headline": "Recorte neto de ₡167.968 millones",
+          "body": "El presupuesto extraordinario recorta ₡167.968 millones netos y pide ₡187.000 millones más de deuda; la plata de 10 escuelas nuevas pasa a 2027.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "presupuesto",
+            "deuda"
+          ],
+          "source": {
+            "name": "Tico Times",
+            "url": "https://ticotimes.net/2026/10/19/costa-rica-882-million-revenue-shortfall-budget-cuts"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-recortes-cgr",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-10-19",
+          "headline": "Contraloría: peor deterioro desde 2020",
+          "body": "La Contraloría advirtió que sería el mayor deterioro fiscal desde 2020.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "contraloría",
+            "fiscal"
+          ],
+          "source": {
+            "name": "Tico Times",
+            "url": "https://ticotimes.net/2026/10/19/costa-rica-882-million-revenue-shortfall-budget-cuts"
+          }
+        }
+      ]
+    },
+    {
+      "id": "inflacion-positiva",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "La inflación suma dos meses en positivo",
+      "synopsis": "La inflación interanual fue de 0,55 % en octubre, el segundo mes positivo tras 16 negativos, empujada por combustibles y transporte. Precios al alza reducen el margen para bajar tasas y encarecen insumos y acarreo. Vigilar el dato de noviembre a inicios de diciembre.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2020/07/gasolina-diesel-gasolineria-combustibles.jpeg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2020/07/gasolina-diesel-gasolineria-combustibles.jpeg.webp",
+        "alt": "La inflación suma dos meses en positivo",
+        "credit": "El Observador CR"
+      },
+      "snippets": [
+        {
+          "id": "inflacion-positiva-octubre",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-06",
+          "headline": "0,55 % interanual en octubre",
+          "body": "La inflación llegó a 0,55 % interanual, segundo mes positivo después de 16 negativos.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "inflación",
+            "inec"
+          ],
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/inflacion-sube-a-055-en-octubre-y-acumula-dos-meses-en-terreno-positivo/"
+          }
+        },
+        {
+          "id": "inflacion-positiva-causas",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-06",
+          "headline": "Combustibles y transporte empujan",
+          "body": "El alza la explican sobre todo combustibles y transporte.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "inflación",
+            "combustibles"
+          ],
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/inflacion-sube-a-055-en-octubre-y-acumula-dos-meses-en-terreno-positivo/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cfia-construccion-crece",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Intención de construcción crece 12,8 % a septiembre",
+      "synopsis": "El CFIA registró 8,3 millones de m² de intención de construcción de enero a septiembre, 12,8 % más, con vivienda en 32,5 % del total. El crecimiento lo explican sobre todo obras industriales y urbanísticas, lo que indica dónde se mueve la demanda. Vigilar el dato de octubre y cómo va Cartago frente a Heredia.",
+      "image": {
+        "url": "https://img.delfino.cr/wp-content/uploads/2026/08/staplerworldtv2-construction-site-6747104_1920.jpg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2026/08/staplerworldtv2-construction-site-6747104_1920.jpg?w=1536",
+        "alt": "Intención de construcción crece 12,8 % a septiembre",
+        "credit": "Delfino.cr"
+      },
+      "snippets": [
+        {
+          "id": "cfia-construccion-crece-total",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-10-15",
+          "headline": "8.317.521 m², +12,8 %",
+          "body": "Se registraron 8.317.521 m² de intención de construcción ante el CFIA de enero a septiembre; la vivienda suma 2.703.241 m² (32,5 %).",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cfia",
+            "vivienda"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/10/cfia-reporta-que-la-intencion-de-construccion-crecio-128-durante-los-primeros-nueve-meses-de-2026"
+          }
+        },
+        {
+          "id": "cfia-construccion-crece-industrial",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-10-15",
+          "headline": "Industria y urbanismo: 78,6 % del crecimiento",
+          "body": "Las obras industriales y urbanísticas explican el 78,6 % del crecimiento.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cfia",
+            "industria"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/10/cfia-reporta-que-la-intencion-de-construccion-crecio-128-durante-los-primeros-nueve-meses-de-2026"
+          }
+        },
+        {
+          "id": "cfia-construccion-crece-cantones",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-10-15",
+          "headline": "Crecen 52 de 84 cantones",
+          "body": "Crecieron 52 de los 84 cantones; Heredia central subió 201,9 %.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cfia",
+            "cantones"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/10/cfia-reporta-que-la-intencion-de-construccion-crecio-128-durante-los-primeros-nueve-meses-de-2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ied-zonas-francas",
+      "category": "geopolitica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Inversión extranjera fuerte, zonas francas en crecimiento cero",
+      "synopsis": "La inversión extranjera directa creció 23,4 % en el primer semestre, también fuera de la GAM, pero la actividad de zonas francas tocó crecimiento cero por primera vez desde la pandemia. Las zonas francas sostienen empleo y demanda de vivienda en Cartago. Vigilar si el estancamiento se traslada a contratación.",
+      "image": {
+        "url": "https://www.infobae.com/resizer/v2/HP7PV6N4DZCMBJOD6AIXCSSQWQ.png?auth=7e69428e25207a6bf8c2ed7c163626307a07a58a9870889e5e3b395b1b92e773&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/HP7PV6N4DZCMBJOD6AIXCSSQWQ.png?auth=7e69428e25207a6bf8c2ed7c163626307a07a58a9870889e5e3b395b1b92e773&smart=true&width=1200&height=630&quality=85",
+        "alt": "Inversión extranjera fuerte, zonas francas en crecimiento cero",
+        "credit": "Infobae/Procomer"
+      },
+      "snippets": [
+        {
+          "id": "ied-zonas-francas-ied",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-10-06",
+          "headline": "IED de $2.739,6 millones, +23,4 %",
+          "body": "La inversión extranjera directa creció 23,4 % en el primer semestre y aumentó la que llega a zonas francas fuera de la Gran Área Metropolitana.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "inversión",
+            "zonas francas"
+          ],
+          "source": {
+            "name": "Infobae/Procomer",
+            "url": "https://www.infobae.com/costa-rica/2026/10/06/inversion-extranjera-directa-en-costa-rica-crecio-234-en-el-primer-semestre-de-2026/"
+          }
+        },
+        {
+          "id": "ied-zonas-francas-cero",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Zonas francas: crecimiento cero",
+          "body": "La actividad de zonas francas tocó crecimiento cero por primera vez desde la pandemia.",
+          "why": null,
+          "image": {
+            "url": "https://images.hoy.cr/wp-content/uploads/2025/08/aranceles-exportaciones.jpg",
+            "color": "https://images.hoy.cr/wp-content/uploads/2025/08/aranceles-exportaciones.jpg",
+            "alt": "Zonas francas: crecimiento cero",
+            "credit": "CRHoy"
+          },
+          "tags": [
+            "zonas francas",
+            "economía"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/economia/economia-costarricense-terminara-2026-con-menor-impulso/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "acero-mundial",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "El acero laminado sube 69,6 % en un año",
+      "synopsis": "El acero laminado en caliente cotizaba US$1.433 por tonelada el 4 de noviembre, según una fuente secundaria que sigue el precio de referencia. Contrasta con la varilla local quieta y podría trasladarse al costo de obra, aunque el colón fuerte lo amortigua. Vigilar el índice INEC de varilla.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "acero-mundial-precio",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-04",
+          "headline": "US$1.433 por tonelada",
+          "body": "El acero laminado en caliente cotizaba US$1.433 por tonelada: +8,56 % en un mes y +69,59 % en un año.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "acero",
+            "insumos"
+          ],
+          "source": {
+            "name": "Trading Economics",
+            "url": "https://es.tradingeconomics.com/commodity/hrc-steel"
+          }
+        },
+        {
+          "id": "acero-mundial-cautela",
+          "kind": "fact",
+          "importance": 1,
+          "published": null,
+          "headline": "Dato secundario, no local",
+          "body": "La cifra proviene de un contrato que sigue el precio de referencia internacional, no del mercado costarricense.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "acero"
+          ],
+          "source": {
+            "name": "Trading Economics",
+            "url": "https://es.tradingeconomics.com/commodity/hrc-steel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gas-europeo",
+      "category": "economia",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "El gas europeo sube mientras el petróleo cae",
+      "synopsis": "El gas TTF subió a unos 89 euros el 23 de noviembre por la demanda de invierno, en sentido contrario al Brent. Muestra que la baja de energía no es pareja y que el alivio en costos puede ser parcial. Vigilar si el gas presiona precios industriales en Europa.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "gas-europeo-ttf",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "TTF cerca de 89 euros",
+          "body": "El gas TTF subió a unos 89 euros por la demanda de invierno.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "gas",
+            "europa"
+          ],
+          "source": {
+            "name": "El Boletín",
+            "url": "https://www.elboletin.com/el-petroleo-brent-cae-un-4-hasta-los-88-dolares-por-el-temor-a-un-exceso-de-oferta/amp/"
+          }
+        },
+        {
+          "id": "gas-europeo-contraste",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Brent a la baja el mismo día",
+          "body": "El mismo día el Brent caía por temor a un exceso de oferta.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "petróleo",
+            "energía"
+          ],
+          "source": {
+            "name": "El Boletín",
+            "url": "https://www.elboletin.com/el-petroleo-brent-cae-un-4-hasta-los-88-dolares-por-el-temor-a-un-exceso-de-oferta/amp/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "banco-mundial-pronostico",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Banco Mundial prevé que Costa Rica crezca 3,3 % en 2026",
+      "synopsis": "El Banco Mundial proyecta 3,3 % de crecimiento en 2026, frente a 4,5 % en 2025, todavía arriba del 2,2 % regional. Menor crecimiento suele enfriar la demanda de vivienda y el apetito de crédito. Vigilar las cifras de actividad del BCCR.",
+      "image": {
+        "url": "https://www.elfinancierocr.com/resizer/v2/GJQ46CPH2NCIDOCGWWKWTYVYK4.JPG?smart=true&auth=6dcd9884dc2744f5a8f38ec7854a6f1cb7c4afc0eaf997bb31333bc35943fd6f&width=1440",
+        "color": "https://www.elfinancierocr.com/resizer/v2/GJQ46CPH2NCIDOCGWWKWTYVYK4.JPG?smart=true&auth=6dcd9884dc2744f5a8f38ec7854a6f1cb7c4afc0eaf997bb31333bc35943fd6f&width=1440",
+        "alt": "Banco Mundial prevé que Costa Rica crezca 3,3 % en 2026",
+        "credit": "El Financiero"
+      },
+      "snippets": [
+        {
+          "id": "banco-mundial-pronostico-cr",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-10-06",
+          "headline": "3,3 % en 2026, desde 4,5 %",
+          "body": "El Banco Mundial prevé que Costa Rica crezca 3,3 % en 2026, frente a 4,5 % en 2025.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "crecimiento",
+            "banco mundial"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/banco-mundial-preve-una-desaceleracion-economica/CQPJXDCSXFA2ZDKGGAJOJXGF3Y/story/"
+          }
+        },
+        {
+          "id": "banco-mundial-pronostico-region",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-10-06",
+          "headline": "América Latina: 2,2 %",
+          "body": "El crecimiento previsto sigue por encima del 2,2 % de América Latina.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "américa latina"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/banco-mundial-preve-una-desaceleracion-economica/CQPJXDCSXFA2ZDKGGAJOJXGF3Y/story/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ley-cobros-mora",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Publican ley contra abusos en cobros por mora",
+      "synopsis": "La ley contra abusos en cobros por mora salió en el Alcance N.º 153 de La Gaceta del 17 de noviembre; solo se revisó el título. Puede cambiar cómo se cobran atrasos en ventas de lotes o viviendas a plazo. Vigilar el texto completo y su entrada en vigencia.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "ley-cobros-mora-gaceta",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-17",
+          "headline": "Alcance N.º 153, Gaceta N.º 218",
+          "body": "La ley aparece publicada en el Alcance N.º 153 de La Gaceta N.º 218 del 17 de noviembre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "ley",
+            "crédito"
+          ],
+          "source": {
+            "name": "Imprenta Nacional",
+            "url": "https://www.imprentanacional.go.cr/pub/2026/11/17/ALCA153_17_11_2026.pdf"
+          }
+        },
+        {
+          "id": "ley-cobros-mora-pendiente",
+          "kind": "fact",
+          "importance": 1,
+          "published": null,
+          "headline": "Contenido sin revisar",
+          "body": "Solo se verificó el título; el contenido de la ley no se leyó.",
+          "why": "Puede afectar las cláusulas de mora en ventas a plazo.",
+          "image": null,
+          "tags": [
+            "ventas a plazo"
+          ],
+          "source": {
+            "name": "Imprenta Nacional",
+            "url": "https://www.imprentanacional.go.cr/pub/2026/11/17/ALCA153_17_11_2026.pdf"
+          }
+        }
+      ]
+    },
+    {
+      "id": "huelga-educativa",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "SEC y APSE apelarán el fallo contra su huelga",
+      "synopsis": "Los gremios SEC y APSE apelarán la resolución que declaró ilegal la huelga del 11 de noviembre. Es contexto de conflictividad social, con efecto indirecto en el clima de gobierno. Vigilar la resolución de la apelación.",
+      "image": {
+        "url": "https://acontecer.co.cr/wp-content/uploads/2026/06/ACONTECER-MATUTINO.webp",
+        "color": "https://acontecer.co.cr/wp-content/uploads/2026/06/ACONTECER-MATUTINO.webp",
+        "alt": "SEC y APSE apelarán el fallo contra su huelga",
+        "credit": "Acontecer"
+      },
+      "snippets": [
+        {
+          "id": "huelga-educativa-apelacion",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Apelación anunciada",
+          "body": "SEC y APSE apelarán el fallo que declaró ilegal la huelga del 11 de noviembre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "huelga",
+            "educación"
+          ],
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-martes-24-de-noviembre-de-2026"
+          }
+        },
+        {
+          "id": "huelga-educativa-fecha",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Huelga del 11 de noviembre",
+          "body": "El fallo declaró ilegal el movimiento del 11 de noviembre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "huelga"
+          ],
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-martes-24-de-noviembre-de-2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "jasec-torito",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Jasec firmó un contrato para pagar Torito II durante 17 años",
+      "synopsis": "Diario Extra titula que Jasec firmó un contrato para pagar el proyecto Torito II durante 17 años; solo se vio el titular. Puede pesar en las tarifas eléctricas de Cartago y en el costo de operar desarrollos. Vigilar montos, condiciones y efecto tarifario.",
+      "image": {
+        "url": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2024/11/Diario-Extra-1280x800-1.png",
+        "color": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2024/11/Diario-Extra-1280x800-1.png",
+        "alt": "Jasec firmó un contrato para pagar Torito II durante 17 años",
+        "credit": "Diario Extra"
+      },
+      "snippets": [
+        {
+          "id": "jasec-torito-titular",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "Pago a 17 años",
+          "body": "Portada de Diario Extra: \"Jasec firmó contrato para pagar proyecto durante 17 años\".",
+          "why": "Jasec da electricidad en Cartago.",
+          "image": null,
+          "tags": [
+            "jasec",
+            "cartago",
+            "electricidad"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/"
+          }
+        },
+        {
+          "id": "jasec-torito-pendiente",
+          "kind": "fact",
+          "importance": 1,
+          "published": null,
+          "headline": "Detalles sin verificar",
+          "body": "Monto y condiciones del contrato no se revisaron.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "jasec"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tratado-defensa-regional",
+      "category": "geopolitica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Costa Rica respalda convocar un tratado de defensa regional",
+      "synopsis": "Según la portada de Diario Extra, Costa Rica respalda la convocatoria a un tratado de defensa regional; no se revisaron detalles. Es contexto de política exterior sin efecto directo en la obra. Vigilar qué tratado es y qué compromisos implica.",
+      "image": {
+        "url": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2024/11/Diario-Extra-1280x800-1.png",
+        "color": "https://gxtra-cr-dxtra.cdn.mediatiquepress.com/wp-content/uploads/2024/11/Diario-Extra-1280x800-1.png",
+        "alt": "Costa Rica respalda convocar un tratado de defensa regional",
+        "credit": "Diario Extra"
+      },
+      "snippets": [
+        {
+          "id": "tratado-defensa-regional-titular",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Respaldo a la convocatoria",
+          "body": "Titular de portada: Costa Rica respalda la convocatoria a un tratado de defensa regional.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "defensa",
+            "región"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/"
+          }
+        },
+        {
+          "id": "tratado-defensa-regional-pendiente",
+          "kind": "fact",
+          "importance": 1,
+          "published": null,
+          "headline": "Sin detalles",
+          "body": "Solo se vio el titular; no se confirmaron alcance ni participantes.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "defensa"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mejores-empresas-ca",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Costa Rica gana una de cada cuatro distinciones de Mejores Empresas Centroamericanas",
+      "synopsis": "Según la portada de El Observador, Costa Rica se llevó una de cada cuatro distinciones de Mejores Empresas Centroamericanas 2026; solo se vio el titular. Es contexto de gestión empresarial regional. Vigilar si figura alguna constructora o desarrolladora.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2026/11/banner-popular-pensiones.jpeg-1024x342.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2026/11/banner-popular-pensiones.jpeg-1024x342.jpg.webp",
+        "alt": "Costa Rica gana una de cada cuatro distinciones de Mejores Empresas Centroamericanas",
+        "credit": "El Observador CR"
+      },
+      "snippets": [
+        {
+          "id": "mejores-empresas-ca-titular",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Una de cada cuatro distinciones",
+          "body": "Costa Rica obtuvo una de cada cuatro distinciones de Mejores Empresas Centroamericanas 2026.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "empresas",
+            "gestión"
+          ],
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/"
+          }
+        },
+        {
+          "id": "mejores-empresas-ca-pendiente",
+          "kind": "fact",
+          "importance": 1,
+          "published": null,
+          "headline": "Lista sin revisar",
+          "body": "Solo se vio el titular de portada; no se revisó la lista de empresas.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "empresas"
+          ],
+          "source": {
+            "name": "El Observador CR",
+            "url": "https://observador.cr/"
+          }
+        }
+      ]
+    }
+  ]
+}
