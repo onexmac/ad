@@ -204,6 +204,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
       sections={!continuous}
       rooms={continuous}
       framed={continuous}
+      frameRadius={FRAME_RADIUS}
       search={{
         open: searching,
         q,
