@@ -166,9 +166,10 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
     const run = ++peekRun.current;
     headY.set(-el.offsetHeight - 24);
     setPeek(true);
-    // A springy pop: it slides down past its place (about a tenth of its height)
-    // and settles back up.
-    animate(headY, 0, { type: "spring", stiffness: 300, damping: 20, velocity: 900 }).then(() => {
+    // A springy pop, unhurried and fully opaque the whole way (no fade): it slides
+    // down from above, past its place (about a tenth of its height), and settles
+    // back up: it reads as arriving in 0.6 s, the bounce settling after.
+    animate(headY, 0, { type: "spring", visualDuration: 0.6, bounce: 0.38 }).then(() => {
       if (run === peekRun.current) haptic.select();
     });
   };
