@@ -15,7 +15,39 @@ Every push to Vercel that changes the app gets an entry here. The first push was
 | +0.5.0 | only something massive |
 | 1.0.0 | a milestone: the stopwatch and the leaderboard |
 
-Each entry gives the date and time in Costa Rica, the commit, and the pull request that took it to `main` (and so to magi0s). Versions 0.1.0 to 0.3.7 came before the app first reached `main`: they were seen as artifacts and branch builds, and reached magi0s together in #64.
+Each entry gives the date and time in Costa Rica, the commit, and the pull request that took it to `main` (and so to magi0s). An entry that fixes a bug Marcos reported starts with it. Versions 0.1.0 to 0.3.7 came before the app first reached `main`: they were seen as artifacts and branch builds, and reached magi0s together in #64.
+
+## Bugs Marcos reported
+
+The bugs Marcos reported come first in the version that fixed them: his words, the cause, and what not to do. In short:
+
+- **0.1.6** Don't push an effect past what real light does.
+- **0.1.16** Nothing rests on something soft without sinking in.
+- **0.2.2** A new control doesn't take away a gesture that worked.
+- **0.2.9** A swipe control's hit area runs the length of its swipe.
+- **0.3.3** Controls follow the puzzle in hand.
+- **0.3.6** A gesture that undoes something isn't reachable by an ordinary one; blacks stay black.
+- **0.3.7** A portal link doesn't work before `main`; say so.
+- **0.3.12** A puzzle turns about its own axes.
+- **0.3.14** Dust shows only in the light, and is tiny.
+- **0.4.10** Printed matter is real images, not drawn in code.
+- **0.4.12** Focus goes where the eye should go, not by depth alone.
+- **0.4.15** Line detail falls off with distance; a painted look comes from materials, not a filter.
+- **0.5.0** Never resize a canvas between drawing and showing; check Safari's smoothness after each effect.
+- **0.5.5** Bokeh near the lens stays small.
+- **0.5.15** When an ask reads two ways, show both.
+- **0.5.16** Look at every corner of an icon enlarged.
+- **0.5.19** A kept copy mustn't hide a new version; test a cold first opening.
+- **0.5.20** One animation per element, on its own wrapper.
+- **0.6.7** No heavy sound on a frequent event.
+- **0.6.10** No pitch slides; vary repeated sounds.
+- **0.6.18** On iOS, no sound before a touch.
+- **0.6.27** A known object's form isn't built from boxes.
+- **0.6.30** Real objects are modelled from photographs, not memory.
+
+Open:
+
+- Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
 ## 1.0.0 (planned)
 
@@ -24,6 +56,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.6.30 · 2026-11-24 08:03
 
+- **Bug fix.** Marcos, 24 Nov 07:18: "Something is off it doesn't look like an iMac."
+  - Cause: it was modelled from memory: all blue, with a white frame on the front. On the real one the white is a hood and a skirt, and the blue is only between them.
+  - Don't: model a real object from memory. Work from photographs, front, side and back, and compare the renders with them side by side.
 - The iMac is rebuilt from photographs of the real one, laid out as its plastics are:
   - a hood of frosted ice over the face and the front of the top;
   - a skirt of the same ice all the way round the bottom;
@@ -47,6 +82,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.6.27 · 2026-11-24 07:02
 
+- **Bug fix.** Marcos, 24 Nov 06:57: "The model have to match the iMac egg curves."
+  - Cause: the shell was a box tapering back.
+  - Don't: build a known object's form out of boxes.
 - The iMac has the original's egg curves. It is built from superellipses instead of a box tapering back.
   - Seen from above, its sides curve in from the face to a narrow, round back.
   - Seen from the side, its top runs back level and then down in one long arc to a round end, and its bottom lifts toward the back.
@@ -79,6 +117,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.6.18 · 2026-11-23 23:36
 
+- **Bug fix.** Marcos, 23 Nov 21:33: "You didn't add a bolololipipob when the startup loading bar finishes."
+  - Cause: it was there, but an iPhone lets a page make sound only after a touch. Opening from the home screen has none, so it played in silence.
+  - Don't: count on a sound before the first touch on iOS. Give it a tap first.
 - A welcome on iPhone and iPad whenever the install screen isn't shown: from the home screen, in Safari after the first visit, and inside the browsers of social apps.
   - It has the cube of the icon, the app's name and an OK.
   - An iPhone only lets a page make sound after a touch, so without it the notes at the end of loading could not be heard. Its tap is that touch.
@@ -103,12 +144,18 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.6.10 · 2026-11-23 21:09
 
+- **Bug fix.** Marcos, 23 Nov 21:04: "It sounds like a water drop", and it was repetitive.
+  - Cause: each note slid up into its pitch, which is the sound of a drop, and the same phrase played every time.
+  - Don't: slide a note into its pitch. Vary any sound that repeats.
 - Notes are struck instead of sliding up into their pitch. The slide made them sound like drops of water. They are also brighter, through a more open filter.
 - Each puzzle plays its own instrument: an electric piano for the Axis Cube, a marimba for the 3×3, a kalimba for the 2×2 and glass for the Ghost Cube. The install screen and the end of loading use the piano.
 - Each phrase is drawn from a few figures in E minor pentatonic, never the one just played, and is a little loose in time and touch. ([2b14eb3](https://github.com/onexmac/ad/commit/2b14eb3) · [#115](https://github.com/onexmac/ad/pull/115))
 
 ## 0.6.7 · 2026-11-23 20:51
 
+- **Bug fix.** Marcos, 23 Nov 20:45: "There's like synth bass sound when we finish flipping an axis."
+  - Cause: every landed turn played a wobbling bass note under its clack.
+  - Don't: put a heavy sound on an event that happens dozens of times a minute.
 - A finished turn no longer plays the synth bass note. It keeps its clack and gets a lolip: two notes starting at the turned face's pitch, so turning the puzzle plays a line.
 - A bolololipipob when the loading ends: the four notes, a brighter one above them, and a round one that comes back down. ([92ea820](https://github.com/onexmac/ad/commit/92ea820) · [#115](https://github.com/onexmac/ad/pull/115))
 
@@ -155,12 +202,18 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.5.20 · 2026-11-23 19:04
 
+- **Bug fix.** Marcos, 23 Nov 18:53: "The loading cube doesn't roll."
+  - Cause: each piece ran two animations on the same property, the opening and then the loop. The browser runs that on the main thread, which was busy building the scene, so the cube showed about one picture a second. Reduce Motion also stopped it.
+  - Don't: put two animations on one element's transform. Give each its own nested wrapper, so the compositor runs it, and test the loader while the scene is being built.
 - The loading cube keeps turning while the room is being built. It used to freeze, showing about one picture a second.
 - It also turns under Reduce Motion, since a still cube reads as a stalled app.
 - The solved cube rests a little less before its first turn. ([8acd7c6](https://github.com/onexmac/ad/commit/8acd7c6) · [#87](https://github.com/onexmac/ad/pull/87))
 
 ## 0.5.19 · 2026-11-23 18:04
 
+- **Bug fix.** Marcos, 23 Nov 17:59: "Vercel doesn't have the loading cube."
+  - Cause: Vercel had it. The app waited half a second for the network and otherwise opened the copy kept on the phone, so a phone opening cold always saw each version one opening late.
+  - Don't: let a kept copy hide a new version. Test the first opening after a deploy, cold, on a slow network.
 - A new version shows the first time the app is opened, even on a slow network.
   - Before, a phone opening the app cold saw each new version one opening late, which is why the loading cube didn't appear on it.
   - Now the page starts over once on the newer copy: only in its first seconds, and only if nobody has touched it yet. ([82f7923](https://github.com/onexmac/ad/commit/82f7923) · [#85](https://github.com/onexmac/ad/pull/85))
@@ -171,12 +224,18 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.5.16 · 2026-11-23 15:07
 
+- **Bug fix.** Marcos, 23 Nov 15:03: "hay un pico negro en el vértice."
+  - Cause: the turning layer's corner poked out over the white tile beside it.
+  - Don't: ship an icon without looking at every corner enlarged.
 - Icon: the frame that was picked, with the cube mixed and its right side 24° into a turn.
   - The black spike at the turning side's corner is cut at 45°.
   - The faint grey hairlines along the black pieces' seams are taken out. ([825d732](https://github.com/onexmac/ad/commit/825d732) · [#81](https://github.com/onexmac/ad/pull/81))
 
 ## 0.5.15 · 2026-11-23 15:02
 
+- **Bug fix.** Marcos, 23 Nov 15:01: "Flip it more."
+  - Cause: in 0.5.13 his "a little bit more up" was read backwards, and the side was turned less (36°) instead of more.
+  - Don't: guess a direction. When an ask can be read two ways, show both before shipping.
 - Icon: the turning side is caught going up, 64° into its turn, so the face coming round underneath opens into whole tiles. ([0660a60](https://github.com/onexmac/ad/commit/0660a60) · [#80](https://github.com/onexmac/ad/pull/80))
 
 ## 0.5.14 · 2026-11-23 14:58
@@ -211,6 +270,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.5.5 · 2026-11-23 14:22
 
+- **Bug fix.** Marcos, 23 Nov 14:18: more sheets of dust, further away; the blur up close was too big.
+  - Cause: there were three sheets, and the wide out-of-focus discs near the lens read as a smudge on the glass.
+  - Don't: let bokeh near the lens grow big. It looks like dirt on the glass.
 - Five sheets of dust at five distances. The furthest are many slow points; each nearer sheet is larger, sparser and a little faster.
 - The out-of-focus discs nearest the lens are half the size, since a wide blur read as a smear on the glass. ([8cae56f](https://github.com/onexmac/ad/commit/8cae56f) · [#75](https://github.com/onexmac/ad/pull/75))
 
@@ -225,6 +287,12 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.5.0 · 2026-11-23 14:05
 
+- **Bug fix.** Marcos, 23 Nov 13:49: Safari was "not as smooth as before", there was "a flicker sometimes", and "the dust stopped floating".
+  - Causes:
+    - the effects ran at full cost on every frame;
+    - when the app lowered its resolution on a slow device, it resized the canvas after drawing, which leaves one blank frame;
+    - the dust drifted at 2 to 4 px a second, which reads as still.
+  - Don't: resize a canvas between drawing a frame and showing it. Check Safari's smoothness after adding an effect, and make anything meant to move move visibly.
 - Kept on the device.
   - The page, the loading screen, the scripts and the room's photographs are stored, so the app opens from the home screen without waiting for the network.
   - It also gets a manifest and icons.
@@ -252,6 +320,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.4.15 · 2026-11-23 11:16
 
+- **Bug fix.** Marcos, 23 Nov 10:48: far away the lines were drawn "between the dent on far objects", and the anime look "looks like a cheap render".
+  - Cause: lines were drawn at one threshold at every distance, and B and C were the photographic render under a filter.
+  - Don't: draw the same line detail near and far, and don't make a painted look with a filter. It comes from flat materials.
 - A look picker (A, B, C) as a pill at the bottom, only while choosing a puzzle. Changing the look keeps the puzzles and the camera as they were.
 - B and C are painted as cels instead of filtered photographs.
   - Each surface is one flat colour with a single hard shadow tone tinted by the ambient light.
@@ -260,10 +331,16 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.4.12 · 2026-11-23 10:42
 
+- **Bug fix.** Marcos, 23 Nov 10:31, on the artifact: "This arm rest looks too sharp. Focus should be on the cube."
+  - Cause: the lens blurred by depth alone, and the armrest was as far from the camera as the puzzle.
+  - Don't: aim focus by depth alone. It goes where the eye should go.
 - The lens stays on the puzzle. The focus also softens to its sides, as an old lens does away from its centre, so the lounge chair's arm at the edge no longer competes. ([e260d95](https://github.com/onexmac/ad/commit/e260d95) · [#70](https://github.com/onexmac/ad/pull/70))
 
 ## 0.4.10 · 2026-11-23 08:43
 
+- **Bug fix.** Marcos, 23 Nov 07:20: the covers and posters drawn in code made the room "feel cheap".
+  - Cause: generated art reads as fake, most of all on what faces the camera.
+  - Don't: draw printed matter in code. Use real images, public domain and credited.
 - Real printed matter instead of covers drawn in code. All of it is public domain or museum open access, and credited in `public/kit/axis-cube/tex/CREDITS.md`:
   - a WPA Federal Art Project poster behind a mat;
   - paintings by Hartley, Kandinsky, Mondrian and Freundlich;
@@ -297,6 +374,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.3.14 · 2026-11-22 21:35
 
+- **Bug fix.** Marcos, 22 Nov 21:22: the "dust cannot feel like fairy dust".
+  - Cause: the specks were big, showed everywhere and glittered.
+  - Don't: show dust outside the light. Real dust is a pixel or two, seen only where the sun crosses it.
 - Dust that looks like dust instead of fairy dust.
   - It is invisible until the sun catches it, then specks of a pixel or two, brightest when the light comes toward the eye.
   - It hangs in uneven clouds and drifts on slow air, with a few flakes that turn and glint softly.
@@ -304,6 +384,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.3.12 · 2026-11-22 21:16
 
+- **Bug fix.** Marcos, 22 Nov 20:52: "Flipping the cube should behave a little bit into its axis. Right now it feels too random."
+  - Cause: it spun about whatever axis the finger drew, then snapped to the nearest square pose, so a slanted swipe landed on a face no one could predict.
+  - Don't: spin a puzzle about a free axis. It turns about its own axes, picked by the swipe's first pixels.
 - Flipping the puzzle turns it about its own axes. The swipe's first pixels pick the axis: sideways for the upright one, up or down for the one across.
 - It follows the finger, coasts, ticks at each quarter and lands on the next quarter turn. The cross direction only wobbles and springs back.
 - A tap is told from a hold on the hold's own clock, so a slow frame can't swallow a tap. ([d988a82](https://github.com/onexmac/ad/commit/d988a82) · [#67](https://github.com/onexmac/ad/pull/67))
@@ -319,11 +402,17 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.3.7 · 2026-11-22 19:31
 
+- **Bug fix.** Marcos, 21 Nov 09:38: the magi0s link gave "404".
+  - Cause: the app was still only on its branch (sim), and the portal serves `main`.
+  - Don't: leave a portal link to be tried before the app is on `main`. Say up front where to look meanwhile.
 - First on magi0s: everything up to here reaches `main`.
 - No web font. The app shows no text that needs one, and fetching it at build time had failed several builds. ([6802c7e](https://github.com/onexmac/ad/commit/6802c7e) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.3.6 · 2026-11-21 19:53
 
+- **Bug fix.** Marcos, 21 Nov 19:11: "Sliding down has to be more intentional", and the room needed "better blacks".
+  - Cause: a fifth of the screen, even at a slant, put the puzzle down, so an ordinary spin could do it. And a faded-film veil lifted every black.
+  - Don't: let a gesture that undoes something be reached by an ordinary one. And don't lift the blacks for a film look.
 - Putting a puzzle down is deliberate: a pull straight down, across a third of the screen.
   - The first stretch is free, so an ordinary downward spin never starts it.
   - After that the puzzle sinks toward the bed, and letting go past the mark puts it down.
@@ -335,6 +424,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.3.3 · 2026-11-21 16:22
 
+- **Bug fix.** Marcos, 21 Nov 16:09: "Two by two should have four dots. The others should have a 3x3 grid."
+  - Cause: every puzzle got the same cross of rings, and the 2×2 only lost its middle one.
+  - Don't: give every puzzle one layout. The controls follow the face of the puzzle in hand.
 - The rings are a grid laid out like the puzzle's face: nine for the Axis Cube and the 3×3, four for the 2×2.
   - A sideways swipe turns the row it starts in; up or down turns the column.
   - The ring under the finger lights on touch, then its whole row or column lights while it turns.
@@ -353,6 +445,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.2.9 · 2026-11-21 11:31
 
+- **Bug fix.** Marcos, 21 Nov 11:25: the rings had to be hit on the dot; "it's easier to start dragging from afar from the point".
+  - Cause: each ring answered only in a small circle around it.
+  - Don't: size a swipe control's hit area by its drawing. It runs the length of its swipe, generously.
 - Each ring's reach runs along the way it is swiped. A layer ring owns its whole row, edge to edge, and a slice ring owns a tall column, so a swipe can start far from the ring.
 - Where a row crosses a column, the first pixels of the swipe decide. ([fd97821](https://github.com/onexmac/ad/commit/fd97821) · [#64](https://github.com/onexmac/ad/pull/64))
 
@@ -366,6 +461,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.2.2 · 2026-11-21 11:24
 
+- **Bug fix.** Marcos, 21 Nov 11:17: "I should be able to rotate the cube by swiping in it just like before."
+  - Cause: the ring controls of 0.2.0 took over the touch, and the swipe on the cube was lost with them.
+  - Don't: let a new control take away a gesture that already worked. Retest the old gestures after every change to input.
 - A swipe on the cube spins it. It follows the finger, coasts, and settles on the nearest of the 24 poses square to the screen.
 - The camera leans a little into the spin. ([f9a77b7](https://github.com/onexmac/ad/commit/f9a77b7) · [#64](https://github.com/onexmac/ad/pull/64))
 
@@ -379,6 +477,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.1.16 · 2026-11-21 10:42
 
+- **Bug fix.** Marcos, 21 Nov 10:35: "la almohada parece que flota", and things set on the bed should press it down.
+  - Cause: the bed was hard shapes, and things were set on top of them with no contact.
+  - Don't: rest anything on something soft without sinking it in. Check every contact up close.
 - The bed is rebuilt as cloth: one quilted duvet that wraps the mattress, hangs in folds and is turned back at the head.
 - Things set on it press it down: the record and its sleeve settle into hollows, and the pillow no longer floats.
 - The hanging plant by the window is gone. ([9a432c7](https://github.com/onexmac/ad/commit/9a432c7) · [#64](https://github.com/onexmac/ad/pull/64))
@@ -402,6 +503,9 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.1.6 · 2026-11-21 09:57
 
+- **Bug fix.** Marcos, 21 Nov 09:55: "Muy mágico se siente el rayo de sol, muy fuerte."
+  - Cause: the shafts of light were dense, and the dust glittered in them.
+  - Don't: push an effect past what real light does. Light in the air is faint, and dust doesn't sparkle.
 - A quieter sunbeam, and fewer sparkles in the dust. ([b9a2993](https://github.com/onexmac/ad/commit/b9a2993) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.1.5 · 2026-11-20 21:46
