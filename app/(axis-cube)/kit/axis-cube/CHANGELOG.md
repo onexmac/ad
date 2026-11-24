@@ -46,6 +46,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.30** Real objects are modelled from photographs, not memory.
 - **0.6.35** Nothing on a loading screen waits for the app's scripts or a long task.
 - **0.6.38** A real puzzle's geometry comes from photographs of it, not memory.
+- **0.6.40** Match a defining trait in degree, not just in kind.
 
 Open:
 
@@ -55,6 +56,15 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.40 · 2026-11-24 16:28
+
+- **Bug fix.** Marcos, 24 Nov 16:16, of 0.6.38's Ghost Cube: "It's more asymmetric than you thought."
+  - Cause: its cuts sat only about a sixth of a layer off the cube's centre, too near symmetric. Its layers came out of nearly even thickness, so the pieces were of nearly even size. On the real one the layers are of very different thicknesses: a huge piece beside long thin bars and small triangles.
+  - Don't: stop at the first version that has a thing's defining trait. Match the trait in degree, until it reads at a glance as it does on the real one.
+- The Ghost Cube's mechanism sits half a layer off the cube's centre (0.33, 0.25, 0.29), three times as far as before. The tilt is the same.
+  - Found by a search for the most uneven spread of piece sizes that still shows every one of the 26 pieces with few slivers, then compared with the photograph.
+  - The spread of piece sizes grew by a fifth: the largest face of a piece is now a third of a face of the cube, up from a quarter. ([#162](https://github.com/onexmac/ad/pull/162))
 
 ## 0.6.38 · 2026-11-24 16:10
 
