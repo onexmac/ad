@@ -31,7 +31,7 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
   - Countdown in giant numerals; Coming up with bigger cards.
   - Watching, the archive and the colophon run as long as they need. They are paged a screen at a time, with a stop where each one's end meets the bottom of the screen.
 - Blocks on a page grow in as the page lands, not as each one passes a line on the screen, so a block low on a page is whole once the page is in.
-- A jump from the contents or the home bar turns snapping off for its length and lands on the page's top. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- A jump from the contents or the home bar turns snapping off for its length and lands on the page's top. ([#155](https://github.com/onexmac/ad/pull/155))
 
 ## 0.4.8 · 2026-11-24 07:50
 
