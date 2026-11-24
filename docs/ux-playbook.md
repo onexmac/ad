@@ -293,7 +293,10 @@ section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
 | Bottom | above Safari's bar, rounded | same |
 | Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
 
-Pads uses vvs.
+Pads uses vvs. Noticss B (`/kit/noticss/b`) uses vvt: like Axis Cube it lays
+its own frame (`useVvvInset`), and an open page fills that frame, its top
+corners going square as it opens and its bottom ones the frame's (44 px, the
+same as a card's).
 
 ### How it's made
 

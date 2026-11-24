@@ -10,6 +10,7 @@ import { AbSwitch } from "./AbSwitch";
 import { Cover } from "./b/Cover";
 import { Gallery } from "./b/Gallery";
 import { TopFill, type FillMode } from "./b/TopFill";
+import { useVvvInset } from "@/components/vvv/inset";
 import { darken, hexToRgb, topTone } from "@/lib/noticss/tone";
 import { Page, titleOf } from "./b/Pages";
 import { useFollowing } from "@/lib/noticss/following";
@@ -58,7 +59,8 @@ type GalleryState = { sec: number; items: Media[]; start: number; piece: HTMLEle
 
 const HOLD_MS = 260;
 /** Open, a page stops this far above the bottom edge: a card, its rounded corners in view. */
-const OPEN_GAP = 8;
+/** vvt: the frame's bottom corners, the same as an open page's (it fills the frame). */
+const FRAME_R = RU;
 
 export function PaperB({ editions }: { editions: Edition[] }) {
   const [edIndex, setEdIndex] = useState(0);
@@ -111,10 +113,13 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const Cm = useMemo(() => motionValue(844), []);
   /** The tray's bottom inset: its margin plus the home indicator's safe area. */
   const Bm = useMemo(() => motionValue(BOTTOM), []);
-  const probe = useRef<HTMLDivElement>(null);
   const root = useRef<HTMLDivElement>(null);
-  /** How much of the screen the browser's bottom bar covers (0 from the home screen). */
-  const [barBottom, setBarBottom] = useState(0);
+  /**
+   * vvt (components/vvv): the frame runs from the top of the screen (the page
+   * shows around the Dynamic Island) down to just above Safari's bar or the
+   * home indicator; beyond it, black.
+   */
+  const inset = useVvvInset(6);
 
   const [dims, setDims] = useState({ w: 390, h: 844 });
   useLayoutEffect(() => {
@@ -123,21 +128,14 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     const measure = () => {
       const w = el.clientWidth;
       const h = el.clientHeight;
-      const sab = probe.current ? parseFloat(getComputedStyle(probe.current).paddingBottom) || 0 : 0;
-      const sat = probe.current ? parseFloat(getComputedStyle(probe.current).paddingTop) || 0 : 0;
-      // The screen runs on under the browser's own bottom bar (the cover shows
-      // through it); the tray and the controls stay above it.
-      const seen = window.visualViewport?.height ?? window.innerHeight;
-      const bar = Math.max(0, Math.round(h - seen));
-      setBarBottom((b) => (b === bar ? b : bar));
-      Bm.set(BOTTOM + sab + bar);
+      // The frame already ends above the browser's bar and the home
+      // indicator, so the tray sits on its own margin. An open page fills
+      // the frame: its content starts below the status bar.
+      Bm.set(BOTTOM);
       Wm.set(w);
       Hm.set(h);
-      // An open page is a card: below the status bar, and stopping just short
-      // of the bottom edge so its rounded corners show there (Safari will not
-      // draw anything under its own bar, so the card ends where it can).
-      Cm.set(h - sat - OPEN_GAP);
-      setDims({ w, h: h - sat - OPEN_GAP });
+      Cm.set(h);
+      setDims({ w, h });
       secX.set(-secRef.current * w);
     };
     measure();
@@ -890,7 +888,6 @@ export function PaperB({ editions }: { editions: Edition[] }) {
    */
   const [tone, setTone] = useState("rgb(20, 17, 14)");
   const [fill, setFill] = useState<FillMode>("blur");
-  const [bottomTone, setBottomTone] = useState("rgb(14, 13, 12)");
   useEffect(() => {
     /*
      * Open, a page is a frame below the status bar with the dark around it,
@@ -898,23 +895,22 @@ export function PaperB({ editions }: { editions: Edition[] }) {
      * the cover's own top colour, and the bottom its own bottom colour.
      */
     const DARK = "rgb(12, 11, 10)";
-    const read = (): { tone: string; bottom: string; mode: FillMode } | null => {
-      if (gallery) return { tone: "rgb(0, 0, 0)", bottom: "rgb(0, 0, 0)", mode: "none" };
+    const read = (): { tone: string; mode: FillMode } | null => {
+      if (gallery) return { tone: "rgb(0, 0, 0)", mode: "none" };
       const o = openRef.current;
       const c = col.current;
       if (!c) return null;
-      // Open, the page is a card that ends just above the bottom edge with
-      // the dark around it; what lies below it (Safari's strip, which Safari
-      // fills with the page's background and never draws over) is that dark.
-      if (o) return { tone: DARK, bottom: DARK, mode: "none" };
+      // Open, the page fills the frame up to the screen's top: its own top
+      // (photo or paper) runs under the status bar.
+      if (o) return { tone: DARK, mode: "none" };
       const sd = sections[secRef.current];
       if (sd?.kind === "hoy") {
         const sky = ed.weather?.sky;
-        return { tone: hexToRgb(sky?.[0] ?? "#6f6a62"), bottom: hexToRgb(sky?.[sky.length - 1] ?? "#ebe6dc"), mode: "blur" };
+        return { tone: hexToRgb(sky?.[0] ?? "#6f6a62"), mode: "blur" };
       }
       const img = c.querySelector<HTMLImageElement>(`[data-cover="${secRef.current}"] img`);
       const t = topTone(img);
-      return { tone: t ? darken(t, 0.55) : DARK, bottom: "rgb(14, 13, 12)", mode: "blur" };
+      return { tone: t ? darken(t, 0.55) : DARK, mode: "blur" };
     };
     let raf = 0;
     const apply = () => {
@@ -922,7 +918,6 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       const t = read();
       if (!t) return;
       setTone((p) => (p === t.tone ? p : t.tone));
-      setBottomTone((p) => (p === t.bottom ? p : t.bottom));
       setFill((m) => (m === t.mode ? m : t.mode));
     };
     const soon = () => {
@@ -942,14 +937,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     };
   }, [sec, open, gallery, sections, ed]);
   useEffect(() => {
-    // Whatever the browser shows around B (under its bars, on overscroll)
-    // is the page's own background: the top colour above, the bottom below.
+    // vvt: beyond the frame (under Safari's bar, past its bottom corners) is
+    // black, always. The top is inside the frame, so the status bar takes
+    // the colour at the top of what shows.
     const html = document.documentElement;
-    // The canvas outside B (below it, under the browser's bottom bar) takes the
-    // root's background colour, so that is the bottom colour; the status bar
-    // takes the theme colour, the top one. (A gradient image here would end
-    // with the root's box and leave the colour showing below it.)
-    html.style.backgroundColor = bottomTone;
+    html.style.backgroundColor = "#000";
     html.style.backgroundImage = "";
     html.style.minHeight = "100%";
     document.body.style.background = "transparent";
@@ -960,7 +952,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       document.head.appendChild(meta);
     }
     meta.content = tone;
-  }, [tone, bottomTone]);
+  }, [tone]);
   useEffect(
     () => () => {
       const html = document.documentElement;
@@ -1004,12 +996,24 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   return (
     <div
       ref={root}
-      className="fixed inset-x-0 top-0 h-[100lvh] overflow-hidden bg-ink"
+      className="fixed inset-x-0 top-0 h-[100lvh] overflow-hidden"
       data-app
-      style={{ ["--sab" as string]: `calc(env(safe-area-inset-bottom, 0px) + ${barBottom}px)` }}
+      // The frame ends above the bottom bar and the home indicator: nothing inside needs their inset.
+      style={{ background: "#000", ["--sab" as string]: "0px" }}
     >
-      <div ref={probe} aria-hidden className="pointer-events-none invisible fixed bottom-0 left-0 h-0 w-0 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]" />
-      <div ref={col} className="relative mx-auto h-full w-full max-w-[520px] overflow-hidden" style={{ touchAction: open ? "pan-y" : "none" }}>
+      {/* vvt: no top curve (the phone's own corners round it), the bottom rounded above the bar. */}
+      <div
+        ref={col}
+        data-vvv
+        className="absolute inset-x-0 top-0 mx-auto w-full max-w-[520px] overflow-hidden bg-ink"
+        style={{
+          bottom: inset.bottom,
+          borderRadius: `0 0 ${FRAME_R}px ${FRAME_R}px`,
+          clipPath: `inset(0 round 0 0 ${FRAME_R}px ${FRAME_R}px)`,
+          WebkitClipPath: `inset(0 round 0 0 ${FRAME_R}px ${FRAME_R}px)`,
+          touchAction: open ? "pan-y" : "none",
+        }}
+      >
         {sections.map((s, i) =>
           near(i) ? (
             <SectionScreen
@@ -1299,8 +1303,8 @@ const RowCard = memo(function RowCard({
   const y = useTransform(() => {
     const t = v.get();
     const kk = S + (1 - S) * t;
-    // Anchored to the bottom on the tray; open, a page sits just below the status bar.
-    return H.get() - OPEN_GAP * t - B.get() * (1 - t) - C.get() * kk + o.y.get();
+    // Anchored to the bottom on the tray; open, a page fills the frame.
+    return H.get() - B.get() * (1 - t) - C.get() * kk + o.y.get();
   });
   const scale = useTransform(() => (S + (1 - S) * v.get()) * o.s.get());
   // The card in focus on top, then outward; an override can lift a card above.
@@ -1308,7 +1312,11 @@ const RowCard = memo(function RowCard({
   // The page is clipped to its rounded frame by a clip path, always: Safari
   // does not clip a composited child (the page's scroller, the photo) to a
   // parent's border radius with overflow alone, and the square page showed.
-  const clipPath = useTransform(o.clip, (b) => `inset(0px 0px ${Math.max(0, b)}px 0px round ${RU}px)`);
+  // Open, it fills the vvt frame: its top corners go square (the phone's
+  // round them), its bottom ones are the frame's.
+  const top = useTransform(() => RU * Math.min(1, (1 - v.get()) * 3));
+  const radius = useTransform(() => `${top.get()}px ${top.get()}px ${RU}px ${RU}px`);
+  const clipPath = useTransform(() => `inset(0px 0px ${Math.max(0, o.clip.get())}px 0px round ${radius.get()})`);
   // The frame's shadow, except while the page grows out of a row (its window is smaller).
   const boxShadow = useTransform(o.clip, (b) => (b > 0.5 ? "none" : "0 10px 40px rgba(0,0,0,.35)"));
   return (
@@ -1317,7 +1325,7 @@ const RowCard = memo(function RowCard({
       style={{
         width: w,
         height: h,
-        borderRadius: RU,
+        borderRadius: radius,
         x,
         y,
         scale,
