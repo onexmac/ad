@@ -114,6 +114,9 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const endLift = useMemo(() => motionValue(0), []);
   const [endArmed, setEndArmed] = useState(false);
   const [endNext, setEndNext] = useState<string | null>(null);
+  /** Pushing on past the tray's last card: the next section peeks in (px), and whether letting go goes there. */
+  const sideLift = useMemo(() => motionValue(0), []);
+  const [sideArmed, setSideArmed] = useState(false);
 
   const col = useRef<HTMLDivElement>(null);
   const Wm = useMemo(() => motionValue(390), []);
@@ -691,9 +694,21 @@ export function PaperB({ editions }: { editions: Edition[] }) {
           const step = (w + G) * S;
           let v = g.base - dx / step;
           const mx = maxPos(n);
+          // Past the last card the finger pulls the next section in, against
+          // friction; past the mark, letting go goes there.
+          const past = v > mx && !!sections[s + 1] ? (v - mx) * step : 0;
           if (v < 0) v = -rubber(-v * step, w) / step;
           else if (v > mx) v = mx + rubber((v - mx) * step, w) / step;
           t.posC.set(v);
+          const lift = endLiftOf(past);
+          sideLift.set(lift);
+          secX.set(-s * w - lift * 0.6);
+          const armed = past >= END_COMMIT;
+          if (armed !== g.armed) {
+            g.armed = armed;
+            setSideArmed(armed);
+            if (armed) haptic.select();
+          }
         } else {
           // The grabbed point stays under the finger; the card follows it sideways too.
           const d = travel(g.fy);
@@ -772,8 +787,18 @@ export function PaperB({ editions }: { editions: Edition[] }) {
 
       if (gg.zone === "tray") {
         if (gg.mode === "x") {
-          // Momentum carries the tray (iOS's deceleration), then it lands on a card.
           const step = (w + G) * S;
+          if (sideLift.get() > 0 || gg.armed) {
+            t.run(sideLift, 0, SETTLE);
+            setSideArmed(false);
+            // Past the mark: on to the next section, carried by the finger's speed.
+            if (!cancelled && gg.armed) {
+              t.run(t.posC, maxPos(n), TRAY);
+              haptic.complete();
+              return goSection(s + 1, Math.min(vx, 0));
+            }
+          }
+          // Momentum carries the tray (iOS's deceleration), then it lands on a card.
           const projected = t.posC.get() - (vx * GLIDE.power) / step;
           const to = clamp(Math.round(projected), 0, maxPos(n));
           if (Math.round(to) !== Math.round(gg.base)) haptic.select();
@@ -1045,7 +1070,9 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     secX.jump(0);
     trays.forEach((t) => t.settle());
     endLift.jump(0);
+    sideLift.jump(0);
     setEndArmed(false);
+    setSideArmed(false);
     setKeep([]);
     setOpen(null);
     setEdIndex(i);
@@ -1090,6 +1117,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   }, [note]);
   const endY = useTransform(() => Hm.get() - endLift.get() - 44);
   const endO = useTransform(endLift, [0, 40, END_LIFT_MAX], [0, 0.6, 1]);
+  // The side pill rides at the tray's middle height and slides in from the right edge.
+  const sideY = useTransform(() => Hm.get() - Bm.get() - (Cm.get() * S) / 2 - 20);
+  const sideX = useTransform(sideLift, [0, END_LIFT_MAX], [40, 0]);
+  const sideO = useTransform(sideLift, [0, 30, END_LIFT_MAX], [0, 0.7, 1]);
+  const sideNext = sections[sec + 1]?.name ?? null;
 
   return (
     <div
@@ -1166,6 +1198,15 @@ export function PaperB({ editions }: { editions: Edition[] }) {
             {endNext ? (endArmed ? "Suelte para seguir" : "Siga para la siguiente") : "Fin de la sección"}
           </span>
         </motion.div>
+
+        {/* On past the tray's last card: the next section, riding in from the right */}
+        {sideNext ? (
+          <motion.div className="pointer-events-none absolute right-0 top-0 z-30 flex justify-end pr-3" style={{ y: sideY, x: sideX, opacity: sideO }}>
+            <span className={`rounded-full px-4 py-2 text-[14px] italic shadow-[0_6px_18px_rgba(0,0,0,.25)] ${sideArmed ? "bg-accent text-paper" : "bg-paper text-ink"}`}>
+              {sideArmed ? `Suelte: ${sideNext}` : `Siga a ${sideNext}`}
+            </span>
+          </motion.div>
+        ) : null}
 
         {/* What the bookmark just did, briefly, above the controls */}
         <div className="pointer-events-none absolute inset-x-0 bottom-[calc(var(--sab)+80px)] z-30 flex justify-end px-4">

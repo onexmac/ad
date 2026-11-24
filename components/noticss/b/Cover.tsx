@@ -76,7 +76,7 @@ export function Cover({
             <RainStrip hours={w?.rainHours ?? null} />
           </div>
         </div>
-        <SectionLabel name="Hoy" sub={`${edition.subjects.length} temas`} index={index} count={count} />
+        <SectionLabel name="Hoy" sub={`${section.cards.filter((c) => c.type === "subject" && !c.suggested).length} temas · lo principal`} index={index} count={count} />
       </div>
     );
   }

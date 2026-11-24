@@ -228,13 +228,21 @@ export function sectionsOf(ed: Edition, editions: Edition[] = [ed], follows: str
   const take = (list: Candidate[]) => list.filter((c) => !used.has(c.subject.id));
   const mark = (cards: Card[]) => cards.forEach((c) => c.type !== "figures" && c.suggested && used.add(c.subject.id));
 
-  // Hoy is the whole edition in reading order, the day's figures last; the others are its sections.
-  const hoyCards = withSuggestions("hoy", ed.subjects.map((s) => storyCards("hoy", [s])), take(pool), [{ type: "figures", id: "hoy-cifras", indicators: ed.indicators }]);
+  // Hoy is the front page: the most important storyline of each lens, most
+  // important first, then the day's figures. Those storylines leave their own
+  // sections; a section left with nothing of its own is not shown.
+  const order = (a: Subject, b: Subject) => b.importance - a.importance || ed.subjects.indexOf(a) - ed.subjects.indexOf(b);
+  const front = categoryOrder
+    .map((c) => ed.subjects.filter((s) => s.category === c).sort(order)[0])
+    .filter((s): s is Subject => !!s)
+    .sort(order);
+  const onFront = new Set(front.map((s) => s.id));
+  const hoyCards = withSuggestions("hoy", front.map((s) => storyCards("hoy", [s])), take(pool), [{ type: "figures", id: "hoy-cifras", indicators: ed.indicators }]);
   mark(hoyCards);
   const hoy: SectionDef = { id: "hoy", name: "Hoy", kind: "hoy", cards: hoyCards };
   const cats = categoryOrder
     .map((c): SectionDef | null => {
-      const subs = ed.subjects.filter((s) => s.category === c);
+      const subs = ed.subjects.filter((s) => s.category === c && !onFront.has(s.id));
       if (!subs.length) return null;
       const own = take(pool).filter((x) => x.subject.category === c);
       const cards = withSuggestions(
