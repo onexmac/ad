@@ -1,6 +1,7 @@
 "use client";
 
 import { BarGate } from "./BarGate";
+import { PILL, WALK_PERIOD, walkCss, walkStart } from "@/lib/histok/pillWalk";
 import { BACK, SPRING_IN } from "./gate";
 import { Bone, SkeletonGate } from "./SkeletonGate";
 
@@ -22,34 +23,18 @@ export function HistokLoading() {
 }
 
 /**
- * Histok's mark while it loads: the H and its "!" (BrandPills: four pills, 8 wide, the tall one 18, the dots 10,
- * 5 apart). The tall one walks down the four and round again, for ever: each dot grows into the "!" as the one
- * before it shrinks back to a dot, on the same spring, so the column keeps its height. Pure CSS, so it moves from
- * the first paint, like The Cubes' cube.
+ * Histok's mark while it loads: the H and its "!" walking for ever (lib/histok/pillWalk: each dot grows into the
+ * "!" as the one before shrinks back, on one spring, so the column keeps its height). Pure CSS, so it moves from
+ * the first paint, like The Cubes' cube. A tap on the H in the app runs the same walk twice.
  */
-const HK_SLOT = 0.4; // s each pill stands tall
-const HK_SWAP = 0.55; // share of a slot spent handing over
 function HistokLoaderMark() {
-  const period = HK_SLOT * 4;
-  const swap = (HK_SWAP * 25).toFixed(2); // % of the cycle
   const css = `
 .hk-ld{display:flex;align-items:center;justify-content:center;gap:12px}
-.hk-ld-pills{display:flex;flex-direction:column;gap:5px}
-.hk-ld-pills i{display:block;width:8px;height:10px;border-radius:4px;opacity:.3;
-  animation:hk-ld-walk ${period}s linear infinite}
-@keyframes hk-ld-walk{
-  0%{height:18px;opacity:1}
-  ${(25 - +swap).toFixed(2)}%{height:18px;opacity:1;animation-timing-function:${BACK}}
-  25%{height:10px;opacity:.3}
-  ${(100 - +swap).toFixed(2)}%{height:10px;opacity:.3;animation-timing-function:${BACK}}
-  100%{height:18px;opacity:1}}
-@supports (animation-timing-function: linear(0, 1)){
-  @keyframes hk-ld-walk{
-    0%{height:18px;opacity:1}
-    ${(25 - +swap).toFixed(2)}%{height:18px;opacity:1;animation-timing-function:${SPRING_IN}}
-    25%{height:10px;opacity:.3}
-    ${(100 - +swap).toFixed(2)}%{height:10px;opacity:.3;animation-timing-function:${SPRING_IN}}
-    100%{height:18px;opacity:1}}}`;
+.hk-ld-pills{display:flex;flex-direction:column;gap:${PILL.gap}px}
+.hk-ld-pills i{display:block;width:${PILL.w}px;height:${PILL.short}px;border-radius:${PILL.w / 2}px;opacity:${PILL.dim};
+  animation:hk-ld-walk ${WALK_PERIOD}s linear infinite}
+${walkCss("hk-ld-walk", BACK)}
+@supports (animation-timing-function: linear(0, 1)){${walkCss("hk-ld-walk", SPRING_IN)}}`;
   return (
     <span className="hk-ld" aria-label="Histok">
       <style>{css}</style>
@@ -57,7 +42,7 @@ function HistokLoaderMark() {
       <span className="hk-ld-pills" aria-hidden>
         {[0, 1, 2, 3].map((k) => (
           // Pill k stands tall in slot k: its clock runs k slots behind the first's.
-          <i key={k} className="bg-current" style={{ animationDelay: `${(k * HK_SLOT - period).toFixed(2)}s` }} />
+          <i key={k} className="bg-current" style={{ animationDelay: `${(-(walkStart(k) * WALK_PERIOD)).toFixed(2)}s` }} />
         ))}
       </span>
     </span>
