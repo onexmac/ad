@@ -26,6 +26,7 @@ import { springs } from "@/lib/pads/swift/springs";
 import { WorkerCard } from "@/components/pads/swift/worker-card";
 import { NuevoUsuarioSheet } from "@/components/pads/swift/nuevo-usuario-sheet";
 import { sampleUsers } from "@/components/pads/swift/mock-data";
+import { PadCardsSkeleton } from "@/components/skeleton/shapes";
 
 export default function MobilePage() {
   const [users, setUsers] = useState(sampleUsers);
@@ -44,56 +45,59 @@ export default function MobilePage() {
   };
 
   return (
-    <main
-      data-prototype
-      className="relative isolate mx-auto min-h-screen w-full max-w-[402px]"
-    >
-      {/* Card feed — 14px card margin, 16px between cards, 160px bottom for the bar */}
-      <div className="flex flex-col gap-4 px-[14px] pt-6 pb-[160px]">
-        {users.map((user) => (
-          <WorkerCard
-            key={user.id}
-            worker={user}
-            expanded={user.isExpanded}
-            onToggle={() =>
-              setUsers((curr) =>
-                curr.map((u) =>
-                  u.id === user.id ? { ...u, isExpanded: !u.isExpanded } : u,
-                ),
-              )
-            }
-          />
-        ))}
-      </div>
+    <>
+      <main
+        data-prototype
+        className="relative isolate mx-auto min-h-screen w-full max-w-[402px]"
+      >
+        {/* Card feed — 14px card margin, 16px between cards, 160px bottom for the bar */}
+        <div className="flex flex-col gap-4 px-[14px] pt-6 pb-[160px]">
+          {users.map((user) => (
+            <WorkerCard
+              key={user.id}
+              worker={user}
+              expanded={user.isExpanded}
+              onToggle={() =>
+                setUsers((curr) =>
+                  curr.map((u) =>
+                    u.id === user.id ? { ...u, isExpanded: !u.isExpanded } : u,
+                  ),
+                )
+              }
+            />
+          ))}
+        </div>
 
-      {/* Dim overlay — visible only in "sheet" state (not fullScreen). Tap to dismiss. */}
-      <motion.button
-        type="button"
-        aria-label="Cerrar"
-        initial={false}
-        animate={{ opacity: variant === "sheet" ? 0.5 : 0 }}
-        transition={{ duration: 0.28 }}
-        onClick={() => {
-          if (variant === "sheet") close();
-        }}
-        style={{
-          pointerEvents: variant === "sheet" ? "auto" : "none",
-          background: "#000",
-        }}
-        className="fixed inset-0 z-30 cursor-default border-0 outline-none"
-      />
+        {/* Dim overlay — visible only in "sheet" state (not fullScreen). Tap to dismiss. */}
+        <motion.button
+          type="button"
+          aria-label="Cerrar"
+          initial={false}
+          animate={{ opacity: variant === "sheet" ? 0.5 : 0 }}
+          transition={{ duration: 0.28 }}
+          onClick={() => {
+            if (variant === "sheet") close();
+          }}
+          style={{
+            pointerEvents: variant === "sheet" ? "auto" : "none",
+            background: "#000",
+          }}
+          className="fixed inset-0 z-30 cursor-default border-0 outline-none"
+        />
 
-      {/* Burger and its menu. Slides left as the morphing surface widens. */}
-      <BurgerMenu z={35} hidden={variant !== "collapsed"} />
+        {/* Burger and its menu. Slides left as the morphing surface widens. */}
+        <BurgerMenu z={35} hidden={variant !== "collapsed"} />
 
-      {/* Morphing surface — FAB → bar → sheet → fullScreen */}
-      <NuevoUsuarioSheet
-        variant={variant}
-        onOpen={() => setIsOpen(true)}
-        onClose={close}
-        isFullScreen={isFullScreen}
-        setIsFullScreen={setIsFullScreen}
-      />
-    </main>
+        {/* Morphing surface — FAB → bar → sheet → fullScreen */}
+        <NuevoUsuarioSheet
+          variant={variant}
+          onOpen={() => setIsOpen(true)}
+          onClose={close}
+          isFullScreen={isFullScreen}
+          setIsFullScreen={setIsFullScreen}
+        />
+      </main>
+      <PadCardsSkeleton swift />
+    </>
   );
 }
