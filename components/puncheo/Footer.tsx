@@ -91,6 +91,9 @@ function Cross() {
   );
 }
 
+/** Room a folding wrapper keeps around its key, so the key's outline isn't clipped. */
+const RIM = 3;
+
 export function Footer({
   s,
   kind,
@@ -150,6 +153,12 @@ export function Footer({
   const ctaGrow = useTransform(p, (v) => Math.max(0, 1 - v));
   const ctaGap = useTransform(p, (v) => Math.max(0, Math.min(1, 1 - v)) * gap);
   const ctaInk = useTransform(p, [0, 0.4], [1, 0]);
+  // The folding wrappers clip, and a key's outline (its dark ring and the shadow
+  // under it) sits just outside the key: each wrapper keeps a RIM of room around
+  // its key, taken back with a negative margin so nothing moves. Without it the
+  // outline survived only along a big corner curve, where the box leaves room.
+  const ctaRim = useTransform(ctaGap, (v) => v - RIM);
+  const ctaShow = useTransform(p, [0.75, 1], [1, 0]);
   const fieldInk = useTransform(p, [0.25, 0.7], [0, 1]);
 
   // The phone's keyboard covers the bottom of the screen; while the search is open
@@ -385,24 +394,24 @@ export function Footer({
     <>
       {sections ? (
         <motion.div
-          className="shrink-0 overflow-hidden"
+          className="-my-[3px] shrink-0 overflow-hidden"
           initial={false}
-          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1 }}
+          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1, marginLeft: open ? 0 : -RIM }}
           transition={{ type: "spring", stiffness: 380, damping: 36 }}
         >
-          <div style={{ paddingRight: gap }}>
+          <div style={{ padding: RIM, paddingRight: gap }}>
             <SectionControl s={s} tone={polish ? "leia" : bar ? "bar" : "pill"} />
           </div>
         </motion.div>
       ) : null}
       {rooms ? (
         <motion.div
-          className="shrink-0 overflow-hidden"
+          className="-my-[3px] shrink-0 overflow-hidden"
           initial={false}
-          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1 }}
+          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1, marginLeft: open ? 0 : -RIM }}
           transition={{ type: "spring", stiffness: 380, damping: 36 }}
         >
-          <div style={{ paddingRight: gap }}>
+          <div style={{ padding: RIM, paddingRight: gap }}>
             <button
               type="button"
               onClick={() => setRoomsOpen((o) => !o)}
@@ -419,7 +428,10 @@ export function Footer({
       ) : null}
       {key}
       {field}
-      <motion.div style={{ flexGrow: ctaGrow, marginLeft: ctaGap, pointerEvents: open ? "none" : "auto" }} className="flex min-w-0 basis-0 overflow-hidden">
+      <motion.div
+        style={{ flexGrow: ctaGrow, marginLeft: ctaRim, opacity: ctaShow, pointerEvents: open ? "none" : "auto" }}
+        className="-my-[3px] -mr-[3px] flex min-w-0 basis-0 overflow-hidden p-[3px]"
+      >
         {action}
       </motion.div>
     </>
