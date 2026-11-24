@@ -20,6 +20,9 @@
   - `launch`: every iteration ships to `main` (branch → PR → merge, without
     waiting to be asked) and he gets the portal link,
     `https://magi0s.vercel.app/<section>/<slug>`. An artifact only if he asks.
+  - Links last: every link to a published app or an artifact goes on the last
+    line of the message, never at the top or in the middle, so Marcos doesn't
+    scroll up after each push.
   - He can set it in his first message (`eva sim …`, `eva launch …`) and switch
     any time by typing `sim` or `launch`; `launch` mid-session also ships what
     is there now.
