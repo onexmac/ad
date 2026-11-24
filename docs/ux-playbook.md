@@ -278,6 +278,19 @@ in the bounce. When he says "vvv", this is what he means.
 Code: `components/vvv/Vvv.tsx`. First used on the Pads index
 (`components/pads/home/PadsHome.tsx`).
 
+### Two fits: vvs and vvt
+
+| | vvs (short), the default | vvt (tall) |
+|---|---|---|
+| Top of the frame | below the status bar, plus a gutter | the top of the screen |
+| Top corners | rounded | none: the phone's own corners round it |
+| Dynamic Island | hidden in the black | shows, with the page around it |
+| Content start and snap stops | the frame's top | below the status bar (`padding-top` and `scroll-padding-top` = safe-area top); it scrolls on up under the island |
+| Bottom | above Safari's bar, rounded | same |
+| Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
+
+Pads uses vvs.
+
 ### How it's made
 
 1. **Beyond the frame is always black.** That is what makes it vvv. The
