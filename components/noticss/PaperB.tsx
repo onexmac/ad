@@ -61,6 +61,8 @@ const HOLD_MS = 260;
 /** Open, a page stops this far above the bottom edge: a card, its rounded corners in view. */
 /** vvt: the frame's bottom corners, the same as an open page's (it fills the frame). */
 const FRAME_R = RU;
+/** How far B runs up behind Safari's status bar (more than any status bar is tall). */
+const BLEED = 80;
 
 export function PaperB({ editions }: { editions: Edition[] }) {
   const [edIndex, setEdIndex] = useState(0);
@@ -148,17 +150,62 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     };
   }, [Wm, Hm, Cm, Bm, secX]);
 
-  // A full-screen surface: the document behind must not scroll or bounce.
+  /*
+   * Behind the clock. Safari (iOS 26, in the browser) draws real page content
+   * behind its status bar only while the document is scrolled; a fixed layer
+   * touching the top it paints as one solid bar, and an unscrolled page shows
+   * the html colour there. So on an iPhone in Safari, B runs BLEED px taller
+   * than the screen and pins the document scrolled down by that much: its top
+   * BLEED px sit behind the clock, and the cut (where content starts) is the
+   * viewport's top. From the home screen the page already runs under the
+   * status bar, and the safe-area inset says where the cut is.
+   */
+  const [bleed, setBleed] = useState(0);
+  useLayoutEffect(() => {
+    const nav = navigator as Navigator & { standalone?: boolean };
+    const ios = /iPhone|iPad|iPod/.test(nav.userAgent) || (nav.platform === "MacIntel" && nav.maxTouchPoints > 1);
+    const probe = document.createElement("div");
+    probe.style.cssText = "position:absolute;visibility:hidden;padding-top:env(safe-area-inset-top,0px)";
+    document.body.appendChild(probe);
+    const sat = parseFloat(getComputedStyle(probe).paddingTop) || 0;
+    probe.remove();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read once from the device
+    if (ios && !nav.standalone && !matchMedia("(display-mode: standalone)").matches && sat === 0) setBleed(BLEED);
+  }, []);
+  // The document behind must not scroll or bounce; with a bleed it is pinned
+  // at the bleed instead (scrolled, so Safari shows the page behind the clock).
   useEffect(() => {
     const html = document.documentElement;
-    const prev = [html.style.overflow, document.body.style.overflow];
-    html.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-    return () => {
-      html.style.overflow = prev[0];
-      document.body.style.overflow = prev[1];
+    const body = document.body;
+    const prev = [html.style.overflow, body.style.overflow, html.style.overscrollBehavior, history.scrollRestoration] as const;
+    html.style.overscrollBehavior = "none";
+    if (!bleed) {
+      html.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+    }
+    history.scrollRestoration = "manual";
+    let raf = 0;
+    const pin = () => {
+      raf = 0;
+      if (bleed && Math.abs(window.scrollY - bleed) > 0.5) window.scrollTo({ top: bleed, left: 0, behavior: "instant" });
+      if (!bleed && window.scrollY !== 0) window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     };
-  }, []);
+    const soon = () => {
+      if (!raf) raf = requestAnimationFrame(pin);
+    };
+    pin();
+    const late = window.setTimeout(pin, 300);
+    window.addEventListener("scroll", soon, { passive: true });
+    window.addEventListener("resize", soon);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      clearTimeout(late);
+      window.removeEventListener("scroll", soon);
+      window.removeEventListener("resize", soon);
+      [html.style.overflow, body.style.overflow, html.style.overscrollBehavior] = prev;
+      history.scrollRestoration = prev[3];
+    };
+  }, [bleed]);
 
   /* ---------- geometry helpers ---------- */
 
@@ -1012,20 +1059,20 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   return (
     <div
       ref={root}
-      // Absolute, not fixed (the document never scrolls): Safari reads its bar
-      // colours from fixed layers at the edges, and this one spans both.
-      className="absolute inset-x-0 top-0 h-[100lvh] overflow-hidden"
+      // Absolute, not fixed: nothing of B may be a fixed layer at the top edge
+      // (Safari paints one as a solid bar over its status bar).
+      className="absolute inset-x-0 top-0 overflow-hidden"
       data-app
-      // The frame ends above the bottom bar and the home indicator: nothing inside needs their inset.
-      style={{ ["--sab" as string]: "0px" }}
+      style={{
+        height: `calc(100lvh + ${bleed}px)`,
+        touchAction: "none",
+        // The frame ends above the bottom bar and the home indicator: nothing inside needs their inset.
+        ["--sab" as string]: "0px",
+        // The cut: below the status bar, or (with a bleed) the viewport's top.
+        ...(bleed ? { ["--sat" as string]: `${bleed}px` } : {}),
+      }}
     >
-      {/*
-       * What lies behind the frame, as two fixed layers: Safari colours its
-       * status bar from a fixed layer at the top edge, and the strip at the
-       * bottom from one at the bottom. The top takes the colour at the top of
-       * what shows; the bottom (beyond the frame, under the bar) is black.
-       */}
-      <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 mx-auto h-[50lvh] max-w-[520px]" style={{ backgroundColor: tone, transition: "background-color 240ms ease" }} />
+      {/* Beyond the frame at the bottom: black, and Safari tints its bottom bar from it. */}
       <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 h-[50lvh]" style={{ backgroundColor: "#000" }} />
       {/* vvt: no top curve (the phone's own corners round it), the bottom rounded above the bar. */}
       <div
@@ -1040,7 +1087,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
           // The frame's own surface is the top colour too, wherever Safari samples it.
           backgroundColor: tone,
           touchAction: open ? "pan-y" : "none",
-          ["--sat-px" as string]: `${inset.sat}`,
+          ["--sat-px" as string]: `${bleed || inset.sat}`,
         }}
       >
         {sections.map((s, i) =>
@@ -1156,7 +1203,9 @@ export function PaperB({ editions }: { editions: Edition[] }) {
       </div>
 
       <TopFill tone={tone} mode={fill} />
-      <AbSwitch current="b" hidden={!!open} tone="dark" />
+      {/* Fixed to the viewport, whose top is already the cut. */}
+      <div style={{ ["--sat" as string]: bleed ? "0px" : "env(safe-area-inset-top, 0px)" }}>
+        <AbSwitch current="b" hidden={!!open} tone="dark" />
 
       {gallery ? (
         <Gallery
@@ -1180,6 +1229,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
           }}
         />
       ) : null}
+      </div>
     </div>
   );
 }
