@@ -11,11 +11,11 @@ import type { PunchSheet } from "./usePunchSheet";
 /*
  * A check's photo, opened. The picture itself (the one element on the page)
  * flies from its place into the middle of the screen on a spring, and flies
- * back on close. Under it, Leia's strip: the back key, the pencil (on from the
- * start, so a finger on the picture draws) and a
- * slide-to-delete. The pencil opens the marker: four colours, three widths
- * (yellow at 16 px to start), undo. What is drawn is burned into the photo.
- * Closes by pulling the picture down, swiping it right, or a tap outside.
+ * back on close. Under it, Leia's strip: the marker always out (four colours,
+ * three widths, yellow at 16 px to start, undo; a finger on the picture draws
+ * and the drawing is burned into the photo), then the back key, a
+ * slide-to-delete and, at the far right, the camera key for another photo.
+ * Closes with the back key, a tap outside or Escape.
  */
 
 const OPEN = { type: "spring" as const, stiffness: 230, damping: 21 };
@@ -82,7 +82,10 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
     return !img || !img.isConnected || !img.parentElement;
   });
   const [landed, setLanded] = useState(own);
-  const [drawing, setDrawing] = useState(true); // the marker is ready on open
+  // The marker is always out: a finger on the picture draws. (Closing is the back
+  // key, a tap outside or Escape; the picture itself no longer drags away.)
+  const drawing = true;
+  const camera = useRef<HTMLInputElement>(null);
   // The stage: the marker's row takes room under the picture, so it shrinks to make it.
   const rect: Rect = stageRect(aspect, drawing);
   const [color, setColor] = useState(COLORS[0].hex);
@@ -155,7 +158,6 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
     if (closing.current) return;
     closing.current = true;
     commit();
-    setDrawing(false);
     animate(dim, 0, { duration: 0.24 });
     animate(sheetY, 1, { type: "spring", stiffness: 380, damping: 34 });
     const c = carrier.current;
@@ -165,17 +167,22 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
       return;
     }
     c.lift(rectOf(piece));
+    // The picture has left its frame: the empty frame (and its big shadow) must
+    // not linger on screen while the picture flies home.
+    if (slot.current) slot.current.style.visibility = "hidden";
     dx.set(0);
     dy.set(0);
-    c.fly(
-      () => rectOf(c.home),
-      CLOSE,
-      () => {
-        c.goHome();
-        carrier.current = null;
-        s.closeViewer();
-      },
-    );
+    let landedHome = false;
+    const finish = () => {
+      if (landedHome) return;
+      landedHome = true;
+      c.goHome();
+      carrier.current = null;
+      s.closeViewer();
+    };
+    c.fly(() => rectOf(c.home), CLOSE, finish);
+    // If the flight never reports landing (a backgrounded tab, a busy frame), close anyway.
+    window.setTimeout(finish, 1400);
   };
 
   const remove = () => {
@@ -268,12 +275,6 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
     if (st) setStrokes((p) => [...p, st]);
   };
 
-  const togglePen = () => {
-    haptic.select();
-    if (drawing) commit();
-    setDrawing(!drawing);
-  };
-
   return (
     <div className="leia-root fixed inset-0 z-[60]" style={{ touchAction: "none" }}>
       <motion.div className="absolute inset-0 bg-[#121417]/90" style={{ opacity: dim }} onClick={close} />
@@ -308,7 +309,7 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
       <motion.div className="leia-strip absolute inset-x-0 bottom-0" style={{ y: sheetPct, paddingBottom: "var(--sab)" }}>
         <AnimatePresence initial={false}>
           {drawing ? (
-            // Open from the start with the strip; folds when the pencil is put down.
+            // The marker's row, always open with the strip.
             <motion.div
               key="tools"
               initial={{ height: 0, opacity: 0 }}
@@ -369,16 +370,28 @@ function Viewer({ s, id, i }: { s: PunchSheet; id: string; i: number }) {
           <button type="button" aria-label="Volver" onClick={close} className="leia-btn grid size-11 shrink-0 place-items-center rounded-[4px]">
             <BackGlyph />
           </button>
+          <SlideToDelete onDelete={remove} />
+          {/* Another photo for this check, without leaving the viewer. */}
           <button
             type="button"
-            aria-label={drawing ? "Terminar anotación" : "Anotar"}
-            aria-pressed={drawing}
-            onClick={togglePen}
-            className={`grid size-11 shrink-0 place-items-center rounded-[4px] ${drawing ? "leia-tab-on text-ground" : "leia-btn"}`}
+            aria-label="Agregar otra foto"
+            onClick={() => camera.current?.click()}
+            className="leia-btn grid size-11 shrink-0 place-items-center rounded-[4px]"
           >
-            <PencilGlyph />
+            <CameraGlyph />
           </button>
-<SlideToDelete onDelete={remove} />
+          <input
+            ref={camera}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              e.target.value = "";
+              if (f) s.pickPhoto(check, f);
+            }}
+          />
         </div>
       </motion.div>
     </div>
@@ -405,31 +418,35 @@ function paint(cv: HTMLCanvasElement, strokes: Stroke[], clear = true) {
 }
 
 /**
- * Slide to delete: a sunk track, the knob a key with the bin. Drag it to the
- * end and the photo goes; let go short and it springs back.
+ * Slide to delete: a sunk track, the handle a key with the bin. The handle
+ * stretches with the finger and reddens as it goes; at the end the photo goes,
+ * let go short and it springs back.
  */
 function SlideToDelete({ onDelete }: { onDelete: () => void }) {
   const track = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const fill = useTransform(x, (v) => v + KNOB);
-  const fillOn = useTransform(x, [0, 12], [0, 1]); // the red follows the knob only once it moves
+  const x = useMotionValue(0); // how far the finger has stretched the handle
+  const room = useMotionValue(200); // how far it can stretch
+  const width = useTransform(x, (v) => KNOB + v);
+  const red = useTransform([x, room], ([v, r]: number[]) => Math.min(1, v / Math.max(1, r * 0.9)));
+  const ink = useTransform(red, [0, 0.5], ["#55585e", "#ffffff"]);
   const hint = useTransform(x, [0, 90], [1, 0]);
   const start = useRef<{ px: number; x: number; max: number } | null>(null);
   const done = useRef(false);
+  const back = () => animate(x, 0, { type: "spring", stiffness: 500, damping: 32 });
   return (
     <div ref={track} className="leia-track relative h-11 min-w-0 flex-1 rounded-[6px] p-[2px]">
-      <motion.span className="leia-fill-red absolute bottom-[2px] left-[2px] top-[2px] rounded-[4px]" style={{ width: fill, opacity: fillOn }} />
       <motion.span style={{ opacity: hint }} className="leia-emboss pointer-events-none absolute inset-0 grid place-items-center pl-[84px] pr-2 text-[14px] text-[#7d8087]">
         Desliza para borrar
       </motion.span>
       <motion.button
         type="button"
         aria-label="Desliza para borrar la foto"
-        className="leia-btn relative flex h-10 items-center justify-center gap-1.5 rounded-[4px]"
-        style={{ x, width: KNOB, touchAction: "none" }}
+        className="leia-btn relative flex h-10 items-center justify-end overflow-hidden rounded-[4px]"
+        style={{ width, touchAction: "none" }}
         onPointerDown={(e) => {
           if (done.current) return;
           const max = (track.current?.offsetWidth ?? 200) - 4 - KNOB;
+          room.set(max);
           start.current = { px: e.clientX, x: x.get(), max };
           (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
           haptic.drag();
@@ -447,26 +464,31 @@ function SlideToDelete({ onDelete }: { onDelete: () => void }) {
             done.current = true;
             animate(x, st.max, { type: "spring", stiffness: 600, damping: 40 });
             onDelete();
-          } else animate(x, 0, { type: "spring", stiffness: 500, damping: 30 });
+          } else back();
         }}
         onPointerCancel={() => {
           start.current = null;
-          animate(x, 0, { type: "spring", stiffness: 500, damping: 30 });
+          back();
         }}
       >
-        <BinGlyph />
-        <Chevron />
+        {/* The red comes up through the key as it stretches. */}
+        <motion.span aria-hidden className="leia-fill-red pointer-events-none absolute inset-0" style={{ opacity: red }} />
+        <motion.span className="relative flex w-[76px] shrink-0 items-center justify-center gap-1.5" style={{ color: ink }}>
+          <BinGlyph />
+          <Chevron />
+        </motion.span>
       </motion.button>
     </div>
   );
 }
 
 // Leia's keys carry solid glyphs, engraved.
-function PencilGlyph() {
+function CameraGlyph() {
   return (
-    <svg width={20} height={20} viewBox="0 0 24 24" className="leia-glyph" aria-hidden>
-      <path d="M15.3 3.6a2 2 0 012.8 0l2.3 2.3a2 2 0 010 2.8L9 20.1l-5.6 1.2a.6.6 0 01-.7-.7L3.9 15z" fill="currentColor" />
-      <path d="M13.6 5.3l5.1 5.1" stroke="#e4e5e7" strokeWidth={1.4} />
+    <svg width={22} height={22} viewBox="0 0 24 24" className="leia-glyph" aria-hidden>
+      <path d="M8.2 4.5h7.6l1.4 2.2H21a1 1 0 011 1V19a1 1 0 01-1 1H3a1 1 0 01-1-1V7.7a1 1 0 011-1h3.8z" fill="currentColor" />
+      <circle cx="12" cy="13" r="4.2" fill="#e9eaec" />
+      <circle cx="12" cy="13" r="2.6" fill="currentColor" />
     </svg>
   );
 }

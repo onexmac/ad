@@ -18,6 +18,11 @@
           "slug": "noticss",
           "name": "Noticss",
           "description": "El diario de la mañana, en papel: política, economía, geopolítica y construcción"
+        },
+        {
+          "slug": "axis-cube",
+          "name": "Axis Cube",
+          "description": "Cuatro cubos en una biblioteca de los noventa al atardecer: un Axis Cube, un 3×3, un 2×2 y un Ghost Cube para girar con el dedo"
         }
       ]
     },
@@ -32,14 +37,31 @@
           "description": "Puncheo de formaleta N1: pre-armado y pre-chorrea"
         },
         {
-          "slug": "control-usuarios",
-          "name": "Control de usuarios",
-          "external": "https://control-usuarios.vercel.app"
-        },
-        {
-          "slug": "kpi",
-          "name": "KPI",
-          "external": "https://adelante-kpi.vercel.app"
+          "slug": "pads",
+          "name": "Pads",
+          "description": "Prototipos: pad01, pad02, pad03 y KPI",
+          "apps": [
+            {
+              "slug": "pad01",
+              "name": "Pad 01",
+              "description": "Usuarios mobile: el + verde se abre en Nuevo usuario"
+            },
+            {
+              "slug": "pad02",
+              "name": "Pad 02",
+              "description": "Deslizá para crear: el slider viene armado"
+            },
+            {
+              "slug": "pad03",
+              "name": "Pad 03",
+              "description": "La pantalla P2 de SwiftUI, con sus botones a presión"
+            },
+            {
+              "slug": "kpi",
+              "name": "KPI",
+              "external": "https://adelante-kpi.vercel.app"
+            }
+          ]
         }
       ]
     }

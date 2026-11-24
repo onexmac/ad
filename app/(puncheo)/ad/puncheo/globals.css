@@ -68,6 +68,9 @@ body {
 
 html {
   scrollbar-gutter: stable;
+  /* The rows anchor the page themselves when one opens (RailRow snapToTop);
+     the browser's own scroll anchoring would fight it. */
+  overflow-anchor: none;
 }
 
 [data-app],
@@ -312,4 +315,27 @@ html {
 .leia-track {
   background: linear-gradient(180deg, #c9cbcf 0%, #dcdde0 100%);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+/* A room with every check marked: its band in Leia's green, same lit edges. */
+.leia-band-done {
+  background: linear-gradient(180deg, #a3d168 0%, #8cc04b 50%, #79ad3c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+/* The whole finished room goes green, not only its band: the panel, the phase
+   and group strips and the Clave blocks take a light green, same bevels. */
+.leia-panel {
+  transition: background-color 500ms ease;
+}
+.room-done.leia-panel {
+  background-color: #e2edd5;
+}
+.room-done .leia-strip {
+  background: linear-gradient(180deg, #eef6e4 0%, #d8e9c4 100%);
+  box-shadow: inset 0 1px 0 #f8fcf3, inset 0 -1px 0 #b5cb99;
+}
+.room-done .leia-key {
+  background-color: #eef5e5;
+}
+.leia-key {
+  transition: background-color 500ms ease;
 }

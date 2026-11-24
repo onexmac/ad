@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, animate, motion } from "motion/react";
+import { AnimatePresence, animate, cancelFrame, frame, motion } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import type { Instance } from "@/data/puncheo/rooms";
 import type { Status } from "@/lib/puncheo/state";
@@ -26,15 +26,56 @@ const TINT: Record<Exclude<Status, "na">, string> = {
 function snapToTop(el: HTMLElement | null) {
   const row = el?.closest("[data-check]") as HTMLElement | null;
   if (!row) return;
-  const top = row.getBoundingClientRect().top;
-  let above = 0;
-  document.querySelectorAll<HTMLElement>("[data-detail]").forEach((d) => {
-    if (d.getBoundingClientRect().top < top) above += d.offsetHeight;
-  });
   const tabs = document.getElementById("puncheo-tabs");
-  const bar = tabs ? tabs.getBoundingClientRect().bottom : parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0;
-  window.scrollTo({ top: Math.max(0, top + window.scrollY - above - bar - 8), behavior: "smooth" });
+  const sat = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0;
+  // The tapped row is the anchor. Each frame we decide where it should sit on the
+  // screen, on one smooth path from where it was tapped to just under the bar,
+  // and move the page so it is exactly there. Whatever opens or closes above it
+  // (the previous row's detail folding away) can't nudge it: the page absorbs
+  // that change in the same frame.
+  // Measured from the layout, not the painted box: a row still rising into view
+  // carries a passing offset the anchor must not chase.
+  const top = () => {
+    let y = 0;
+    for (let n: HTMLElement | null = row; n; n = n.offsetParent as HTMLElement | null) y += n.offsetTop;
+    return y - window.scrollY;
+  };
+  const from = top();
+  const to = () => (tabs ? tabs.getBoundingClientRect().bottom : sat) + 8;
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const GLIDE = 460;
+  const HOLD = 760; // keep anchoring while the folding detail finishes
+  const t0 = performance.now();
+  // Runs in motion's frame loop after it has rendered this frame's heights, so
+  // the anchor reads the layout the screen is about to show (no one-frame lag).
+  const frame_ = () => {
+    const now = performance.now();
+    const t = Math.min(1, (now - t0) / GLIDE);
+    const want = from + (to() - from) * ease(t);
+    const off = top() - want;
+    if (Math.abs(off) > 0.5) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo({ top: Math.max(0, Math.min(max, window.scrollY + off)), behavior: "instant" });
+    }
+    if (now - t0 >= HOLD) {
+      cancelFrame(frame_);
+      snapRun = null;
+    }
+  };
+  snapRun?.stop();
+  frame.postRender(frame_, true);
+  snapRun = { stop: () => cancelFrame(frame_) };
+  // A finger on the page takes over.
+  const stop = () => {
+    snapRun?.stop();
+    snapRun = null;
+    window.removeEventListener("touchstart", stop);
+    window.removeEventListener("wheel", stop);
+  };
+  window.addEventListener("touchstart", stop, { once: true, passive: true });
+  window.addEventListener("wheel", stop, { once: true, passive: true });
 }
+let snapRun: { stop: () => void } | null = null;
 
 /** The big numeral takes its mark's colour, dark enough to read on the row's tint. */
 const NUM: Record<Status | "none", string> = { none: "var(--brand)", green: "var(--ok-ink)", yellow: "var(--warn-deep)", red: "var(--bad)", na: "var(--ink-faint)" };
@@ -222,9 +263,8 @@ export function RailRow({ s, check, skin }: { s: PunchSheet; check: Instance; sk
                 onClick={() => {
                   if (sw.dragged()) return;
                   haptic.select();
-                  const el = content.current;
-                  // After the render that opens it: a re-render can reset the scroll.
-                  if (!r.open) requestAnimationFrame(() => requestAnimationFrame(() => snapToTop(el)));
+                  // Anchor from this very frame, before the previous detail starts folding.
+                  if (!r.open) snapToTop(content.current);
                   s.toggle(check.id);
                 }}
                 aria-expanded={r.open}

@@ -31,6 +31,11 @@ export type Sheet = {
   title: string;
   subtitle: string;
   system: string;
+  /** The condominium the house is in, and the house's number: the ficha's header. */
+  condo: string;
+  house: string;
+  /** The house's drawings, opened from the ficha's header. `url` stays null until a file is uploaded. */
+  plans: { id: string; name: string; url: string | null; drawing?: "formaleta" }[];
   punches: Punch[];
 };
 
@@ -41,6 +46,14 @@ export const sheet: Sheet = {
   title: "Formaleta",
   subtitle: "Vivienda N1",
   system: "Aluminio Precise Forms · muros sobre losa flotante",
+  condo: "Valle Castilla",
+  house: "E.11",
+  plans: [
+    { id: "formaleta", name: "Plano formaleta", url: null, drawing: "formaleta" }, // simulated until the real sheet is uploaded
+    { id: "arquitectonico", name: "Plano arquitectónico", url: null },
+    { id: "electrico", name: "Plano eléctrico", url: null },
+    { id: "mecanico", name: "Plano mecánico", url: null },
+  ],
   punches: [
     {
       id: "p1",

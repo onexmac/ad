@@ -39,6 +39,37 @@ function Lens({ size = 17 }: { size?: number }) {
   );
 }
 
+type Cell = { id: string; label: string; count: React.ReactNode; on: boolean; done?: boolean };
+
+/**
+ * Leia's category cells: a lit strip split by etched lines, the chosen cell a
+ * pressed blue block, the name over its count. More cells than fit scroll
+ * sideways; the chosen one is brought into view when the strip appears.
+ */
+function Cells({ items, onPick, label }: { items: Cell[]; onPick: (i: number) => void; label: string }) {
+  const strip = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const on = strip.current?.querySelector<HTMLElement>("[aria-current='true']");
+    on?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, []);
+  return (
+    <div ref={strip} role="group" aria-label={label} className="leia-tabs no-scrollbar flex overflow-x-auto overscroll-x-contain">
+      {items.map((x, i) => (
+        <button
+          key={x.id}
+          type="button"
+          onClick={() => onPick(i)}
+          aria-current={x.on ? "true" : undefined}
+          className={`relative flex h-[50px] min-w-[60px] flex-1 shrink-0 flex-col items-center justify-center px-1 ${i < items.length - 1 ? "leia-tab-sep" : ""} ${x.on ? "leia-tab-on" : ""}`}
+        >
+          <span className={`max-w-full truncate text-[13.5px] ${x.on ? "text-ground" : "leia-emboss text-ink"}`}>{x.label}</span>
+          <span className={`text-[10px] tabular-nums ${x.on ? "text-brand-2" : x.done ? "text-ok-deep" : "text-[#8a8d93]"}`}>{x.count}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 /** A floor plan: the rooms key. */
 function Plan() {
   return (
@@ -109,6 +140,26 @@ export function Footer({
   const ctaInk = useTransform(p, [0, 0.4], [1, 0]);
   const fieldInk = useTransform(p, [0.25, 0.7], [0, 1]);
 
+  // The phone's keyboard covers the bottom of the screen; while the search is open
+  // the bar rides on top of it (the visual viewport says how much it covers).
+  useEffect(() => {
+    const vv = window.visualViewport;
+    const el = nav.current;
+    if (!open || !vv || !el) return;
+    const fit = () => {
+      const kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      el.style.transform = kb > 40 ? `translateY(${-kb}px)` : "";
+    };
+    fit();
+    vv.addEventListener("resize", fit);
+    vv.addEventListener("scroll", fit);
+    return () => {
+      vv.removeEventListener("resize", fit);
+      vv.removeEventListener("scroll", fit);
+      el.style.transform = "";
+    };
+  }, [open]);
+
   const toggle = () => {
     if (!search) return;
     setRoomsOpen(false);
@@ -156,6 +207,8 @@ export function Footer({
         polish ? "leia-field-dark" : bar ? "leia-well" : "bg-ground shadow-[inset_0_0_0_1.5px_var(--hair-2)]"
       }`}
     >
+      {/* The input keeps a real width while the field is folded, clipped by it: iOS
+          won't raise the keyboard for an input with no size. */}
       <motion.span style={{ opacity: fieldInk }} className="flex h-full min-w-0 flex-1 items-center">
         <span className={`grid w-9 shrink-0 place-items-center ${bar ? "text-[#8a8d93]" : "text-ink-faint"}`}>
           <Lens size={15} />
@@ -170,7 +223,7 @@ export function Footer({
           placeholder="Buscar check"
           enterKeyHint="search"
           autoComplete="off"
-          className={`h-full min-w-0 flex-1 bg-transparent pr-3 text-[16px] outline-none ${
+          className={`h-full min-w-[200px] flex-1 bg-transparent pr-3 text-[16px] outline-none ${
             bar ? "text-ground placeholder:text-[#7d8087]" : "text-ink placeholder:text-ink-faint"
           }`}
         />
@@ -218,36 +271,47 @@ export function Footer({
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
-            transition={{ type: "spring", stiffness: 380, damping: 36 }}
+            transition={{ type: "spring", stiffness: 200, damping: 26 }}
             className={`pointer-events-auto ${polish ? "leia-strip" : bar ? "bg-ink" : "rounded-t-[16px] bg-ground"}`}
           >
-            {/* The rooms in the filters' dress: the one being read is the pressed blue key. */}
-            <div className="grid grid-cols-3 gap-1.5 px-3 py-2">
-              {s.sections.map((x, i) => {
-                const on = i === s.section;
-                const t = s.sectionTallies[i];
-                const done = t.done === t.total;
-                return (
-                  <button
-                    key={x.id}
-                    type="button"
-                    onClick={() => {
-                      setRoomsOpen(false);
-                      s.travelTo(i);
-                    }}
-                    aria-current={on ? "true" : undefined}
-                    className={`flex h-10 min-w-0 items-center justify-center gap-1.5 rounded-[4px] px-1 leading-none ${
-                      polish ? (on ? "leia-tab-on text-ground" : "leia-btn text-ink") : on ? "bg-brand text-ground" : bar ? "bg-ink-3 text-hair" : "bg-card text-ink-2"
-                    }`}
-                  >
-                    <span className={`min-w-0 truncate text-[14px] ${polish && !on ? "leia-emboss" : ""}`}>{x.name}</span>
-                    <span className={`text-[12px] tabular-nums ${on ? "text-brand-2" : done ? "text-ok-deep" : polish ? "text-[#8a8d93]" : "opacity-60"}`}>
-                      {t.done}/{t.total}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+            {/* The rooms as Leia's category cells: the one being read is the blue cell. */}
+            {polish ? (
+              <Cells
+                label="Cuartos"
+                items={s.sections.map((x, i) => {
+                  const t = s.sectionTallies[i];
+                  return { id: x.id, label: x.name, count: `${t.done}/${t.total}`, on: i === s.section, done: t.done === t.total };
+                })}
+                onPick={(i) => {
+                  setRoomsOpen(false);
+                  s.travelTo(i);
+                }}
+              />
+            ) : (
+              <div className="grid grid-cols-3 gap-1.5 px-3 py-2">
+                {s.sections.map((x, i) => {
+                  const on = i === s.section;
+                  const t = s.sectionTallies[i];
+                  return (
+                    <button
+                      key={x.id}
+                      type="button"
+                      onClick={() => {
+                        setRoomsOpen(false);
+                        s.travelTo(i);
+                      }}
+                      aria-current={on ? "true" : undefined}
+                      className={`flex h-10 min-w-0 items-center justify-center gap-1.5 rounded-[4px] px-1 leading-none ${on ? "bg-brand text-ground" : bar ? "bg-ink-3 text-hair" : "bg-card text-ink-2"}`}
+                    >
+                      <span className="min-w-0 truncate text-[14px]">{x.name}</span>
+                      <span className="text-[12px] tabular-nums opacity-70">
+                        {t.done}/{t.total}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </motion.div>
         ) : search?.open ? (
           <motion.div
@@ -272,6 +336,11 @@ export function Footer({
                 ))}
               </div>
             ) : null}
+            {polish ? (
+              <div className="mt-2">
+                <Cells label="Filtros" items={search.filters.map((f, i) => ({ id: f.id, label: f.label, count: f.count, on: i === search.filter }))} onPick={(i) => search.setFilter(i)} />
+              </div>
+            ) : (
             <div className="flex gap-1.5 px-3 py-2">
               {search.filters.map((f, i) => {
                 const on = i === search.filter;
@@ -291,6 +360,7 @@ export function Footer({
                 );
               })}
             </div>
+            )}
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -347,6 +417,11 @@ export function Footer({
         <div className={`relative z-10 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: "var(--sab)" }}>
           <div className="mx-auto flex h-[60px] max-w-[560px] items-center px-3">{row}</div>
         </div>
+        {/* The bar's skirt: riding on the keyboard, the phone's see-through accessory
+            row and address pill sit between the two, so the bar carries its own
+            colour down behind them instead of letting the page show through. Out of
+            sight below the screen while the keyboard is down. */}
+        <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-full z-10 h-[100vh] ${polish ? "bg-[#30343a]" : "bg-ink-2"}`} />
       </nav>
     );
   }

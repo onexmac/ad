@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { sections } from "@/lib/apps";
+import { countApps, sections } from "@/lib/apps";
 
 export default function Home() {
   return (
@@ -23,8 +23,8 @@ export default function Home() {
               <span className="mt-2 flex items-baseline justify-between text-ink-soft">
                 <span>{section.tagline}</span>
                 <span className="font-mono text-xs">
-                  {section.apps.length}{" "}
-                  {section.apps.length === 1 ? "app" : "apps"}
+                  {countApps(section.apps)}{" "}
+                  {countApps(section.apps) === 1 ? "app" : "apps"}
                 </span>
               </span>
             </span>

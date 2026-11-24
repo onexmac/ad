@@ -1,16 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import "@fontsource-variable/geist/index.css";
+import "@fontsource-variable/geist-mono/index.css";
+import { fontVars } from "@/lib/fonts";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = localFont({ src: "../../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2", weight: "100 900" });
+const geistMono = localFont({ src: "../../node_modules/@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2", weight: "100 900" });
 
 export const metadata: Metadata = {
   title: { default: "MAGI", template: "%s · MAGI" },
@@ -30,7 +26,8 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className="h-full antialiased"
+      style={fontVars({ "--font-geist-sans": [geistSans, "Geist Variable"], "--font-geist-mono": [geistMono, "Geist Mono Variable"] })}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

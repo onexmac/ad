@@ -267,6 +267,113 @@ More traps found here:
 - **Don't promote a layer for a motion that changes scale.** Chromium keeps
   the small raster and blurs the text.
 
+## vvv: the vintage vignette viewport (`/ad/pads`)
+
+**vvv** (vintage vignette viewport) is what Marcos calls the page as a rounded
+frame on a black screen. It works like an old screen's vignette: the page
+lives inside the frame, and beyond its edge everything is black. That covers
+under the status bar, under Safari's bottom bar, past the four corners and
+in the bounce. When he says "vvv", this is what he means.
+
+Code: `components/vvv/Vvv.tsx`. First used on the Pads index
+(`components/pads/home/PadsHome.tsx`).
+
+### Two fits: vvs and vvt
+
+| | vvs (short), the default | vvt (tall) |
+|---|---|---|
+| Top of the frame | below the status bar, plus a gutter | the top of the screen |
+| Top corners | rounded | none: the phone's own corners round it |
+| Dynamic Island | hidden in the black | shows, with the page around it |
+| Content start and snap stops | the frame's top | below the status bar (`padding-top` and `scroll-padding-top` = safe-area top); it scrolls on up under the island |
+| Bottom | above Safari's bar, rounded | same |
+| Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
+
+Pads uses vvs.
+
+### How it's made
+
+1. **Beyond the frame is always black.** That is what makes it vvv. The
+   layout sets `html, body` background black, `themeColor: "#000000"` and
+   `viewportFit: "cover"`, so Safari's own bars and the overscroll are black
+   too. The frame's own surface (its gutters) can be another colour, given
+   through `<Vvv className>`. Pads uses `#191C22`, with its darkest plates in
+   true black on it, so the frame reads against the black around it.
+2. **Wrap the page in `<Vvv>`.** It is a fixed, black, `100lvh` surface. On
+   it sits the frame: a scroller with `border-radius` **and**
+   `clip-path: inset(0 round r)`.
+3. **The document doesn't scroll.** `Vvv` locks `html`/`body` (overflow
+   hidden, overscroll none). The frame scrolls inside itself, and iOS gives
+   it its native bounce, clipped by the frame.
+4. **Where the frame sits:**
+   - Top: the status bar (`env(safe-area-inset-top)`) plus a gutter.
+   - Bottom: whatever the browser keeps there, plus a gutter. Safari's bar
+     is the largest of `100lvh − 100svh`, `100lvh − 100dvh` and
+     `100lvh − visualViewport.height`. Use the home indicator
+     (`env(safe-area-inset-bottom)`) when there is no bar.
+   - Re-measure on `resize` and on the visual viewport's `resize`
+     (`useVvvInset`).
+5. **Everything that reads scroll reads the frame, not the window.**
+   - Snap: `<Vvv snap>`, with children marked `snap-start` / `snap-end`.
+     Their `scroll-margin` is the gutter.
+   - Reveals: `VvvGrow`, which is Noticss A's Grow with
+     `useScroll({ container })`.
+   - Anything else: `useVvvScroller()` gives you the scroller.
+6. **Radii nest.** The frame's radius must be at least the panels' radius
+   plus the padding between them. Pads uses a 32 px frame, 22 px panels and
+   a 6 px gutter.
+
+| Value | Pads |
+|---|---|
+| Frame radius | 32 px |
+| Gutter (frame to bars, panel to panel) | 6 px |
+| Panel radius | 22 px |
+| Beyond the frame | `#000`, always |
+| Frame surface (gutters) | `#191C22` (plates in `#000` on it) |
+| Snap | mandatory, a stop per block |
+| Grow | from 0.94, 18 px, opacity 0.35, `GROW_SPRING` |
+
+### A page that doesn't scroll (Axis Cube)
+
+A canvas has nothing to scroll, so it doesn't take the `Vvv` scroller. It lays
+the same two boxes in its own stylesheet (a black ground `100lvh` tall, and
+the frame on it) and asks `useVvvInset` where the frame sits. That hook is in
+`components/vvv/inset.ts`, a file with no other dependencies, so the page
+doesn't load the scroller or its animation library. Two things to carry over:
+
+- **The canvas takes the radius itself** (`border-radius: inherit`). It is a
+  layer of its own, and the frame's `overflow` won't round it everywhere.
+- **Measure against the canvas's box, not the window**: its size, and every
+  touch (`getBoundingClientRect`). Watch the box with a `ResizeObserver`; the
+  frame moves when the browser's bars do, with no `resize` on the window.
+
+### What not to do (each one happened)
+
+- **Don't fake the frame with corner masks over a scrolling document.** The
+  first version pinned black quarter-rounds to the screen's corners. The
+  corners looked right, but the page went on showing under the status bar,
+  under Safari's bar and beside the masks. The frame has to clip; masks only
+  cover.
+- **Don't let the document scroll.** If it does, Safari draws the page under
+  its translucent bars and the frame is a lie.
+- **Don't rely on `border-radius` + `overflow` alone to round the
+  scroller.** Safari doesn't clip composited children (anything animating a
+  transform, like Grow) to it. Add the `clip-path`. Noticss B learned the
+  same thing.
+- **Don't put the frame's bottom at `100lvh`.** It ends under Safari's bar,
+  and the content shows through the glass. Measure the bar.
+- **Don't leave window-based scroll pieces on a vvv page.** They read a
+  window that never moves: `useEdgeSquish`, Updatr's `Grow`, `useScroll()`
+  without a container, `scroll-snap-type` on `html`. Point them at the
+  frame.
+- **Don't make beyond the frame anything but black.** Marcos: "vvv se queda
+  en negro". A dark grey there once lost the vignette. Colour the frame's
+  surface instead, and keep `themeColor` and the `html` background black, or
+  a band shows at the bars and in the bounce.
+- **Not yet tested on a real iPhone:** where the frame's bottom edge lands
+  under iOS 26 Safari's floating bar. If it sits behind the bar or leaves too
+  much black, adjust `useVvvInset`, not the page.
+
 ## Starting a new app
 
 1. Register it in `lib/apps.json` and create `app/<section>/<slug>/`. Give it

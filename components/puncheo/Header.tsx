@@ -1,13 +1,16 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { springs } from "@/lib/histok/springs";
+import { haptic } from "@/lib/histok/haptic";
 import type { Status } from "@/lib/puncheo/state";
 import { Chevrons } from "./Icons";
 import { VariantSwitch, type Variant } from "./Chrome";
 import type { PunchSheet } from "./usePunchSheet";
+import { PlanViewer, type PlanDoc } from "./PlanViewer";
 
 export const SEG: Record<Status, string> = {
   green: "var(--ok)",
@@ -31,7 +34,7 @@ export function SheetHeader({
   tone = "plain",
   extra,
 }: {
-  sheet: { title: string; subtitle: string; system: string };
+  sheet: { title: string; subtitle: string; system: string; condo: string; house: string; plans: PlanDoc[] };
   s: PunchSheet;
   current: Variant;
   tone?: Tone;
@@ -268,6 +271,21 @@ function YardHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
   );
 }
 
+const noop = () => () => {};
+const yes = () => true;
+const no = () => false;
+
+/** A rolled drawing sheet: the plans key's glyph. */
+function PlanGlyph({ lines = "#e9eaec", fold = "#c9cbcf", lit = false }: { lines?: string; fold?: string; lit?: boolean }) {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" className={lit ? "drop-shadow-[0_-1px_0_rgba(0,0,0,0.3)]" : "leia-glyph"} aria-hidden>
+      <path d="M4 4h11l5 5v11H4z" fill="currentColor" />
+      <path d="M15 4v5h5" fill={fold} />
+      <path d="M7 12h10M7 15h10M7 18h6" stroke={lines} strokeWidth={1.4} />
+    </svg>
+  );
+}
+
 /** Leia's center pill, an engraved outline, holding the layout switch. */
 function LeiaSwitch({ current }: { current: Variant }) {
   const items = [
@@ -297,8 +315,11 @@ function LeiaSwitch({ current }: { current: Variant }) {
  * pressed blue cell (a tap goes there). Then the receipt panel: the blue band
  * and the ficha as a receipt line.
  */
-function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string }; s: PunchSheet; current: Variant }) {
-  const n1 = sheet.subtitle.replace("Vivienda ", "");
+function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string; condo: string; house: string; plans: PlanDoc[] }; s: PunchSheet; current: Variant }) {
+  const [plans, setPlans] = useState(false);
+  const [viewing, setViewing] = useState<{ plan: PlanDoc; from: DOMRect } | null>(null);
+  // The plan viewer lives on <body> (the page itself springs at its edges), so only once in the browser.
+  const client = useSyncExternalStore(noop, yes, no);
   return (
     <>
       <header className="leia-toolbar relative z-[21] -mx-4 flex items-center px-3" style={{ paddingTop: "var(--sat)", height: "calc(var(--sat) + 50px)" }}>
@@ -310,51 +331,106 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
         </span>
         <span className="w-[86px]" />
       </header>
-      {/* Behind the status bar while the rooms bar is pinned under it. */}
+      {/* Behind the status bar, so content scrolling under it stays legible. */}
       <div className="leia-toolbar fixed inset-x-0 top-0 z-[22]" style={{ height: "var(--sat)" }} />
-      {/* The sub-bar: the rooms, as Leia's category cells. It stays pinned at the top
-          and follows the room being read; the blue cell slides to it. */}
-      <nav id="puncheo-tabs" className="leia-tabs sticky z-20 -mx-4 flex h-[46px]" style={{ top: "var(--sat)" }}>
-        {s.sections.map((x, i) => {
-          const on = i === s.section;
-          const t = s.sectionTallies[i];
-          return (
-            <button
-              key={x.id}
-              type="button"
-              onClick={() => s.travelTo(i)}
-              aria-current={on ? "true" : undefined}
-              className={`relative flex min-w-0 flex-1 flex-col items-center justify-center ${i < s.sections.length - 1 ? "leia-tab-sep" : ""}`}
-            >
-              {on ? <motion.span layoutId="leia-room" transition={springs.snappy} className="leia-tab-on pointer-events-none absolute inset-0" /> : null}
-              <span className={`relative max-w-full truncate px-0.5 text-[13.5px] transition-colors duration-150 ${on ? "text-ground" : "leia-emboss text-ink"}`}>{x.name}</span>
-              <span className={`relative text-[10px] tabular-nums ${on ? "text-brand-2" : t.done === t.total ? "text-ok-deep" : "text-[#8a8d93]"}`}>
-                {t.done}/{t.total}
-              </span>
-            </button>
-          );
-        })}
-      </nav>
 
       <div className="leia-panel mt-4 overflow-hidden rounded-[6px]">
         <div className="leia-band flex h-[44px] items-center px-4 text-ground">
-          <span className="min-w-0 flex-1 truncate text-[18px]">
-            {sheet.title} {n1}
-          </span>
+          {/* The condominium, and the house as the receipt's big numeral. */}
+          <span className="min-w-0 flex-1 truncate text-[18px]">{sheet.condo}</span>
           <span className="text-[13px] text-brand-2">Pre-armado y pre-chorrea</span>
         </div>
         <div className="flex items-center gap-4 px-4 py-3.5">
-          <span className="text-[38px] font-[200] leading-none text-brand">{n1}</span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-[18px] font-bold leading-tight text-ink">{s.isClosed ? "Ficha cerrada" : "Ficha completa"}</span>
-            <span className="mt-0.5 block truncate text-[13px] text-[#8a8d93]">{sheet.system}</span>
+          <span className="shrink-0 text-[38px] font-[200] leading-none tracking-[-0.02em] text-brand">{sheet.house}</span>
+          <span className="flex min-w-0 flex-1">
+            {/* The house's drawings: a blue key that opens their list in the panel;
+                open, it becomes a grey "− Planos" key that folds it away. */}
+            <motion.button
+              type="button"
+              layout
+              transition={springs.snappy}
+              onClick={() => {
+                haptic.select();
+                setPlans(!plans);
+              }}
+              aria-expanded={plans}
+              style={{ borderRadius: 4 }}
+              className={`flex h-9 items-center gap-1.5 px-2.5 ${plans ? "leia-btn-on" : "leia-cta text-white"}`}
+            >
+              <AnimatePresence initial={false} mode="popLayout">
+                {plans ? (
+                  <motion.span key="minus" layout="position" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-[#55585e]">
+                    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" aria-hidden>
+                      <path d="M4 12h16" stroke="currentColor" strokeWidth={3.6} strokeLinecap="square" />
+                    </svg>
+                  </motion.span>
+                ) : (
+                  <motion.span key="doc" layout="position" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-white">
+                    <PlanGlyph lines="#4a8de0" fold="#b9d4f5" lit />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+              <motion.span layout="position" className={`text-[15px] font-bold ${plans ? "leia-emboss text-[#55585e]" : "text-white"}`}>
+                Planos
+              </motion.span>
+            </motion.button>
           </span>
           <span className="text-[18px] font-bold tabular-nums text-ink">
             {String(s.t.done).padStart(2, "0")}
             <span className="font-normal text-[#8a8d93]">/{s.t.total}</span>
           </span>
         </div>
+        <AnimatePresence initial={false}>
+          {plans ? (
+            <motion.ul
+              key="plans"
+              initial={{ height: 0 }}
+              animate={{ height: "auto" }}
+              exit={{ height: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 30 }}
+              className="overflow-hidden shadow-[inset_0_1px_0_#cbccd0]"
+            >
+              {sheet.plans.map((pl, i) => (
+                <motion.li
+                  key={pl.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 380, damping: 28, delay: 0.04 + i * 0.04 } }}
+                  exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                >
+                  {(() => {
+                    const has = !!(pl.url || pl.drawing);
+                    return (
+                      <button
+                        type="button"
+                        aria-label={has ? `Abrir ${pl.name}` : `${pl.name}: sin archivo`}
+                        onClick={(e) => {
+                          haptic.select();
+                          if (pl.drawing) setViewing({ plan: pl, from: e.currentTarget.querySelector("[data-plan-key]")!.getBoundingClientRect() });
+                          else if (pl.url) window.open(pl.url, "_blank", "noopener");
+                          else s.say(`${pl.name}: todavía no está cargado`);
+                        }}
+                        className="leia-row group flex h-12 w-full items-center gap-3 bg-[#f4f4f5] pl-4 pr-2 text-left"
+                      >
+                        <span className={`min-w-0 flex-1 truncate text-[16px] ${has ? "text-ink" : "text-[#8a8d93]"}`}>{pl.name}</span>
+                        {/* The drawing's key: blue when its file is loaded, grey while there's none. */}
+                        <span
+                          data-plan-key
+                          className={`grid size-9 place-items-center rounded-[4px] transition-transform duration-100 group-active:scale-95 ${has ? "leia-cta text-white" : "leia-btn text-[#a3a6ab]"}`}
+                        >
+                          {has ? <PlanGlyph lines="#4a8de0" fold="#b9d4f5" lit /> : <PlanGlyph />}
+                        </span>
+                      </button>
+                    );
+                  })()}
+                </motion.li>
+              ))}
+            </motion.ul>
+          ) : null}
+        </AnimatePresence>
       </div>
+      {client
+        ? createPortal(<PlanViewer plan={viewing?.plan ?? null} from={viewing?.from ?? null} house={sheet.house} condo={sheet.condo} onClose={() => setViewing(null)} />, document.body)
+        : null}
     </>
   );
 }

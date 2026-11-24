@@ -98,21 +98,23 @@ export function RoomScroll({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
             key={sec.id}
             data-room={si}
             {...rise}
-            className={skin.leia ? "leia-panel mt-5 overflow-hidden rounded-[6px]" : "mt-7"}
+            className={skin.leia ? `leia-panel mt-5 overflow-hidden rounded-[6px] ${st.done === st.total ? "room-done" : ""}` : "mt-7"}
           >
-            <div className="leia-band flex h-[54px] items-center gap-3 px-3 text-ground">
-              <span className="leia-band-sep flex h-full items-center pr-3 text-[13px] text-brand-2">
+            <div className="leia-band relative flex h-[54px] items-center gap-3 px-3 text-ground">
+              {/* Every check marked: the band turns Leia's green. */}
+              <span aria-hidden className={`leia-band-done pointer-events-none absolute inset-0 transition-opacity duration-500 ${st.done === st.total ? "opacity-100" : "opacity-0"}`} />
+              <span className={`leia-band-sep relative flex h-full items-center pr-3 text-[13px] transition-colors duration-500 ${st.done === st.total ? "text-[#eaf6db]" : "text-brand-2"}`}>
                 {si + 1}/{s.sections.length}
               </span>
-              <span className="min-w-0 flex-1">
+              <span className="relative min-w-0 flex-1">
                 <span data-title className="block truncate text-[19px] leading-tight">
                   {sec.name}
                 </span>
-                <span className="block truncate text-[12px] text-brand-2">{sec.note}</span>
+                <span className={`block truncate text-[12px] transition-colors duration-500 ${st.done === st.total ? "text-[#eaf6db]" : "text-brand-2"}`}>{sec.note}</span>
               </span>
-              <span className="text-[18px] tabular-nums">
+              <span className="relative text-[18px] tabular-nums">
                 {String(st.done).padStart(2, "0")}
-                <span className="text-brand-2">/{st.total}</span>
+                <span className={`transition-colors duration-500 ${st.done === st.total ? "text-[#eaf6db]" : "text-brand-2"}`}>/{st.total}</span>
               </span>
             </div>
             <ul>
