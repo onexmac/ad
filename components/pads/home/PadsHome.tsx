@@ -23,6 +23,7 @@ export function PadsHome({ apps }: { apps: PortalApp[] }) {
       glyph={(app) => <Glyph slug={app.slug} />}
       colophon={["Losa Flotante × AD Visual.", "Cada pad es un gesto, no una app."]}
       stamp={["estudio visual /", "grid & patrones"]}
+      back={{ href: "/", label: "MAGI", path: "/" }}
     />
   );
 }
