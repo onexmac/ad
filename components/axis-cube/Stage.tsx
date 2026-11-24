@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useVvvInset } from "@/components/vvv/inset";
 import { LOADER_HTML } from "@/lib/axis-cube/loader";
 import { mountAxisCube } from "@/lib/axis-cube/scene";
 
 type Look = "a" | "b" | "c";
 
+/** Black between the frame and the phone's bars: the vvv gutter, as --vvv-gutter in the app's stylesheet. */
+const GUTTER = 6;
 const WORKER = "/kit/axis-cube-sw.js";
 const SCOPE = "/kit/axis-cube";
 
@@ -57,10 +60,14 @@ function startOverIfNewer() {
  * what is inside alone.
  * A service worker keeps the page, its scripts and the room's photographs on the device, so the app opens from the
  * home screen without waiting for the network.
+ * The room is a vvv (docs/ux-playbook.md): a rounded frame on a black ground, clear of the status bar and of
+ * whatever the browser keeps at the bottom: the short fit, vvs. It is a canvas and not a scrolling page, so the
+ * frame is the app's own (its stylesheet) and where it sits is the Vvv component's own measuring.
  */
 export function Stage({ look = "a" }: { look?: Look }) {
   const host = useRef<HTMLDivElement>(null);
   const loader = useRef<HTMLDivElement>(null);
+  const inset = useVvvInset(GUTTER);
   useEffect(() => {
     if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
     navigator.serviceWorker.register(WORKER, { scope: SCOPE }).catch(() => {});
@@ -72,7 +79,9 @@ export function Stage({ look = "a" }: { look?: Look }) {
   );
   return (
     <>
-      <div ref={host} className="axis" />
+      <div className="axis-ground">
+        <div ref={host} className="axis" style={{ top: inset.top, bottom: inset.bottom }} />
+      </div>
       <div ref={loader} className="axis-loader" role="progressbar" aria-label="Cargando" dangerouslySetInnerHTML={{ __html: LOADER_HTML }} />
     </>
   );
