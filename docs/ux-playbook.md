@@ -333,6 +333,20 @@ Pads uses vvs.
 | Snap | mandatory, a stop per block |
 | Grow | from 0.94, 18 px, opacity 0.35, `GROW_SPRING` |
 
+### A page that doesn't scroll (Axis Cube)
+
+A canvas has nothing to scroll, so it doesn't take the `Vvv` scroller. It lays
+the same two boxes in its own stylesheet (a black ground `100lvh` tall, and
+the frame on it) and asks `useVvvInset` where the frame sits. That hook is in
+`components/vvv/inset.ts`, a file with no other dependencies, so the page
+doesn't load the scroller or its animation library. Two things to carry over:
+
+- **The canvas takes the radius itself** (`border-radius: inherit`). It is a
+  layer of its own, and the frame's `overflow` won't round it everywhere.
+- **Measure against the canvas's box, not the window**: its size, and every
+  touch (`getBoundingClientRect`). Watch the box with a `ResizeObserver`; the
+  frame moves when the browser's bars do, with no `resize` on the window.
+
 ### What not to do (each one happened)
 
 - **Don't fake the frame with corner masks over a scrolling document.** The
