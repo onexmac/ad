@@ -12,7 +12,7 @@ import { FormField } from "@/components/pads/ds/form-field";
 import { SelectionDropdown } from "@/components/pads/ds/selection-dropdown";
 import { Tag } from "@/components/pads/ds/tag";
 import { SolicitarSlider } from "@/components/pads/pedido/solicitar-slider";
-import { SavingVeil } from "@/components/pads/pedido/saving-veil";
+import { SAVING_GREEN, SavingVeil } from "@/components/pads/pedido/saving-veil";
 import { springs } from "@/lib/pads/springs";
 import { haptic } from "@/lib/pads/haptic";
 import { useShake } from "@/lib/pads/use-shake";
@@ -200,7 +200,9 @@ export function NuevoUsuarioSheet({
         height: sheetH,
         right: 0,
         bottom: 0,
-        backgroundColor: WHITE,
+        // Slid to the end: the whole card fills light green, not just the
+        // fields (their veils cascade on top of it in the same green).
+        backgroundColor: saving ? SAVING_GREEN : WHITE,
         borderRadius: SHEET_RADIUS,
       }
     : {
@@ -220,7 +222,7 @@ export function NuevoUsuarioSheet({
         right: springs.morphing,
         height: { ...springs.morphing, delay: PHASE_DELAY },
         bottom: { ...springs.morphing, delay: PHASE_DELAY },
-        backgroundColor: { duration: 0.22, delay: 0.1 },
+        backgroundColor: saving ? { duration: 0.32, ease: "easeOut" as const } : { duration: 0.22, delay: 0.1 },
         borderRadius: { ...springs.morphing, delay: CORNER_DELAY },
       }
     : {

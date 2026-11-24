@@ -278,11 +278,27 @@ in the bounce. When he says "vvv", this is what he means.
 Code: `components/vvv/Vvv.tsx`. First used on the Pads index
 (`components/pads/home/PadsHome.tsx`).
 
+### Two fits: vvs and vvt
+
+| | vvs (short), the default | vvt (tall) |
+|---|---|---|
+| Top of the frame | below the status bar, plus a gutter | the top of the screen |
+| Top corners | rounded | none: the phone's own corners round it |
+| Dynamic Island | hidden in the black | shows, with the page around it |
+| Content start and snap stops | the frame's top | below the status bar (`padding-top` and `scroll-padding-top` = safe-area top); it scrolls on up under the island |
+| Bottom | above Safari's bar, rounded | same |
+| Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
+
+Pads uses vvs.
+
 ### How it's made
 
-1. **The layout makes the ground black.** `html, body` background black,
-   `themeColor: "#000000"`, `viewportFit: "cover"`. Then Safari's own bars
-   and the overscroll take the black too.
+1. **Beyond the frame is always black.** That is what makes it vvv. The
+   layout sets `html, body` background black, `themeColor: "#000000"` and
+   `viewportFit: "cover"`, so Safari's own bars and the overscroll are black
+   too. The frame's own surface (its gutters) can be another colour, given
+   through `<Vvv className>`. Pads uses `#191C22`, with its darkest plates in
+   true black on it, so the frame reads against the black around it.
 2. **Wrap the page in `<Vvv>`.** It is a fixed, black, `100lvh` surface. On
    it sits the frame: a scroller with `border-radius` **and**
    `clip-path: inset(0 round r)`.
@@ -312,6 +328,8 @@ Code: `components/vvv/Vvv.tsx`. First used on the Pads index
 | Frame radius | 32 px |
 | Gutter (frame to bars, panel to panel) | 6 px |
 | Panel radius | 22 px |
+| Beyond the frame | `#000`, always |
+| Frame surface (gutters) | `#191C22` (plates in `#000` on it) |
 | Snap | mandatory, a stop per block |
 | Grow | from 0.94, 18 px, opacity 0.35, `GROW_SPRING` |
 
@@ -334,8 +352,10 @@ Code: `components/vvv/Vvv.tsx`. First used on the Pads index
   window that never moves: `useEdgeSquish`, Updatr's `Grow`, `useScroll()`
   without a container, `scroll-snap-type` on `html`. Point them at the
   frame.
-- **Don't use a light `themeColor` or a light `html` background.** The bars
-  and the bounce must be black.
+- **Don't make beyond the frame anything but black.** Marcos: "vvv se queda
+  en negro". A dark grey there once lost the vignette. Colour the frame's
+  surface instead, and keep `themeColor` and the `html` background black, or
+  a band shows at the bars and in the bounce.
 - **Not yet tested on a real iPhone:** where the frame's bottom edge lands
   under iOS 26 Safari's floating bar. If it sits behind the bar or leaves too
   much black, adjust `useVvvInset`, not the page.

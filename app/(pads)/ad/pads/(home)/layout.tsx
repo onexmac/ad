@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Pads" },
 };
 
-// Black beyond the frame: Safari's bars and the overscroll take the ground.
+// vvv: black beyond the frame (Safari's bars, the overscroll).
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,

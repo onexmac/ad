@@ -2,10 +2,11 @@
 
 /* Pads — technical minimalism. AD Visual's greys and Inter, one signal
    green (Adelante's, pushed deeper), a squared display face for numerals, mono for every label. The
-   screen is black; the page is a stack of panels on it, and the viewport
+   screen is black (vvv), the frame's deck is the dark; the page is a stack of panels on it, and the viewport
    itself is a rounded frame. */
 :root {
-  --void: #000000;
+  --void: #000000; /* beyond the frame: vvv is always black */
+  --deck: #191c22; /* inside the frame, the gutters: AD Visual Gray 1; the 04 and mark plates are black on it */
   --panel: #f2f2f2; /* AD Visual Fade 3 */
   --panel-2: #e6e6e8; /* Fade 2 */
   --hair: #d0d3d8; /* Fade 1 */
@@ -26,6 +27,7 @@
 
 @theme inline {
   --color-void: var(--void);
+  --color-deck: var(--deck);
   --color-panel: var(--panel);
   --color-panel-2: var(--panel-2);
   --color-hair: var(--hair);

@@ -22,12 +22,38 @@ import { GROW_SPRING } from "@/components/updatr/Grow";
  * indicator), so everything beyond its edge is black and nothing of the page
  * shows there: not under either bar, not past the corners, not in the bounce.
  *
- * The layout that uses it must also make the ground black: `html, body`
- * background black, `themeColor: "#000000"`, `viewportFit: "cover"`.
+ * Beyond the frame is always black. The layout that uses it must make the
+ * ground black too: `html, body` background black, `themeColor: "#000000"`,
+ * `viewportFit: "cover"`. The frame's own surface (its gutters) can be any
+ * colour: give it through `className`.
+ *
+ * Two fits:
+ *   vvs (short, the default): the frame starts below the status bar, so the
+ *     Dynamic Island sits in the black and is hidden in it. All four corners
+ *     are rounded.
+ *   vvt (tall): the frame runs up to the top of the screen, with no top curve
+ *     (the phone's own corners round it), so the page shows around the Dynamic
+ *     Island. The content starts below the status bar, and snap stops land
+ *     there; it scrolls on up under the island.
+ * Both end above Safari's bottom bar.
+ *
  * How to use it, and what not to do: docs/ux-playbook.md, "vvv".
  */
+export type VvvFit = "short" | "tall";
+
+/** vvs: the short vvv (the frame starts below the status bar). */
+export function Vvs(props: Omit<Parameters<typeof Vvv>[0], "fit">) {
+  return <Vvv {...props} fit="short" />;
+}
+
+/** vvt: the tall vvv (the frame runs up to the screen's top; the Dynamic Island shows). */
+export function Vvt(props: Omit<Parameters<typeof Vvv>[0], "fit">) {
+  return <Vvv {...props} fit="tall" />;
+}
+
 export function Vvv({
   children,
+  fit = "short",
   radius = 32,
   gutter = 6,
   maxWidth,
@@ -35,6 +61,8 @@ export function Vvv({
   className = "",
 }: {
   children: ReactNode;
+  /** vvs ("short", default) or vvt ("tall"). */
+  fit?: VvvFit;
   /** The frame's corner radius. Keep it ≥ the panels' radius + the padding between. */
   radius?: number;
   /** Black between the frame and the status bar, and between it and the bottom bar. */
@@ -43,10 +71,12 @@ export function Vvv({
   maxWidth?: number;
   /** Mandatory snap on the frame: children mark their stops with `snap-start`. */
   snap?: boolean;
+  /** On the frame's scroller: its surface colour, for one. */
   className?: string;
 }) {
   const frame = useRef<HTMLDivElement>(null);
   const inset = useVvvInset(gutter);
+  const tall = fit === "tall";
   useLockDocument();
 
   return (
@@ -58,13 +88,17 @@ export function Vvv({
           snap ? "snap-y snap-mandatory" : ""
         } ${className}`}
         style={{
-          top: inset.top,
+          top: tall ? 0 : inset.top,
           bottom: inset.bottom,
           maxWidth,
-          borderRadius: radius,
+          // vvt has no top curve: the phone's own corners round the top.
+          borderRadius: tall ? `0 0 ${radius}px ${radius}px` : radius,
           // A clip path as well as the radius: Safari won't clip composited
           // children (anything animating a transform) to a scroller's radius.
-          clipPath: `inset(0 round ${radius}px)`,
+          clipPath: tall ? `inset(0 round 0 0 ${radius}px ${radius}px)` : `inset(0 round ${radius}px)`,
+          // vvt: the content (and every snap stop) starts below the status bar.
+          paddingTop: tall ? inset.sat : undefined,
+          scrollPaddingTop: tall ? inset.sat : undefined,
         }}
       >
         <VvvContext.Provider value={frame}>{children}</VvvContext.Provider>
@@ -81,14 +115,15 @@ export function useVvvScroller() {
 }
 
 /**
- * Where the frame sits. Top: the status bar (safe-area top) + gutter. Bottom:
+ * Where the frame sits. Top (vvs): the status bar (safe-area top) + gutter;
+ * `sat` is the status bar alone, for vvt's content. Bottom:
  * Safari's bar + gutter, where the bar is the largest of what the small and
  * dynamic viewports and the visual viewport leave out of the large one, or the
  * home indicator (safe-area bottom) when there is no bar. Re-measured on
  * resize and as the visual viewport changes.
  */
 export function useVvvInset(gutter = 6) {
-  const [inset, setInset] = useState({ top: gutter, bottom: gutter });
+  const [inset, setInset] = useState({ top: gutter, bottom: gutter, sat: 0 });
   useLayoutEffect(() => {
     const probe = document.createElement("div");
     probe.style.cssText =
@@ -109,7 +144,7 @@ export function useVvvInset(gutter = 6) {
       const L = lvh.getBoundingClientRect().height;
       const seen = window.visualViewport?.height ?? window.innerHeight;
       const bar = Math.max(0, L - svh.getBoundingClientRect().height, L - dvh.getBoundingClientRect().height, L - seen);
-      setInset({ top: Math.round(sat + gutter), bottom: Math.round(Math.max(bar, sab) + gutter) });
+      setInset({ top: Math.round(sat + gutter), bottom: Math.round(Math.max(bar, sab) + gutter), sat: Math.round(sat) });
     };
     measure();
     window.addEventListener("resize", measure);
