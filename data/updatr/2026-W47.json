@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "year": 2026,
+  "week": 47,
+  "date": "2026-11-17",
+  "updatedAt": "2026-11-17T12:00:00.000Z",
+  "isSample": false,
+  "items": [
+    {
+      "id": "tf-12-3",
+      "franchise": "finals",
+      "kind": "game",
+      "status": "upcoming",
+      "title": "Update 12.3 — The Grand Major",
+      "dek": "TGM26 in Stockholm, esport bundles for all 16 teams, and Head Hunter is back.",
+      "body": [
+        "Update 12.3.0 centers on The Grand Major 2026, held November 27–29 in Stockholm: Esport Bundles for all 16 teams, a TGM26 Event Pass, a Pick'em, and the return of the Head Hunter limited-time mode.",
+        "The Store adds the CTRL + Z Set; Stream Tangerine Twitch Drops run until November 26. Balance: Dome Shield health drops from 600 to 400, and Shockwave's cooldown rises from 12 to 15 seconds."
+      ],
+      "date": "2026-11-12",
+      "when": "2026-11-27",
+      "source": "Embark patch notes",
+      "url": "https://www.reachthefinals.com/patchnotes/12-30",
+      "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
+    },
+    {
+      "id": "tf-12-2",
+      "franchise": "finals",
+      "kind": "skin",
+      "status": "out",
+      "title": "Update 12.2 — Goat Expectations",
+      "dek": "Two new store sets and a Medium buff: AKM gets more ammo, FCAR hits harder.",
+      "body": [
+        "Update 12.2.0 refreshes the Store with the Goat Expectations Set and the Dual Shockers Set, and invites players to THE FINALS Cosplay Showcase at DreamHack Stockholm during TGM26.",
+        "Balance changes help Medium weapons against the 175 HP Light: the AKM's ammo rises from 34 to 36; the FCAR gains damage (23 to 25) but fires slower (530 to 500 RPM) with a 20-round magazine."
+      ],
+      "date": "2026-11-05",
+      "source": "Embark patch notes",
+      "url": "https://www.reachthefinals.com/patchnotes/12-20",
+      "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6aec4c436924377b5f241e01/1794405645174/THEFINALS_S12_StoreUpdate_12_2_Thumbnail_NO_TEXT.jpg?format=1500w"
+    },
+    {
+      "id": "tf-s12",
+      "franchise": "finals",
+      "kind": "game",
+      "status": "live",
+      "title": "Season 12: Prime Time",
+      "dek": "Blast Waves, gradual destruction, three reworked arenas and a new playstyle.",
+      "body": [
+        "Season 12 focuses on destruction, with new Blast Waves and Gradual Destruction systems and reworked Monaco, Seoul and Skyway Stadium maps.",
+        "It adds The Infiltrator playstyle and a beta Solo Showdown mode made of eight mini-modes. The Battle Pass comes in Premium and Ultimate tiers."
+      ],
+      "date": "2026-10-20",
+      "source": "Embark patch notes",
+      "url": "https://www.reachthefinals.com/patchnotes/12-00",
+      "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6ad3603b29daed2f9e92f194/1792571201393/S12_PRIME_TIME_BLOGPOST_THUMB.png?format=1500w"
+    },
+    {
+      "id": "tfd-monet",
+      "franchise": "descendant",
+      "kind": "character",
+      "status": "live",
+      "title": "Monet, and the Chrono Fluid skin",
+      "dek": "New Descendant with an umbrella and a time-freezing Skill 4. Raincoat skin alongside.",
+      "body": [
+        "The November 17 update adds the new Descendant Monet, the Transcendent Weapon EXCAVA Pulsar, the Maneuvering Operation Henosis Sanctuary and the Viessa Descendant Story.",
+        "Monet is farmed in Henosis Sanctuary or Sigma Sector. She fights with an umbrella; her Skill 4 rewinds time to freeze nearby enemies. A premium skin, Chrono Fluid, inspired by a yellow raincoat, arrives with three hairstyles and two makeups."
+      ],
+      "date": "2026-11-16",
+      "when": "2026-11-17",
+      "source": "Nexon on Steam",
+      "url": "https://store.steampowered.com/news/app/2074920/view/1849458702688972",
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/7a1f3c9be94790ab87161a8f86345ecd681d5001.jpg"
+    },
+    {
+      "id": "tfd-devnote",
+      "franchise": "descendant",
+      "kind": "game",
+      "status": "upcoming",
+      "title": "November dev note",
+      "dek": "Grappling Hook and Sub Module fixes now; a winter Albion on December 17.",
+      "body": [
+        "Director Minseok Joo says November brings Monet and improvements to the Grappling Hook system, Sub Module slots and the Inversion system, with the Colosseum-A Transcendent Melee Weapon planned toward the end of the year.",
+        "A feature for more reliably getting the desired Transcendent Ability after repeated readjustments is scheduled for February 2027. Winter decorations for Albion and the lobby are planned for the December 17 patch."
+      ],
+      "date": "2026-11-09",
+      "when": "2026-12-17",
+      "source": "Nexon on Steam",
+      "url": "https://store.steampowered.com/news/app/2074920/view/1848664643354744",
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2074920/ba9afd809c443d3777d3de385105b5787a0ef33d/capsule_616x353.jpg?t=1789716956"
+    },
+    {
+      "id": "tfd-148",
+      "franchise": "descendant",
+      "kind": "game",
+      "status": "out",
+      "title": "Patch 1.4.8 — transcendent drops",
+      "dek": "Void Erosion Purge can now drop a transcendent weapon, at a low rate.",
+      "body": [
+        "Patch 1.4.8 lets Commanders in Void Erosion Purge: Normal drop a transcendent weapon at a low, unspecified rate.",
+        "It raises maximum ability values for Storm Cage, ARMIS, Emperor's Guard Lance and Unleashed Instinct, and adjusts Raven, Harris and Freyna."
+      ],
+      "date": "2026-11-05",
+      "source": "JEU.VIDEO",
+      "url": "https://jeu.video/en/article/the-first-descendant-patch-1-4-8-en",
+      "image": "https://jeu.video/images/33bzmlVjA5saGOCS4Tvjs_a7NhnWG7geooaq-VDFqaY/rs:auto:1600:900:1/g:sm/czM6Ly9qZXV2aWRlby1ib2x0LXN0b3JhZ2UvdXBsb2Fkcy8yMDI2LzExL3RoZS1maXJzdC1kZXNjZW5kYW50LXBhdGNoLTE0OC5qcGc.webp"
+    },
+    {
+      "id": "cod-s1-bundles",
+      "franchise": "cod",
+      "kind": "skin",
+      "status": "live",
+      "title": "MW4 Season 1 — Valkyrie, XERO, and the pass",
+      "dek": "Min-Hee, Simone and Valen in the pass; the Norse 'Hildr' skin for Valen in the store.",
+      "body": [
+        "BlackCell owners get the XERO Operator instantly, plus the Cowled and Adder XERO skins through challenges. Battle Pass Operator Skins include Min-Hee 'Patience', Simone 'Collision' and Valen 'Red Eclipse'.",
+        "Store bundles include The Valkyrie Mastercraft Bundle with the Norse-mythology 'Hildr' skin for Valen, Bone Chiller II with 'Golden Wraith' for Ghost, and The Captain Bundle with 'Blackout' for Price."
+      ],
+      "date": "2026-11-05",
+      "source": "Call of Duty blog",
+      "url": "https://www.callofduty.com/blog/2026/11/call-of-duty-modern-warfare-4-season-1-battle-pass-blackcell-store-bundles",
+      "image": "https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/body/mw4/s1-bc-bp-mtx/MW4-SEASON-1-BP-BC-BUNDLES-061.webp"
+    },
+    {
+      "id": "cod-valor",
+      "franchise": "cod",
+      "kind": "skin",
+      "status": "live",
+      "title": "C.O.D.E. Valor Pack",
+      "dek": "Veterans Day pack built with Kyle Carpenter; net proceeds go to the Endowment.",
+      "body": [
+        "The Call of Duty Endowment Valor Pack for Modern Warfare 4 and Warzone was built with U.S. Marine Corps veteran and Medal of Honor recipient Kyle Carpenter. Its items include a Melee Weapon Blueprint inscribed 'Worth Fighting For'.",
+        "All of Activision's net proceeds from the pack, less VAT and sales tax, go to the Call of Duty Endowment."
+      ],
+      "date": "2026-11-11",
+      "source": "Call of Duty blog",
+      "url": "https://www.callofduty.com/blog/2026/11/call-of-duty-endowment-veterans-day-valor-pack",
+      "image": "https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/body/code/veterans-day-2026/CODE-VETERANS-DAY-26-001.webp"
+    },
+    {
+      "id": "cod-wz-s1",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "live",
+      "title": "Warzone Season 1",
+      "dek": "Warzone folds into MW4: Hajin, Zodiac Resurgence, and Switch 2.",
+      "body": [
+        "Season 1 fully integrates the free-to-play Warzone with Modern Warfare 4 and went live November 6. It adds the Hajin Battle Royale map and the Zodiac Resurgence map.",
+        "New gear includes the Zipline Launcher and Grabber Drone, plus new Elite Perks. Warzone also launches on Nintendo Switch 2."
+      ],
+      "date": "2026-11-02",
+      "source": "Call of Duty blog",
+      "url": "https://www.callofduty.com/blog/2026/11/call-of-duty-modern-warfare-4-warzone-season-1",
+      "image": "https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/body/mw4/s1-wz-announcement/MW4-SEASON-1-WARZONE-TOUT.jpg"
+    },
+    {
+      "id": "sb-bayonetta",
+      "franchise": "stellar",
+      "kind": "collab",
+      "status": "live",
+      "title": "Bayonetta × Stellar Blade",
+      "dek": "Four free Couture Bullet Nanosuits for EVE, out now on Switch 2, PS5 and PC.",
+      "body": [
+        "The free Bayonetta crossover adds four Nanosuit outfits for EVE — Couture Bullet (Bayonetta), (Black Tresses), (Jeanne) and (Nun) — plus Bayonetta and Jeanne earrings and Bayonetta and Nun glasses.",
+        "It is available worldwide on Switch 2, PS5 and PC. On Switch 2, the Complete Edition lets players toggle Frame Generation and runs more stably."
+      ],
+      "date": "2026-11-05",
+      "source": "Siliconera",
+      "url": "https://www.siliconera.com/stellar-blade-bayonetta-crossover-costumes-released/",
+      "image": "https://i0.wp.com/www.siliconera.com/wp-content/uploads/2026/11/stellar-blade-secret-bayonetta-costume-revealed.jpg?fit=1200%2C675"
+    },
+    {
+      "id": "sb-overwatch",
+      "franchise": "stellar",
+      "kind": "collab",
+      "status": "live",
+      "title": "Overwatch × Stellar Blade: EVE Protocol",
+      "dek": "Widowmaker as Eve, D.Va as Lily, Freja as Raven. Live since early November.",
+      "body": [
+        "Overwatch's collaboration with Stellar Blade, EVE Protocol, was scheduled to launch on November 4 (some outlets say November 3).",
+        "The key art appears to show Widowmaker as Eve, D.Va as Lily, Vendetta as Tachy, Soldier: 76 as Adam and Freja as Raven."
+      ],
+      "date": "2026-10-25",
+      "source": "Inven Global",
+      "url": "https://www.invenglobal.com/articles/27678/widowmaker-as-eve-overwatch-x-stellar-blade-collab-starts-november-4",
+      "image": "https://static.invenglobal.com/upload/image/2026/10/25/i1792926366306754.jpeg"
+    },
+    {
+      "id": "sb-pubg",
+      "franchise": "stellar",
+      "kind": "collab",
+      "status": "out",
+      "title": "PUBG × Stellar Blade",
+      "dek": "EVE as PUBG's first Ultimate Contender, with looks that grow as she levels.",
+      "body": [
+        "Stellar Blade's EVE joins PUBG: BATTLEGROUNDS as the third Contender and the first Ultimate Contender, with looks that expand as she levels up.",
+        "The Crafter Pass: Stellar Blade Basic Pack costs $11.99; sales started April 8 on PC and April 16 on console."
+      ],
+      "date": "2026-04-08",
+      "source": "PUBG news",
+      "url": "https://pubg.com/en/news/9893",
+      "image": "https://wstatic-prod-boc.krafton.com/common/content/news/20260406/pH1S5wtK.jpg"
+    },
+    {
+      "id": "zzz-34-program",
+      "franchise": "zzz",
+      "kind": "game",
+      "status": "upcoming",
+      "title": "Version 3.4 special program",
+      "dek": "“The Finality of the Day”: Sunbringer, Kafka and Robin, and a code on stream.",
+      "body": [
+        "The Version 3.4 'The Finality of the Day' Special Program starts November 20 at 18:30 (UTC+8).",
+        "It will reveal new information on Sunbringer, Kafka and Robin, and an exclusive redemption code drops during the broadcast."
+      ],
+      "date": "2026-11-16",
+      "when": "2026-11-20",
+      "source": "HoYoverse on Steam",
+      "url": "https://store.steampowered.com/news/app/4162040/view/1849458702688311",
+      "image": "https://clan.akamai.steamstatic.com/images/46096005/b0ad9d562ae08b67dee2750b1abb0c0b615f733d.png"
+    },
+    {
+      "id": "zzz-33",
+      "franchise": "zzz",
+      "kind": "character",
+      "status": "live",
+      "title": "3.3 — Phoenix and Severian",
+      "dek": "Two S-Rank agents, Fire Anomaly and Wind Attack. The version ends December 2.",
+      "body": [
+        "Version 3.3 'Journey to the Sky' adds the S-Rank Agents Phoenix (Fire – Anomaly) and Severian (Wind – Attack), from the 'Into the Flames of Life' and 'Answers in the Wind' Signal Searches.",
+        "Main Story Season 3 Chapter 4 continues with new Roscaelifer areas. The version runs 42 days and ends 2026-12-02 06:00 (UTC+8)."
+      ],
+      "date": "2026-10-20",
+      "source": "HoYoverse on Steam",
+      "url": "https://store.steampowered.com/news/app/4162040/view/1847286114026951",
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4162040/e4ef7618ab718cc9b9dafbba9d80951dd67b6cc3/capsule_616x353_alt_assets_2.jpg?t=1792533213"
+    },
+    {
+      "id": "zzz-hsr-collab",
+      "franchise": "zzz",
+      "kind": "collab",
+      "status": "upcoming",
+      "title": "Kafka and Robin come to ZZZ",
+      "dek": "Honkai: Star Rail crossover confirmed for 3.4. Art only — no kits yet.",
+      "body": [
+        "During the Version 3.3 livestream, HoYoverse confirmed that Kafka and Robin from Honkai: Star Rail will come to Zenless Zone Zero in Version 3.4.",
+        "Only art of the two in ZZZ's style was shown — no gameplay or kits. Whether they'll be playable Agents, and how to get them, is still unconfirmed."
+      ],
+      "date": "2026-10-09",
+      "source": "GenshinBuilds",
+      "url": "https://genshin-builds.com/en/hsr/blog/hsr-x-zzz-crossover-kafka-robin-in-3-4",
+      "image": "https://images.genshin-builds.com/news/honkai-star-rail/hsr-x-zzz-crossover-kafka-robin-in-3-4.png"
+    },
+    {
+      "id": "sample-film-1",
+      "franchise": "film",
+      "kind": "movie",
+      "status": "upcoming",
+      "title": "The Long Signal",
+      "dek": "Sample film entry: a release date on the calendar, a trailer, a countdown.",
+      "body": [
+        "A placeholder for how a film reads in the feed: trailer drops, release date, where it's showing.",
+        "When real data arrives this row comes from a film source instead of being written by hand."
+      ],
+      "date": "2026-11-10",
+      "when": "2026-12-18",
+      "source": "Sample",
+      "mock": true
+    },
+    {
+      "id": "sample-book-1",
+      "franchise": "books",
+      "kind": "book",
+      "status": "upcoming",
+      "title": "Salt and Iron",
+      "dek": "Sample book entry: author, publisher, the day it ships.",
+      "body": [
+        "A placeholder for a book: pre-order date, a line on why it's on the list, the publisher's note."
+      ],
+      "date": "2026-11-04",
+      "when": "2027-01-20",
+      "source": "Sample",
+      "mock": true
+    },
+    {
+      "id": "sample-tv-1",
+      "franchise": "tv",
+      "kind": "tv",
+      "status": "live",
+      "title": "Night Shift — Season 2",
+      "dek": "Sample series entry: episodes out, next one Friday.",
+      "body": [
+        "A placeholder for a show in progress: which episode is out, when the next one airs, where to watch."
+      ],
+      "date": "2026-11-14",
+      "source": "Sample",
+      "mock": true
+    }
+  ],
+  "suggestions": []
+}

@@ -117,6 +117,9 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   /** Pushing on past the tray's last card: the next section peeks in (px), and whether letting go goes there. */
   const sideLift = useMemo(() => motionValue(0), []);
   const [sideArmed, setSideArmed] = useState(false);
+  /** Which way the pull goes: 1, the next section (past the last card); −1, the previous one (back past the first). */
+  const [sideDir, setSideDir] = useState<1 | -1>(1);
+  const sideDirV = useMemo(() => motionValue(1), []);
 
   const col = useRef<HTMLDivElement>(null);
   const Wm = useMemo(() => motionValue(390), []);
@@ -695,14 +698,26 @@ export function PaperB({ editions }: { editions: Edition[] }) {
           let v = g.base - dx / step;
           const mx = maxPos(n);
           // Past the last card the finger pulls the next section in, against
-          // friction; past the mark, letting go goes there.
-          const past = v > mx && !!sections[s + 1] ? (v - mx) * step : 0;
+          // friction; back past the first, the previous one, which shows its
+          // own end. Past the mark, letting go goes there.
+          const dir = v > mx && !!sections[s + 1] ? 1 : v < 0 && !!sections[s - 1] ? -1 : 0;
+          const past = dir === 1 ? (v - mx) * step : dir === -1 ? -v * step : 0;
+          if (dir) {
+            setSideDir((d) => (d === dir ? d : dir));
+            sideDirV.set(dir);
+            // The previous section comes in showing its last cards: its tray waits at its end.
+            if (dir === -1) {
+              const pt = trays[s - 1];
+              const pm = maxPos(sections[s - 1].cards.length);
+              if (Math.abs(pt.posC.get() - pm) > 0.001) pt.posC.jump(pm);
+            }
+          }
           if (v < 0) v = -rubber(-v * step, w) / step;
           else if (v > mx) v = mx + rubber((v - mx) * step, w) / step;
           t.posC.set(v);
           const lift = endLiftOf(past);
           sideLift.set(lift);
-          secX.set(-s * w - lift * 0.6);
+          secX.set(-s * w - (dir || 1) * lift * 0.6);
           const armed = past >= END_COMMIT;
           if (armed !== g.armed) {
             g.armed = armed;
@@ -791,11 +806,12 @@ export function PaperB({ editions }: { editions: Edition[] }) {
           if (sideLift.get() > 0 || gg.armed) {
             t.run(sideLift, 0, SETTLE);
             setSideArmed(false);
-            // Past the mark: on to the next section, carried by the finger's speed.
+            // Past the mark: on to that section, carried by the finger's speed.
             if (!cancelled && gg.armed) {
-              t.run(t.posC, maxPos(n), TRAY);
+              const back = t.posC.get() < 0;
+              t.run(t.posC, back ? 0 : maxPos(n), TRAY);
               haptic.complete();
-              return goSection(s + 1, Math.min(vx, 0));
+              return goSection(back ? s - 1 : s + 1, back ? Math.max(vx, 0) : Math.min(vx, 0));
             }
           }
           // Momentum carries the tray (iOS's deceleration), then it lands on a card.
@@ -1119,9 +1135,9 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const endO = useTransform(endLift, [0, 40, END_LIFT_MAX], [0, 0.6, 1]);
   // The side pill rides at the tray's middle height and slides in from the right edge.
   const sideY = useTransform(() => Hm.get() - Bm.get() - (Cm.get() * S) / 2 - 20);
-  const sideX = useTransform(sideLift, [0, END_LIFT_MAX], [40, 0]);
+  const sideX = useTransform(() => 40 * sideDirV.get() * (1 - Math.min(1, sideLift.get() / END_LIFT_MAX)));
   const sideO = useTransform(sideLift, [0, 30, END_LIFT_MAX], [0, 0.7, 1]);
-  const sideNext = sections[sec + 1]?.name ?? null;
+  const sideNext = sections[sec + sideDir]?.name ?? null;
 
   return (
     <div
@@ -1199,11 +1215,14 @@ export function PaperB({ editions }: { editions: Edition[] }) {
           </span>
         </motion.div>
 
-        {/* On past the tray's last card: the next section, riding in from the right */}
+        {/* On past the tray's end: the next section rides in from the right; back past its start, the previous one from the left */}
         {sideNext ? (
-          <motion.div className="pointer-events-none absolute right-0 top-0 z-30 flex justify-end pr-3" style={{ y: sideY, x: sideX, opacity: sideO }}>
+          <motion.div
+            className={`pointer-events-none absolute inset-x-0 top-0 z-30 flex px-3 ${sideDir === 1 ? "justify-end" : "justify-start"}`}
+            style={{ y: sideY, x: sideX, opacity: sideO }}
+          >
             <span className={`rounded-full px-4 py-2 text-[14px] italic shadow-[0_6px_18px_rgba(0,0,0,.25)] ${sideArmed ? "bg-accent text-paper" : "bg-paper text-ink"}`}>
-              {sideArmed ? `Suelte: ${sideNext}` : `Siga a ${sideNext}`}
+              {sideArmed ? `Suelte: ${sideNext}` : sideDir === 1 ? `Siga a ${sideNext}` : `Vuelva a ${sideNext}`}
             </span>
           </motion.div>
         ) : null}

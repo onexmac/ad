@@ -19,8 +19,15 @@ const OUT = path.resolve(process.argv[2] ?? "updatr-artifact");
 fs.mkdirSync(path.join(OUT, "img"), { recursive: true });
 
 // 1. Images: download every hotlinked image, resize to 1200px (needs ImageMagick or python3+Pillow).
-const news = fs.readFileSync(path.join(ROOT, "data/updatr/news.ts"), "utf8");
-const urls = [...news.matchAll(/image:\s*\n?\s*"([^"]+)"/g)].map((m) => m[1]);
+const editionFiles = fs.readdirSync(path.join(ROOT, "data/updatr")).filter((f) => /^\d{4}-W\d{2}\.json$/.test(f));
+const urls = [
+  ...new Set(
+    editionFiles.flatMap((f) => {
+      const ed = JSON.parse(fs.readFileSync(path.join(ROOT, "data/updatr", f), "utf8"));
+      return [...ed.items, ...ed.suggestions].map((e) => e.image).filter(Boolean);
+    }),
+  ),
+];
 const map = {};
 urls.forEach((u, n) => {
   const file = `img/${String(n).padStart(2, "0")}.jpg`;

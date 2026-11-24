@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useTransform, type Variants } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
@@ -163,6 +163,8 @@ export function Detail({
   onRelease,
   onClosed,
   skin,
+  like,
+  onFollowChange,
 }: {
   item: Item;
   franchise: Franchise;
@@ -174,6 +176,10 @@ export function Detail({
   /** Exit finished: unmount. */
   onClosed: () => void;
   skin?: DetailSkin;
+  /** A control placed before the bookmark (Updatr's like fan); `say` shows its note above the controls. */
+  like?: (say: (text: string) => void) => ReactNode;
+  /** The bookmark was toggled (a follow teaches the taste model). */
+  onFollowChange?: (on: boolean) => void;
 }) {
   const t = { ...STRINGS, ...skin?.strings };
   const [carried] = useState<Carrier | undefined>(() => origin?.carrier);
@@ -181,6 +187,8 @@ export function Detail({
   const watch = useWatching();
   const watched = watch.has(item.id);
   const [note, setNote] = useState<{ key: number; text: string } | null>(null);
+  // Lets a control in the bar (the like fan) say what it just did.
+  const say = useCallback((text: string) => setNote((n) => ({ key: (n?.key ?? 0) + 1, text })), []);
   useEffect(() => {
     if (!note) return;
     const t = setTimeout(() => setNote(null), 1700);
@@ -706,6 +714,12 @@ export function Detail({
               <motion.div className="px-5" style={{ opacity: contentOpacity }}>
                 <Cascade i={1} className="mono mt-6 text-ink-soft">
                   {meta}
+                  {item.suggested ? (
+                    <span className="mt-2 block text-accent">
+                      Suggested{item.suggested.reason ? ` · ${item.suggested.reason}` : ""}
+                      {item.suggested.week ? ` · from Nº${item.suggested.week}` : ""}
+                    </span>
+                  ) : null}
                 </Cascade>
                 <Cascade i={2}>
                   <h2 className="mt-3 text-[34px] font-medium leading-[1.02] tracking-[-0.035em]">{item.title}</h2>
@@ -741,6 +755,11 @@ export function Detail({
                     <span>{franchise.code}</span>
                     <span>{item.when ? countdown(item.when) : relative(item.date)}</span>
                   </div>
+                  {item.suggested ? (
+                    <p className="mono -mt-5 mb-6 text-accent">
+                      Suggested{item.suggested.reason ? ` · ${item.suggested.reason}` : ""}
+                    </p>
+                  ) : null}
                   <h2 className="text-[40px] font-bold uppercase leading-[0.9] tracking-[-0.04em]">{item.title}</h2>
                 </Cascade>
                 <Cascade i={2}>
@@ -847,12 +866,14 @@ export function Detail({
             {position}
           </motion.span>
           <motion.div className="flex items-center gap-2" style={{ opacity: sideOpacity }}>
+            {like?.(say)}
             <motion.button
               type="button"
               aria-label={watched ? `${t.unfollow}: ${item.title}` : `${t.follow}: ${item.title}`}
               aria-pressed={watched}
               onClick={() => {
                 const on = watch.toggle(item.id);
+                onFollowChange?.(on);
                 if (on) haptic.complete();
                 else haptic.select();
                 setNote({
@@ -875,16 +896,29 @@ export function Detail({
               <Bookmark on={watched} size="18px" />
             </motion.button>
             {source ? (
-              <a
-                href={source}
-                target="_blank"
-                rel="noreferrer"
-                className="mono pointer-events-auto flex h-12 items-center gap-2 bg-ink px-4 text-paper"
-              >
-                {t.source} <Arrow dir="out" />
-              </a>
+              like ? (
+                // With the like fan there is room for a key, not a label.
+                <a
+                  href={source}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={t.source}
+                  className="pointer-events-auto grid h-12 w-12 place-items-center bg-ink text-paper"
+                >
+                  <Arrow dir="out" />
+                </a>
+              ) : (
+                <a
+                  href={source}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mono pointer-events-auto flex h-12 items-center gap-2 bg-ink px-4 text-paper"
+                >
+                  {t.source} <Arrow dir="out" />
+                </a>
+              )
             ) : (
-              <span className="mono flex h-12 items-center px-4 text-ink-faint">{t.sample}</span>
+              <span className={`mono flex h-12 items-center text-ink-faint ${like ? "px-1" : "px-4"}`}>{t.sample}</span>
             )}
           </motion.div>
         </motion.div>

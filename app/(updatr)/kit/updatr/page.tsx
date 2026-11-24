@@ -1,11 +1,12 @@
-import { franchises, items } from "@/data/updatr/items";
+import { franchises } from "@/data/updatr/items";
+import { editions } from "@/lib/updatr/editions";
 import { MagazineScreen } from "@/components/updatr/MagazineScreen";
 import { UpdatrLoading } from "@/components/loading/apps";
 
 export default function Page() {
   return (
     <>
-      <MagazineScreen items={items} franchises={franchises} />
+      <MagazineScreen editions={editions} franchises={franchises} />
       <UpdatrLoading />
     </>
   );
