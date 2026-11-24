@@ -17,7 +17,7 @@ export function PadsHome({ apps }: { apps: PortalApp[] }) {
   const n = String(apps.length).padStart(2, "0");
 
   return (
-    <Vvv radius={32} maxWidth={460} snap ground="var(--void)">
+    <Vvv radius={32} maxWidth={460} snap className="bg-deck">
           <main className="flex w-full flex-col gap-[var(--gutter)] p-[var(--gutter)]">
             {/* Every block is a snap stop, and grows into place as it comes up
                 from the bottom of the frame (Noticss A's Grow, both ways). */}
