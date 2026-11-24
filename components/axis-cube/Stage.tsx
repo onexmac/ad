@@ -17,6 +17,40 @@ function keepForNextTime() {
 }
 
 /**
+ * On a slow network the service worker shows the kept copy of the page at once and fetches the current one behind
+ * it. If that turns out to be a newer version, the worker says so, and the page starts over on it, but only in
+ * its first seconds and only if nobody has touched it yet: never under the fingers of someone already playing.
+ * It asks as well as listens, because the worker's word can come before this is listening.
+ */
+function startOverIfNewer() {
+  if (!("serviceWorker" in navigator)) return () => {};
+  const opened = Date.now() - performance.now();
+  let touched = false;
+  const touch = () => { touched = true; };
+  const heard = (e: MessageEvent) => {
+    if (e.data?.type !== "fresh" || e.data.path !== location.pathname) return;
+    if (touched || Date.now() - opened > 12000) return;
+    try {
+      const last = Number(sessionStorage.getItem("axis-fresh") || 0);
+      if (Date.now() - last < 30000) return;               // once, not round and round
+      sessionStorage.setItem("axis-fresh", String(Date.now()));
+    } catch { /* no storage: the worker answers "same" after one reload anyway */ }
+    location.reload();
+  };
+  const ask = () => navigator.serviceWorker.controller?.postMessage({ type: "fresh?", path: location.pathname, since: opened });
+  window.addEventListener("pointerdown", touch, { capture: true, once: true });
+  navigator.serviceWorker.addEventListener("message", heard);
+  navigator.serviceWorker.startMessages();
+  ask();
+  const timers = [1500, 4000, 8000].map((ms) => setTimeout(ask, ms));
+  return () => {
+    window.removeEventListener("pointerdown", touch, { capture: true });
+    navigator.serviceWorker.removeEventListener("message", heard);
+    timers.forEach(clearTimeout);
+  };
+}
+
+/**
  * The room and its puzzles, behind a loading screen. The loader is plain markup and CSS, so it is in the page as the
  * server sends it, its cube already flipping and its bar already filling before any script arrives; the scene
  * finishes the bar and lifts it. Its markup is a string the scene later reaches into, so React is told to leave
@@ -28,9 +62,9 @@ export function Stage({ look = "a" }: { look?: Look }) {
   const host = useRef<HTMLDivElement>(null);
   const loader = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
-      navigator.serviceWorker.register(WORKER, { scope: SCOPE }).catch(() => {});
-    }
+    if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
+    navigator.serviceWorker.register(WORKER, { scope: SCOPE }).catch(() => {});
+    return startOverIfNewer();
   }, []);
   useEffect(
     () => (host.current ? mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime }) : undefined),

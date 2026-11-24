@@ -17,9 +17,13 @@ const named = (html) => Array.from(new Set(html.match(/\/_next\/static\/[^"'\\<>
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) => e.waitUntil(self.clients.claim()));
 
+// When a newer page was kept while an older copy of it was on screen: page address → the moment it happened.
+const fresher = new Map();
+
 // A page is kept only once the built files it names are kept too, so what is kept always opens with no network:
 // a new page never takes the place of the old one while its scripts are still missing.
-async function keepPage(cache, path, res) {
+// If the older copy is what was shown, the page on screen is told, so it can start over on the new one.
+async function keepPage(cache, path, res, old, shownOld) {
   const html = await res.clone().text();
   for (const key of named(html)) {
     if (await got(cache, key)) continue;
@@ -28,21 +32,30 @@ async function keepPage(cache, path, res) {
     await cache.put(key, file);
   }
   await cache.put(path, res);
+  if (old === null || old === html || !shownOld()) return;
+  fresher.set(path, Date.now());
+  for (const client of await self.clients.matchAll({ type: "window" })) {
+    if (new URL(client.url).pathname === path) client.postMessage({ type: "fresh", path });
+  }
 }
 
-// The page: the network if it answers within half a second, so a new version shows the first time it is opened;
-// otherwise the kept copy at once, and the answer is kept for next time when it comes.
+// The page: the network if it answers within half a second; otherwise the kept copy at once. When the answer
+// comes late and is a newer page, it is kept and the page on screen is told (see keepPage), so a new version
+// shows the first time the app is opened either way.
 async function page(e, path) {
   const cache = await caches.open(CACHE);
   const kept = await got(cache, path);
+  const old = kept ? await kept.clone().text() : null;
+  let shownOld = false;
   const fresh = fetch(e.request).then((res) => {
-    if (keepable(res)) e.waitUntil(keepPage(cache, path, res.clone()).catch(() => {}));
+    if (keepable(res)) e.waitUntil(keepPage(cache, path, res.clone(), old, () => shownOld).catch(() => {}));
     return res;
   });
   if (!kept) return fresh;
   const late = new Promise((done) => setTimeout(() => done(null), WAIT));
   const first = await Promise.race([fresh.catch(() => null), late]);
   if (first && keepable(first)) return first;
+  shownOld = true;
   e.waitUntil(fresh.catch(() => {}));
   return kept;
 }
@@ -77,6 +90,11 @@ self.addEventListener("fetch", (e) => {
 // belong to older versions, and are let go.
 self.addEventListener("message", (e) => {
   const d = e.data || {};
+  if (d.type === "fresh?") {                             // a page asks whether a newer copy of itself came in since it was opened
+    const newer = (fresher.get(d.path) || 0) > (d.since || 0);
+    if (e.source) e.source.postMessage({ type: newer ? "fresh" : "same", path: d.path });
+    return;
+  }
   if (d.type !== "keep" || !Array.isArray(d.urls)) return;
   e.waitUntil((async () => {
     const want = new Set();
