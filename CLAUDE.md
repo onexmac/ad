@@ -48,7 +48,10 @@
 - **vvv** = vintage vignette viewport: the page as a rounded frame on a black
   screen, scrolling inside itself, black beyond (status bar, Safari's bar,
   corners, bounce). Use `components/vvv/Vvv.tsx`; how-to and don'ts in
-  `docs/ux-playbook.md` ("vvv"). When Marcos says vvv, this is it.
+  `docs/ux-playbook.md` ("vvv"). When Marcos says vvv, this is it. Two fits:
+  **vvs** (short: the frame starts below the status bar and hides the Dynamic
+  Island) and **vvt** (tall: no top curve, the frame runs to the screen's top
+  and the Dynamic Island shows).
 - Look: forced light mode, tokens in `app/globals.css` (ground, card, ink,
   brand). Reuse them; do not add inline colours.
 - Nested radii: a container's corner radius is always bigger than the radius
