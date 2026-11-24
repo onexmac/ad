@@ -281,6 +281,9 @@ export function Row({
         <span className="mt-2 block text-[18px] font-medium leading-[1.18] tracking-[-0.02em]">{item.title}</span>
         <span className="mt-2 line-clamp-2 block text-[14px] leading-[1.45] text-ink-soft">{item.dek}</span>
         {item.mock ? <span className="mono mt-2 block text-ink-faint">Sample</span> : null}
+        {item.suggested ? (
+          <span className="mono mt-2 block text-accent">Suggested{item.suggested.reason ? ` · ${item.suggested.reason}` : ""}</span>
+        ) : null}
       </button>
       <div className="pt-[2px]">
         <HoldImage

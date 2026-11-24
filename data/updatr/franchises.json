@@ -1,0 +1,11 @@
+[
+  { "id": "finals", "name": "The Finals", "code": "TF", "studio": "Embark Studios", "watching": "Seasons, arenas, cosmetics" },
+  { "id": "descendant", "name": "The First Descendant", "code": "TFD", "studio": "Nexon", "watching": "New descendants and skins" },
+  { "id": "cod", "name": "Call of Duty", "code": "COD", "studio": "Activision", "watching": "Operator skins, mostly the women" },
+  { "id": "stellar", "name": "Stellar Blade", "code": "SB", "studio": "Shift Up", "watching": "Collabs and outfits" },
+  { "id": "zzz", "name": "Zenless Zone Zero", "code": "ZZZ", "studio": "HoYoverse", "watching": "Version updates and new agents" },
+  { "id": "film", "name": "Film", "code": "FLM", "studio": "—", "watching": "Releases I'm waiting for" },
+  { "id": "books", "name": "Books", "code": "BKS", "studio": "—", "watching": "New and upcoming reads" },
+  { "id": "tv", "name": "TV", "code": "TV", "studio": "—", "watching": "Seasons in progress" },
+  { "id": "radar", "name": "On the radar", "code": "RDR", "studio": "—", "watching": "Beyond the list: what the taste model thinks you'd follow" }
+]

@@ -220,14 +220,27 @@ export function PullReadout({
         />
       </div>
       <p className={`mono mt-3 ${armed ? "text-accent" : "text-ink"}`}>
-        {armed ? `Release to fetch issue ${issueNo + 1}` : `Pull to fetch issue ${issueNo + 1}`}
+        {armed ? "Release to check for updates" : "Pull for the latest edition"}
       </p>
     </motion.div>
   );
 }
 
+/** A fetch's outcome: what to say, and whether new content is coming in (lift away over it) or not (slide back down). */
+export type FetchResult = { text: string; fresh: boolean };
+/** Shown for at least this long, so the readout can be read. */
+const MIN_MS = 1100;
+const wait = (ms: number, signal: AbortSignal) =>
+  new Promise<void>((resolve, reject) => {
+    const t = setTimeout(resolve, ms);
+    signal.addEventListener("abort", () => {
+      clearTimeout(t);
+      reject(new DOMException("Aborted", "AbortError"));
+    });
+  });
+
 const STEPS = [
-  { at: 0.02, k: "Request", v: (n: number) => `GET /issues/${n}`, done: "200" },
+  { at: 0.02, k: "Request", v: (n: number, path?: string) => `GET ${path ?? `/issues/${n}`}`, done: "200" },
   { at: 0.18, k: "Sources", v: () => "finals · tfd · cod · sb · zzz", done: "05/05" },
   { at: 0.42, k: "Entries", v: () => "parse · dedupe · rank", done: "ok" },
   { at: 0.62, k: "Images", v: () => "fetch · resize · mono", done: "ok" },
@@ -243,12 +256,18 @@ const STEPS = [
  */
 export function ReloadScreen({
   issueNo,
+  run,
+  path,
   onReady,
   onCancel,
   onGone,
 }: {
   /** The issue being fetched. */
   issueNo: number;
+  /** The work itself (default: the demo stub, FETCH_MS long). */
+  run?: (signal: AbortSignal) => Promise<FetchResult>;
+  /** What the Request line shows being fetched. */
+  path?: string;
   /** The server has the new issue: swap it in (the screen still covers the page). */
   onReady: () => void;
   onCancel: () => void;
@@ -259,6 +278,8 @@ export function ReloadScreen({
   const progress = useMotionValue(0);
   const [elapsed, setElapsed] = useState(0);
   const [stage, setStage] = useState<"loading" | "ready" | "cancelled">("loading");
+  const [result, setResult] = useState<FetchResult | null>(null);
+  const runRef = useRef(run);
   const stageRef = useRef(stage);
   const cbs = useRef({ onReady, onCancel, onGone });
   useEffect(() => {
@@ -302,24 +323,37 @@ export function ReloadScreen({
       }
     };
     raf = requestAnimationFrame(tick);
-    fetchNextIssue(ac.signal)
-      .then(() => {
+    const work = runRef.current
+      ? Promise.all([runRef.current(ac.signal), wait(MIN_MS, ac.signal)]).then(([r]) => r)
+      : fetchNextIssue(ac.signal).then((): FetchResult => ({ text: `Issue ${issueNo} ready`, fresh: true }));
+    work
+      .then((r) => {
         if (stageRef.current !== "loading") return;
         stageRef.current = "ready";
+        setResult(r);
         setStage("ready");
         animate(progress, 1, { duration: 0.25, ease: "easeOut" });
         haptic.complete();
-        setTimeout(() => {
-          cbs.current.onReady();
-          // The new issue is in place under the screen: lift away over it.
-          animate(y, -window.innerHeight, { ...CLOSE_SPRING, onComplete: () => cbs.current.onGone() });
-        }, 380);
+        setTimeout(
+          () => {
+            cbs.current.onReady();
+            // New content is in place under the screen: lift away over it.
+            // Nothing new: slide back down to where the reader was.
+            animate(y, r.fresh ? -window.innerHeight : window.innerHeight, {
+              ...CLOSE_SPRING,
+              onComplete: () => cbs.current.onGone(),
+            });
+          },
+          r.fresh ? 380 : 700,
+        );
       })
       .catch(() => {});
     return () => {
       cancelAnimationFrame(raf);
       ac.abort();
     };
+    // Mount-only: one fetch per screen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [y, progress]);
 
   // Slide down (touch or mouse), scroll up, or Escape: cancel.
@@ -435,7 +469,7 @@ export function ReloadScreen({
                     className="mono grid grid-cols-[112px_1fr_auto] gap-3 border-b border-rule-soft py-[7px]"
                   >
                     <span className="text-ink-soft">{pad(i + 1)} {s.k}</span>
-                    <span className="truncate text-ink">{s.v(issueNo)}</span>
+                    <span className="truncate text-ink">{s.v(issueNo, path)}</span>
                     <span className={done ? "text-ink" : "text-ink-faint"}>{done ? s.done : "···"}</span>
                   </motion.li>
                 );
@@ -445,7 +479,7 @@ export function ReloadScreen({
 
           <div className="mono mt-8 flex items-center justify-center gap-2 text-ink-soft">
             {stage === "ready" ? (
-              <span className="text-accent">Issue {issueNo} ready</span>
+              <span className="text-accent">{result?.text ?? `Issue ${issueNo} ready`}</span>
             ) : (
               <>
                 <Arrow dir="down" /> Slide down to cancel
