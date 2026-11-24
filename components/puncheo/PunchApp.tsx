@@ -1,10 +1,12 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import MiniSearch from "minisearch";
 import { AnimatePresence, motion } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
+import { Vvs, useVvvInset, useVvvScroller } from "@/components/vvv/Vvv";
+import { scrollToY, scrollTop, setScrollFrame } from "@/lib/puncheo/scroller";
 import type { RoomSheet } from "@/data/puncheo/rooms";
 import type { Status } from "@/lib/puncheo/state";
 import { Toast, type Variant } from "./Chrome";
@@ -72,7 +74,7 @@ const CONFIG: Record<Variant, Config> = {
     },
     filterAccent: "var(--brand)",
     counters: false,
-    spacer: 96,
+    spacer: 16, // the bar is in the frame's flow, under the page
     toast: 84,
   },
   c: {
@@ -98,6 +100,22 @@ const CONFIG: Record<Variant, Config> = {
   },
 };
 
+/** The vvs frame: its corner holds the panels' 6 px corners with the page's 16 px in between. */
+const FRAME_RADIUS = 28;
+const GUTTER = 6;
+
+/** Hands the vvv frame to the scroll helpers, so everything that scrolls moves the frame. */
+function FrameScroller(): ReactNode {
+  const frame = useVvvScroller();
+  // After commit (refs are attached by then), and before the rooms' scroll listeners,
+  // which come later in the tree.
+  useEffect(() => {
+    setScrollFrame(frame?.current ?? null);
+    return () => setScrollFrame(null);
+  }, [frame]);
+  return null;
+}
+
 /** The search results' cascade: in one after another on a spring, out quicker, last first. */
 const RISE = {
   hide: { opacity: 0, y: 22 },
@@ -120,10 +138,12 @@ const norm = (t: string) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
 export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Variant }) {
   const cfg = CONFIG[variant];
   const s = usePunchSheet(sheet);
-  // B scrolls through every room, so its page rubber-bands at both ends; the
-  // legacy walks pull into the next room at the bottom instead.
+  // B scrolls through every room inside a vvs frame (components/vvv), which
+  // bounces natively; the legacy walks scroll the window, rubber-band at the top
+  // and pull into the next room at the bottom.
   const continuous = variant === "b";
-  const { scale, origin } = useEdgeSquish({ bottom: continuous });
+  const { scale, origin } = useEdgeSquish({ top: !continuous, bottom: false });
+  const inset = useVvvInset(GUTTER);
   const [searching, setSearching] = useState(false);
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState(0);
@@ -171,13 +191,32 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
     }
     // Where the page lands once the old content has faded out: the top of the
     // results, or back where the walk was when the search opened.
-    if (!searching) walkScroll.current = window.scrollY;
+    if (!searching) walkScroll.current = scrollTop();
     landAt.current = searching ? walkScroll.current : 0;
     setSearching(!searching);
   };
 
-  return (
-    <div data-app className={`min-h-dvh overflow-x-clip ${cfg.ground}`}>
+  const footer = (
+    <Footer
+      s={s}
+      kind={cfg.foot}
+      polish={!!cfg.skin.leia}
+      sections={!continuous}
+      rooms={continuous}
+      framed={continuous}
+      search={{
+        open: searching,
+        q,
+        setQ,
+        toggle,
+        filters: FILTERS.map((x) => ({ id: x.id, label: x.label, count: s.all.filter((c) => x.match(s.marks[c.id])).length })),
+        filter,
+        setFilter,
+        suggestions,
+      }}
+    />
+  );
+  const page = (
       <motion.main style={{ scale, transformOrigin: origin }} className="mx-auto w-full max-w-[520px] px-4">
         <SheetHeader sheet={sheet} s={s} current={variant} tone={cfg.tone} extra={cfg.counters ? <LetterTags s={s} /> : undefined} />
         {/* One stage for the walk and the search results: the outgoing content fades
@@ -187,7 +226,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         <AnimatePresence
           mode="wait"
           onExitComplete={() => {
-            if (landAt.current !== null) window.scrollTo({ top: landAt.current, behavior: "instant" });
+            if (landAt.current !== null) scrollToY(landAt.current);
             landAt.current = null;
           }}
         >
@@ -240,26 +279,37 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         </AnimatePresence>
         <div style={{ height: `calc(var(--sab) + ${cfg.spacer + (searching ? 120 : 0)}px)` }} />
       </motion.main>
+  );
+
+  if (continuous) {
+    return (
+      <>
+        {/* vvs: the app is a rounded frame on black, scrolling inside itself. In it
+            the status bar and home indicator are out in the black, so their
+            insets are zero for everything inside. */}
+        <Vvs radius={FRAME_RADIUS} gutter={GUTTER} maxWidth={552} className={`${cfg.ground} [--sab:0px] [--sat:0px]`}>
+          <FrameScroller />
+          <div data-app className="flex min-h-full flex-col overflow-x-clip">
+            <div className="flex-1">{page}</div>
+            {footer}
+          </div>
+        </Vvs>
+        {/* Overlays live outside the frame (it clips): the toast over the bar. */}
+        <div style={{ ["--sab" as string]: "0px" }}>
+          <Toast toast={s.toast} bottom={inset.bottom + 60 + 12} />
+        </div>
+        <PhotoViewer s={s} />
+      </>
+    );
+  }
+
+  return (
+    <div data-app className={`min-h-dvh overflow-x-clip ${cfg.ground}`}>
+      {page}
       <Toast toast={s.toast} bottom={cfg.toast} />
-      {continuous ? null : <FanLayer s={s} />}
+      <FanLayer s={s} />
       <PhotoViewer s={s} />
-      <Footer
-        s={s}
-        kind={cfg.foot}
-        polish={!!cfg.skin.leia}
-        sections={!continuous}
-        rooms={continuous}
-        search={{
-          open: searching,
-          q,
-          setQ,
-          toggle,
-          filters: FILTERS.map((x) => ({ id: x.id, label: x.label, count: s.all.filter((c) => x.match(s.marks[c.id])).length })),
-          filter,
-          setFilter,
-          suggestions,
-        }}
-      />
+      {footer}
     </div>
   );
 }
