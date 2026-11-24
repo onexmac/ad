@@ -22,9 +22,10 @@ import { GROW_SPRING } from "@/components/updatr/Grow";
  * indicator), so everything beyond its edge is black and nothing of the page
  * shows there: not under either bar, not past the corners, not in the bounce.
  *
- * The layout that uses it must also paint the ground: `html, body` background
- * and `themeColor` in the same colour as `ground` (black by default), and
- * `viewportFit: "cover"`.
+ * Beyond the frame is always black. The layout that uses it must make the
+ * ground black too: `html, body` background black, `themeColor: "#000000"`,
+ * `viewportFit: "cover"`. The frame's own surface (its gutters) can be any
+ * colour: give it through `className`.
  * How to use it, and what not to do: docs/ux-playbook.md, "vvv".
  */
 export function Vvv({
@@ -33,7 +34,6 @@ export function Vvv({
   gutter = 6,
   maxWidth,
   snap = false,
-  ground = "#000",
   className = "",
 }: {
   children: ReactNode;
@@ -45,8 +45,7 @@ export function Vvv({
   maxWidth?: number;
   /** Mandatory snap on the frame: children mark their stops with `snap-start`. */
   snap?: boolean;
-  /** The colour beyond the frame (and in its gutters). Black unless the page asks; match the layout's html background and themeColor. */
-  ground?: string;
+  /** On the frame's scroller: its surface colour, for one. */
   className?: string;
 }) {
   const frame = useRef<HTMLDivElement>(null);
@@ -54,7 +53,7 @@ export function Vvv({
   useLockDocument();
 
   return (
-    <div className="fixed inset-x-0 top-0 h-[100lvh] overflow-hidden" style={{ background: ground }}>
+    <div className="fixed inset-x-0 top-0 h-[100lvh] overflow-hidden" style={{ background: "#000" }}>
       <div
         ref={frame}
         data-vvv
