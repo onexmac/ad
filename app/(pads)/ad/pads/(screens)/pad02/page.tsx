@@ -8,7 +8,7 @@ import { UserCardMobile } from "@/components/pads/movil/user-card-mobile";
 import { springs } from "@/lib/pads/springs";
 import { haptic } from "@/lib/pads/haptic";
 import { mockUsers, type User } from "@/lib/pads/mock-users";
-import { PadListSkeleton } from "@/components/skeleton/shapes";
+import { Pad02Skeleton } from "@/components/loading/apps";
 
 /**
  * /movil — USUARIOS, mobile. Same architecture as the desktop screen, rotated
@@ -142,7 +142,7 @@ export default function MovilUsuariosPage() {
           onCreated={addUser}
         />
       </main>
-      <PadListSkeleton />
+      <Pad02Skeleton />
     </>
   );
 }
