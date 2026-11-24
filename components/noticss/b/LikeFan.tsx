@@ -42,7 +42,14 @@ const CHOICES: { v: Verdict; dx: number; dy: number; label: string }[] = [
 /** Out: an overshooting spring (Path's bounce); back in: quick and flat. */
 const OUT = { type: "spring", stiffness: 520, damping: 16, mass: 0.9 } as const;
 const BACK = { type: "spring", stiffness: 700, damping: 40 } as const;
-const STAGGER = 0.05;
+/** Like first, dislike close behind. */
+const STAGGER = 0.07;
+/** The label's spin trails its circle's by this much, on a slightly softer spring, and it fades in later still. */
+const LABEL_LAG = 0.06;
+const LABEL_FADE = 0.12;
+const LABEL_SPIN = { type: "spring", stiffness: 420, damping: 17, mass: 0.9 } as const;
+/** On the way back the labels go first, then the circles. */
+const LABEL_OUT = 0.08;
 
 export function Heart({ on, crossed = false, size = 18 }: { on: boolean; crossed?: boolean; size?: number }) {
   return (
@@ -107,35 +114,67 @@ function Choice({
   const gx = useSpring(tx, { stiffness: 420, damping: 26 });
   const gy = useSpring(ty, { stiffness: 420, damping: 26 });
   const n = CHOICES.length;
+  // Like comes out first, dislike close behind; back in, the other way round.
+  const lead = i * STAGGER;
+  const back = (n - 1 - i) * STAGGER * 0.6;
   return (
+    // The choice's place on the arc: it flies out of the button and back.
     <motion.div
       className="pointer-events-none absolute left-0 top-0 h-12 w-12"
-      initial={{ x: 0, y: 0, rotate: -220, scale: 0.2, opacity: 0 }}
-      animate={{ x: o.dx, y: o.dy, rotate: 0, scale: 1, opacity: 1, transition: { ...OUT, delay: i * STAGGER } }}
-      exit={{ x: 0, y: 0, rotate: -220, scale: 0.2, opacity: 0, transition: { ...BACK, delay: (n - 1 - i) * STAGGER * 0.6 } }}
+      initial={{ x: 0, y: 0, scale: 0.2, opacity: 0 }}
+      animate={{ x: o.dx, y: o.dy, scale: 1, opacity: 1, transition: { ...OUT, delay: lead } }}
+      exit={{ x: 0, y: 0, scale: 0.2, opacity: 0, transition: { ...BACK, delay: back + LABEL_OUT } }}
     >
-      <motion.div className="h-full w-full" style={{ x: gx, y: gy }}>
-        <motion.button
-          type="button"
-          aria-label={o.label}
-          aria-pressed={chosen}
-          onClick={onPick}
-          animate={{ scale: hover ? 1.2 : 1 }}
-          transition={{ type: "spring", stiffness: 600, damping: 22 }}
-          className={`pointer-events-auto relative grid h-12 w-12 place-items-center rounded-full shadow-[0_8px_24px_rgba(0,0,0,.28)] transition-colors ${
-            hover || chosen ? "bg-accent text-paper" : "bg-paper text-ink"
-          }`}
-          style={{ touchAction: "none" }}
+      <motion.div className="relative h-full w-full" style={{ x: gx, y: gy }}>
+        {/* The circle spins in as it flies. */}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ rotate: -220 }}
+          animate={{ rotate: 0, transition: { ...OUT, delay: lead } }}
+          exit={{ rotate: -220, transition: { ...BACK, delay: back + LABEL_OUT } }}
         >
-          <Heart on={chosen} crossed={o.v === "dislike"} />
-          <span
-            className={`pointer-events-none absolute bottom-[calc(100%+6px)] left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-[10px] py-[3px] text-[13px] italic transition-colors ${
-              hover ? "bg-ink text-paper" : "bg-paper/90 text-ink"
+          <motion.button
+            type="button"
+            aria-label={o.label}
+            aria-pressed={chosen}
+            onClick={onPick}
+            animate={{ scale: hover ? 1.2 : 1 }}
+            transition={{ type: "spring", stiffness: 600, damping: 22 }}
+            className={`pointer-events-auto grid h-12 w-12 place-items-center rounded-full shadow-[0_8px_24px_rgba(0,0,0,.28)] transition-colors ${
+              hover || chosen ? "bg-accent text-paper" : "bg-paper text-ink"
             }`}
+            style={{ touchAction: "none" }}
           >
-            {o.label}
-          </span>
-        </motion.button>
+            <Heart on={chosen} crossed={o.v === "dislike"} />
+          </motion.button>
+        </motion.div>
+        {/*
+         * The label rides on the circle (it turns about the circle's centre, so
+         * it orbits with it and is never left behind) but its spin trails the
+         * circle's by a beat, and it fades in after it. It goes first on the
+         * way back.
+         */}
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          initial={{ rotate: -220, opacity: 0 }}
+          animate={{
+            rotate: 0,
+            opacity: 1,
+            transition: { rotate: { ...LABEL_SPIN, delay: lead + LABEL_LAG }, opacity: { duration: 0.22, ease: "easeOut", delay: lead + LABEL_FADE } },
+          }}
+          exit={{ rotate: -120, opacity: 0, transition: { duration: LABEL_OUT, ease: "easeIn" } }}
+        >
+          <motion.span
+            animate={{ scale: hover ? 1.06 : 1 }}
+            transition={{ type: "spring", stiffness: 600, damping: 24 }}
+            className="absolute inset-x-0 bottom-[calc(100%+6px)] flex justify-center"
+          >
+            <span className={`whitespace-nowrap rounded-full px-[10px] py-[3px] text-[13px] italic transition-colors ${hover ? "bg-ink text-paper" : "bg-paper/90 text-ink"}`}>
+              {o.label}
+            </span>
+          </motion.span>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
