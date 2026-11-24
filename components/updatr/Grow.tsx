@@ -2,6 +2,7 @@
 
 import { useRef, type ReactNode, type RefObject } from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { usePageProgress } from "./Pages";
 
 /** Loose enough to overshoot a touch as a block settles into place. */
 export const GROW_SPRING = { stiffness: 240, damping: 19, mass: 0.6 };
@@ -24,7 +25,13 @@ export function useGrow(
     // Fully in place once its top has come up ~20% of the screen (later with lag).
     offset: ["start end", `start ${80 - lag * 4}%`],
   });
-  const p = useSpring(scrollYProgress, GROW_SPRING);
+  // On a page of the magazine, the block grows with its page's arrival instead,
+  // so one low on the page is whole once the page has landed.
+  const page = usePageProgress();
+  const a = 0.3 + lag * 0.07;
+  const b = Math.min(1, 0.86 + lag * 0.04);
+  const source = useTransform(() => (page ? Math.max(0, Math.min(1, (page.get() - a) / (b - a))) : scrollYProgress.get()));
+  const p = useSpring(source, GROW_SPRING);
   return {
     scale: useTransform(p, [0, 1], [from, 1], { clamp: false }),
     y: useTransform(p, [0, 1], [y, 0], { clamp: false }),

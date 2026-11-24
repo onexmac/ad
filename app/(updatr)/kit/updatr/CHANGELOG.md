@@ -17,6 +17,22 @@ Every push to Vercel that changes the app gets an entry here. The first push was
 
 Each entry gives the date and time in Costa Rica, the commit, and the pull request that took it to `main` (and so to magi0s). Editions are content, not changes to the app: a push that only adds or updates an edition (the pipeline's own "Updatr: edition …" commits, the first of them edition 2026-W48 on 24 November) gets no version.
 
+## 0.5.0 · 2026-11-24 08:04
+
+- The magazine is pages now: every section is one screen, and the page snaps to them. A flick lands on a page with the phone's own momentum, and a short drag settles back. The scroll-linked growth, the pulls at both ends, the strips and the home square work as before. The home square and the contents give each page's real number.
+- Sections are smaller, and more of them are built around one big picture:
+  - Cover: the wordmark, then the cover picture down to the foot of the page, the coming dates running under it.
+  - Contents, then a Note page of type: the week in one sentence, and four figures (entries, suggested, worlds, days to the next date).
+  - Feature: a full-bleed picture page with its title over it, then a page of words (the pull quote, the first paragraphs, Continue).
+  - Dossier, when there is one: a dark page with the franchise in big type, then a dark page with its entries big on a strip.
+  - Wardrobe: the pair, one big and one small, staggered.
+  - Latest: one picture as big as the page allows; then four squares two by two, bigger than the six before; then a wide picture over the index of all six.
+  - Briefs: four to a page, in two columns, each clamped so none runs off its page.
+  - Countdown in giant numerals; Coming up with bigger cards.
+  - Watching, the archive and the colophon run as long as they need. They are paged a screen at a time, with a stop where each one's end meets the bottom of the screen.
+- Blocks on a page grow in as the page lands, not as each one passes a line on the screen, so a block low on a page is whole once the page is in.
+- A jump from the contents or the home bar turns snapping off for its length and lands on the page's top. ([#155](https://github.com/onexmac/ad/pull/155))
+
 ## 0.4.8 · 2026-11-24 07:50
 
 - Briefs: a long press (0.42 s) pops the like fan where the finger is, the same fan as in the article, kept on screen near the edges.
