@@ -32,7 +32,10 @@
     +0.0.2 or +0.0.3 bigger, +0.0.5 big, +0.1.0 too big for that (the last
     number back to 0), +0.5.0 only for something massive. 1.0.0 is a
     milestone Marcos names. An app without one starts it at its next push,
-    counted from its first push to Vercel.
+    counted from its first push to Vercel. Bugs Marcos reports come first in
+    the entry of the push that fixes them: his words, the cause, and what not
+    to do. The changelog keeps a short list of those lessons at the top, and
+    the bugs still open, so the next change doesn't repeat them.
   - He can set it in his first message (`eva sim …`, `eva launch …`) and switch
     any time by typing `sim` or `launch`; `launch` mid-session also ships what
     is there now.
