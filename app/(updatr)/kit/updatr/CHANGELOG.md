@@ -32,7 +32,7 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
   - Tap a key: that verdict (tapped again, it is taken back), and the picture stays up. The hint shows the verdict for a moment.
   - Every picture tied to an entry works this way: the magazine, the archive rows, and layouts A and B.
 - The click a browser sends when a long press ends no longer lands on whatever is under the finger (the fan's centre key, a verdict key, the page beside a locked picture).
-- Every verdict teaches the taste model that picks about 30% of each issue. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- Every verdict teaches the taste model that picks about 30% of each issue. ([#153](https://github.com/onexmac/ad/pull/153))
 
 ## 0.4.3 · 2026-11-24 06:51
 
