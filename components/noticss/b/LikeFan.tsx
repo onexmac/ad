@@ -42,12 +42,12 @@ const CHOICES: { v: Verdict; dx: number; dy: number; label: string }[] = [
 /** Out: an overshooting spring (Path's bounce); back in: quick and flat. */
 const OUT = { type: "spring", stiffness: 520, damping: 16, mass: 0.9 } as const;
 const BACK = { type: "spring", stiffness: 700, damping: 40 } as const;
-/** Like first, dislike close behind. */
-const STAGGER = 0.07;
+/** Like first, dislike a clear beat behind. */
+const STAGGER = 0.15;
 /** The label's spin trails its circle's by this much, on a slightly softer spring, and it fades in later still. */
 const LABEL_LAG = 0.06;
-const LABEL_FADE = 0.12;
-const LABEL_SPIN = { type: "spring", stiffness: 420, damping: 17, mass: 0.9 } as const;
+const LABEL_FADE = 0.24;
+const LABEL_SPIN = { type: "spring", stiffness: 260, damping: 30, mass: 0.9 } as const;
 /** On the way back the labels go first, then the circles. */
 const LABEL_OUT = 0.08;
 
@@ -89,6 +89,20 @@ function pulled(o: { dx: number; dy: number }, fx: number, fy: number, on: boole
   return { x: o.dx + vx * k, y: o.dy + vy * k, d: d0 * (1 - k) };
 }
 
+/** Red starts this far from a choice's place and is full by here, before the finger covers it. */
+const RED_FROM = 120;
+const RED_FULL = 72;
+
+/** How near the finger is to a choice, 0..1, for the nearest choice only (the one gravity draws). */
+function nearness(o: { dx: number; dy: number }, fx: number, fy: number, on: boolean) {
+  if (!on) return 0;
+  const d0 = Math.hypot(fx - o.dx, fy - o.dy);
+  if (!CHOICES.every((c) => Math.hypot(fx - c.dx, fy - c.dy) >= d0)) return 0;
+  return Math.max(0, Math.min(1, (RED_FROM - d0) / (RED_FROM - RED_FULL)));
+}
+
+const mix = (a: string, b: string, t: number) => `color-mix(in srgb, var(${a}) ${Math.round(t * 100)}%, var(${b}))`;
+
 function Choice({
   o,
   i,
@@ -113,6 +127,15 @@ function Choice({
   const ty = useTransform(() => pulled(o, fx.get(), fy.get(), pulling.get() > 0).y - o.dy);
   const gx = useSpring(tx, { stiffness: 420, damping: 26 });
   const gy = useSpring(ty, { stiffness: 420, damping: 26 });
+  // The approaching finger warms the choice to red, quickly, so it shows red
+  // before the finger hides it: the circle, its mark and its label.
+  const near = useSpring(
+    useTransform(() => nearness(o, fx.get(), fy.get(), pulling.get() > 0)),
+    { stiffness: 900, damping: 50 },
+  );
+  const fill = useTransform(near, (t) => mix("--accent", "--paper", t));
+  const mark = useTransform(near, (t) => mix("--paper", "--ink", Math.min(1, t * 1.6)));
+  const tag = useTransform(near, (t) => mix("--accent", "--ink", t));
   const n = CHOICES.length;
   // Like comes out first, dislike close behind; back in, the other way round.
   const lead = i * STAGGER;
@@ -140,10 +163,8 @@ function Choice({
             onClick={onPick}
             animate={{ scale: hover ? 1.2 : 1 }}
             transition={{ type: "spring", stiffness: 600, damping: 22 }}
-            className={`pointer-events-auto grid h-12 w-12 place-items-center rounded-full shadow-[0_8px_24px_rgba(0,0,0,.28)] transition-colors ${
-              hover || chosen ? "bg-accent text-paper" : "bg-paper text-ink"
-            }`}
-            style={{ touchAction: "none" }}
+            className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full shadow-[0_8px_24px_rgba(0,0,0,.28)]"
+            style={{ touchAction: "none", backgroundColor: chosen ? "var(--accent)" : fill, color: chosen ? "var(--paper)" : mark }}
           >
             <Heart on={chosen} crossed={o.v === "dislike"} />
           </motion.button>
@@ -170,9 +191,10 @@ function Choice({
             transition={{ type: "spring", stiffness: 600, damping: 24 }}
             className="absolute inset-x-0 bottom-[calc(100%+6px)] flex justify-center"
           >
-            <span className={`whitespace-nowrap rounded-full px-[10px] py-[3px] text-[13px] italic transition-colors ${hover ? "bg-ink text-paper" : "bg-paper/90 text-ink"}`}>
+            {/* Light text on a dark tag, warming to red with the circle. */}
+            <motion.span className="whitespace-nowrap rounded-full px-[10px] py-[3px] text-[13px] italic text-paper" style={{ backgroundColor: tag }}>
               {o.label}
-            </span>
+            </motion.span>
           </motion.span>
         </motion.div>
       </motion.div>
