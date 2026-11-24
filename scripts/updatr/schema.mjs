@@ -37,11 +37,21 @@ export const Entry = z.object({
   tags: z.array(z.string()),
   source: z.string(),
   url: z.string().nullable(),
+  /** Other pages on the same story: where a picture is looked for when the source has none. */
+  also: z.array(z.string()),
   image: z.string().nullable(),
 });
 
-/** What the model writes: the week's entries and the suggestion pool. */
-export const Brief = z.object({ items: z.array(Entry), suggestions: z.array(Entry) });
+/**
+ * What the model writes: the week's entries, the suggestion pool, and, for
+ * entries already in the tracker without a picture, other pages on their
+ * story where one may be found.
+ */
+export const Brief = z.object({
+  items: z.array(Entry),
+  suggestions: z.array(Entry),
+  pictures: z.array(z.object({ id: z.string(), also: z.array(z.string()) })),
+});
 
 /** An entry as stored: empty fields left out, the app's Item shape. */
 export const Stored = z.object({
@@ -89,6 +99,8 @@ export function store(e) {
   const out = { ...e };
   for (const k of ["when", "url", "image"]) if (out[k] == null) delete out[k];
   if (!out.tags?.length) delete out.tags;
+  // Kept for the picture search, then left out of the file (Stored has no such field).
+  if (!out.also?.length) delete out.also;
   return out;
 }
 
@@ -113,6 +125,7 @@ export function tidy(brief) {
     importance: Math.max(1, Math.min(3, Math.round(e.importance || 1))),
     body: e.body.filter(Boolean).slice(0, 4),
     tags: e.tags.map((t) => t.toLowerCase().trim()).filter(Boolean).slice(0, 3),
+    also: [...new Set((e.also ?? []).filter((u) => /^https?:\/\//.test(u) && u !== e.url))].slice(0, 3),
     image: null,
   });
   // An entry nobody can check is not published: without a source page it is
@@ -130,5 +143,8 @@ export function tidy(brief) {
     .filter((e) => !titles.has(e.title.toLowerCase()) && !ids.has(slug(e.id)))
     .map(fix);
   for (const e of [...items, ...suggestions]) if (!e.body.length) problems.push(`${e.id}: no body`);
-  return { brief: { items, suggestions }, problems };
+  const pictures = (brief.pictures ?? [])
+    .map((p) => ({ id: slug(p.id), also: [...new Set(p.also.filter((u) => /^https?:\/\//.test(u)))].slice(0, 3) }))
+    .filter((p) => p.also.length);
+  return { brief: { items, suggestions, pictures }, problems };
 }
