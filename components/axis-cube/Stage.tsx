@@ -5,6 +5,7 @@ import { useVvvInset } from "@/components/vvv/inset";
 import { gateUp, leaveGate, passGate, subscribeGate } from "@/lib/axis-cube/gate";
 import { LOADER_HTML } from "@/lib/axis-cube/loader";
 import { mountAxisCube } from "@/lib/axis-cube/scene";
+import { makeSound, type AxisSound } from "@/lib/axis-cube/sound";
 
 type Look = "a" | "b" | "c";
 
@@ -67,6 +68,8 @@ function startOverIfNewer() {
  * On a phone, in a browser, the install screen comes first (lib/axis-cube/gate.ts): its markup is in the page as the
  * server sends it, shown or not by a class the page's inline script sets before the first paint. While it is up
  * the room is not built: the scene would take the main thread, and the button has to answer at once.
+ * The sounds (lib/axis-cube/sound.js) belong to the page, not to the scene: the install screen's button is heard
+ * too, and its tap is what wakes the audio, so the room that follows is not silent until a second touch.
  */
 export function Stage({ look = "a" }: { look?: Look }) {
   const host = useRef<HTMLDivElement>(null);
@@ -74,6 +77,11 @@ export function Stage({ look = "a" }: { look?: Look }) {
   const inset = useVvvInset(GUTTER);
   // on the server, and until the page has looked, the screen counts as up: nothing is built in the meantime
   const gated = useSyncExternalStore(subscribeGate, gateUp, () => true);
+  const voice = useRef<AxisSound | null>(null);
+  useEffect(() => {
+    const made = (voice.current = makeSound());
+    return () => { made.dispose(); if (voice.current === made) voice.current = null; };
+  }, []);
   useEffect(() => {
     // installed from the browser's own menu while the screen was up: there is nothing left to ask
     window.addEventListener("appinstalled", leaveGate);
@@ -85,7 +93,7 @@ export function Stage({ look = "a" }: { look?: Look }) {
     return startOverIfNewer();
   }, []);
   useEffect(
-    () => (host.current && !gated ? mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime }) : undefined),
+    () => (host.current && !gated ? mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime, sound: voice.current ?? undefined }) : undefined),
     [look, gated],
   );
   return (
@@ -106,7 +114,7 @@ export function Stage({ look = "a" }: { look?: Look }) {
         <p className="how android">
           <span>⋮ → Agregar a pantalla principal</span>
         </p>
-        <button type="button" className="ok" onClick={passGate}>
+        <button type="button" className="ok" onClick={() => { voice.current?.wake(); voice.current?.select(); passGate(); }}>
           <span className="listo">Listo</span>
           <span className="instalar">Instalar</span>
         </button>
