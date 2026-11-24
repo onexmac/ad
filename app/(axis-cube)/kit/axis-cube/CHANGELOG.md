@@ -26,7 +26,7 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 - Its screen is white on black: TOP SCORES, with empty rows for now, waiting for the score system.
 - The screen gives off a little cool light in place of the lamp's warm one. The arc lamp over the chair stays, since it is what lights the puzzles.
 - To make room, the turntable moves along the sideboard and the ashtray goes.
-- Under the hood: a test can set its own camera to look at something in the room. ([#150](https://github.com/onexmac/ad/pull/150))
+- Under the hood: a test can set its own camera to look at something in the room. ([#149](https://github.com/onexmac/ad/pull/149))
 
 ## 0.8.8 · 2026-11-24 00:31
 
