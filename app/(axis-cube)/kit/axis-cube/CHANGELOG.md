@@ -43,7 +43,7 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
   - On the right side of the skirt is the door, with its blue latch.
   - Underneath are the foot that folds out and four small feet.
 - Inside, the tube shows through the blue, square at the face and drawing in to its neck. The flat panels that used to show through, and the corner of the tube's mask that poked out of the shell, are gone.
-- The screen's light is now a wide spot just off the glass, pointing into the room. It lights what is in front of the screen, but no longer the iMac's own face or glass, which had glowed under the screen. (#PR)
+- The screen's light is now a wide spot just off the glass, pointing into the room. It lights what is in front of the screen, but no longer the iMac's own face or glass, which had glowed under the screen. ([#154](https://github.com/onexmac/ad/pull/154))
 
 ## 0.6.27 · 2026-11-24 07:02
 
