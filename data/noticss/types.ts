@@ -66,12 +66,18 @@ export type Weather = {
 
 export type Edition = {
   date: string;
+  /** Morning or afternoon edition; null for the first ones, one a day. */
+  slot: "manana" | "tarde" | null;
   /** Nº, counted from the first edition. */
   number: number;
   weather: Weather | null;
   indicators: Indicator[];
   subjects: Subject[];
+  /** A wider pool of storylines the reader's taste picks suggestions from. */
+  suggestions: Subject[];
 };
+
+export const slotName = { manana: "mañana", tarde: "tarde" } as const;
 
 export const categoryName: Record<Category, string> = {
   politica: "Política",
