@@ -277,6 +277,10 @@ in the bounce. When he says "vvv", this is what he means.
 
 Code: `components/vvv/Vvv.tsx`. First used on the Pads index
 (`components/pads/home/PadsHome.tsx`).
+The Pads look (technical minimalism) is now a component of its own,
+`components/tech-index/TechIndex.tsx`, with its stylesheet `tech.css` and its
+faces in `lib/tech-fonts.ts`. The Pads index and the `/ad` and `/kit`
+section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
 
 ### Two fits: vvs and vvt
 
