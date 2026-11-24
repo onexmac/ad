@@ -88,3 +88,9 @@ body {
   transition-duration: 90ms;
 }
 
+
+/* Tiles (./tiles.tsx): a square stays hidden until the page brings it in. */
+[data-tile]:not([data-tile-on]) {
+  opacity: 0;
+  transform: scale(0.86);
+}

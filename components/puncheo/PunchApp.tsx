@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import MiniSearch from "minisearch";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, animate, motion, useMotionValue } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
 import { Vvs, useVvvInset, useVvvScroller } from "@/components/vvv/Vvv";
-import { scrollToY, scrollTop, setScrollFrame } from "@/lib/puncheo/scroller";
+import { scrollTarget, scrollToY, scrollTop, setScrollFrame } from "@/lib/puncheo/scroller";
 import type { RoomSheet } from "@/data/puncheo/rooms";
 import type { Status } from "@/lib/puncheo/state";
 import { Toast, type Variant } from "./Chrome";
@@ -150,6 +150,65 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
   const walkScroll = useRef(0);
   const landAt = useRef<number | null>(null);
 
+  // The header peeks: back from the search (or onto another filter) deep in the
+  // page, it drops in from above the frame on a spring, as if it had been
+  // waiting there, and sits over the page. The next touch or wheel outside it
+  // sends it back up, and at the very top it is simply in its place again.
+  // Otherwise it is in the page's flow like anything else (no scroll-linked
+  // work while reading).
+  const head = useRef<HTMLDivElement>(null);
+  const headY = useMotionValue(0);
+  const [peek, setPeek] = useState(false);
+  const peekRun = useRef(0); // the latest peek; a stale hide's end mustn't undo a newer one
+  const reveal = () => {
+    const el = head.current;
+    if (!continuous || !el || scrollTop() < el.offsetHeight - 24) return;
+    const run = ++peekRun.current;
+    headY.set(-el.offsetHeight - 24);
+    setPeek(true);
+    // A springy pop: it slides down past its place (about a tenth of its height)
+    // and settles back up.
+    animate(headY, 0, { type: "spring", stiffness: 300, damping: 20, velocity: 900 }).then(() => {
+      if (run === peekRun.current) haptic.select();
+    });
+  };
+  const hidePeek = () => {
+    const el = head.current;
+    const run = ++peekRun.current;
+    animate(headY, -(el?.offsetHeight ?? 240) - 24, { type: "spring", stiffness: 420, damping: 40 }).then(() => {
+      if (run !== peekRun.current) return;
+      setPeek(false);
+      headY.set(0);
+    });
+  };
+  useEffect(() => {
+    if (!peek) return;
+    const scroller = scrollTarget();
+    const outside = (e: Event) => {
+      if (!head.current?.contains(e.target as Node)) hidePeek();
+    };
+    const top = () => {
+      // At the very top the header is in its own place: stop peeking, invisibly.
+      if (scrollTop() > 0) return;
+      ++peekRun.current;
+      headY.stop();
+      headY.set(0);
+      setPeek(false);
+    };
+    window.addEventListener("touchstart", outside, { passive: true });
+    window.addEventListener("pointerdown", outside);
+    window.addEventListener("wheel", outside, { passive: true });
+    scroller.addEventListener("scroll", top, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", outside);
+      window.removeEventListener("pointerdown", outside);
+      window.removeEventListener("wheel", outside);
+      scroller.removeEventListener("scroll", top);
+    };
+    // hidePeek and headY are stable enough for one peek's life.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [peek]);
+
   const query = q.trim();
   const f = FILTERS[filter];
   // Predictive search over every check of the ficha: prefix matches as you type,
@@ -218,7 +277,14 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
   );
   const page = (
       <motion.main style={{ scale, transformOrigin: origin }} className="mx-auto w-full max-w-[520px] px-4">
-        <SheetHeader sheet={sheet} s={s} current={variant} tone={cfg.tone} extra={cfg.counters ? <LetterTags s={s} /> : undefined} />
+        <motion.div ref={head} data-head style={{ y: headY }} className={peek ? "sticky top-0 z-[25]" : "relative"}>
+          {/* While it peeks, the page's own ground behind it, with a soft edge under it.
+              It reaches well above the header, so the pop's overshoot never opens a gap. */}
+          {peek ? (
+            <div aria-hidden className={`${cfg.ground} pointer-events-none absolute -inset-x-4 -bottom-3 -top-16 -z-10 shadow-[0_10px_18px_-12px_rgba(0,0,0,0.55)]`} />
+          ) : null}
+          <SheetHeader sheet={sheet} s={s} current={variant} tone={cfg.tone} extra={cfg.counters ? <LetterTags s={s} /> : undefined} />
+        </motion.div>
         {/* One stage for the walk and the search results: the outgoing content fades
             out first (the results in a quick cascade), then the incoming one comes in
             (the results cascading on a spring, the walk's rows rising as they show).
@@ -228,6 +294,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
           onExitComplete={() => {
             if (landAt.current !== null) scrollToY(landAt.current);
             landAt.current = null;
+            reveal();
           }}
         >
           {searching ? (

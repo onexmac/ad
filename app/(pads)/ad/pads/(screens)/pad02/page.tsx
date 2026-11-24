@@ -8,6 +8,7 @@ import { UserCardMobile } from "@/components/pads/movil/user-card-mobile";
 import { springs } from "@/lib/pads/springs";
 import { haptic } from "@/lib/pads/haptic";
 import { mockUsers, type User } from "@/lib/pads/mock-users";
+import { PadListSkeleton } from "@/components/skeleton/shapes";
 
 /**
  * /movil — USUARIOS, mobile. Same architecture as the desktop screen, rotated
@@ -58,87 +59,90 @@ export default function MovilUsuariosPage() {
   };
 
   return (
-    <main
-      className="relative mx-auto min-h-[100dvh] w-full max-w-[402px] bg-background"
-      style={{ overscrollBehaviorY: "none" }}
-    >
-      <div className="px-4 pb-[200px] pt-8">
-        <header className="px-1 pb-5">
-          <h1 className="text-[28px] font-semibold tracking-[0.4px] text-black">
-            USUARIOS
-          </h1>
-        </header>
+    <>
+      <main
+        className="relative mx-auto min-h-[100dvh] w-full max-w-[402px] bg-background"
+        style={{ overscrollBehaviorY: "none" }}
+      >
+        <div className="px-4 pb-[200px] pt-8">
+          <header className="px-1 pb-5">
+            <h1 className="text-[28px] font-semibold tracking-[0.4px] text-black">
+              USUARIOS
+            </h1>
+          </header>
 
-        {/* `layout` on the list + cards means filtering re-flows instead of
-            cutting: rows that stay visible slide to their new slot. */}
-        <motion.div layout className="flex flex-col gap-3">
-          <AnimatePresence initial={false} mode="popLayout">
-            {visible.map((user) => (
-              <motion.div
-                key={user.id}
-                layout
-                initial={{ opacity: 0, y: 12, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.14 } }}
-                transition={springs.morphing}
-              >
-                <div className="relative">
-                  <UserCardMobile
-                    user={user}
-                    expanded={expandedId === user.id}
-                    onToggle={() =>
-                      setExpandedId((cur) => (cur === user.id ? null : user.id))
-                    }
-                  />
-                  {/* Brief green ring on the row that just landed, so the new
-                      record is findable after the sheet closes. */}
-                  <motion.span
-                    aria-hidden
-                    initial={false}
-                    animate={{ opacity: justAdded === user.id ? 1 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="pointer-events-none absolute inset-0 rounded-[24px]"
-                    style={{ boxShadow: "0 0 0 2px #ADD010" }}
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+          {/* `layout` on the list + cards means filtering re-flows instead of
+              cutting: rows that stay visible slide to their new slot. */}
+          <motion.div layout className="flex flex-col gap-3">
+            <AnimatePresence initial={false} mode="popLayout">
+              {visible.map((user) => (
+                <motion.div
+                  key={user.id}
+                  layout
+                  initial={{ opacity: 0, y: 12, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.14 } }}
+                  transition={springs.morphing}
+                >
+                  <div className="relative">
+                    <UserCardMobile
+                      user={user}
+                      expanded={expandedId === user.id}
+                      onToggle={() =>
+                        setExpandedId((cur) => (cur === user.id ? null : user.id))
+                      }
+                    />
+                    {/* Brief green ring on the row that just landed, so the new
+                        record is findable after the sheet closes. */}
+                    <motion.span
+                      aria-hidden
+                      initial={false}
+                      animate={{ opacity: justAdded === user.id ? 1 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="pointer-events-none absolute inset-0 rounded-[24px]"
+                      style={{ boxShadow: "0 0 0 2px #ADD010" }}
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
 
-        {visible.length === 0 ? (
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={springs.expanding}
-            className="px-1 pt-6 text-[15px] text-gray-400"
-          >
-            No hay usuarios {filter === "activo" ? "activos" : "inactivos"}.
-          </motion.p>
-        ) : null}
-      </div>
+          {visible.length === 0 ? (
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={springs.expanding}
+              className="px-1 pt-6 text-[15px] text-gray-400"
+            >
+              No hay usuarios {filter === "activo" ? "activos" : "inactivos"}.
+            </motion.p>
+          ) : null}
+        </div>
 
-      <BottomBar
-        value={filter}
-        // Collapse on filter change: a card must never exit the list while its
-        // status badge is mid-morph. Nested AnimatePresence inside an exiting
-        // subtree can block the parent's exit and strand a ghost row — the bug
-        // that cost us hours on the desktop panel (MOTION_GOTCHAS.md #5).
-        // It's better UX too: filtering shouldn't preserve a stale expansion.
-        onChange={(v) => {
-          setExpandedId(null);
-          setFilter(v);
-        }}
-        hidden={sheetOpen}
-        count={visible.length}
-      />
+        <BottomBar
+          value={filter}
+          // Collapse on filter change: a card must never exit the list while its
+          // status badge is mid-morph. Nested AnimatePresence inside an exiting
+          // subtree can block the parent's exit and strand a ghost row — the bug
+          // that cost us hours on the desktop panel (MOTION_GOTCHAS.md #5).
+          // It's better UX too: filtering shouldn't preserve a stale expansion.
+          onChange={(v) => {
+            setExpandedId(null);
+            setFilter(v);
+          }}
+          hidden={sheetOpen}
+          count={visible.length}
+        />
 
-      <NuevoUsuarioSheet
-        open={sheetOpen}
-        onOpen={() => setSheetOpen(true)}
-        onDismiss={() => setSheetOpen(false)}
-        onCreated={addUser}
-      />
-    </main>
+        <NuevoUsuarioSheet
+          open={sheetOpen}
+          onOpen={() => setSheetOpen(true)}
+          onDismiss={() => setSheetOpen(false)}
+          onCreated={addUser}
+        />
+      </main>
+      <PadListSkeleton />
+    </>
   );
 }
