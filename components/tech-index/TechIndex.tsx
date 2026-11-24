@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { countApps, type PortalApp } from "@/lib/apps";
 import { Vvs, VvvGrow as Grow } from "@/components/vvv/Vvv";
+import { Tile, TileLink, TileStage } from "./tiles";
 
 /**
  * An index in technical minimalism: the Pads index, and the /ad and /kit
@@ -13,7 +13,9 @@ import { Vvs, VvvGrow as Grow } from "@/components/vvv/Vvv";
  * `lib/tech-fonts`.
  *
  * The page sits in a vvs (the short vvv, components/vvv): a rounded frame on a
- * black screen that scrolls inside itself, black beyond.
+ * black screen that scrolls inside itself, black beyond. Its squares are tiles
+ * (./tiles): they spring in at random when the page comes, and on a tap they
+ * spring out at random, the tapped one last, before the page goes.
  */
 export type TechIndexProps = {
   apps: PortalApp[];
@@ -50,6 +52,10 @@ export function TechIndex(props: TechIndexProps) {
 
   return (
     <Vvs radius={32} maxWidth={460} snap className="bg-deck">
+      <noscript>
+        <style>{"[data-tile]{opacity:1!important;transform:none!important}"}</style>
+      </noscript>
+      <TileStage>
       <main className="flex w-full flex-col gap-[var(--gutter)] p-[var(--gutter)]">
         {/* Every block is a snap stop, and grows into place as it comes up
             from the bottom of the frame (Noticss A's Grow, both ways). */}
@@ -74,6 +80,7 @@ export function TechIndex(props: TechIndexProps) {
           </Grow>
         </Snap>
       </main>
+      </TileStage>
     </Vvs>
   );
 }
@@ -95,7 +102,7 @@ function Snap({ children, end }: { children: ReactNode; end?: boolean }) {
 function Header({ label, id, mode, motto, mark, count }: TechIndexProps & { count: string }) {
   return (
     <section className="grid grid-cols-[1fr_118px] gap-[var(--gutter)]">
-      <div className="relative flex h-[118px] flex-col justify-between rounded-[var(--cell)] bg-panel p-4">
+      <Tile className="relative flex h-[118px] flex-col justify-between rounded-[var(--cell)] bg-panel p-4">
         <div className="flex items-start justify-between">
           <p className="font-mono text-[10px] font-semibold leading-[1.25] tracking-[0.08em] text-ink">
             {label.map((l, i) => (
@@ -118,8 +125,8 @@ function Header({ label, id, mode, motto, mark, count }: TechIndexProps & { coun
           <span className="block h-3 w-3 bg-signal" />
           <p className="font-mono text-[9px] tracking-[0.04em] text-ink-faint">{motto}</p>
         </div>
-      </div>
-      <div className="grid h-[118px] place-items-center rounded-[var(--cell)] bg-black">{mark}</div>
+      </Tile>
+      <Tile className="grid h-[118px] place-items-center rounded-[var(--cell)] bg-black">{mark}</Tile>
     </section>
   );
 }
@@ -143,16 +150,16 @@ export function AdelanteMark({ className }: { className?: string }) {
 function Bench({ strip, poster, count }: { strip: [string, string]; poster: string; count: string }) {
   return (
     <section className="grid h-[300px] grid-cols-[52px_1fr] gap-[var(--gutter)]">
-      <div className="flex flex-col items-center justify-between rounded-[var(--cell)] bg-signal py-5">
+      <Tile className="flex flex-col items-center justify-between rounded-[var(--cell)] bg-signal py-5">
         <span className="font-tech text-[15px] font-bold tracking-[0.06em] text-ink [writing-mode:vertical-rl] rotate-180">
           {strip[0]}
         </span>
         <span className="font-tech text-[15px] font-bold tracking-[0.06em] text-ink [writing-mode:vertical-rl] rotate-180">
           {strip[1]}
         </span>
-      </div>
+      </Tile>
 
-      <div className="relative overflow-hidden rounded-[var(--cell)] bg-panel-2">
+      <Tile className="relative overflow-hidden rounded-[var(--cell)] bg-panel-2">
         {/* Ghost numerals behind everything. */}
         <span
           aria-hidden
@@ -179,7 +186,7 @@ function Bench({ strip, poster, count }: { strip: [string, string]; poster: stri
           {poster}
         </p>
         <p className="absolute bottom-[18px] right-4 font-mono text-[10px] text-ink-soft">N.{count}</p>
-      </div>
+      </Tile>
     </section>
   );
 }
@@ -208,9 +215,9 @@ function Entry({
   const code = app.slug.toUpperCase();
 
   return (
-    <Link
+    <TileLink
       href={`${base}/${app.slug}`}
-      prefetch={false}
+      group={app.slug}
       className="press grid h-[208px] grid-cols-[40%_1fr] gap-[var(--gutter)] outline-none"
     >
       <Grow className="flex">
@@ -218,7 +225,7 @@ function Entry({
       </Grow>
 
       <Grow className="flex" lag={1}>
-        <div className="flex flex-1 flex-col justify-between rounded-[var(--cell)] bg-panel p-5">
+        <Tile className="flex flex-1 flex-col justify-between rounded-[var(--cell)] bg-panel p-5">
           <div className="flex items-center justify-between font-mono text-[11px]">
             <span className="text-ink-soft">
               {folder ? "dir" : kind}: <span className="text-ink">{code}</span>
@@ -240,9 +247,9 @@ function Entry({
               {folder ? ` · ${String(folder).padStart(2, "0")} APPS` : ""}
             </p>
           </div>
-        </div>
+        </Tile>
       </Grow>
-    </Link>
+    </TileLink>
   );
 }
 
@@ -250,35 +257,35 @@ function Column({ kind, no, glyph }: { kind: (typeof COLUMNS)[number]; no: strin
   if (kind === "signal") {
     return (
       <div className="flex-1 flex flex-col gap-[var(--gutter)]">
-        <div className="hatch h-[64px] rounded-[var(--cell)] border border-signal bg-[var(--signal-night)] [--hatch-ink:var(--signal)]" />
-        <div className="flex flex-1 flex-col items-center justify-end gap-3 rounded-[var(--cell)] bg-signal pb-4">
+        <Tile className="hatch h-[64px] rounded-[var(--cell)] border border-signal bg-[var(--signal-night)] [--hatch-ink:var(--signal)]" />
+        <Tile className="flex flex-1 flex-col items-center justify-end gap-3 rounded-[var(--cell)] bg-signal pb-4">
           <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
           <Badge dark>{glyph}</Badge>
-        </div>
+        </Tile>
       </div>
     );
   }
   if (kind === "hatch") {
     return (
-      <div className="flex-1 relative flex flex-col justify-between overflow-hidden rounded-[var(--cell)] bg-panel-2 p-4">
+      <Tile className="flex-1 relative flex flex-col justify-between overflow-hidden rounded-[var(--cell)] bg-panel-2 p-4">
         <div className="hatch-bold -mx-4 -mt-4 h-[46px]" />
         <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
         <Badge>{glyph}</Badge>
-      </div>
+      </Tile>
     );
   }
   if (kind === "dots") {
     return (
-      <div className="flex-1 dots relative flex flex-col justify-end rounded-[var(--cell)] bg-panel p-4 [--pitch:16px]">
+      <Tile className="flex-1 dots relative flex flex-col justify-end rounded-[var(--cell)] bg-panel p-4 [--pitch:16px]">
         <div className="flex items-end justify-between rounded-[12px] bg-panel pr-1 pt-2">
           <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
           <Badge>{glyph}</Badge>
         </div>
-      </div>
+      </Tile>
     );
   }
   return (
-    <div className="flex-1 flex flex-col justify-between rounded-[var(--cell)] bg-black p-4">
+    <Tile className="flex-1 flex flex-col justify-between rounded-[var(--cell)] bg-black p-4">
       <div className="flex gap-[5px]">
         {Array.from({ length: 5 }).map((_, i) => (
           <i key={i} className="block h-[5px] w-[5px] bg-signal" style={{ opacity: 1 - i * 0.17 }} />
@@ -288,7 +295,7 @@ function Column({ kind, no, glyph }: { kind: (typeof COLUMNS)[number]; no: strin
       <Badge dark invert>
         {glyph}
       </Badge>
-    </div>
+    </Tile>
   );
 }
 
@@ -321,10 +328,8 @@ function Footer({
   return (
     <section className="flex flex-col gap-[var(--gutter)]">
       {back ? (
-        <Link
-          href={back.href}
-          className="press flex h-[64px] items-center justify-between rounded-[var(--cell)] bg-black pl-3 pr-5 outline-none"
-        >
+        <TileLink href={back.href} group="back" className="press block outline-none">
+          <Tile className="flex h-[64px] items-center justify-between rounded-[var(--cell)] bg-black pl-3 pr-5">
           <span className="flex items-center gap-3">
             {/* 40 px round in a 64 px plate: 12 px in, radius 20 < 22. */}
             <span className="grid h-10 w-10 place-items-center rounded-full bg-signal text-ink">
@@ -337,18 +342,19 @@ function Footer({
             </span>
           </span>
           <span className="font-mono text-[9px] tracking-[0.04em] text-ink-faint">{back.path}</span>
-        </Link>
+          </Tile>
+        </TileLink>
       ) : null}
       <div className="grid grid-cols-[1fr_1fr] gap-[var(--gutter)]">
-        <div className="flex h-[150px] flex-col justify-between rounded-[var(--cell)] bg-panel p-4">
+        <Tile className="flex h-[150px] flex-col justify-between rounded-[var(--cell)] bg-panel p-4">
           <div className="dots h-[54px] w-[118px] [--dot:var(--ink)] [--pitch:13px] [background-position:0_0]" />
           <p className="font-mono text-[9px] leading-[1.4] tracking-[0.03em] text-ink-soft">
             {colophon[0]}
             <br />
             {colophon[1]}
           </p>
-        </div>
-        <div className="flex h-[150px] flex-col justify-between overflow-hidden rounded-[var(--cell)] bg-panel">
+        </Tile>
+        <Tile className="flex h-[150px] flex-col justify-between overflow-hidden rounded-[var(--cell)] bg-panel">
           <div className="flex items-start justify-between p-4">
             <XMark />
             <span className="block h-3 w-3 bg-signal" />
@@ -361,7 +367,7 @@ function Footer({
             </p>
             <div className="hatch-bold h-[26px]" />
           </div>
-        </div>
+        </Tile>
       </div>
     </section>
   );
@@ -381,13 +387,14 @@ function XMark() {
 
 const BARS = [2, 1, 3, 1, 1, 2, 4, 1, 2, 1, 1, 3, 1, 2, 2, 1, 4, 1, 1, 2, 1, 3, 1, 1, 2, 1, 2, 3, 1, 1];
 
+// Each bar's left edge: the widths before it, each followed by a gap of 2 (every third) or 1.
+const BAR_X = BARS.map((_, i) => BARS.slice(0, i).reduce((x, w, j) => x + w + (j % 3 === 0 ? 2 : 1), 0));
+
 function Barcode({ className }: { className?: string }) {
-  let x = 0;
-  const rects = BARS.map((w, i) => {
-    const r = i % 2 === 0 ? <rect key={i} x={x} y={0} width={w} height={34} fill="var(--ink)" /> : null;
-    x += w + (i % 3 === 0 ? 2 : 1);
-    return r;
-  });
+  const x = BAR_X[BARS.length - 1] + BARS[BARS.length - 1] + ((BARS.length - 1) % 3 === 0 ? 2 : 1);
+  const rects = BARS.map((w, i) =>
+    i % 2 === 0 ? <rect key={i} x={BAR_X[i]} y={0} width={w} height={34} fill="var(--ink)" /> : null,
+  );
   return (
     <svg className={className} width={x} height={34} viewBox={`0 0 ${x} 34`} aria-hidden>
       {rects}

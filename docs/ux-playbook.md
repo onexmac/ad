@@ -312,7 +312,7 @@ section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
 | Bottom | above Safari's bar, rounded | same |
 | Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
 
-Pads uses vvs. Noticss B (`/kit/noticss/b`) uses vvt: like Axis Cube it lays
+Pads uses vvs. Noticss B (`/kit/noticss/b`) uses vvt: like The Cubes it lays
 its own frame (`useVvvInset`), and an open page fills that frame, its top
 corners going square as it opens and its bottom ones the frame's (44 px, the
 same as a card's).
@@ -382,7 +382,7 @@ same as a card's).
 | Snap | mandatory, a stop per block |
 | Grow | from 0.94, 18 px, opacity 0.35, `GROW_SPRING` |
 
-### A page that doesn't scroll (Axis Cube)
+### A page that doesn't scroll (The Cubes, `/kit/axis-cube`)
 
 A canvas has nothing to scroll, so it doesn't take the `Vvv` scroller. It lays
 the same two boxes in its own stylesheet (a black ground `100lvh` tall, and
@@ -432,6 +432,61 @@ doesn't load the scroller or its animation library. Two things to carry over:
 - **Not yet tested on a real iPhone:** where the frame's bottom edge lands
   under iOS 26 Safari's floating bar. If it sits behind the bar or leaves too
   much black, adjust `useVvvInset`, not the page.
+
+## Coming and going: tiles and skeletons
+
+How the portal moves between pages. Code: `components/tech-index/tiles.tsx`
+(the indices) and `components/skeleton/` (the apps).
+
+### Leaving an index (`/`, `/ad`, `/kit`, `/ad/pads`)
+
+Every square of a technical-minimalism index is a `Tile`; every link on it is
+a `TileLink`. A tap empties the page before it goes:
+
+1. The squares inside the frame shrink to 0.78 and fade, on a spring that dips
+   past its mark, one by one in a **random** order, spread over about 280 ms.
+2. The squares of the tapped entry (its column and its plate) go **last**,
+   80 ms after the others.
+3. When the tapped one has faded, the page leaves: by the router inside the
+   index shell (`/`, `/ad`, `/kit` share a root layout, so nothing reloads),
+   and by a plain navigation anywhere else. About 550 ms from tap to leaving.
+
+Squares below the fold vanish at once, so a bounce shows nothing behind.
+Modified clicks (new tab) go straight through. Reduced motion skips it.
+
+### Arriving at an index
+
+The squares are hidden in the HTML (`[data-tile]` in `tech.css`) and spring in
+when the page is ready: the ones in the frame one by one at random (0.86 to 1
+with a little overshoot, 45 ms apart), the rest at once. It plays again when
+Safari brings the page back from its cache (`pageshow`, `persisted`), because
+the page was left empty.
+
+### Arriving at an app: skeleton loading
+
+An app with no loading of its own gets a `SkeletonGate` beside its content in
+its `page.tsx`, with its first screen drawn in `Bone`s in its own tokens
+(`components/skeleton/shapes.tsx`). Today: Updatr, Noticss, Puncheo, pad01,
+pad02, pad03. Histok (its image skeletons) and Axis Cube (its loading screen)
+have their own; KPI lives outside.
+
+- Until the app is ready, everything else on the page is hidden. Ready means
+  hydrated, fonts in, and the pictures of the first screen loaded, capped at
+  2.5 s.
+- The bones wait 140 ms, then spring in top to bottom. A load that is ready
+  before then never shows them: the app just fades in.
+- A bone that showed stays at least 380 ms. Then the bones spring out in a
+  random order while the app fades in under them.
+- It is plain markup and CSS until it hydrates (springs as CSS `linear()`
+  easings), so the skeleton is there from the first paint.
+- A skeleton on an opaque surface (Puncheo's frame) marks it `.skel-shell` and
+  the gate `shell`: the app shows at once underneath and the shell fades over
+  it, so there is no dip in the cross-fade.
+- If the script never runs, the page shows itself after 6 s (at once with
+  scripting off).
+
+New app: write its skeleton next to the others unless it brings its own
+loading.
 
 ## Starting a new app
 

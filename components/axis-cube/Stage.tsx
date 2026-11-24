@@ -102,7 +102,7 @@ export function Stage({ look = "a" }: { look?: Look }) {
         <div ref={host} className="axis" style={{ top: inset.top, bottom: inset.bottom }} />
       </div>
       <div ref={loader} className="axis-loader" role="progressbar" aria-label="Cargando" dangerouslySetInnerHTML={{ __html: LOADER_HTML }} />
-      <div className="axis-gate" role="dialog" aria-label="Instalar Axis Cube">
+      <div className="axis-gate" role="dialog" aria-label="Instalar The Cubes">
         {/* eslint-disable-next-line @next/next/no-img-element -- the app's own icon, as it is on the home screen */}
         <img className="mark" src="/kit/axis-cube/icon-512.png" alt="" width={512} height={512} draggable={false} />
         <p className="how ios">
