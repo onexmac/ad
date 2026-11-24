@@ -36,6 +36,11 @@ import { useVvvInset } from "./inset";
  *     there; it scrolls on up under the island.
  * Both end above Safari's bottom bar.
  *
+ * Corners near the frame's corners: anything that sits close to one of the
+ * frame's corners (a key in a bottom bar, a card against the top) rounds that
+ * one corner as the frame's own curve drawn inward by its distance from each
+ * edge, like a stroke inside the frame's line: `useVvvCorner(dx, dy)`.
+ *
  * How to use it, and what not to do: docs/ux-playbook.md, "vvv".
  */
 export type VvvFit = "short" | "tall";
@@ -100,13 +105,44 @@ export function Vvv({
           scrollPaddingTop: tall ? inset.sat : undefined,
         }}
       >
-        <VvvContext.Provider value={frame}>{children}</VvvContext.Provider>
+        <VvvContext.Provider value={frame}>
+          <VvvRadiusContext.Provider value={radius}>{children}</VvvRadiusContext.Provider>
+        </VvvContext.Provider>
       </div>
     </div>
   );
 }
 
 const VvvContext = createContext<RefObject<HTMLDivElement | null> | null>(null);
+
+const VvvRadiusContext = createContext<number | null>(null);
+
+/** The frame's corner radius, or null outside a vvv frame. */
+export function useVvvRadius() {
+  return useContext(VvvRadiusContext);
+}
+
+/**
+ * The corner for something sitting near one of the frame's corners: the frame's
+ * curve drawn inward by the element's distance from the side (`dx`) and from the
+ * top or bottom (`dy`), so the two lines run parallel, like a stroke inside the
+ * frame's. Not the frame's radius, and not one radius for both axes: on a 28 px
+ * frame, a key 12 px from the side and 8 px from the bottom gets 16 × 20.
+ *
+ *   const c = vvvCorner(28, 12, 8); // "16px 20px"
+ *   <button style={{ borderBottomLeftRadius: c }} />
+ *
+ * `min` keeps the corner from going below the element's other corners.
+ */
+export function vvvCorner(radius: number, dx: number, dy: number, min = 0) {
+  return `${Math.max(min, radius - dx)}px ${Math.max(min, radius - dy)}px`;
+}
+
+/** `vvvCorner` with the surrounding frame's radius; undefined outside a frame. */
+export function useVvvCorner(dx: number, dy: number, min = 0) {
+  const radius = useVvvRadius();
+  return radius === null ? undefined : vvvCorner(radius, dx, dy, min);
+}
 
 /** The frame's scroller: pass it as `container` to anything that reads scroll. */
 export function useVvvScroller() {
