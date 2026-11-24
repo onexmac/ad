@@ -112,6 +112,7 @@ matched; when they differ, Updatr is the newer and better-tested one.
 | Calendar picker | Roomy month blocks; a row is an ISO week. The item in view is ink, today has an accent dot, unavailable weeks are faint. | `components/updatr/Editions.tsx` | rows 52 px; 56 px gutter |
 | Follow (bookmark) | Toggle in the article's controls, with a short confirmation note. Date-first list of followed items. | `lib/updatr/watch.ts`, `components/updatr/Watching.tsx`, `Bookmark.tsx` | stored on the device until the server exists |
 | Opener | One article at a time. A closing one gives way to a new tap. | `components/updatr/useOpener.ts` | — |
+| Top bar peek | On a screen change (walk ↔ search, a filter, a jump to a room), if the top bar was out of sight it drops in from above the frame, as if it had been waiting there, even when the new screen starts at the top. Only the bar, never the cards under it. Fully opaque, no fade. Its overshoot carries the whole page down with it at the same rhythm, and its fill (not its labels) stretches up to the frame's top so no gap opens. Sticky only while peeking; the next touch or wheel outside it sends it back up, and at the very top it is just in its place. A room jump lands just under where the bar will sit. | `PunchApp.tsx` (`reveal`, `park`, `PEEK_SPRING`), `Header.tsx` (`HeadPeek`), `RoomScroll.tsx` (`onArrive`) in `components/puncheo/` | spring `visualDuration 0.42, bounce 0.4`; starts bar height + 8 px above; hides on `{420, 40}` |
 
 ## iOS Safari traps (each cost a round)
 
@@ -186,6 +187,24 @@ matched; when they differ, Updatr is the newer and better-tested one.
   don't let it ignore its ancestor's opacity. Clip it and carry the opacity.
 - **Don't use CSS scroll-snap for strips that should feel physical.** Use the
   spring strip. Its ends rubber-band and it always lands on a card.
+- **Don't rely on a motion value to hide something across a scroll jump.**
+  Motion writes a motion value to the element on its next frame, but a
+  scroll jump (`scrollTo`) is painted at once. Puncheo's top bar showed in
+  its place for one frame after the jump to the top, then vanished and
+  dropped in: a flicker Marcos caught. Hide it before the jump (it is out of
+  sight then anyway) and write the transform to the element straight away
+  (`el.style.transform`) as well as setting the value (`park` in
+  `components/puncheo/PunchApp.tsx`). Check it frame by frame: record the
+  transition (Playwright `recordVideo`, then `ffmpeg -vf fps=25`) or log the
+  element's position on every `requestAnimationFrame`.
+- **Don't leave a `layout` animation listening to every render.** An element
+  with `layout` re-animates whenever anything re-renders and moves it. When
+  the header dropped in, the Planos key vanished and trailed behind it, which
+  read as the header fading. Give it `layoutDependency` (the state that
+  really reshapes it) so only that sets it off.
+- **Don't take "it fades" at face value.** Twice the "fade" Marcos saw was
+  something else: a child lagging on a layout animation, and the content
+  under the bar fading in. Record it and look before changing the spring.
 
 ### Touch and gestures
 - **Don't open on pointerup.** Open on the native click: a touch that stops a

@@ -75,3 +75,8 @@
   a padded rim, taken back with a negative margin. Check edges and corners in
   3× screenshots, cropped and enlarged, before shipping (playbook, "Layout and
   chrome" and "How Marcos works").
+- Motion across a screen change: a motion value reaches the element a frame
+  late, but a scroll jump paints at once, so hide anything before the jump
+  and write its transform straight to the element; bound `layout` animations
+  with `layoutDependency`. Check transitions frame by frame in a recording
+  (playbook, "Images and motion"; the top bar peek in "Patterns").
