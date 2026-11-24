@@ -65,6 +65,7 @@ export const Page = memo(function Page({
           edition={card.from ?? edition}
           earlier={!!card.from}
           suggested={card.suggested}
+          more={card.more}
           photo={photo}
           h={h}
           id={id}
@@ -104,6 +105,7 @@ function SubjectPage({
   edition,
   earlier,
   suggested,
+  more,
   photo,
   h,
   id,
@@ -111,6 +113,7 @@ function SubjectPage({
 }: {
   subject: Subject;
   suggested?: Suggested;
+  more?: { count: number; section: string };
   edition: Edition;
   earlier: boolean;
   photo: RefObject<HTMLDivElement | null>;
@@ -133,7 +136,7 @@ function SubjectPage({
           </h2>
           <p className={`mt-4 text-[13px] italic ${subject.image ? "text-paper/70" : "text-ink-soft"}`}>
             {earlier ? `De la edición del ${dayMonth(edition.date)} · ` : ""}
-            {subject.notes.length} notas · {shortDate(edition.date)}
+            {subject.notes.length + (more?.count ?? 0)} {subject.notes.length + (more?.count ?? 0) === 1 ? "nota" : "notas"} · {shortDate(edition.date)}
             {subject.image?.credit ? ` · Foto: ${subject.image.credit}` : ""}
           </p>
         </div>
@@ -164,6 +167,11 @@ function SubjectPage({
             </span>
           </button>
         ))}
+        {more ? (
+          <p className="mono mt-5 text-ink-soft">
+            {more.count} {more.count === 1 ? "nota más" : "notas más"} en {more.section}
+          </p>
+        ) : null}
         <p className="mt-6 text-[15px] italic text-ink-soft">Toque una nota, o siga bajando.</p>
       </div>
     </div>
