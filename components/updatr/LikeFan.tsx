@@ -7,8 +7,8 @@ import type { Verdict } from "@/lib/updatr/taste";
 
 /*
  * Updatr's like control, next to the bookmark: Noticss's fan
- * (components/noticss/b/LikeFan.tsx) in Updatr's square, mono look.
- * Path's fan with Pinterest's press:
+ * (components/noticss/b/LikeFan.tsx, kept in step with it) in Updatr's
+ * square, mono look. Path's fan with Pinterest's press:
  *
  * - tap: the choices spin out of the button along an arc, each with its
  *   label, on a spring that overshoots and settles; tap one (or anywhere else
@@ -44,7 +44,14 @@ const CHOICES: { v: Verdict; dx: number; dy: number; label: string; tag: string 
 /** Out: an overshooting spring (Path's bounce); back in: quick and flat. */
 const OUT = { type: "spring", stiffness: 520, damping: 16, mass: 0.9 } as const;
 const BACK = { type: "spring", stiffness: 700, damping: 40 } as const;
-const STAGGER = 0.05;
+/** Like first, dislike a clear beat behind. */
+const STAGGER = 0.15;
+/** The label's spin trails its circle's by this much, on a slightly softer spring, and it fades in later still. */
+const LABEL_LAG = 0.06;
+const LABEL_FADE = 0.24;
+const LABEL_SPIN = { type: "spring", stiffness: 260, damping: 30, mass: 0.9 } as const;
+/** On the way back the labels go first, then the circles. */
+const LABEL_OUT = 0.08;
 
 export function Heart({ on, crossed = false, size = 18 }: { on: boolean; crossed?: boolean; size?: number }) {
   return (
@@ -84,6 +91,20 @@ function pulled(o: { dx: number; dy: number }, fx: number, fy: number, on: boole
   return { x: o.dx + vx * k, y: o.dy + vy * k, d: d0 * (1 - k) };
 }
 
+/** Red starts this far from a choice's place and is full by here, before the finger covers it. */
+const RED_FROM = 120;
+const RED_FULL = 72;
+
+/** How near the finger is to a choice, 0..1, for the nearest choice only (the one gravity draws). */
+function nearness(o: { dx: number; dy: number }, fx: number, fy: number, on: boolean) {
+  if (!on) return 0;
+  const d0 = Math.hypot(fx - o.dx, fy - o.dy);
+  if (!CHOICES.every((c) => Math.hypot(fx - c.dx, fy - c.dy) >= d0)) return 0;
+  return Math.max(0, Math.min(1, (RED_FROM - d0) / (RED_FROM - RED_FULL)));
+}
+
+const mix = (a: string, b: string, t: number) => `color-mix(in srgb, var(${a}) ${Math.round(t * 100)}%, var(${b}))`;
+
 function Choice({
   o,
   i,
@@ -108,36 +129,76 @@ function Choice({
   const ty = useTransform(() => pulled(o, fx.get(), fy.get(), pulling.get() > 0).y - o.dy);
   const gx = useSpring(tx, { stiffness: 420, damping: 26 });
   const gy = useSpring(ty, { stiffness: 420, damping: 26 });
+  // The approaching finger warms the choice to red, quickly, so it shows red
+  // before the finger hides it: the circle, its mark and its label.
+  const near = useSpring(
+    useTransform(() => nearness(o, fx.get(), fy.get(), pulling.get() > 0)),
+    { stiffness: 900, damping: 50 },
+  );
+  const fill = useTransform(near, (t) => mix("--accent", "--paper", t));
+  const mark = useTransform(near, (t) => mix("--paper", "--ink", Math.min(1, t * 1.6)));
+  const tag = useTransform(near, (t) => mix("--accent", "--ink", t));
   const n = CHOICES.length;
+  // Like comes out first, dislike close behind; back in, the other way round.
+  const lead = i * STAGGER;
+  const back = (n - 1 - i) * STAGGER * 0.6;
   return (
+    // The choice's place on the arc: it flies out of the button and back.
     <motion.div
       className="pointer-events-none absolute left-0 top-0 h-12 w-12"
-      initial={{ x: 0, y: 0, rotate: -220, scale: 0.2, opacity: 0 }}
-      animate={{ x: o.dx, y: o.dy, rotate: 0, scale: 1, opacity: 1, transition: { ...OUT, delay: i * STAGGER } }}
-      exit={{ x: 0, y: 0, rotate: -220, scale: 0.2, opacity: 0, transition: { ...BACK, delay: (n - 1 - i) * STAGGER * 0.6 } }}
+      initial={{ x: 0, y: 0, scale: 0.2, opacity: 0 }}
+      animate={{ x: o.dx, y: o.dy, scale: 1, opacity: 1, transition: { ...OUT, delay: lead } }}
+      exit={{ x: 0, y: 0, scale: 0.2, opacity: 0, transition: { ...BACK, delay: back + LABEL_OUT } }}
     >
-      <motion.div className="h-full w-full" style={{ x: gx, y: gy }}>
-        <motion.button
-          type="button"
-          aria-label={o.label}
-          aria-pressed={chosen}
-          onClick={onPick}
-          animate={{ scale: hover ? 1.2 : 1 }}
-          transition={{ type: "spring", stiffness: 600, damping: 22 }}
-          className={`pointer-events-auto relative grid h-12 w-12 place-items-center border border-ink shadow-[0_10px_24px_-10px_rgba(11,11,11,.45)] transition-colors ${
-            hover || chosen ? "bg-accent text-paper" : "bg-paper text-ink"
-          }`}
-          style={{ touchAction: "none" }}
+      <motion.div className="relative h-full w-full" style={{ x: gx, y: gy }}>
+        {/* The circle spins in as it flies. */}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ rotate: -220 }}
+          animate={{ rotate: 0, transition: { ...OUT, delay: lead } }}
+          exit={{ rotate: -220, transition: { ...BACK, delay: back + LABEL_OUT } }}
         >
-          <Heart on={chosen} crossed={o.v === "dislike"} />
-          <span
-            className={`mono pointer-events-none absolute bottom-[calc(100%+6px)] left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-[4px] transition-colors ${
-              hover ? "bg-ink text-paper" : "bg-ground/90 text-ink"
-            }`}
+          <motion.button
+            type="button"
+            aria-label={o.label}
+            aria-pressed={chosen}
+            onClick={onPick}
+            animate={{ scale: hover ? 1.2 : 1 }}
+            transition={{ type: "spring", stiffness: 600, damping: 22 }}
+            className="pointer-events-auto grid h-12 w-12 place-items-center border border-ink shadow-[0_10px_24px_-10px_rgba(11,11,11,.45)]"
+            style={{ touchAction: "none", backgroundColor: chosen ? "var(--accent)" : fill, color: chosen ? "var(--paper)" : mark }}
           >
-            {o.tag}
-          </span>
-        </motion.button>
+            <Heart on={chosen} crossed={o.v === "dislike"} />
+          </motion.button>
+        </motion.div>
+        {/*
+         * The label rides on the circle (it turns about the circle's centre, so
+         * it orbits with it and is never left behind) but its spin trails the
+         * circle's by a beat, and it fades in after it. It goes first on the
+         * way back.
+         */}
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          initial={{ rotate: -220, opacity: 0 }}
+          animate={{
+            rotate: 0,
+            opacity: 1,
+            transition: { rotate: { ...LABEL_SPIN, delay: lead + LABEL_LAG }, opacity: { duration: 0.22, ease: "easeOut", delay: lead + LABEL_FADE } },
+          }}
+          exit={{ rotate: -120, opacity: 0, transition: { duration: LABEL_OUT, ease: "easeIn" } }}
+        >
+          <motion.span
+            animate={{ scale: hover ? 1.06 : 1 }}
+            transition={{ type: "spring", stiffness: 600, damping: 24 }}
+            className="absolute inset-x-0 bottom-[calc(100%+6px)] flex justify-center"
+          >
+            {/* Light text on a dark tag, warming to red with the circle. */}
+            <motion.span className="mono whitespace-nowrap px-2 py-[4px] text-paper" style={{ backgroundColor: tag }}>
+              {o.tag}
+            </motion.span>
+          </motion.span>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
