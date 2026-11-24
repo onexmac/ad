@@ -45,6 +45,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.27** A known object's form isn't built from boxes.
 - **0.6.30** Real objects are modelled from photographs, not memory.
 - **0.6.35** Nothing on a loading screen waits for the app's scripts or a long task.
+- **0.6.38** A real puzzle's geometry comes from photographs of it, not memory.
 
 Open:
 
@@ -54,6 +55,18 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.38 · 2026-11-24 16:10
+
+- **Bug fix.** Marcos, 24 Nov 15:28, with a photograph of the real one: "The black and white cube isn't right, look carefully at the image."
+  - Cause: the Ghost Cube was built from a guess. Its cuts were turned about the upright axis only, so its sides showed a straight grid of rectangles and only its top a cross. On the real one the turning axes are tilted every way inside the cube and the cuts sit off its centre, so every face is crossed by diagonal cuts. Its pieces come in every shape: long six-sided "coffins", triangles, slanted bars.
+  - Don't: build a real puzzle's geometry from memory. Work from photographs of it, and compare the renders with them face by face.
+- The Ghost Cube's mechanism is tilted every way inside its cube: 45° about one of the cube's axes, 30° about the next, 10° about the third. Like before, it sits off the cube's centre.
+  - The published descriptions say only that the axes are turned inside the cube so no two pieces are alike, with no angles.
+  - So the tilt and the offset were found by a search: cuts crossing every face on the diagonal, with about nine large pieces a face and few slivers. Then they were checked against the photograph.
+  - The Axis Cube's own tilt was tried first. It broke every face into small triangles.
+- Its stickers are as on the real one: each is a white frame round black, the shape of its face. The frame is 0.1 of a layer wide, close to the piece's edge, with crisp corners.
+- Like the Axis Cube, it floats with its mechanism square to the screen, so the rings turn the layers you see. At rest on the ottoman it sits square to its cube, which shows the diagonal cuts. ([#161](https://github.com/onexmac/ad/pull/161))
 
 ## 0.6.35 · 2026-11-24 09:25
 
