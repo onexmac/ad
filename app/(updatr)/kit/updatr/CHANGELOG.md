@@ -39,7 +39,7 @@ Still open: none reported.
   - Two to see: two big landscape pictures, one to each side.
   - Mosaic: one tall picture and two squares, with their titles under them (when the week has enough pictures).
 - The contents fit the new run on one page, a line each, with a Gallery and a Dates row.
-- The edition pipeline looks harder for pictures. The research gives, for each story, up to three other pages about it, and the picture step tries the source page and then those, keeping the first real photo (still never a site's logo card, still linked, not copied). Entries already in the week without a picture go back to the research by title, to find other pages for them. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The edition pipeline looks harder for pictures. The research gives, for each story, up to three other pages about it, and the picture step tries the source page and then those, keeping the first real photo (still never a site's logo card, still linked, not copied). Entries already in the week without a picture go back to the research by title, to find other pages for them. ([#159](https://github.com/onexmac/ad/pull/159))
 
 ## 0.5.0 · 2026-11-24 08:04
 
