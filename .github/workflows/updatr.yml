@@ -1,0 +1,86 @@
+name: Updatr · edition
+
+# Once a day, off the top of the hour (GitHub's scheduler is busiest there):
+#   13:23 UTC = 07:23 in Costa Rica. Each run updates the week's issue
+#   (Nº = ISO week): new stories are added, a story that moved on is replaced
+#   under the same id, so a followed one is found again.
+# GitHub only runs schedules from the default branch's copy of this file.
+on:
+  schedule:
+    - cron: "23 13 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "YYYY-MM-DD (empty: today in Costa Rica)"
+        required: false
+      days:
+        description: "How many days back to search (empty: 2, or 7 for a new week)"
+        required: false
+
+concurrency:
+  group: updatr-edition
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  edition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      # Without a key the run does not fail: the editions already published
+      # stay, and nothing is committed. The key is the same Actions secret
+      # Noticss uses (ANTHROPIC_API_KEY). UPDATR_MODEL (a repository variable)
+      # can change the model; the default is in scripts/updatr/generate.mjs.
+      - name: Make the edition
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          UPDATR_MODEL: ${{ vars.UPDATR_MODEL }}
+          DATE: ${{ inputs.date }}
+          DAYS: ${{ inputs.days }}
+        run: |
+          set --
+          if [ -n "$DATE" ]; then
+            echo "$DATE" | grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$' || { echo "bad date"; exit 1; }
+            set -- "$@" --date "$DATE"
+          fi
+          if [ -n "$DAYS" ]; then
+            echo "$DAYS" | grep -Eq '^[0-9]{1,2}$' || { echo "bad days"; exit 1; }
+            set -- "$@" --days "$DAYS"
+          fi
+          node scripts/updatr/edition.mjs "$@"
+
+      - name: Anything new?
+        id: diff
+        run: |
+          git add data/updatr public/kit/updatr/latest.json
+          if git diff --cached --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+
+      # The app must still build with the new edition before it reaches main
+      # (a push to main is a deploy).
+      - name: Build the portal against it
+        if: steps.diff.outputs.changed == 'true'
+        run: npx next build
+
+      - name: Publish
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          name=$(git diff --cached --name-only -- 'data/updatr/*.json' | head -1 | xargs -r basename -s .json)
+          git commit -q -m "Updatr: edition ${name:-update}"
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            sleep $((i * 10))
+          done
+          exit 1

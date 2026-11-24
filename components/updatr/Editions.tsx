@@ -20,7 +20,7 @@ const END_LIFT_MAX = 160;
 const END_COMMIT = 130;
 const DAY = 86_400_000;
 
-/** Demo: how many entries an edition carried (the server will say). */
+/** Demo fallback: how many entries an edition carried, when the caller doesn't say. */
 export const entriesIn = (n: number) => 12 + ((n * 7) % 9);
 
 type Week = { n: number; days: { iso: string; day: number; inMonth: boolean }[]; from: string; to: string };
@@ -105,6 +105,8 @@ export function EditionsReadout({
 export function Editions({
   issueNo,
   latest,
+  has,
+  count,
   onPick,
   onClose,
 }: {
@@ -112,6 +114,10 @@ export function Editions({
   issueNo: number;
   /** The newest edition that exists. */
   latest: number;
+  /** Which issues exist (default: every week up to `latest`). */
+  has?: (n: number) => boolean;
+  /** How many entries an issue carries (default: a demo count). */
+  count?: (n: number) => number | null;
   onPick: (n: number) => void;
   onClose: () => void;
 }) {
@@ -315,14 +321,14 @@ export function Editions({
               Editions
             </span>
             <span>{year}</span>
-            <span>{pad(latest)} issues</span>
+            <span>{pad(has ? Array.from({ length: latest }, (_, i) => i + 1).filter(has).length : latest)} issues</span>
           </div>
 
           <div className="mt-14">
             <p className="mono text-ink-soft">In view</p>
             <p className="mt-2 text-[64px] font-medium leading-[0.85] tracking-[-0.05em] tabular-nums">Nº{issueNo}</p>
             <p className="mono mt-4 text-ink-soft">
-              {short(viewFrom)} — {short(viewTo)} · {pad(entriesIn(issueNo))} entries
+              {short(viewFrom)} — {short(viewTo)} · {pad((count ? count(issueNo) : entriesIn(issueNo)) ?? 0)} entries
             </p>
           </div>
 
@@ -345,7 +351,7 @@ export function Editions({
               </div>
               <ol>
                 {m.weeks.map((w) => {
-                  const exists = w.n >= 1 && w.n <= latest && Number(w.days[3].iso.slice(0, 4)) === year;
+                  const exists = (has ? has(w.n) : w.n >= 1 && w.n <= latest) && Number(w.days[3].iso.slice(0, 4)) === year;
                   const inView = w.n === issueNo && exists;
                   return (
                     <li key={w.from}>
@@ -380,7 +386,7 @@ export function Editions({
                           </span>
                         ))}
                         <span className={`mono pr-2 text-right ${inView ? "text-paper/70" : "text-ink-soft"}`}>
-                          {exists ? pad(entriesIn(w.n)) : ""}
+                          {exists ? pad((count ? count(w.n) : entriesIn(w.n)) ?? 0) : ""}
                         </span>
                       </motion.button>
                     </li>

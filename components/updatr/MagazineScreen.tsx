@@ -5,7 +5,7 @@ import { AnimatePresence, LayoutGroup, animate, motion, useScroll, useSpring, us
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { kindLabel, kindOrder, type Franchise, type Item, type Kind } from "@/data/updatr/types";
-import { SNAPSHOT, countdown, daysFrom, dot, isoWeek, pad, spell } from "@/lib/updatr/format";
+import { SNAPSHOT, countdown, daysFrom, dot, pad, spell } from "@/lib/updatr/format";
 import { buildIssue } from "@/lib/updatr/issue";
 import { HoldImage, type OpenFrom } from "./HoldImage";
 import { Detail } from "./Detail";
@@ -16,6 +16,9 @@ import { BottomBar, type Tab } from "./BottomBar";
 import { useOpener } from "./useOpener";
 import { useEdgeSquish } from "./useEdgeSquish";
 import { PullReadout, ReloadScreen, useBottomPull, useEdgePull } from "./Reload";
+import { ItemLike } from "./ItemLike";
+import { catalog, fetchLatest, LATEST_URL, newer, type Edition } from "@/lib/updatr/editions";
+import { markSeen, nudge, pickSuggestions, useFrozenTaste } from "@/lib/updatr/taste";
 import { Editions, EditionsReadout } from "./Editions";
 import { Watching } from "./Watching";
 import { Arrow } from "./Arrow";
@@ -129,25 +132,55 @@ function Marquee({ items }: { items: string[] }) {
 
 /* ---------- screen ---------- */
 
-export function MagazineScreen({ items, franchises }: { items: Item[]; franchises: Franchise[] }) {
+export function MagazineScreen({ editions: initial, franchises }: { editions: Edition[]; franchises: Franchise[] }) {
   const byId = useMemo(() => Object.fromEntries(franchises.map((f) => [f.id, f])), [franchises]);
-  // Each fetch from the bottom of the page brings the next edition.
-  const [edition, setEdition] = useState(0);
-  // The issue being fetched (from the bottom pull, or picked on the calendar).
-  const [fetchTarget, setFetchTarget] = useState<number | null>(null);
+  // The weekly editions the app carries, newest first; a pull past the bottom
+  // can bring a newer one in from the server without a reload.
+  const [eds, setEds] = useState(initial);
+  const newest = eds[0];
+  const [view, setView] = useState({ year: newest.year, week: newest.week });
+  const ed = eds.find((e) => e.year === view.year && e.week === view.week) ?? newest;
+  const issueNo = ed.week;
+  // What the fetch screen is doing: checking the server, or opening a past issue.
+  const [fetchTarget, setFetchTarget] = useState<{ kind: "latest" } | { kind: "issue"; week: number } | null>(null);
   const fetching = fetchTarget !== null;
+  const pending = useRef<Edition | null>(null);
   const [calendar, setCalendar] = useState(false);
-  const baseIssue = isoWeek(SNAPSHOT);
-  const issueNo = baseIssue + edition;
-  const [latest, setLatest] = useState(baseIssue);
-  const issue = useMemo(() => buildIssue(items, franchises, edition), [items, franchises, edition]);
+  const latest = newest.week;
+  const weeks = useMemo(() => new Map(eds.filter((e) => e.year === newest.year).map((e) => [e.week, e])), [eds, newest.year]);
+
+  // About a third of the issue is the reader's taste: picked from this week's
+  // suggestion pool and earlier weeks, frozen for the visit so a like never
+  // reshuffles the page under the finger (it counts from the next visit).
+  const taste = useFrozenTaste(`${ed.year}-${ed.week}-${ed.updatedAt}`);
+  const suggested = useMemo(() => {
+    const older = eds.filter((e) => e.year * 100 + e.week < ed.year * 100 + ed.week).slice(0, 6);
+    return pickSuggestions(
+      ed.items,
+      [{ items: ed.suggestions, age: 0 }, ...older.map((e, i) => ({ items: [...e.items, ...e.suggestions], week: e.week, age: i + 1 }))],
+      taste,
+    );
+  }, [eds, ed, taste]);
+  const items = useMemo(() => [...ed.items, ...suggested], [ed, suggested]);
+  const everything = useMemo(() => catalog(eds), [eds]);
+  const issue = useMemo(() => buildIssue(items, franchises), [items, franchises]);
   const opener = useOpener();
   const { opened } = opener;
   const [where, setWhere] = useState({ section: "Cover", tab: "issue" });
   const [filter, setFilter] = useState<Kind | "all">("all");
   const [focus, setFocus] = useState<Item | null>(null);
 
-  const openItem = opened ? items.find((i) => i.id === opened.id) : null;
+  // An entry opened from Watching may come from an earlier week.
+  const openItem = opened ? (items.find((i) => i.id === opened.id) ?? everything.find((i) => i.id === opened.id) ?? null) : null;
+  // Opened is seen (suggested again only after the rest); read for twenty
+  // seconds, it is a weak like.
+  useEffect(() => {
+    if (!openItem) return;
+    markSeen(openItem.id);
+    const t = window.setTimeout(() => nudge(openItem, "read", true), 20000);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openItem?.id]);
   const cap = (i: Item) => ({ kicker: `${byId[i.franchise]?.code ?? ""} — ${kindLabel[i.kind]} — ${dot(i.date)}`, title: i.title });
   const fly = (item: Item, key: string, variant: "a" | "b" = "a") => ({
     flightKey: key,
@@ -187,7 +220,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
   // past editions, the bottom pulls the next issue. (No squish there.)
   const { scale: bounce, origin: bounceOrigin } = useEdgeSquish({ top: false, bottom: false });
   const free = !fetching && !opened && !calendar;
-  const pull = useBottomPull({ enabled: free, onCommit: () => setFetchTarget(issueNo + 1) });
+  const pull = useBottomPull({ enabled: free, onCommit: () => setFetchTarget({ kind: "latest" }) });
   const topPull = useEdgePull({ edge: "top", enabled: free, onCommit: () => setCalendar(true) });
   const pageY = useTransform(() => topPull.lift.get() - pull.lift.get());
   useEffect(() => {
@@ -228,7 +261,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
       <PullReadout raw={pull.raw} lift={pull.lift} armed={pull.armed} issueNo={issueNo} />
       <EditionsReadout raw={topPull.raw} lift={topPull.lift} armed={topPull.armed} issueNo={issueNo} commitAt={140} />
       <motion.main
-        key={edition}
+        key={`${ed.year}-${ed.week}`}
         className="mx-auto min-h-dvh w-full max-w-[520px] overflow-x-clip bg-ground pb-[calc(110px+var(--sab))]"
         style={{ scale: bounce, transformOrigin: bounceOrigin, y: pageY }}
       >
@@ -561,6 +594,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
                   >
                   <span className="mono block text-ink-soft">
                     {byId[item.franchise]?.code} · {dot(item.date)}
+                    {item.suggested ? <span className="text-accent"> · Suggested</span> : null}
                   </span>
                   <span className="mt-1 block text-[16px] font-medium leading-[1.12] tracking-[-0.02em]">{item.title}</span>
                   <span className="mt-1 block text-[13px] leading-[1.42] text-ink/75">{item.body[0]}</span>
@@ -622,7 +656,7 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         {/* ================= WATCHING ================= */}
 
         <Section name="Watching" tab="watch" id="watching" className="pt-24">
-          <Watching items={items} byId={byId} page={PAGE.watching} onOpen={(item) => opener.open(item.id, undefined, "b")} />
+          <Watching items={everything} byId={byId} page={PAGE.watching} onOpen={(item) => opener.open(item.id, undefined, "b")} />
         </Section>
 
         {/* ================= ARCHIVE ================= */}
@@ -725,17 +759,42 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
         <Editions
           issueNo={issueNo}
           latest={latest}
-          onPick={(n) => setFetchTarget(n)}
+          has={(n) => weeks.has(n)}
+          count={(n) => weeks.get(n)?.items.length ?? null}
+          onPick={(n) => setFetchTarget({ kind: "issue", week: n })}
           onClose={() => setCalendar(false)}
         />
       ) : null}
 
       {fetchTarget !== null ? (
         <ReloadScreen
-          issueNo={fetchTarget}
+          issueNo={fetchTarget.kind === "issue" ? fetchTarget.week : newest.week}
+          path={fetchTarget.kind === "latest" ? LATEST_URL : `/kit/updatr/issues/${fetchTarget.week}`}
+          run={async (signal) => {
+            if (fetchTarget.kind === "issue") return { text: `Issue ${fetchTarget.week} ready`, fresh: true };
+            // Ask the server for its newest edition; it is new if it is a
+            // later week, or this week updated since the page loaded.
+            const remote = await fetchLatest(signal);
+            pending.current = remote && newer(newest, remote) ? remote : null;
+            if (pending.current) return { text: `Issue ${remote!.week} ${remote!.week === newest.week ? "updated" : "ready"}`, fresh: true };
+            if (ed !== newest) return { text: `Latest is Nº${newest.week}`, fresh: true };
+            return { text: remote ? `Up to date · Nº${newest.week}` : "Offline · showing what's here", fresh: false };
+          }}
           onReady={() => {
-            setEdition(fetchTarget - baseIssue);
-            setLatest((l) => Math.max(l, fetchTarget));
+            if (fetchTarget.kind === "issue") {
+              setView({ year: newest.year, week: fetchTarget.week });
+            } else {
+              const got = pending.current;
+              pending.current = null;
+              if (got) {
+                setEds((list) => [got, ...list.filter((e) => !(e.year === got.year && e.week === got.week))]);
+                setView({ year: got.year, week: got.week });
+              } else if (ed === newest) {
+                return; // nothing new: the page stays where it was
+              } else {
+                setView({ year: newest.year, week: newest.week });
+              }
+            }
             setFilter("all");
             window.scrollTo(0, 0);
           }}
@@ -753,7 +812,9 @@ export function MagazineScreen({ items, franchises }: { items: Item[]; franchise
           origin={opener.origin}
           onRelease={opener.release}
           onClosed={opener.closed}
-          position={`${pad(issue.all.findIndex((i) => i.id === openItem.id) + 1)} / ${pad(issue.all.length)}`}
+          like={(say) => <ItemLike item={openItem} say={say} />}
+          onFollowChange={(on) => nudge(openItem, "follow", on)}
+          position={`${pad(Math.max(1, issue.all.findIndex((i) => i.id === openItem.id) + 1))} / ${pad(issue.all.length)}`}
         />
       ) : null}
     </LayoutGroup>

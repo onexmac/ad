@@ -20,13 +20,9 @@ export type Issue = {
 
 const byNewest = (a: Item, b: Item) => (b.date ?? "").localeCompare(a.date ?? "");
 
-export function buildIssue(items: Item[], franchises: Franchise[], edition = 0): Issue {
+export function buildIssue(items: Item[], franchises: Franchise[]): Issue {
   const all = [...items].sort(byNewest);
-  // A later edition composes from a rotated pool (demo of fresh content until
-  // the server builds real editions); the archive order stays newest first.
-  const n = all.length;
-  const r = n ? (((edition * 3) % n) + n) % n : 0;
-  const pool = r ? [...all.slice(r), ...all.slice(0, r)] : all;
+  const pool = all;
   const used = new Set<string>();
   const take = (i?: Item) => {
     if (i) used.add(i.id);
@@ -35,19 +31,22 @@ export function buildIssue(items: Item[], franchises: Franchise[], edition = 0):
   const free = (pred: (i: Item) => boolean = () => true) =>
     pool.filter((i) => !used.has(i.id) && pred(i));
   const pictured = (i: Item) => !!i.image && !i.mock;
+  // The week's own stories lead: a suggestion never takes the cover, the
+  // feature or the dossier, it joins the pair, the squares and the briefs.
+  const leading = (i: Item) => pictured(i) && !i.suggested;
 
-  const cover = take(free(pictured)[0]);
+  const cover = take(free(leading)[0]);
 
   // Dossier: the franchise with the most collabs gets a whole spread.
   const collabCount = new Map<string, number>();
-  for (const i of all) if (i.kind === "collab") collabCount.set(i.franchise, (collabCount.get(i.franchise) ?? 0) + 1);
+  for (const i of all) if (i.kind === "collab" && !i.suggested) collabCount.set(i.franchise, (collabCount.get(i.franchise) ?? 0) + 1);
   const dossierId = [...collabCount.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
   const dossierFranchise = franchises.find((f) => f.id === dossierId);
-  const dossierItems = dossierId ? free((i) => i.franchise === dossierId && pictured(i)) : [];
+  const dossierItems = dossierId ? free((i) => i.franchise === dossierId && leading(i)) : [];
   dossierItems.forEach(take);
 
   // Feature: the newest collab outside the dossier, else the newest story left.
-  const feature = take(free((i) => i.kind === "collab" && pictured(i))[0] ?? free(pictured)[0]);
+  const feature = take(free((i) => i.kind === "collab" && leading(i))[0] ?? free(leading)[0]);
 
   // Pair: a skin and a character, from different franchises when possible.
   const skin = free((i) => i.kind === "skin" && pictured(i))[0];

@@ -1,5 +1,11 @@
-/** The prototype's "today": data is a snapshot, so time is fixed with it. */
-export const SNAPSHOT = "2026-11-17";
+import { rawEditions } from "@/data/updatr/index";
+
+/**
+ * "Today" for countdowns and relative dates: the day the newest edition was
+ * last updated. Fixed with the data (server and client agree; no midnight
+ * hydration mismatch), and it moves forward with every daily update.
+ */
+export const SNAPSHOT: string = (rawEditions[0] as { date: string } | undefined)?.date ?? "2026-11-17";
 
 const DAY = 86_400_000;
 const parse = (iso: string) => new Date(`${iso}T12:00:00Z`).getTime();
