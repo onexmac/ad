@@ -6,6 +6,7 @@ import { springs } from "@/lib/histok/springs";
 import { CheckIcon, LockIcon } from "./Icons";
 import type { PunchSheet } from "./usePunchSheet";
 import { SectionControl } from "./SectionControl";
+import { useVvvCorner } from "@/components/vvv/Vvv";
 
 /*
  * One line at the thumb: the sections (dots; press for the fan), a quiet search
@@ -90,6 +91,9 @@ function Cross() {
   );
 }
 
+/** Room a folding wrapper keeps around its key, so the key's outline isn't clipped. */
+const RIM = 3;
+
 export function Footer({
   s,
   kind,
@@ -98,7 +102,6 @@ export function Footer({
   sections = true,
   rooms = false,
   framed = false,
-  frameRadius = 28,
 }: {
   s: PunchSheet;
   kind: Kind;
@@ -111,8 +114,6 @@ export function Footer({
   /** Inside a vvv frame: the bar sticks to the frame's bottom (the frame itself
       shrinks above the keyboard), and the home indicator is out in the black. */
   framed?: boolean;
-  /** The frame's corner radius, which the keys in the bar's corners follow. */
-  frameRadius?: number;
 }) {
   const bar = kind === "bar";
   const round = bar ? "rounded-[6px]" : "rounded-[10px]";
@@ -120,13 +121,11 @@ export function Footer({
   const input = useRef<HTMLInputElement>(null);
   const open = !!search?.open;
   // In a vvv frame, a key in one of the bar's bottom corners rounds that corner
-  // as the frame's own curve drawn inward by the key's distance from it (12 px
-  // from the side, 8 px from the bottom): an elliptical corner, never the
-  // frame's full radius. The other corners keep the bar's 6.
-  const inner = (d: number) => Math.max(6, frameRadius - d);
-  const curve = `${inner(12)}px ${inner(8)}px`;
-  const cornerL = framed ? { borderBottomLeftRadius: curve } : undefined;
-  const cornerR = framed ? { borderBottomRightRadius: curve } : undefined;
+  // after the frame's (vvv's corner rule): 12 px from the side, 8 from the bottom.
+  // The other corners keep the bar's 6.
+  const curve = useVvvCorner(12, 8, 6);
+  const cornerL = framed && curve ? { borderBottomLeftRadius: curve } : undefined;
+  const cornerR = framed && curve ? { borderBottomRightRadius: curve } : undefined;
   const glide = { transition: "border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)" };
   const nav = useRef<HTMLElement>(null);
   const [roomsOpen, setRoomsOpen] = useState(false);
@@ -154,6 +153,12 @@ export function Footer({
   const ctaGrow = useTransform(p, (v) => Math.max(0, 1 - v));
   const ctaGap = useTransform(p, (v) => Math.max(0, Math.min(1, 1 - v)) * gap);
   const ctaInk = useTransform(p, [0, 0.4], [1, 0]);
+  // The folding wrappers clip, and a key's outline (its dark ring and the shadow
+  // under it) sits just outside the key: each wrapper keeps a RIM of room around
+  // its key, taken back with a negative margin so nothing moves. Without it the
+  // outline survived only along a big corner curve, where the box leaves room.
+  const ctaRim = useTransform(ctaGap, (v) => v - RIM);
+  const ctaShow = useTransform(p, [0.75, 1], [1, 0]);
   const fieldInk = useTransform(p, [0.25, 0.7], [0, 1]);
 
   // The phone's keyboard covers the bottom of the screen; while the search is open
@@ -389,24 +394,24 @@ export function Footer({
     <>
       {sections ? (
         <motion.div
-          className="shrink-0 overflow-hidden"
+          className="-my-[3px] shrink-0 overflow-hidden"
           initial={false}
-          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1 }}
+          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1, marginLeft: open ? 0 : -RIM }}
           transition={{ type: "spring", stiffness: 380, damping: 36 }}
         >
-          <div style={{ paddingRight: gap }}>
+          <div style={{ padding: RIM, paddingRight: gap }}>
             <SectionControl s={s} tone={polish ? "leia" : bar ? "bar" : "pill"} />
           </div>
         </motion.div>
       ) : null}
       {rooms ? (
         <motion.div
-          className="shrink-0 overflow-hidden"
+          className="-my-[3px] shrink-0 overflow-hidden"
           initial={false}
-          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1 }}
+          animate={{ width: open ? 0 : "auto", opacity: open ? 0 : 1, marginLeft: open ? 0 : -RIM }}
           transition={{ type: "spring", stiffness: 380, damping: 36 }}
         >
-          <div style={{ paddingRight: gap }}>
+          <div style={{ padding: RIM, paddingRight: gap }}>
             <button
               type="button"
               onClick={() => setRoomsOpen((o) => !o)}
@@ -423,7 +428,10 @@ export function Footer({
       ) : null}
       {key}
       {field}
-      <motion.div style={{ flexGrow: ctaGrow, marginLeft: ctaGap, pointerEvents: open ? "none" : "auto" }} className="flex min-w-0 basis-0 overflow-hidden">
+      <motion.div
+        style={{ flexGrow: ctaGrow, marginLeft: ctaRim, opacity: ctaShow, pointerEvents: open ? "none" : "auto" }}
+        className="-my-[3px] -mr-[3px] flex min-w-0 basis-0 overflow-hidden p-[3px]"
+      >
         {action}
       </motion.div>
     </>
