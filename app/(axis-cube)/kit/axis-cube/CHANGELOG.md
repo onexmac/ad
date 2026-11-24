@@ -17,6 +17,17 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 - A stopwatch for solves.
 - A leaderboard.
 
+## 0.9.0 · 2026-11-24 06:54
+
+- The first iMac (1998), in Bondi blue, takes the glass mushroom lamp's place on the sideboard under the window.
+  - A frosted ice-white face holds the screen, with a blue band and the speakers at its foot.
+  - Behind it, the translucent blue shell tapers back, with the tube and the chassis showing through and a handle at the top.
+  - It stands to the left of a puzzle in hand, turned three-quarters to the camera.
+- Its screen is white on black: TOP SCORES, with empty rows for now, waiting for the score system.
+- The screen gives off a little cool light in place of the lamp's warm one. The arc lamp over the chair stays, since it is what lights the puzzles.
+- To make room, the turntable moves along the sideboard and the ashtray goes.
+- Under the hood: a test can set its own camera to look at something in the room. ([#149](https://github.com/onexmac/ad/pull/149))
+
 ## 0.8.8 · 2026-11-24 00:31
 
 - The welcome's button says Start. ([66f3ed7](https://github.com/onexmac/ad/commit/66f3ed7) · [#145](https://github.com/onexmac/ad/pull/145))
