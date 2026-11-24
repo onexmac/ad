@@ -29,20 +29,20 @@ const HOLD_MS = 240;
 /** Sliding this far before the hold fires opens the fan at once. */
 const SLIDE_PX = 10;
 /** A choice is caught when the finger is this close to where gravity has drawn it. */
-const CATCH_PX = 40;
+export const CATCH_PX = 40;
 /** Gravity reaches this far; the pull grows as (1 − d/R)^1.5. */
 const REACH_PX = 140;
 const PULL = 0.9;
 const PULL_MAX = 34;
 
 /** Out of the button along an arc, the way Path's menu fanned. */
-const CHOICES: { v: Verdict; dx: number; dy: number; label: string; tag: string }[] = [
+export const CHOICES: { v: Verdict; dx: number; dy: number; label: string; tag: string }[] = [
   { v: "like", dx: -50, dy: -74, label: "More like this", tag: "More" },
   { v: "dislike", dx: 50, dy: -74, label: "Less like this", tag: "Less" },
 ];
 
 /** Out: an overshooting spring (Path's bounce); back in: quick and flat. */
-const OUT = { type: "spring", stiffness: 520, damping: 16, mass: 0.9 } as const;
+export const OUT = { type: "spring", stiffness: 520, damping: 16, mass: 0.9 } as const;
 const BACK = { type: "spring", stiffness: 700, damping: 40 } as const;
 /** Like first, dislike a clear beat behind. */
 const STAGGER = 0.15;
@@ -65,7 +65,7 @@ export function Heart({ on, crossed = false, size = 18 }: { on: boolean; crossed
   );
 }
 
-function Cross({ size = 16 }: { size?: number }) {
+export function Cross({ size = 16 }: { size?: number }) {
   return (
     <svg viewBox="0 0 16 16" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="square" aria-hidden focusable="false">
       <path d="M3.5 3.5L12.5 12.5M12.5 3.5L3.5 12.5" />
@@ -80,7 +80,7 @@ function Cross({ size = 16 }: { size?: number }) {
  * than half the way when close, so the choice slides under the finger. Only
  * the nearest choice is drawn. `d` is what is left between them.
  */
-function pulled(o: { dx: number; dy: number }, fx: number, fy: number, on: boolean) {
+export function pulled(o: { dx: number; dy: number }, fx: number, fy: number, on: boolean) {
   const vx = fx - o.dx;
   const vy = fy - o.dy;
   const d0 = Math.hypot(vx, vy);
@@ -105,7 +105,7 @@ function nearness(o: { dx: number; dy: number }, fx: number, fy: number, on: boo
 
 const mix = (a: string, b: string, t: number) => `color-mix(in srgb, var(${a}) ${Math.round(t * 100)}%, var(${b}))`;
 
-function Choice({
+export function Choice({
   o,
   i,
   fx,

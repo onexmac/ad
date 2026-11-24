@@ -103,6 +103,8 @@ matched; when they differ, Updatr is the newer and better-tested one.
 | Carrier flight | Moves the live element between places along a spring. The target can be a function, re-read every frame, so it tracks a moving tile. The flight starts on the next frame, so a heavy render doesn't eat the first frame. Clips under chrome, and keeps a dimmed ancestor's opacity. | `lib/updatr/carrier.ts`, `lib/updatr/flight.ts` | open `{120, 18}`, close `{150, 22}`, cancel `{210, 26}` (stiffness, damping) |
 | Detail (article) | Sheet with a hero slot. Closes by right swipe, pull-down at top, push past the end, Back or Escape. A closing picture flies home if its tile is on screen, otherwise the sheet is flung away. | `components/updatr/Detail.tsx` | back-swipe commits at 34% of width or 520 px/s; pull commits at 110 px; end lift `200·(1−e^(−0.6d/200))`, commits at 130 px |
 | Press and hold | After 260 ms the picture lifts to the centre at its own proportions, in colour, with the page blurred behind. Slide up and release to open. | `components/updatr/HoldImage.tsx` | hold 260 ms; move-cancel 10 px; open at −70 px |
+| Lock and swipe | A picture tied to an entry (`like`), held 1.6 s from the first touch, stays up: a hairline under the hint fills while it charges. Locked, the verdict keys sit fixed at its resting bottom corners, above it (Less left, More right). Swiping it sideways tilts it under the key it heads for, which grows and warms; past the mark, the verdict, and it goes home. Down, Escape or a tap beside it: home. Up or a tap on it: open. The holding finger can carry on into the swipe. | `components/updatr/HoldImage.tsx` (`LockFace`, `LockKeys`), `lib/updatr/carrier.ts` (`nudge` takes x and a tilt) | lock 1.6 s; swipe 30% of width (≥ 80 px) or 0.5 px/ms; down 110 px; tilt 0.07°/px, ≤ 14° |
+| Press for the fan | A text entry (a brief) held 0.42 s pops the like fan at the finger, kept on screen. Slide and let go to pick, or let go and tap. | `components/updatr/PressLike.tsx` (with `Choice` from `LikeFan.tsx`) | hold 420 ms; centre kept 82 px from the sides and 140 px from the top |
 | Snap strip | Our own spring carousel, not CSS snap. Axis lock, rubber-banded ends, momentum projection. Always lands on a card. The whole viewport takes the gesture. | `components/updatr/SnapStrip.tsx` | advance at 18% of a card or 320 px/s; project 0.22 s; rubber 0.32 |
 | Home square | Bottom navigation folded into a 60 px corner square. Its ink grows with reading progress. A tap morphs it into the tab bar (one spring value drives it). Pull it down or right to fold. | `components/updatr/BottomBar.tsx` | chrome spring `{280, 30}`; tabs live at 90% open and after 320 ms |
 | Grow from the bottom | Blocks grow slightly into place as they enter from the bottom edge, and shrink back on the way out. Scroll-linked and spring-smoothed. | `components/updatr/Grow.tsx` | 0.92–0.95 → 1; spring `{240, 19, mass 0.6}` |
@@ -235,6 +237,16 @@ matched; when they differ, Updatr is the newer and better-tested one.
   instead.
 - **Don't treat `touchcancel` as a release.** The system took the touch, so
   settle back.
+- **Don't let the click that ends a long press act.** The browser sends it
+  to whatever is under the finger when it lifts, which by then can be a key
+  that appeared under it (the fan's centre, a verdict key) or the page beside
+  a lifted picture. Act only on a press that started on the control, or ignore
+  clicks for 400 ms after the hold ends.
+- **Don't let a swiped card carry its target off screen.** Keys that a swipe
+  aims at stay fixed where the card rests; the card slides under them.
+- **Sideways on a locked picture is the verdict, not the back swipe.** Marcos
+  asked for it the way cards are swiped. That overlay closes by sliding down,
+  a tap beside it or Escape.
 
 ### Layout and chrome
 - **Don't let a clipping ancestor eat an outline.** An outline drawn as an
