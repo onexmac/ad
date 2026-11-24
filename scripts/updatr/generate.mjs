@@ -29,7 +29,7 @@ ${known.length ? `Already in the tracker (id, title, date):\n${known.map((k) => 
 
 Separately, a WIDER NET of 6 to 10 stories for suggestions: games, collabs and releases this reader would likely follow, given the list (live-service shooters, character-action and gacha action games, their collabs and outfits, game adaptations on screen). Each sourced the same way.
 
-Rules: only what the sources support; never estimate a date; if a value is missing, say so. Separate fact from opinion. Return prose notes, organised by story. No JSON.`;
+Rules: only what the sources support; every story needs the URL of the page it comes from (a story without one is not published); never estimate a date; if a value is missing, say so. Separate fact from opinion. Return prose notes, organised by story. No JSON.`;
 
 const STRUCTURE = ({ date, label, notes, known }) => `Turn these notes into ${label} of Updatr, as of ${date}.
 
@@ -49,7 +49,7 @@ Rules:
 - "date": the source's publish date (YYYY-MM-DD) or null. "when": the release or start date (YYYY-MM-DD) only if a source gives it, else null.
 - "importance": 3 if it changes what the reader does this week (a release, a limited event), 2 worth knowing, 1 context.
 - "tags": 1 to 3, lowercase.
-- "source": the outlet or channel's name. "url": the page. "image": always null (photos are found later).
+- "source": the outlet or channel's name. "url": the exact page the facts come from. REQUIRED: a story without a URL is dropped, so leave out any story you cannot link to a page. "image": always null (photos are found later).
 - English, plain register.`;
 
 const text = (message) =>

@@ -80,58 +80,37 @@
       "kind": "game",
       "status": "upcoming",
       "importance": 2,
-      "title": "Season 1 Reloaded expected Dec 2 PT (unconfirmed)",
-      "dek": "Two press sites expect Reloaded at 10 PM PT on December 2, which is December 3 in ET and GMT. Activision hasn't confirmed it.",
+      "title": "MW4 Season 1 Reloaded expected December 2",
+      "dek": "An in-game countdown points to Dec 2 for the midseason update, which opens eight bonus operator skins for players who finish the pass.",
       "body": [
-        "Gamelevate (indexed November 21) says Season 1 Reloaded arrives at 10 PM PT on December 2, which is December 3 in ET and GMT. Timesaver.gg (updated November 21) also expects December 3, or December 2 on the US West Coast, based on the in-game countdown.",
-        "Neither site is official, and Activision hasn't published its Season 1 Reloaded blog yet. Treat the timing as likely but not confirmed until that blog goes up."
+        "Activision has not announced a time, but the in-game countdown to the Season 1 Battle Pass Bonus Rewards points to Wednesday, December 2 at 10 p.m. PT (Thursday, December 3 in Europe) for Modern Warfare 4 and Warzone Season 1 Reloaded. Activision has confirmed the bonus rewards open with Reloaded: eight extra operator skins for players who complete the premium Season 1 pass.",
+        "Content named in the Season 1 material: the Ministry and Overflow maps, Counter Attack mode, the JAK 12 shotgun, the ZLR Talonhawk melee weapon and an M16 Burst attachment, plus Extreme Resurgence and Rockets and Snipers in Warzone. No midseason operator names have been published yet."
       ],
-      "date": null,
+      "date": "2026-11-19",
       "tags": [
-        "season 1",
-        "reloaded"
+        "mw4",
+        "warzone",
+        "operators"
       ],
-      "source": "Gamelevate",
+      "source": "U4N",
+      "url": "https://www.u4n.com/news/mw4-and-warzone-season-1-reloaded-what-drops-and-when.html",
       "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
     },
     {
       "id": "cod-s1-bundles",
       "franchise": "cod",
       "kind": "skin",
-      "status": "upcoming",
-      "importance": 1,
-      "title": "Eight more Operator skins due with Reloaded",
-      "dek": "Activision's Season 1 blog promised eight more Operator skins, with details saved for the Reloaded blog.",
+      "status": "live",
+      "title": "MW4 Season 1 — Valkyrie, XERO, and the pass",
+      "dek": "Min-Hee, Simone and Valen in the pass; the Norse 'Hildr' skin for Valen in the store.",
       "body": [
-        "Timesaver.gg quotes Activision's Season 1 blog, which says \"eight additional Operator Skins\" are coming and that details will follow in the Reloaded blog.",
-        "None of these skins has been revealed yet, including any new women Operators. Watch for the Reloaded blog, likely shortly before the expected early-December drop."
+        "BlackCell owners get the XERO Operator instantly, plus the Cowled and Adder XERO skins through challenges. Battle Pass Operator Skins include Min-Hee 'Patience', Simone 'Collision' and Valen 'Red Eclipse'.",
+        "Store bundles include The Valkyrie Mastercraft Bundle with the Norse-mythology 'Hildr' skin for Valen, Bone Chiller II with 'Golden Wraith' for Ghost, and The Captain Bundle with 'Blackout' for Price."
       ],
-      "date": "2026-11-21",
-      "tags": [
-        "operators",
-        "skins"
-      ],
-      "source": "Timesaver.gg",
+      "date": "2026-11-05",
+      "source": "Call of Duty blog",
+      "url": "https://www.callofduty.com/blog/2026/11/call-of-duty-modern-warfare-4-season-1-battle-pass-blackcell-store-bundles",
       "image": "https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/body/mw4/s1-bc-bp-mtx/MW4-SEASON-1-BP-BC-BUNDLES-061.webp"
-    },
-    {
-      "id": "sb-blood-rain-ai",
-      "franchise": "stellar",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 1,
-      "title": "Shift Up: Blood Rain will be \"handmade\" after AI backlash",
-      "dek": "After criticism of a largely AI-made music video, Shift Up's CEO says the sequel will be handmade, though AI still has support roles.",
-      "body": [
-        "Stellar Blade: Blood Rain is the title of the sequel. A music video for it, made largely with AI, drew criticism. CEO Kim Hyung-tae told Inven Global the game will be \"handmade from start to finish.\"",
-        "Shift Up will still use AI for support tasks such as texture aging, model simplification, lighting checks and bug detection (ixbt.games). GamesRadar's headline note that the devs are \"still using AI\" is the outlet's own view. No release date was given."
-      ],
-      "date": "2026-11-20",
-      "tags": [
-        "sequel",
-        "ai"
-      ],
-      "source": "GamesRadar"
     },
     {
       "id": "tf-12-4",
