@@ -97,6 +97,8 @@ export function Footer({
   polish = false,
   sections = true,
   rooms = false,
+  framed = false,
+  frameRadius = 28,
 }: {
   s: PunchSheet;
   kind: Kind;
@@ -106,12 +108,26 @@ export function Footer({
   sections?: boolean;
   /** B: a rooms key that raises the rooms as filter keys from behind the bar. */
   rooms?: boolean;
+  /** Inside a vvv frame: the bar sticks to the frame's bottom (the frame itself
+      shrinks above the keyboard), and the home indicator is out in the black. */
+  framed?: boolean;
+  /** The frame's corner radius, which the keys in the bar's corners follow. */
+  frameRadius?: number;
 }) {
   const bar = kind === "bar";
   const round = bar ? "rounded-[6px]" : "rounded-[10px]";
   const gap = bar ? 8 : 6;
   const input = useRef<HTMLInputElement>(null);
   const open = !!search?.open;
+  // In a vvv frame, a key in one of the bar's bottom corners rounds that corner
+  // as the frame's own curve drawn inward by the key's distance from it (12 px
+  // from the side, 8 px from the bottom): an elliptical corner, never the
+  // frame's full radius. The other corners keep the bar's 6.
+  const inner = (d: number) => Math.max(6, frameRadius - d);
+  const curve = `${inner(12)}px ${inner(8)}px`;
+  const cornerL = framed ? { borderBottomLeftRadius: curve } : undefined;
+  const cornerR = framed ? { borderBottomRightRadius: curve } : undefined;
+  const glide = { transition: "border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)" };
   const nav = useRef<HTMLElement>(null);
   const [roomsOpen, setRoomsOpen] = useState(false);
   const showRooms = rooms && roomsOpen && !open;
@@ -145,7 +161,7 @@ export function Footer({
   useEffect(() => {
     const vv = window.visualViewport;
     const el = nav.current;
-    if (!open || !vv || !el) return;
+    if (framed || !open || !vv || !el) return;
     const fit = () => {
       const kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
       el.style.transform = kb > 40 ? `translateY(${-kb}px)` : "";
@@ -158,7 +174,7 @@ export function Footer({
       vv.removeEventListener("scroll", fit);
       el.style.transform = "";
     };
-  }, [open]);
+  }, [open, framed]);
 
   const toggle = () => {
     if (!search) return;
@@ -176,6 +192,8 @@ export function Footer({
       type="button"
       onClick={toggle}
       aria-label={open ? "Cerrar búsqueda" : "Buscar"}
+      // It takes the corner's curve once the rooms key folds away and it slides into the corner.
+      style={framed ? { ...glide, ...(open || !rooms ? cornerL : {}) } : undefined}
       className={`relative grid size-11 shrink-0 place-items-center ${round} ${
         polish ? "leia-search text-ground" : bar ? (open ? "bg-ink-3 text-ground" : "text-ink-faint") : "bg-hair text-ink-soft"
       }`}
@@ -202,7 +220,7 @@ export function Footer({
   // The field: dark and sunk in (Leia's search, opened), a well to type into.
   const field = search ? (
     <motion.label
-      style={{ flexGrow: fieldGrow, marginLeft: fieldGap, pointerEvents: open ? "auto" : "none" }}
+      style={{ flexGrow: fieldGrow, marginLeft: fieldGap, pointerEvents: open ? "auto" : "none", ...cornerR }}
       className={`flex h-11 min-w-0 basis-0 items-center overflow-hidden ${round} ${
         polish ? "leia-field-dark" : bar ? "leia-well" : "bg-ground shadow-[inset_0_0_0_1.5px_var(--hair-2)]"
       }`}
@@ -241,7 +259,7 @@ export function Footer({
       className={`flex h-11 w-full min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap px-3 transition-colors duration-300 ${round} ${
         polish ? (s.isClosed ? "leia-fill-green" : s.ready ? "leia-cta" : "leia-cta-off") : ""
       }`}
-      style={polish ? undefined : { background: s.isClosed ? "var(--ok)" : s.ready ? "var(--brand)" : bar ? "var(--ink-3)" : "var(--hair)" }}
+      style={{ ...(polish ? {} : { background: s.isClosed ? "var(--ok)" : s.ready ? "var(--brand)" : bar ? "var(--ink-3)" : "var(--hair)" }), ...cornerR }}
     >
       <motion.span style={{ opacity: ctaInk }} className="flex min-w-0 items-center gap-2">
         {s.isClosed ? (
@@ -395,6 +413,7 @@ export function Footer({
               aria-label="Cuartos"
               aria-expanded={showRooms}
               tabIndex={open ? -1 : 0}
+              style={cornerL}
               className={`grid size-11 place-items-center ${round} ${polish ? (showRooms ? "leia-tab-on text-ground" : "leia-search text-ground") : showRooms ? "bg-brand text-ground" : "bg-ink-3 text-ground"}`}
             >
               <Plan />
@@ -412,16 +431,16 @@ export function Footer({
 
   if (bar) {
     return (
-      <nav ref={nav} className="fixed inset-x-0 bottom-0 z-30">
+      <nav ref={nav} className={`${framed ? "sticky" : "fixed inset-x-0"} bottom-0 z-30`}>
         {panel}
-        <div className={`relative z-10 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: "var(--sab)" }}>
+        <div className={`relative z-10 ${polish ? "leia-bar" : "bg-ink-2"}`} style={{ paddingBottom: framed ? undefined : "var(--sab)" }}>
           <div className="mx-auto flex h-[60px] max-w-[560px] items-center px-3">{row}</div>
         </div>
         {/* The bar's skirt: riding on the keyboard, the phone's see-through accessory
             row and address pill sit between the two, so the bar carries its own
             colour down behind them instead of letting the page show through. Out of
             sight below the screen while the keyboard is down. */}
-        <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-full z-10 h-[100vh] ${polish ? "bg-[#30343a]" : "bg-ink-2"}`} />
+        {framed ? null : <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-full z-10 h-[100vh] ${polish ? "bg-[#30343a]" : "bg-ink-2"}`} />}
       </nav>
     );
   }

@@ -339,3 +339,9 @@ html {
 .leia-key {
   transition: background-color 500ms ease;
 }
+
+/* vvv (B): beyond the frame is always black, the document's own ground included. */
+html:has([data-vvv]),
+html:has([data-vvv]) body {
+  background: #000;
+}

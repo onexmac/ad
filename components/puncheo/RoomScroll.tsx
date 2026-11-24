@@ -6,6 +6,7 @@ import { haptic } from "@/lib/histok/haptic";
 import { RailRow, type RowSkin } from "./RailRow";
 import type { PunchSheet } from "./usePunchSheet";
 import { GroupLabel, KeyBlock, PhaseHead } from "./Walk";
+import { layoutY, scrollMax, scrollTarget, scrollToY, scrollTop, viewHeight, viewTop } from "@/lib/puncheo/scroller";
 
 /**
  * Every room on one page, one after another: scroll down and the next room
@@ -27,25 +28,26 @@ export function RoomScroll({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
       if (gliding.current) return;
       const rooms = document.querySelectorAll<HTMLElement>("[data-room]");
       if (!rooms.length) return;
-      const top = document.getElementById("puncheo-tabs")?.getBoundingClientRect().bottom ?? 0;
+      const top = viewTop();
       // The room being read is the one crossing a line a third of the way down.
-      const line = top + (window.innerHeight - top) * 0.33;
+      const line = top + viewHeight() * 0.33;
       let at = 0;
       rooms.forEach((r, i) => {
         if (r.getBoundingClientRect().top <= line) at = i;
       });
-      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) at = rooms.length - 1;
+      if (scrollTop() >= scrollMax() - 4) at = rooms.length - 1;
       spy.current(at);
     };
     const on = () => {
       if (!raf) raf = requestAnimationFrame(read);
     };
     read();
-    window.addEventListener("scroll", on, { passive: true });
+    const scroller = scrollTarget();
+    scroller.addEventListener("scroll", on, { passive: true });
     window.addEventListener("resize", on);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", on);
+      scroller.removeEventListener("scroll", on);
       window.removeEventListener("resize", on);
     };
   }, []);
@@ -60,23 +62,19 @@ export function RoomScroll({ s, skin }: { s: PunchSheet; skin: RowSkin }) {
       s.spy(i);
       // Where the room sits in the page's layout: its entry animation (a small
       // offset until it has been seen) must not count, so walk the offsets.
-      const target = () => {
-        let y = 0;
-        for (let el: HTMLElement | null = room; el; el = el.offsetParent as HTMLElement | null) y += el.offsetTop;
-        const bar = document.getElementById("puncheo-tabs")?.getBoundingClientRect().bottom ?? 0;
-        return Math.max(0, Math.min(y - bar - 12, document.documentElement.scrollHeight - window.innerHeight));
-      };
-      window.scrollTo({ top: target(), behavior: "smooth" });
+      const target = () => Math.max(0, Math.min(layoutY(room) - 12, scrollMax()));
+      const scroller = scrollTarget();
+      scrollToY(target(), "smooth");
       let done = 0;
       const end = () => {
         window.clearTimeout(done);
-        window.removeEventListener("scrollend", end);
+        scroller.removeEventListener("scrollend", end);
         // Land exactly: anything that shifted during the glide is made up here.
-        const off = target() - window.scrollY;
-        if (Math.abs(off) > 2) window.scrollTo({ top: target(), behavior: "smooth" });
+        const off = target() - scrollTop();
+        if (Math.abs(off) > 2) scrollToY(target(), "smooth");
         gliding.current = false;
       };
-      window.addEventListener("scrollend", end, { once: true });
+      scroller.addEventListener("scrollend", end, { once: true });
       done = window.setTimeout(end, 1400); // no scrollend (older Safari, or nowhere to scroll)
     });
   });
