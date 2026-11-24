@@ -54,8 +54,14 @@
   and the Dynamic Island shows). Anything near one of the frame's corners
   rounds that corner as the frame's curve drawn inward by its distance from
   each edge (`useVvvCorner`), never the frame's radius itself.
-- Look: forced light mode, tokens in `app/globals.css` (ground, card, ink,
-  brand). Reuse them; do not add inline colours.
+- Look: technical minimalism is the starting point for a new app, not a
+  mandate: an app can take its own look when Marcos wants one. It is what the
+  portal's own pages (`/`, `/ad`, `/kit`) and the Pads index wear:
+  `components/tech-index/` (`TechIndex.tsx`, `tech.css`, `lib/tech-fonts.ts`),
+  black beyond a vvs frame, light panels on a 6 px gutter, mono labels,
+  Chakra Petch numerals, signal green `#86AD00`. Whatever the look, each app
+  keeps its colours as tokens in its own layout's stylesheet and reuses them;
+  no inline colours.
 - Nested radii: a container's corner radius is always bigger than the radius
   of anything inside it (ideally outer = inner + the padding between them).
   A round 34 px button needs a card radius above 17; a pill inside a pill
