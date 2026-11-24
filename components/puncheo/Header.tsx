@@ -348,6 +348,9 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
             <motion.button
               type="button"
               layout
+              // Only its own open/close reshapes it: the header moving (its peek drop)
+              // must not set off a layout animation that drags the key behind.
+              layoutDependency={plans}
               transition={springs.snappy}
               onClick={() => {
                 haptic.select();
@@ -359,18 +362,18 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
             >
               <AnimatePresence initial={false} mode="popLayout">
                 {plans ? (
-                  <motion.span key="minus" layout="position" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-[#55585e]">
+                  <motion.span key="minus" layout="position" layoutDependency={plans} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-[#55585e]">
                     <svg width={12} height={12} viewBox="0 0 24 24" fill="none" aria-hidden>
                       <path d="M4 12h16" stroke="currentColor" strokeWidth={3.6} strokeLinecap="square" />
                     </svg>
                   </motion.span>
                 ) : (
-                  <motion.span key="doc" layout="position" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-white">
+                  <motion.span key="doc" layout="position" layoutDependency={plans} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-white">
                     <PlanGlyph lines="#4a8de0" fold="#b9d4f5" lit />
                   </motion.span>
                 )}
               </AnimatePresence>
-              <motion.span layout="position" className={`text-[15px] font-bold ${plans ? "leia-emboss text-[#55585e]" : "text-white"}`}>
+              <motion.span layout="position" layoutDependency={plans} className={`text-[15px] font-bold ${plans ? "leia-emboss text-[#55585e]" : "text-white"}`}>
                 Planos
               </motion.span>
             </motion.button>
