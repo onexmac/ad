@@ -66,7 +66,7 @@ Open:
   - So the tilt and the offset were found by a search: cuts crossing every face on the diagonal, with about nine large pieces a face and few slivers. Then they were checked against the photograph.
   - The Axis Cube's own tilt was tried first. It broke every face into small triangles.
 - Its stickers are as on the real one: each is a white frame round black, the shape of its face. The frame is 0.1 of a layer wide, close to the piece's edge, with crisp corners.
-- Like the Axis Cube, it floats with its mechanism square to the screen, so the rings turn the layers you see. At rest on the ottoman it sits square to its cube, which shows the diagonal cuts. (#PR)
+- Like the Axis Cube, it floats with its mechanism square to the screen, so the rings turn the layers you see. At rest on the ottoman it sits square to its cube, which shows the diagonal cuts. ([#161](https://github.com/onexmac/ad/pull/161))
 
 ## 0.6.35 · 2026-11-24 09:25
 
