@@ -1,42 +1,64 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import type { ReactNode } from "react";
 import type { PortalApp } from "@/lib/apps";
-import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
+import { Vvv, VvvGrow as Grow } from "@/components/vvv/Vvv";
 
 /**
  * The Pads index. No title: the screen is an instrument panel. Black ground,
  * panels on a 6 px gutter, every label in mono, numerals in a squared face,
- * one signal orange. The viewport's corners are rounded by the frame.
+ * one signal green.
+ *
+ * The page sits in a vvv (vintage vignette viewport, components/vvv): a
+ * rounded frame on a black screen that scrolls inside itself, black beyond.
  */
 export function PadsHome({ apps }: { apps: PortalApp[] }) {
-  const { scale, origin } = useEdgeSquish();
   const n = String(apps.length).padStart(2, "0");
 
   return (
-    <>
-      <motion.main
-        style={{ scale, transformOrigin: origin }}
-        className="mx-auto flex w-full max-w-[460px] flex-col gap-[var(--gutter)] p-[var(--gutter)] pt-[calc(var(--gutter)+var(--sat))] pb-[calc(var(--gutter)+var(--sab)+24px)]"
-      >
-        <Header count={n} />
-        <Bench count={n} />
-        {apps.map((app, i) => (
-          <Entry key={app.slug} app={app} index={i} />
-        ))}
-        <Footer />
-      </motion.main>
-
-      <i aria-hidden className="frame-corner tl" />
-      <i aria-hidden className="frame-corner tr" />
-      <i aria-hidden className="frame-corner bl" />
-      <i aria-hidden className="frame-corner br" />
-    </>
+    <Vvv radius={32} maxWidth={460} snap>
+          <main className="flex w-full flex-col gap-[var(--gutter)] p-[var(--gutter)]">
+            {/* Every block is a snap stop, and grows into place as it comes up
+                from the bottom of the frame (Noticss A's Grow, both ways). */}
+            <Snap>
+              <Grow>
+                <Header count={n} />
+              </Grow>
+            </Snap>
+            <Snap>
+              <Grow>
+                <Bench count={n} />
+              </Grow>
+            </Snap>
+            {apps.map((app, i) => (
+              <Snap key={app.slug}>
+                <Entry app={app} index={i} />
+              </Snap>
+            ))}
+            <Snap end>
+              <Grow>
+                <Footer />
+              </Grow>
+            </Snap>
+          </main>
+    </Vvv>
   );
 }
 
-/* ── Header: labels and a plate of brushed metal ───────────────────────── */
+/** A snap stop: the block lands one gutter below the frame's top (or, last, on the bottom). */
+function Snap({ children, end }: { children: ReactNode; end?: boolean }) {
+  return (
+    <div
+      className={end ? "snap-end" : "snap-start"}
+      style={{ scrollMarginTop: "var(--gutter)", scrollMarginBottom: "var(--gutter)" }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ── Header: labels and Adelante's mark ───────────────────────── */
 
 function Header({ count }: { count: string }) {
   return (
@@ -67,8 +89,24 @@ function Header({ count }: { count: string }) {
           </p>
         </div>
       </div>
-      <div className="metal h-[118px] rounded-[var(--cell)]" aria-hidden />
+      <div className="grid h-[118px] place-items-center rounded-[var(--cell)] bg-ink">
+        <AdelanteMark className="w-[64px] text-signal" />
+      </div>
     </section>
+  );
+}
+
+/** Adelante's mark, one colour (currentColor): the two parallelograms. */
+function AdelanteMark({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 162.804 70.7845" role="img" aria-label="Adelante">
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0 0H45.645L87.8835 70.7845H41.4411L0 0ZM72.5219 20.6455H118.403L133.203 45.715H162.804L148.004 70.7845H102.257L72.5219 20.6455Z"
+      />
+    </svg>
   );
 }
 
@@ -136,9 +174,12 @@ function Entry({ app, index }: { app: PortalApp; index: number }) {
       prefetch={false}
       className="press grid h-[208px] grid-cols-[40%_1fr] gap-[var(--gutter)] outline-none"
     >
-      <Column kind={kind} no={no} slug={app.slug} />
+      <Grow className="flex">
+        <Column kind={kind} no={no} slug={app.slug} />
+      </Grow>
 
-      <div className="flex flex-col justify-between rounded-[var(--cell)] bg-panel p-5">
+      <Grow className="flex" lag={1}>
+      <div className="flex flex-1 flex-col justify-between rounded-[var(--cell)] bg-panel p-5">
         <div className="flex items-center justify-between font-mono text-[11px]">
           <span className="text-ink-soft">
             pad: <span className="text-ink">{code}</span>
@@ -148,7 +189,7 @@ function Entry({ app, index }: { app: PortalApp; index: number }) {
           </span>
         </div>
         <div>
-          <p className="text-[25px] font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
+          <p className="font-tech text-[30px] font-semibold uppercase leading-[0.95] tracking-[-0.005em] text-ink">
             {app.name}
           </p>
           {app.description ? (
@@ -159,6 +200,7 @@ function Entry({ app, index }: { app: PortalApp; index: number }) {
           </p>
         </div>
       </div>
+      </Grow>
     </Link>
   );
 }
@@ -167,8 +209,8 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   const glyph = <Glyph slug={slug} />;
   if (kind === "signal") {
     return (
-      <div className="flex flex-col gap-[var(--gutter)]">
-        <div className="hatch h-[64px] rounded-[var(--cell)] border border-signal bg-[#2b201b] [--hatch-ink:var(--signal)]" />
+      <div className="flex-1 flex flex-col gap-[var(--gutter)]">
+        <div className="hatch h-[64px] rounded-[var(--cell)] border border-signal bg-[var(--signal-night)] [--hatch-ink:var(--signal)]" />
         <div className="flex flex-1 flex-col items-center justify-end gap-3 rounded-[var(--cell)] bg-signal pb-4">
           <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
           <Badge dark>{glyph}</Badge>
@@ -178,7 +220,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   }
   if (kind === "hatch") {
     return (
-      <div className="relative flex flex-col justify-between overflow-hidden rounded-[var(--cell)] bg-panel-2 p-4">
+      <div className="flex-1 relative flex flex-col justify-between overflow-hidden rounded-[var(--cell)] bg-panel-2 p-4">
         <div className="hatch-bold -mx-4 -mt-4 h-[46px]" />
         <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
         <Badge>{glyph}</Badge>
@@ -187,16 +229,16 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   }
   if (kind === "dots") {
     return (
-      <div className="dots relative flex flex-col justify-end rounded-[var(--cell)] bg-panel p-4 [--pitch:16px]">
+      <div className="flex-1 dots relative flex flex-col justify-end rounded-[var(--cell)] bg-panel p-4 [--pitch:16px]">
         <div className="flex items-end justify-between rounded-[12px] bg-panel pr-1 pt-2">
-          <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-signal">{no}</span>
+          <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
           <Badge>{glyph}</Badge>
         </div>
       </div>
     );
   }
   return (
-    <div className="flex flex-col justify-between rounded-[var(--cell)] bg-ink p-4">
+    <div className="flex-1 flex flex-col justify-between rounded-[var(--cell)] bg-ink p-4">
       <div className="flex gap-[5px]">
         {Array.from({ length: 5 }).map((_, i) => (
           <i key={i} className="block h-[5px] w-[5px] bg-signal" style={{ opacity: 1 - i * 0.17 }} />
@@ -208,11 +250,11 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   );
 }
 
-function Badge({ children, dark, invert }: { children: React.ReactNode; dark?: boolean; invert?: boolean }) {
+function Badge({ children, dark, invert }: { children: ReactNode; dark?: boolean; invert?: boolean }) {
   return (
     <span
       className={`grid h-9 w-9 place-items-center rounded-full ${
-        invert ? "bg-signal text-ink" : dark ? "bg-[#2b201b] text-signal" : "bg-ink text-panel"
+        invert ? "bg-signal text-ink" : dark ? "bg-[var(--signal-night)] text-signal" : "bg-ink text-panel"
       }`}
     >
       {children}

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* Pads — technical minimalism. AD Visual's greys and Inter, one signal
-   orange, a squared display face for numerals, mono for every label. The
+   green (Adelante's, pushed deeper), a squared display face for numerals, mono for every label. The
    screen is black; the page is a stack of panels on it, and the viewport
    itself is a rounded frame. */
 :root {
@@ -12,11 +12,14 @@
   --ink: #191c22; /* Gray 1 */
   --ink-soft: #5d636c; /* Gray 2 */
   --ink-faint: #959ca7; /* Gray 3 */
-  --signal: #f2540d;
-  --signal-deep: #c43f05;
+  /* Adelante green, deeper than #ADD010 (Marcos's pick): ink on it is
+     6.5:1, and it holds better against the light panels (2.35:1). */
+  --signal: #86ad00;
+  --signal-deep: #3d6600; /* green text on a light panel */
+  --signal-night: #141c06; /* the dark the hatch sits on */
   --gutter: 6px;
   --cell: 22px; /* panel radius */
-  --frame: 30px; /* viewport radius = panel + gutter, or more */
+  --frame: 32px; /* the frame: panel radius + gutter, and a little more */
   --sat: env(safe-area-inset-top, 0px);
   --sab: env(safe-area-inset-bottom, 0px);
 }
@@ -49,6 +52,7 @@ body {
   min-height: 100lvh;
 }
 
+
 /* Diagonal hatch, two weights. */
 .hatch {
   background-image: repeating-linear-gradient(
@@ -72,16 +76,6 @@ body {
   background-position: center;
 }
 
-/* Brushed metal: a conic sweep with a faint grain. */
-.metal {
-  background:
-    radial-gradient(circle at 62% 58%, rgba(255, 255, 255, 0.55), transparent 22%),
-    conic-gradient(
-      from 210deg at 62% 58%,
-      #8d9096, #e9eaec, #a9acb2, #f6f6f7, #9a9da3, #dcdde0, #8d9096
-    );
-}
-
 /* A panel that answers a press. */
 .press {
   transition: transform 260ms cubic-bezier(0.2, 0.9, 0.25, 1.15);
@@ -91,16 +85,3 @@ body {
   transition-duration: 90ms;
 }
 
-/* The viewport's own corners: black quarter rounds pinned to the screen, so
-   panels scrolling past an edge are cut on the frame's curve. */
-.frame-corner {
-  position: fixed;
-  width: var(--frame);
-  height: var(--frame);
-  pointer-events: none;
-  z-index: 50;
-}
-.frame-corner.tl { top: 0; left: 0; background: radial-gradient(circle at 100% 100%, transparent calc(var(--frame) - 0.5px), var(--void) var(--frame)); }
-.frame-corner.tr { top: 0; right: 0; background: radial-gradient(circle at 0 100%, transparent calc(var(--frame) - 0.5px), var(--void) var(--frame)); }
-.frame-corner.bl { bottom: 0; left: 0; background: radial-gradient(circle at 100% 0, transparent calc(var(--frame) - 0.5px), var(--void) var(--frame)); }
-.frame-corner.br { bottom: 0; right: 0; background: radial-gradient(circle at 0 0, transparent calc(var(--frame) - 0.5px), var(--void) var(--frame)); }
