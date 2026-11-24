@@ -74,7 +74,7 @@ Open:
   - Each photograph has a slot in its material from the start, holding a single texel that changes nothing. So a photograph only swaps a texture and never makes the GPU rebuild a program.
   - The reflections start with a blank of the same kind, so the materials that reflect are made once.
   - The scene (three.js and the room) comes in a script of its own, after the page's.
-- Measured here on a CPU slowed fourfold, a tap during loading now waits 0.13 s at the median and 0.6 s at most. The first frame's drawing isn't in that figure: it is slow here, where the GPU is software, and it takes milliseconds on a phone. (#PR)
+- Measured here on a CPU slowed fourfold, a tap during loading now waits 0.13 s at the median and 0.6 s at most. The first frame's drawing isn't in that figure: it is slow here, where the GPU is software, and it takes milliseconds on a phone. ([#157](https://github.com/onexmac/ad/pull/157))
 
 ## 0.6.30 · 2026-11-24 08:03
 
