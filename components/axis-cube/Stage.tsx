@@ -2,9 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { useVvvInset } from "@/components/vvv/inset";
-import { gateUp, leaveGate, passGate } from "@/lib/axis-cube/gate";
+import { gateUp, leaveGate, onGate } from "@/lib/axis-cube/gate";
 import { LOADER_HTML } from "@/lib/axis-cube/loader";
-import { mountAxisCube } from "@/lib/axis-cube/scene";
 import { makeSound, type AxisSound } from "@/lib/axis-cube/sound";
 
 type Look = "a" | "b" | "c";
@@ -71,6 +70,10 @@ function startOverIfNewer() {
  * for it to go, so after the tap the bar runs out quickly and the room comes in to its notes.
  * The sounds (lib/axis-cube/sound.js) belong to the page, not to the scene: the install screen's button is heard
  * too, and its tap is what wakes the audio, so the room that follows is not silent until a second touch.
+ * The screen's button is not React's: the page's first script answers it (lib/axis-cube/gate.ts), so it springs
+ * and works from the first paint, before this has arrived and while the room is being built. This only hears of it.
+ * The scene (three.js and the room) comes in a script of its own, after this one, so that this one is small and
+ * quick to take over the page.
  */
 export function Stage({ look = "a" }: { look?: Look }) {
   const host = useRef<HTMLDivElement>(null);
@@ -81,14 +84,17 @@ export function Stage({ look = "a" }: { look?: Look }) {
     const made = (voice.current = makeSound());
     return () => { made.dispose(); if (voice.current === made) voice.current = null; };
   }, []);
-  // The screen's button. Its tap is the touch that lets the page make sound. If the room is ready behind it, it comes
-  // in at once and its notes at the end of loading are the answer to the tap; if not, the tap gets a bolololip of
-  // its own and the end of loading its notes when it comes.
-  const tapOk = () => {
-    voice.current?.wake();
-    if (host.current?.dataset.room !== "ready") voice.current?.select();
-    passGate();
-  };
+  // The screen's button was pressed. Its tap is the touch that lets the page make sound (the page's first script
+  // started the audio inside it; this takes it up). If the room is ready behind it, it comes in at once and its
+  // notes at the end of loading are the answer to the tap; if not, the tap gets a bolololip of its own and the end
+  // of loading its notes when it comes.
+  useEffect(
+    () => onGate(() => {
+      voice.current?.wake();
+      if (host.current?.dataset.room !== "ready") voice.current?.select();
+    }),
+    [],
+  );
   useEffect(() => {
     // installed from the browser's own menu while the screen was up: there is nothing left to ask
     window.addEventListener("appinstalled", leaveGate);
@@ -99,10 +105,14 @@ export function Stage({ look = "a" }: { look?: Look }) {
     navigator.serviceWorker.register(WORKER, { scope: SCOPE }).catch(() => {});
     return startOverIfNewer();
   }, []);
-  useEffect(
-    () => (host.current ? mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime, sound: voice.current ?? undefined, hold: gateUp }) : undefined),
-    [look],
-  );
+  useEffect(() => {
+    let stop: (() => void) | undefined, gone = false;
+    import("@/lib/axis-cube/scene").then(({ mountAxisCube }) => {
+      if (gone || !host.current) return;
+      stop = mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime, sound: voice.current ?? undefined, hold: gateUp });
+    });
+    return () => { gone = true; stop?.(); };
+  }, [look]);
   return (
     <>
       <div className="axis-ground">
@@ -122,7 +132,7 @@ export function Stage({ look = "a" }: { look?: Look }) {
           <span>⋮ → Agregar a pantalla principal</span>
         </p>
         <p className="how hello">The Cubes</p>
-        <button type="button" className="ok" onClick={tapOk}>
+        <button type="button" className="ok">
           <span className="listo">Listo</span>
           <span className="instalar">Instalar</span>
           <span className="hola">Start</span>

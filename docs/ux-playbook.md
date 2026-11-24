@@ -142,6 +142,14 @@ matched; when they differ, Updatr is the newer and better-tested one.
   than 80 ms before release is not a fling (`freshVelocity` in `flight.ts`).
 - **Multi-touch.** One finger drives a gesture. A second finger settles it;
   it must never leave UI stuck half-way.
+- **A button on a loading screen answers on its own.** While a page builds a
+  3D scene, a tap waits for whatever task is running: React taking over the
+  page, the build, the GPU compiling shaders at the first frame. Answer the
+  button from an inline script that is in the page from the first paint, and
+  start its audio there, inside the tap (iOS allows it nowhere else). Build in
+  slices that hand the page back every few milliseconds, and wait for each
+  shader program alone before the first frame. The Cubes,
+  `lib/axis-cube/gate.ts` and `warm()` in `lib/axis-cube/scene.js`.
 
 ## Don'ts (each one happened; most errors came from here)
 

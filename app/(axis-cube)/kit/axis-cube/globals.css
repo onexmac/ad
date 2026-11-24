@@ -199,7 +199,36 @@ html.axis-ask-native .axis-gate .how.ios, html.axis-ask-native .axis-gate .how.a
   font: 600 16px/1 var(--font-body); letter-spacing: 0.02em;
   -webkit-appearance: none; appearance: none; cursor: pointer; touch-action: manipulation;
 }
-.axis-gate .ok:active { background: var(--load-ink); color: var(--load-ground); }
+/* The button springs: it presses in under the finger and, let go, springs back past its size and settles, as a
+   damped spring does (overshoot 4%, settled in 0.7 s). The page's first script sets press and bounce
+   (lib/axis-cube/gate.ts), so it answers from the first paint; the motion is all transform, which runs off the
+   main thread, so it stays smooth while the room is being built behind. */
+.axis-gate .ok.press { background: var(--load-ink); color: var(--load-ground); animation: axis-ok-press 0.14s cubic-bezier(0.2, 0.8, 0.3, 1) forwards; }
+.axis-gate .ok.bounce { animation: axis-ok-bounce 0.7s linear; }
+@keyframes axis-ok-press {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform: translate(-50%, -50%) scale(0.88); }
+}
+@keyframes axis-ok-bounce {
+  0% { transform: translate(-50%, -50%) scale(0.88); }
+  6.25% { transform: translate(-50%, -50%) scale(0.9056); }
+  12.5% { transform: translate(-50%, -50%) scale(0.9599); }
+  18.75% { transform: translate(-50%, -50%) scale(1.0112); }
+  25% { transform: translate(-50%, -50%) scale(1.0401); }
+  31.25% { transform: translate(-50%, -50%) scale(1.043); }
+  37.5% { transform: translate(-50%, -50%) scale(1.0278); }
+  43.75% { transform: translate(-50%, -50%) scale(1.0068); }
+  50% { transform: translate(-50%, -50%) scale(0.9904); }
+  56.25% { transform: translate(-50%, -50%) scale(0.9836); }
+  62.5% { transform: translate(-50%, -50%) scale(0.9856); }
+  68.75% { transform: translate(-50%, -50%) scale(0.9927); }
+  75% { transform: translate(-50%, -50%) scale(1.0002); }
+  81.25% { transform: translate(-50%, -50%) scale(1.005); }
+  87.5% { transform: translate(-50%, -50%) scale(1.0061); }
+  93.75% { transform: translate(-50%, -50%) scale(1.0044); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .axis-gate .ok.press, .axis-gate .ok.bounce { animation: none; } }
 .axis-gate .ok:focus-visible { outline: 2px solid var(--load-ink); outline-offset: 3px; }
 .axis-gate .ok .instalar, .axis-gate .ok .hola, html.axis-ask-native .axis-gate .ok .listo, html.axis-ask-hello .axis-gate .ok .listo { display: none; }
 html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .ok .hola { display: inline; }
