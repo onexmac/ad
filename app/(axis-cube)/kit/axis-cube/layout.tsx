@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { GATE_SCRIPT } from "@/lib/axis-cube/gate";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,8 +22,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
-      <body data-app>{children}</body>
+    // The inline script runs as the page is parsed, before the first paint: it decides whether the install screen
+    // shows (lib/axis-cube/gate.ts) and says so in classes on <html>, which is why React is told to leave them be.
+    <html lang="es" suppressHydrationWarning>
+      <body data-app>
+        <script dangerouslySetInnerHTML={{ __html: GATE_SCRIPT }} />
+        {children}
+      </body>
     </html>
   );
 }
