@@ -17,6 +17,30 @@ Every push to Vercel that changes the app gets an entry here. The first push was
 
 Each entry gives the date and time in Costa Rica, the commit, and the pull request that took it to `main` (and so to magi0s). Editions are content, not changes to the app: a push that only adds or updates an edition (the pipeline's own "Updatr: edition …" commits, the first of them edition 2026-W48 on 24 November) gets no version.
 
+## Bugs Marcos reported
+
+The bugs Marcos reported come first in the version that fixed them: his words, the cause, and what not to do. In short:
+
+- **0.3.0** One picture is one image element, carried between places; black and white is a filter on it, never a second copy.
+- **0.3.5** Arrows are drawn, never typed: iOS turns arrow characters into colour emoji.
+- **0.3.17** Nothing transparent fixed at the screen's edge: iOS Safari tints its bars from it.
+- **0.3.19** Draw the shape exactly as described (a diagonal arrow with a right-angle head), not the nearest stock one.
+- **0.5.5** A text-only module never takes an entry that has a picture.
+
+Still open: none reported.
+
+## 0.5.5 · 2026-11-24 14:14
+
+- **Marcos: "Too many briefs, must up the ui and the layout, favor more images."** The cause: the briefs took every entry the picture modules hadn't used, pictured or not, so eleven of them filled three pages of text while their pictures went unseen. What not to do: never let a text-only module be where entries with pictures overflow to.
+- Pictures lead now. Every entry with a picture goes to a module that shows it; the briefs are only what has no picture, four at most, on one page. Nothing is lost: the archive still lists all of them.
+- New picture pages, in the issue's run:
+  - Spotlight: the most important picture left, the whole page, with a paper caption panel on it (kind, date or countdown, title, dek, Read).
+  - For you: what the reader's taste picked, on a dark page, as a strip of big portrait cards, each with its reason ("Suggested · Call of Duty"). Pictured entries left over join it as "Also this week".
+  - Two to see: two big landscape pictures, one to each side.
+  - Mosaic: one tall picture and two squares, with their titles under them (when the week has enough pictures).
+- The contents fit the new run on one page, a line each, with a Gallery and a Dates row.
+- The edition pipeline looks harder for pictures. The research gives, for each story, up to three other pages about it, and the picture step tries the source page and then those, keeping the first real photo (still never a site's logo card, still linked, not copied). Entries already in the week without a picture go back to the research by title, to find other pages for them. ([#159](https://github.com/onexmac/ad/pull/159))
+
 ## 0.5.0 · 2026-11-24 08:04
 
 - The magazine is pages now: every section is one screen, and the page snaps to them. A flick lands on a page with the phone's own momentum, and a short drag settles back. The scroll-linked growth, the pulls at both ends, the strips and the home square work as before. The home square and the contents give each page's real number.

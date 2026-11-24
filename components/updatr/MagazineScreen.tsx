@@ -304,11 +304,11 @@ export function MagazineScreen({ editions: initial, franchises }: { editions: Ed
                   haptic.select();
                   springScrollTo(c.anchor);
                 }}
-                className="grid grid-cols-[44px_96px_1fr] items-baseline gap-2 border-b border-rule-soft py-[11px]"
+                className="grid grid-cols-[44px_84px_1fr] items-baseline gap-2 border-b border-rule-soft py-[10px]"
               >
                 <span className="mono text-accent">P.{folioOf[c.anchor]}</span>
                 <span className="mono text-ink-soft">{c.label}</span>
-                <span className="line-clamp-2 text-[15px] leading-snug">{c.title}</span>
+                <span className="truncate text-[15px] leading-snug">{c.title}</span>
               </motion.a>
             </Reveal>
           ))}
@@ -523,6 +523,37 @@ export function MagazineScreen({ editions: initial, franchises }: { editions: Ed
     });
   }
 
+  // Spotlight: one picture, the whole page, with a caption panel on it.
+  if (issue.spotlight) {
+    const s = issue.spotlight;
+    specs.push({
+      id: "spotlight",
+      name: "Spotlight",
+      tab: "issue",
+      className: "bg-ink",
+      render: (folio) => (
+        <div className="relative h-full">
+          <HoldImage src={s.image} alt={s.title} caption={cap(s)} fallbackTitle={s.title} ratio="auto" style={fullBleed} {...fly(s, `m-spot-${s.id}`)} />
+          <div className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-ink/85 via-ink/40 to-transparent px-5 pb-20 pt-[calc(28px+var(--sat))]">
+            <Folio n={folio} label="Spotlight" right={byId[s.franchise]?.code} dark />
+          </div>
+          <Reveal className="absolute bottom-[92px] left-0 w-[84%]">
+            <button type="button" onClick={() => opener.openFromKey(s.id, `m-spot-${s.id}`)} className="block w-full bg-paper px-5 pb-5 pt-4 text-left text-ink">
+              <span className="mono block text-ink-soft">
+                {kindLabel[s.kind]} — {s.when && s.status !== "out" ? countdown(s.when) : dot(s.date)}
+              </span>
+              <span className="mt-2 line-clamp-3 text-[26px] font-medium leading-[1.02] tracking-[-0.035em]">{s.title}</span>
+              <span className="mt-2 line-clamp-2 text-[13px] leading-[1.4] text-ink-soft">{s.dek}</span>
+              <span className="mono mt-3 inline-flex items-center gap-1">
+                Read <Arrow dir="downRight" />
+              </span>
+            </button>
+          </Reveal>
+        </div>
+      ),
+    });
+  }
+
   // Latest: one picture, big; then four squares; then a wide one over the index.
   const g = issue.grid;
   if (g.length) {
@@ -642,7 +673,113 @@ export function MagazineScreen({ editions: initial, franchises }: { editions: Ed
     });
   }
 
-  // Briefs: four to a page, text only.
+  // For you: what the reader's taste picked, big, on a dark strip.
+  if (issue.forYou.length) {
+    specs.push({
+      id: "for-you",
+      name: "For you",
+      tab: "latest",
+      className: "bg-ink text-paper",
+      render: (folio) => (
+        <div className="flex h-full flex-col pb-[84px] pt-[calc(28px+var(--sat))]">
+          <div className="px-5">
+            <Folio n={folio} label="For you" right={`${pad(issue.forYou.length)} picks`} dark />
+            <Reveal>
+              <h2 className="mt-4 text-[40px] font-normal uppercase leading-none tracking-[-0.05em]">For you</h2>
+              <p className="mt-2 text-[14px] leading-[1.35] text-paper/60">Picked from what you like and follow. Hold a picture to say more or less.</p>
+            </Reveal>
+          </div>
+          <div className="my-auto">
+            <SnapStrip
+              label="For you"
+              tone="dark"
+              fraction={0.72}
+              cards={issue.forYou.map((item) => (
+                <article key={item.id}>
+                  <HoldImage src={item.image} alt={item.title} caption={cap(item)} fallbackTitle={item.title} ratio="4 / 5" {...fly(item, `m-you-${item.id}`)} />
+                  <p className="mono mt-3 truncate text-accent">
+                    {item.suggested ? `Suggested${item.suggested.reason ? ` · ${item.suggested.reason}` : ""}` : `Also this week · ${byId[item.franchise]?.code ?? ""}`}
+                  </p>
+                  <button type="button" onClick={() => opener.openFromKey(item.id, `m-you-${item.id}`)} className="mt-1 block text-left">
+                    <span className="line-clamp-2 text-[19px] font-medium leading-[1.1] tracking-[-0.025em]">{item.title}</span>
+                  </button>
+                </article>
+              ))}
+            />
+          </div>
+        </div>
+      ),
+    });
+  }
+
+  // Duo: two big landscape pictures, one to each side.
+  if (issue.duo.length === 2) {
+    specs.push({
+      id: "duo",
+      name: "Two to see",
+      tab: "latest",
+      render: (folio) => (
+        <div className="flex h-full flex-col pb-[92px] pt-[calc(28px+var(--sat))]">
+          <div className="px-5">
+            <Folio n={folio} label="Two to see" right={issue.duo.map((d) => byId[d.franchise]?.code).join(" · ")} />
+          </div>
+          <div className="mt-5 flex min-h-0 flex-1 flex-col gap-5">
+            {issue.duo.map((item, i) => (
+              <div key={item.id} className={`flex min-h-0 flex-1 flex-col ${i === 0 ? "pr-12" : "pl-12"}`}>
+                <Rise className="relative min-h-0 flex-1" from={0.9}>
+                  <HoldImage src={item.image} alt={item.title} caption={cap(item)} fallbackTitle={item.title} ratio="auto" index={pad(i + 1)} style={fullBleed} {...fly(item, `m-duo-${item.id}`)} />
+                </Rise>
+                <button type="button" onClick={() => opener.openFromKey(item.id, `m-duo-${item.id}`)} className={`mt-2 block text-left ${i === 0 ? "pl-5" : "pr-5"}`}>
+                  <span className="mono block text-ink-soft">
+                    {byId[item.franchise]?.code} — {kindLabel[item.kind]}
+                  </span>
+                  <span className="mt-1 line-clamp-2 text-[17px] font-medium leading-[1.12] tracking-[-0.02em]">{item.title}</span>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    });
+  }
+
+  // Mosaic: one tall picture and two squares, then their titles.
+  if (issue.mosaic.length === 3) {
+    const m = issue.mosaic;
+    specs.push({
+      id: "mosaic",
+      name: "Mosaic",
+      tab: "latest",
+      render: (folio) => (
+        <div className="flex h-full flex-col px-5 pb-[92px] pt-[calc(28px+var(--sat))]">
+          <Folio n={folio} label="Mosaic" right={pad(m.length)} />
+          <div className="mt-5 grid h-[56%] shrink-0 grid-cols-[1.25fr_1fr] grid-rows-2 gap-[6px]">
+            {m.map((item, i) => (
+              <Grow key={item.id} from={0.92} y={14} lag={i} className={`relative ${i === 0 ? "row-span-2" : ""}`}>
+                <HoldImage src={item.image} alt={item.title} caption={cap(item)} fallbackTitle={item.title} ratio="auto" index={pad(i + 1)} style={fullBleed} {...fly(item, `m-mosaic-${item.id}`)} />
+              </Grow>
+            ))}
+          </div>
+          <ol className="mt-4 min-h-0 flex-1 overflow-hidden">
+            {m.map((item, i) => (
+              <Reveal key={item.id} delay={i * 0.04} y={10}>
+                <li>
+                  <button type="button" onClick={() => opener.openFromKey(item.id, `m-mosaic-${item.id}`)} className="grid w-full grid-cols-[28px_1fr] gap-2 py-[6px] text-left">
+                    <span className="mono pt-[3px] text-ink-faint">{pad(i + 1)}</span>
+                    <span className="line-clamp-2 text-[14px] leading-snug">
+                      <span className="font-medium">{item.title}.</span> <span className="text-ink-soft">{item.dek}</span>
+                    </span>
+                  </button>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      ),
+    });
+  }
+
+  // Briefs: what has no picture, four at most, text only.
   const briefPages: Item[][] = [];
   for (let i = 0; i < issue.briefs.length; i += 4) briefPages.push(issue.briefs.slice(i, i + 4));
   briefPages.forEach((chunk, pi) => {
@@ -858,10 +995,20 @@ export function MagazineScreen({ editions: initial, franchises }: { editions: Ed
     issue.feature && { label: "Feature", title: issue.feature.title, anchor: "feature" },
     issue.dossier && { label: "Dossier", title: `${issue.dossier.franchise.name}, in collabs`, anchor: "dossier" },
     issue.pair.length && { label: "Wardrobe", title: issue.pair.map((p) => byId[p.franchise]?.name).join(" & "), anchor: "pair" },
+    issue.spotlight && { label: "Spotlight", title: issue.spotlight.title, anchor: "spotlight" },
     issue.grid.length && { label: "Latest", title: `${spell(issue.grid.length)} things that moved`, anchor: "latest" },
-    issue.briefs.length && { label: "Briefs", title: `${spell(issue.briefs.length)} shorter notes`, anchor: "briefs" },
-    issue.next && { label: "Countdown", title: issue.next.title, anchor: "countdown" },
-    issue.coming.length && { label: "Coming up", title: `${spell(issue.coming.length)} dates ahead`, anchor: "calendar" },
+    issue.forYou.length && { label: "For you", title: `${spell(issue.forYou.length)} picks from your taste`, anchor: "for-you" },
+    (issue.duo.length || issue.mosaic.length) && {
+      label: "Gallery",
+      title: `${spell(issue.duo.length + issue.mosaic.length)} more pictures`,
+      anchor: issue.duo.length ? "duo" : "mosaic",
+    },
+    issue.briefs.length && { label: "Briefs", title: `${spell(issue.briefs.length)} without a picture`, anchor: "briefs" },
+    (issue.next || issue.coming.length) && {
+      label: "Dates",
+      title: issue.next ? `Next: ${issue.next.title}` : `${spell(issue.coming.length)} dates ahead`,
+      anchor: issue.next ? "countdown" : "calendar",
+    },
     { label: "Watching", title: "The dates you follow", anchor: "watching" },
     { label: "Archive", title: `All ${items.length} entries`, anchor: "archive" },
   ].filter(Boolean) as { label: string; title: string; anchor: string }[];
