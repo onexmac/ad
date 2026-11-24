@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import MiniSearch from "minisearch";
-import { AnimatePresence, animate, motion, useMotionValue } from "motion/react";
+import { AnimatePresence, animate, motion, useMotionValue, useTransform } from "motion/react";
 import { haptic } from "@/lib/histok/haptic";
 import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
 import { Vvs, useVvvInset, useVvvScroller } from "@/components/vvv/Vvv";
@@ -100,6 +100,9 @@ const CONFIG: Record<Variant, Config> = {
   },
 };
 
+/** The top bar's peek: a snappy pop, its overshoot shared by the whole page. */
+const PEEK_SPRING = { type: "spring" as const, visualDuration: 0.42, bounce: 0.4 };
+
 /** The vvs frame: its corner holds the panels' 6 px corners with the page's 16 px in between. */
 const FRAME_RADIUS = 28;
 const GUTTER = 6;
@@ -158,25 +161,37 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
   // work while reading).
   const head = useRef<HTMLDivElement>(null);
   const headY = useMotionValue(0);
+  // The bar travels down to its place (barY); past it, the overshoot carries the
+  // whole page with it (pageY), bouncing at the bar's own rhythm, and the bar's
+  // fill stretches up into the space it leaves (fillTop).
+  const barY = useTransform(headY, (v) => Math.min(0, v));
+  const pageY = useTransform(headY, (v) => Math.max(0, v));
+  const fillTop = useTransform(headY, (v) => -Math.max(0, v));
   const [peek, setPeek] = useState(false);
   const peekRun = useRef(0); // the latest peek; a stale hide's end mustn't undo a newer one
-  const reveal = () => {
+  // Whether the bar was out of sight when the screen changed (walk, search, a
+  // filter): then it drops in on the new screen, even one that starts at the top.
+  const barWasHidden = useRef(false);
+  const barHidden = () => !!head.current && scrollTop() >= head.current.offsetHeight;
+  const reveal = (force = false) => {
     const el = head.current;
-    if (!continuous || !el || scrollTop() < el.offsetHeight - 24) return;
+    if (!continuous || !el || (!force && !barHidden())) return;
     const run = ++peekRun.current;
-    headY.set(-el.offsetHeight - 24);
+    headY.set(-el.offsetHeight - 8);
     setPeek(true);
-    // A springy pop, unhurried and fully opaque the whole way (no fade): it slides
-    // down from above, past its place (about a tenth of its height), and settles
-    // back up: it reads as arriving in 0.6 s, the bounce settling after.
-    animate(headY, 0, { type: "spring", visualDuration: 0.6, bounce: 0.38 }).then(() => {
-      if (run === peekRun.current) haptic.select();
+    // A springy pop, fully opaque the whole way (no fade): the bar slides down
+    // from above, overshoots its place taking the page with it, and settles.
+    animate(headY, 0, PEEK_SPRING).then(() => {
+      if (run !== peekRun.current) return;
+      haptic.select();
+      // Landed at the very top: it is in its own place, the peek is over.
+      if (scrollTop() <= 0) setPeek(false);
     });
   };
   const hidePeek = () => {
     const el = head.current;
     const run = ++peekRun.current;
-    animate(headY, -(el?.offsetHeight ?? 240) - 24, { type: "spring", stiffness: 420, damping: 40 }).then(() => {
+    animate(headY, -(el?.offsetHeight ?? 50) - 8, { type: "spring", stiffness: 420, damping: 40 }).then(() => {
       if (run !== peekRun.current) return;
       setPeek(false);
       headY.set(0);
@@ -190,7 +205,8 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
     };
     const top = () => {
       // At the very top the header is in its own place: stop peeking, invisibly.
-      if (scrollTop() > 0) return;
+      // (Not while it is still dropping in: it ends itself when it lands.)
+      if (scrollTop() > 0 || headY.isAnimating()) return;
       ++peekRun.current;
       headY.stop();
       headY.set(0);
@@ -245,6 +261,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
 
   const toggle = () => {
     haptic.select();
+    barWasHidden.current = barHidden();
     if (searching) {
       setQ("");
       setFilter(0);
@@ -271,21 +288,24 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         toggle,
         filters: FILTERS.map((x) => ({ id: x.id, label: x.label, count: s.all.filter((c) => x.match(s.marks[c.id])).length })),
         filter,
-        setFilter,
+        setFilter: (i: number) => {
+          barWasHidden.current = barHidden();
+          setFilter(i);
+        },
         suggestions,
       }}
     />
   );
   const page = (
-      <motion.main style={{ scale, transformOrigin: origin }} className="mx-auto w-full max-w-[520px] px-4">
-        <motion.div ref={head} data-head style={{ y: headY }} className={peek ? "sticky top-0 z-[25]" : "relative"}>
-          {/* While it peeks, the page's own ground behind it, with a soft edge under it.
-              It reaches well above the header, so the pop's overshoot never opens a gap. */}
-          {peek ? (
-            <div aria-hidden className={`${cfg.ground} pointer-events-none absolute -inset-x-4 -bottom-3 -top-16 -z-10 shadow-[0_10px_18px_-12px_rgba(0,0,0,0.55)]`} />
-          ) : null}
-          <SheetHeader sheet={sheet} s={s} current={variant} tone={cfg.tone} extra={cfg.counters ? <LetterTags s={s} /> : undefined} />
-        </motion.div>
+      <motion.main style={{ scale, transformOrigin: origin, y: pageY }} className="mx-auto w-full max-w-[520px] px-4">
+        <SheetHeader
+          sheet={sheet}
+          s={s}
+          current={variant}
+          tone={cfg.tone}
+          extra={cfg.counters ? <LetterTags s={s} /> : undefined}
+          peek={continuous ? { ref: head, y: barY, fillTop, on: peek } : undefined}
+        />
         {/* One stage for the walk and the search results: the outgoing content fades
             out first (the results in a quick cascade), then the incoming one comes in
             (the results cascading on a spring, the walk's rows rising as they show).
@@ -295,7 +315,8 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
           onExitComplete={() => {
             if (landAt.current !== null) scrollToY(landAt.current);
             landAt.current = null;
-            reveal();
+            reveal(barWasHidden.current);
+            barWasHidden.current = false;
           }}
         >
           {searching ? (
@@ -341,7 +362,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
           ) : (
             <motion.div key="walk" initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.25 } }} exit={{ opacity: 0, y: -12, transition: { duration: 0.18 } }}>
               <Legend dark={cfg.skin.dark} />
-              {continuous ? <RoomScroll s={s} skin={cfg.skin} /> : <Walk s={s} skin={cfg.skin} />}
+              {continuous ? <RoomScroll s={s} skin={cfg.skin} onArrive={reveal} /> : <Walk s={s} skin={cfg.skin} />}
             </motion.div>
           )}
         </AnimatePresence>
