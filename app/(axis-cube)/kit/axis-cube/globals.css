@@ -88,7 +88,9 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
   transform: rotateX(-28deg) rotateY(-40deg);
 }
-.axis-loader .c { position: absolute; inset: 0; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
+/* a piece is two nested boxes the size of the cube, each turned by one animation: the inner by the opening, the
+   outer by the loop */
+.axis-loader .c, .axis-loader .o { position: absolute; inset: 0; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
 .axis-loader .p {
   position: absolute; width: 50%; height: 50%; box-sizing: border-box; padding: 4%;
   background: var(--load-ground);
@@ -123,7 +125,8 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   animation: axis-load 14s cubic-bezier(0.08, 0.72, 0.12, 1) forwards;
 }
 @keyframes axis-load { to { transform: translateX(-8%); } }
-@media (prefers-reduced-motion: reduce) { .axis-loader .c { animation: none !important; } }
+/* The cube keeps turning under "reduce motion" too: it is small, it is the sign that the app is loading, and a
+   still one reads as the app having stopped. */
 
 .axis .fallback {
   position: fixed; inset: 0; display: grid; place-items: center; padding: 24px;
