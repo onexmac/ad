@@ -8,7 +8,7 @@ export interface AxisSound {
   pick(puzzle?: string): void;
   drop(): void;
   land(): void;
-  turn(face: number, turned?: boolean, puzzle?: string): void;
+  turn(face: number, turned?: boolean, puzzle?: string, closer?: boolean): void;
   step(): void;
   flip(): void;
   tick(): void;
