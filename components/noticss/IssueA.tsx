@@ -6,7 +6,7 @@ import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import { categoryName, categoryOrder, kindName, type Category, type Edition, type Note, type Subject } from "@/data/noticss/types";
 import type { Franchise, Item } from "@/data/updatr/types";
-import { notesOf } from "@/lib/noticss/editions";
+import { editionKey, notesOf } from "@/lib/noticss/editions";
 import { dayMonth, longDate, pad, shortDate, spell, weekday } from "@/lib/noticss/format";
 import { HoldImage, type OpenFrom } from "@/components/updatr/HoldImage";
 import { Detail } from "@/components/updatr/Detail";
@@ -231,7 +231,7 @@ export function IssueA({ editions }: { editions: Edition[] }) {
     <LayoutGroup>
       <AbSwitch current="a" hidden={!!opened} />
       <motion.main
-        key={ed.date}
+        key={editionKey(ed)}
         className="mx-auto min-h-dvh w-full max-w-[520px] overflow-x-clip pb-[calc(110px+var(--sab))]"
         style={{ scale: bounce, transformOrigin: bounceOrigin }}
       >
@@ -662,7 +662,7 @@ export function IssueA({ editions }: { editions: Edition[] }) {
           <Head title="Ediciones" folio="—" />
           <ul className="mt-2">
             {editions.map((e, i) => (
-              <li key={e.date}>
+              <li key={editionKey(e)}>
                 <button
                   type="button"
                   onClick={() => {

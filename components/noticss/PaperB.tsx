@@ -11,6 +11,9 @@ import { Cover } from "./b/Cover";
 import { Gallery } from "./b/Gallery";
 import { TopFill, type FillMode } from "./b/TopFill";
 import { useVvvInset } from "@/components/vvv/inset";
+import { editionKey } from "@/lib/noticss/editions";
+import { featuresOf, itemId, markSeen, nudge, setVerdict, useFrozenTaste, useTaste, verdictOf, type Verdict } from "@/lib/noticss/taste";
+import { LikeFan, type Fan } from "./b/LikeFan";
 import { darken, hexToRgb, topTone } from "@/lib/noticss/tone";
 import { Page, titleOf } from "./b/Pages";
 import { useFollowing } from "@/lib/noticss/following";
@@ -78,7 +81,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const following = useFollowing();
   const [snap, setSnap] = useState<string[]>(following.ids);
   if (!open && snap !== following.ids) setSnap(following.ids);
-  const sections = useMemo(() => sectionsOf(ed, editions, snap), [ed, editions, snap]);
+  // The reader's taste picks a share of every section. It is read once per
+  // edition and visit (a verdict counts from the next one), so cards never
+  // reshuffle under the finger.
+  const taste = useFrozenTaste(editionKey(ed));
+  const sections = useMemo(() => sectionsOf(ed, editions, snap, taste ?? undefined), [ed, editions, snap, taste]);
   const [sec, setSec] = useState(0);
   const secRef = useRef(0);
   const secX = useMemo(() => motionValue(0), []);
@@ -88,7 +95,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const trays = useMemo(
     () =>
       sections.map((sd) => {
-        const key = `${ed.date}:${sd.id}`;
+        const key = `${editionKey(ed)}:${sd.id}`;
         let t = trayCache.get(key);
         if (!t) {
           t = new Tray();
@@ -808,6 +815,8 @@ export function PaperB({ editions }: { editions: Edition[] }) {
     // move that is ours, before iOS commits to its own scroll.
     const onTouchStart = (e: TouchEvent) => {
       if (e.touches.length > 1) return end(true);
+      // A control with a gesture of its own (the like fan) keeps its finger.
+      if ((e.target as HTMLElement | null)?.closest("[data-own-gesture]")) return;
       const t = e.touches[0];
       start(t.clientX, t.clientY, t.identifier, e.target);
     };
@@ -1046,8 +1055,34 @@ export function PaperB({ editions }: { editions: Edition[] }) {
   const openCard = open ? sections[open.sec].cards[open.card] : null;
   // The bookmark follows the story's topic (its storyline), from any of its pages.
   const topic = openCard && openCard.type !== "figures" ? openCard.subject : null;
+  // What the open page is about: a storyline, or one of its notes.
+  const openStory = openCard && openCard.type !== "figures" ? openCard : null;
+  const openNote = openStory?.type === "note" ? openStory.note : undefined;
+  // Opened is seen (suggested again only after the rest); a page read for
+  // twenty seconds is a weak like.
+  useEffect(() => {
+    if (!openStory) return;
+    markSeen(openStory.subject.id);
+    const f = featuresOf(openStory.subject, openNote);
+    const id = itemId(openStory.subject, openNote);
+    const t = window.setTimeout(() => nudge(`r:${id}`, "read", true, f), 20000);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openStory?.id]);
+  const verdictId = openStory ? itemId(openStory.subject, openNote) : null;
+  const verdict = verdictId ? verdictOf(verdictId) : null;
+  const choose = (v: Verdict) => {
+    if (!openStory || !verdictId) return;
+    const next = verdict === v ? null : v;
+    setVerdict(verdictId, next, featuresOf(openStory.subject, openNote));
+    setNote((n) => ({ key: (n?.key ?? 0) + 1, text: next === "like" ? "Más como esta" : next === "dislike" ? "Menos como esta" : "Sin opinión" }));
+  };
   const followed = !!topic && following.has(topic.id);
   const [note, setNote] = useState<{ key: number; text: string } | null>(null);
+  // Like or dislike the open page; the fan closes with the page.
+  useTaste();
+  const [fan, setFan] = useState<Fan>(null);
+  if (fan && !open) setFan(null);
   useEffect(() => {
     if (!note) return;
     const t = setTimeout(() => setNote(null), 1600);
@@ -1093,7 +1128,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         {sections.map((s, i) =>
           near(i) ? (
             <SectionScreen
-              key={`${ed.date}-${s.id}`}
+              key={`${editionKey(ed)}-${s.id}`}
               section={s}
               index={i}
               count={sections.length}
@@ -1135,7 +1170,7 @@ export function PaperB({ editions }: { editions: Edition[] }) {
         {/* What the bookmark just did, briefly, above the controls */}
         <div className="pointer-events-none absolute inset-x-0 bottom-[calc(var(--sab)+80px)] z-30 flex justify-end px-4">
           <AnimatePresence>
-            {note ? (
+            {note && !fan ? (
               <motion.span
                 key={note.key}
                 initial={{ opacity: 0, y: 8 }}
@@ -1149,6 +1184,23 @@ export function PaperB({ editions }: { editions: Edition[] }) {
             ) : null}
           </AnimatePresence>
         </div>
+
+        {/* The like fan's veil: the page dims while it is open; a tap on it closes the fan. */}
+        <AnimatePresence>
+          {fan ? (
+            <motion.div
+              key="veil"
+              data-own-gesture
+              aria-hidden
+              className="absolute inset-0 z-[29] bg-ink/35"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              onClick={() => setFan(null)}
+            />
+          ) : null}
+        </AnimatePresence>
 
         {/* Full page controls, under the thumb */}
         <motion.div
@@ -1167,10 +1219,11 @@ export function PaperB({ editions }: { editions: Edition[] }) {
           </button>
           {open ? (
             <span className="lnum rounded-full bg-ground/90 px-3 py-2 text-[14px] italic text-ink backdrop-blur-md">
-              {open.card + 1} de {sections[open.sec].cards.length}
+              {open.card + 1}/{sections[open.sec].cards.length}
             </span>
           ) : null}
           <span className="flex items-center gap-2">
+            {openStory ? <LikeFan verdict={verdict} fan={fan} setFan={setFan} onChoose={choose} enabled={!!open} /> : null}
             {topic ? (
               <motion.button
                 type="button"
@@ -1179,6 +1232,8 @@ export function PaperB({ editions }: { editions: Edition[] }) {
                 aria-label={followed ? `Dejar de seguir: ${topic.title}` : `Seguir el tema: ${topic.title}`}
                 onClick={() => {
                   const on = following.toggle(topic.id);
+                  // Following a topic is a weak like.
+                  nudge(`f:${topic.id}`, "follow", on, featuresOf(topic));
                   if (on) haptic.complete();
                   else haptic.select();
                   setNote({ key: Date.now(), text: on ? "Siguiendo este tema" : "Ya no lo sigue" });
