@@ -26,7 +26,7 @@ import { springs } from "@/lib/pads/swift/springs";
 import { WorkerCard } from "@/components/pads/swift/worker-card";
 import { NuevoUsuarioSheet } from "@/components/pads/swift/nuevo-usuario-sheet";
 import { sampleUsers } from "@/components/pads/swift/mock-data";
-import { PadCardsSkeleton } from "@/components/skeleton/shapes";
+import { Pad03Skeleton } from "@/components/loading/apps";
 
 export default function MobilePage() {
   const [users, setUsers] = useState(sampleUsers);
@@ -97,7 +97,7 @@ export default function MobilePage() {
           setIsFullScreen={setIsFullScreen}
         />
       </main>
-      <PadCardsSkeleton swift />
+      <Pad03Skeleton />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { roomSheet } from "@/data/puncheo/rooms";
 import type { Viewport } from "next";
 import { PunchApp } from "@/components/puncheo/PunchApp";
-import { PuncheoSkeleton } from "@/components/skeleton/shapes";
+import { PuncheoSkeleton } from "@/components/loading/apps";
 
 // B lives in a vvs frame: beyond it, Safari's bars included, is black.
 export const viewport: Viewport = {

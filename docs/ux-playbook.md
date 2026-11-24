@@ -439,7 +439,7 @@ doesn't load the scroller or its animation library. Two things to carry over:
 ## Coming and going: tiles and skeletons
 
 How the portal moves between pages. Code: `components/tech-index/tiles.tsx`
-(the indices) and `components/skeleton/` (the apps).
+(the indices) and `components/loading/` (the apps).
 
 ### Leaving an index (`/`, `/ad`, `/kit`, `/ad/pads`)
 
@@ -465,31 +465,53 @@ with a little overshoot, 45 ms apart), the rest at once. It plays again when
 Safari brings the page back from its cache (`pageshow`, `persisted`), because
 the page was left empty.
 
-### Arriving at an app: skeleton loading
+### Arriving at an app: a bar or a skeleton
 
-An app with no loading of its own gets a `SkeletonGate` beside its content in
-its `page.tsx`, with its first screen drawn in `Bone`s in its own tokens
-(`components/skeleton/shapes.tsx`). Today: Updatr, Noticss, Puncheo, pad01,
-pad02, pad03. Histok (its image skeletons) and Axis Cube (its loading screen)
-have their own; KPI lives outside.
+An app with no loading of its own gets a gate beside its content in its
+`page.tsx` (`components/loading/`; each app's in `apps.tsx`). Which one
+depends on how long the wait is, measured on a slow phone network
+(1.6 Mbps, 150 ms):
 
-- Until the app is ready, everything else on the page is hidden. Ready means
-  hydrated, fonts in, and the pictures of the first screen loaded, capped at
-  2.5 s.
-- The bones wait 140 ms, then spring in top to bottom. A load that is ready
-  before then never shows them: the app just fades in.
-- A bone that showed stays at least 380 ms. Then the bones spring out in a
-  random order while the app fades in under them.
-- It is plain markup and CSS until it hydrates (springs as CSS `linear()`
-  easings), so the skeleton is there from the first paint.
-- A skeleton on an opaque surface (Puncheo's frame) marks it `.skel-shell` and
-  the gate `shell`: the app shows at once underneath and the shell fades over
-  it, so there is no dip in the cross-fade.
-- If the script never runs, the page shows itself after 6 s (at once with
-  scripting off).
+| App | Ready after | Loading |
+|---|---|---|
+| Updatr, Noticss | 9 to 10 s (big scripts, a large cover) | bar |
+| Histok | about 3 s | bar |
+| Puncheo, pad01, pad02, pad03 | about 2 s | skeleton |
+| The Cubes | its own loading screen | (its own) |
 
-New app: write its skeleton next to the others unless it brings its own
-loading.
+Both hold the app hidden until it is ready: hydrated, fonts in, and the
+pictures of its first screen loaded (capped: 2.5 s for a skeleton, 6 s for a
+bar). Neither shows for the first 140 ms, so a quick load (a second visit)
+just fades the app in. Both are plain markup and CSS until they hydrate
+(springs as CSS `linear()` easings), so they are there from the first paint,
+and the page shows itself anyway if the script never runs (6 s for a
+skeleton, 20 s for a bar; at once with scripting off).
+
+**Bar** (`BarGate`, The Cubes' loader in the app's colours): the app's own
+ground, its mark at the centre, and three quarters down a stroked bar
+(radius 6 = fill 2.5 + gap 2 + stroke 1.5). The fill tells the truth:
+
+1. Before any script, it creeps on a CSS curve.
+2. An inline script, run as the page is parsed, fills it as the app's
+   scripts arrive (the resource timings of its `<script src>`), up to 80%,
+   with a creep between arrivals so it never stands still.
+3. Hydrated: 85%, then fonts and first-screen pictures to 100%.
+4. Full, the mark and the bar spring out and the app fades in.
+
+**Skeleton** (`SkeletonGate`, `Bone`): the first screen as rounded
+rectangles, placed where the real cards, lines, keys and bars are (measured
+from the real screen at 393 px and overlaid on it to check), in the app's
+own tokens, each bone with the radius of what it stands for. Bones are
+numbered in reading order, a card then what is in it: they spring in in that
+order and spring out in the same order while the app fades in where they
+were. A bone that showed stays at least 380 ms. A skeleton on an opaque
+surface (Puncheo's frame) marks it `.skel-shell` and the gate `shell`: the
+app shows at once underneath and the shell fades over it, so there is no dip
+in the cross-fade.
+
+New app: give it a skeleton if it is ready in about 2 s on a slow network, a
+bar if it takes longer, and nothing if it brings its own loading. Measure the
+real screen for the bones; don't guess them.
 
 ## Starting a new app
 
