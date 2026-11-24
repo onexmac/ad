@@ -38,13 +38,31 @@ export function buildIssue(items: Item[], franchises: Franchise[]): Issue {
   const all = [...items].sort(byNewest);
   const pool = all;
   const used = new Set<string>();
+  // Pictures already on a page: sources often share one share image (a
+  // studio's news pages, say), and the issue never shows a picture twice.
+  const shown = new Set<string>();
   const take = (i?: Item) => {
-    if (i) used.add(i.id);
+    if (i) {
+      used.add(i.id);
+      if (i.image) shown.add(i.image);
+    }
     return i;
   };
   const free = (pred: (i: Item) => boolean = () => true) =>
     pool.filter((i) => !used.has(i.id) && pred(i));
-  const pictured = (i: Item) => !!i.image && !i.mock;
+  const pictured = (i: Item) => !!i.image && !i.mock && !shown.has(i.image);
+  /** Up to n entries, none sharing a picture with another or with the issue so far (not taken yet). */
+  const pick = (pred: (i: Item) => boolean, n: number) => {
+    const seen = new Set<string>();
+    const out: Item[] = [];
+    for (const i of free(pred)) {
+      if (out.length >= n) break;
+      if (i.image && seen.has(i.image)) continue;
+      if (i.image) seen.add(i.image);
+      out.push(i);
+    }
+    return out;
+  };
   // The week's own stories lead: a suggestion never takes the cover, the
   // feature or the dossier; suggestions get their own strip.
   const leading = (i: Item) => pictured(i) && !i.suggested;
@@ -57,7 +75,7 @@ export function buildIssue(items: Item[], franchises: Franchise[]): Issue {
   for (const i of all) if (i.kind === "collab" && !i.suggested) collabCount.set(i.franchise, (collabCount.get(i.franchise) ?? 0) + 1);
   const dossierId = [...collabCount.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
   const dossierFranchise = franchises.find((f) => f.id === dossierId);
-  const dossierItems = dossierId ? free((i) => i.franchise === dossierId && leading(i)) : [];
+  const dossierItems = dossierId ? pick((i) => i.franchise === dossierId && leading(i), 8) : [];
   // A dossier of one is a spotlight, not a spread.
   const dossierOk = dossierItems.length >= 2;
   if (dossierOk) dossierItems.forEach(take);
@@ -66,7 +84,7 @@ export function buildIssue(items: Item[], franchises: Franchise[]): Issue {
   const feature = take(free((i) => i.kind === "collab" && leading(i))[0] ?? free(leading)[0]);
 
   // The reader's own strip: the suggestions with a picture, best first.
-  const forYou = free((i) => pictured(i) && !!i.suggested).slice(0, 8);
+  const forYou = pick((i) => pictured(i) && !!i.suggested, 8);
   forYou.forEach(take);
 
   // Pair: a skin and a character, from different franchises when possible.
@@ -80,19 +98,19 @@ export function buildIssue(items: Item[], franchises: Franchise[]): Issue {
     free(own).sort((a, b) => (b.importance ?? 1) - (a.importance ?? 1))[0],
   );
 
-  const grid = free(own).slice(0, 6);
+  const grid = pick(own, 6);
   grid.forEach(take);
 
-  const duo = free(own).slice(0, 2);
+  const duo = pick(own, 2);
   if (duo.length === 2) duo.forEach(take);
 
-  const mosaic = free(own).slice(0, 3);
+  const mosaic = pick(own, 3);
   if (mosaic.length === 3) mosaic.forEach(take);
 
   // Anything pictured still left (suggestions past the strip, a lone one)
   // goes to the strip rather than to the briefs.
-  const leftover = free(pictured);
-  forYou.push(...leftover.slice(0, Math.max(0, 10 - forYou.length)));
+  const leftover = pick(pictured, Math.max(0, 10 - forYou.length));
+  forYou.push(...leftover);
   leftover.forEach(take);
 
   const coming = all
@@ -100,7 +118,8 @@ export function buildIssue(items: Item[], franchises: Franchise[]): Issue {
     .sort((a, b) => (a.when ?? "").localeCompare(b.when ?? ""));
   const next = coming.find((i) => daysFrom(i.when!) > 0);
 
-  // Briefs: only what has no picture, the most important first.
+  // Briefs: only what has no picture of its own (none, or one already shown),
+  // the most important first.
   const briefs = free((i) => !pictured(i))
     .sort((a, b) => (b.importance ?? 1) - (a.importance ?? 1))
     .slice(0, MAX_BRIEFS);
