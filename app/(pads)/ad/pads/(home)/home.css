@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* Pads — technical minimalism. AD Visual's greys and Inter, one signal
-   orange, a squared display face for numerals, mono for every label. The
+   green (Adelante's, pushed deeper), a squared display face for numerals, mono for every label. The
    screen is black; the page is a stack of panels on it, and the viewport
    itself is a rounded frame. */
 :root {
@@ -12,8 +12,11 @@
   --ink: #191c22; /* Gray 1 */
   --ink-soft: #5d636c; /* Gray 2 */
   --ink-faint: #959ca7; /* Gray 3 */
-  --signal: #f2540d;
-  --signal-deep: #c43f05;
+  /* Adelante green, deeper and more saturated than #ADD010: ink on it is
+     8.2:1, and it holds better against the light panels. */
+  --signal: #84c700;
+  --signal-deep: #3d6600; /* green text on a light panel */
+  --signal-night: #141c06; /* the dark the hatch sits on */
   --gutter: 6px;
   --cell: 22px; /* panel radius */
   --frame: 30px; /* viewport radius = panel + gutter, or more */

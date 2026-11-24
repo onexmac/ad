@@ -8,7 +8,7 @@ import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
 /**
  * The Pads index. No title: the screen is an instrument panel. Black ground,
  * panels on a 6 px gutter, every label in mono, numerals in a squared face,
- * one signal orange. The viewport's corners are rounded by the frame.
+ * one signal green. The viewport's corners are rounded by the frame.
  */
 export function PadsHome({ apps }: { apps: PortalApp[] }) {
   const { scale, origin } = useEdgeSquish();
@@ -148,7 +148,7 @@ function Entry({ app, index }: { app: PortalApp; index: number }) {
           </span>
         </div>
         <div>
-          <p className="text-[25px] font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
+          <p className="font-tech text-[30px] font-semibold uppercase leading-[0.95] tracking-[-0.005em] text-ink">
             {app.name}
           </p>
           {app.description ? (
@@ -168,7 +168,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   if (kind === "signal") {
     return (
       <div className="flex flex-col gap-[var(--gutter)]">
-        <div className="hatch h-[64px] rounded-[var(--cell)] border border-signal bg-[#2b201b] [--hatch-ink:var(--signal)]" />
+        <div className="hatch h-[64px] rounded-[var(--cell)] border border-signal bg-[var(--signal-night)] [--hatch-ink:var(--signal)]" />
         <div className="flex flex-1 flex-col items-center justify-end gap-3 rounded-[var(--cell)] bg-signal pb-4">
           <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
           <Badge dark>{glyph}</Badge>
@@ -189,7 +189,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
     return (
       <div className="dots relative flex flex-col justify-end rounded-[var(--cell)] bg-panel p-4 [--pitch:16px]">
         <div className="flex items-end justify-between rounded-[12px] bg-panel pr-1 pt-2">
-          <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-signal">{no}</span>
+          <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
           <Badge>{glyph}</Badge>
         </div>
       </div>
@@ -212,7 +212,7 @@ function Badge({ children, dark, invert }: { children: React.ReactNode; dark?: b
   return (
     <span
       className={`grid h-9 w-9 place-items-center rounded-full ${
-        invert ? "bg-signal text-ink" : dark ? "bg-[#2b201b] text-signal" : "bg-ink text-panel"
+        invert ? "bg-signal text-ink" : dark ? "bg-[var(--signal-night)] text-signal" : "bg-ink text-panel"
       }`}
     >
       {children}
