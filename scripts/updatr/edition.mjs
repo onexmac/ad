@@ -107,13 +107,17 @@ async function attachShots(entries) {
   for (const im of found) if (im) uses.set(im, (uses.get(im) ?? 0) + 1);
   const generic = (im) => !im || uses.get(im) >= 3 || /logo|favicon|placeholder|default[-_]?(share|image|og)/i.test(im);
   const byUrl = new Map(want.map((u, i) => [u, generic(found[i]) ? null : found[i]]));
+  // A picture another entry already has is not this entry's picture (a studio's
+  // news pages often share one share image): look on its other pages instead.
+  const inUse = new Set(entries.map((e) => e.image).filter(Boolean));
   let fromOther = 0;
   const out = entries.map((e) => {
     if (e.image) return e;
     const pages = pagesOf(e);
-    const hit = pages.find((u) => byUrl.get(u));
+    const hit = pages.find((u) => byUrl.get(u) && !inUse.has(byUrl.get(u)));
     if (!hit) return e;
     if (hit !== e.url) fromOther++;
+    inUse.add(byUrl.get(hit));
     return { ...e, image: byUrl.get(hit) };
   });
   console.log(`photos: ${out.filter((e) => e.image).length} of ${entries.length} entries (${fromOther} from another page on the story), ${want.length} pages read`);

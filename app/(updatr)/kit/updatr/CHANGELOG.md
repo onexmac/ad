@@ -29,6 +29,12 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 
 Still open: none reported.
 
+## 0.5.6 · 2026-11-24 14:27
+
+- A picture is never shown twice in an issue. Sources often share one share image (Nexon's First Descendant pages do, and so does Steam's store page), and the cover and the spotlight, and Latest's wide picture and the first of Two to see, had shown the same picture for different entries. The issue now places each picture once; an entry whose only picture is already on a page counts as having none.
+- The edition pipeline no longer gives an entry a picture another entry already has: it looks on the entry's other pages instead.
+- This week's edition (Nº48, refreshed this afternoon with seven new or updated entries) has a picture of its own for each of its 28 entries. Eight were filled by hand from the stories' other coverage and from Nexon's own announcements on Steam, each checked to load as an image; all are linked, not copied. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
 ## 0.5.5 · 2026-11-24 14:14
 
 - **Marcos: "Too many briefs, must up the ui and the layout, favor more images."** The cause: the briefs took every entry the picture modules hadn't used, pictured or not, so eleven of them filled three pages of text while their pictures went unseen. What not to do: never let a text-only module be where entries with pictures overflow to.

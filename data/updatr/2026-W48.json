@@ -3,7 +3,7 @@
   "year": 2026,
   "week": 48,
   "date": "2026-11-24",
-  "updatedAt": "2026-11-24T20:19:30.298Z",
+  "updatedAt": "2026-11-24T20:25:45.210Z",
   "isSample": false,
   "items": [
     {
@@ -27,7 +27,7 @@
       ],
       "source": "Steam Community – The First Descendant",
       "url": "https://steamcommunity.com/app/2074920",
-      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2074920/defeb6250e6fafc1fec7967914c28b9715d6e639/header.jpg?t=1794892609"
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/a0bbb9bbd1a4f897439add27c46df6639b5cd149.png"
     },
     {
       "id": "tfd-descendants-weekend",
@@ -49,7 +49,7 @@
       ],
       "source": "Steam Community – The First Descendant",
       "url": "https://steamcommunity.com/app/2074920",
-      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2074920/defeb6250e6fafc1fec7967914c28b9715d6e639/header.jpg?t=1794892609"
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/377cbe7f2dcfb4d66a21de01c26f91f97cfa82ef.jpg"
     },
     {
       "id": "tfd-black-friday-sale",
@@ -70,7 +70,8 @@
         "skins"
       ],
       "source": "The First Descendant official site",
-      "url": "https://tfd.nexon.com/en/news/3582131"
+      "url": "https://tfd.nexon.com/en/news/3582131",
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2074920/capsule_616x353.jpg"
     },
     {
       "id": "tfd-abyss-raptor",
@@ -91,7 +92,8 @@
         "kyle"
       ],
       "source": "The First Descendant official site",
-      "url": "https://tfd.nexon.com/en/news/3582131"
+      "url": "https://tfd.nexon.com/en/news/3582131",
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/e025013a4536b9054a640d702f08c14f9e1c6ea7.jpg"
     },
     {
       "id": "cod-s1-reloaded",
@@ -284,7 +286,7 @@
       ],
       "source": "GameLeap",
       "url": "https://www.gameleap.com/articles/the-first-descendant-in-game-11-17-tue-event-info",
-      "image": "https://cdn.gameleap.com/images/articles/art_WbLfuXWF4r/feature/0.6x.webp"
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/e686adbfa4eb172fe20be5a53f843553dc8d4fd1.png"
     },
     {
       "id": "tfd-legacy-pass",
@@ -306,7 +308,7 @@
       ],
       "source": "GameLeap",
       "url": "https://www.gameleap.com/articles/the-first-descendant-1-4-9-patch-notes-all-changes",
-      "image": "https://cdn.gameleap.com/images/articles/art_WbLfuXWF4r/feature/0.6x.webp"
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/a0f83a539442a70ca696fc388ef8c67c42a10382.jpg"
     },
     {
       "id": "cod-mw4-tga",
@@ -460,7 +462,8 @@
         "extraction shooter"
       ],
       "source": "Worthplaying",
-      "url": "https://worthplaying.com/article/2026/11/17/news/151460-arc-raiders-rolls-out-v26-update-with-bug-fixes-new-content-cosmetics-and-sale-v27-next-week-with-flickering-flames-raider-project-part-1/"
+      "url": "https://worthplaying.com/article/2026/11/17/news/151460-arc-raiders-rolls-out-v26-update-with-bug-fixes-new-content-cosmetics-and-sale-v27-next-week-with-flickering-flames-raider-project-part-1/",
+      "image": "https://storage.ghost.io/c/50/c6/50c61f91-0165-4605-93bc-f8598149e466/content/images/size/w1200/2026/11/image--14--1-1.jpeg"
     },
     {
       "id": "rdr-apex-godzilla",
@@ -504,7 +507,8 @@
         "hero shooter"
       ],
       "source": "NetEase Games (press release)",
-      "url": "https://www.gamespress.com/BAMF-Nightcrawler-and-Dracula-Join-the-Marvel-Rivals-Battle-as-Season-"
+      "url": "https://www.gamespress.com/BAMF-Nightcrawler-and-Dracula-Join-the-Marvel-Rivals-Battle-as-Season-",
+      "image": "https://storage.ghost.io/c/50/c6/50c61f91-0165-4605-93bc-f8598149e466/content/images/size/w1200/2026/11/official-f5ed4aae-290e-49f1-9e11-9b626ab93a7e.jpg"
     },
     {
       "id": "rdr-overwatch-hudson",
