@@ -277,6 +277,10 @@ in the bounce. When he says "vvv", this is what he means.
 
 Code: `components/vvv/Vvv.tsx`. First used on the Pads index
 (`components/pads/home/PadsHome.tsx`).
+The Pads look (technical minimalism) is now a component of its own,
+`components/tech-index/TechIndex.tsx`, with its stylesheet `tech.css` and its
+faces in `lib/tech-fonts.ts`. The Pads index and the `/ad` and `/kit`
+section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
 
 ### Two fits: vvs and vvt
 
@@ -289,7 +293,10 @@ Code: `components/vvv/Vvv.tsx`. First used on the Pads index
 | Bottom | above Safari's bar, rounded | same |
 | Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
 
-Pads uses vvs.
+Pads uses vvs. Noticss B (`/kit/noticss/b`) uses vvt: like Axis Cube it lays
+its own frame (`useVvvInset`), and an open page fills that frame, its top
+corners going square as it opens and its bottom ones the frame's (44 px, the
+same as a card's).
 
 ### How it's made
 

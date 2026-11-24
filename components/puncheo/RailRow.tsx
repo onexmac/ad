@@ -11,6 +11,7 @@ import { CheckDetail, Expand } from "./CheckDetail";
 import { HATCH, SquircleCheck } from "./Squircle";
 import { useSwipeMark } from "./useSwipeMark";
 import { rowState, type PunchSheet } from "./usePunchSheet";
+import { inFrame, screenY, scrollToY, scrollTop, viewTop } from "@/lib/puncheo/scroller";
 
 export const COLOR: Record<Status, string> = { green: "var(--ok)", yellow: "var(--warn)", red: "var(--bad)", na: "var(--na)" };
 const TINT: Record<Exclude<Status, "na">, string> = {
@@ -35,13 +36,10 @@ function snapToTop(el: HTMLElement | null) {
   // that change in the same frame.
   // Measured from the layout, not the painted box: a row still rising into view
   // carries a passing offset the anchor must not chase.
-  const top = () => {
-    let y = 0;
-    for (let n: HTMLElement | null = row; n; n = n.offsetParent as HTMLElement | null) y += n.offsetTop;
-    return y - window.scrollY;
-  };
+  const top = () => screenY(row);
   const from = top();
-  const to = () => (tabs ? tabs.getBoundingClientRect().bottom : sat) + 8;
+  // Under the bar, or the top of the vvv frame, or the status bar.
+  const to = () => (tabs ? tabs.getBoundingClientRect().bottom : inFrame() ? viewTop() : sat) + 8;
   const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const GLIDE = 460;
   const HOLD = 760; // keep anchoring while the folding detail finishes
@@ -53,10 +51,7 @@ function snapToTop(el: HTMLElement | null) {
     const t = Math.min(1, (now - t0) / GLIDE);
     const want = from + (to() - from) * ease(t);
     const off = top() - want;
-    if (Math.abs(off) > 0.5) {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      window.scrollTo({ top: Math.max(0, Math.min(max, window.scrollY + off)), behavior: "instant" });
-    }
+    if (Math.abs(off) > 0.5) scrollToY(scrollTop() + off);
     if (now - t0 >= HOLD) {
       cancelFrame(frame_);
       snapRun = null;

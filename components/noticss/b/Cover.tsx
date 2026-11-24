@@ -33,7 +33,7 @@ export function Cover({
       <div data-cover={index} className="absolute inset-0 text-paper" style={{ background: `linear-gradient(180deg, ${sky.join(", ")})` }}>
         <div
           className="absolute inset-x-0 top-[calc(46px+var(--sat))] flex flex-col overflow-hidden px-5"
-          style={{ bottom: `calc(${S} * (100% - var(--sat)) + ${BOTTOM + 40}px + var(--sab))` }}
+          style={{ bottom: `calc(${S} * 100% + ${BOTTOM + 40}px + var(--sab))` }}
         >
           <p className="mono text-paper/80">
             Nº {edition.number} · {weekday(edition.date)}
@@ -103,7 +103,7 @@ export function Cover({
 /** The line just above the tray: section, count, and the hint. */
 export function SectionLabel({ name, sub, index, count }: { name: string; sub: string; index: number; count: number }) {
   return (
-    <div className="absolute inset-x-0 px-[14px]" style={{ bottom: `calc(${S} * (100% - var(--sat)) + ${BOTTOM + 12}px + var(--sab))` }}>
+    <div className="absolute inset-x-0 px-[14px]" style={{ bottom: `calc(${S} * 100% + ${BOTTOM + 12}px + var(--sab))` }}>
       <div className="mono flex items-baseline justify-between text-paper/75">
         <span>
           {name} · {sub}

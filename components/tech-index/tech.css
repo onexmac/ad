@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
-/* Pads — technical minimalism. AD Visual's greys and Inter, one signal
-   green (Adelante's, pushed deeper), a squared display face for numerals, mono for every label. The
-   screen is black (vvv), the frame's deck is the dark; the page is a stack of panels on it, and the viewport
-   itself is a rounded frame. */
+/* Technical minimalism (first made for the Pads index; now also the /ad and
+   /kit indices). AD Visual's greys and Inter, one signal green (Adelante's,
+   pushed deeper), a squared display face for numerals, mono for every label.
+   The screen is black (vvv), the frame's deck is the dark; the page is a stack
+   of panels on it, and the viewport itself is a rounded frame. */
 :root {
   --void: #000000; /* beyond the frame: vvv is always black */
   --deck: #191c22; /* inside the frame, the gutters: AD Visual Gray 1; the 04 and mark plates are black on it */

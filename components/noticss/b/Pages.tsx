@@ -230,7 +230,7 @@ function NotePage({
 
 function FiguresPage({ indicators, edition }: { indicators: Indicator[]; edition: Edition }) {
   return (
-    <div className="min-h-full bg-paper px-6 pb-[calc(120px+var(--sab))] pt-16">
+    <div className="min-h-full bg-paper px-6 pb-[calc(120px+var(--sab))] pt-[calc(4rem+var(--sat))]">
       <p className="mono text-accent">Cifras · {shortDate(edition.date)}</p>
       <h2 className="mt-3 text-[52px] italic leading-[0.95] tracking-[-0.02em]" style={{ fontVariationSettings: '"opsz" 72' }}>
         Los números del día
