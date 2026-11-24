@@ -12,9 +12,9 @@
   --ink: #191c22; /* Gray 1 */
   --ink-soft: #5d636c; /* Gray 2 */
   --ink-faint: #959ca7; /* Gray 3 */
-  /* Adelante green, deeper and more saturated than #ADD010: ink on it is
-     8.2:1, and it holds better against the light panels. */
-  --signal: #84c700;
+  /* Adelante green, deeper than #ADD010 (Marcos's pick): ink on it is
+     6.5:1, and it holds better against the light panels (2.35:1). */
+  --signal: #86ad00;
   --signal-deep: #3d6600; /* green text on a light panel */
   --signal-night: #141c06; /* the dark the hatch sits on */
   --gutter: 6px;
