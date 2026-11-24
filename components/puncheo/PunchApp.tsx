@@ -169,16 +169,23 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
   const fillTop = useTransform(headY, (v) => -Math.max(0, v));
   const [peek, setPeek] = useState(false);
   const peekRun = useRef(0); // the latest peek; a stale hide's end mustn't undo a newer one
-  const reveal = () => {
+  // Whether the bar was out of sight when the screen changed (walk, search, a
+  // filter): then it drops in on the new screen, even one that starts at the top.
+  const barWasHidden = useRef(false);
+  const barHidden = () => !!head.current && scrollTop() >= head.current.offsetHeight;
+  const reveal = (force = false) => {
     const el = head.current;
-    if (!continuous || !el || scrollTop() < el.offsetHeight) return;
+    if (!continuous || !el || (!force && !barHidden())) return;
     const run = ++peekRun.current;
     headY.set(-el.offsetHeight - 8);
     setPeek(true);
     // A springy pop, fully opaque the whole way (no fade): the bar slides down
     // from above, overshoots its place taking the page with it, and settles.
     animate(headY, 0, PEEK_SPRING).then(() => {
-      if (run === peekRun.current) haptic.select();
+      if (run !== peekRun.current) return;
+      haptic.select();
+      // Landed at the very top: it is in its own place, the peek is over.
+      if (scrollTop() <= 0) setPeek(false);
     });
   };
   const hidePeek = () => {
@@ -198,7 +205,8 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
     };
     const top = () => {
       // At the very top the header is in its own place: stop peeking, invisibly.
-      if (scrollTop() > 0) return;
+      // (Not while it is still dropping in: it ends itself when it lands.)
+      if (scrollTop() > 0 || headY.isAnimating()) return;
       ++peekRun.current;
       headY.stop();
       headY.set(0);
@@ -253,6 +261,7 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
 
   const toggle = () => {
     haptic.select();
+    barWasHidden.current = barHidden();
     if (searching) {
       setQ("");
       setFilter(0);
@@ -279,7 +288,10 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
         toggle,
         filters: FILTERS.map((x) => ({ id: x.id, label: x.label, count: s.all.filter((c) => x.match(s.marks[c.id])).length })),
         filter,
-        setFilter,
+        setFilter: (i: number) => {
+          barWasHidden.current = barHidden();
+          setFilter(i);
+        },
         suggestions,
       }}
     />
@@ -303,7 +315,8 @@ export function PunchApp({ sheet, variant }: { sheet: RoomSheet; variant: Varian
           onExitComplete={() => {
             if (landAt.current !== null) scrollToY(landAt.current);
             landAt.current = null;
-            reveal();
+            reveal(barWasHidden.current);
+            barWasHidden.current = false;
           }}
         >
           {searching ? (
