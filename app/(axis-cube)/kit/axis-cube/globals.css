@@ -167,7 +167,14 @@ html.axis-ask .axis-gate {
   -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
 }
 html.axis-ask-out .axis-gate { opacity: 0; pointer-events: none; }
-html.axis-ask .axis-loader .c, html.axis-ask .axis-loader .o, html.axis-ask .axis-loader .track i { animation-play-state: paused; }
+html.axis-ask:not(.axis-ask-hello) .axis-loader .c, html.axis-ask:not(.axis-ask-hello) .axis-loader .o, html.axis-ask .axis-loader .track i { animation-play-state: paused; }
+/* The welcome is the loader itself, with the name and an OK where its bar will be: the screen in front lets it
+   through, the loading cube is already turning in the middle, and the bar waits out of sight. When the welcome
+   goes, the bar comes up under the OK as it fades and runs out to the room. */
+html.axis-ask-hello .axis-gate { background: transparent; }
+html.axis-ask-hello .axis-gate .mark { display: none; }
+.axis-loader .bar { transition: opacity 0.2s ease; }
+html.axis-ask-hello .axis-loader .bar { opacity: 0; }
 .axis-gate .mark {
   position: absolute; left: 50%; top: 50%;
   width: calc(var(--cube-edge) * 2.56); height: calc(var(--cube-edge) * 2.56);
