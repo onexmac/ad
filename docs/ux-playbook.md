@@ -275,7 +275,7 @@ matched; when they differ, Updatr is the newer and better-tested one.
 - **Don't fill empty states with nothing.** Say what to do, and use the real
   icon.
 
-## What Noticss B added (`/kit/noticss/b`)
+## What Noticss B added (`/kit/noticss`, where Noticss opens; A is at `/kit/noticss/a`)
 
 The Paper / Push Pop Press grammar, built on the pieces above. Code in
 `components/noticss/PaperB.tsx` and `components/noticss/b/`.
@@ -337,7 +337,7 @@ in a vvs.
 | Bottom | above Safari's bar, rounded | same |
 | Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
 
-The portal's indices use vvs. Noticss B (`/kit/noticss/b`) uses vvt: like The Cubes it lays
+The portal's indices use vvs. Noticss B (`/kit/noticss`) uses vvt: like The Cubes it lays
 its own frame (`useVvvInset`), and an open page fills that frame, its top
 corners going square as it opens and its bottom ones the frame's (44 px, the
 same as a card's).
