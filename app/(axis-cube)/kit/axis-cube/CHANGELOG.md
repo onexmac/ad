@@ -22,6 +22,29 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.30 · 2026-11-24 08:03
+
+- The iMac is rebuilt from photographs of the real one, laid out as its plastics are:
+  - a hood of frosted ice over the face and the front of the top;
+  - a skirt of the same ice all the way round the bottom;
+  - the blue only between them, over the sides and the round back. Before, it was all blue with a white frame on the front.
+- Its side is a rounded wedge, as on the original:
+  - the face leans back a little;
+  - the top runs back almost level, then falls in one long curve to a back that is deepest low down;
+  - the line between the blue and the skirt climbs from the face to the back.
+  - Seen from above, the sides still draw in toward the back.
+- The face is the original's:
+  - a large 4:3 screen in a grey-white frame, with "iMac" under it;
+  - on the skirt below, the two teal speakers at the corners, the CD tray in the middle and the power button.
+  - The blue band that used to sit under the screen is gone.
+- On the shell:
+  - The blue is greener at its front edge, where the real plastic is thick.
+  - On the fall of the back are three vents, and the handle: a loop of ice round a dark hollow, with the grip across it.
+  - On the right side of the skirt is the door, with its blue latch.
+  - Underneath are the foot that folds out and four small feet.
+- Inside, the tube shows through the blue, square at the face and drawing in to its neck. The flat panels that used to show through, and the corner of the tube's mask that poked out of the shell, are gone.
+- The screen's light is now a wide spot just off the glass, pointing into the room. It lights what is in front of the screen, but no longer the iMac's own face or glass, which had glowed under the screen. (#PR)
+
 ## 0.6.27 · 2026-11-24 07:02
 
 - The iMac has the original's egg curves. It is built from superellipses instead of a box tapering back.
