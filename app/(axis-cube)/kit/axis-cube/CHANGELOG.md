@@ -64,7 +64,7 @@ Open:
   - Don't: stop at the first version that has a thing's defining trait. Match the trait in degree, until it reads at a glance as it does on the real one.
 - The Ghost Cube's mechanism sits half a layer off the cube's centre (0.33, 0.25, 0.29), three times as far as before. The tilt is the same.
   - Found by a search for the most uneven spread of piece sizes that still shows every one of the 26 pieces with few slivers, then compared with the photograph.
-  - The spread of piece sizes grew by a fifth: the largest face of a piece is now a third of a face of the cube, up from a quarter. ([#PR](PR))
+  - The spread of piece sizes grew by a fifth: the largest face of a piece is now a third of a face of the cube, up from a quarter. ([#162](https://github.com/onexmac/ad/pull/162))
 
 ## 0.6.38 · 2026-11-24 16:10
 
