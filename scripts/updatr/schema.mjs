@@ -115,13 +115,20 @@ export function tidy(brief) {
     tags: e.tags.map((t) => t.toLowerCase().trim()).filter(Boolean).slice(0, 3),
     image: null,
   });
-  const items = brief.items.map(fix);
+  // An entry nobody can check is not published: without a source page it is
+  // dropped here, so an earlier, sourced version of the same story stays.
+  const sourced = (e) => {
+    if (e.url && /^https?:\/\//.test(e.url)) return true;
+    problems.push(`${slug(e.id)}: no source url, dropped`);
+    return false;
+  };
+  const items = brief.items.filter(sourced).map(fix);
   const titles = new Set(items.map((e) => e.title.toLowerCase()));
   const ids = new Set(items.map((e) => e.id));
-  const suggestions = brief.suggestions.filter((e) => !titles.has(e.title.toLowerCase()) && !ids.has(slug(e.id))).map(fix);
-  for (const e of [...items, ...suggestions]) {
-    if (!e.body.length) problems.push(`${e.id}: no body`);
-    if (!e.url) problems.push(`${e.id}: no source url`);
-  }
+  const suggestions = brief.suggestions
+    .filter(sourced)
+    .filter((e) => !titles.has(e.title.toLowerCase()) && !ids.has(slug(e.id)))
+    .map(fix);
+  for (const e of [...items, ...suggestions]) if (!e.body.length) problems.push(`${e.id}: no body`);
   return { brief: { items, suggestions }, problems };
 }
