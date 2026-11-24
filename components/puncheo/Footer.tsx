@@ -6,6 +6,7 @@ import { springs } from "@/lib/histok/springs";
 import { CheckIcon, LockIcon } from "./Icons";
 import type { PunchSheet } from "./usePunchSheet";
 import { SectionControl } from "./SectionControl";
+import { useVvvCorner } from "@/components/vvv/Vvv";
 
 /*
  * One line at the thumb: the sections (dots; press for the fan), a quiet search
@@ -116,6 +117,13 @@ export function Footer({
   const gap = bar ? 8 : 6;
   const input = useRef<HTMLInputElement>(null);
   const open = !!search?.open;
+  // In a vvv frame, a key in one of the bar's bottom corners rounds that corner
+  // after the frame's (vvv's corner rule): 12 px from the side, 8 from the bottom.
+  // The other corners keep the bar's 6.
+  const curve = useVvvCorner(12, 8, 6);
+  const cornerL = framed && curve ? { borderBottomLeftRadius: curve } : undefined;
+  const cornerR = framed && curve ? { borderBottomRightRadius: curve } : undefined;
+  const glide = { transition: "border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)" };
   const nav = useRef<HTMLElement>(null);
   const [roomsOpen, setRoomsOpen] = useState(false);
   const showRooms = rooms && roomsOpen && !open;
@@ -180,6 +188,8 @@ export function Footer({
       type="button"
       onClick={toggle}
       aria-label={open ? "Cerrar búsqueda" : "Buscar"}
+      // It takes the corner's curve once the rooms key folds away and it slides into the corner.
+      style={framed ? { ...glide, ...(open || !rooms ? cornerL : {}) } : undefined}
       className={`relative grid size-11 shrink-0 place-items-center ${round} ${
         polish ? "leia-search text-ground" : bar ? (open ? "bg-ink-3 text-ground" : "text-ink-faint") : "bg-hair text-ink-soft"
       }`}
@@ -206,7 +216,7 @@ export function Footer({
   // The field: dark and sunk in (Leia's search, opened), a well to type into.
   const field = search ? (
     <motion.label
-      style={{ flexGrow: fieldGrow, marginLeft: fieldGap, pointerEvents: open ? "auto" : "none" }}
+      style={{ flexGrow: fieldGrow, marginLeft: fieldGap, pointerEvents: open ? "auto" : "none", ...cornerR }}
       className={`flex h-11 min-w-0 basis-0 items-center overflow-hidden ${round} ${
         polish ? "leia-field-dark" : bar ? "leia-well" : "bg-ground shadow-[inset_0_0_0_1.5px_var(--hair-2)]"
       }`}
@@ -245,7 +255,7 @@ export function Footer({
       className={`flex h-11 w-full min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap px-3 transition-colors duration-300 ${round} ${
         polish ? (s.isClosed ? "leia-fill-green" : s.ready ? "leia-cta" : "leia-cta-off") : ""
       }`}
-      style={polish ? undefined : { background: s.isClosed ? "var(--ok)" : s.ready ? "var(--brand)" : bar ? "var(--ink-3)" : "var(--hair)" }}
+      style={{ ...(polish ? {} : { background: s.isClosed ? "var(--ok)" : s.ready ? "var(--brand)" : bar ? "var(--ink-3)" : "var(--hair)" }), ...cornerR }}
     >
       <motion.span style={{ opacity: ctaInk }} className="flex min-w-0 items-center gap-2">
         {s.isClosed ? (
@@ -399,6 +409,7 @@ export function Footer({
               aria-label="Cuartos"
               aria-expanded={showRooms}
               tabIndex={open ? -1 : 0}
+              style={cornerL}
               className={`grid size-11 place-items-center ${round} ${polish ? (showRooms ? "leia-tab-on text-ground" : "leia-search text-ground") : showRooms ? "bg-brand text-ground" : "bg-ink-3 text-ground"}`}
             >
               <Plan />

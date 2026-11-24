@@ -51,7 +51,9 @@
   `docs/ux-playbook.md` ("vvv"). When Marcos says vvv, this is it. Two fits:
   **vvs** (short: the frame starts below the status bar and hides the Dynamic
   Island) and **vvt** (tall: no top curve, the frame runs to the screen's top
-  and the Dynamic Island shows).
+  and the Dynamic Island shows). Anything near one of the frame's corners
+  rounds that corner as the frame's curve drawn inward by its distance from
+  each edge (`useVvvCorner`), never the frame's radius itself.
 - Look: forced light mode, tokens in `app/globals.css` (ground, card, ink,
   brand). Reuse them; do not add inline colours.
 - Nested radii: a container's corner radius is always bigger than the radius

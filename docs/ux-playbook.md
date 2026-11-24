@@ -329,6 +329,29 @@ same as a card's).
 6. **Radii nest.** The frame's radius must be at least the panels' radius
    plus the padding between them. Pads uses a 32 px frame, 22 px panels and
    a 6 px gutter.
+7. **Corners near the frame's corners follow its curve.** Anything that sits
+   close to one of the frame's corners (a key at the end of a bottom bar, a
+   card pressed against the top) rounds *that one corner* as the frame's own
+   curve drawn inward by its distance from each edge, as if it were a stroke
+   inside the frame's line. The rest of its corners keep their own radius.
+   - The corner is `frame radius − distance from the side` across and
+     `frame radius − distance from the top or bottom` up: an elliptical
+     corner, because the two distances are rarely equal.
+   - Code: `useVvvCorner(dx, dy, min)` inside the frame (it reads the frame's
+     radius), or `vvvCorner(radius, dx, dy, min)`. `min` keeps it from going
+     below the element's other corners.
+   - vvt has no top curve: only its bottom corners pass the curve on.
+   - When the element that sits in the corner changes (a key folds away and
+     the next one slides in), the newcomer takes the curve with a short
+     `border-radius` transition.
+
+| Value | Puncheo (`/ad/puncheo`, vvs) |
+|---|---|
+| Frame radius | 28 px |
+| Bar keys | 44 px tall in a 60 px bar, 12 px from the sides (8 px from the bottom) |
+| Corner keys' outer corner | 16 × 20 px (28 − 12, 28 − 8) |
+| Their other corners | 6 px |
+| Which keys | left: the rooms key, or the close key while searching; right: Cerrar ficha, or the open search field |
 
 | Value | Pads |
 |---|---|
@@ -373,6 +396,10 @@ doesn't load the scroller or its animation library. Two things to carry over:
   window that never moves: `useEdgeSquish`, Updatr's `Grow`, `useScroll()`
   without a container, `scroll-snap-type` on `html`. Point them at the
   frame.
+- **Don't give a corner key the frame's radius, or leave it at its own.**
+  The frame's full radius on a key inset from it bulges past the frame's
+  line; the key's small radius leaves a square corner under a round one.
+  Draw the frame's curve inward (rule 7).
 - **Don't make beyond the frame anything but black.** Marcos: "vvv se queda
   en negro". A dark grey there once lost the vignette. Colour the frame's
   surface instead, and keep `themeColor` and the `html` background black, or
