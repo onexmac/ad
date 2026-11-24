@@ -5,10 +5,10 @@ export interface AxisSound {
   /** The loading is over: heard only if the browser already lets the page make sound. */
   ready(): void;
   select(): void;
-  pick(): void;
+  pick(puzzle?: string): void;
   drop(): void;
   land(): void;
-  turn(key: number, turned?: boolean): void;
+  turn(face: number, turned?: boolean, puzzle?: string): void;
   step(): void;
   flip(): void;
   tick(): void;
