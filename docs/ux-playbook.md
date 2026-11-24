@@ -40,6 +40,13 @@ matched; when they differ, Updatr is the newer and better-tested one.
   This caught about 40 real bugs that the author's own tests missed.
 - **Say what was not tested.** Chromium emulation is not iOS Safari. Name what
   needs a real-phone check.
+- **Zoom in the way Marcos does.** He enlarges his phone screenshots and sees
+  a stroke that is 1 px thinner on one side. Before shipping anything with
+  outlines, curves or nested corners, take the screenshot at
+  `deviceScaleFactor: 3`, crop the edges and corners and enlarge them
+  (nearest-neighbour). Read his screenshots the same way: crop the area he
+  points at from the full-size file and enlarge it before you guess the cause.
+  Puncheo's corner keys looked fine at 1× and were visibly broken at 3×.
 
 ## Principles
 
@@ -211,6 +218,18 @@ matched; when they differ, Updatr is the newer and better-tested one.
   settle back.
 
 ### Layout and chrome
+- **Don't let a clipping ancestor eat an outline.** An outline drawn as an
+  outer ring or drop shadow (`box-shadow: 0 0 0 1px …, 0 1px 1px …`, every
+  Leia key) sits *outside* the element's box. Any ancestor with
+  `overflow: hidden` (a wrapper that folds a key away, a collapsing panel)
+  cuts it off at the box, so the ring disappears on straight edges and
+  survives only where a rounded corner leaves room inside the box: a stroke of
+  uneven width. Fix: give the wrapper a rim of padding (3 px covers a 1 px
+  ring and its shadow) and take it back with a negative margin so nothing
+  moves; if the wrapper collapses to nothing, fade it out at the end so the
+  rim doesn't leave a sliver. Before shipping, check every outlined key for an
+  `overflow: hidden` ancestor. (Puncheo's bar, `components/puncheo/Footer.tsx`,
+  `RIM`.)
 - **Don't put a rounder element inside a less round container.** A 17 px
   radius button in a 12 px radius card reads as broken. Raise the container's
   radius or square the element.

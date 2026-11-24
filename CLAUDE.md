@@ -66,3 +66,8 @@
   of anything inside it (ideally outer = inner + the padding between them).
   A round 34 px button needs a card radius above 17; a pill inside a pill
   needs the outer one taller. Check every nesting before shipping.
+- Outlines and zoom: a key's ring or drop shadow sits outside its box, so an
+  `overflow: hidden` ancestor clips it into an uneven stroke; give the wrapper
+  a padded rim, taken back with a negative margin. Check edges and corners in
+  3× screenshots, cropped and enlarged, before shipping (playbook, "Layout and
+  chrome" and "How Marcos works").
