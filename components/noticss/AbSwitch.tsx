@@ -6,8 +6,8 @@ import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 
 const VERSIONS = [
-  { id: "a", href: "/kit/noticss" },
-  { id: "b", href: "/kit/noticss/b" },
+  { id: "a", href: "/kit/noticss/a" },
+  { id: "b", href: "/kit/noticss" },
 ] as const;
 
 /**

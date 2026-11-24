@@ -6,8 +6,8 @@ import { Vvs, VvvGrow as Grow } from "@/components/vvv/Vvv";
 import { Tile, TileLink, TileStage } from "./tiles";
 
 /**
- * An index in technical minimalism: the Pads index, and the /ad and /kit
- * section indices. No title: the screen is an instrument panel. Black ground,
+ * An index in technical minimalism: the portal's front page and its /ad and
+ * /kit section indices. No title: the screen is an instrument panel. Black ground,
  * panels on a 6 px gutter, every label in mono, numerals in a squared face,
  * one signal green. Wear it under a layout that loads `tech.css` and
  * `lib/tech-fonts`.

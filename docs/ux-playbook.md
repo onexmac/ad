@@ -112,6 +112,7 @@ matched; when they differ, Updatr is the newer and better-tested one.
 | Calendar picker | Roomy month blocks; a row is an ISO week. The item in view is ink, today has an accent dot, unavailable weeks are faint. | `components/updatr/Editions.tsx` | rows 52 px; 56 px gutter |
 | Follow (bookmark) | Toggle in the article's controls, with a short confirmation note. Date-first list of followed items. | `lib/updatr/watch.ts`, `components/updatr/Watching.tsx`, `Bookmark.tsx` | stored on the device until the server exists |
 | Opener | One article at a time. A closing one gives way to a new tap. | `components/updatr/useOpener.ts` | — |
+| Top bar peek | On a screen change (walk ↔ search, a filter, a jump to a room), if the top bar was out of sight it drops in from above the frame, as if it had been waiting there, even when the new screen starts at the top. Only the bar, never the cards under it. Fully opaque, no fade. Its overshoot carries the whole page down with it at the same rhythm, and its fill (not its labels) stretches up to the frame's top so no gap opens. Sticky only while peeking; the next touch or wheel outside it sends it back up, and at the very top it is just in its place. A room jump lands just under where the bar will sit. | `PunchApp.tsx` (`reveal`, `park`, `PEEK_SPRING`), `Header.tsx` (`HeadPeek`), `RoomScroll.tsx` (`onArrive`) in `components/puncheo/` | spring `visualDuration 0.42, bounce 0.4`; starts bar height + 8 px above; hides on `{420, 40}` |
 
 ## iOS Safari traps (each cost a round)
 
@@ -186,6 +187,24 @@ matched; when they differ, Updatr is the newer and better-tested one.
   don't let it ignore its ancestor's opacity. Clip it and carry the opacity.
 - **Don't use CSS scroll-snap for strips that should feel physical.** Use the
   spring strip. Its ends rubber-band and it always lands on a card.
+- **Don't rely on a motion value to hide something across a scroll jump.**
+  Motion writes a motion value to the element on its next frame, but a
+  scroll jump (`scrollTo`) is painted at once. Puncheo's top bar showed in
+  its place for one frame after the jump to the top, then vanished and
+  dropped in: a flicker Marcos caught. Hide it before the jump (it is out of
+  sight then anyway) and write the transform to the element straight away
+  (`el.style.transform`) as well as setting the value (`park` in
+  `components/puncheo/PunchApp.tsx`). Check it frame by frame: record the
+  transition (Playwright `recordVideo`, then `ffmpeg -vf fps=25`) or log the
+  element's position on every `requestAnimationFrame`.
+- **Don't leave a `layout` animation listening to every render.** An element
+  with `layout` re-animates whenever anything re-renders and moves it. When
+  the header dropped in, the Planos key vanished and trailed behind it, which
+  read as the header fading. Give it `layoutDependency` (the state that
+  really reshapes it) so only that sets it off.
+- **Don't take "it fades" at face value.** Twice the "fade" Marcos saw was
+  something else: a child lagging on a layout animation, and the content
+  under the bar fading in. Record it and look before changing the spring.
 
 ### Touch and gestures
 - **Don't open on pointerup.** Open on the native click: a touch that stops a
@@ -256,7 +275,7 @@ matched; when they differ, Updatr is the newer and better-tested one.
 - **Don't fill empty states with nothing.** Say what to do, and use the real
   icon.
 
-## What Noticss B added (`/kit/noticss/b`)
+## What Noticss B added (`/kit/noticss`, where Noticss opens; A is at `/kit/noticss/a`)
 
 The Paper / Push Pop Press grammar, built on the pieces above. Code in
 `components/noticss/PaperB.tsx` and `components/noticss/b/`.
@@ -271,7 +290,9 @@ The Paper / Push Pop Press grammar, built on the pieces above. Code in
 | Springs in the value's units | Springs are given as response and damping ratio. Every spring gets an explicit start velocity (an instant jump must not leave one). Rest tolerance follows the unit: fractions and cards settle finely, pixels at half a pixel. | `spring()` and `Tray.run` in `b/model.ts` | expand 0.5 / 0.86, page 0.4 / 1 |
 | The top of the screen | B is a vvt: the page itself runs up behind the clock (cover, photo or paper). In Safari that needs a scrolled document, so on an iPhone in the browser B is 80 px taller than the screen and pins the document scrolled by 80, with nothing fixed at the top edge. Once an open page scrolls past its photo, a band in its own paper keeps the words below the cut. | `bleed` in `PaperB.tsx`, `b/TopFill.tsx` | bleed 80 px |
 | Under Safari's bottom bar | The frame ends above the bar (`useVvvInset`); black beyond it, from a fixed layer at the bottom edge that Safari tints its bar from. | `PaperB.tsx` | gutter 6 px |
-| Like, Pinterest's way | Next to the bookmark. A tap opens a fan of two choices above the button (Me gusta, Menos así) over a dimmed page; tap one. Or press and slide: the fan opens under the finger (at once if it slides), each choice ticks as the finger enters it, letting go picks it, letting go elsewhere picks nothing. Picking the same verdict again takes it back. The control keeps its own finger (`data-own-gesture`), so the page does not move under it. | `b/LikeFan.tsx` | hold 240 ms; slide 10 px; catch radius 46 px; choices at (∓44, −78) |
+| Hoy is the front page | Hoy carries the most important storyline of each section, most important first, then the day's figures. Those storylines leave their own sections; a section left with nothing of its own is not shown that day. | `sectionsOf` in `b/model.ts` | one per lens |
+| On past the tray's end | Pushing on past the last card of a tray pulls the next section in from the right against friction, with a pill ("Siga a Economía"); past the mark it reads "Suelte: Economía" and letting go goes there, carried by the finger's speed. Short of the mark it springs back. The vertical twin of the open page's "Siga para la siguiente". | tray `x` in `move()` / `end()`, `PaperB.tsx` | the same friction curve and mark as the page's end pull (commit at 120 px); the section moves 0.6 of the lift |
+| Like: Path's fan, Pinterest's press | Next to the bookmark. The choices (Me gusta, Menos así) spin out of the button along an arc, each with its label, on a spring that overshoots and settles, one after the other; the button's heart spins into a cross. A tap opens them, tap one; or press and slide, and let go on one. **Gravity**: while the finger slides, the nearest choice leans toward it, more the closer it gets, and slides under the finger within reach, so the pick takes less travel than it looks. It is caught judged where gravity has drawn it. Picking the same verdict again takes it back. The control keeps its own finger (`data-own-gesture`). | `b/LikeFan.tsx` | out: stiffness 520, damping 16, stagger 50 ms, spin −220°; pull 0.9·(1 − d/140)^1.5, at most 34 px; catch 40 px; hold 240 ms |
 | Taste, learned on the device | Every story is a bag of features (section, CR or world, tags, outlet, kind of note, title stems). A like is a positive example, a dislike a negative; following a topic (0.6) and reading a page for 20 s (0.3) are weaker ones. A logistic regression is retrained from the whole log on each change, so a verdict taken back is forgotten exactly. | `lib/noticss/taste.ts` | 12 passes, rate 0.35, L2 0.004 |
 | 30% suggested | Each section mixes in storylines the taste ranks highest (the edition's suggestion pool, then earlier editions), until they are 30% of its cards, spread evenly after its lead. Score = chance of a like + 0.22 × novelty (features it has not seen) + a touch of importance, minus age and minus what was already opened; disliked ones never come back. Each is marked "Sugerida", with the reason when the model has one. The taste is frozen per edition and visit, so cards never reshuffle under the finger. | `sectionsOf` in `b/model.ts` | share 0.3; 2 notes per suggestion |
 
@@ -289,7 +310,7 @@ More traps found here:
 - **Don't promote a layer for a motion that changes scale.** Chromium keeps
   the small raster and blurs the text.
 
-## vvv: the vintage vignette viewport (`/ad/pads`)
+## vvv: the vintage vignette viewport (`/`, `/ad`, `/kit`)
 
 **vvv** (vintage vignette viewport) is what Marcos calls the page as a rounded
 frame on a black screen. It works like an old screen's vignette: the page
@@ -297,12 +318,13 @@ lives inside the frame, and beyond its edge everything is black. That covers
 under the status bar, under Safari's bottom bar, past the four corners and
 in the bounce. When he says "vvv", this is what he means.
 
-Code: `components/vvv/Vvv.tsx`. First used on the Pads index
-(`components/pads/home/PadsHome.tsx`).
-The Pads look (technical minimalism) is now a component of its own,
-`components/tech-index/TechIndex.tsx`, with its stylesheet `tech.css` and its
-faces in `lib/tech-fonts.ts`. The Pads index and the `/ad` and `/kit`
-section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
+Code: `components/vvv/Vvv.tsx`. First used on a Pads index that has since
+been folded into `/ad` (the pads are AD apps now, at `/ad/pad01` and so on;
+the old `/ad/pads/…` paths redirect). Its look (technical minimalism) is a
+component of its own, `components/tech-index/TechIndex.tsx`, with its
+stylesheet `tech.css` and its faces in `lib/tech-fonts.ts`. The portal's own
+pages (`/`, `/ad`, `/kit`; `app/(index)/`, `PortalHome`, `SectionHome`) wear it
+in a vvs.
 
 ### Two fits: vvs and vvt
 
@@ -315,7 +337,7 @@ section indices (`app/(index)/`, `SectionHome`) all wear it in a vvs.
 | Bottom | above Safari's bar, rounded | same |
 | Code | `<Vvs>` or `<Vvv fit="short">` | `<Vvt>` or `<Vvv fit="tall">` |
 
-Pads uses vvs. Noticss B (`/kit/noticss/b`) uses vvt: like The Cubes it lays
+The portal's indices use vvs. Noticss B (`/kit/noticss`) uses vvt: like The Cubes it lays
 its own frame (`useVvvInset`), and an open page fills that frame, its top
 corners going square as it opens and its bottom ones the frame's (44 px, the
 same as a card's).
@@ -326,7 +348,7 @@ same as a card's).
    layout sets `html, body` background black, `themeColor: "#000000"` and
    `viewportFit: "cover"`, so Safari's own bars and the overscroll are black
    too. The frame's own surface (its gutters) can be another colour, given
-   through `<Vvv className>`. Pads uses `#191C22`, with its darkest plates in
+   through `<Vvv className>`. The indices use `#191C22`, with its darkest plates in
    true black on it, so the frame reads against the black around it.
 2. **Wrap the page in `<Vvv>`.** It is a fixed, black, `100lvh` surface. On
    it sits the frame: a scroller with `border-radius` **and**
@@ -349,7 +371,7 @@ same as a card's).
      `useScroll({ container })`.
    - Anything else: `useVvvScroller()` gives you the scroller.
 6. **Radii nest.** The frame's radius must be at least the panels' radius
-   plus the padding between them. Pads uses a 32 px frame, 22 px panels and
+   plus the padding between them. The indices use a 32 px frame, 22 px panels and
    a 6 px gutter.
 7. **Corners near the frame's corners follow its curve.** Anything that sits
    close to one of the frame's corners (a key at the end of a bottom bar, a
@@ -375,7 +397,7 @@ same as a card's).
 | Their other corners | 6 px |
 | Which keys | left: the rooms key, or the close key while searching; right: Cerrar ficha, or the open search field |
 
-| Value | Pads |
+| Value | The indices |
 |---|---|
 | Frame radius | 32 px |
 | Gutter (frame to bars, panel to panel) | 6 px |
@@ -441,7 +463,7 @@ doesn't load the scroller or its animation library. Two things to carry over:
 How the portal moves between pages. Code: `components/tech-index/tiles.tsx`
 (the indices) and `components/loading/` (the apps).
 
-### Leaving an index (`/`, `/ad`, `/kit`, `/ad/pads`)
+### Leaving an index (`/`, `/ad`, `/kit`)
 
 Every square of a technical-minimalism index is a `Tile`; every link on it is
 a `TileLink`. A tap empties the page before it goes:

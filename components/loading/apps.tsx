@@ -1,7 +1,7 @@
 "use client";
 
-import { BrandMonogram } from "@/components/histok/BrandMark";
 import { BarGate } from "./BarGate";
+import { BACK, SPRING_IN } from "./gate";
 import { Bone, SkeletonGate } from "./SkeletonGate";
 
 /**
@@ -18,7 +18,50 @@ import { Bone, SkeletonGate } from "./SkeletonGate";
 /* ── Bars ──────────────────────────────────────────────────────────────── */
 
 export function HistokLoading() {
-  return <BarGate mark={<BrandMonogram />} />;
+  return <BarGate mark={<HistokLoaderMark />} />;
+}
+
+/**
+ * Histok's mark while it loads: the H and its "!" (BrandPills: four pills, 8 wide, the tall one 18, the dots 10,
+ * 5 apart). The tall one walks down the four and round again, for ever: each dot grows into the "!" as the one
+ * before it shrinks back to a dot, on the same spring, so the column keeps its height. Pure CSS, so it moves from
+ * the first paint, like The Cubes' cube.
+ */
+const HK_SLOT = 0.4; // s each pill stands tall
+const HK_SWAP = 0.55; // share of a slot spent handing over
+function HistokLoaderMark() {
+  const period = HK_SLOT * 4;
+  const swap = (HK_SWAP * 25).toFixed(2); // % of the cycle
+  const css = `
+.hk-ld{display:flex;align-items:center;justify-content:center;gap:12px}
+.hk-ld-pills{display:flex;flex-direction:column;gap:5px}
+.hk-ld-pills i{display:block;width:8px;height:10px;border-radius:4px;opacity:.3;
+  animation:hk-ld-walk ${period}s linear infinite}
+@keyframes hk-ld-walk{
+  0%{height:18px;opacity:1}
+  ${(25 - +swap).toFixed(2)}%{height:18px;opacity:1;animation-timing-function:${BACK}}
+  25%{height:10px;opacity:.3}
+  ${(100 - +swap).toFixed(2)}%{height:10px;opacity:.3;animation-timing-function:${BACK}}
+  100%{height:18px;opacity:1}}
+@supports (animation-timing-function: linear(0, 1)){
+  @keyframes hk-ld-walk{
+    0%{height:18px;opacity:1}
+    ${(25 - +swap).toFixed(2)}%{height:18px;opacity:1;animation-timing-function:${SPRING_IN}}
+    25%{height:10px;opacity:.3}
+    ${(100 - +swap).toFixed(2)}%{height:10px;opacity:.3;animation-timing-function:${SPRING_IN}}
+    100%{height:18px;opacity:1}}}`;
+  return (
+    <span className="hk-ld" aria-label="Histok">
+      <style>{css}</style>
+      <span className="select-none text-6xl font-medium leading-none tracking-tight">H</span>
+      <span className="hk-ld-pills" aria-hidden>
+        {[0, 1, 2, 3].map((k) => (
+          // Pill k stands tall in slot k: its clock runs k slots behind the first's.
+          <i key={k} className="bg-current" style={{ animationDelay: `${(k * HK_SLOT - period).toFixed(2)}s` }} />
+        ))}
+      </span>
+    </span>
+  );
 }
 
 export function UpdatrLoading() {

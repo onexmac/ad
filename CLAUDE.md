@@ -60,7 +60,7 @@
   each edge (`useVvvCorner`), never the frame's radius itself.
 - Look: technical minimalism is the starting point for a new app, not a
   mandate: an app can take its own look when Marcos wants one. It is what the
-  portal's own pages (`/`, `/ad`, `/kit`) and the Pads index wear:
+  portal's own pages (`/`, `/ad`, `/kit`) wear:
   `components/tech-index/` (`TechIndex.tsx`, `tech.css`, `lib/tech-fonts.ts`),
   black beyond a vvs frame, light panels on a 6 px gutter, mono labels,
   Chakra Petch numerals, signal green `#86AD00`. Whatever the look, each app
@@ -75,3 +75,8 @@
   a padded rim, taken back with a negative margin. Check edges and corners in
   3× screenshots, cropped and enlarged, before shipping (playbook, "Layout and
   chrome" and "How Marcos works").
+- Motion across a screen change: a motion value reaches the element a frame
+  late, but a scroll jump paints at once, so hide anything before the jump
+  and write its transform straight to the element; bound `layout` animations
+  with `layoutDependency`. Check transitions frame by frame in a recording
+  (playbook, "Images and motion"; the top bar peek in "Patterns").
