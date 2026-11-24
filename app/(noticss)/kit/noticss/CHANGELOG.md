@@ -19,7 +19,7 @@ Each entry gives the date and time in Costa Rica, the commit, and the pull reque
 
 ## 0.3.15 · 2026-11-24 07:35
 
-- The edition pipeline's web search no longer asks for results near Cartago. The API refuses Costa Rica as a search location ("Country code CR is not supported"), so the first run of the twice-daily workflow failed at its first request and no edition came out. The prompt already places the reader in Cartago. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The edition pipeline's web search no longer asks for results near Cartago. The API refuses Costa Rica as a search location ("Country code CR is not supported"), so the first run of the twice-daily workflow failed at its first request and no edition came out. The prompt already places the reader in Cartago. ([#152](https://github.com/onexmac/ad/pull/152))
 
 ## 0.3.14 · 2026-11-24 00:21
 
