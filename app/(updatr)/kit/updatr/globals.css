@@ -94,3 +94,12 @@ body {
     animation: none;
   }
 }
+
+/* The magazine snaps page by page (components/updatr/Pages.tsx); off for the
+   length of an animated jump. */
+html.updatr-snap {
+  scroll-snap-type: y mandatory;
+}
+html.updatr-snap.updatr-snap-off {
+  scroll-snap-type: none;
+}
