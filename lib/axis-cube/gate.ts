@@ -1,6 +1,6 @@
 // The screens before the room. On a phone, in a browser, the first time: the install screen, the cube of the
 // home-screen icon, how to put the app on the home screen, and a button to go on. On an iPhone or iPad every other
-// time, from the home screen too: the welcome, the same cube, the app's name and an OK. The room is built behind
+// time, from the home screen too: the welcome, the loading cube already turning, the app's name and an OK. The room is built behind
 // either; the loader is lifted once it is gone, so after the tap the bar runs out quickly and the room comes in.
 //
 // Why the welcome: an iPhone lets a page make sound only after a touch, so without one the notes at the end of
