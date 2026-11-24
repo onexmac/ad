@@ -52,6 +52,11 @@ body {
   min-height: 100lvh;
 }
 
+/* Snap on scroll: every block is a stop. */
+html {
+  scroll-snap-type: y mandatory;
+}
+
 /* Diagonal hatch, two weights. */
 .hatch {
   background-image: repeating-linear-gradient(

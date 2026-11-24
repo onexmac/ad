@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import type { PortalApp } from "@/lib/apps";
 import { useEdgeSquish } from "@/components/updatr/useEdgeSquish";
+import { Grow } from "@/components/updatr/Grow";
 
 /**
  * The Pads index. No title: the screen is an instrument panel. Black ground,
@@ -20,12 +21,28 @@ export function PadsHome({ apps }: { apps: PortalApp[] }) {
         style={{ scale, transformOrigin: origin }}
         className="mx-auto flex w-full max-w-[460px] flex-col gap-[var(--gutter)] p-[var(--gutter)] pt-[calc(var(--gutter)+var(--sat))] pb-[calc(var(--gutter)+var(--sab)+24px)]"
       >
-        <Header count={n} />
-        <Bench count={n} />
+        {/* Every block is a snap stop, and grows into place as it comes up
+            from the bottom of the screen (Noticss A's Grow, both ways). */}
+        <Snap>
+          <Grow>
+            <Header count={n} />
+          </Grow>
+        </Snap>
+        <Snap>
+          <Grow>
+            <Bench count={n} />
+          </Grow>
+        </Snap>
         {apps.map((app, i) => (
-          <Entry key={app.slug} app={app} index={i} />
+          <Snap key={app.slug}>
+            <Entry app={app} index={i} />
+          </Snap>
         ))}
-        <Footer />
+        <Snap end>
+          <Grow>
+            <Footer />
+          </Grow>
+        </Snap>
       </motion.main>
 
       <i aria-hidden className="frame-corner tl" />
@@ -33,6 +50,18 @@ export function PadsHome({ apps }: { apps: PortalApp[] }) {
       <i aria-hidden className="frame-corner bl" />
       <i aria-hidden className="frame-corner br" />
     </>
+  );
+}
+
+/** A snap stop: the block lands one gutter below the frame's top (or, last, on the bottom). */
+function Snap({ children, end }: { children: React.ReactNode; end?: boolean }) {
+  return (
+    <div
+      className={end ? "snap-end" : "snap-start"}
+      style={{ scrollMarginTop: "calc(var(--gutter) + var(--sat))", scrollMarginBottom: "calc(var(--gutter) + var(--sab))" }}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -136,9 +165,12 @@ function Entry({ app, index }: { app: PortalApp; index: number }) {
       prefetch={false}
       className="press grid h-[208px] grid-cols-[40%_1fr] gap-[var(--gutter)] outline-none"
     >
-      <Column kind={kind} no={no} slug={app.slug} />
+      <Grow className="flex">
+        <Column kind={kind} no={no} slug={app.slug} />
+      </Grow>
 
-      <div className="flex flex-col justify-between rounded-[var(--cell)] bg-panel p-5">
+      <Grow className="flex" lag={1}>
+      <div className="flex flex-1 flex-col justify-between rounded-[var(--cell)] bg-panel p-5">
         <div className="flex items-center justify-between font-mono text-[11px]">
           <span className="text-ink-soft">
             pad: <span className="text-ink">{code}</span>
@@ -159,6 +191,7 @@ function Entry({ app, index }: { app: PortalApp; index: number }) {
           </p>
         </div>
       </div>
+      </Grow>
     </Link>
   );
 }
@@ -167,7 +200,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   const glyph = <Glyph slug={slug} />;
   if (kind === "signal") {
     return (
-      <div className="flex flex-col gap-[var(--gutter)]">
+      <div className="flex-1 flex flex-col gap-[var(--gutter)]">
         <div className="hatch h-[64px] rounded-[var(--cell)] border border-signal bg-[var(--signal-night)] [--hatch-ink:var(--signal)]" />
         <div className="flex flex-1 flex-col items-center justify-end gap-3 rounded-[var(--cell)] bg-signal pb-4">
           <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
@@ -178,7 +211,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   }
   if (kind === "hatch") {
     return (
-      <div className="relative flex flex-col justify-between overflow-hidden rounded-[var(--cell)] bg-panel-2 p-4">
+      <div className="flex-1 relative flex flex-col justify-between overflow-hidden rounded-[var(--cell)] bg-panel-2 p-4">
         <div className="hatch-bold -mx-4 -mt-4 h-[46px]" />
         <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
         <Badge>{glyph}</Badge>
@@ -187,7 +220,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
   }
   if (kind === "dots") {
     return (
-      <div className="dots relative flex flex-col justify-end rounded-[var(--cell)] bg-panel p-4 [--pitch:16px]">
+      <div className="flex-1 dots relative flex flex-col justify-end rounded-[var(--cell)] bg-panel p-4 [--pitch:16px]">
         <div className="flex items-end justify-between rounded-[12px] bg-panel pr-1 pt-2">
           <span className="font-tech text-[64px] font-semibold leading-[0.8] tracking-[-0.04em] text-ink">{no}</span>
           <Badge>{glyph}</Badge>
@@ -196,7 +229,7 @@ function Column({ kind, no, slug }: { kind: (typeof COLUMNS)[number]; no: string
     );
   }
   return (
-    <div className="flex flex-col justify-between rounded-[var(--cell)] bg-ink p-4">
+    <div className="flex-1 flex flex-col justify-between rounded-[var(--cell)] bg-ink p-4">
       <div className="flex gap-[5px]">
         {Array.from({ length: 5 }).map((_, i) => (
           <i key={i} className="block h-[5px] w-[5px] bg-signal" style={{ opacity: 1 - i * 0.17 }} />
