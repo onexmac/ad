@@ -168,7 +168,7 @@ function Snap({ children, end }: { children: ReactNode; end?: boolean }) {
   );
 }
 
-/* ── Header: labels and a plate of brushed metal ───────────────────────── */
+/* ── Header: labels and Adelante's mark ───────────────────────── */
 
 function Header({ count }: { count: string }) {
   return (
@@ -199,8 +199,24 @@ function Header({ count }: { count: string }) {
           </p>
         </div>
       </div>
-      <div className="metal h-[118px] rounded-[var(--cell)]" aria-hidden />
+      <div className="grid h-[118px] place-items-center rounded-[var(--cell)] bg-ink">
+        <AdelanteMark className="w-[64px] text-signal" />
+      </div>
     </section>
+  );
+}
+
+/** Adelante's mark, one colour (currentColor): the two parallelograms. */
+function AdelanteMark({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 162.804 70.7845" role="img" aria-label="Adelante">
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0 0H45.645L87.8835 70.7845H41.4411L0 0ZM72.5219 20.6455H118.403L133.203 45.715H162.804L148.004 70.7845H102.257L72.5219 20.6455Z"
+      />
+    </svg>
   );
 }
 
