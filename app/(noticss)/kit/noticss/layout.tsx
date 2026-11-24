@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "Noticss",
   description: "El diario de la mañana: política, economía, geopolítica y construcción, desde Cartago.",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Noticss" },
+  // Newer editions link the outlets' own photos: ask for them without saying
+  // where from, which some image hosts refuse.
+  referrer: "no-referrer",
 };
 
 export const viewport: Viewport = {

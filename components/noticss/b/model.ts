@@ -67,10 +67,15 @@ export const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b
 
 /* ---------- content ---------- */
 
-/** A story card; `from` is set when it comes from an earlier edition (a followed topic). */
+/**
+ * A story card; `from` is set when it comes from an earlier edition (a
+ * followed topic, or a suggestion from the archive); `suggested` when the
+ * reader's taste picked it, with the reason to show (null: to explore).
+ */
+export type Suggested = { reason: string | null };
 export type Card =
-  | { type: "subject"; id: string; subject: Subject; from?: Edition }
-  | { type: "note"; id: string; subject: Subject; note: Note; from?: Edition }
+  | { type: "subject"; id: string; subject: Subject; from?: Edition; suggested?: Suggested }
+  | { type: "note"; id: string; subject: Subject; note: Note; from?: Edition; suggested?: Suggested }
   | { type: "figures"; id: string; indicators: Indicator[] };
 
 export type SectionDef = {
@@ -87,54 +92,161 @@ export type SectionDef = {
 /** Media a card shows at its top: photos today, vertical shorts later. */
 export type Media = { card: number; kind: "image"; src: string; alt: string; kicker: string; title: string; credit: string | null };
 
-const storyCards = (prefix: string, subs: Subject[], from?: Edition) =>
-  subs.flatMap((s): Card[] => [
-    { type: "subject", id: `${prefix}-${s.id}`, subject: s, from },
-    ...s.notes.map((n): Card => ({ type: "note", id: `${prefix}-${n.id}`, subject: s, note: n, from })),
-  ]);
+const storyCards = (prefix: string, subs: Subject[], from?: Edition, suggested?: Suggested, notes = Infinity) =>
+  subs.flatMap((whole): Card[] => {
+    // A suggestion brings its first notes; its page lists only those.
+    const s = whole.notes.length > notes ? { ...whole, notes: whole.notes.slice(0, notes) } : whole;
+    return [
+      { type: "subject", id: `${prefix}-${s.id}`, subject: s, from, suggested },
+      ...s.notes.map((n): Card => ({ type: "note", id: `${prefix}-${n.id}`, subject: s, note: n, from, suggested })),
+    ];
+  });
+
+/* ---------- suggestions ---------- */
+
+/** The share of every section's cards the reader's taste picks. */
+export const SUGGESTED_SHARE = 0.3;
+/** A suggested storyline brings its first notes, not all of them. */
+const SUGGESTED_NOTES = 2;
+
+/** What ranks a candidate: the taste model's view of its features. */
+export type Taste = {
+  chance: (features: string[]) => number;
+  novelty: (features: string[]) => number;
+  reasonOf: (features: string[]) => string | null;
+  features: (s: Subject) => string[];
+  /** Storylines the reader turned down, never suggested again. */
+  disliked: (s: Subject) => boolean;
+  /** Storylines already opened, suggested only after the rest. */
+  seen: (s: Subject) => boolean;
+};
+
+type Candidate = { subject: Subject; from?: Edition; score: number; reason: string | null };
+
+/**
+ * Every storyline the reader could be shown instead: this edition's pool, then
+ * earlier editions' storylines and pools, minus what today already carries.
+ * Scored by taste (the chance of a like, a bonus for the unexplored, a touch
+ * of the editors' importance), older ones discounted.
+ */
+function candidatesOf(ed: Edition, editions: Edition[], taste?: Taste): Candidate[] {
+  const today = new Set(ed.subjects.map((s) => s.id));
+  const taken = new Set<string>();
+  const out: Candidate[] = [];
+  const older = editions.filter((e) => e !== ed && (e.date < ed.date || (e.date === ed.date && e.number < ed.number)));
+  const sources: { list: Subject[]; from?: Edition; age: number }[] = [
+    { list: ed.suggestions, age: 0 },
+    ...older.slice(0, 6).map((e, i) => ({ list: [...e.subjects, ...e.suggestions], from: e, age: i + 1 })),
+  ];
+  for (const { list, from, age } of sources) {
+    for (const s of list) {
+      if (today.has(s.id) || taken.has(s.id)) continue;
+      if (taste?.disliked(s)) continue;
+      taken.add(s.id);
+      const f = taste?.features(s) ?? [];
+      const like = taste ? taste.chance(f) : 0.5;
+      const explore = taste ? 0.22 * taste.novelty(f) : 0;
+      const score = like + explore + 0.04 * s.importance - 0.06 * age - (taste?.seen(s) ? 0.3 : 0);
+      out.push({ subject: s, from, score, reason: taste ? taste.reasonOf(f) : null });
+    }
+  }
+  return out.sort((a, b) => b.score - a.score);
+}
+
+/**
+ * Mixes suggestions into a section's own storylines so they make about
+ * SUGGESTED_SHARE of its cards. The section opens on its own lead; the
+ * suggestions are spread between its storylines, not piled at the end.
+ */
+function withSuggestions(prefix: string, blocks: Card[][], pool: Candidate[], tail: Card[] = []): Card[] {
+  const ownCount = blocks.reduce((n, b) => n + b.length, 0) + tail.length;
+  const picks: Card[][] = [];
+  let added = 0;
+  const off = (n: number) => Math.abs(n / (ownCount + n) - SUGGESTED_SHARE);
+  for (const c of pool) {
+    if (!ownCount || added / (ownCount + added) >= SUGGESTED_SHARE) break;
+    // The storyline and as many of its notes as bring the share closest to the mark.
+    let best = -1;
+    for (let notes = 0; notes <= SUGGESTED_NOTES; notes++) {
+      const size = 1 + Math.min(notes, c.subject.notes.length);
+      if (off(added + size) < off(best < 0 ? added : added + 1 + Math.min(best, c.subject.notes.length))) best = notes;
+    }
+    if (best < 0) break;
+    const block = storyCards(`${prefix}-sug${c.from ? `-${c.from.number}` : ""}`, [c.subject], c.from, { reason: c.reason }, best);
+    picks.push(block);
+    added += block.length;
+  }
+  if (!picks.length) return [...blocks.flat(), ...tail];
+  // Spread evenly between the section's own storylines, never before its lead:
+  // the k-th suggestion comes after round((k + 1) * B / (P + 1)) of them.
+  const out: Card[] = [];
+  const after = picks.map((_, k) => Math.max(1, Math.round(((k + 1) * blocks.length) / (picks.length + 1))));
+  let p = 0;
+  blocks.forEach((b, i) => {
+    out.push(...b);
+    while (p < picks.length && after[p] === i + 1) out.push(...picks[p++]);
+  });
+  while (p < picks.length) out.push(...picks[p++]);
+  return [...out, ...tail];
+}
 
 /**
  * Followed topics, newest follow first: today's version of each storyline
  * when today's edition carries it, else its latest earlier version.
  */
-function followingOf(ed: Edition, editions: Edition[], follows: string[]): SectionDef {
-  const older = editions.filter((e) => e.date < ed.date).sort((a, b) => b.date.localeCompare(a.date));
-  const cards: Card[] = [];
+function followingOf(ed: Edition, editions: Edition[], follows: string[], pool: Candidate[] = []): SectionDef {
+  const older = editions.filter((e) => e.date < ed.date || (e.date === ed.date && e.number < ed.number)).sort((a, b) => b.number - a.number);
+  const blocks: Card[][] = [];
   let current = 0;
   let previous = 0;
   for (const id of follows) {
     const now = ed.subjects.find((s) => s.id === id);
     if (now) {
       current++;
-      cards.push(...storyCards("sig", [now]));
+      blocks.push(storyCards("sig", [now]));
       continue;
     }
     const before = older.find((e) => e.subjects.some((s) => s.id === id));
     const s = before?.subjects.find((x) => x.id === id);
     if (before && s) {
       previous++;
-      cards.push(...storyCards(`sig-${before.date}`, [s], before));
+      blocks.push(storyCards(`sig-${before.number}`, [s], before));
     }
   }
+  // Once something is followed, a share of the section is what the reader
+  // may want to follow next (the follows themselves teach the taste model).
+  const followed = new Set(follows);
+  const cards = blocks.length ? withSuggestions("sig", blocks, pool.filter((c) => !followed.has(c.subject.id))) : [];
   return { id: "siguiendo", name: "Siguiendo", kind: "siguiendo", cards, current, previous };
 }
 
-export function sectionsOf(ed: Edition, editions: Edition[] = [ed], follows: string[] = []): SectionDef[] {
-  // Hoy is the whole edition in reading order; the others are its sections.
-  const hoy: SectionDef = {
-    id: "hoy",
-    name: "Hoy",
-    kind: "hoy",
-    cards: [...storyCards("hoy", ed.subjects), { type: "figures", id: "hoy-cifras", indicators: ed.indicators }],
-  };
+export function sectionsOf(ed: Edition, editions: Edition[] = [ed], follows: string[] = [], taste?: Taste): SectionDef[] {
+  const pool = candidatesOf(ed, editions, taste);
+  // Each storyline is suggested in one place only: Hoy takes the best, each
+  // section the best of its own lens that Hoy did not take.
+  const used = new Set<string>();
+  const take = (list: Candidate[]) => list.filter((c) => !used.has(c.subject.id));
+  const mark = (cards: Card[]) => cards.forEach((c) => c.type !== "figures" && c.suggested && used.add(c.subject.id));
+
+  // Hoy is the whole edition in reading order, the day's figures last; the others are its sections.
+  const hoyCards = withSuggestions("hoy", ed.subjects.map((s) => storyCards("hoy", [s])), take(pool), [{ type: "figures", id: "hoy-cifras", indicators: ed.indicators }]);
+  mark(hoyCards);
+  const hoy: SectionDef = { id: "hoy", name: "Hoy", kind: "hoy", cards: hoyCards };
   const cats = categoryOrder
     .map((c): SectionDef | null => {
       const subs = ed.subjects.filter((s) => s.category === c);
       if (!subs.length) return null;
-      return { id: c, name: categoryName[c], kind: c, lead: subs.find((s) => s.image) ?? subs[0], cards: storyCards(c, subs) };
+      const own = take(pool).filter((x) => x.subject.category === c);
+      const cards = withSuggestions(
+        c,
+        subs.map((s) => storyCards(c, [s])),
+        own.length ? own : pool.filter((x) => x.subject.category === c),
+      );
+      mark(cards);
+      return { id: c, name: categoryName[c], kind: c, lead: subs.find((s) => s.image) ?? subs[0], cards };
     })
     .filter(Boolean) as SectionDef[];
-  return [hoy, ...cats, followingOf(ed, editions, follows)];
+  return [hoy, ...cats, followingOf(ed, editions, follows, take(pool))];
 }
 
 export function mediaOf(section: SectionDef): Media[] {

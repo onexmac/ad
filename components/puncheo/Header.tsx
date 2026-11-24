@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, type MotionValue } from "motion/react";
 import { springs } from "@/lib/histok/springs";
 import { haptic } from "@/lib/histok/haptic";
 import type { Status } from "@/lib/puncheo/state";
@@ -27,23 +27,32 @@ export type Tone = "plain" | "leia" | "yard";
  * line with the big blue numeral. yard: AD Visual pieces (date tile, the dark
  * progress chip).
  */
+/**
+ * The top bar's peek (B): the app hands the bar its ref, its offset (y, at most
+ * 0: from above down to its place), and how far its fill reaches up above it
+ * (fillTop, the overshoot), plus whether it is peeking (sticky to the frame).
+ */
+export type HeadPeek = { ref: RefObject<HTMLDivElement | null>; y: MotionValue<number>; fillTop: MotionValue<number>; on: boolean };
+
 export function SheetHeader({
   sheet,
   s,
   current,
   tone = "plain",
   extra,
+  peek,
 }: {
   sheet: { title: string; subtitle: string; system: string; condo: string; house: string; plans: PlanDoc[] };
   s: PunchSheet;
   current: Variant;
   tone?: Tone;
   extra?: React.ReactNode;
+  peek?: HeadPeek;
 }) {
   const { t, isClosed } = s;
   const n1 = sheet.subtitle.replace("Vivienda ", "");
   if (tone === "yard") return <YardHeader sheet={sheet} s={s} current={current} />;
-  if (tone === "leia") return <LeiaHeader sheet={sheet} s={s} current={current} />;
+  if (tone === "leia") return <LeiaHeader sheet={sheet} s={s} current={current} peek={peek} />;
   return (
     <>
         <header style={{ paddingTop: "calc(var(--sat) + 28px)" }}>
@@ -315,14 +324,24 @@ function LeiaSwitch({ current }: { current: Variant }) {
  * pressed blue cell (a tap goes there). Then the receipt panel: the blue band
  * and the ficha as a receipt line.
  */
-function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: string; system: string; condo: string; house: string; plans: PlanDoc[] }; s: PunchSheet; current: Variant }) {
+function LeiaHeader({ sheet, s, current, peek }: { sheet: { title: string; subtitle: string; system: string; condo: string; house: string; plans: PlanDoc[] }; s: PunchSheet; current: Variant; peek?: HeadPeek }) {
   const [plans, setPlans] = useState(false);
   const [viewing, setViewing] = useState<{ plan: PlanDoc; from: DOMRect } | null>(null);
   // The plan viewer lives on <body> (the page itself springs at its edges), so only once in the browser.
   const client = useSyncExternalStore(noop, yes, no);
   return (
     <>
-      <header className="leia-toolbar relative z-[21] -mx-4 flex items-center px-3" style={{ paddingTop: "var(--sat)", height: "calc(var(--sat) + 50px)" }}>
+      {/* The top bar. When the view changes deep in the page it peeks: it drops in
+          from above the frame on a spring and sits over the page. As it overshoots,
+          its fill (not its labels) stretches up behind it, so no gap opens above. */}
+      <motion.div
+        ref={peek?.ref}
+        data-head
+        style={peek ? { y: peek.y } : undefined}
+        className={`-mx-4 ${peek?.on ? "sticky top-0 z-[25]" : "relative z-[21]"}`}
+      >
+        {peek?.on ? <motion.div aria-hidden className="leia-toolbar pointer-events-none absolute inset-x-0 bottom-0" style={{ top: peek.fillTop }} /> : null}
+      <header className={`${peek?.on ? "" : "leia-toolbar"} relative flex items-center px-3`} style={{ paddingTop: "var(--sat)", height: "calc(var(--sat) + 50px)" }}>
         <span className="leia-emboss flex h-full items-center pr-3 text-[15px] text-[#4d5056] shadow-[1px_0_0_#fff,inset_-1px_0_0_#c3c5c9]">
           <b className="mr-1">AD</b> Puncheo
         </span>
@@ -331,6 +350,7 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
         </span>
         <span className="w-[86px]" />
       </header>
+      </motion.div>
       {/* Behind the status bar, so content scrolling under it stays legible. */}
       <div className="leia-toolbar fixed inset-x-0 top-0 z-[22]" style={{ height: "var(--sat)" }} />
 
@@ -348,6 +368,9 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
             <motion.button
               type="button"
               layout
+              // Only its own open/close reshapes it: the header moving (its peek drop)
+              // must not set off a layout animation that drags the key behind.
+              layoutDependency={plans}
               transition={springs.snappy}
               onClick={() => {
                 haptic.select();
@@ -359,18 +382,18 @@ function LeiaHeader({ sheet, s, current }: { sheet: { title: string; subtitle: s
             >
               <AnimatePresence initial={false} mode="popLayout">
                 {plans ? (
-                  <motion.span key="minus" layout="position" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-[#55585e]">
+                  <motion.span key="minus" layout="position" layoutDependency={plans} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-[#55585e]">
                     <svg width={12} height={12} viewBox="0 0 24 24" fill="none" aria-hidden>
                       <path d="M4 12h16" stroke="currentColor" strokeWidth={3.6} strokeLinecap="square" />
                     </svg>
                   </motion.span>
                 ) : (
-                  <motion.span key="doc" layout="position" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-white">
+                  <motion.span key="doc" layout="position" layoutDependency={plans} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} transition={springs.snappy} className="grid place-items-center text-white">
                     <PlanGlyph lines="#4a8de0" fold="#b9d4f5" lit />
                   </motion.span>
                 )}
               </AnimatePresence>
-              <motion.span layout="position" className={`text-[15px] font-bold ${plans ? "leia-emboss text-[#55585e]" : "text-white"}`}>
+              <motion.span layout="position" layoutDependency={plans} className={`text-[15px] font-bold ${plans ? "leia-emboss text-[#55585e]" : "text-white"}`}>
                 Planos
               </motion.span>
             </motion.button>

@@ -6,7 +6,7 @@ import { dayMonth, longDate, shortDate } from "@/lib/noticss/format";
 import { Arrow } from "@/components/updatr/Arrow";
 import { SourceLine } from "../Article";
 import { Delta, Sparkline } from "../Figures";
-import type { Card } from "./model";
+import type { Card, Suggested } from "./model";
 
 export type Pick = (noteId: string, from: DOMRect) => void;
 
@@ -60,9 +60,18 @@ export const Page = memo(function Page({
       {card.type === "figures" ? (
         <FiguresPage indicators={card.indicators} edition={edition} />
       ) : card.type === "subject" ? (
-        <SubjectPage subject={card.subject} edition={card.from ?? edition} earlier={!!card.from} photo={photo} h={h} id={id} onPick={onPick} />
+        <SubjectPage
+          subject={card.subject}
+          edition={card.from ?? edition}
+          earlier={!!card.from}
+          suggested={card.suggested}
+          photo={photo}
+          h={h}
+          id={id}
+          onPick={onPick}
+        />
       ) : (
-        <NotePage note={card.note} subject={card.subject} edition={card.from ?? edition} photo={photo} h={h} id={id} next={next} />
+        <NotePage note={card.note} subject={card.subject} edition={card.from ?? edition} suggested={card.suggested} photo={photo} h={h} id={id} next={next} />
       )}
     </div>
   );
@@ -80,16 +89,28 @@ function Media({ src, alt, photo, h, id }: { src: string; alt: string; photo: Re
   );
 }
 
+/** The mark of a suggestion: why the reader's taste picked it, or that it is there to explore. */
+function SuggestedMark({ suggested, onPhoto }: { suggested: Suggested; onPhoto: boolean }) {
+  return (
+    <p className={`mono mb-2 flex items-center gap-2 ${onPhoto ? "text-paper" : "text-accent"}`}>
+      <span className={`inline-block h-[7px] w-[7px] rounded-full ${onPhoto ? "bg-paper" : "bg-accent"}`} />
+      Sugerida · {suggested.reason ? `por su interés en ${suggested.reason}` : "para explorar"}
+    </p>
+  );
+}
+
 function SubjectPage({
   subject,
   edition,
   earlier,
+  suggested,
   photo,
   h,
   id,
   onPick,
 }: {
   subject: Subject;
+  suggested?: Suggested;
   edition: Edition;
   earlier: boolean;
   photo: RefObject<HTMLDivElement | null>;
@@ -103,6 +124,7 @@ function SubjectPage({
         {subject.image ? <Media src={subject.image.src} alt={subject.image.alt} photo={photo} h={h} id={id} /> : <div className="absolute inset-0 bg-paper" />}
         <div className={`pointer-events-none absolute inset-0 ${subject.image ? "bg-[linear-gradient(180deg,rgba(0,0,0,0)_30%,rgba(0,0,0,.78)_78%)]" : ""}`} />
         <div className={`pointer-events-none absolute inset-x-0 bottom-0 px-6 pb-[calc(96px+var(--sab))] ${subject.image ? "text-paper" : "text-ink"}`}>
+          {suggested ? <SuggestedMark suggested={suggested} onPhoto={!!subject.image} /> : null}
           <p className={`mono ${subject.image ? "text-paper/80" : "text-accent"}`}>
             {categoryName[subject.category]} · {subject.scope === "mundo" ? "Mundo" : "Costa Rica"}
           </p>
@@ -152,12 +174,14 @@ function NotePage({
   note,
   subject,
   edition,
+  suggested,
   photo,
   h,
   id,
   next,
 }: {
   note: Note;
+  suggested?: Suggested;
   subject: Subject;
   edition: Edition;
   photo: RefObject<HTMLDivElement | null>;
@@ -178,6 +202,7 @@ function NotePage({
         </div>
       )}
       <div className="relative bg-ground px-6 pt-6">
+        {suggested ? <SuggestedMark suggested={suggested} onPhoto={false} /> : null}
         <p className="mono text-accent">
           {categoryName[subject.category]} · {kindName[note.kind]} · {shortDate(note.published)}
         </p>
