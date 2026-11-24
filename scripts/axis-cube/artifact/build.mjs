@@ -1,4 +1,4 @@
-// Builds Axis Cube as one standalone HTML page for a Claude artifact preview:
+// Builds The Cubes as one standalone HTML page for a Claude artifact preview:
 // the app's own scene module and stylesheet, bundled with three.js.
 //
 //   npm i --no-save esbuild@0.24.2      (once per session)
@@ -20,7 +20,7 @@ const TEX = path.join(ROOT, "public/kit/axis-cube/tex");
 for (const f of fs.readdirSync(TEX)) if (f.endsWith(".jpg")) fs.copyFileSync(path.join(TEX, f), path.join(OUT, "tex", f));
 const LOOK = ["a", "b", "c"].includes(process.argv[3]) ? process.argv[3] : "a";
 const NAME = LOOK === "a" ? "axis-cube.html" : `axis-cube-${LOOK}.html`;
-const TITLE = { a: "Axis Cube", b: "Axis Cube B", c: "Axis Cube C" }[LOOK];
+const TITLE = { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK];
 
 const js = await esbuild.build({
   entryPoints: [path.join(HERE, "entry.js")],

@@ -1,4 +1,4 @@
-/** Axis Cube's sounds: see sound.js for what each one is and when it is heard. */
+/** The Cubes' sounds: see sound.js for what each one is and when it is heard. */
 export interface AxisSound {
   /** Start, or wake, the page's audio. Only does anything from inside a touch. */
   wake(): void;
