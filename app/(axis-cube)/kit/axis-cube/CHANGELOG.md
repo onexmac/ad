@@ -47,6 +47,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.35** Nothing on a loading screen waits for the app's scripts or a long task.
 - **0.6.38** A real puzzle's geometry comes from photographs of it, not memory.
 - **0.6.40** Match a defining trait in degree, not just in kind.
+- **0.6.45** Don't tune a model to resemble a reference: trace the reference's lines and overlay the model on it.
 
 Open:
 
@@ -56,6 +57,22 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.45 · 2026-11-24 22:47
+
+- **Bug fix.** Marcos, 24 Nov 22:24, with the photograph again: "That photo is clear, follow the lines it isn't straight diagonal lines."
+  - Cause: the Ghost Cube was still a cube cut by flat planes right through, so every seam ran straight across its face. On the real one the seams break. Its three layers along one axis are each turned by its own angle about that axis, so the cuts across the layers do not run on from one layer to the next. The two versions before this one were tuned to look like the photograph instead of being measured from it.
+  - Don't: tune a model until it resembles a reference. Trace the reference's own lines, find the structure that explains them, and lay the model over the reference before shipping.
+- The Ghost Cube is rebuilt from measurements of the photograph.
+  - Its three faces in view were squared up, and the seams traced on each.
+  - They fit a 3×3 with one axis close to the cube's long diagonal and, in the solved cube, the outer layers along it turned about 27° either way from the middle one.
+  - The axis, its place in the cube and each layer's turn were fitted until the model's seams lay on the photograph's: the long six-sided piece, the X that breaks at its centre, the rhombus, the bars on top.
+- It plays as the real one does.
+  - Solved, its layers stand turned out of line and it is a cube.
+  - A turn of those layers themselves works at once. Any other turn first brings the layers into line, quickly, and it is then no cube.
+  - When the last piece is home again, the layers spring back out of line and it is a cube once more.
+- Its stickers are measured from the photograph too: a white frame 0.078 of a half-side wide, 0.04 in from the piece's edge.
+- At rest on the ottoman it is turned to show the faces it is known by. ([#163](https://github.com/onexmac/ad/pull/163))
 
 ## 0.6.40 · 2026-11-24 16:28
 
