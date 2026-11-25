@@ -96,6 +96,14 @@ function Glyph({ app }: { app: PortalApp }) {
           <path d="M2.5 4.7L8 8l5.5-3.3M8 8v6.5" strokeWidth={1.5} strokeLinejoin="round" />
         </svg>
       );
+    case "ex30": // the car, from the side
+      return (
+        <svg {...GLYPH} aria-hidden>
+          <path d="M1.5 11V8.6l2.6-.7 2.5-2.6h3.6l2.2 2.4 2.1.6V11" strokeWidth={1.5} strokeLinejoin="round" />
+          <circle cx="4.6" cy="11.4" r="1.6" strokeWidth={1.4} />
+          <circle cx="11.4" cy="11.4" r="1.6" strokeWidth={1.4} />
+        </svg>
+      );
     default: // an arrow out
       return (
         <svg {...GLYPH} aria-hidden>

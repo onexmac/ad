@@ -1,0 +1,99 @@
+/* EX30: the car in a studio, in a vvs. Technical minimalism: black beyond the frame, the frame's deck, and on it two
+   panels on a 6 px gutter: the stage (the canvas) and the controls (paint, views, lights) below it. Every colour the
+   page uses is a token here; the car's own materials live in lib/ex30/scene.js. */
+:root {
+  --void: #000;              /* beyond the frame: vvv is always black */
+  --deck: #191c22;           /* the frame's surface, the gutters */
+  --stage: #0d0e10;          /* the studio, behind the car */
+  --panel: #f2f2f2;
+  --panel-2: #e6e6e8;
+  --hair: #d0d3d8;
+  --ink: #191c22;
+  --ink-soft: #5d636c;
+  --ink-faint: #959ca7;
+  --signal: #86ad00;
+  --on-stage: rgba(242, 242, 242, 0.72);
+  --gutter: 6px;
+  --frame: 32px;             /* panel radius + gutter */
+  --cell: 26px;              /* panel radius */
+  --key: 10px;               /* a key's radius: cell - the panel's padding (12), less 4 to clear the curve */
+  --swatch: 34px;
+  --font-label: var(--font-mono-face), ui-monospace, monospace;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-num: var(--font-tech), var(--font-label);
+}
+html, body { height: 100%; margin: 0; background: var(--void); overflow: hidden; overscroll-behavior: none; }
+body { color: var(--ink); font-family: var(--font-body); -webkit-tap-highlight-color: transparent; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
+
+/* the ground is as tall as the largest viewport; the frame is placed on it by useVvvInset (top and bottom inline) */
+.ex-ground { position: fixed; left: 0; right: 0; top: 0; height: 100vh; height: 100lvh; background: var(--void); overflow: hidden; }
+.ex-frame {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + var(--gutter));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--gutter));
+  left: env(safe-area-inset-left, 0px); right: env(safe-area-inset-right, 0px);
+  border-radius: var(--frame); background: var(--deck); overflow: hidden;
+  clip-path: inset(0 round var(--frame));
+  display: flex; flex-direction: column; gap: var(--gutter); padding: var(--gutter); box-sizing: border-box;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+@media (min-width: 600px) {
+  .ex-frame { left: max(env(safe-area-inset-left, 0px), var(--gutter)); right: max(env(safe-area-inset-right, 0px), var(--gutter)); }
+}
+
+/* the stage: the canvas takes the panel's radius itself (a layer of its own is not clipped by the panel everywhere) */
+.ex-stage { position: relative; flex: 1 1 auto; min-height: 0; border-radius: var(--cell); background: var(--stage); overflow: hidden; }
+.ex-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; border-radius: inherit; touch-action: none; outline: none; cursor: grab; }
+.ex-canvas.dragging { cursor: grabbing; }
+.ex-tag {
+  position: absolute; z-index: 1; left: 18px; top: 16px; pointer-events: none;
+  font: 500 10px/1.5 var(--font-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-stage);
+}
+.ex-tag b { display: block; font: 700 22px/1 var(--font-num); letter-spacing: 0.04em; color: var(--panel); margin-bottom: 6px; }
+.ex-hint {
+  position: absolute; z-index: 1; left: 0; right: 0; bottom: 14px; text-align: center; pointer-events: none;
+  font: 500 10px/1 var(--font-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-stage);
+  transition: opacity 0.6s ease;
+}
+.ex-hint.gone { opacity: 0; }
+.ex-fail { position: absolute; z-index: 1; inset: 0; display: grid; place-items: center; padding: 32px; text-align: center; color: var(--on-stage); font: 500 13px/1.5 var(--font-body); }
+
+/* the controls */
+.ex-bar { flex: 0 0 auto; border-radius: var(--cell); background: var(--panel); padding: 14px 12px 12px; display: grid; gap: 12px; grid-template-columns: min(100%, 460px); justify-content: center; }
+.ex-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ex-label { font: 500 10px/1 var(--font-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); padding-left: 4px; }
+.ex-name { font: 600 15px/1 var(--font-body); color: var(--ink); padding-right: 4px; }
+.ex-swatches { display: flex; justify-content: space-between; padding: 0 2px; }
+.ex-swatch {
+  position: relative; width: var(--swatch); height: var(--swatch); border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(25, 28, 34, 0.18);
+  transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.ex-swatch::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; box-shadow: 0 0 0 1.5px transparent; transition: box-shadow 0.2s ease; }
+.ex-swatch[aria-pressed="true"]::after { box-shadow: 0 0 0 1.5px var(--ink); }
+.ex-swatch:active { transform: scale(0.9); }
+.ex-views { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+.ex-key {
+  height: 34px; border-radius: var(--key); background: var(--panel-2);
+  font: 500 10px/1 var(--font-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.ex-key:active { transform: scale(0.95); }
+.ex-key[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+.ex-key.lamp[aria-pressed="true"] { background: var(--signal); color: var(--ink); }
+
+/* the loader: in the page as the server sends it, its bar creeping on a curve of its own until the build drives it */
+.ex-loader { position: fixed; inset: 0; z-index: 5; background: var(--void); display: grid; place-items: center; transition: opacity 0.5s ease; }
+.ex-loader.out { opacity: 0; pointer-events: none; }
+.ex-loader .mark { font: 700 34px/1 var(--font-num); letter-spacing: 0.06em; color: var(--panel); text-align: center; }
+.ex-loader .mark small { display: block; margin-top: 10px; font: 500 10px/1 var(--font-label); letter-spacing: 0.14em; color: var(--ink-faint); }
+.ex-loader .track {
+  position: absolute; left: 50%; top: 75%; width: min(46vw, 200px); height: 9px; transform: translateX(-50%);
+  border-radius: 6px; box-shadow: inset 0 0 0 1.5px rgba(242, 242, 242, 0.5); overflow: hidden;
+}
+.ex-loader .track i {
+  position: absolute; left: 2px; right: 2px; top: 2px; bottom: 2px; border-radius: 3px; background: var(--panel);
+  transform: translateX(-100%); animation: ex-creep 14s cubic-bezier(0.1, 0.6, 0.2, 1) forwards;
+}
+@keyframes ex-creep { to { transform: translateX(-30%); } }
