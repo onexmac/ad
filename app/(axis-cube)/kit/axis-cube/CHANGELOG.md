@@ -72,7 +72,7 @@ Open:
   - A turn of those layers themselves works at once. Any other turn first brings the layers into line, quickly, and it is then no cube.
   - When the last piece is home again, the layers spring back out of line and it is a cube once more.
 - Its stickers are measured from the photograph too: a white frame 0.078 of a half-side wide, 0.04 in from the piece's edge.
-- At rest on the ottoman it is turned to show the faces it is known by. ([#PR](PR))
+- At rest on the ottoman it is turned to show the faces it is known by. ([#163](https://github.com/onexmac/ad/pull/163))
 
 ## 0.6.40 · 2026-11-24 16:28
 
