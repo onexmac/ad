@@ -3,9 +3,144 @@
   "year": 2026,
   "week": 48,
   "date": "2026-11-24",
-  "updatedAt": "2026-11-24T20:25:45.210Z",
+  "updatedAt": "2026-11-24T23:08:47.154Z",
   "isSample": false,
   "items": [
+    {
+      "id": "tf-12-3",
+      "franchise": "finals",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 3,
+      "title": "The Grand Major 2026 runs Nov 27–29 in Stockholm with a $200,000 pool",
+      "dek": "Nexon confirms dates, format and streams for The Finals' biggest event of the year. Check when Pick'ems lock.",
+      "body": [
+        "Nexon announced on November 23 that The Grand Major 2026 runs from November 27 to 29 at DreamHack Stockholm. Sixteen teams compete for a $200,000 total prize pool, double last year's. The total includes the online series; the fan wiki splits it into $150,000 for the event and $50,000 for the online series. The format runs from The Promotion to The Throne, the final stage, which five teams reach. Embark also released a new esports trailer.",
+        "English streams will be on YouTube and Twitch, and Korean streams on SOOP and ChZZk. The APAC teams are KingZero, Moon Theory (formerly 777rs) and Ape Squad (formerly MIR GG). The fan wiki lists Promotion Phase 1 on Nov 27, Phase 2 on Nov 28 and The Throne on Nov 29.",
+        "Unresolved: Inven says the prediction event on the official site runs until November 27, while earlier information said Pick'ems lock November 26. This may be a time-zone difference, so submit picks by the 26th to be safe."
+      ],
+      "date": "2026-11-23",
+      "when": "2026-11-27",
+      "tags": [
+        "esports",
+        "grand major",
+        "pick'em"
+      ],
+      "source": "Inven Global",
+      "url": "https://www.invenglobal.com/articles/28963/the-finals-grand-major-kicks-off-in-sweden-on-nov-27",
+      "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
+    },
+    {
+      "id": "zzz-34-program",
+      "franchise": "zzz",
+      "kind": "character",
+      "status": "upcoming",
+      "importance": 3,
+      "title": "Version 3.4 gives every player S-Rank Robin free on December 2",
+      "dek": "Log in after 3.4 to claim limited S-Rank Robin, plus materials to reach Level 40 and a Drive Disc set.",
+      "body": [
+        "HoYoverse announced on November 23 that everyone who logs in after Version 3.4 gets the limited S-Rank Robin. Players also get materials to raise her to Level 40 and a Drive Disc set. Robin gives shields, raises DEF and damage, and restores Sharpness to Armorer agents. The update lands December 2; the maintenance time has not been posted yet.",
+        "Robin gets a new outfit called Cosmic Beat, according to CBR. Based on HoYoverse's press release, Anime Atelier reports that Robin and each of the Sunbringers get paid outfits at launch. No prices have been given.",
+        "Version 3.4 also brings an Alice rerun alongside her W-Engine, Perfectly Forged Star. Kafka's banner is still set for January 1."
+      ],
+      "date": "2026-11-23",
+      "when": "2026-12-02",
+      "tags": [
+        "version 3.4",
+        "robin",
+        "free character"
+      ],
+      "source": "Inven Global",
+      "url": "https://www.invenglobal.com/articles/28955/zenless-zone-zero-version-34-update-set-for-december-2",
+      "image": "https://clan.akamai.steamstatic.com/images/46096005/b0ad9d562ae08b67dee2750b1abb0c0b615f733d.png"
+    },
+    {
+      "id": "cod-s1-reloaded",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "In-game countdown points to Dec 2 for Season 1 Reloaded",
+      "dek": "Unofficial reports read the countdown as 10 PM PT on December 2, which is December 3 in Europe. Activision hasn't confirmed it.",
+      "body": [
+        "On November 21, Gamelevate and Timesaver.gg reported that an in-game countdown in Modern Warfare 4 and Warzone points to 10 PM PT on December 2 for Season 1 Reloaded. In Europe, that is December 3.",
+        "Activision had made no official announcement as of November 24, and no new operator skins have been revealed. Treat the time as likely but unconfirmed until Activision posts it."
+      ],
+      "date": "2026-11-21",
+      "when": "2026-12-02",
+      "tags": [
+        "season 1 reloaded",
+        "warzone",
+        "unconfirmed"
+      ],
+      "source": "Gamelevate",
+      "url": "https://gamelevate.com/mw4-warzone-season-1-reloaded-release-date-content/",
+      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
+    },
+    {
+      "id": "cod-mw4-black-friday",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "live",
+      "importance": 2,
+      "title": "Modern Warfare 4 Black Friday prices: $54.55 at Amazon, 15% off on Steam",
+      "dek": "Modern Warfare 4 is discounted at several stores this week if you haven't bought it yet.",
+      "body": [
+        "On November 23, TechRadar listed Modern Warfare 4 at $54.55 at Amazon, down from $69.99. Steam shows 15% off, but no end date was visible.",
+        "In Australia, Press Start (November 22) lists the PS5 version at $69 at Target, a saving of $20. Prices change quickly during Black Friday, so check before you buy."
+      ],
+      "date": "2026-11-23",
+      "tags": [
+        "deal",
+        "black friday"
+      ],
+      "source": "TechRadar",
+      "url": "https://techradar.com/live/news/nintendo-switch-black-friday-2026-nov-23",
+      "image": "https://cdn.mos.cms.futurecdn.net/HEvi8RBCSjLMCckCbKcgCh-1920-80.jpg"
+    },
+    {
+      "id": "sb-black-friday-deal",
+      "franchise": "stellar",
+      "kind": "game",
+      "status": "live",
+      "importance": 2,
+      "title": "Stellar Blade on PS5 listed at $29 at Amazon",
+      "dek": "A Black Friday listing puts the PS5 version well below full price, though the source's discount figures don't match.",
+      "body": [
+        "On November 24, Tom's Guide listed Stellar Blade for PS5 at $29 on Amazon, down from $69.",
+        "The same page gives the discount as $30, $40 and \"$40 off\" in different places, so check the price on Amazon before buying. There were no new collabs or outfits for Stellar Blade this week."
+      ],
+      "date": "2026-11-24",
+      "tags": [
+        "deal",
+        "black friday",
+        "ps5"
+      ],
+      "source": "Tom's Guide",
+      "url": "https://tomsguide.com/live/news/best-ps5-black-friday-deals-tuesday-november-24-2026",
+      "image": "https://cdn.mos.cms.futurecdn.net/LvEuGqugpuc38Dctu4jgJ7-2560-80.png"
+    },
+    {
+      "id": "cod-rayneo-glasses",
+      "franchise": "cod",
+      "kind": "collab",
+      "status": "out",
+      "importance": 1,
+      "title": "RayNeo launches Modern Warfare 4 edition of its GT Max AR glasses",
+      "dek": "A limited-edition wearable display made with Activision. It's hardware, not an in-game item.",
+      "body": [
+        "RayNeo has launched the GT Max Call of Duty: Modern Warfare 4 Limited Edition, a portable wearable display made with Activision. It has a sandblasted digital camouflage finish and a black-and-gold interface.",
+        "The report says the glasses have launched but gives no release date, price or regions."
+      ],
+      "date": "2026-11-23",
+      "tags": [
+        "hardware",
+        "merch"
+      ],
+      "source": "DLCompare",
+      "url": "https://dlcompare.com/gaming-news/rayneo-s-new-gt-max-ar-glasses-arrive-in-a-limited-modern-warfare-4-edition-92390",
+      "image": "https://cdn.dlcompare.com/others_jpg/upload/news/image/en-rayneo-s-new-gt-max-ar-glasse-a899981f-image-a899980c.jpg.webp"
+    },
     {
       "id": "tfd-1410",
       "franchise": "descendant",
@@ -96,29 +231,6 @@
       "image": "https://clan.akamai.steamstatic.com/images/42627465/e025013a4536b9054a640d702f08c14f9e1c6ea7.jpg"
     },
     {
-      "id": "cod-s1-reloaded",
-      "franchise": "cod",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 2,
-      "title": "Season 1 Reloaded still expected December 2",
-      "dek": "The in-game countdown points to December 2, 10pm PT, but Activision hasn't confirmed the date yet.",
-      "body": [
-        "Gamelevate (around November 21) still gives December 2, 2026, at 10pm PT (December 3, 6am GMT) for MW4 and Warzone Season 1 Reloaded. It bases this on the in-game countdown for the Season 1 Battle Pass bonus rewards, not on an announcement from Activision.",
-        "Noping says players who finish the Season 1 Battle Pass can unlock eight more operator skins during the mid-season update. Dot Esports names Ministry and Overflow as expected maps.",
-        "There is no official Call of Duty blog post yet, so treat the date as expected."
-      ],
-      "date": "2026-11-21",
-      "when": "2026-12-02",
-      "tags": [
-        "mid-season",
-        "warzone"
-      ],
-      "source": "Gamelevate",
-      "url": "https://gamelevate.com/mw4-warzone-season-1-reloaded-release-date-content/",
-      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
-    },
-    {
       "id": "sb-ost-9cd",
       "franchise": "stellar",
       "kind": "game",
@@ -138,29 +250,6 @@
       "source": "RPG Site",
       "url": "https://www.rpgsite.net/news/21787-stellar-blade-original-soundtrack-9cd-release-preorder-contents",
       "image": "https://images.rpgsite.net/articles/thumbnail/a3ecf1c/21787/original/stellar-blade-cd-soundtrack-full-album-preorder.png"
-    },
-    {
-      "id": "zzz-34-program",
-      "franchise": "zzz",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 2,
-      "title": "Version 3.4 confirmed for December 2",
-      "dek": "HoYoverse's press release confirms the date, Sunbringer, a free Robin and Kafka in the second half, plus an Alice rerun.",
-      "body": [
-        "HoYoverse's November 20 press release confirms that Version 3.4, \"The Finality of the Day\", launches on December 2. It includes Sunbringer, Robin free to claim, Robin's Cosmic Beat outfit, and Kafka in the second half of the version.",
-        "Alice gets a rerun in the second half. Her W-Engine is officially called \"Practiced Perfection\", even though some outlets list it under another name.",
-        "Yahoo Tech says the Sunbringer and Robin banners run from December 2 to January 12, 2027, at 2:59 PM UTC+8."
-      ],
-      "date": "2026-11-20",
-      "when": "2026-12-02",
-      "tags": [
-        "version 3.4",
-        "banners"
-      ],
-      "source": "Games Press (HoYoverse)",
-      "url": "https://www.gamespress.com/Zenless-Zone-Zero-Version-34-The-Finality-of-the-Day-Launches-December",
-      "image": "https://clan.akamai.steamstatic.com/images/46096005/b0ad9d562ae08b67dee2750b1abb0c0b615f733d.png"
     },
     {
       "id": "zzz-hsr-collab",
@@ -184,28 +273,6 @@
       "source": "AccountShark",
       "url": "https://accountshark.net/blog/zenless-zone-zero-3-4-the-finality-of-the-day-december-2-sunbringer-free-robin-kafka-banner-date-honkai-star-rail-crossover",
       "image": "https://images.genshin-builds.com/news/honkai-star-rail/hsr-x-zzz-crossover-kafka-robin-in-3-4.png"
-    },
-    {
-      "id": "tf-12-3",
-      "franchise": "finals",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 3,
-      "title": "Grand Major seedings out; Pick'ems lock Nov 26",
-      "dek": "Embark's official seeding post sets the Pick'em deadline: midnight CET at the end of Thursday, November 26.",
-      "body": [
-        "Embark posted the Grand Major seeding reveal on November 23. The event runs at DreamHack Stockholm, November 27 to 29. Sixteen teams from the Americas, EMEA and APAC compete for a $150,000 prize pool, and a best-of-three Grand Final decides the champion.",
-        "The only new detail is the deadline. Pick'ems lock at midnight CET at the end of Thursday, November 26, so submit your picks before then. In-game, there is no patch after 12.4.0 and no new cosmetics. Season 13 hasn't been announced, and there is no official Season 12 end date."
-      ],
-      "date": "2026-11-23",
-      "when": "2026-11-27",
-      "tags": [
-        "esports",
-        "pick'em"
-      ],
-      "source": "THE FINALS (official)",
-      "url": "https://www.reachthefinals.com/patchnotes/tgm26-seedings",
-      "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
     },
     {
       "id": "cod-s1-bundles",
