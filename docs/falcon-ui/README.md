@@ -3,6 +3,14 @@
 The Figma file for the Puncheo UI (Leia skin):
 https://www.figma.com/design/10uxO79DzZzFbgBpeN90vT
 
+## Pages
+
+| Page | What |
+| --- | --- |
+| Puncheo | The Puncheo UI; the versioned baseline below covers this page only. |
+| Noticss | Noticss's collections and styles; not part of the baseline. |
+| The Cubes | Added by Claude on 2026-11-25: The Cubes' app icon as it ships (`public/kit/axis-cube/icon-512.png` in a 512 frame, `apple-icon.png` in a 180 frame rounded like the home screen). |
+
 ## Versions
 
 | Version | Date | What |
