@@ -7,4 +7,4 @@ import type { AxisSound } from "./sound";
  * a tap opens the list of changes, `changelog`: the changelog's text, or the address of the app's changelog page.
  * `lab` builds a lab (`sidebar`). Returns the function that takes the scene down.
  */
-export function mountAxisCube(host: HTMLElement, opts?: { texBase?: string; look?: "a" | "b" | "c"; lab?: string; version?: string; changelog?: string; loader?: HTMLElement; onShown?: () => void; sound?: AxisSound; hold?: () => boolean }): () => void;
+export function mountAxisCube(host: HTMLElement, opts?: { texBase?: string; look?: "a" | "b" | "c"; lab?: string; version?: string; changelog?: string; scores?: string; loader?: HTMLElement; onShown?: () => void; sound?: AxisSound; hold?: () => boolean }): () => void;

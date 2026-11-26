@@ -71,6 +71,29 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.45 · 2026-11-26 17:05
+
+**Claude:** The high scores went online. Your five is now everybody's five: one table per puzzle, the same on every phone in the world. MAC's times still guard the top, until someone takes them down.
+
+Asked by Marcos, 26 Nov 16:22, in the same message: "I need the highscore to live in my GitHub/vercel side of things so it's global"
+
+- Each puzzle's five is now one for everybody, kept on the portal's side: the app fetches the fives as it opens and each time the screen comes up, and sends a new entry as its row goes in. The five that comes back goes up on the screen once the row has merged.
+- Marcos's times on the 3×3 and the 2×2 stay among them, until five faster times push them out.
+- The fives live in a Redis database (Upstash), connected to the portal's Vercel project from its Storage tab; its address and key are the project's, never in this repo. Until it is connected, each device keeps its own fives, as before, and the entries made meanwhile wait on the device and are sent once it is.
+- Offline, the app shows the last fives it saw, and an entry made then is sent the next time the app reaches the portal.
+- The portal checks every entry: a puzzle it knows, a time between a floor no hand beats on a phone (2 s on the 2×2, 5 s on the others) and 99:59:99, and one to three capital letters. It takes at most six entries a minute from one address, and keeps each puzzle's best fifty.
+- The labs never send an entry. ([#206](https://github.com/onexmac/ad/pull/206))
+
+## 0.7.40 · 2026-11-26 17:05
+
+**Claude:** The rings don't just get brighter any more, they light up: a white-hot line, a glow inside, a halo round it. Twice, like a neon sign coming on.
+
+Asked by Marcos, 26 Nov 16:22: "Make the dots control glow look like the dots are really glowing, and make them glow twice (it's not a stronger glow, but a better one)"
+
+- Half a second after a mix ends, the rings light up twice in 1.8 s. Each pulse comes up quickly and dies away slower, as a lamp does.
+- At each peak the ring's line goes white-hot, a soft light fills it from the inside, and the light spills out round it: a bright edge close in and a wide, faint halo further out. The dark edge that keeps a ring readable on a light background fades while it is lit.
+- They swell only a little, 6% (it was 22%): the light does the work, not the size. With reduced motion they glow and don't swell. ([#206](https://github.com/onexmac/ad/pull/206))
+
 ## 0.7.38 · 2026-11-26 16:20
 
 **Claude:** Colour tune-up: orange got a little brighter, green a little calmer, so the two stop arguing on the cube.
