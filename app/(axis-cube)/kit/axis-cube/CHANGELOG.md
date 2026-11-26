@@ -61,6 +61,18 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.60 · 2026-11-25 21:46
+
+Asked by Marcos, 25 Nov 21:40: "Lower the black of the vignette so we still see some of the room, use the blur bokeh. And for the pixel cube have it with the squares be 2 moves from getting solved so when the screen zooms in they flipped into a full square, you don't 3d move the squares just turn them filled or hollow"
+
+- Close up, the room round the Mac shows again. The dark round it is lighter: at most 0.6 of black, where it was all black. The lens opens up as the camera reaches the screen, to about three times its usual aperture. The screen and the Mac's face stay sharp, and the room round them melts into bokeh: the blinds, the sideboard, the turntable.
+- The mark on the screen solves itself:
+  - It now stands two turns from solved: filled, outline, filled in each row, with the middle row the other way round (the middle row and the middle column each turned once).
+  - Once the screen is close, the middle row turns, about half a second in: its three squares swap, filled for outline. Half a second later the middle column turns, and every square is filled.
+  - Nothing moves in 3D; the squares only change between filled and outline.
+  - When the screen closes it is mixed again, ready to solve the next time.
+- The iMac stands 6 cm further left. Turned to the room in 0.6.55, its right front corner had gone a centimetre and a half into the turntable's lid, which showed close up as a white slab beside the speaker. It now keeps about 4 cm from the lid. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
 ## 0.6.58 · 2026-11-25 21:39
 
 - **Bug fix.** Marcos, 25 Nov 21:22, of 0.6.55's screen: "The squares of the pixel cube have like dots inside. Remove those. Now the screen should have a reflection of the room and it actually has to be inside the Mac, I see what you are trying to do with the separate faded in flat screen but it doesn't look right. Put it inside, also add more breathing room for the elements of the screen, it looks to crowded. Have the first player highlighted. And for the pixel cube some cubes are filled the others are stokes. Make the screen monochromed with yellow text"
