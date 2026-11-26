@@ -186,6 +186,9 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
    it into the Mac, onto that row, on a spring; the places for initials are part of it then */
 .axis.crt.placing .entry-line { opacity: 1; transition: none; }
 .axis.crt.placing .entry-line .ini { display: none; }
+/* once the row is the screen's own, the line is gone at once: no fade, in which the field and its initials would show
+   again, whole, over the screen */
+.axis.crt:not(.entry):not(.placing) .entry-line { transition: none; }
 .axis .entry-line canvas { display: block; }
 .axis .entry-line .chip { transform-origin: center; will-change: transform; }
 .axis.crt.placing .hud { pointer-events: none; }
