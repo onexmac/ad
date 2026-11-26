@@ -73,7 +73,7 @@ Open:
 Asked by Marcos, 26 Nov 10:24: "Once the player time drops into the screen run the pixel cube animation"
 
 - With a new entry, the pixel cube on the screen stays mixed while the row flies in and merges. It starts its solve once the row is in the screen (BACK at the top right): a beat of 0.25 s, then its middle row, then its middle column, square by square.
-- Opening the screen without a new entry is as before: the pixel cube solves as the camera goes in. (PR)
+- Opening the screen without a new entry is as before: the pixel cube solves as the camera goes in. ([#184](https://github.com/onexmac/ad/pull/184))
 
 ## 0.6.94 · 2026-11-26 10:09
 
