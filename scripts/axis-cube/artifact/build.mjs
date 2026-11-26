@@ -36,15 +36,20 @@ const js = await esbuild.build({
   nodePaths: [path.join(ROOT, "node_modules")],
 });
 const css = fs.readFileSync(path.join(ROOT, "app/(axis-cube)/kit/axis-cube/globals.css"), "utf8");
+// the changelog goes into the page whole: the version shows at the bottom right, and a tap lists the changes
+const changelog = fs.readFileSync(path.join(ROOT, "app/(axis-cube)/kit/axis-cube/CHANGELOG.md"), "utf8");
+const version = (/^## (\d+\.\d+\.\d+) ·/m.exec(changelog) || [])[1] || "";
+const inPage = (v) => JSON.stringify(v).replace(/[<\u007f-\uffff]/g, (ch) => "\\u" + ch.charCodeAt(0).toString(16).padStart(4, "0"));   // plain ASCII in the page, whatever its encoding is taken to be
 
-const page = `<title>${TITLE}</title>
+const page = `<meta charset="utf-8">
+<title>${TITLE}</title>
 <meta name="theme-color" content="#000000">
 <style>
 ${css.replace(/<\/style/g, "<\\/style")}
 </style>
 <div class="axis-ground"><div id="root" class="axis"></div></div>
 <div class="axis-loader" id="loader" role="progressbar" aria-label="Cargando">${LOADER_HTML}</div>
-<script>window.AXIS_LOOK = "${LOOK}"; window.AXIS_LAB = "${LAB}";</script>
+<script>window.AXIS_LOOK = "${LOOK}"; window.AXIS_LAB = "${LAB}"; window.AXIS_VERSION = ${inPage(version)}; window.AXIS_CHANGELOG = ${inPage(changelog)};</script>
 <script>${js.outputFiles[0].text.replace(/<\/script/g, "<\\/script")}</script>
 `;
 fs.writeFileSync(path.join(OUT, NAME), page);

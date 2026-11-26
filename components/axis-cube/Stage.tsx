@@ -74,8 +74,11 @@ function startOverIfNewer() {
  * and works from the first paint, before this has arrived and while the room is being built. This only hears of it.
  * The scene (three.js and the room) comes in a script of its own, after this one, so that this one is small and
  * quick to take over the page.
+ * The version (from the changelog, read when the site is built) shows at the bottom right while a puzzle is being
+ * chosen; the list of changes it opens is fetched from the app's changelog page only when it is asked for, with the
+ * version in its address so that the service worker lets it through to the network and never shows an older list.
  */
-export function Stage({ look = "a" }: { look?: Look }) {
+export function Stage({ look = "a", version = "" }: { look?: Look; version?: string }) {
   const host = useRef<HTMLDivElement>(null);
   const loader = useRef<HTMLDivElement>(null);
   const inset = useVvvInset(GUTTER);
@@ -109,10 +112,10 @@ export function Stage({ look = "a" }: { look?: Look }) {
     let stop: (() => void) | undefined, gone = false;
     import("@/lib/axis-cube/scene").then(({ mountAxisCube }) => {
       if (gone || !host.current) return;
-      stop = mountAxisCube(host.current, { look, loader: loader.current ?? undefined, onShown: keepForNextTime, sound: voice.current ?? undefined, hold: gateUp });
+      stop = mountAxisCube(host.current, { look, version, changelog: `${SCOPE}/changelog?v=${version}`, loader: loader.current ?? undefined, onShown: keepForNextTime, sound: voice.current ?? undefined, hold: gateUp });
     });
     return () => { gone = true; stop?.(); };
-  }, [look]);
+  }, [look, version]);
   return (
     <>
       <div className="axis-ground">

@@ -5,5 +5,5 @@ const look = (location.hash || "").replace("#", "") || window.AXIS_LOOK || "a";
 // Here the script is part of the page itself, so the scene waits two frames: the loader is on screen before the
 // building of the room takes the main thread.
 requestAnimationFrame(() => requestAnimationFrame(() => {
-  mountAxisCube(document.getElementById("root"), { texBase: "tex/", look, lab: window.AXIS_LAB || "", loader: document.getElementById("loader") });
+  mountAxisCube(document.getElementById("root"), { texBase: "tex/", look, lab: window.AXIS_LAB || "", version: window.AXIS_VERSION || "", changelog: window.AXIS_CHANGELOG || "", loader: document.getElementById("loader") });
 }));
