@@ -59,6 +59,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.10** A screen's new colour goes all the way: the page under it and the phone's bars too; check it on the phone's whole screen.
 - **0.7.12** Scrolled content never ends on its own background: a line marks every cut, and it slides under it.
 - **0.7.13** A fix is the fix asked for: an extra change of my own is offered in words, not shipped with it.
+- **0.7.32** A motion that demonstrates a gesture plays its whole path, slowly enough to read; never a twitch.
 
 Open:
 
@@ -68,6 +69,35 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.7.32 · 2026-11-26 14:37
+
+**Claude:** The cube now really acts it out: it sinks slowly, most of the way home to the ottoman, thinks about it, and floats back up. Method acting, in 3D.
+
+- **Bug fix.** Marcos, 26 Nov 14:30, of 0.7.27: "No the swipe hint has to be longer as if almost going back to the ottoman. Slower more intentional the motion."
+  - Cause: "bounce down as if trying to go back" was read as the swipe's own small pull, a quick dip of 0.3 s. The motion was meant to show where the swipe takes the cube, all the way down to the ottoman, at a pace you can follow.
+  - Don't: show a gesture by a twitch. A motion that demonstrates a gesture plays its whole path, slowly enough to read.
+
+- While the hint is up, the puzzle repeats a 3.6 s cycle:
+  - It rests, then sinks over 1.4 s most of the way back toward its hollow on the ottoman, turning toward its resting pose and growing smaller as it goes.
+  - It waits a breath, then rises again over 1.2 s.
+- OK still makes it hop up and mix. ([#200](https://github.com/onexmac/ad/pull/200))
+
+## 0.7.30 · 2026-11-26 14:37
+
+**Claude:** New words on the tip, said the old-fashioned way: A Strong Swipe Down Keeps The Cubes Away.
+
+Asked by Marcos, 26 Nov 14:30, in the same message: "And lets change the text. A Strong Swipe Down Keeps The Cubes Away."
+
+- The hint now reads "A Strong Swipe Down" on one line and "Keeps The Cubes Away." on the next. ([#200](https://github.com/onexmac/ad/pull/200))
+
+## 0.7.29 · 2026-11-26 14:37
+
+**Claude:** The tip moved up a shelf.
+
+Asked by Marcos, 26 Nov 14:30, in the same message: "Let's have the hint box a bit higher is too low."
+
+- The hint box sits higher, its middle at 72% of the frame's height where it was at the dots' 81.5%. The dots still step aside while it is up. ([#200](https://github.com/onexmac/ad/pull/200))
 
 ## 0.7.28 · 2026-11-26 14:29
 
