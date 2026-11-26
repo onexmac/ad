@@ -81,7 +81,7 @@ Open:
   - A wag from side to side that dies away.
   - Bi-li-li-li-lo-lu-li in the air, timed so that the -lup lands with it.
 - The Sidebar's opening waits for a first touch, so the tune can be heard. With the cube in hand, one turn away and the clock running, you can make the last turn yourself; or touch anywhere, and it plays itself 1.2 s later.
-- The screen comes only once the cube has settled, after a beat of 0.5 s. (PR)
+- The screen comes only once the cube has settled, after a beat of 0.5 s. ([#182](https://github.com/onexmac/ad/pull/182))
 
 ## 0.6.91 · 2026-11-26 09:21
 
