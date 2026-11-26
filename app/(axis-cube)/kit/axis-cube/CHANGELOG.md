@@ -63,6 +63,26 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.76 · 2026-11-25 22:58
+
+Asked by Marcos, 25 Nov 22:52, with a picture of an old game's YOU DIED / RESPAWN? card: "The status text (upper right) should say: back; when the camera goes to the screen. Except when the user has a highscore there it should say: congrats!! ; now in the type you initials after the highscore we should blur the Mac itself so the text should float beyond it but just the keyboard and the line, not placed yet of the users time and the ___ the end should be inverted filled and when the player press it it should pop up a confirmation card."
+
+Shipped in the same push as 0.6.74. This is the Sidebar lab's part.
+
+- While initials are typed for a new entry, the line at the top right says CONGRATS!!.
+- The Mac goes out of focus (a 10 px blur, a little darker). Over it float only the keyboard and the entry itself, not yet in the table: its time and the three places for initials, the one being typed blinking. The table on the screen stays as it was until the entry is kept.
+- END is filled: a yellow key with dark letters.
+- END brings up a card in the screen's letters, after the old game's: a frame; the initials and the time, dark on a bar of light; SAVE?; and YES, boxed, beside NO, underlined.
+  - YES keeps the entry: it takes its place in the table, lit up, the Mac comes back into focus, and the line says BACK.
+  - NO, or a tap beside the card, goes back to typing.
+- A computer's keyboard types the initials too: letters, Backspace, Enter for END and again for YES, Escape for NO. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
+## 0.6.74 · 2026-11-25 22:58
+
+Asked by Marcos, 25 Nov 22:52, in the same message: "The status text (upper right) should say: back; when the camera goes to the screen."
+
+- With the iMac's screen close up, the line at the top right says BACK, and a tap on it is the way back to the room. The tap area reaches a little past the letters. The clock goes on underneath and shows again on the way back. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
 ## 0.6.73 · 2026-11-25 22:37
 
 Asked by Marcos, 25 Nov 22:33: "Guarda en Claude.md o donde veas conveniente el sistema de changelog. Quiero que todas las apps lo tengan de ahora en adelante. Que cuando la sesión de code empiece con Eva jale esté lógica también. En este caso agrega la versión en el home (cube picker en la parte de abajo a la derecha. Y si se selecciona que habrá una pantalla con la lista de todos los cambios. Ahora estos últimos cambios tienes que agregarlos cómo diferentes ya que hemos enviado muchos mensajes y no hemos hecho push"
