@@ -60,6 +60,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.12** Scrolled content never ends on its own background: a line marks every cut, and it slides under it.
 - **0.7.13** A fix is the fix asked for: an extra change of my own is offered in words, not shipped with it.
 - **0.7.32** A motion that demonstrates a gesture plays its whole path, slowly enough to read; never a twitch.
+- **0.7.37** Something that has gone elsewhere is hidden at once; it never fades out back where it began.
 
 Open:
 
@@ -69,6 +70,16 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.7.37 · 2026-11-26 16:16
+
+**Claude:** Squashed a ghost: the big box with your score no longer flickers back over the screen after it merges in. The score goes in once and stays in.
+
+- **Bug fix.** Marcos, 26 Nov 16:15: "There's like a glitch the shows a bigger rectangle with the player score it's getting merged"
+  - Cause: when the merge ended, the entry's line went back to its first state, the paper field with the time and the initials, full size in the middle of the screen. It then faded out over 0.3 s from there, so for a moment a box wider than the screen showed again over the table.
+  - Don't: let something that has gone away come back to fade out from where it began. Once it is somewhere else, hide it at once.
+
+- When the row has merged into the screen, the entry's line is gone at once, with no fade. ([#204](https://github.com/onexmac/ad/pull/204))
 
 ## 0.7.36 · 2026-11-26 15:25
 
