@@ -23,6 +23,10 @@
   --ring-fill: rgba(255, 240, 220, 0.12);
   --ring-shade: rgba(20, 10, 4, 0.28);
   --shroud: #000;
+  /* the machine's letters: the iMac's screen, the line at the top right, the initials keyboard */
+  --crt-ink: #ffcf3d;
+  --key-line: rgba(255, 207, 61, 0.45);
+  --key-fill: rgba(0, 0, 0, 0.55);
   color-scheme: dark;
 }
 html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: hidden; overscroll-behavior: none; }
@@ -86,6 +90,27 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   -webkit-mask-image: radial-gradient(var(--rx) var(--ry) at var(--cx) var(--cy), transparent 62%, var(--shroud) 100%);
   mask-image: radial-gradient(var(--rx) var(--ry) at var(--cx) var(--cy), transparent 62%, var(--shroud) 100%);
 }
+/* the machine's line at the top right: drawn by the scene in the screen's letters (INSERT CUBE, MIXING..., READY,
+   the clock, GAME OVER, MIX IT) */
+.axis .hud { position: absolute; top: 14px; right: 18px; pointer-events: none; }
+/* the sidebar lab: the initials keyboard, under the screen while a new entry in the five is typed. Square keys in
+   the screen's letters, as old as the screen; a pressed key lights up. */
+.axis .kb {
+  position: absolute; left: 50%; bottom: 22px;
+  width: min(calc(100% - 32px), 400px);
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+  opacity: 0; transform: translate(-50%, 24px); pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.axis.crt.entry .kb { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; transition-delay: 0.35s; }
+.axis .key {
+  aspect-ratio: 1; display: grid; place-items: center; padding: 0; margin: 0;
+  border: 2px solid var(--key-line); border-radius: 0; background: var(--key-fill);
+  cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.axis .key canvas { display: block; image-rendering: pixelated; }
+.axis .key:active { background: var(--crt-ink); border-color: var(--crt-ink); }
+.axis .key:active canvas { filter: brightness(0); }
 .axis .dot {
   position: absolute; left: 50%; top: 81.5%; width: 30px; height: 30px; box-sizing: border-box;
   border: 1.5px solid var(--ring); border-radius: 50%;
