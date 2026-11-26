@@ -3,18 +3,18 @@
   "date": "2026-11-25",
   "slot": "tarde",
   "number": 6,
-  "generatedAt": "2026-11-25T20:46:32.319Z",
+  "generatedAt": "2026-11-26T03:53:13.425Z",
   "isSample": false,
   "weather": {
     "place": "Cartago",
-    "tempC": 23,
+    "tempC": 17,
     "maxC": 25,
     "minC": 15,
-    "code": 1,
-    "condition": "mayormente despejado",
-    "glyph": "sun",
-    "cloudCover": 40,
-    "rainProb": 0,
+    "code": 45,
+    "condition": "neblina",
+    "glyph": "cloud",
+    "cloudCover": 100,
+    "rainProb": 6,
     "sunrise": "05:34",
     "sunset": "17:11",
     "rainHours": [
@@ -29,13 +29,13 @@
       0,
       0,
       0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
+      1,
+      2,
+      4,
+      5,
+      6,
+      5,
+      2,
       0,
       0,
       0,
@@ -44,11 +44,11 @@
       0
     ],
     "sky": [
-      "#204678",
-      "#4e77a9",
-      "#8da8c4",
-      "#d7cdbd",
-      "#eec79b"
+      "#21385a",
+      "#4c6287",
+      "#8592aa",
+      "#c6bcb0",
+      "#e6c59e"
     ],
     "source": {
       "name": "Open-Meteo",
@@ -67,20 +67,17 @@
         445.2,
         446.3
       ],
-      "seriesNote": "Venta de referencia BCCR, 24 y 25-nov-2026 (CalcularYa, EconomíaHoyCR, Telediario)"
+      "seriesNote": "Venta de referencia BCCR, 24 y 25/11/2026 (Acontecer; La Nación y Telediario)"
     },
     {
       "id": "tba",
       "label": "Tasa Básica",
       "value": "3,56 %",
-      "delta": 0.01,
+      "delta": null,
       "unit": "%",
       "note": "BCCR",
-      "series": [
-        3.55,
-        3.56
-      ],
-      "seriesNote": "BCCR: valor previo y vigente desde el 12-nov-2026"
+      "series": null,
+      "seriesNote": null
     },
     {
       "id": "contenedor",
@@ -118,28 +115,75 @@
       "id": "presupuesto-extraordinario-sala-iv",
       "category": "politica",
       "scope": "cr",
-      "importance": 3,
-      "title": "Extraordinario con recortes al FEES y al Poder Judicial, frenado hasta el jueves",
-      "synopsis": "El segundo extraordinario de 2026 se votó el martes con recortes de ₡13.105 millones al Poder Judicial y ₡8.048 millones al FEES, pero la Sala IV prohibió aprobarlo en segundo debate antes del jueves 26. No trae recortes de vivienda conocidos, aunque el de julio sí recortó subsidios, y el choque institucional enrarece el clima fiscal. Vigilá el jueves la Sala y las transferencias a BANHVI.",
+      "importance": 2,
+      "title": "Sala IV anula recorte de ₡8.048 millones al FEES; votación final el jueves",
+      "synopsis": "La Sala IV declaró inconstitucional el recorte de ₡8.048 millones al FEES y encontró otro vicio en los cambios al Poder Judicial; el segundo debate es el jueves 26, cuando vence el plazo. Para vivienda en Cartago no hay efecto directo, pero el recorte neto de ₡167.968 millones por menores ingresos anticipa menos obra pública. Vigilar si se aprueba corregido o si el trámite se cae.",
       "image": {
-        "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1512187-f530ac4d8ec703ccf5e9d752efa8e5eed304949289d68dc82947eeb9f100bfd8.jpg",
-        "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1512187-f530ac4d8ec703ccf5e9d752efa8e5eed304949289d68dc82947eeb9f100bfd8.jpg",
-        "alt": "Extraordinario con recortes al FEES y al Poder Judicial, frenado hasta el jueves",
-        "credit": "Diario Extra"
+        "url": "https://images.hoy.cr/wp-content/uploads/2026/08/Sala-IV-1-1.jpg",
+        "color": "https://images.hoy.cr/wp-content/uploads/2026/08/Sala-IV-1-1.jpg",
+        "alt": "Sala IV anula recorte de ₡8.048 millones al FEES; votación final el jueves",
+        "credit": "CRHoy"
       },
       "snippets": [
         {
-          "id": "presupuesto-extraordinario-sala-iv-votacion",
-          "kind": "number",
-          "importance": 2,
+          "id": "presupuesto-extraordinario-sala-iv-fallo",
+          "kind": "event",
+          "importance": 3,
           "published": "2026-11-25",
-          "headline": "Votación del martes, con cifras que no cuadran",
-          "body": "Diario Extra reporta 31 votos a favor y 21 en contra: 30 de Pueblo Soberano y 1 de Liberación Nacional. CRHoy habla de 30 votos del PPSO, así que las dos fuentes no coinciden en el total.",
+          "headline": "Sala IV ordena eliminar el recorte al FEES",
+          "body": "Al resolver dos consultas legislativas facultativas, la Sala encontró vicios en el recorte de ₡8.048 millones al FEES y en los cambios que afectan al Poder Judicial, y ordenó eliminar esa modificación.",
           "why": null,
           "image": null,
           "tags": [
-            "asamblea",
-            "expediente 25.803"
+            "sala iv",
+            "fees",
+            "presupuesto"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/nacionales/sala-iv-ordena-eliminar-recorte-de-%E2%82%A18-048-millones-al-fees-del-presupuesto-extraordinario/"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-sala-iv-sentencia",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-25",
+          "headline": "Sentencia 2026-046044, expediente 25.803",
+          "body": "La moción de Nogui Acosta violó el artículo 85 de la Constitución por vicio de procedimiento sustancial. Si no se corrige, el presupuesto vuelve a como estaba antes de la moción 137-009; el recorte era el primero de ocho pagos anuales de ₡8.048.128.252.",
+          "why": null,
+          "image": {
+            "url": "https://img.delfino.cr/wp-content/uploads/2019/07/Sala-Constitucional-Costa-Rica-Sala-IV-EC-DCR-16.jpg?w=1536",
+            "color": "https://img.delfino.cr/wp-content/uploads/2019/07/Sala-Constitucional-Costa-Rica-Sala-IV-EC-DCR-16.jpg?w=1536",
+            "alt": "Sentencia 2026-046044, expediente 25.803",
+            "credit": "Delfino"
+          },
+          "tags": [
+            "sala iv",
+            "fees"
+          ],
+          "source": {
+            "name": "Delfino",
+            "url": "https://delfino.cr/2026/11/sala-iv-declara-inconstitucional-recorte-de-8048-millones-al-fees-en-presupuesto-extraordinario-de-2026"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-sala-iv-recorte-neto",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "₡167.968 millones netos menos en el presupuesto 2026",
+          "body": "El proyecto reduce el presupuesto 2026 porque Hacienda bajó su proyección de ingresos; incluye ₡13.105,6 millones menos al Poder Judicial y ₡1.971,5 millones en transferencias a cuatro universidades.",
+          "why": "Menos ingresos fiscales anticipan menos margen para obra pública y transferencias.",
+          "image": {
+            "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1512187-f530ac4d8ec703ccf5e9d752efa8e5eed304949289d68dc82947eeb9f100bfd8.jpg",
+            "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1512187-f530ac4d8ec703ccf5e9d752efa8e5eed304949289d68dc82947eeb9f100bfd8.jpg",
+            "alt": "₡167.968 millones netos menos en el presupuesto 2026",
+            "credit": "Diario Extra"
+          },
+          "tags": [
+            "fiscal",
+            "presupuesto"
           ],
           "source": {
             "name": "Diario Extra",
@@ -147,250 +191,217 @@
           }
         },
         {
-          "id": "presupuesto-extraordinario-sala-iv-recortes",
+          "id": "presupuesto-extraordinario-sala-iv-primer-debate",
           "kind": "number",
-          "importance": 2,
-          "published": "2026-11-25",
-          "headline": "₡13.105 millones menos para el Poder Judicial",
-          "body": "Según CRHoy, el extraordinario recorta ₡13.105 millones al Poder Judicial, ₡12.923 millones al sector seguridad y ₡8.048 millones al FEES. Delfino precisa que el recorte judicial es de ₡13.105.568.636 y está en el artículo 9.",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "31 votos a favor y 21 en contra en primer debate",
+          "body": "Entre los votos a favor estuvo el de Salvador Padilla, del PLN. CRHoy habla de 30 votos de Pueblo Soberano; El Observador y Diario Extra, de 31.",
           "why": null,
           "image": {
-            "url": "https://img.delfino.cr/wp-content/uploads/2023/10/Asamblea-Legislativa-Congreso-ALCR-LMM-DCR-24-scaled.jpg?w=1536",
-            "color": "https://img.delfino.cr/wp-content/uploads/2023/10/Asamblea-Legislativa-Congreso-ALCR-LMM-DCR-24-scaled.jpg?w=1536",
-            "alt": "₡13.105 millones menos para el Poder Judicial",
-            "credit": "Delfino"
+            "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1512187-f530ac4d8ec703ccf5e9d752efa8e5eed304949289d68dc82947eeb9f100bfd8.jpg",
+            "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1512187-f530ac4d8ec703ccf5e9d752efa8e5eed304949289d68dc82947eeb9f100bfd8.jpg",
+            "alt": "31 votos a favor y 21 en contra en primer debate",
+            "credit": "Diario Extra"
           },
           "tags": [
-            "recortes",
-            "fees",
-            "poder judicial"
+            "asamblea",
+            "votacion"
           ],
           "source": {
-            "name": "Delfino",
-            "url": "https://delfino.cr/2026/11/congreso-aprueba-recorte-de-13-105-millones-al-poder-judicial-y-elimina-8048-millones-del-fees-para-lo-que-queda-de-2026"
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/noticia/aprobado-segundo-presupuesto-extraordinario-pese-a-recortes-al-poder-judicial-y-universidades/"
           }
         },
         {
-          "id": "presupuesto-extraordinario-sala-iv-orden",
-          "kind": "event",
-          "importance": 3,
-          "published": "2026-11-24",
-          "headline": "Sala IV frena el segundo debate hasta el jueves 26",
-          "body": "El magistrado Fernando Cruz Castro, presidente interino de la Sala, ordenó no discutir ni aprobar el extraordinario en segundo debate antes del jueves 26. Ese mismo día vence el plazo reglamentario para aprobarlo.",
-          "why": "Si la Sala resuelve como lo hizo con el Presupuesto 2027, el recorte al FEES podría caerse.",
-          "image": {
-            "url": "https://img.delfino.cr/wp-content/uploads/2026/05/Fernando-Cruz-Sala-Constitucional.jpg?w=1536",
-            "color": "https://img.delfino.cr/wp-content/uploads/2026/05/Fernando-Cruz-Sala-Constitucional.jpg?w=1536",
-            "alt": "Sala IV frena el segundo debate hasta el jueves 26",
-            "credit": "Delfino"
-          },
-          "tags": [
-            "sala iv",
-            "plazos"
-          ],
-          "source": {
-            "name": "Delfino",
-            "url": "https://delfino.cr/2026/11/magistrado-ordena-frenar-segundo-debate-de-presupuesto-extraordinario-por-recorte-al-fees"
-          }
-        },
-        {
-          "id": "presupuesto-extraordinario-sala-iv-vivienda",
-          "kind": "fact",
-          "importance": 2,
-          "published": null,
-          "headline": "El extraordinario de julio sí recortó vivienda",
-          "body": "El primer extraordinario de 2026, aprobado en julio, recortó subsidios de vivienda y recursos de CEN-CINAI. En el de ahora no aparecen recortes de vivienda en lo revisado.",
-          "why": "Es el antecedente para vigilar las transferencias a BANHVI, que no se pudieron verificar hoy.",
-          "image": {
-            "url": "https://observador.cr/wp-content/uploads/2026/05/ASAMBLEASOBERANO-scaled.jpg",
-            "color": "https://observador.cr/wp-content/uploads/2026/05/ASAMBLEASOBERANO-scaled.jpg",
-            "alt": "El extraordinario de julio sí recortó vivienda",
-            "credit": "El Observador"
-          },
-          "tags": [
-            "vivienda",
-            "banhvi"
-          ],
-          "source": {
-            "name": "El Observador",
-            "url": "https://observador.cr/aprobado-de-manera-definitiva-presupuesto-extraordinario-con-recortes-a-cen-cinai-y-a-subsidios-de-vivienda/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "presupuesto-2027-domingo",
-      "category": "politica",
-      "scope": "cr",
-      "importance": 2,
-      "title": "Presupuesto 2027 irá a segundo debate el domingo 29",
-      "synopsis": "La presidenta legislativa convocó al Plenario el domingo 29 para votar el Presupuesto 2027 y envió los fallos de la Sala IV a Consultas Constitucionales. Si no se corrigen los vicios, cuatro normas y el recorte al FEES quedan excluidos, lo que define el marco de gasto e inversión pública del próximo año. Vigilá si sale corregido o con normas excluidas.",
-      "image": {
-        "url": "https://acontecer.co.cr/wp-content/uploads/2026/11/panel_investigada_1795557456736.webp",
-        "color": "https://acontecer.co.cr/wp-content/uploads/2026/11/panel_investigada_1795557456736.webp",
-        "alt": "Presupuesto 2027 irá a segundo debate el domingo 29",
-        "credit": "Acontecer"
-      },
-      "snippets": [
-        {
-          "id": "presupuesto-2027-domingo-convocatoria",
+          "id": "presupuesto-extraordinario-sala-iv-segundo-debat",
           "kind": "event",
           "importance": 3,
           "published": "2026-11-25",
-          "headline": "Sesión extraordinaria el domingo por la tarde",
-          "body": "Yara Jiménez Fallas convocó al Plenario a una sesión extraordinaria el domingo 29 de noviembre por la tarde para votar el Presupuesto 2027 en segundo debate.",
+          "headline": "Segundo debate el jueves 26, día en que vence el plazo",
+          "body": "Antes de la votación, la presidenta del Congreso, Yara Jiménez, debe emitir una resolución para acatar los fallos.",
           "why": null,
           "image": null,
           "tags": [
             "asamblea",
-            "presupuesto 2027"
+            "plazo"
           ],
           "source": {
-            "name": "Acontecer",
-            "url": "https://acontecer.co.cr/nacionales/yara-jimenez-convoca-plenario-presupuesto-2027-domingo"
-          }
-        },
-        {
-          "id": "presupuesto-2027-domingo-exclusion",
-          "kind": "fact",
-          "importance": 2,
-          "published": "2026-11-25",
-          "headline": "Normas cuestionadas se tendrían por excluidas",
-          "body": "Los fallos de la Sala IV pasaron a la Comisión de Consultas Constitucionales. Si la Asamblea no corrige los vicios, las cuatro normas presupuestarias cuestionadas y la moción que recortó el FEES se tendrán por excluidas.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "sala iv",
-            "fees"
-          ],
-          "source": {
-            "name": "Acontecer",
-            "url": "https://acontecer.co.cr/nacionales/yara-jimenez-convoca-plenario-presupuesto-2027-domingo"
-          }
-        },
-        {
-          "id": "presupuesto-2027-domingo-vicios",
-          "kind": "event",
-          "importance": 1,
-          "published": "2026-11-20",
-          "headline": "La Sala IV declaró vicios sustanciales el 20 de noviembre",
-          "body": "La Sala señaló vicios en el Presupuesto 2027 (expediente 25.754), entre ellos el recorte de ₡8.048 millones al FEES, y ordenó eliminar normas que afectaban al Poder Judicial.",
-          "why": null,
-          "image": {
-            "url": "https://elmundo.cr/wp-content/uploads/2024/11/Sala-Constitucional-Sala-IV-0811-1.jpg",
-            "color": "https://elmundo.cr/wp-content/uploads/2024/11/Sala-Constitucional-Sala-IV-0811-1.jpg",
-            "alt": "La Sala IV declaró vicios sustanciales el 20 de noviembre",
-            "credit": "El Mundo CR"
-          },
-          "tags": [
-            "sala iv",
-            "expediente 25.754"
-          ],
-          "source": {
-            "name": "El Mundo CR",
-            "url": "https://elmundo.cr/costa-rica/sala-iv-ordena-al-congreso-eliminar-normas-que-afectaban-al-poder-judicial-y-al-fees/"
+            "name": "CRHoy",
+            "url": "https://crhoy.com/nacionales/sala-iv-ordena-eliminar-recorte-de-%E2%82%A18-048-millones-al-fees-del-presupuesto-extraordinario/"
           }
         }
       ]
     },
     {
-      "id": "ormuz-petroleo-fletes",
-      "category": "geopolitica",
-      "scope": "mundo",
+      "id": "presupuesto-2027-segundo-debate",
+      "category": "politica",
+      "scope": "cr",
       "importance": 2,
-      "title": "El Brent cede a US$90,92 pese a nuevos ataques en Ormuz",
-      "synopsis": "El Brent bajó 0,5 % a US$90,92 el miércoles, tras subir 2,27 % el martes por buques incendiados en Ormuz, y se mueve entre US$89 y US$92 sin tendencia clara. Para el diésel de maquinaria y fletes lo que manda es la fijación de ARESEP, que no se revisó hoy. Vigilá la reunión de la OPEP+ del domingo 29 y la próxima fijación de combustibles.",
+      "title": "Presupuesto 2027 iría a segundo debate el domingo 29",
+      "synopsis": "Yara Jiménez convocó al Plenario el domingo 29 en la tarde para votar el Presupuesto 2027 en segundo debate, con disposiciones eliminadas que la fuente no detalla. Define el gasto e inversión pública del próximo año, que pesa en la obra vial y de agua alrededor de los proyectos en Cartago. Falta confirmar la sesión con otra fuente y saber qué se quitó.",
       "image": {
-        "url": "https://www.valoraanalitik.com/wp-content/uploads/2026/03/Inversores-a-la-expectativa-de-posibles-negociaciones-para-el-alto-al-fuego-en-Medio-Oriente.jpg",
-        "color": "https://www.valoraanalitik.com/wp-content/uploads/2026/03/Inversores-a-la-expectativa-de-posibles-negociaciones-para-el-alto-al-fuego-en-Medio-Oriente.jpg",
-        "alt": "El Brent cede a US$90,92 pese a nuevos ataques en Ormuz",
-        "credit": "Valora Analitik"
+        "url": "https://acontecer.co.cr/wp-content/uploads/2026/06/ACONTECER-MATUTINO.webp",
+        "color": "https://acontecer.co.cr/wp-content/uploads/2026/06/ACONTECER-MATUTINO.webp",
+        "alt": "Presupuesto 2027 iría a segundo debate el domingo 29",
+        "credit": "Acontecer"
       },
       "snippets": [
         {
-          "id": "ormuz-petroleo-fletes-brent-miercoles",
-          "kind": "number",
-          "importance": 2,
-          "published": "2026-11-25",
-          "headline": "Brent a US$90,92 y WTI a US$81,38",
-          "body": "Los futuros del Brent cayeron 0,5 % y el WTI 0,9 % el miércoles. Las señales de más oferta pesaron más que los nuevos ataques en Ormuz.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "petróleo",
-            "brent"
-          ],
-          "source": {
-            "name": "Valora Analitik",
-            "url": "https://www.valoraanalitik.com/premercado-inversores-esperan-datos-clave-de-inflacion-en-ee-uu-y-petroleo-baja-en-medio-de-nuevos-ataques-en-ormuz/"
-          }
-        },
-        {
-          "id": "ormuz-petroleo-fletes-cierre-martes",
-          "kind": "number",
-          "importance": 1,
-          "published": "2026-11-25",
-          "headline": "Martes: Brent sube 2,27 % a US$91,40",
-          "body": "Un día antes había bajado de US$90 por primera vez desde el 28 de agosto. El repunte vino tras reportes iraníes de tres buques incendiados por minas.",
-          "why": null,
-          "image": {
-            "url": "https://imagenes.elnacional.com.do/files/og_thumbnail/uploads/2026/11/24/6b062ba2de0e7.jpeg",
-            "color": "https://imagenes.elnacional.com.do/files/og_thumbnail/uploads/2026/11/24/6b062ba2de0e7.jpeg",
-            "alt": "Martes: Brent sube 2,27 % a US$91,40",
-            "credit": "El Nacional / EFE"
-          },
-          "tags": [
-            "petróleo",
-            "ormuz"
-          ],
-          "source": {
-            "name": "El Nacional / EFE",
-            "url": "https://elnacional.com.do/economia/brent-sube-2-27-nuevos-ataques-petroleros-ormuz_587119.html"
-          }
-        },
-        {
-          "id": "ormuz-petroleo-fletes-flujos",
-          "kind": "number",
-          "importance": 1,
-          "published": "2026-11-25",
-          "headline": "Ormuz pasó de 20 a 7,6 millones de barriles diarios",
-          "body": "Los flujos cayeron a ese nivel en agosto, y las restricciones también alcanzan al gas natural licuado y a los combustibles refinados.",
-          "why": "Las restricciones sobre refinados presionan directamente el precio del diésel.",
-          "image": {
-            "url": "https://static.moncloa.com/wp-content/uploads/2026/11/crisis-ormuz-energia-rutas-alternativas-portada-1024x768.webp",
-            "color": "https://static.moncloa.com/wp-content/uploads/2026/11/crisis-ormuz-energia-rutas-alternativas-portada-1024x768.webp",
-            "alt": "Ormuz pasó de 20 a 7,6 millones de barriles diarios",
-            "credit": "Moncloa.com"
-          },
-          "tags": [
-            "ormuz",
-            "energía"
-          ],
-          "source": {
-            "name": "Moncloa.com",
-            "url": "https://www.moncloa.com/2026/11/25/crisis-ormuz-energia-rutas-alternativas-3474684/"
-          }
-        },
-        {
-          "id": "ormuz-petroleo-fletes-opep",
+          "id": "presupuesto-2027-segundo-debate-convocatoria",
           "kind": "event",
           "importance": 2,
           "published": "2026-11-25",
-          "headline": "La OPEP+ se reúne el 29 de noviembre",
-          "body": "La reunión del domingo puede mover la oferta. La misma fuente da cierres que no cuadran con EFE, así que solo se toma la fecha.",
+          "headline": "Sesión convocada para el domingo 29 en la tarde",
+          "body": "La presidenta del Congreso, Yara Jiménez, convocó al Plenario para votar el Presupuesto 2027 en segundo debate.",
           "why": null,
-          "image": {
-            "url": "https://www.euribor.com.es/wp-content/uploads/2026/11/el-petroleo-ignora-los-ataques-en-el-golfo.webp",
-            "color": "https://www.euribor.com.es/wp-content/uploads/2026/11/el-petroleo-ignora-los-ataques-en-el-golfo.webp",
-            "alt": "La OPEP+ se reúne el 29 de noviembre",
-            "credit": "Euribor.com.es"
-          },
+          "image": null,
           "tags": [
-            "opep+"
+            "presupuesto 2027",
+            "asamblea"
           ],
           "source": {
-            "name": "Euribor.com.es",
-            "url": "https://www.euribor.com.es/2026/11/25/precio-petroleo-hoy-25-noviembre-2026/"
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-miercoles-25-de-noviembre-de-2026"
+          }
+        },
+        {
+          "id": "presupuesto-2027-segundo-debate-disposiciones",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Disposiciones eliminadas sin detallar",
+          "body": "El resumen indica que Jiménez ordenó eliminar disposiciones del plan de gastos, pero no explica cuáles. Es una sola fuente y falta verificar.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "presupuesto 2027",
+            "verificar"
+          ],
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-miercoles-25-de-noviembre-de-2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aranceles-eeuu-ronda",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 2,
+      "title": "Nueva lista de aranceles de EE. UU. deja fuera a Costa Rica y al acero",
+      "synopsis": "La USTR propuso aranceles bajo la Sección 301 a 15 socios, con hasta 20 % para China, en vigor desde enero como pronto; Costa Rica no está y el acero queda excluido. No hay efecto directo rastreable en insumos de construcción ni en exportaciones ticas, que siguen con el 12,5 % de julio. Vigilar la consulta pública, una posible desviación de acero chino (hipótesis) y a COMEX.",
+      "image": {
+        "url": "https://www.infobae.com/resizer/v2/N32XV6ERGJGZNMBI7QICKCTCT4.jpg?auth=6109e33b56a6bc52b0417581fb22be985169dad93c36bbef5fec07d89e95a732&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/N32XV6ERGJGZNMBI7QICKCTCT4.jpg?auth=6109e33b56a6bc52b0417581fb22be985169dad93c36bbef5fec07d89e95a732&smart=true&width=1200&height=630&quality=85",
+        "alt": "Nueva lista de aranceles de EE. UU. deja fuera a Costa Rica y al acero",
+        "credit": "Infobae/NYT"
+      },
+      "snippets": [
+        {
+          "id": "aranceles-eeuu-ronda-lista",
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-11-25",
+          "headline": "15 socios en la lista; Costa Rica no aparece",
+          "body": "China, Brasil, la UE, India, Japón, Bangladesh, Camboya, Indonesia, Corea del Sur, Malasia, Singapur, Suiza, Taiwán, Tailandia y Vietnam. México y Noruega fueron investigados pero quedaron fuera; otras fuentes hablan de 14 socios.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "aranceles",
+            "eeuu",
+            "comercio"
+          ],
+          "source": {
+            "name": "Infobae/NYT",
+            "url": "https://www.infobae.com/america/the-new-york-times/2026/11/25/el-gobierno-de-trump-revela-nuevos-aranceles-para-china-la-ue-y-otros-paises/"
+          }
+        },
+        {
+          "id": "aranceles-eeuu-ronda-exclusiones",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-25",
+          "headline": "Acero, aluminio y autos, excluidos",
+          "body": "Quedan fuera acero, aluminio, automóviles, farmacéuticos y minerales críticos, que ya pagan aranceles por seguridad nacional, además de petróleo, gas y alimentos que EE. UU. no produce.",
+          "why": "La ronda no cambia el arancel del acero.",
+          "image": {
+            "url": "https://s.yimg.com/lo/mysterio/api/5378b7e33d8cdb20e7d9418401d9b5e6df09daac4dc1cc390789ead23ac3739c/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fes%2Flanacion.com.ar%2Fc8aa655b36f151e2dcc985a12cef240b.jpg",
+            "color": "https://s.yimg.com/lo/mysterio/api/5378b7e33d8cdb20e7d9418401d9b5e6df09daac4dc1cc390789ead23ac3739c/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fes%2Flanacion.com.ar%2Fc8aa655b36f151e2dcc985a12cef240b.jpg",
+            "alt": "Acero, aluminio y autos, excluidos",
+            "credit": "Yahoo/La Nación AR"
+          },
+          "tags": [
+            "acero",
+            "aranceles"
+          ],
+          "source": {
+            "name": "Yahoo/La Nación AR",
+            "url": "https://es-us.noticias.yahoo.com/trump-vuelve-carga-guerra-comercial-155944703.html"
+          }
+        },
+        {
+          "id": "aranceles-eeuu-ronda-tasas",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-25",
+          "headline": "Hasta 20 % a China, 15 % a la UE y Japón",
+          "body": "La medida entraría en vigor en enero como pronto.",
+          "why": null,
+          "image": {
+            "url": "https://assets.mdzol.com/social/1997890-abaf00f3ea.jpg",
+            "color": "https://assets.mdzol.com/social/1997890-abaf00f3ea.jpg",
+            "alt": "Hasta 20 % a China, 15 % a la UE y Japón",
+            "credit": "MDZ"
+          },
+          "tags": [
+            "aranceles",
+            "china"
+          ],
+          "source": {
+            "name": "MDZ",
+            "url": "https://www.mdzol.com/mundo/2026/11/25/donald-trump-reaviva-la-guerra-comercial-con-aranceles-de-20-a-china-y-castigo-a-brasil-que-pasa-con-la-argentina-1997890.html"
+          }
+        },
+        {
+          "id": "aranceles-eeuu-ronda-greer",
+          "kind": "quote",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Greer: aranceles selectivos contra la sobreproducción",
+          "body": "\"Hoy proponemos una serie de aranceles selectivos para responder a este problema de sobreproducción\", dijo Jamieson Greer a CNBC.",
+          "why": null,
+          "image": {
+            "url": "https://assets.mdzol.com/social/1997890-abaf00f3ea.jpg",
+            "color": "https://assets.mdzol.com/social/1997890-abaf00f3ea.jpg",
+            "alt": "Greer: aranceles selectivos contra la sobreproducción",
+            "credit": "MDZ"
+          },
+          "tags": [
+            "ustr"
+          ],
+          "source": {
+            "name": "MDZ",
+            "url": "https://www.mdzol.com/mundo/2026/11/25/donald-trump-reaviva-la-guerra-comercial-con-aranceles-de-20-a-china-y-castigo-a-brasil-que-pasa-con-la-argentina-1997890.html"
+          }
+        },
+        {
+          "id": "aranceles-eeuu-ronda-costa-rica",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-07-01",
+          "headline": "Costa Rica sigue con 12,5 % desde julio",
+          "body": "El arancel viene de otra investigación 301, sobre trabajo forzoso; café, piña, banano y jugo de naranja siguen exentos.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "costa rica",
+            "aranceles"
+          ],
+          "source": {
+            "name": "Semanario Universidad",
+            "url": "https://semanariouniversidad.com/pais/estados-unidos-le-sube-aranceles-a-costa-rica-al-125-por-no-tener-prohibiciones-vinculada-al-trabajo-forzoso/"
           }
         }
       ]
@@ -400,13 +411,13 @@
       "category": "economia",
       "scope": "cr",
       "importance": 2,
-      "title": "El dólar rebota ₡1,10 y cierra en ₡446,30",
-      "synopsis": "La venta de referencia del BCCR subió a ₡446,30 el 25 de noviembre, desde ₡445,20, un rebote menor de un día que no cambia la tendencia. El dólar bajo abarata insumos importados pero castiga las ventas pactadas en dólares al convertirlas a colones. Vigilá si el rebote se sostiene antes de cerrar precios en dólares.",
+      "title": "Dólar rebota ₡1,10 y la venta queda en ₡446,30",
+      "synopsis": "La venta de referencia del BCCR subió a ₡446,30, ₡1,10 más que ayer, en un rebote pequeño desde el mínimo. Para quien vende vivienda en dólares con costos en colones el margen sigue apretado y no hay cambio de tendencia. Vigilar si la venta se sostiene arriba de ₡445.",
       "image": {
-        "url": "https://cdn.telediario.cr/uploads/media/2026/11/10/la-diferencia-entre-ambos-precios.jpg",
-        "color": "https://cdn.telediario.cr/uploads/media/2026/11/10/la-diferencia-entre-ambos-precios.jpg",
-        "alt": "El dólar rebota ₡1,10 y cierra en ₡446,30",
-        "credit": "Telediario"
+        "url": "https://www.nacion.com/resizer/v2/KZHHD64KWJAY5JGJE2ZPWPOZOQ.png?smart=true&auth=a6eb38fa7916efc7506d1f9f61f147ae9fcb53afb046b271a455150d20d82ded&width=1440",
+        "color": "https://www.nacion.com/resizer/v2/KZHHD64KWJAY5JGJE2ZPWPOZOQ.png?smart=true&auth=a6eb38fa7916efc7506d1f9f61f147ae9fcb53afb046b271a455150d20d82ded&width=1440",
+        "alt": "Dólar rebota ₡1,10 y la venta queda en ₡446,30",
+        "credit": "La Nación"
       },
       "snippets": [
         {
@@ -414,8 +425,8 @@
           "kind": "number",
           "importance": 2,
           "published": "2026-11-25",
-          "headline": "Compra ₡441,10 y venta ₡446,30",
-          "body": "Es el tipo de cambio de referencia del BCCR para el 25 de noviembre.",
+          "headline": "Compra ₡441,10, venta ₡446,30",
+          "body": "Es el tipo de cambio de referencia del BCCR para este miércoles 25 de noviembre.",
           "why": null,
           "image": null,
           "tags": [
@@ -423,214 +434,50 @@
             "bccr"
           ],
           "source": {
-            "name": "Telediario",
-            "url": "https://www.telediario.cr/nacional/dolar-costa-rica-tipo-cambio-25-noviembre"
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/indicadores/tipo-de-cambio-del-dolar-miercoles-30-de-agosto/PXD4E7KMCFFHVP2L4ULJYU5Y6I/story/"
           }
         },
         {
-          "id": "dolar-minimo-anterior",
+          "id": "dolar-minimo-variacion",
           "kind": "number",
           "importance": 1,
-          "published": null,
-          "headline": "El 24 estaba en ₡440,90 y ₡445,20",
-          "body": "La venta subió ₡1,10 de un día para otro.",
+          "published": "2026-11-24",
+          "headline": "Venta de ayer: ₡445,20",
+          "body": "La venta subió ₡1,10 en un día, un movimiento chico que no cambia la tendencia.",
           "why": null,
-          "image": {
-            "url": "https://calcularya.com/cr/og/tipo-de-cambio?v=20261124",
-            "color": "https://calcularya.com/cr/og/tipo-de-cambio?v=20261124",
-            "alt": "El 24 estaba en ₡440,90 y ₡445,20",
-            "credit": "CalcularYa"
-          },
+          "image": null,
           "tags": [
             "tipo de cambio"
           ],
           "source": {
-            "name": "CalcularYa",
-            "url": "https://calcularya.com/cr/tipo-de-cambio"
-          }
-        },
-        {
-          "id": "dolar-minimo-mutual-cartago",
-          "kind": "number",
-          "importance": 1,
-          "published": "2026-11-25",
-          "headline": "Mutual Cartago: ₡436,00 y ₡450,00",
-          "body": "En ventanilla, Mutual Cartago compra el dólar a ₡436,00 y lo vende a ₡450,00.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "tipo de cambio",
-            "cartago"
-          ],
-          "source": {
-            "name": "EconomíaHoyCR",
-            "url": "https://www.economiahoycr.com/tipodecambio.html"
+            "name": "Acontecer",
+            "url": null
           }
         }
       ]
     },
     {
-      "id": "tpm-bccr-noviembre",
+      "id": "desempleo-cantones-icn",
       "category": "economia",
       "scope": "cr",
-      "importance": 3,
-      "title": "El BCCR decide mañana si mueve la tasa de política del 3 %",
-      "synopsis": "La última revisión ordinaria de la TPM de 2026 estaba prevista para el jueves 26, con la tasa en 3 % desde el único recorte del año en julio y la inflación cerca de cero. Un recorte llegaría a la Tasa Básica Pasiva y a las hipotecas de tasa variable, que es lo que mira el comprador. Vigilá el anuncio, cuya fecha no se confirmó hoy.",
+      "importance": 2,
+      "title": "Desempleo sube a 154.736 personas; ICN lo mide por cantón",
+      "synopsis": "El desempleo subió a 154.736 personas en el tercer trimestre, 20.276 más que hace un año, y por primera vez en más de cinco años suben juntos el número y la tasa. Menos empleo enfría la demanda de vivienda de clase media y puede endurecer el crédito hipotecario. Vigilar el dato de los cantones de Cartago en el ICN 2026, que no apareció en lo revisado.",
       "image": {
-        "url": "https://observador.cr/wp-content/uploads/2022/04/BCCR-2.jpg",
-        "color": "https://observador.cr/wp-content/uploads/2022/04/BCCR-2.jpg",
-        "alt": "El BCCR decide mañana si mueve la tasa de política del 3 %",
-        "credit": "El Observador"
+        "url": "https://www.nacion.com/resizer/v2/FPVOQ6T2JFC3HNR5OLV4WJNCLQ.jpg?smart=true&auth=cbcd5ecc943b904a61599d57dc46b2241b0dd3177ee0cbc5994e250876d1d877&width=1440",
+        "color": "https://www.nacion.com/resizer/v2/FPVOQ6T2JFC3HNR5OLV4WJNCLQ.jpg?smart=true&auth=cbcd5ecc943b904a61599d57dc46b2241b0dd3177ee0cbc5994e250876d1d877&width=1440",
+        "alt": "Desempleo sube a 154.736 personas; ICN lo mide por cantón",
+        "credit": "La Nación"
       },
       "snippets": [
         {
-          "id": "tpm-bccr-noviembre-nivel",
+          "id": "desempleo-cantones-icn-desempleados",
           "kind": "number",
-          "importance": 2,
-          "published": null,
-          "headline": "TPM en 3 % desde julio",
-          "body": "La Junta Directiva redujo la tasa 25 puntos base en julio. Fue el único ajuste del año.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "tpm",
-            "bccr"
-          ],
-          "source": {
-            "name": "BCCR",
-            "url": "https://www.bccr.fi.cr/cr/es/noticias/listado-de-noticias/2026/junta-directiva-del-bccr-acordo-reducir-la-tasa-de-politica-en-25-puntos-base-para-ubicarla-en-3-anual.html"
-          }
-        },
-        {
-          "id": "tpm-bccr-noviembre-fecha",
-          "kind": "event",
           "importance": 3,
-          "published": null,
-          "headline": "Revisión prevista para el 26 de noviembre",
-          "body": "La fecha viene de una nota de septiembre sobre el calendario del BCCR y no se confirmó hoy.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "tpm",
-            "calendario"
-          ],
-          "source": {
-            "name": "El Observador",
-            "url": "https://observador.cr/banco-central-mantiene-en-3-la-tasa-de-politica-monetaria/"
-          }
-        },
-        {
-          "id": "tpm-bccr-noviembre-inflacion",
-          "kind": "fact",
-          "importance": 1,
-          "published": null,
-          "headline": "Inflación negativa a junio",
-          "body": "El BCCR informó que la inflación interanual a junio fue negativa y que la subyacente rondaba 0,0 % desde febrero.",
-          "why": "Con inflación tan baja hay espacio para un recorte que abarate el crédito hipotecario.",
-          "image": null,
-          "tags": [
-            "inflación"
-          ],
-          "source": {
-            "name": "BCCR",
-            "url": "https://www.bccr.fi.cr/cr/es/noticias/listado-de-noticias/2026/junta-directiva-del-bccr-acordo-reducir-la-tasa-de-politica-en-25-puntos-base-para-ubicarla-en-3-anual.html"
-          }
-        },
-        {
-          "id": "tpm-bccr-noviembre-tbp",
-          "kind": "number",
-          "importance": 2,
-          "published": null,
-          "headline": "Tasa Básica Pasiva en 3,56 %",
-          "body": "Rige desde el 12 de noviembre; antes estaba en 3,55 %.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "tbp",
-            "hipotecas"
-          ],
-          "source": {
-            "name": "BCCR",
-            "url": "https://www.bccr.fi.cr/cr/es/noticias/listado-de-noticias/2026/tasa-basica-pasiva-y-tasa-efectiva-en-dolares-12-11-2026.html"
-          }
-        }
-      ]
-    }
-  ],
-  "suggestions": [
-    {
-      "id": "deuda-615-pib",
-      "category": "economia",
-      "scope": "cr",
-      "importance": 2,
-      "title": "La deuda pública sube a 61,5 % del PIB",
-      "synopsis": "A setiembre la deuda llegó a 61,5 % del PIB y el déficit financiero a 2,4 %, con intereses al alza e ingresos tributarios a la baja. Más presión fiscal limita la inversión pública y puede encarecer el crédito. Vigilá el cierre fiscal del año.",
-      "image": {
-        "url": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/11/Hacienda.jpg",
-        "color": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/11/Hacienda.jpg",
-        "alt": "La deuda pública sube a 61,5 % del PIB",
-        "credit": "Monumental"
-      },
-      "snippets": [
-        {
-          "id": "deuda-615-pib-deuda",
-          "kind": "number",
-          "importance": 2,
-          "published": "2026-11-10",
-          "headline": "Deuda de 60,4 % a 61,5 % del PIB",
-          "body": "Es el dato a setiembre frente al cierre de 2025. El déficit financiero pasó de 2,1 % a 2,4 % del PIB.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "deuda",
-            "fiscal"
-          ],
-          "source": {
-            "name": "Monumental",
-            "url": "https://www.monumental.co.cr/2026/11/10/deuda-publica-subio-al-615-del-pib-y-deficit-fiscal-aumento-durante-los-primeros-nueve-meses-del-ano/"
-          }
-        },
-        {
-          "id": "deuda-615-pib-intereses",
-          "kind": "number",
-          "importance": 1,
-          "published": "2026-11-10",
-          "headline": "Intereses crecen 7,4 %",
-          "body": "Los intereses llegaron a cerca de ₡1,9 billones y los ingresos tributarios cayeron 0,3 %.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "intereses",
-            "fiscal"
-          ],
-          "source": {
-            "name": "Monumental",
-            "url": "https://www.monumental.co.cr/2026/11/10/deuda-publica-subio-al-615-del-pib-y-deficit-fiscal-aumento-durante-los-primeros-nueve-meses-del-ano/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "desempleo-65",
-      "category": "economia",
-      "scope": "cr",
-      "importance": 2,
-      "title": "El desempleo sube a 6,5 % en el tercer trimestre",
-      "synopsis": "El INEC reporta 154.736 desempleados, unos 20.000 más que hace un año, y una informalidad de 36,7 %. Menos empleo formal reduce la base de compradores que califican para crédito hipotecario. Vigilá el dato del cuarto trimestre.",
-      "image": {
-        "url": "https://www.infobae.com/resizer/v2/MYAANMXURZBTVJEWPGMCJ7OS3Y.png?auth=e5345f0343c2e7cd6124e2631f221ed304271e0f33794902be14f9ee62e8598f&smart=true&width=1200&height=630&quality=85",
-        "color": "https://www.infobae.com/resizer/v2/MYAANMXURZBTVJEWPGMCJ7OS3Y.png?auth=e5345f0343c2e7cd6124e2631f221ed304271e0f33794902be14f9ee62e8598f&smart=true&width=1200&height=630&quality=85",
-        "alt": "El desempleo sube a 6,5 % en el tercer trimestre",
-        "credit": "Infobae"
-      },
-      "snippets": [
-        {
-          "id": "desempleo-65-tasa",
-          "kind": "number",
-          "importance": 2,
-          "published": "2026-11-06",
-          "headline": "154.736 desempleados",
-          "body": "Son unos 20.000 más que un año antes; el INEC califica el alza como estadísticamente significativa.",
+          "published": "2026-11-25",
+          "headline": "154.736 desempleados, 20.276 más en un año",
+          "body": "Dato de la Encuesta Continua de Empleo del INEC para el tercer trimestre de 2026.",
           "why": null,
           "image": null,
           "tags": [
@@ -638,213 +485,519 @@
             "inec"
           ],
           "source": {
-            "name": "Infobae",
-            "url": "https://www.infobae.com/costa-rica/2026/11/06/desempleo-aumenta-en-costa-rica-mas-de-20000-personas-se-sumaron-a-la-poblacion-sin-trabajo-en-el-ultimo-ano/"
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/cantones-fuera-del-gam-lideran-en-menor-desempleo/LCODNDV2YVBKXHIHWLQ4HHQXG4/story/"
           }
         },
         {
-          "id": "desempleo-65-informalidad",
-          "kind": "number",
-          "importance": 1,
-          "published": null,
-          "headline": "Informalidad en 36,7 %",
-          "body": "Es la tasa de informalidad del tercer trimestre según el INEC.",
-          "why": "Ingresos informales dificultan demostrar capacidad de pago ante el banco.",
-          "image": {
-            "url": "https://static.wixstatic.com/media/dd8a5e_b7a3f61edf1d41759cd64f4f640c6ea2~mv2.jpg/v1/fill/w_1600,h_900,al_c,q_85/dd8a5e_b7a3f61edf1d41759cd64f4f640c6ea2~mv2.jpg",
-            "color": "https://static.wixstatic.com/media/dd8a5e_b7a3f61edf1d41759cd64f4f640c6ea2~mv2.jpg/v1/fill/w_1600,h_900,al_c,q_85/dd8a5e_b7a3f61edf1d41759cd64f4f640c6ea2~mv2.jpg",
-            "alt": "Informalidad en 36,7 %",
-            "credit": "PymeNoticias"
-          },
+          "id": "desempleo-cantones-icn-alza-conjunta",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-25",
+          "headline": "Suben a la vez desempleados y tasa",
+          "body": "Es la primera vez en más de cinco años que el número de desempleados y la tasa de desempleo suben al mismo tiempo de forma significativa.",
+          "why": "Señal de enfriamiento que afecta capacidad de compra y aprobación de créditos.",
+          "image": null,
           "tags": [
-            "informalidad"
+            "empleo",
+            "vivienda"
           ],
           "source": {
-            "name": "PymeNoticias",
-            "url": "https://www.pymenoticias.com/post/costa-rica-desempleo-informalidad-tercer-trimestre-inec"
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/cantones-fuera-del-gam-lideran-en-menor-desempleo/LCODNDV2YVBKXHIHWLQ4HHQXG4/story/"
+          }
+        },
+        {
+          "id": "desempleo-cantones-icn-central",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Región Central: 52,5 % de ocupación",
+          "body": "La región Central tiene 1.414.938 ocupados de un total nacional de 2.210.329.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "empleo",
+            "region central"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/cantones-fuera-del-gam-lideran-en-menor-desempleo/LCODNDV2YVBKXHIHWLQ4HHQXG4/story/"
+          }
+        },
+        {
+          "id": "desempleo-cantones-icn-82-cantones",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Indicador para 82 cantones",
+          "body": "El Índice de Competitividad Nacional 2026 incluye el desempleo por cantón; el dato de Cartago no apareció en el texto revisado.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "icn",
+            "cartago"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/economia/cantones-fuera-del-gam-lideran-en-menor-desempleo/LCODNDV2YVBKXHIHWLQ4HHQXG4/story/"
           }
         }
       ]
     },
     {
-      "id": "intencion-construir-128",
-      "category": "construccion",
-      "scope": "cr",
-      "importance": 2,
-      "title": "La intención de construir crece 12,8 %, pero se modera",
-      "synopsis": "Entre enero y setiembre se superaron 8,3 millones de m², con fuerte alza industrial y Heredia a la cabeza. El ritmo bajó desde el 21 % del primer semestre, señal de un mercado que se enfría. Vigilá el componente habitacional en Cartago.",
+      "id": "ormuz-petroleo-fletes",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "Brent sin cierre confiable; la OPEP+ se reúne el 29",
+      "synopsis": "No hay un cierre confiable del Brent hoy: Moncloa.com lo ubicaba en US$92,1 en la tarde europea y el último dato confirmado es US$91,40 del martes. El crudo alto sostiene la presión sobre diésel, fletes y transporte de materiales de obra. Vigilar la reunión de la OPEP+ del 29 de noviembre.",
       "image": {
-        "url": "https://www.vidayexito.net/wp-content/uploads/2019/09/construccion.jpg",
-        "color": "https://www.vidayexito.net/wp-content/uploads/2019/09/construccion.jpg",
-        "alt": "La intención de construir crece 12,8 %, pero se modera",
-        "credit": "Vida y Éxito"
+        "url": "https://static.moncloa.com/wp-content/uploads/2026/11/crisis-ormuz-energia-rutas-alternativas-portada-1024x768.webp",
+        "color": "https://static.moncloa.com/wp-content/uploads/2026/11/crisis-ormuz-energia-rutas-alternativas-portada-1024x768.webp",
+        "alt": "Brent sin cierre confiable; la OPEP+ se reúne el 29",
+        "credit": "Moncloa.com"
       },
       "snippets": [
         {
-          "id": "intencion-construir-128-total",
+          "id": "ormuz-petroleo-fletes-brent-hoy",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Brent en US$92,1 a media tarde europea",
+          "body": "Moncloa.com lo reporta a las 17:08 de España; no es un cierre y otras fuentes dan cifras que no cuadran.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "petroleo",
+            "brent"
+          ],
+          "source": {
+            "name": "Moncloa.com",
+            "url": "https://www.moncloa.com/2026/11/25/crisis-ormuz-energia-rutas-alternativas-3474684/"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-cierre-martes",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Último cierre confirmado: US$91,40",
+          "body": "Cierre del Brent del martes 24 de noviembre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "brent"
+          ],
+          "source": {
+            "name": "EFE en El Nacional",
+            "url": null
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-opep",
+          "kind": "event",
+          "importance": 2,
+          "published": null,
+          "headline": "OPEP+ se reúne el 29 de noviembre",
+          "body": "Señalado como el siguiente detonante para el precio del crudo.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "opep",
+            "petroleo"
+          ],
+          "source": {
+            "name": "Euribor.com.es",
+            "url": null
+          }
+        }
+      ]
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "contraloria-reforma-competencias",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Contraloría critica reforma que recorta sus funciones",
+      "synopsis": "La CGR advierte que el proyecto del Gobierno debilita controles previos, revisión de contratos y medidas cautelares; la Corte dictaminó que afecta al Poder Judicial, por lo que requiere 38 votos. Cambiaría el refrendo de contratos de obra pública que rodean los proyectos. Vigilar si el oficialismo reúne los 38 votos.",
+      "image": {
+        "url": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/11/Captura-de-pantalla-2026-11-24-145230.png",
+        "color": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/11/Captura-de-pantalla-2026-11-24-145230.png",
+        "alt": "Contraloría critica reforma que recorta sus funciones",
+        "credit": "Monumental"
+      },
+      "snippets": [
+        {
+          "id": "contraloria-reforma-competencias-cgr",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "CGR: se debilitan controles previos",
+          "body": "La Contraloría dice que el proyecto debilita los controles previos, la revisión de contratos y las medidas cautelares, y niega que busque coadministrar.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "contraloria",
+            "refrendo"
+          ],
+          "source": {
+            "name": "Monumental",
+            "url": "https://www.monumental.co.cr/2026/11/24/contraloria-cuestiona-reforma-del-gobierno-que-limita-sus-competencias-y-niega-que-busque-coadministrar/"
+          }
+        },
+        {
+          "id": "contraloria-reforma-competencias-corte",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "Corte: 10 a favor, 1 en contra, 5 abstenciones",
+          "body": "Al dictaminar que el proyecto afecta al Poder Judicial, la aprobación requeriría 38 votos.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "corte",
+            "asamblea"
+          ],
+          "source": {
+            "name": "Monumental",
+            "url": "https://www.monumental.co.cr/2026/11/24/contraloria-cuestiona-reforma-del-gobierno-que-limita-sus-competencias-y-niega-que-busque-coadministrar/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fitch-bb-plus",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Fitch sube a Costa Rica a BB+ con perspectiva estable",
+      "synopsis": "Fitch elevó la calificación a BB+ y proyecta deuda de 60,5 % del PIB en 2026 y 61,8 % en 2027, con déficit de 3,9 %. Una mejor nota puede abaratar el financiamiento externo y, con el tiempo, las tasas locales. Vigilar los ingresos fiscales, que crecieron apenas 0,1 % hasta setiembre.",
+      "image": {
+        "url": "https://www.infobae.com/resizer/v2/YY3VJJ5JM5C4HAT5DE6ULTU6WM.jpg?auth=49b4f57c2a0482aa3adeed8f7626f58d28004aa0aef0d6bcf60ffc982565a041&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/YY3VJJ5JM5C4HAT5DE6ULTU6WM.jpg?auth=49b4f57c2a0482aa3adeed8f7626f58d28004aa0aef0d6bcf60ffc982565a041&smart=true&width=1200&height=630&quality=85",
+        "alt": "Fitch sube a Costa Rica a BB+ con perspectiva estable",
+        "credit": "Infobae"
+      },
+      "snippets": [
+        {
+          "id": "fitch-bb-plus-calificacion",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-19",
+          "headline": "Calificación sube a BB+",
+          "body": "Fitch mantiene la perspectiva estable.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fitch",
+            "deuda"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/19/fitch-eleva-la-calificacion-de-costa-rica-a-bb-y-mantiene-perspectiva-estable/"
+          }
+        },
+        {
+          "id": "fitch-bb-plus-proyecciones",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-19",
+          "headline": "Deuda de 60,5 % y 61,8 % del PIB",
+          "body": "Proyección para 2026 y 2027, con un déficit de 3,9 %; los ingresos crecieron 0,1 % interanual hasta setiembre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fiscal"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/19/fitch-eleva-la-calificacion-de-costa-rica-a-bb-y-mantiene-perspectiva-estable/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bccr-deficit-deuda",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "BCCR proyecta déficit de 3,8 % y deuda de 62 %",
+      "synopsis": "En el Informe de Política Monetaria de octubre, el BCCR prevé un déficit financiero de 3,8 % del PIB y una deuda de 62,0 %. Más gasto en intereses resta margen a la inversión pública en infraestructura. Vigilar si los intereses suben de 4,4 % a 4,7 % del PIB como se proyecta.",
+      "image": {
+        "url": "https://images.hoy.cr/wp-content/uploads/2025/06/Ministerio-de-Hacienda.jpg",
+        "color": "https://images.hoy.cr/wp-content/uploads/2025/06/Ministerio-de-Hacienda.jpg",
+        "alt": "BCCR proyecta déficit de 3,8 % y deuda de 62 %",
+        "credit": "CRHoy"
+      },
+      "snippets": [
+        {
+          "id": "bccr-deficit-deuda-proyeccion",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-16",
+          "headline": "Déficit 3,8 % y deuda 62,0 % del PIB",
+          "body": "Proyección del Informe de Política Monetaria de octubre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "bccr",
+            "fiscal"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/economia/aumentan-el-deficit-fiscal-y-la-deuda-del-gobierno/"
+          }
+        },
+        {
+          "id": "bccr-deficit-deuda-intereses",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-16",
+          "headline": "Intereses pasarían de 4,4 % a 4,7 % del PIB",
+          "body": "El pago de intereses de la deuda aumentaría su peso en las finanzas públicas.",
+          "why": "Menos espacio para obra pública.",
+          "image": null,
+          "tags": [
+            "deuda",
+            "intereses"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/economia/aumentan-el-deficit-fiscal-y-la-deuda-del-gobierno/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "inflacion-octubre",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Inflación sube a 0,55 % en octubre, empujada por el diésel",
+      "synopsis": "La inflación interanual llegó a 0,55 % en octubre y acumula dos meses positiva, con el diésel 17,4 % más caro. El diésel encarece transporte de materiales y maquinaria en obra. Vigilar el dato de noviembre y si se acerca al rango meta de 2 % a 4 %.",
+      "image": {
+        "url": "https://observador.cr/wp-content/uploads/2020/07/gasolina-diesel-gasolineria-combustibles.jpeg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2020/07/gasolina-diesel-gasolineria-combustibles.jpeg.webp",
+        "alt": "Inflación sube a 0,55 % en octubre, empujada por el diésel",
+        "credit": "El Observador"
+      },
+      "snippets": [
+        {
+          "id": "inflacion-octubre-dato",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-06",
+          "headline": "0,55 % interanual en octubre",
+          "body": "Segundo mes en terreno positivo, aún bajo el rango meta del BCCR de 2 % a 4 %.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "inflacion"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/inflacion-sube-a-055-en-octubre-y-acumula-dos-meses-en-terreno-positivo/"
+          }
+        },
+        {
+          "id": "inflacion-octubre-diesel",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-06",
+          "headline": "Diésel sube 17,4 %",
+          "body": "Es uno de los rubros que más empujó el índice.",
+          "why": "Pesa en fletes de materiales y maquinaria.",
+          "image": null,
+          "tags": [
+            "diesel",
+            "costos"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/inflacion-sube-a-055-en-octubre-y-acumula-dos-meses-en-terreno-positivo/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cfia-intencion-construccion",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 2,
+      "title": "CFIA: intención de construcción crece 12,8 % a setiembre",
+      "synopsis": "Los permisos tramitados ante el CFIA suman 8.317.521 m² entre enero y setiembre, 12,8 % más, y la vivienda aporta 32,5 %. Más metros en trámite implica más competencia por mano de obra e insumos. Vigilar el dato de Cartago frente al salto de 201,9 % en el cantón central de Heredia.",
+      "image": {
+        "url": "https://img.delfino.cr/wp-content/uploads/2026/08/staplerworldtv2-construction-site-6747104_1920.jpg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2026/08/staplerworldtv2-construction-site-6747104_1920.jpg?w=1536",
+        "alt": "CFIA: intención de construcción crece 12,8 % a setiembre",
+        "credit": "Delfino"
+      },
+      "snippets": [
+        {
+          "id": "cfia-intencion-construccion-total",
           "kind": "number",
           "importance": 2,
           "published": null,
-          "headline": "Más de 8,3 millones de m²",
-          "body": "La construcción industrial subió 55,7 % y la urbanística 19,7 %. Heredia lidera.",
+          "headline": "8.317.521 m², 12,8 % más",
+          "body": "Intención de construcción entre enero y setiembre de 2026.",
           "why": null,
           "image": null,
           "tags": [
             "cfia",
-            "m2"
+            "permisos"
+          ],
+          "source": {
+            "name": "Delfino",
+            "url": "https://delfino.cr/2026/10/cfia-reporta-que-la-intencion-de-construccion-crecio-128-durante-los-primeros-nueve-meses-de-2026"
+          }
+        },
+        {
+          "id": "cfia-intencion-construccion-vivienda",
+          "kind": "number",
+          "importance": 2,
+          "published": null,
+          "headline": "Vivienda: 2.703.241 m², 32,5 %",
+          "body": "La vivienda es la mayor parte del área tramitada; el cantón central de Heredia creció 201,9 %.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "vivienda",
+            "cfia"
+          ],
+          "source": {
+            "name": "Delfino",
+            "url": "https://delfino.cr/2026/10/cfia-reporta-que-la-intencion-de-construccion-crecio-128-durante-los-primeros-nueve-meses-de-2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ccc-agenda-tramites",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Inversión en construcción creció 37 % fuera de la GAM",
+      "synopsis": "En el foro \"Construyendo País\" de la Cámara de la Construcción se informó que la inversión creció 24 % en el primer semestre y 37 % fuera de la GAM. Indica que la actividad se desplaza a la periferia, donde compite Cartago. Vigilar si la Cámara concreta su agenda de trámites.",
+      "image": {
+        "url": "https://www.vidayexito.net/wp-content/uploads/2020/09/csm_Construccion_CRN_a82a59e5a2.jpg",
+        "color": "https://www.vidayexito.net/wp-content/uploads/2020/09/csm_Construccion_CRN_a82a59e5a2.jpg",
+        "alt": "Inversión en construcción creció 37 % fuera de la GAM",
+        "credit": "Vida y Éxito"
+      },
+      "snippets": [
+        {
+          "id": "ccc-agenda-tramites-inversion",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Inversión: +24 % en el semestre, +37 % fuera de la GAM",
+          "body": "Dato presentado en el foro del 20 de noviembre, el mismo evento ya reportado.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "camara construccion",
+            "inversion"
           ],
           "source": {
             "name": "Vida y Éxito",
-            "url": "https://www.vidayexito.net/negocios/construccion-en-costa-rica-crece-128/"
+            "url": "https://www.vidayexito.net/negocios/construccion-plantea-agenda-de-inversion-e-infraestructura-para-costa-rica/"
           }
         },
         {
-          "id": "intencion-construir-128-semestre",
-          "kind": "number",
+          "id": "ccc-agenda-tramites-foro",
+          "kind": "event",
           "importance": 1,
-          "published": null,
-          "headline": "En el primer semestre crecía 21 %",
-          "body": "El paso de 21 % a 12,8 % muestra que el ritmo se moderó en el tercer trimestre.",
+          "published": "2026-11-24",
+          "headline": "Foro \"Construyendo País\", 20 de noviembre",
+          "body": "La Cámara planteó una agenda de inversión e infraestructura.",
           "why": null,
-          "image": {
-            "url": "https://www.nacion.com/resizer/v2/5R5ZYLQQZ5DMVI5F53ZHYZ7GPA.jpg?smart=true&auth=2a85ad57f0a63e5d50fef8f562a636c2d40bcef178781a52bda47a6c17220257&width=1440",
-            "color": "https://www.nacion.com/resizer/v2/5R5ZYLQQZ5DMVI5F53ZHYZ7GPA.jpg?smart=true&auth=2a85ad57f0a63e5d50fef8f562a636c2d40bcef178781a52bda47a6c17220257&width=1440",
-            "alt": "En el primer semestre crecía 21 %",
-            "credit": "La Nación"
-          },
+          "image": null,
           "tags": [
-            "tendencia"
+            "camara construccion"
           ],
           "source": {
-            "name": "La Nación",
-            "url": "https://www.nacion.com/economia/construccion-en-costa-rica-registra-un-dinamismo/FIWZXCWVO5G7PM5D6VK565SNFM/story/"
+            "name": "Vida y Éxito",
+            "url": "https://www.vidayexito.net/negocios/construccion-plantea-agenda-de-inversion-e-infraestructura-para-costa-rica/"
           }
         }
       ]
     },
     {
-      "id": "aranceles-eeuu-ronda",
+      "id": "ied-zonas-francas",
       "category": "geopolitica",
-      "scope": "mundo",
-      "importance": 1,
-      "title": "El arancel de EE. UU. de 12,5 % sigue vigente",
-      "synopsis": "Desde julio rige un arancel de 12,5 % derivado de la investigación de la USTR sobre trabajo forzoso, que se suma al 10 % general. Golpea a exportadores y, por esa vía, al empleo y la demanda local. Vigilá novedades sobre aranceles y acero.",
-      "image": {
-        "url": "https://www.elfinancierocr.com/resizer/v2/3OLRJF4BCNDVRK3BDOEZAVUVHA.jpg?smart=true&auth=9914d7c297ceb3a0f1729436a7890a1373793b1dc0936a55da1a137a75d034a0&width=1440",
-        "color": "https://www.elfinancierocr.com/resizer/v2/3OLRJF4BCNDVRK3BDOEZAVUVHA.jpg?smart=true&auth=9914d7c297ceb3a0f1729436a7890a1373793b1dc0936a55da1a137a75d034a0&width=1440",
-        "alt": "El arancel de EE. UU. de 12,5 % sigue vigente",
-        "credit": "El Financiero"
-      },
-      "snippets": [
-        {
-          "id": "aranceles-eeuu-ronda-tasa",
-          "kind": "number",
-          "importance": 1,
-          "published": null,
-          "headline": "12,5 % sobre el 10 % general",
-          "body": "El arancel salió de la investigación de la USTR sobre trabajo forzoso.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "aranceles",
-            "ustr"
-          ],
-          "source": {
-            "name": "El Financiero",
-            "url": "https://www.elfinancierocr.com/economia-y-politica/estados-unidos-eleva-a-125-el-arancel-a-las/OQMXGE5JCFFCXOA4XGF4VTDICA/story/"
-          }
-        },
-        {
-          "id": "aranceles-eeuu-ronda-alcance",
-          "kind": "fact",
-          "importance": 1,
-          "published": null,
-          "headline": "La investigación abarca 60 economías",
-          "body": "Costa Rica es una de las 60 economías incluidas en la investigación.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "comercio"
-          ],
-          "source": {
-            "name": "El Financiero",
-            "url": "https://www.elfinancierocr.com/economia-y-politica/estados-unidos-eleva-a-125-el-arancel-a-las/OQMXGE5JCFFCXOA4XGF4VTDICA/story/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "zonas-francas-empleo",
-      "category": "tecnologia",
       "scope": "cr",
       "importance": 1,
-      "title": "Las zonas francas generan menos empleo por inversión",
-      "synopsis": "Las zonas francas aportan 67,3 % de las exportaciones de bienes y más de 200.000 empleos, pero la inversión nueva es más intensiva en capital y automatización. Menos puestos nuevos moderan la demanda de vivienda cerca de los parques. Vigilá anuncios de inversión en la zona de Cartago.",
+      "title": "IED crece 23,4 %, pero las zonas francas se frenan",
+      "synopsis": "La inversión extranjera directa llegó a US$2.739,6 millones en el primer semestre, 23,4 % más, según PROCOMER. Pero el BCCR proyecta que las zonas francas crezcan 4,6 % en 2026, frente a 12,7 % en 2025, lo que puede moderar la demanda de vivienda cerca de parques industriales. Vigilar nuevos anuncios de inversión en Cartago.",
       "image": {
-        "url": "https://www.elfinancierocr.com/resizer/v2/ODYMP7KYX5GAHEODAMRN2427WQ.jpg?smart=true&auth=f4d6ccd757c8b57a8da0e01f693972f2974f5f28d062f4a65fa5738988811d57&width=1440",
-        "color": "https://www.elfinancierocr.com/resizer/v2/ODYMP7KYX5GAHEODAMRN2427WQ.jpg?smart=true&auth=f4d6ccd757c8b57a8da0e01f693972f2974f5f28d062f4a65fa5738988811d57&width=1440",
-        "alt": "Las zonas francas generan menos empleo por inversión",
-        "credit": "El Financiero"
+        "url": "https://www.infobae.com/resizer/v2/HP7PV6N4DZCMBJOD6AIXCSSQWQ.png?auth=7e69428e25207a6bf8c2ed7c163626307a07a58a9870889e5e3b395b1b92e773&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/HP7PV6N4DZCMBJOD6AIXCSSQWQ.png?auth=7e69428e25207a6bf8c2ed7c163626307a07a58a9870889e5e3b395b1b92e773&smart=true&width=1200&height=630&quality=85",
+        "alt": "IED crece 23,4 %, pero las zonas francas se frenan",
+        "credit": "Infobae"
       },
       "snippets": [
         {
-          "id": "zonas-francas-empleo-peso",
+          "id": "ied-zonas-francas-ied",
           "kind": "number",
           "importance": 1,
-          "published": null,
-          "headline": "67,3 % de las exportaciones de bienes",
-          "body": "Las zonas francas sostienen además más de 200.000 empleos.",
+          "published": "2026-10-06",
+          "headline": "IED de US$2.739,6 millones",
+          "body": "Crecimiento de 23,4 % en el primer semestre de 2026, según PROCOMER.",
           "why": null,
           "image": null,
           "tags": [
-            "zonas francas"
+            "ied",
+            "procomer"
           ],
           "source": {
-            "name": "El Financiero",
-            "url": "https://www.elfinancierocr.com/economia-y-politica/el-nuevo-dilema-de-las-zonas-francas-costa-rica/HE7RCNNN5VF6FIXFF4K4F23Q5E/story/"
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/10/06/inversion-extranjera-directa-en-costa-rica-crecio-234-en-el-primer-semestre-de-2026/"
           }
         },
         {
-          "id": "zonas-francas-empleo-automatizacion",
-          "kind": "fact",
+          "id": "ied-zonas-francas-desaceleracion",
+          "kind": "number",
           "importance": 1,
-          "published": null,
-          "headline": "Más automatización, menos puestos transaccionales",
-          "body": "La inversión nueva exige más capital y automatización y crea menos puestos transaccionales.",
-          "why": null,
-          "image": null,
+          "published": "2026-08-11",
+          "headline": "Zonas francas: 4,6 % en 2026 vs. 12,7 % en 2025",
+          "body": "Proyección del Banco Central para el régimen de zonas francas.",
+          "why": "Demanda de vivienda ligada a empleo en parques industriales.",
+          "image": {
+            "url": "https://www.infobae.com/resizer/v2/6AXDJBXJJNAALHGUG2PHBM26VU.png?auth=00fa981eaa6e6d1b6beddea323157a4cecff35b925e1556052c1768682493342&smart=true&width=1200&height=630&quality=85",
+            "color": "https://www.infobae.com/resizer/v2/6AXDJBXJJNAALHGUG2PHBM26VU.png?auth=00fa981eaa6e6d1b6beddea323157a4cecff35b925e1556052c1768682493342&smart=true&width=1200&height=630&quality=85",
+            "alt": "Zonas francas: 4,6 % en 2026 vs. 12,7 % en 2025",
+            "credit": "Infobae"
+          },
           "tags": [
-            "automatización",
-            "empleo"
+            "zonas francas",
+            "bccr"
           ],
           "source": {
-            "name": "El Financiero",
-            "url": "https://www.elfinancierocr.com/economia-y-politica/el-nuevo-dilema-de-las-zonas-francas-costa-rica/HE7RCNNN5VF6FIXFF4K4F23Q5E/story/"
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/08/11/zonas-francas-de-costa-rica-se-desaceleran-en-2026-segun-el-banco-central/"
           }
         }
       ]
     },
     {
-      "id": "wci-transpacifico",
+      "id": "fletes-drewry-cancelaciones",
       "category": "geopolitica",
       "scope": "mundo",
-      "importance": 2,
-      "title": "El flete transpacífico baja por séptima semana",
-      "synopsis": "El WCI de Drewry cayó 3 % a US$4.176 por contenedor de 40 pies, aunque sigue 126 % arriba de hace un año en la ruta transpacífica. Las navieras planean recargos de diciembre que encarecerían insumos importados. Vigilá si los recargos se aplican.",
-      "image": {
-        "url": "https://www.indexbox.io/landing/img/blog/telegram-fallback/a09085c5fd5dec12b75ea864334e2ba2.webp",
-        "color": "https://www.indexbox.io/landing/img/blog/telegram-fallback/a09085c5fd5dec12b75ea864334e2ba2.webp",
-        "alt": "El flete transpacífico baja por séptima semana",
-        "credit": "IndexBox"
-      },
+      "importance": 1,
+      "title": "Fletes bajan 3 %, pero siguen 126 % arriba del año pasado",
+      "synopsis": "El índice Drewry marcó US$4.176 por contenedor de 40 pies el 19 de noviembre, 3 % menos en la semana y 126 % más que hace un año. Los insumos importados para obra siguen con flete caro. Vigilar las 10 cancelaciones de viajes de la próxima semana y el dato del jueves 26.",
+      "image": null,
       "snippets": [
         {
-          "id": "wci-transpacifico-indice",
+          "id": "fletes-drewry-cancelaciones-indice",
           "kind": "number",
-          "importance": 2,
-          "published": "2026-11-21",
-          "headline": "US$4.176 por contenedor, −3 %",
-          "body": "Es el WCI del 19 de noviembre; la ruta transpacífica sigue 126 % arriba frente a hace un año.",
+          "importance": 1,
+          "published": "2026-11-19",
+          "headline": "US$4.176 por contenedor de 40 pies",
+          "body": "Baja de 3 % semanal, 126 % arriba de hace un año.",
           "why": null,
           "image": null,
           "tags": [
@@ -852,283 +1005,282 @@
             "drewry"
           ],
           "source": {
-            "name": "IndexBox",
-            "url": "https://www.indexbox.io/blog/drewry-world-container-index-falls-3-as-transpacific-rates-weaken/"
+            "name": "Drewry",
+            "url": "https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry"
           }
         },
         {
-          "id": "wci-transpacifico-recargos",
+          "id": "fletes-drewry-cancelaciones-viajes",
           "kind": "number",
-          "importance": 2,
-          "published": "2026-11-21",
-          "headline": "Recargos de US$1.000 a US$1.600 en diciembre",
-          "body": "Las navieras planean recargos de temporada alta para diciembre.",
-          "why": "Pueden revertir la baja del flete en insumos que lleguen en diciembre.",
+          "importance": 1,
+          "published": "2026-11-19",
+          "headline": "10 viajes cancelados la próxima semana",
+          "body": "Frente a 4 cancelaciones esta semana.",
+          "why": "Menos oferta de buques puede frenar la baja de tarifas.",
           "image": null,
           "tags": [
-            "fletes",
-            "importaciones"
+            "navieras"
           ],
           "source": {
-            "name": "IndexBox",
-            "url": "https://www.indexbox.io/blog/drewry-world-container-index-falls-3-as-transpacific-rates-weaken/"
+            "name": "Drewry",
+            "url": "https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry"
           }
         }
       ]
     },
     {
-      "id": "europa-rutas-energia",
-      "category": "geopolitica",
-      "scope": "mundo",
-      "importance": 1,
-      "title": "España apuesta por su regasificación ante la crisis de Ormuz",
-      "synopsis": "Europa busca rutas alternativas ante las restricciones de crudo, gas natural licuado y refinados, y España se apoya en su capacidad de regasificación. Es contexto de un mercado energético tenso que sostiene el precio del diésel. Vigilá la evolución de los refinados.",
-      "image": {
-        "url": "https://static.moncloa.com/wp-content/uploads/2026/11/crisis-ormuz-energia-rutas-alternativas-portada-1024x768.webp",
-        "color": "https://static.moncloa.com/wp-content/uploads/2026/11/crisis-ormuz-energia-rutas-alternativas-portada-1024x768.webp",
-        "alt": "España apuesta por su regasificación ante la crisis de Ormuz",
-        "credit": "Moncloa.com"
-      },
-      "snippets": [
-        {
-          "id": "europa-rutas-energia-espana",
-          "kind": "fact",
-          "importance": 1,
-          "published": "2026-11-25",
-          "headline": "Regasificación como alternativa",
-          "body": "España apuesta por su capacidad de regasificación ante las restricciones de crudo, gas natural licuado y refinados.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "energía",
-            "europa"
-          ],
-          "source": {
-            "name": "Moncloa.com",
-            "url": "https://www.moncloa.com/2026/11/25/crisis-ormuz-energia-rutas-alternativas-3474684/"
-          }
-        },
-        {
-          "id": "europa-rutas-energia-restricciones",
-          "kind": "fact",
-          "importance": 1,
-          "published": "2026-11-25",
-          "headline": "Las restricciones alcanzan a refinados",
-          "body": "Además del crudo, las restricciones en Ormuz afectan el gas natural licuado y los combustibles refinados.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "ormuz",
-            "refinados"
-          ],
-          "source": {
-            "name": "Moncloa.com",
-            "url": "https://www.moncloa.com/2026/11/25/crisis-ormuz-energia-rutas-alternativas-3474684/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "contraloria-areas-protegidas",
-      "category": "politica",
-      "scope": "cr",
-      "importance": 1,
-      "title": "Contraloría: 137 de 148 áreas protegidas sin personal suficiente",
-      "synopsis": "La Contraloría encontró déficit de personal en 137 de las 148 áreas silvestres protegidas y 65 sin sede administrativa. Una institucionalidad ambiental débil puede alargar trámites y controles en proyectos cercanos a zonas protegidas. Vigilá la respuesta del SINAC.",
-      "image": {
-        "url": "https://www.nacion.com/resizer/v2/DTRK2BE4OZEMBOTFETBQJLDH2I.JPG?smart=true&auth=6304515621a8366a6d69e7c107ffb3ed574d40e91fcfd3d2d831b2fa2e9ae75b&width=1440",
-        "color": "https://www.nacion.com/resizer/v2/DTRK2BE4OZEMBOTFETBQJLDH2I.JPG?smart=true&auth=6304515621a8366a6d69e7c107ffb3ed574d40e91fcfd3d2d831b2fa2e9ae75b&width=1440",
-        "alt": "Contraloría: 137 de 148 áreas protegidas sin personal suficiente",
-        "credit": "La Nación"
-      },
-      "snippets": [
-        {
-          "id": "contraloria-areas-protegidas-deficit",
-          "kind": "number",
-          "importance": 1,
-          "published": null,
-          "headline": "137 de 148 áreas con déficit",
-          "body": "Las áreas silvestres protegidas tienen déficit de personal en 137 de 148 casos.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "contraloría",
-            "ambiente"
-          ],
-          "source": {
-            "name": "La Nación",
-            "url": "https://www.nacion.com/el-pais/costa-rica-pierde-capacidad-para-proteger-sus/OS3LNIQRFJGTJOOX476NCIO4IM/story/"
-          }
-        },
-        {
-          "id": "contraloria-areas-protegidas-sedes",
-          "kind": "number",
-          "importance": 1,
-          "published": null,
-          "headline": "65 áreas sin sede administrativa",
-          "body": "Sesenta y cinco áreas protegidas no tienen sede administrativa.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "ambiente"
-          ],
-          "source": {
-            "name": "La Nación",
-            "url": "https://www.nacion.com/el-pais/costa-rica-pierde-capacidad-para-proteger-sus/OS3LNIQRFJGTJOOX476NCIO4IM/story/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "aya-cortes-cartago",
+      "id": "clorotalonil-cartago",
       "category": "construccion",
       "scope": "cr",
-      "importance": 1,
-      "title": "AyA programó cortes de agua en San José y Cartago",
-      "synopsis": "AyA hizo cortes el 10 y 11 de noviembre en sectores de ocho cantones de San José y Cartago. La disponibilidad de agua es requisito previo en el trámite APC del CFIA, así que la presión sobre el servicio puede frenar permisos. Vigilá nuevas interrupciones y cartas de disponibilidad.",
+      "importance": 2,
+      "title": "Clorotalonil en nacientes del norte de Cartago",
+      "synopsis": "Salud subió el límite permitido de clorotalonil de 0,1 a entre 12 y 80 µg/L, y el IRET-UNA y el TEC cuestionan el cálculo. La calidad del agua puede condicionar disponibilidades para nuevos proyectos en el norte de Cartago. Vigilar si AyA o Salud revisan el límite.",
       "image": {
-        "url": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2025/09/agua-aya-scaled.jpg",
-        "color": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2025/09/agua-aya-scaled.jpg",
-        "alt": "AyA programó cortes de agua en San José y Cartago",
-        "credit": "Monumental"
+        "url": "https://teletica-static.ray.media/Files/Sizes/2026/11/24/un-qumico-que-sigue-dejando-rastros-en-cartago_105499191_760x520.jpg",
+        "color": "https://teletica-static.ray.media/Files/Sizes/2026/11/24/un-qumico-que-sigue-dejando-rastros-en-cartago_105499191_760x520.jpg",
+        "alt": "Clorotalonil en nacientes del norte de Cartago",
+        "credit": "Teletica"
       },
       "snippets": [
         {
-          "id": "aya-cortes-cartago-fechas",
-          "kind": "event",
-          "importance": 1,
-          "published": "2026-11-09",
-          "headline": "Cortes el 10 y 11 de noviembre",
-          "body": "Las interrupciones afectaron sectores de ocho cantones de San José y Cartago.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "aya",
-            "agua"
-          ],
-          "source": {
-            "name": "Monumental",
-            "url": "https://www.monumental.co.cr/2026/11/09/aya-anuncia-cortes-de-agua-para-este-martes-en-ocho-cantones-interrupciones-continuaran-el-miercoles/"
-          }
-        },
-        {
-          "id": "aya-cortes-cartago-apc",
-          "kind": "fact",
-          "importance": 2,
-          "published": null,
-          "headline": "Agua, requisito previo en APC",
-          "body": "La disponibilidad de agua es requisito previo para tramitar permisos de construcción en la plataforma APC del CFIA.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "permisos",
-            "cfia"
-          ],
-          "source": {
-            "name": "Cimenta",
-            "url": "https://www.cimenta.io/blog/permisos-construccion-costa-rica-tramite-apc"
-          }
-        }
-      ]
-    },
-    {
-      "id": "sala-iv-ministro-identificados",
-      "category": "politica",
-      "scope": "cr",
-      "importance": 1,
-      "title": "Sala IV condena al Estado por \"Ya los tenemos identificados\"",
-      "synopsis": "La Sala IV condenó al Estado, por 4 votos a 3, por la frase de un ministro a opositores, al considerar que tiene efecto inhibitorio. Suma a la tensión entre Gobierno y Sala que hoy frena presupuestos. Vigilá cómo escala el choque institucional.",
-      "image": {
-        "url": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/11/2222222222-700x458-1.jpg",
-        "color": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/11/2222222222-700x458-1.jpg",
-        "alt": "Sala IV condena al Estado por \"Ya los tenemos identificados\"",
-        "credit": "Monumental"
-      },
-      "snippets": [
-        {
-          "id": "sala-iv-ministro-identificados-frase",
-          "kind": "quote",
-          "importance": 1,
-          "published": "2026-11-02",
-          "headline": "\"Ya los tenemos identificados\"",
-          "body": "Es la frase que un ministro dirigió a opositores y por la que la Sala IV condenó al Estado.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "sala iv",
-            "libertad de expresión"
-          ],
-          "source": {
-            "name": "Monumental",
-            "url": "https://www.monumental.co.cr/2026/11/02/sala-iv-condena-al-estado-por-advertencia-de-ministro-a-opositores-ya-los-tenemos-identificados/"
-          }
-        },
-        {
-          "id": "sala-iv-ministro-identificados-voto",
+          "id": "clorotalonil-cartago-limite",
           "kind": "number",
-          "importance": 1,
-          "published": "2026-11-02",
-          "headline": "Votación 4 a 3",
-          "body": "La mayoría consideró que la frase tiene efecto inhibitorio.",
+          "importance": 2,
+          "published": "2026-11-23",
+          "headline": "Límite sube de 0,1 a 12-80 µg/L",
+          "body": "El Ministerio de Salud elevó los límites permitidos del plaguicida en agua.",
           "why": null,
           "image": null,
           "tags": [
-            "sala iv"
+            "agua",
+            "cartago"
           ],
           "source": {
-            "name": "Monumental",
-            "url": "https://www.monumental.co.cr/2026/11/02/sala-iv-condena-al-estado-por-advertencia-de-ministro-a-opositores-ya-los-tenemos-identificados/"
+            "name": "Teletica",
+            "url": "https://www.teletica.com/reportajes/un-quimico-que-sigue-dejando-rastros-en-cartago_421658"
+          }
+        },
+        {
+          "id": "clorotalonil-cartago-cuestionamiento",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "IRET-UNA y TEC cuestionan el cálculo",
+          "body": "Ambas instituciones ponen en duda la base técnica del nuevo límite.",
+          "why": "Puede afectar la disponibilidad de agua para proyectos nuevos en la zona.",
+          "image": null,
+          "tags": [
+            "agua",
+            "disponibilidad"
+          ],
+          "source": {
+            "name": "Teletica",
+            "url": "https://www.teletica.com/reportajes/un-quimico-que-sigue-dejando-rastros-en-cartago_421658"
           }
         }
       ]
     },
     {
-      "id": "tec-limon-amparo",
+      "id": "cartago-municipalidad-cgr",
       "category": "politica",
       "scope": "cr",
       "importance": 1,
-      "title": "Sala IV tramita amparo por recorte al TEC en Limón",
-      "synopsis": "La Sala IV avanza con un recurso que cuestiona la falta de recursos para la sede del TEC en Limón. Es otro frente judicial sobre los recortes presupuestarios a la educación superior. Vigilá si se suma a los fallos sobre el FEES.",
+      "title": "Municipalidad de Cartago logra la nota máxima de la CGR",
+      "synopsis": "Cartago es una de solo dos municipalidades del país con la máxima calificación en el índice de la Contraloría. Una gestión municipal sólida suele traducirse en trámites de permisos más previsibles. Vigilar si eso se refleja en plazos de visado y permisos de construcción.",
       "image": {
-        "url": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/11/11111.jpg",
-        "color": "https://alba-cr-monumental.cdn.mediatiquepress.com/wp-content/uploads/2026/11/11111.jpg",
-        "alt": "Sala IV tramita amparo por recorte al TEC en Limón",
-        "credit": "Monumental"
+        "url": "https://www.infobae.com/resizer/v2/XDAUFCUTVRD4JJNN5DNCGYSOFE.png?auth=1a4dccd47d5f6a1beccbe5757948b4bee6964a4cc600a502f467b6ba0242e83c&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/XDAUFCUTVRD4JJNN5DNCGYSOFE.png?auth=1a4dccd47d5f6a1beccbe5757948b4bee6964a4cc600a502f467b6ba0242e83c&smart=true&width=1200&height=630&quality=85",
+        "alt": "Municipalidad de Cartago logra la nota máxima de la CGR",
+        "credit": "Infobae"
       },
       "snippets": [
         {
-          "id": "tec-limon-amparo-recurso",
-          "kind": "event",
+          "id": "cartago-municipalidad-cgr-nota",
+          "kind": "fact",
           "importance": 1,
-          "published": "2026-11-11",
-          "headline": "La Sala IV le da curso al amparo",
-          "body": "El recurso cuestiona el recorte que dejaría sin recursos a la sede del TEC en Limón.",
+          "published": "2026-11-07",
+          "headline": "Una de dos con calificación máxima",
+          "body": "La Municipalidad de Cartago alcanzó la nota más alta del índice de la Contraloría.",
           "why": null,
           "image": null,
           "tags": [
-            "sala iv",
-            "tec"
+            "cartago",
+            "municipalidad"
           ],
           "source": {
-            "name": "Monumental",
-            "url": "https://www.monumental.co.cr/2026/11/11/sala-iv-avanza-con-recurso-que-cuestiona-recorte-al-tec-que-afectaria-sede-de-limon/"
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/07/cartago-destaca-como-una-de-las-dos-municipalidades-de-costa-rica-en-alcanzar-la-maxima-calificacion-de-la-contraloria/"
           }
         },
         {
-          "id": "tec-limon-amparo-contexto",
+          "id": "cartago-municipalidad-cgr-indice",
           "kind": "fact",
           "importance": 1,
-          "published": "2026-11-11",
-          "headline": "Afecta a la sede de Limón",
-          "body": "El caso se centra en la falta de recursos para esa sede regional.",
+          "published": "2026-11-07",
+          "headline": "Índice de gestión de la Contraloría",
+          "body": "La CGR evalúa a las municipalidades del país con este índice.",
           "why": null,
           "image": null,
           "tags": [
-            "educación superior"
+            "contraloria"
           ],
           "source": {
-            "name": "Monumental",
-            "url": "https://www.monumental.co.cr/2026/11/11/sala-iv-avanza-con-recurso-que-cuestiona-recorte-al-tec-que-afectaria-sede-de-limon/"
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/07/cartago-destaca-como-una-de-las-dos-municipalidades-de-costa-rica-en-alcanzar-la-maxima-calificacion-de-la-contraloria/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uber-ley-plataformas",
+      "category": "tecnologia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Uber dice que la ley de plataformas duplicaría tarifas",
+      "synopsis": "Uber afirma que la ley de plataformas duplicaría sus tarifas, una afirmación de la empresa sin verificar. Puede encarecer la movilidad de personal y clientes en proyectos alejados. Vigilar el trámite legislativo y estimaciones independientes.",
+      "image": {
+        "url": "https://acontecer.co.cr/wp-content/uploads/2026/06/ACONTECER-MATUTINO.webp",
+        "color": "https://acontecer.co.cr/wp-content/uploads/2026/06/ACONTECER-MATUTINO.webp",
+        "alt": "Uber dice que la ley de plataformas duplicaría tarifas",
+        "credit": "Acontecer"
+      },
+      "snippets": [
+        {
+          "id": "uber-ley-plataformas-advertencia",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Tarifas se duplicarían, según Uber",
+          "body": "Es la posición de la empresa, no un dato verificado.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "uber",
+            "plataformas"
+          ],
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-miercoles-25-de-noviembre-de-2026"
+          }
+        },
+        {
+          "id": "uber-ley-plataformas-tramite",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Ley de plataformas en discusión",
+          "body": "El proyecto regularía el transporte por aplicaciones.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "asamblea",
+            "transporte"
+          ],
+          "source": {
+            "name": "Acontecer",
+            "url": "https://acontecer.co.cr/acontecer-matutino/acontecer-matutino-miercoles-25-de-noviembre-de-2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "defensora-investigacion",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Asamblea investiga a la defensora Angie Cruickshank",
+      "synopsis": "La Asamblea conformó una comisión para investigar a la defensora de los Habitantes por su visita al CACCO, lo que podría terminar en destitución. Es contexto de tensión institucional sin efecto directo en vivienda. Vigilar el informe de la comisión.",
+      "image": {
+        "url": "https://www.infobae.com/resizer/v2/TY2HB6TNTRCALMHJ5XJ765CGOU.png?auth=65cd1a21e39769274b4d6978551a7d7aa331b4fe6d416c43037b3c4ef491c661&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/TY2HB6TNTRCALMHJ5XJ765CGOU.png?auth=65cd1a21e39769274b4d6978551a7d7aa331b4fe6d416c43037b3c4ef491c661&smart=true&width=1200&height=630&quality=85",
+        "alt": "Asamblea investiga a la defensora Angie Cruickshank",
+        "credit": "Infobae"
+      },
+      "snippets": [
+        {
+          "id": "defensora-investigacion-comision",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Comisión investigadora conformada",
+          "body": "La investigación surge por la visita de Cruickshank al CACCO.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "defensoria",
+            "asamblea"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/24/asamblea-legislativa-de-costa-rica-conforma-comision-para-investigar-a-defensora-de-los-habitantes-tras-polemica-visita-al-cacco/"
+          }
+        },
+        {
+          "id": "defensora-investigacion-destitucion",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Podría terminar en destitución",
+          "body": "El proceso abre la posibilidad de remover a la defensora.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "defensoria"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/24/asamblea-legislativa-de-costa-rica-conforma-comision-para-investigar-a-defensora-de-los-habitantes-tras-polemica-visita-al-cacco/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nvidia-huang-trump",
+      "category": "tecnologia",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "Trump se atribuye la restitución de Jensen Huang en Nvidia",
+      "synopsis": "CNN Español menciona de pasada que Trump se atribuye la restitución de Jensen Huang como CEO de Nvidia. Es contexto del cruce entre política e IA, sin efecto directo en vivienda. Hay que confirmarlo con otra fuente antes de usarlo.",
+      "image": {
+        "url": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2302259560-20261125141819922.jpg?c=16x9&q=w_800,c_fill",
+        "color": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2302259560-20261125141819922.jpg?c=16x9&q=w_800,c_fill",
+        "alt": "Trump se atribuye la restitución de Jensen Huang en Nvidia",
+        "credit": "CNN Español"
+      },
+      "snippets": [
+        {
+          "id": "nvidia-huang-trump-mencion",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Mención de pasada en CNN Español",
+          "body": "La nota sobre aranceles menciona que Trump se atribuye la restitución de Huang.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "nvidia",
+            "ia"
+          ],
+          "source": {
+            "name": "CNN Español",
+            "url": "https://cnnespanol.cnn.com/2026/11/25/eeuu/trump-china-nueva-ronda-aranceles-trax"
+          }
+        },
+        {
+          "id": "nvidia-huang-trump-verificar",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "Pendiente de confirmar",
+          "body": "No apareció en otras fuentes revisadas.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "verificar"
+          ],
+          "source": {
+            "name": "CNN Español",
+            "url": "https://cnnespanol.cnn.com/2026/11/25/eeuu/trump-china-nueva-ronda-aranceles-trax"
           }
         }
       ]
