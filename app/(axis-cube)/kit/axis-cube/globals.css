@@ -22,6 +22,7 @@
   --ring-on: rgba(255, 244, 228, 0.95);
   --ring-fill: rgba(255, 240, 220, 0.12);
   --ring-shade: rgba(20, 10, 4, 0.28);
+  --shroud: #000;
   color-scheme: dark;
 }
 html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: hidden; overscroll-behavior: none; }
@@ -74,6 +75,13 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   opacity: 0; transition: opacity 0.35s ease;
 }
 .axis.play .pad { opacity: 1; transition: opacity 0.6s ease 0.45s; }
+/* the iMac's screen, close: the rings step aside, and the room round the screen goes dark. The scene cuts the dark
+   to the screen's outline each frame and sets how dark it is. */
+.axis.crt .pad { opacity: 0; transition: opacity 0.25s ease; }
+.axis .shroud {
+  position: absolute; inset: 0; border-radius: inherit;
+  background: var(--shroud); opacity: 0; pointer-events: none;
+}
 .axis .dot {
   position: absolute; left: 50%; top: 81.5%; width: 30px; height: 30px; box-sizing: border-box;
   border: 1.5px solid var(--ring); border-radius: 50%;

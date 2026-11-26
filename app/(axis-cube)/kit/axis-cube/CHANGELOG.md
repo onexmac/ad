@@ -59,6 +59,24 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.53 · 2026-11-25 20:25
+
+Asked by Marcos, 25 Nov 20:00, with two photographs of an arcade machine's high-score screen: "Cuando uno haga tap en la Mac debe hacerse zoom a la pantalla dark alrededor y mostrar solo la pantalla, la pantalla tiene que tener un icono pixel art tipo los blocks de Mario pero solo 9x9 y con top 5 players. Algo así."
+
+- A tap on the iMac, with a puzzle in hand, takes the camera to its screen, square on, filling the frame across. On the way the room round the screen goes dark until only the screen is left.
+  - The iMac is in view only from the puzzle in hand; from above the ottoman it is out of the picture.
+  - The dark is cut to the screen's own outline, rounded at the corners, every frame, so it follows the screen as the camera flies.
+  - The lens focuses on the screen, and the screen is a little less bright close up, so the letters stay sharp with a glow round them.
+  - The rings step aside while it is open.
+- Back to the room: a tap, a pull down or a slide to the right. The pull and the slide draw the room back with the finger first, and a short one springs back. Escape too.
+- The screen is now an arcade machine's high-score table, in its own coarse pixels (128 × 96), each one a dot of light with a tube's glow and its lines:
+  - The game's mark at the top: a block of 9 × 9 pixels, drawn at three times their size. It is gold, with a light edge along its top and left, a shaded one along its bottom and right, and a rivet in each corner. In the middle is a cube's face, mixed up.
+  - Close up, the gold glints and the face mixes itself again every 0.64 s.
+  - Under it "TOP 5 PLAYERS", then five rows of rank, time and initials, in amber and orange, and "THE CUBES" in blue.
+  - The letters are a 5 × 7 pixel font drawn for it.
+  - Until the stopwatch (1.0.0) there are no real times. As on any arcade, the five are the machine's own: AXS, GST, CUB, TWO and MIX, from 0:48.52 to 1:58.06.
+- The screen's light on the room is a little warm now, as amber on black would give. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
 ## 0.6.50 · 2026-11-25 19:59
 
 Asked by Marcos, 25 Nov 19:57: "Cuando uno escoge el cube debería comenzar la animación de mixed up igual al de press n hold para que empiece mezclado siempre."
