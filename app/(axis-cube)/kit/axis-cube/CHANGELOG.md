@@ -92,7 +92,7 @@ Asked by Marcos, 25 Nov 22:18, in the same message: "Also on the upper right it 
   - Opening the screen offers a new entry in the top five, once. It takes the time of a puzzle just solved by hand if it is fast enough, else a sample time (1:07.42, third), so the keyboard can be tried.
   - The new row is lit up, with three places for initials, the one being typed blinking. END keeps the initials, and the row stays lit.
   - While initials are typed, a stray tap beside the keys doesn't close the screen; a pull down or a slide to the right still does.
-  - The build takes a third argument for it: `node scripts/axis-cube/artifact/build.mjs <outDir> a sidebar`. ([#PR](https://github.com/onexmac/ad/pull/PR))
+  - The build takes a third argument for it: `node scripts/axis-cube/artifact/build.mjs <outDir> a sidebar`. ([#175](https://github.com/onexmac/ad/pull/175))
 
 ## 0.6.65 · 2026-11-25 22:17
 
