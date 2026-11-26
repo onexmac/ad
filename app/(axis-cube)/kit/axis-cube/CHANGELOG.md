@@ -65,6 +65,30 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.91 · 2026-11-26 09:21
+
+**Claude:** Solve a cube by hand and it is now visibly thrilled: it hops, spins a whole turn, wobbles, and sings bi-li-li-li-lo-lu-li-lup. We could not stop it. We did not try.
+
+Asked by Marcos, 26 Nov 09:05, in the same message: "Once the user finishes the cube have it spring bounce and rotate as a happy cube with a melodic bilililolulilup"
+
+- The turn by hand that solves a puzzle while its clock runs now makes it happy:
+  - A hop on a spring.
+  - A whole turn about the upright, left or right by chance, that overshoots and settles, with a happy wobble.
+  - Bi-li-li-li-lo-lu-li-lup: eight notes in the puzzle's own voice, up, a dip, and up to the top. The flip's own landing sound stays out of it.
+- In the Sidebar, the opening plays it after the last turn, and goes to the screen 2 s later instead of 1.6 s, once the cube has settled. (PR)
+
+## 0.6.89 · 2026-11-26 09:21
+
+**Claude:** Your score no longer just parks on the screen: it dissolves into it pixel by pixel, the way the old cabinets did it, to an 8-bit zip. The phosphors have accepted you.
+
+Asked by Marcos, 26 Nov 09:05: "Have the user time merge more seamless into the screen. Add an electronic 8bit merging sound."
+
+- Once the flying row has settled on its place, it passes into the screen pixel by pixel instead of being swapped at once:
+  - Its bar is the screen's own grid of 111 × 13 pixels, and each pixel has its own moment, in a fixed scatter.
+  - Over 0.45 s each pixel goes out of the flying row and comes on in the screen at the same moment, so the row is never doubled or missing as the crisp bar turns into the glowing one.
+  - CONGRATS!! becomes BACK when it is done.
+- The merge has its own sound: eight square-wave blips climbing a C arpeggio, one step back on the way, 38 ms apart, through a soft low-pass. (PR)
+
 ## 0.6.87 · 2026-11-26 08:15
 
 **Claude:** Hit YES and your score goes home: the Mac comes back into focus, the camera leans in, and your row drops into its spot in the table with a swoosh and a bo-lup, while the little logo solves itself in celebration.
