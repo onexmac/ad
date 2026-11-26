@@ -64,9 +64,10 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
 .axis #stage:focus-visible { outline: 2px solid var(--ring-on); outline-offset: -4px; }
 
 /* the rings: drawn here; their reach is worked out in the scene and runs along the way each is swiped
-   (a row owns its whole width, a column its whole height). --arm is the distance between neighbours. */
+   within the grid and a little past its outer rings; outside it a slide turns the whole puzzle. --arm is the
+   distance between neighbours, kept tight so the sides are free for turning the puzzle. */
 .axis .pad {
-  --arm: clamp(64px, 9.5vh, 92px);
+  --arm: clamp(56px, 8.3vh, 80px);
   position: absolute; top: 0; bottom: 0; left: 50%;
   width: min(100%, 430px); transform: translateX(-50%);
   pointer-events: none;
@@ -88,7 +89,7 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
 .axis .dot[data-c="0"] { left: calc(50% - var(--arm)); }
 .axis .dot[data-c="2"] { left: calc(50% + var(--arm)); }
 /* the 2×2: only the four corners, drawn closer together */
-.axis.two .pad { --arm: clamp(34px, 5vh, 48px); }
+.axis.two .pad { --arm: clamp(30px, 4.4vh, 42px); }
 .axis.two .dot[data-r="1"], .axis.two .dot[data-c="1"] { opacity: 0; }
 
 /* the loader: a black screen, a cube and a bar, in the page as it arrives, before any script. Only transforms move,

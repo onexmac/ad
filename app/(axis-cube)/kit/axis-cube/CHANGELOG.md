@@ -58,6 +58,21 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.48 · 2026-11-25 19:47
+
+Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the controls a little bit tighter. Same dot size but closer c just a bit, so we can have more room on the sides. Sliding outside the controls moves the cube faces, double tapping the cube flips it so the opposite face from the current one goes front."
+
+- The rings sit closer together and keep their size. The space between them is about an eighth less (8.3% of the screen's height instead of 9.5%), and on the 2×2 too.
+- The grid now answers only within its rings, and a little past the outer ones by most of the space between two rings. Before, a row reached the screen's edges.
+- Outside the grid, a slide turns the whole puzzle round, as a slide on the puzzle does:
+  - sideways about the upright, up or down about the line across;
+  - a tap there does nothing;
+  - a long pull straight down still puts the puzzle back.
+  - It used to move the camera.
+- Two quick taps on the puzzle, in about the same place, turn it half round, so the face at the back comes to the front.
+  - It turns the way of the side tapped.
+  - A single tap still brings the tapped face to the front, now after a quarter of a second, in case a second tap follows. ([#166](https://github.com/onexmac/ad/pull/166))
+
 ## 0.6.45 · 2026-11-24 22:47
 
 - **Bug fix.** Marcos, 24 Nov 22:24, with the photograph again: "That photo is clear, follow the lines it isn't straight diagonal lines."
