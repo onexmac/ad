@@ -55,6 +55,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.66** Glare is light from something in the room, rendered on a surface shaped to catch it; never painted on.
 - **0.6.78** A long history is read in chunks, with its beginning a few taps away; never one undivided scroll.
 - **0.6.87** Read an ask for motion against the whole flow: what moves, from where to where, and at which moment.
+- **0.6.93** A moment counts when it is seen and heard at its real length; nothing cuts in before it ends, and sound in something that plays by itself waits for a touch.
 
 Open:
 
@@ -64,6 +65,23 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.93 · 2026-11-26 09:39
+
+**Claude:** The happy cube now gets its full moment: a crouch, a big jump with a whole turn in the air, a squash on landing, two little bounces and a wag, all to its tune. The high-score screen waits politely until the cube has finished showing off.
+
+- **Bug fix.** Marcos, 26 Nov 09:28, of 0.6.91: "Dude don't jump into the score screen yet. Where's my happy cube celebration? With sounds? After that then jump into the highscore"
+  - Cause: the Sidebar's opening played the last turn before the page had been touched, and a browser plays no sound until then, so the tune was silent. The happy turn reused the quick flip spring: a whole turn in about a third of a second and a small bob, over before it read. And the screen came 2 s after the solve whatever the cube was doing.
+  - Don't: count a moment as delivered because the code runs it. Check that it is seen and heard at its real length, and let nothing cut in before it ends. A sound in something that plays by itself needs a touch first.
+
+- The celebration is now its own scripted moment, about 1.8 s:
+  - A crouch with a squash, then a jump about two thirds of the cube's height, stretching as it leaves.
+  - A whole turn about the upright in the air, left or right by chance.
+  - A squash as it lands, then two bounces, each smaller.
+  - A wag from side to side that dies away.
+  - Bi-li-li-li-lo-lu-li in the air, timed so that the -lup lands with it.
+- The Sidebar's opening waits for a first touch, so the tune can be heard. With the cube in hand, one turn away and the clock running, you can make the last turn yourself; or touch anywhere, and it plays itself 1.2 s later.
+- The screen comes only once the cube has settled, after a beat of 0.5 s. (PR)
 
 ## 0.6.91 · 2026-11-26 09:21
 
