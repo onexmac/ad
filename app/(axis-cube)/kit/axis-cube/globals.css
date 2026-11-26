@@ -121,10 +121,39 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   transform: translateY(102%); transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1);
 }
 .axis .log.open { transform: none; }
-.axis .log-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 28px 22px 12px; }
-.axis .log-title { margin: 4px 0 10px; }
-.axis .log h3 { display: flex; justify-content: space-between; gap: 12px; margin: 22px 0 6px; font-size: 14px; color: var(--crt-ink); }
-.axis .log h3 span { color: var(--log-dim); font-weight: 400; }
+.axis .log-scroll {
+  flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y;
+  padding: 28px 18px 12px;
+}
+.axis .log-title { margin: 4px 4px 14px; }
+/* the eras (0.6, 0.5 …), each folding open on a tap; the newest open */
+.axis .era { border-top: 2px solid var(--key-line); }
+.axis .era-head {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin: 0; padding: 16px 4px; border: 0; border-radius: 0; background: none; color: var(--log-dim);
+  font: inherit; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.axis .era-head:active { background: var(--key-fill); }
+.axis .era-list { display: none; padding: 0 4px 12px; }
+.axis .era.open .era-list { display: block; }
+/* a version: what Marcos said, Claude's line, the details a tap away */
+.axis .rel { padding: 14px 0 12px; border-top: 1px dashed var(--key-line); }
+.axis .rel:first-child { border-top: 0; }
+.axis .rel h3 { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 8px; font-size: 14px; color: var(--crt-ink); }
+.axis .rel h3 span { color: var(--log-dim); font-weight: 400; }
+.axis .rel b { display: block; margin-bottom: 2px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--log-dim); }
+.axis .rel .said { margin: 0 0 10px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; font-style: italic; }
+.axis .rel.open .said { display: block; }
+.axis .rel .claude { margin: 0 0 8px; }
+.axis .rel .claude b { color: var(--crt-ink); }
+.axis .rel .more {
+  margin: 0; padding: 6px 0; border: 0; background: none; color: var(--crt-ink);
+  font: inherit; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.axis .rel .details { display: none; margin-top: 6px; color: var(--log-dim); font-size: 12px; }
+.axis .rel.open .details { display: block; }
 .axis .log p { margin: 6px 0; }
 .axis .log ul { margin: 4px 0; padding-left: 16px; }
 .axis .log li { margin: 3px 0; }

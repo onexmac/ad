@@ -8,7 +8,7 @@
 // The second argument picks the look (a analogue, the default; b brush; c classic) and, for b and c,
 // the file is axis-cube-b.html or axis-cube-c.html. Any of them also takes the look from the address: #b.
 // A third argument builds a lab, a version for trying something before it reaches the app: sidebar (the screen
-// close up with the initials keyboard) is axis-cube-sidebar.html, "The Cubes Sidebar".
+// close up with the initials keyboard) is axis-cube-sidebar.html, "Sidebar".
 import fs from "node:fs";
 import path from "node:path";
 import * as esbuild from "esbuild";
@@ -23,7 +23,7 @@ for (const f of fs.readdirSync(TEX)) if (f.endsWith(".jpg")) fs.copyFileSync(pat
 const LOOK = ["a", "b", "c"].includes(process.argv[3]) ? process.argv[3] : "a";
 const LAB = process.argv[4] === "sidebar" ? "sidebar" : "";
 const NAME = (LOOK === "a" ? "axis-cube" : `axis-cube-${LOOK}`) + (LAB ? `-${LAB}` : "") + ".html";
-const TITLE = { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK] + (LAB ? " Sidebar" : "");
+const TITLE = LAB ? "Sidebar" : { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK];
 
 const js = await esbuild.build({
   entryPoints: [path.join(HERE, "entry.js")],

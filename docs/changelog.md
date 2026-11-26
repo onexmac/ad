@@ -31,6 +31,8 @@ Every app in the portal keeps a changelog and shows it. It is an Eva rule: Marco
 ```
 ## 0.6.62 · 2026-11-25 21:51
 
+**Claude:** Tapping the iMac mid-mix works now, and the logo solves itself one square at a time (it takes its time; it has earned it).
+
 - **Bug fix.** Marcos, 25 Nov 21:50: "his words, as he wrote them"
   - Cause: what made it happen.
   - Don't: what not to do, so it is not repeated.
@@ -40,6 +42,7 @@ Asked by Marcos, 25 Nov 21:50: "his words, when the push is an ask and not a fix
 - What changed, in detail: what it does now, with the numbers (times, sizes, angles), and what it did before. ([#173](https://github.com/onexmac/ad/pull/173))
 ```
 
+- **Claude's line** comes first, right under the heading: one or two sentences, at most about 220 characters, in the voice of early game-developer release notes (shareware readmes, .plan updates). Concrete about what changed for the player, warm, a bit cheeky; about one in five carries a funny tidbit, never at Marcos's expense or making light of his report. No jargon, no code names. It is what the app shows first, beside what Marcos said.
 - The heading is the version, ` · `, and the date and time in Costa Rica (`TZ=America/Costa_Rica date "+%Y-%m-%d %H:%M"`). The app reads its current version from the first heading of that shape.
 - A bug Marcos reported comes **first** in the entry of the push that fixes it: his words, the cause, and a `Don't:`. Its lesson goes into the list at the top.
 - **One entry per change.** When one push carries several changes (asks from several messages, or one message with several asks), each gets its own entry and version, in order, and says it shipped in the same push as the others. Bundling them hides what changed when.
@@ -61,5 +64,5 @@ Every app shows its version somewhere quiet, and a tap on it opens the list of e
   ```
 
   The app fetches it only when the list is opened, so the page stays light.
-- **The screen.** The entries, newest first, each headed by its version and date. It is an overlay like any other: it closes by a pull down from its top, a slide to the right, a push on past its end, and a close control at the bottom (never a top bar). The Cubes' sheet, in `lib/axis-cube/scene.js` (`openLog`, `logEntries`), renders the markdown it uses: headings, paragraphs, nested points, bold, code and links' text.
+- **The screen.** Release notes, chunked: the versions grouped by era (0.6, 0.5 …), newest first, the newest era open and the others folded, so the very first version is a few taps away. Each version shows what Marcos said (his ask, or his bug report, marked as one) and Claude's line; the details (the bullets, a bug's cause and don't) open with MORE. It is an overlay like any other: it closes by a pull down from its top, a slide to the right, a push on past its end, and a close control at the bottom (never a top bar). The Cubes' sheet is in `lib/axis-cube/scene.js` (`openLog`, `parseLog`, `logEntries`); `parseLog` reads the entry format above.
 - **Artifacts.** An artifact build carries the changelog in the page (The Cubes: `scripts/axis-cube/artifact/build.mjs` puts it in `window.AXIS_CHANGELOG`, escaped to plain ASCII).

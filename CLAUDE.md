@@ -36,7 +36,9 @@
     the entry of the push that fixes them: his words, the cause, and what not
     to do. The changelog keeps a short list of those lessons at the top, and
     the bugs still open, so the next change doesn't repeat them. Each change
-    gets its own entry, even when several ship in one push. Every app shows
+    gets its own entry, even when several ship in one push, and opens with
+    Claude's line in the voice of early game-dev release notes (now and then
+    a funny tidbit), shown beside what Marcos said. Every app shows
     its version in a quiet place and opens the list of changes from it, read
     from the same file. The whole system, with the shared reader
     (`lib/changelog.ts`) and how an app shows it: `docs/changelog.md`.
