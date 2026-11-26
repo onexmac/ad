@@ -64,6 +64,37 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.84 · 2026-11-26 08:00
+
+**Claude:** In the Sidebar, your time now leaps out of the corner and lands on the iMac's screen as the camera dives in: a swoosh on the way, a satisfying bo-lup when it lands, with a little bounce. (It has been working out.)
+
+Asked by Marcos, 26 Nov 07:48: "Can you put the player timer on a filled rectangle and have it move  act into the screen as the same time the camera zooms in, have it enter the screen with a swoosh bolup sound a bit springy so it feels it has weight, also the cube animation should happen when the zoom starts"
+
+Shipped in the same push as 0.6.80 and 0.6.81. This is the Sidebar lab's part.
+
+- When the camera sets off for the screen after a solve, the clock's bar leaves the top right and flies into the screen, on the line where the initials will go.
+  - It goes in an arc on a spring, heavy enough to overshoot a little, and it squashes and springs back where it lands.
+  - A long, falling swoosh as it leaves; bo-lup, low then up, with a soft thump, as it lands.
+  - It grows on the way, from the top right's size to the line's.
+- The top right is empty while the bar leaves it; CONGRATS!! comes in once it is on its way.
+- The Mac goes out of focus and the keyboard and the places for initials come only after the bar has landed and the mark on the screen has solved itself. So the flight and the solve are seen sharp. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
+## 0.6.81 · 2026-11-26 08:00
+
+**Claude:** The little logo on the iMac's screen now solves itself as the camera starts moving in, so the show is already on by the time you arrive.
+
+Asked by Marcos, 26 Nov 07:48, in the same message: "also the cube animation should happen when the zoom starts"
+
+- The mark on the screen starts its two turns the moment the camera sets off for the screen, a quarter of a second in, where it used to wait until the screen was close. The turns keep their pace: the row from 0.25 s to 0.83 s, the column from 1.55 s to 2.13 s. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
+## 0.6.80 · 2026-11-26 08:00
+
+**Claude:** The clock got a proper badge: dark digits on a lit yellow bar, like a scoreboard that means business.
+
+Asked by Marcos, 26 Nov 07:48, in the same message: "Can you put the player timer on a filled rectangle"
+
+- The clock at the top right is a bar of light with dark figures, the way the first row of the top five is lit. The words there (INSERT CUBE, READY, BACK…) stay lit letters. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
 ## 0.6.79 · 2026-11-25 23:06
 
 **Claude:** The Sidebar lab now opens mid-victory: a 3×3 in hand, one turn from home and the clock past a minute. Then the last turn clicks in, the clock stops, and the camera heads for the high-score screen. It's just called Sidebar now.

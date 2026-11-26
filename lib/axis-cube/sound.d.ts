@@ -14,6 +14,10 @@ export interface AxisSound {
   tick(): void;
   arm(): void;
   swish(): void;
+  /** Something with weight sent flying: a long, falling swoosh. */
+  swoosh(): void;
+  /** It lands: bo-lup, with a soft thump. */
+  bolup(): void;
   wind(speed: number): void;
   charge(k: number): void;
   wobble(on: boolean): void;
