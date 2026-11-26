@@ -77,7 +77,7 @@ Shipped in the same push as 0.6.80 and 0.6.81. This is the Sidebar lab's part.
   - A long, falling swoosh as it leaves; bo-lup, low then up, with a soft thump, as it lands.
   - It grows on the way, from the top right's size to the line's.
 - The top right is empty while the bar leaves it; CONGRATS!! comes in once it is on its way.
-- The Mac goes out of focus and the keyboard and the places for initials come only after the bar has landed and the mark on the screen has solved itself. So the flight and the solve are seen sharp. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The Mac goes out of focus and the keyboard and the places for initials come only after the bar has landed and the mark on the screen has solved itself. So the flight and the solve are seen sharp. ([#179](https://github.com/onexmac/ad/pull/179))
 
 ## 0.6.81 · 2026-11-26 08:00
 
@@ -85,7 +85,7 @@ Shipped in the same push as 0.6.80 and 0.6.81. This is the Sidebar lab's part.
 
 Asked by Marcos, 26 Nov 07:48, in the same message: "also the cube animation should happen when the zoom starts"
 
-- The mark on the screen starts its two turns the moment the camera sets off for the screen, a quarter of a second in, where it used to wait until the screen was close. The turns keep their pace: the row from 0.25 s to 0.83 s, the column from 1.55 s to 2.13 s. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The mark on the screen starts its two turns the moment the camera sets off for the screen, a quarter of a second in, where it used to wait until the screen was close. The turns keep their pace: the row from 0.25 s to 0.83 s, the column from 1.55 s to 2.13 s. ([#179](https://github.com/onexmac/ad/pull/179))
 
 ## 0.6.80 · 2026-11-26 08:00
 
@@ -93,7 +93,7 @@ Asked by Marcos, 26 Nov 07:48, in the same message: "also the cube animation sho
 
 Asked by Marcos, 26 Nov 07:48, in the same message: "Can you put the player timer on a filled rectangle"
 
-- The clock at the top right is a bar of light with dark figures, the way the first row of the top five is lit. The words there (INSERT CUBE, READY, BACK…) stay lit letters. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The clock at the top right is a bar of light with dark figures, the way the first row of the top five is lit. The words there (INSERT CUBE, READY, BACK…) stay lit letters. ([#179](https://github.com/onexmac/ad/pull/179))
 
 ## 0.6.79 · 2026-11-25 23:06
 
