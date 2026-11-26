@@ -181,10 +181,18 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
 .axis #stage { transition: filter 0.45s ease; }
 .axis.crt.entry #stage { filter: blur(10px) brightness(0.8); }
 .axis .entry-line {
-  position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%) scale(0.92);
-  opacity: 0; pointer-events: none; transition: opacity 0.35s ease, transform 0.35s ease;
+  position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 4px;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
-.axis.crt.entry .entry-line { opacity: 1; transform: translate(-50%, -50%); transition-delay: 0.3s; }
+/* the clock's bar is in the line from the moment it leaves the top right (the scene flies it in on a spring);
+   the places for initials come with the keyboard */
+.axis.crt.landing .entry-line { opacity: 1; transition: none; }
+.axis .entry-line canvas { display: block; }
+.axis .entry-line .chip { transform-origin: center; will-change: transform; }
+.axis .entry-line .ini { opacity: 0; transition: opacity 0.35s ease; }
+.axis.crt.entry .entry-line .ini { opacity: 1; transition-delay: 0.2s; }
+.axis.crt.landing .hud { pointer-events: none; }
 /* END is the key that finishes: filled, its letters dark */
 .axis .key.end { background: var(--crt-ink); border-color: var(--crt-ink); }
 .axis .key.end canvas { filter: brightness(0); }
