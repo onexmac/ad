@@ -71,7 +71,7 @@ Asked by Marcos, 25 Nov 22:06: "Is the screen room reflection right? Also the sc
 - A glare on the glass, as a lamp to the upper right would put on it: a bright streak round the upper right of its rim, bright enough to bloom as the cubes' rim light does, and a faint broad sheen. It slides a little as the camera moves, as a reflection does, and it shows from the room too.
 - The tube's face is a cushion, not a plane: its middle 2 cm proud of its edges, down to the dark surround all round. The picture swells a little at the middle (6%), darkens toward its edges, and its corners are rounded off softly into the dark.
   - The lens focuses through the depth of that cushion, and opens a little less close up (2.2 times, where it was 3.2), so the whole screen is sharp and the room still melts.
-- The "iMac" under the screen is gone. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The "iMac" under the screen is gone. ([#174](https://github.com/onexmac/ad/pull/174))
 
 ## 0.6.62 · 2026-11-25 21:51
 
