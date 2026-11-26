@@ -288,6 +288,14 @@ matched; when they differ, Updatr is the newer and better-tested one.
 - **Don't put a rounder element inside a less round container.** A 17 px
   radius button in a 12 px radius card reads as broken. Raise the container's
   radius or square the element.
+- **Don't let scrolled content vanish into its own background.** Wherever a
+  scroll is cut, there has to be some sign of where the content goes as it
+  scrolls out. A fixed bar or footer is drawn on the same ground as the list,
+  so the text would just stop in mid-air. Draw a line at the cut so the content
+  reads as sliding under it; it needn't reach the edges (the text's width is
+  enough). Marcos, 26 Nov, on The Cubes' list of changes: "I never like the
+  content to visually disappear into the nothing". (The Cubes: the title bar's
+  line at the top, `.log-foot` above CLOSE.)
 - **Don't put a navigation bar at the top.** And don't leave a full-width
   transparent wrapper fixed at the bottom either: Safari tints its toolbar
   from it.

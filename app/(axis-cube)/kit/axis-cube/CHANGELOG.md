@@ -57,6 +57,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.87** Read an ask for motion against the whole flow: what moves, from where to where, and at which moment.
 - **0.6.93** A moment counts when it is seen and heard at its real length; nothing cuts in before it ends, and sound in something that plays by itself waits for a touch.
 - **0.7.10** A screen's new colour goes all the way: the page under it and the phone's bars too; check it on the phone's whole screen.
+- **0.7.12** Scrolled content never ends on its own background: a line marks every cut, and it slides under it.
 
 Open:
 
@@ -66,6 +67,17 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.7.12 · 2026-11-26 13:42
+
+**Claude:** The list of changes now has edges: words slide under a line on their way out instead of evaporating into thin paper.
+
+- **Bug fix.** Marcos, 26 Nov 13:40, with a screenshot of the list of changes: "Add a line that cut the content halfway so it doesn't indent into the same background (visually). The line doesn't have to go all the way to the borders. Add this to your memory or Claude.md because I never like the content to visually disappear into the nothing (there has to be some suggestion visually of how the content gets sucked out while scrolled)."
+  - Cause: the list scrolled straight into the paper above CLOSE, the same ground as itself, so its last lines just stopped in mid-air. At the top, the CHANGES title bar scrolled away with the list.
+  - Don't: let scrolled content end on its own background. Wherever a scroll is cut, a line marks the cut, so the content reads as sliding under it (now in `CLAUDE.md` and the UX playbook, for every app).
+
+- The CHANGES title bar stays at the top of the sheet, and the list scrolls under its line.
+- CLOSE sits under a line drawn across the text's width, not to the edges, and the list scrolls under that line too. ([#191](https://github.com/onexmac/ad/pull/191))
 
 ## 0.7.11 · 2026-11-26 13:28
 
