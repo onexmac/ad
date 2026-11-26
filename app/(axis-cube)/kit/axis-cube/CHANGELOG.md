@@ -48,7 +48,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.38** A real puzzle's geometry comes from photographs of it, not memory.
 - **0.6.40** Match a defining trait in degree, not just in kind.
 - **0.6.45** Don't tune a model to resemble a reference: trace the reference's lines and overlay the model on it.
-- **0.6.49** A thumb's slide bends: read its way over more travel, and lean towards the way that is harder to draw.
+- **0.6.49** A thumb's slide bends: read its way over more travel, and lean towards the way that is harder to draw. (The lean reversed by Marcos in 0.7.46: the way is split by an X, 45° each side.)
 - **0.6.55** A number in an ask can count the pieces, not the pixels; and add no colour or detail that wasn't asked for.
 - **0.6.58** A close-up keeps the thing in its place: frame it in what holds it, never cut it out of the scene.
 - **0.6.62** A new tap answers in every state a touch can start in; check each mode, not only the one it was built in.
@@ -61,6 +61,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.13** A fix is the fix asked for: an extra change of my own is offered in words, not shipped with it.
 - **0.7.32** A motion that demonstrates a gesture plays its whole path, slowly enough to read; never a twitch.
 - **0.7.37** Something that has gone elsewhere is hidden at once; it never fades out back where it began.
+- **0.7.46** A slide's way is split by the two diagonals, an X: each way gets 45° either side, and none is favoured.
 
 Open:
 
@@ -70,6 +71,18 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.7.46 · 2026-11-26 17:22
+
+**Claude:** Up and down got their fair share of the compass back. A slide that drifts half diagonal now goes the way it mostly goes.
+
+- **Bug fix.** Marcos, 26 Nov 17:20: "Sliding up or down se siente buggy. No está considerando swipes medio diagonales (this has to be an x for the swipe detection so it can account non strictly vertical swipes as vertical swipes nonetheless)"
+  - Cause: since 0.6.49 a slide counted as sideways up to about 55° from level, to help sideways slides that bend. That left up and down only 35° either side of upright, so a slide 35° to 45° off upright, meant up or down, turned sideways.
+  - Don't: tilt the split toward one way. Split it by the two diagonals, an X, so up and down get as much room as sideways.
+
+- Which way a slide goes is now split by an X: within 45° of upright it is up or down, within 45° of level it is sideways. It holds on the rings, on the puzzle and beside the grid.
+- The way is still read after the same travel, 12 pixels on a ring and 14 on the puzzle.
+- Checked with slides at 10°, 30°, 40°, 44°, 46°, 50°, 60° and 80° from upright, to each side, on a ring and on the puzzle: up to 44° they go up or down, from 46° sideways. ([#207](https://github.com/onexmac/ad/pull/207))
 
 ## 0.7.45 · 2026-11-26 17:05
 
