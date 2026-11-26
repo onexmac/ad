@@ -66,6 +66,28 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.8 · 2026-11-26 13:20
+
+**Claude:** New trick unlocked: tap the dots, then slide, and two layers turn as one. Speedcubers call it a wide move; we call it a double helping.
+
+Asked by Marcos, 26 Nov 13:14, in the same message: "New trick, double tap and slide in the dots control should drag the axis closest to the tap and the center one."
+
+- On the grid of dots, a tap and then, quickly and in about the same place, a touch that slides turns two layers together.
+  - The two layers are the row or column under the finger and the middle one; both light up.
+  - From the middle row or column, the other layer is the outer one on the finger's side.
+  - A 2×2 has no middle, so there it turns the one layer.
+- The puzzle's own history folds turns about one axis past each other. A two-layer turn and its undoing leave it as it was, so the solve that replays it back stays short.
+- A plain slide still turns one layer. ([#188](https://github.com/onexmac/ad/pull/188))
+
+## 0.7.6 · 2026-11-26 13:20
+
+**Claude:** Double tap anywhere now flips the cube, not just on it. Your thumb no longer has to aim; it only has to mean it.
+
+Asked by Marcos, 26 Nov 13:14: "Mmm double tap on anywhere but the dots control should do the same as in the cube (flip it)."
+
+- Two quick taps anywhere off the grid of dots and off the puzzle flip it round, as two taps on it do. It turns half a turn about the upright, toward the side tapped.
+- One tap there still does nothing, and a tap on the Mac still opens its screen. ([#188](https://github.com/onexmac/ad/pull/188))
+
 ## 0.7.5 · 2026-11-26 12:10
 
 **Claude:** High scores are real now. Solve a puzzle by hand fast enough and the Mac asks for your initials. Every puzzle keeps its own top five, and the machine remembers them. No coins required.
