@@ -66,7 +66,7 @@ Asked by Marcos, 25 Nov 19:57: "Cuando uno escoge el cube debería comenzar la a
 - A puzzle picked up solved now mixes itself up as soon as it is in front of you, about 0.8 s after the tap. It is the same sequence a press and hold plays: it opens, scrambles quickly (20 to 24 turns on a 3×3, 12 to 16 on the 2×2) and closes.
 - A puzzle put down half solved keeps its turns: picked up again, it is as it was left, and a hold still solves it.
 - One that was solved by hand, by other turns than the way back, counts as solved and mixes itself up too.
-- Put down before it is in front, it doesn't mix. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- Put down before it is in front, it doesn't mix. ([#168](https://github.com/onexmac/ad/pull/168))
 
 ## 0.6.49 · 2026-11-25 19:58
 
