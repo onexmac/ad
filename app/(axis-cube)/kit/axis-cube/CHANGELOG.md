@@ -54,6 +54,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.62** A new tap answers in every state a touch can start in; check each mode, not only the one it was built in.
 - **0.6.66** Glare is light from something in the room, rendered on a surface shaped to catch it; never painted on.
 - **0.6.78** A long history is read in chunks, with its beginning a few taps away; never one undivided scroll.
+- **0.6.87** Read an ask for motion against the whole flow: what moves, from where to where, and at which moment.
 
 Open:
 
@@ -63,6 +64,31 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.87 · 2026-11-26 08:15
+
+**Claude:** Hit YES and your score goes home: the Mac comes back into focus, the camera leans in, and your row drops into its spot in the table with a swoosh and a bo-lup, while the little logo solves itself in celebration.
+
+- **Bug fix.** Marcos, 26 Nov 08:07, of 0.6.84: "No. The zoom in on text is to place it into the Mac , swoosh bolup. The initial zoom that brings the keyboard gotta be fast, and not coming from the congrats. Reread the og instruction with this new understanding."
+  - Cause: "move into the screen at the same time the camera zooms in" was read as the clock flying out of the top right during the first zoom. The motion he meant is the end of the entry: the time and initials, once typed, going into the Mac as the camera goes in. And the mark's solve belonged to that zoom too.
+  - Don't: place a motion at the first moment it could fit. Read an ask for motion against the whole flow: what moves, from where to where, and at which moment.
+
+Shipped in the same push as 0.6.85. This is the Sidebar lab's part.
+
+- YES now sends the entry into the Mac:
+  - The keyboard goes, the Mac comes back into focus, and the camera goes in to the screen, square on and a tenth closer.
+  - As it goes, the line becomes its row of the table (rank, time, initials, dark on a bar of light) and flies onto that row on the screen, following it as the camera moves. It goes on a spring with some weight, a little hop, an overshoot and a squash where it lands.
+  - A swoosh as it leaves; bo-lup as it lands. Once it is still, the screen takes it over: the row is in the table, lit, and the line at the top right says BACK.
+- The mark on the screen waits mixed while the initials are typed, and solves itself as the camera goes in after YES. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
+## 0.6.85 · 2026-11-26 08:15
+
+**Claude:** The trip to the high-score screen is snappy now: one quick swoop and the keyboard is waiting. The time no longer hitches a ride from the corner.
+
+Asked by Marcos, 26 Nov 08:07, in the same message: "The initial zoom that brings the keyboard gotta be fast, and not coming from the congrats."
+
+- When the Sidebar goes to the screen for a new entry, the camera gets there about three times as fast, and the Mac goes soft with the keyboard, the time and the places for initials coming at once (0.15 s behind it), where 0.6.84 waited for the mark to solve.
+- The time is in the line from the start; it no longer flies in from the top right, and CONGRATS!! is there from the start. ([#PR](https://github.com/onexmac/ad/pull/PR))
 
 ## 0.6.84 · 2026-11-26 08:00
 
