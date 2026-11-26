@@ -71,7 +71,7 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
   - It used to move the camera.
 - Two quick taps on the puzzle, in about the same place, turn it half round, so the face at the back comes to the front.
   - It turns the way of the side tapped.
-  - A single tap still brings the tapped face to the front, now after a quarter of a second, in case a second tap follows. ([#PR](PR))
+  - A single tap still brings the tapped face to the front, now after a quarter of a second, in case a second tap follows. ([#166](https://github.com/onexmac/ad/pull/166))
 
 ## 0.6.45 · 2026-11-24 22:47
 
