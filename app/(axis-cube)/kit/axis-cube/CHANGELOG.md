@@ -75,7 +75,7 @@ Shipped in the same push as 0.6.78.
 - The Sidebar opens on the 3×3 already in hand, one turn of its top layer from solved, its clock running past a minute.
 - A moment after the room comes in, the last turn goes home and the clock stops on 01:06:84, a time for third place. A beat later the camera goes to the iMac's screen: CONGRATS!!, the Mac out of focus, the keyboard.
 - Put the puzzle down, or take another, and the opening stops there; the room is the hands' again.
-- The artifact is called just Sidebar. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The artifact is called just Sidebar. ([#178](https://github.com/onexmac/ad/pull/178))
 
 ## 0.6.78 · 2026-11-25 23:06
 
@@ -90,7 +90,7 @@ Shipped in the same push as 0.6.78.
   - What Marcos said shows four lines and opens in full with MORE.
 - Versions are grouped by era (0.6, 0.5 … 0.1), newest first. The newest era is open and the others fold; a tap on an era opens it, so the very first version is two taps and a short scroll away.
 - Every entry in this file now opens with Claude's line, in the voice of early game-developer release notes, now and then with a joke. It is part of the entry format for every app (docs/changelog.md).
-- The scroll box can shrink inside the sheet and scrolls only up and down. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The scroll box can shrink inside the sheet and scrolls only up and down. ([#178](https://github.com/onexmac/ad/pull/178))
 
 ## 0.6.76 · 2026-11-25 22:58
 
