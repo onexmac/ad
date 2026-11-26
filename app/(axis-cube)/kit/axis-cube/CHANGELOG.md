@@ -62,6 +62,17 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.65 · 2026-11-25 22:17
+
+Asked by Marcos, 25 Nov 22:06: "Is the screen room reflection right? Also the screen should have some light (which by contrast would make its sorroindings darker just like when a camera focuses on a screen). May be some glare as well to make it feel real see the rim light that you have on the cubes sometime. That'll do. Have it more crtv like not flat the 3d model and remove where it says iMac"
+
+- The reflection: it was right in what it showed, the room as seen from the screen, caught from just in front of the glass. It had two faults. It was blurred by a rough glass. And the lamps made pin-pricks of light on it, which on so curved a glass looked like specks of dust. The glass now reflects the room only, sharp: the leather of the ottoman and the chair low down, the shelves to the right. It no longer reflects the lamps one by one. Until the screen is first opened it shows the room as the puzzle sees it.
+- The screen gives light, as a screen does when a camera looks at it. Close up it is brighter (2.4 where it was 1.6), and the camera's exposure comes down to 0.58 of the look's. The screen glows and blooms, and the room round it falls darker by contrast. The dark round the Mac is lighter to make up for it (0.45 at most, where it was 0.6).
+- A glare on the glass, as a lamp to the upper right would put on it: a bright streak round the upper right of its rim, bright enough to bloom as the cubes' rim light does, and a faint broad sheen. It slides a little as the camera moves, as a reflection does, and it shows from the room too.
+- The tube's face is a cushion, not a plane: its middle 2 cm proud of its edges, down to the dark surround all round. The picture swells a little at the middle (6%), darkens toward its edges, and its corners are rounded off softly into the dark.
+  - The lens focuses through the depth of that cushion, and opens a little less close up (2.2 times, where it was 3.2), so the whole screen is sharp and the room still melts.
+- The "iMac" under the screen is gone. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
 ## 0.6.62 · 2026-11-25 21:51
 
 - **Bug fix.** Marcos, 25 Nov 21:50: "Ok a couple of things I should be able to press it while the cube is mixing up ok start. Also on the pixel cube, the two moves happen two fast and hollow then one by one so it feels like they are moving"
