@@ -82,7 +82,7 @@ Open:
 
 - Which way a slide goes is now split by an X: within 45° of upright it is up or down, within 45° of level it is sideways. It holds on the rings, on the puzzle and beside the grid.
 - The way is still read after the same travel, 12 pixels on a ring and 14 on the puzzle.
-- Checked with slides at 10°, 30°, 40°, 44°, 46°, 50°, 60° and 80° from upright, to each side, on a ring and on the puzzle: up to 44° they go up or down, from 46° sideways. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Checked with slides at 10°, 30°, 40°, 44°, 46°, 50°, 60° and 80° from upright, to each side, on a ring and on the puzzle: up to 44° they go up or down, from 46° sideways. ([#207](https://github.com/onexmac/ad/pull/207))
 
 ## 0.7.45 · 2026-11-26 17:05
 
