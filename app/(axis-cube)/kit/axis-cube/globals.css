@@ -398,3 +398,94 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 }
 .axis .fallback[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { .axis .dot, .axis .pad, .axis.play .pad { transition: none; } }
+
+/* Side-B (the sideb lab): the same machine dressed as a friendly old Mac. Cream paper and charcoal ink; windows with
+   an ink line, rounded corners and a title bar of stripes; keys and buttons stand on an ink lip that a press pushes
+   them down onto. The pixel letters are drawn in paper and darkened to ink (--mac-letters) wherever they sit on
+   paper, so a pressed key, END, and the bars of a time show them in paper. On the screen, the scene draws the same:
+   a window of paper on a dark desktop. */
+.axis.mac {
+  --mac-paper: #ebe4d1;
+  --mac-ink: #2a2b2f;
+  --mac-dim: #6f695d;
+  --mac-shade: rgba(0, 0, 0, 0.38);
+  --mac-letters: brightness(0.18);
+  --mac-stripes: repeating-linear-gradient(to bottom, var(--mac-ink) 0 2px, transparent 2px 4px);
+  --crt-ink: var(--mac-ink);
+  --key-line: rgba(42, 43, 47, 0.3);
+  --key-fill: rgba(42, 43, 47, 0.08);
+  --log-bg: var(--mac-paper);
+  --log-text: var(--mac-ink);
+  --log-dim: var(--mac-dim);
+  --confirm-bg: var(--mac-paper);
+  --confirm-dim: rgba(20, 20, 22, 0.4);
+  --ring: rgba(235, 228, 209, 0.7);
+  --ring-on: var(--mac-paper);
+  --ring-fill: rgba(235, 228, 209, 0.2);
+  --ring-shade: rgba(42, 43, 47, 0.55);
+}
+/* Side-B loads on paper: the loader in its colours (the artifact build gives it the class) */
+.axis-loader.mac-loader { --load-ground: #ebe4d1; --load-ink: #2a2b2f; }
+/* a title bar: stripes across, the title on a clear patch in the middle */
+.axis.mac .mac-title {
+  display: flex; align-items: center; justify-content: center; height: 28px;
+  background: var(--mac-stripes) center / calc(100% - 14px) 14px no-repeat;
+  border-bottom: 2px solid var(--mac-ink);
+}
+.axis.mac .mac-title span { display: block; padding: 0 8px; background: var(--mac-paper); }
+.axis.mac .mac-title canvas { display: block; filter: var(--mac-letters); }
+/* the line at the top right and the version: boxes the scene draws; a soft shadow lifts them off the room */
+.axis.mac .hud, .axis.mac .ver canvas { filter: drop-shadow(0 2px 6px var(--mac-shade)); }
+/* the list of changes: a sheet of paper with its title bar edge to edge */
+.axis.mac .log canvas { filter: var(--mac-letters); }
+.axis.mac .log .log-title { margin: -28px -18px 16px; }
+.axis.mac .era { border-top-color: var(--mac-ink); }
+.axis.mac .log-close {
+  border: 2px solid var(--mac-ink); border-radius: 10px; background: var(--mac-paper);
+  box-shadow: 0 3px 0 var(--mac-ink); transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+.axis.mac .log-close:active { background: var(--mac-ink); border-color: var(--mac-ink); transform: translateY(2px); box-shadow: 0 1px 0 var(--mac-ink); }
+.axis.mac .log-close:active canvas { filter: none; }
+/* the keyboard: a window of its own, INITIALS in its title bar; its radius is a key's plus the padding round them */
+.axis.mac .kb {
+  box-sizing: border-box; padding: 0 12px 15px; gap: 7px; overflow: hidden;
+  background: var(--mac-paper); border: 2px solid var(--mac-ink); border-radius: 18px;
+  box-shadow: 0 8px 22px var(--mac-shade);
+}
+.axis.mac .kb .mac-title { grid-column: 1 / -1; margin: 0 -12px 5px; }
+.axis.mac .key {
+  border: 2px solid var(--mac-ink); border-radius: 6px; background: var(--mac-paper);
+  box-shadow: 0 3px 0 var(--mac-ink); transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+.axis.mac .key canvas { filter: var(--mac-letters); }
+.axis.mac .key:active { background: var(--mac-ink); border-color: var(--mac-ink); transform: translateY(2px); box-shadow: 0 1px 0 var(--mac-ink); }
+.axis.mac .key:active canvas { filter: none; }
+.axis.mac .key.end { background: var(--mac-ink); }
+.axis.mac .key.end canvas { filter: none; }
+.axis.mac .key.end:active { background: var(--mac-paper); }
+.axis.mac .key.end:active canvas { filter: var(--mac-letters); }
+/* the entry while it is typed: a field of paper with the time on its ink bar; once it flies, only the bar goes */
+.axis.mac .entry-line {
+  padding: 8px 12px; gap: 6px;
+  background: var(--mac-paper); border: 2px solid var(--mac-ink); border-radius: 16px;
+  box-shadow: 0 8px 22px var(--mac-shade);
+}
+.axis.mac .entry-line .ini { filter: var(--mac-letters); }
+.axis.mac.crt.placing .entry-line { background: none; border-color: transparent; box-shadow: none; }
+/* the card that asks: a dialog, SAVE? in its title bar, the entry on an ink bar, YES the default with a ring round it */
+.axis.mac .confirm {
+  padding: 0 18px 22px; gap: 20px; overflow: hidden;
+  border: 2px solid var(--mac-ink); border-radius: 18px; background: var(--mac-paper);
+  box-shadow: 0 10px 28px var(--mac-shade);
+}
+.axis.mac .confirm .confirm-ask { order: -1; justify-self: stretch; margin: 0 -18px; }
+.axis.mac .confirm-head { margin-top: 2px; padding: 14px 8px; background: var(--mac-ink); border-radius: 8px; }
+.axis.mac .confirm-head canvas { filter: none; }
+.axis.mac .confirm-row button {
+  padding: 9px 20px; border: 2px solid var(--mac-ink); border-radius: 10px; background: var(--mac-paper);
+  box-shadow: 0 3px 0 var(--mac-ink); transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+.axis.mac .confirm-row .confirm-yes { outline: 3px solid var(--mac-ink); outline-offset: 3px; }
+.axis.mac .confirm-row button canvas { filter: var(--mac-letters); }
+.axis.mac .confirm-row button:active { background: var(--mac-ink); transform: translateY(2px); box-shadow: 0 1px 0 var(--mac-ink); }
+.axis.mac .confirm-row button:active canvas { filter: none; }
