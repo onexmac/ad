@@ -53,7 +53,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.58** A close-up keeps the thing in its place: frame it in what holds it, never cut it out of the scene.
 - **0.6.62** A new tap answers in every state a touch can start in; check each mode, not only the one it was built in.
 - **0.6.66** Glare is light from something in the room, rendered on a surface shaped to catch it; never painted on.
-- **0.6.78** A long history is read in chunks, with its beginning a few taps away; never one undivided scroll.
+- **0.6.78** A long history is read in chunks, with its beginning a few taps away; never one undivided scroll. (Reversed by Marcos in 0.7.16: one long list, nothing folded.)
 - **0.6.87** Read an ask for motion against the whole flow: what moves, from where to where, and at which moment.
 - **0.6.93** A moment counts when it is seen and heard at its real length; nothing cuts in before it ends, and sound in something that plays by itself waits for a touch.
 - **0.7.10** A screen's new colour goes all the way: the page under it and the phone's bars too; check it on the phone's whole screen.
@@ -68,6 +68,29 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.7.18 · 2026-11-26 13:58
+
+**Claude:** The release notes now speak the machine's own language: Cube OS, our pixel letters, now with lowercase, Spanish accents and proper descenders. One ink, one paper, no gray area.
+
+Asked by Marcos, 26 Nov 13:51, in the same message: "make it mono. Text similar to the cube os (our Macintosh version)."
+
+- The list is set in Cube OS, the machine's 5×7 letters made into a font (`public/kit/axis-cube/cube-os.otf`, built from `lib/axis-cube/glyph.js` by `scripts/axis-cube/font/build.mjs`).
+  - The letters gained what running text needs: lowercase, with two rows below the baseline for g, j, p, q and y; á, é, í, ó, ú, ü, ñ, ¿ and ¡; and punctuation and signs (quotes, brackets, × · … → and the rest).
+  - It is set so a letter's pixel is 5 of an iPhone's device pixels, so the letters stay sharp.
+- The list is one colour, ink on paper: no grey, no italics, no bold.
+  - Each version's number sits on an ink bar, as the lit row does on the screen.
+  - Points are marked with a dash in the margin.
+- The artifact carries the font inside the page. ([#194](https://github.com/onexmac/ad/pull/194))
+
+## 0.7.16 · 2026-11-26 13:58
+
+**Claude:** No more folders: every version, every detail, one long scroll from today back to the very first build. Bring snacks.
+
+Asked by Marcos, 26 Nov 13:51: "Do not collapse the changelog. One long list"
+
+- The list of changes no longer groups versions by era or folds them. It is one long list, newest first, every version with its input, its output and all its details; MORE is gone.
+- This reverses 0.6.78's chunking, at Marcos's word. ([#194](https://github.com/onexmac/ad/pull/194))
 
 ## 0.7.15 · 2026-11-26 13:50
 

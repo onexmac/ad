@@ -37,7 +37,10 @@ const js = await esbuild.build({
   resolveExtensions: [".ts", ".js"],
   nodePaths: [path.join(ROOT, "node_modules")],
 });
-const css = fs.readFileSync(path.join(ROOT, "app/(axis-cube)/kit/axis-cube/globals.css"), "utf8");
+// the stylesheet, with the Cube OS font in it (the app serves it from public/; the artifact has no such path)
+const cubeOs = fs.readFileSync(path.join(ROOT, "public/kit/axis-cube/cube-os.otf")).toString("base64");
+const css = fs.readFileSync(path.join(ROOT, "app/(axis-cube)/kit/axis-cube/globals.css"), "utf8")
+  .replace('url("/kit/axis-cube/cube-os.otf")', `url("data:font/otf;base64,${cubeOs}")`);
 // the changelog goes into the page whole: the version shows at the bottom right, and a tap lists the changes. A lab is
 // a snippet, not the app (docs/changelog.md): it carries neither.
 const changelog = LAB ? "" : fs.readFileSync(path.join(ROOT, "app/(axis-cube)/kit/axis-cube/CHANGELOG.md"), "utf8");
