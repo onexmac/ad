@@ -56,6 +56,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.78** A long history is read in chunks, with its beginning a few taps away; never one undivided scroll.
 - **0.6.87** Read an ask for motion against the whole flow: what moves, from where to where, and at which moment.
 - **0.6.93** A moment counts when it is seen and heard at its real length; nothing cuts in before it ends, and sound in something that plays by itself waits for a touch.
+- **0.7.10** A screen's new colour goes all the way: the page under it and the phone's bars too; check it on the phone's whole screen.
 
 Open:
 
@@ -65,6 +66,22 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.7.10 · 2026-11-26 13:26
+
+**Claude:** The welcome screen got the memo: paper from top to bottom, THE CUBES on a striped title bar, and a START button that sits on its lip like it means business.
+
+- **Bug fix.** Marcos, 26 Nov 13:22, of 0.7.5, with a screenshot of the welcome on iOS: "This looks awful on iOS, color has to go all the way down, the cubes let's try the text and the button more inline with the Macintosh style we develop."
+  - Cause: 0.7.0 put the loader on paper, but the page under it and the phone's bars stayed black (the page's background and its theme colour), so the bottom of the screen was black under the paper. The welcome's name and button still used the old colours, white letters and a black pill, and those were made for a black screen.
+  - Don't: give a screen a new colour without the page under it and the phone's bars. Check the first screen on a phone's whole screen, bars and bottom edge included.
+
+- While the loader is up, the page itself and the phone's bars are paper, all the way to the bottom. Once the room is in, they are black again, beyond its frame.
+- The name is THE CUBES in the machine's letters, three times their size, on a title bar of stripes as the Mac's windows have.
+- START (and LISTO or INSTALAR when the app asks to be installed) is a Mac button.
+  - It has paper with an ink line, rounded corners and an ink lip, plus the ring of the button to press, in the machine's letters.
+  - Pressed, it turns ink with paper letters and still springs.
+- Asking to install looks the same: the loading cube shows through in the middle, and the icon is no longer drawn over it.
+- The machine's letters are in their own file now (`lib/axis-cube/glyph.js`), shared by the scene and the page. ([#189](https://github.com/onexmac/ad/pull/189))
 
 ## 0.7.8 · 2026-11-26 13:20
 

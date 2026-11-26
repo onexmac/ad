@@ -10,14 +10,15 @@ export const metadata: Metadata = {
   icons: { icon: "/kit/axis-cube/icon-192.png", apple: "/kit/axis-cube/apple-icon.png" },
 };
 
-// The room is always at dusk, and the page opens black: the bars of the phone match the loading screen.
+// The page opens on the Mac's paper (--load-ground), so the bars of the phone match the loading screen; once the room
+// is in, the page turns them black (Stage).
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   viewportFit: "cover",
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: "#ebe4d1",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

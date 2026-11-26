@@ -25,8 +25,7 @@ const LOOK = ["a", "b", "c"].includes(process.argv[3]) ? process.argv[3] : "a";
 const LAB = ["sidebar", "sideb"].includes(process.argv[4]) ? process.argv[4] : "";
 const NAME = (LOOK === "a" ? "axis-cube" : `axis-cube-${LOOK}`) + (LAB ? `-${LAB}` : "") + ".html";
 const TITLE = LAB ? { sidebar: "Sidebar", sideb: "Side-B" }[LAB] : { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK];
-// the Mac loads on paper (.mac-loader in the app's stylesheet); the Sidebar keeps its black
-const LOADER_CLASS = LAB === "sidebar" ? "axis-loader" : "axis-loader mac-loader";
+
 
 const js = await esbuild.build({
   entryPoints: [path.join(HERE, "entry.js")],
@@ -47,12 +46,12 @@ const inPage = (v) => JSON.stringify(v).replace(/[<\u007f-\uffff]/g, (ch) => "\\
 
 const page = `<meta charset="utf-8">
 <title>${TITLE}</title>
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#ebe4d1">
 <style>
 ${css.replace(/<\/style/g, "<\\/style")}
 </style>
 <div class="axis-ground"><div id="root" class="axis"></div></div>
-<div class="${LOADER_CLASS}" id="loader" role="progressbar" aria-label="Cargando">${LOADER_HTML}</div>
+<div class="axis-loader" id="loader" role="progressbar" aria-label="Cargando">${LOADER_HTML}</div>
 <script>window.AXIS_LOOK = "${LOOK}"; window.AXIS_LAB = "${LAB}"; window.AXIS_VERSION = ${inPage(version)}; window.AXIS_CHANGELOG = ${inPage(changelog)};</script>
 <script>${js.outputFiles[0].text.replace(/<\/script/g, "<\\/script")}</script>
 `;

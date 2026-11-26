@@ -1,12 +1,15 @@
 /* The Cubes: a 3D stage in a rounded frame on a black screen, and a grid of rings that turns the puzzle in hand.
-   The page opens black, with a loading bar; then the room, looking down at the ottoman, with no interface
+   The page opens on paper (the Mac's), with a loading bar; then the room, looking down at the ottoman, with no interface
    at all; the rings come in when a puzzle is picked up, laid out like its face: three by three, or two by two for the 2×2.
    A swipe across a row turns that horizontal layer, a swipe along a column that vertical
    slice. On wider screens the grid stays in a phone-wide column at the centre.
    Tokens live here; the scene's own colours live in lib/axis-cube/scene.js. */
 :root {
-  --load-ground: #000;
-  --load-ink: #fff;
+  /* the loading screen and the welcome: the Mac's paper and ink, all the way to the edges of the phone */
+  --load-ground: #ebe4d1;
+  --load-ink: #2a2b2f;
+  /* beyond the room's frame, once it is in: black */
+  --vvv-ground: #000;
   /* vvv, the page as a rounded frame on black (docs/ux-playbook.md): the same values as Pads */
   --vvv-radius: 32px;
   --vvv-gutter: 6px;
@@ -36,7 +39,10 @@
   --confirm-dim: rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
-html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: hidden; overscroll-behavior: none; }
+html, body { height: 100%; margin: 0; background: var(--vvv-ground); overflow: hidden; overscroll-behavior: none; }
+/* while the loader is up, the page itself is paper too: nothing black shows under the phone's bars or past the
+   bottom of the screen */
+html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { background: var(--load-ground); }
 /* vvv: the room is a rounded frame on the black screen, below the status bar and above whatever the browser keeps
    at the bottom; beyond its edge everything is black. The ground is as tall as the largest viewport and the frame
    is placed on it, so that its bottom can be set clear of Safari's bar: the page measures that (useVvvInset, in
@@ -45,7 +51,7 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
    The frame's radius clips what is laid out in it; the canvas, a layer of its own, takes the radius itself. */
 .axis-ground {
   position: fixed; left: 0; right: 0; top: 0; height: 100vh; height: 100lvh;
-  overflow: hidden; background: var(--load-ground);
+  overflow: hidden; background: var(--vvv-ground);
 }
 .axis {
   position: absolute;
@@ -312,11 +318,10 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
 /* The cube keeps turning under "reduce motion" too: it is small, it is the sign that the app is loading, and a
    still one reads as the app having stopped. */
 
-/* the install screen (lib/axis-cube/gate.ts): black, the cube of the home-screen icon where the loading cube will
-   be, a line that says how, and a button where the bar will be. It is in the page from the server and shows only
-   when the page's inline script has put axis-ask on <html>; the loader under it is held still until it goes.
-   The icon was drawn from the loading cube at 400 px to the edge on a 1024 px square, so at 2.56 edges wide it is
-   the loading cube's size. The steps sit midway between the cube and the button. */
+/* the install screen and the welcome (lib/axis-cube/gate.ts): the loader itself shows through, its cube in the
+   middle (held still while installing is asked), with a line under it and a button where the bar will be. It is in
+   the page from the server and shows only when the page's inline script has put axis-ask on <html>.
+   The steps sit midway between the cube and the button. */
 .axis-gate { display: none; }
 html.axis-ask .axis-gate {
   display: block; position: fixed; inset: 0; z-index: 11;
@@ -329,11 +334,11 @@ html.axis-ask-out .axis-gate { opacity: 0; pointer-events: none; }
 html.axis-ask:not(.axis-ask-hello) .axis-loader .c, html.axis-ask:not(.axis-ask-hello) .axis-loader .o, html.axis-ask .axis-loader .track i { animation-play-state: paused; }
 /* The welcome is the loader itself, with the name and Start where its bar will be: the screen in front lets it
    through, the loading cube is already turning in the middle, and the bar waits out of sight. When the welcome
-   goes, the bar comes up under Start as it fades and runs out to the room. */
-html.axis-ask-hello .axis-gate { background: transparent; }
-html.axis-ask-hello .axis-gate .mark { display: none; }
+   goes, the bar comes up under Start as it fades and runs out to the room. Installing is asked the same way. */
+html.axis-ask .axis-gate { background: transparent; }
+.axis-gate .mark { display: none; }
 .axis-loader .bar { transition: opacity 0.2s ease; }
-html.axis-ask-hello .axis-loader .bar { opacity: 0; }
+html.axis-ask .axis-loader .bar { opacity: 0; }
 .axis-gate .mark {
   position: absolute; left: 50%; top: 50%;
   width: calc(var(--cube-edge) * 2.56); height: calc(var(--cube-edge) * 2.56);
@@ -347,15 +352,23 @@ html.axis-ask-hello .axis-loader .bar { opacity: 0; }
 }
 .axis-gate .how svg { flex: none; }
 html.axis-ask-ios .axis-gate .how.ios, html.axis-ask-android .axis-gate .how.android, html.axis-ask-hello .axis-gate .how.hello { display: flex; }
-/* the welcome's line is the app's name */
-.axis-gate .how.hello { font-size: 17px; font-weight: 600; letter-spacing: 0.06em; }
+/* the welcome's line is the app's name in the machine's letters, three times their size, on a title bar of stripes
+   as the Mac's windows have (a stripe a letter's pixel thick, a pixel apart) */
+.axis-gate .how.hello {
+  left: 50%; right: auto; width: min(calc(100% - 48px), 300px); height: 21px; transform: translate(-50%, -50%);
+  background: repeating-linear-gradient(to bottom, var(--load-ink) 0 3px, transparent 3px 6px);
+}
+.axis-gate .how.hello span { display: block; padding: 0 12px; background: var(--load-ground); box-shadow: 0 0 0 1px var(--load-ground); }   /* a pixel over the stripes' edges, so no seam shows on half pixels */
+.axis-gate svg.px { display: block; shape-rendering: crispEdges; }
 html.axis-ask-native .axis-gate .how.ios, html.axis-ask-native .axis-gate .how.android { display: none; }
 .axis-gate .ok {
   position: absolute; left: 50%; top: 75%; transform: translate(-50%, -50%);
+  display: grid; place-items: center;
   min-width: clamp(140px, 48vw, 220px); height: 48px; padding: 0 28px; box-sizing: border-box;
-  border: 1.5px solid var(--load-ink); border-radius: 24px;
+  border: 2px solid var(--load-ink); border-radius: 12px;
   background: var(--load-ground); color: var(--load-ink);
-  font: 600 16px/1 var(--font-body); letter-spacing: 0.02em;
+  box-shadow: 0 4px 0 var(--load-ink);                 /* the Mac's buttons stand on an ink lip */
+  outline: 3px solid var(--load-ink); outline-offset: 4px;   /* and the one to press has a ring round it */
   -webkit-appearance: none; appearance: none; cursor: pointer; touch-action: manipulation;
 }
 /* The button springs: it presses in under the finger and, let go, springs back past its size and settles, as a
@@ -388,9 +401,8 @@ html.axis-ask-native .axis-gate .how.ios, html.axis-ask-native .axis-gate .how.a
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 @media (prefers-reduced-motion: reduce) { .axis-gate .ok.press, .axis-gate .ok.bounce { animation: none; } }
-.axis-gate .ok:focus-visible { outline: 2px solid var(--load-ink); outline-offset: 3px; }
 .axis-gate .ok .instalar, .axis-gate .ok .hola, html.axis-ask-native .axis-gate .ok .listo, html.axis-ask-hello .axis-gate .ok .listo { display: none; }
-html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .ok .hola { display: inline; }
+html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .ok .hola { display: block; }
 
 .axis .fallback {
   position: absolute; inset: 0; display: grid; place-items: center; padding: 24px;
@@ -424,8 +436,6 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
   --ring-fill: rgba(235, 228, 209, 0.2);
   --ring-shade: rgba(42, 43, 47, 0.55);
 }
-/* the Mac loads on paper: the loader in its colours (the page gives it the class) */
-.axis-loader.mac-loader { --load-ground: #ebe4d1; --load-ink: #2a2b2f; }
 /* a title bar: stripes across, the title on a clear patch in the middle */
 .axis.mac .mac-title {
   display: flex; align-items: center; justify-content: center; height: 28px;

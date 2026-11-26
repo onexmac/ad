@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useVvvInset } from "@/components/vvv/inset";
 import { gateUp, leaveGate, onGate } from "@/lib/axis-cube/gate";
 import { LOADER_HTML } from "@/lib/axis-cube/loader";
+import { pixelPath } from "@/lib/axis-cube/glyph";
 import { makeSound, type AxisSound } from "@/lib/axis-cube/sound";
 
 type Look = "a" | "b" | "c";
@@ -11,6 +12,19 @@ type Look = "a" | "b" | "c";
 /** Black between the frame and the phone's bars: the vvv gutter, as --vvv-gutter in the app's stylesheet. */
 const GUTTER = 6;
 const WORKER = "/kit/axis-cube-sw.js";
+/** The phone's bars: the loader's paper while it is up, then the black beyond the room's frame (--load-ground and
+ *  --vvv-ground in the app's stylesheet; the layout starts them on paper). */
+const BARS_ROOM = "#000000";
+
+/** A line of the machine's letters, each of its pixels `scale` px, in the colour of the text round it. */
+function Pixels({ text, scale, label }: { text: string; scale: number; label: string }) {
+  const { d, w, h } = pixelPath(text);
+  return (
+    <svg className="px" role="img" aria-label={label} width={w * scale} height={h * scale} viewBox={`0 0 ${w} ${h}`} fill="currentColor">
+      <path d={d} />
+    </svg>
+  );
+}
 const SCOPE = "/kit/axis-cube";
 
 /** Once the room is on screen, the service worker is told what this page loaded, so it keeps exactly that for next time. */
@@ -112,7 +126,7 @@ export function Stage({ look = "a", version = "" }: { look?: Look; version?: str
     let stop: (() => void) | undefined, gone = false;
     import("@/lib/axis-cube/scene").then(({ mountAxisCube }) => {
       if (gone || !host.current) return;
-      stop = mountAxisCube(host.current, { look, version, changelog: `${SCOPE}/changelog?v=${version}`, loader: loader.current ?? undefined, onShown: keepForNextTime, sound: voice.current ?? undefined, hold: gateUp });
+      stop = mountAxisCube(host.current, { look, version, changelog: `${SCOPE}/changelog?v=${version}`, loader: loader.current ?? undefined, onShown: () => { keepForNextTime(); document.querySelector('meta[name="theme-color"]')?.setAttribute("content", BARS_ROOM); }, sound: voice.current ?? undefined, hold: gateUp });
     });
     return () => { gone = true; stop?.(); };
   }, [look, version]);
@@ -121,7 +135,7 @@ export function Stage({ look = "a", version = "" }: { look?: Look; version?: str
       <div className="axis-ground">
         <div ref={host} className="axis" style={{ top: inset.top, bottom: inset.bottom }} />
       </div>
-      <div ref={loader} className="axis-loader mac-loader" role="progressbar" aria-label="Cargando" dangerouslySetInnerHTML={{ __html: LOADER_HTML }} />
+      <div ref={loader} className="axis-loader" role="progressbar" aria-label="Cargando" dangerouslySetInnerHTML={{ __html: LOADER_HTML }} />
       <div className="axis-gate" role="dialog" aria-label="The Cubes">
         {/* eslint-disable-next-line @next/next/no-img-element -- the app's own icon, as it is on the home screen */}
         <img className="mark" src="/kit/axis-cube/icon-512.png" alt="" width={512} height={512} draggable={false} />
@@ -134,11 +148,11 @@ export function Stage({ look = "a", version = "" }: { look?: Look; version?: str
         <p className="how android">
           <span>⋮ → Agregar a pantalla principal</span>
         </p>
-        <p className="how hello">The Cubes</p>
+        <p className="how hello"><span><Pixels text="THE CUBES" scale={3} label="The Cubes" /></span></p>
         <button type="button" className="ok">
-          <span className="listo">Listo</span>
-          <span className="instalar">Instalar</span>
-          <span className="hola">Start</span>
+          <span className="listo"><Pixels text="LISTO" scale={2} label="Listo" /></span>
+          <span className="instalar"><Pixels text="INSTALAR" scale={2} label="Instalar" /></span>
+          <span className="hola"><Pixels text="START" scale={2} label="Start" /></span>
         </button>
       </div>
     </>
