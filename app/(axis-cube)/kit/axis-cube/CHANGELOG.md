@@ -53,6 +53,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.58** A close-up keeps the thing in its place: frame it in what holds it, never cut it out of the scene.
 - **0.6.62** A new tap answers in every state a touch can start in; check each mode, not only the one it was built in.
 - **0.6.66** Glare is light from something in the room, rendered on a surface shaped to catch it; never painted on.
+- **0.6.78** A long history is read in chunks, with its beginning a few taps away; never one undivided scroll.
 
 Open:
 
@@ -63,7 +64,37 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.79 · 2026-11-25 23:06
+
+**Claude:** The Sidebar lab now opens mid-victory: a 3×3 in hand, one turn from home and the clock past a minute. Then the last turn clicks in, the clock stops, and the camera heads for the high-score screen. It's just called Sidebar now.
+
+Asked by Marcos, 25 Nov 22:59, in the same message: "The sidebar artifact should start as if the user just finished the cube so we can see the transition from cube to screen. Call it just sidebar"
+
+Shipped in the same push as 0.6.78.
+
+- The Sidebar opens on the 3×3 already in hand, one turn of its top layer from solved, its clock running past a minute.
+- A moment after the room comes in, the last turn goes home and the clock stops on 01:06:84, a time for third place. A beat later the camera goes to the iMac's screen: CONGRATS!!, the Mac out of focus, the keyboard.
+- Put the puzzle down, or take another, and the opening stops there; the room is the hands' again.
+- The artifact is called just Sidebar. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
+## 0.6.78 · 2026-11-25 23:06
+
+**Claude:** The changelog now reads like proper release notes: what Marcos said, what Claude did, the nitty-gritty behind MORE, versions bundled by era. Every last version is in here, all the way back to the first floating cube.
+
+- **Bug fix.** Marcos, 25 Nov 22:59: "The changelog should have all the versions, user should be able scrolled to the beggining. And it should read like Marcos said or Claude. More like early gamedev release notes (sometimes they added funny tidbits). The changelog. Chunk it so it's more readable."
+  - Cause: the list was one long scroll of every version and every detail, hundreds of points, with the first version at the very bottom. And its scroll box never said it could shrink inside the sheet, which some browsers need before they will scroll it.
+  - Don't: put a long history in one undivided scroll. Chunk it, and keep its beginning a few taps away.
+
+- Every version is in the list, from 0.1.0 to now, 78 of them.
+- Each version shows what Marcos said (his ask, or his bug report, marked as one) and Claude's line. The details open with MORE: the points, and a bug's cause and don't.
+  - What Marcos said shows four lines and opens in full with MORE.
+- Versions are grouped by era (0.6, 0.5 … 0.1), newest first. The newest era is open and the others fold; a tap on an era opens it, so the very first version is two taps and a short scroll away.
+- Every entry in this file now opens with Claude's line, in the voice of early game-developer release notes, now and then with a joke. It is part of the entry format for every app (docs/changelog.md).
+- The scroll box can shrink inside the sheet and scrolls only up and down. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
 ## 0.6.76 · 2026-11-25 22:58
+
+**Claude:** Over in the Sidebar lab, a new high score now gets a CONGRATS!!, the Mac drifts out of focus, and END asks SAVE? before your initials go up in lights. A real keyboard can type them too.
 
 Asked by Marcos, 25 Nov 22:52, with a picture of an old game's YOU DIED / RESPAWN? card: "The status text (upper right) should say: back; when the camera goes to the screen. Except when the user has a highscore there it should say: congrats!! ; now in the type you initials after the highscore we should blur the Mac itself so the text should float beyond it but just the keyboard and the line, not placed yet of the users time and the ___ the end should be inverted filled and when the player press it it should pop up a confirmation card."
 
@@ -79,11 +110,15 @@ Shipped in the same push as 0.6.74. This is the Sidebar lab's part.
 
 ## 0.6.74 · 2026-11-25 22:58
 
+**Claude:** Close up on the iMac's screen, the corner now says BACK, and a tap on it takes you back to the room. The clock keeps running underneath.
+
 Asked by Marcos, 25 Nov 22:52, in the same message: "The status text (upper right) should say: back; when the camera goes to the screen."
 
 - With the iMac's screen close up, the line at the top right says BACK, and a tap on it is the way back to the room. The tap area reaches a little past the letters. The clock goes on underneath and shows again on the way back. ([#177](https://github.com/onexmac/ad/pull/177))
 
 ## 0.6.73 · 2026-11-25 22:37
+
+**Claude:** You can now see which version you're playing, bottom right on the puzzle picker, and tap it to read this very list. (Yes, you're using the feature right now.)
 
 Asked by Marcos, 25 Nov 22:33: "Guarda en Claude.md o donde veas conveniente el sistema de changelog. Quiero que todas las apps lo tengan de ahora en adelante. Que cuando la sesión de code empiece con Eva jale esté lógica también. En este caso agrega la versión en el home (cube picker en la parte de abajo a la derecha. Y si se selecciona que habrá una pantalla con la lista de todos los cambios. Ahora estos últimos cambios tienes que agregarlos cómo diferentes ya que hemos enviado muchos mensajes y no hemos hecho push"
 
@@ -95,6 +130,8 @@ Asked by Marcos, 25 Nov 22:33: "Guarda en Claude.md o donde veas conveniente el 
 - 0.6.70 shipped three asks of one message in one push; they are now logged apart, as 0.6.66, 0.6.68 and 0.6.70. ([#176](https://github.com/onexmac/ad/pull/176))
 
 ## 0.6.70 · 2026-11-25 22:32
+
+**Claude:** The Sidebar becomes a test bench for the iMac's screen: an old-school keyboard under it, three blinking blanks for your initials, and a sample time to practise with if you haven't earned a real one.
 
 Asked by Marcos, 25 Nov 22:18: "The other artifact that we had duped. Can we change the name so it says sidebar. On it let's have the screen mode. Once we nail this we move it to the main app. So I want the camera to focus the screen a bit higher I want outside the screen a pixel keyboard for the user to tap his initials if he reaches the top 5. Very old school, with the _ blinking on the active one. Just three letters available ___"
 
@@ -109,6 +146,8 @@ Shipped in the same push as 0.6.66 and 0.6.68, one message with three asks; they
   - The build takes a third argument for it: `node scripts/axis-cube/artifact/build.mjs <outDir> a sidebar`. ([#175](https://github.com/onexmac/ad/pull/175))
 
 ## 0.6.68 · 2026-11-25 22:32
+
+**Claude:** The machine talks now: INSERT CUBE, MIXING..., READY, then a clock from your first layer turn that pauses when you put the puzzle down. Let a hold solve it for you and it says GAME OVER. (It's not wrong.)
 
 Asked by Marcos, 25 Nov 22:18: "Also on the upper right it should say insert cube. Once a cube is selected, it says: mixing. Then: ready ; and when the player does the first flip (not camera but cube squares) in the upper right same pixel text as the screen. The timer starts 00:00:00. If the user leaves the cube or the app the timer stops until he flips the cube again. If the user press and holds the cube to solve it it says: game over ; while it does it. Once it finishes it says: Mix it ; once it starts mixing it says again: mixing..."
 
@@ -126,6 +165,8 @@ Shipped in the same push as 0.6.66 and 0.6.70.
 
 ## 0.6.66 · 2026-11-25 22:32
 
+**Claude:** Fixed the glare on the iMac's screen, which looked painted on. The glass now curves like a real tube and catches the arc lamp's orange globe as a soft, bright blob.
+
 - **Bug fix.** Marcos, 25 Nov 22:18, of 0.6.65's glare: "The curved flared looks forced it shouldn't be a line I think more like a blob, try to render it not 2d paint it"
   - Cause: the glare was a streak painted on a picture and laid over the glass, the same in every light. Nothing in the room made it, so it read as drawn on.
   - Don't: paint a light effect. Find the light in the room that would make it, and give the surface the shape that catches it.
@@ -141,6 +182,8 @@ Shipped in the same push as 0.6.68 and 0.6.70.
 
 ## 0.6.65 · 2026-11-25 22:17
 
+**Claude:** The iMac's screen now glows like a real one, so the room around it falls darker, and its glass bulges a little like an old tube. The reflection is sharper, and the lettering under the screen is gone.
+
 Asked by Marcos, 25 Nov 22:06: "Is the screen room reflection right? Also the screen should have some light (which by contrast would make its sorroindings darker just like when a camera focuses on a screen). May be some glare as well to make it feel real see the rim light that you have on the cubes sometime. That'll do. Have it more crtv like not flat the 3d model and remove where it says iMac"
 
 - The reflection: it was right in what it showed, the room as seen from the screen, caught from just in front of the glass. It had two faults. It was blurred by a rough glass. And the lamps made pin-pricks of light on it, which on so curved a glass looked like specks of dust. The glass now reflects the room only, sharp: the leather of the ottoman and the chair low down, the shelves to the right. It no longer reflects the lamps one by one. Until the screen is first opened it shows the room as the puzzle sees it.
@@ -152,6 +195,8 @@ Asked by Marcos, 25 Nov 22:06: "Is the screen room reflection right? Also the sc
 
 ## 0.6.62 · 2026-11-25 21:51
 
+**Claude:** The iMac was ignoring taps while a puzzle mixed itself up; fixed. The little cube on its screen also solves itself more slowly now, a square at a time, so you can watch it happen.
+
 - **Bug fix.** Marcos, 25 Nov 21:50: "Ok a couple of things I should be able to press it while the cube is mixing up ok start. Also on the pixel cube, the two moves happen two fast and hollow then one by one so it feels like they are moving"
   - Cause: a tap on the iMac was only checked for a touch that started beside the rings. While a puzzle is mixing itself up, the rings are off, so a touch beside the puzzle counts as looking round the room. That kind of touch never asked whether it had landed on the iMac. The puzzle mixes itself every time it is picked up (0.6.50), so for the first seconds the iMac did nothing.
   - Don't: build a new tap in one state of the controls and stop there. Check every mode a touch can start in, above all the ones a sequence puts the controls in.
@@ -161,6 +206,8 @@ Asked by Marcos, 25 Nov 22:06: "Is the screen room reflection right? Also the sc
   - The middle row empties at 0.7 s and fills again from the left by 1.3 s. After a pause, the middle column empties at 2.0 s and fills from the top. At 2.6 s every square is filled. It used to be two turns at once, at 0.45 s and 1.0 s. ([#173](https://github.com/onexmac/ad/pull/173))
 
 ## 0.6.60 · 2026-11-25 21:46
+
+**Claude:** Close up, the room now melts into a soft blur round the Mac instead of going black, and the cube on its screen solves itself as you arrive. The iMac also scooted out of the turntable's lid.
 
 Asked by Marcos, 25 Nov 21:40: "Lower the black of the vignette so we still see some of the room, use the blur bokeh. And for the pixel cube have it with the squares be 2 moves from getting solved so when the screen zooms in they flipped into a full square, you don't 3d move the squares just turn them filled or hollow"
 
@@ -173,6 +220,8 @@ Asked by Marcos, 25 Nov 21:40: "Lower the black of the vignette so we still see 
 - The iMac stands 6 cm further left. Turned to the room in 0.6.55, its right front corner had gone a centimetre and a half into the turntable's lid, which showed close up as a white slab beside the speaker. It now keeps about 4 cm from the lid. ([#172](https://github.com/onexmac/ad/pull/172))
 
 ## 0.6.58 · 2026-11-25 21:39
+
+**Claude:** Cleaned the stray dots out of the screen's cube and fixed the close-up that cut the screen out of its Mac. It now sits inside the Mac, reflects the room, and reads yellow on black with room to breathe.
 
 - **Bug fix.** Marcos, 25 Nov 21:22, of 0.6.55's screen: "The squares of the pixel cube have like dots inside. Remove those. Now the screen should have a reflection of the room and it actually has to be inside the Mac, I see what you are trying to do with the separate faded in flat screen but it doesn't look right. Put it inside, also add more breathing room for the elements of the screen, it looks to crowded. Have the first player highlighted. And for the pixel cube some cubes are filled the others are stokes. Make the screen monochromed with yellow text"
   - Cause, the dots: each block of the mark had a rivet hole in every corner, a detail carried over from the first version that nobody asked for. Where four blocks met, the holes read as dots inside the cube.
@@ -193,6 +242,8 @@ Asked by Marcos, 25 Nov 21:40: "Lower the black of the vignette so we still see 
 
 ## 0.6.55 · 2026-11-25 20:32
 
+**Claude:** Our mistake on the screen's logo: it was one block where there should have been nine. It's now a three-by-three in one colour, and the iMac turns toward the room for a shorter trip in.
+
 - **Bug fix.** Marcos, 25 Nov 20:26, of 0.6.53's screen: "La iMac para el zoom sea más sencillo gurala un poco que más bien este 33 grados para el otro lado cómo más viendo hacia el viewer, más bien desviado al otro lado. The cubes / Top 5 / Players. And for the icon is single color and 3x3 (9 blocks) not one."
   - Cause: his first ask, "un icono pixel art tipo los blocks de Mario pero solo 9x9", was read as one block nine pixels across. He meant nine blocks, 3 × 3, a cube's face made of them. The mark also got a cube's face in six colours in its middle, which he never asked for.
   - Don't: take a number in an ask as pixels when it can count the pieces; when it reads both ways, show both. Add no colour or detail that wasn't asked for.
@@ -202,6 +253,8 @@ Asked by Marcos, 25 Nov 21:40: "Lower the black of the vignette so we still see 
   - Turned so, it is a hair deeper than the sideboard: it stands 2 cm further back, just clear of the wall, and one front corner is over the edge by about a centimetre. ([#170](https://github.com/onexmac/ad/pull/170))
 
 ## 0.6.53 · 2026-11-25 20:25
+
+**Claude:** Tap the iMac and the camera flies right into its screen, now an arcade high-score table. Until there's a stopwatch, the top five are the machine's own. (We're coming for you, AXS.)
 
 Asked by Marcos, 25 Nov 20:00, with two photographs of an arcade machine's high-score screen: "Cuando uno haga tap en la Mac debe hacerse zoom a la pantalla dark alrededor y mostrar solo la pantalla, la pantalla tiene que tener un icono pixel art tipo los blocks de Mario pero solo 9x9 y con top 5 players. Algo así."
 
@@ -221,6 +274,8 @@ Asked by Marcos, 25 Nov 20:00, with two photographs of an arcade machine's high-
 
 ## 0.6.50 · 2026-11-25 19:59
 
+**Claude:** Pick up a solved puzzle and it now mixes itself before you start, the same shuffle a press and hold does. Put one down half done and it waits for you exactly as you left it.
+
 Asked by Marcos, 25 Nov 19:57: "Cuando uno escoge el cube debería comenzar la animación de mixed up igual al de press n hold para que empiece mezclado siempre."
 
 - A puzzle picked up solved now mixes itself up as soon as it is in front of you, about 0.8 s after the tap. It is the same sequence a press and hold plays: it opens, scrambles quickly (20 to 24 turns on a 3×3, 12 to 16 on the 2×2) and closes.
@@ -229,6 +284,8 @@ Asked by Marcos, 25 Nov 19:57: "Cuando uno escoge el cube debería comenzar la a
 - Put down before it is in front, it doesn't mix. ([#168](https://github.com/onexmac/ad/pull/168))
 
 ## 0.6.49 · 2026-11-25 19:58
+
+**Claude:** Sideways slides kept coming out as up or down when a thumb drifted diagonal; that's fixed. The puzzle now gives sideways the benefit of the doubt, on the puzzle, beside it and on the rings.
 
 - **Bug fix.** Marcos, 25 Nov 19:52: "Ok el slide tiene que considerar un poco las diagonales, a veces cuesta un poco hacer para los lados, el dedo sin querer hace algo de diagonal."
   - Cause: which way a slide went was read at exactly 45°, from its first 8 or 9 pixels. A thumb drawn sideways pivots from the wrist and bends into a diagonal, so a slide meant sideways often came out a little more up than across, and turned the puzzle or a column up or down.
@@ -239,6 +296,8 @@ Asked by Marcos, 25 Nov 19:57: "Cuando uno escoge el cube debería comenzar la a
 - Checked with slides at 20°, 40°, 50°, 60° and 75° from level in each of the three places: up to 50° they go sideways, from 60° up or down. ([#167](https://github.com/onexmac/ad/pull/167))
 
 ## 0.6.48 · 2026-11-25 19:47
+
+**Claude:** The rings huddle a little closer, leaving more room at the sides, where a slide now turns the whole puzzle. Double-tap the puzzle to flip it and bring the back face round to the front.
 
 Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the controls a little bit tighter. Same dot size but closer c just a bit, so we can have more room on the sides. Sliding outside the controls moves the cube faces, double tapping the cube flips it so the opposite face from the current one goes front."
 
@@ -254,6 +313,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
   - A single tap still brings the tapped face to the front, now after a quarter of a second, in case a second tap follows. ([#166](https://github.com/onexmac/ad/pull/166))
 
 ## 0.6.45 · 2026-11-24 22:47
+
+**Claude:** Fixed the Ghost Cube's seams, which ran in straight lines the real one doesn't have. It's rebuilt from the photograph, broken seams and all, and springs back into a cube when you solve it.
 
 - **Bug fix.** Marcos, 24 Nov 22:24, with the photograph again: "That photo is clear, follow the lines it isn't straight diagonal lines."
   - Cause: the Ghost Cube was still a cube cut by flat planes right through, so every seam ran straight across its face. On the real one the seams break. Its three layers along one axis are each turned by its own angle about that axis, so the cuts across the layers do not run on from one layer to the next. The two versions before this one were tuned to look like the photograph instead of being measured from it.
@@ -271,6 +332,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.40 · 2026-11-24 16:28
 
+**Claude:** The Ghost Cube was too even, and that's fixed: its insides now sit much further off centre, so its pieces vary far more in size, closer to the lopsided real thing.
+
 - **Bug fix.** Marcos, 24 Nov 16:16, of 0.6.38's Ghost Cube: "It's more asymmetric than you thought."
   - Cause: its cuts sat only about a sixth of a layer off the cube's centre, too near symmetric. Its layers came out of nearly even thickness, so the pieces were of nearly even size. On the real one the layers are of very different thicknesses: a huge piece beside long thin bars and small triangles.
   - Don't: stop at the first version that has a thing's defining trait. Match the trait in degree, until it reads at a glance as it does on the real one.
@@ -279,6 +342,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
   - The spread of piece sizes grew by a fifth: the largest face of a piece is now a third of a face of the cube, up from a quarter. ([#162](https://github.com/onexmac/ad/pull/162))
 
 ## 0.6.38 · 2026-11-24 16:10
+
+**Claude:** Fixed the Ghost Cube, which had been built from a guess. Its cuts now tilt every which way, so diagonal seams cross every face, and each sticker is a white outline on black, as on the real one.
 
 - **Bug fix.** Marcos, 24 Nov 15:28, with a photograph of the real one: "The black and white cube isn't right, look carefully at the image."
   - Cause: the Ghost Cube was built from a guess. Its cuts were turned about the upright axis only, so its sides showed a straight grid of rectangles and only its top a cross. On the real one the turning axes are tilted every way inside the cube and the cuts sit off its centre, so every face is crossed by diagonal cuts. Its pieces come in every shape: long six-sided "coffins", triangles, slanted bars.
@@ -291,6 +356,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - Like the Axis Cube, it floats with its mechanism square to the screen, so the rings turn the layers you see. At rest on the ottoman it sits square to its cube, which shows the diagonal cuts. ([#161](https://github.com/onexmac/ad/pull/161))
 
 ## 0.6.35 · 2026-11-24 09:25
+
+**Claude:** Start wasn't answering while the room loaded, and that's fixed. It springs under your finger from the first moment now, and the room builds in small bites so your tap is answered at once.
 
 - **Bug fix.** Marcos, 24 Nov 08:37: "For some reason the start button is not responding on press."
   - Causes:
@@ -312,6 +379,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - Measured here on a CPU slowed fourfold, a tap during loading now waits 0.13 s at the median and 0.6 s at most. The first frame's drawing isn't in that figure: it is slow here, where the GPU is software, and it takes milliseconds on a phone. ([#157](https://github.com/onexmac/ad/pull/157))
 
 ## 0.6.30 · 2026-11-24 08:03
+
+**Claude:** Our iMac didn't look like an iMac, and that's fixed. Rebuilt from photographs: frosted ice above and below, Bondi blue in between, the handle, the vents, the CD tray and the teal speakers.
 
 - **Bug fix.** Marcos, 24 Nov 07:18: "Something is off it doesn't look like an iMac."
   - Cause: it was modelled from memory: all blue, with a white frame on the front. On the real one the white is a hood and a skirt, and the blue is only between them.
@@ -339,6 +408,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.27 · 2026-11-24 07:02
 
+**Claude:** Fixed the iMac's boxy shell: it now has the original's egg curves, rounding in to a narrow back, with a lip that rolls over its face.
+
 - **Bug fix.** Marcos, 24 Nov 06:57: "The model have to match the iMac egg curves."
   - Cause: the shell was a box tapering back.
   - Don't: build a known object's form out of boxes.
@@ -351,6 +422,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.25 · 2026-11-24 06:54
 
+**Claude:** A Bondi-blue iMac takes the mushroom lamp's spot on the sideboard, its screen showing an empty TOP SCORES table. The turntable scoots over, and the ashtray has left the building.
+
 - The first iMac (1998), in Bondi blue, takes the glass mushroom lamp's place on the sideboard under the window.
   - A frosted ice-white face holds the screen, with a blue band and the speakers at its foot.
   - Behind it, the translucent blue shell tapers back, with the tube and the chassis showing through and a handle at the top.
@@ -362,9 +435,13 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.20 · 2026-11-24 00:31
 
+**Claude:** One word changed, and it's the important one: the welcome's button now says Start.
+
 - The welcome's button says Start. ([66f3ed7](https://github.com/onexmac/ad/commit/66f3ed7) · [#145](https://github.com/onexmac/ad/pull/145))
 
 ## 0.6.19 · 2026-11-23 23:48
+
+**Claude:** The welcome and the loading screen are now one: the little cube is already turning when you arrive, and Start makes way for the loading bar. It keeps turning while the room builds behind it.
 
 - The welcome is the loading screen itself.
   - The loading cube is already turning in the middle from the first paint.
@@ -373,6 +450,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - The cube keeps turning while the room is built behind it. ([8e6fd47](https://github.com/onexmac/ad/commit/8e6fd47) · [#139](https://github.com/onexmac/ad/pull/139))
 
 ## 0.6.18 · 2026-11-23 23:36
+
+**Claude:** Fixed the end-of-loading jingle going silent on iPhone, which allows no sound before a touch. A welcome with an OK button now gives it that touch, and the room builds while you read it.
 
 - **Bug fix.** Marcos, 23 Nov 21:33: "You didn't add a bolololipipob when the startup loading bar finishes."
   - Cause: it was there, but an iPhone lets a page make sound only after a touch. Opening from the home screen has none, so it played in silence.
@@ -389,6 +468,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.15 · 2026-11-23 21:31
 
+**Claude:** Every finished turn now tells you how you're doing: a bright lolip if it brought you closer to solved, a softer lolop if it didn't. (The 2×2 knows all 3,674,160 of its states. No pressure.)
+
 - After the clack of a finished turn comes the lolip if the turn brought the puzzle closer to solved, or a lower, softer lolop if it didn't.
 - The 2×2 is judged exactly.
   - All its 3,674,160 states are known, none more than 11 turns from solved.
@@ -401,6 +482,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.10 · 2026-11-23 21:09
 
+**Claude:** Sorted out the notes that sounded like water drops and kept repeating. Each puzzle now plays its own instrument, piano, marimba, kalimba or glass, and never the same phrase twice in a row.
+
 - **Bug fix.** Marcos, 23 Nov 21:04: "It sounds like a water drop", and it was repetitive.
   - Cause: each note slid up into its pitch, which is the sound of a drop, and the same phrase played every time.
   - Don't: slide a note into its pitch. Vary any sound that repeats.
@@ -410,6 +493,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.7 · 2026-11-23 20:51
 
+**Claude:** Fixed the heavy synth bass that thumped under every finished turn. Now it's a clack and a two-note lolip, and loading ends with a cheerful bolololipipob.
+
 - **Bug fix.** Marcos, 23 Nov 20:45: "There's like synth bass sound when we finish flipping an axis."
   - Cause: every landed turn played a wobbling bass note under its clack.
   - Don't: put a heavy sound on an event that happens dozens of times a minute.
@@ -417,6 +502,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - A bolololipipob when the loading ends: the four notes, a brighter one above them, and a round one that comes back down. ([92ea820](https://github.com/onexmac/ad/commit/92ea820) · [#115](https://github.com/onexmac/ad/pull/115))
 
 ## 0.6.5 · 2026-11-23 20:44
+
+**Claude:** Axis Cube is now The Cubes, a name with room to grow, and your saved links still work. The ottoman also gets roomier around the puzzles, with space for more of them.
 
 - Renamed The Cubes: page title, home-screen name, manifest, portal entry and install screen. The address stays /kit/axis-cube, so installed copies and shared links keep working. "Axis Cube" remains the name of one of the four puzzles.
 - The puzzles at rest are 15% smaller and closer together, and the camera over the ottoman comes in by the same amount.
@@ -426,11 +513,15 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.2 · 2026-11-23 20:31
 
+**Claude:** Choosing something now earns a bolololip, four soft notes running up, and the camera's trip to a puzzle gets a low, muffled swoosh. The install screen's tap wakes the sound right away.
+
 - A bolololip when something is chosen: a puzzle picked up, or the install screen's button. It is four soft notes running up, the last one short and bright, with a little echo.
 - The camera's move to a puzzle is a low, muffled swoosh, like a whoosh slowed down. The way back, when the puzzle is put down, falls the same way before the thump.
 - The install screen's tap now wakes the sound, so the room isn't silent until a second touch. ([7597b5d](https://github.com/onexmac/ad/commit/7597b5d) · [#107](https://github.com/onexmac/ad/pull/107))
 
 ## 0.6.0 · 2026-11-23 20:27
+
+**Claude:** The room learns to make noise: whooshes, clacks, ticks, wind and a growl while you hold a puzzle, all made on the spot without a single audio file. It naps after twenty quiet seconds.
 
 - Sound, all synthesised on the spot, with no audio files:
   - a rising whoosh when a puzzle is picked up, and a falling one when it is put down, then a thump as it lands;
@@ -443,6 +534,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.5.30 · 2026-11-23 20:09
 
+**Claude:** The first time you open the app in a phone's browser, a friendly screen shows how to put it on your home screen. On Android it can install it for you.
+
 - An install screen the first time the app opens in a phone's browser.
   - It has the cube of the icon, how to put the app on the home screen, and a button.
   - On iPhone, the steps are Share, then Add to Home Screen, and the button says Listo.
@@ -452,12 +545,16 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.5.25 · 2026-11-23 19:47
 
+**Claude:** The room now sits in a rounded frame on a black screen, tucked between the phone's status bar and Safari's, with black all around.
+
 - The room is a rounded frame on a black screen (the short vvv fit).
   - The frame sits below the status bar and above Safari's bar, with black beyond.
   - On a wider screen it keeps a gutter at the sides too.
 - The scene measures itself and every touch against the frame rather than the window, and follows the frame as the browser's bars move. ([75a47dd](https://github.com/onexmac/ad/commit/75a47dd) · [#98](https://github.com/onexmac/ad/pull/98))
 
 ## 0.5.20 · 2026-11-23 19:04
+
+**Claude:** The loading cube froze while the room was being built; fixed. It now keeps turning the whole time, even with Reduce Motion on, since a still cube just looks stuck.
 
 - **Bug fix.** Marcos, 23 Nov 18:53: "The loading cube doesn't roll."
   - Cause: each piece ran two animations on the same property, the opening and then the loop. The browser runs that on the main thread, which was busy building the scene, so the cube showed about one picture a second. Reduce Motion also stopped it.
@@ -468,6 +565,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.5.19 · 2026-11-23 18:04
 
+**Claude:** Fixed new versions showing up one opening late on phones, which is why the loading cube seemed to be missing. The app now picks up the newer copy on its first opening, even on a slow network.
+
 - **Bug fix.** Marcos, 23 Nov 17:59: "Vercel doesn't have the loading cube."
   - Cause: Vercel had it. The app waited half a second for the network and otherwise opened the copy kept on the phone, so a phone opening cold always saw each version one opening late.
   - Don't: let a kept copy hide a new version. Test the first opening after a deploy, cold, on a slow network.
@@ -477,9 +576,13 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.5.17 · 2026-11-23 15:10
 
+**Claude:** The icon's turning corner is now rounded instead of cut, to match the tiles. (At icon size, every corner is a headline.)
+
 - Icon: the turning side's corner is rounded instead of cut, in keeping with the rounded tiles. ([6a6154f](https://github.com/onexmac/ad/commit/6a6154f) · [#82](https://github.com/onexmac/ad/pull/82))
 
 ## 0.5.16 · 2026-11-23 15:07
+
+**Claude:** Fixed the black spike poking out at the icon's corner, and swept away the faint grey hairlines along its seams. The cube in the icon is now mixed and caught mid-turn.
 
 - **Bug fix.** Marcos, 23 Nov 15:03: "hay un pico negro en el vértice."
   - Cause: the turning layer's corner poked out over the white tile beside it.
@@ -490,6 +593,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.5.15 · 2026-11-23 15:02
 
+**Claude:** Fixed the icon's turn, which an earlier version had read backwards, turning it less instead of more. The side now swings well up, so the face underneath opens into whole tiles.
+
 - **Bug fix.** Marcos, 23 Nov 15:01: "Flip it more."
   - Cause: in 0.5.13 his "a little bit more up" was read backwards, and the side was turned less (36°) instead of more.
   - Don't: guess a direction. When an ask can be read two ways, show both before shipping.
@@ -497,35 +602,51 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.5.14 · 2026-11-23 14:58
 
+**Claude:** Behind the scenes: the app's fonts now come with it instead of being fetched on every build, which had been making updates fail at random.
+
 - Fonts now come from the repository's own dependencies instead of being fetched from Google during each build. That fetch had been failing deployments at random. ([f5f6634](https://github.com/onexmac/ad/commit/f5f6634) · [#79](https://github.com/onexmac/ad/pull/79))
 
 ## 0.5.13 · 2026-11-23 14:50
+
+**Claude:** Icon tweak: the turning layer is caught a little earlier in its turn, so its underside reads as tiles instead of a flat sliver.
 
 - Icon: the turning layer is caught at 36° instead of 45°, so its lower face opens into tiles instead of reading as a flat sliver. ([5bb11b7](https://github.com/onexmac/ad/commit/5bb11b7) · [#79](https://github.com/onexmac/ad/pull/79))
 
 ## 0.5.12 · 2026-11-23 14:47
 
+**Claude:** A new icon moment, picked from the loading loop: every face in view is a mix of white and black tiles.
+
 - Icon: a moment from the loop, where every face in view mixes white and black tiles. ([b3207aa](https://github.com/onexmac/ad/commit/b3207aa) · [#78](https://github.com/onexmac/ad/pull/78))
 
 ## 0.5.11 · 2026-11-23 14:44
+
+**Claude:** The home-screen icon is now the loading screen's little 2×2, mid-turn on black, instead of a crop of the room. Its tile edges are bolder so they hold up at icon size.
 
 - The home-screen icon is the loading screen's flat 2×2 on black, halfway through a turn, instead of a crop of the room.
 - It is rendered from the loader's own markup, with bolder tile edges so they hold at icon size. ([e003768](https://github.com/onexmac/ad/commit/e003768) · [#77](https://github.com/onexmac/ad/pull/77))
 
 ## 0.5.9 · 2026-11-23 14:39
 
+**Claude:** The loading cube never lands solved anymore: it mixes itself in four turns, then loops with every face scrambled and no visible seam. (It has no plans to solve itself for you.)
+
 - The loading cube is never solved again once it starts. An opening of four turns mixes it, then a loop of ten turns keeps every face in view mixed at every rest, with no pause or jump at the join. ([70f02a0](https://github.com/onexmac/ad/commit/70f02a0) · [#76](https://github.com/onexmac/ad/pull/76))
 
 ## 0.5.8 · 2026-11-23 14:32
+
+**Claude:** Now the loading cube's turns follow the rhythm of a real solve: the right side up or down, then the top row across, taking turns.
 
 - The loading cube's turns follow the shape of a solving algorithm: the right side up or down, then the top row across, strictly in turn. ([873b647](https://github.com/onexmac/ad/commit/873b647) · [#76](https://github.com/onexmac/ad/pull/76))
 
 ## 0.5.7 · 2026-11-23 14:30
 
+**Claude:** No more tumbling as one lump: the loading cube turns a layer at a time, like a puzzle being worked, and it's quicker on its feet, too.
+
 - The loading cube no longer tumbles whole. It is eight corner pieces, turned a layer at a time as when solving.
 - It is faster: 0.4 s from one turn to the next, down from 0.75 s. ([7071f7a](https://github.com/onexmac/ad/commit/7071f7a) · [#76](https://github.com/onexmac/ad/pull/76))
 
 ## 0.5.5 · 2026-11-23 14:22
+
+**Claude:** Reworked the dust: more layers float at different distances, and the blurry specks nearest the lens are half the size, so they stop looking like a smudge on the glass.
 
 - **Bug fix.** Marcos, 23 Nov 14:18: more sheets of dust, further away; the blur up close was too big.
   - Cause: there were three sheets, and the wide out-of-focus discs near the lens read as a smudge on the glass.
@@ -535,14 +656,20 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.5.4 · 2026-11-23 14:18
 
+**Claude:** The loading screen gets a mascot: a flat 2×2 cube in the middle, flipping a quarter turn at a time. The bar steps down to make room.
+
 - A flat 2×2 cube at the centre of the loading screen: white or black tiles with white edges, flipping a quarter turn at a time in a seamless loop.
 - The bar moves to three quarters of the way down. ([78c5a31](https://github.com/onexmac/ad/commit/78c5a31) · [#76](https://github.com/onexmac/ad/pull/76))
 
 ## 0.5.1 · 2026-11-23 14:11
 
+**Claude:** A newer version now only moves in once all of it is safely stored, so the app always opens, network or no network.
+
 - A newer page only replaces the one kept on the device once its scripts are kept too, so the app always opens with no network. ([8ca7af5](https://github.com/onexmac/ad/commit/8ca7af5) · [#74](https://github.com/onexmac/ad/pull/74))
 
 ## 0.5.0 · 2026-11-23 14:05
+
+**Claude:** Fixed the stutter in Safari, the occasional flicker and the dust that had stopped floating. The app also lives on your phone now, opening from the home screen without waiting for the network.
 
 - **Bug fix.** Marcos, 23 Nov 13:49: Safari was "not as smooth as before", there was "a flicker sometimes", and "the dust stopped floating".
   - Causes:
@@ -563,6 +690,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.4.25 · 2026-11-23 13:47
 
+**Claude:** A loading screen arrives: black, with one rounded bar filling in white until the room is ready. The look picker bows out, and the film look is the one that stays.
+
 - A loading screen: black, with one bar with rounded ends filling in white.
   - It is in the page before any script arrives and keeps filling while the scene is built.
   - It lifts when the room has been drawn and every photograph is in.
@@ -570,12 +699,16 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.4.20 · 2026-11-23 11:29
 
+**Claude:** A Ghost Cube joins the lineup: no two pieces alike and every sticker the same white outline, so you solve it by shape alone. (Good luck. We mean it.)
+
 - A Ghost Cube rests behind the V, in its own hollow.
   - It is a 3×3 whose cuts are turned and set off centre, so no two pieces are alike.
   - Every sticker is the same white outline on black, so it is solved by shape alone.
   - It is picked up, turned, scrambled and put down like the others. ([73624e0](https://github.com/onexmac/ad/commit/73624e0) · [#72](https://github.com/onexmac/ad/pull/72))
 
 ## 0.4.15 · 2026-11-23 11:16
+
+**Claude:** Fixed the painted looks that came off cheap and the fussy lines on faraway things. They're now true flat-colour cels, distant shelves read as simple shapes, and a picker switches looks.
 
 - **Bug fix.** Marcos, 23 Nov 10:48: far away the lines were drawn "between the dent on far objects", and the anime look "looks like a cheap render".
   - Cause: lines were drawn at one threshold at every distance, and B and C were the photographic render under a filter.
@@ -588,12 +721,16 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.4.12 · 2026-11-23 10:42
 
+**Claude:** The focus had wandered off to the lounge chair's arm; fixed. The lens now stays on your puzzle and softens toward the sides, the way an old lens does.
+
 - **Bug fix.** Marcos, 23 Nov 10:31, on the artifact: "This arm rest looks too sharp. Focus should be on the cube."
   - Cause: the lens blurred by depth alone, and the armrest was as far from the camera as the puzzle.
   - Don't: aim focus by depth alone. It goes where the eye should go.
 - The lens stays on the puzzle. The focus also softens to its sides, as an old lens does away from its centre, so the lounge chair's arm at the edge no longer competes. ([e260d95](https://github.com/onexmac/ad/commit/e260d95) · [#70](https://github.com/onexmac/ad/pull/70))
 
 ## 0.4.10 · 2026-11-23 08:43
+
+**Claude:** Fixed the made-up posters and covers that made the room feel cheap. The walls and shelves now carry real public-domain paintings, photographs and old magazine covers, all credited.
 
 - **Bug fix.** Marcos, 23 Nov 07:20: the covers and posters drawn in code made the room "feel cheap".
   - Cause: generated art reads as fake, most of all on what faces the camera.
@@ -607,6 +744,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.4.7 · 2026-11-23 08:21
 
+**Claude:** Three looks for the same room, each at its own address: a film photograph, an inked-and-painted one, and a cool night with an old print's specks.
+
 - Three looks of the same room, each at its own address:
   - **A, analogue:** a film photograph, with depth of field on the puzzle in hand, halation, a trace of colour fringing, split toning and grain.
   - **B, brush:** inked and painted.
@@ -614,13 +753,19 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.4.2 · 2026-11-22 22:52
 
+**Claude:** The app's description catches up with the move: it now talks about the library and the ottoman, not the bed. (The bed had moved out; the paperwork hadn't heard.)
+
 - The description, the screen-reader label and the portal entry speak of the library and the ottoman instead of the bed. ([7c569d7](https://github.com/onexmac/ad/commit/7c569d7) · [#68](https://github.com/onexmac/ad/pull/68))
 
 ## 0.4.1 · 2026-11-22 22:33
 
+**Claude:** A little tidying: the plant steps out in front of the CD tower, and the Discman and its discs now sit where you can see them.
+
 - The plant stands forward of the CD tower, and the Discman and discs sit inside the view from above. ([d5b0de3](https://github.com/onexmac/ad/commit/d5b0de3) · [#68](https://github.com/onexmac/ad/pull/68))
 
 ## 0.4.0 · 2026-11-22 22:13
+
+**Claude:** Moving day: the bedroom becomes a mid-century home library in the nineties, with walnut shelves, a cognac lounge chair and an arc lamp. The puzzles now rest on the ottoman, denting its leather.
 
 - The room becomes a mid-century home library in the nineties:
   - walnut shelving with books, records and compact discs;
@@ -630,6 +775,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - The puzzles rest on the ottoman's leather cushion, which dents under each one and rises again when a puzzle is picked up. ([3b7e30b](https://github.com/onexmac/ad/commit/3b7e30b) · [#68](https://github.com/onexmac/ad/pull/68))
 
 ## 0.3.14 · 2026-11-22 21:35
+
+**Claude:** Fixed the dust that sparkled like fairy dust. It now hides until the sun catches it, then shows as tiny specks drifting on slow air, the way real dust does.
 
 - **Bug fix.** Marcos, 22 Nov 21:22: the "dust cannot feel like fairy dust".
   - Cause: the specks were big, showed everywhere and glittered.
@@ -641,6 +788,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.3.12 · 2026-11-22 21:16
 
+**Claude:** Flips felt random, and that's fixed: the puzzle now turns about its own axes, picked by the way you swipe, and lands on the next quarter turn with a little tick.
+
 - **Bug fix.** Marcos, 22 Nov 20:52: "Flipping the cube should behave a little bit into its axis. Right now it feels too random."
   - Cause: it spun about whatever axis the finger drew, then snapped to the nearest square pose, so a slanted swipe landed on a face no one could predict.
   - Don't: spin a puzzle about a free axis. It turns about its own axes, picked by the swipe's first pixels.
@@ -650,14 +799,20 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.3.10 · 2026-11-22 20:25
 
+**Claude:** The TV is switched off, its blue flicker gone, leaving a dead grey-green tube under the glass. The VCR still blinks 12:00, because of course it does.
+
 - The TV is off: a dead grey-green tube under reflective glass. The flickering blue light of the static is gone, and the VCR clock still blinks 12:00. ([08847ac](https://github.com/onexmac/ad/commit/08847ac) · [#66](https://github.com/onexmac/ad/pull/66))
 
 ## 0.3.9 · 2026-11-22 19:44
+
+**Claude:** Tap a face of the puzzle in your hand and it turns to face you. Tap the one already in front and it just gives a little nudge.
 
 - A tap on a face of the puzzle in hand turns that face to the front: of the 24 square poses, the one that turns it most toward you.
 - Tapping the face already in front only nudges the puzzle. ([42f5ba0](https://github.com/onexmac/ad/commit/42f5ba0) · [#65](https://github.com/onexmac/ad/pull/65))
 
 ## 0.3.7 · 2026-11-22 19:31
+
+**Claude:** Fixed the link that led nowhere: the app simply wasn't out yet. This is the version where it first went live, everything so far arriving at once.
 
 - **Bug fix.** Marcos, 21 Nov 09:38: the magi0s link gave "404".
   - Cause: the app was still only on its branch (sim), and the portal serves `main`.
@@ -666,6 +821,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - No web font. The app shows no text that needs one, and fetching it at build time had failed several builds. ([6802c7e](https://github.com/onexmac/ad/commit/6802c7e) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.3.6 · 2026-11-21 19:53
+
+**Claude:** Fixed putting the puzzle down by accident: it now takes a deliberate pull straight down. The washed-out blacks are fixed too, so the room is darker and its shadows truly dark.
 
 - **Bug fix.** Marcos, 21 Nov 19:11: "Sliding down has to be more intentional", and the room needed "better blacks".
   - Cause: a fifth of the screen, even at a slant, put the puzzle down, so an ordinary spin could do it. And a faded-film veil lifted every black.
@@ -681,6 +838,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.3.3 · 2026-11-21 16:22
 
+**Claude:** Fixed the controls to match the puzzle in hand: nine rings in a grid for the bigger puzzles, four for the 2×2. The ring you touch lights up, then its whole row or column.
+
 - **Bug fix.** Marcos, 21 Nov 16:09: "Two by two should have four dots. The others should have a 3x3 grid."
   - Cause: every puzzle got the same cross of rings, and the 2×2 only lost its middle one.
   - Don't: give every puzzle one layout. The controls follow the face of the puzzle in hand.
@@ -691,6 +850,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.3.0 · 2026-11-21 13:35
 
+**Claude:** Now there's a choice: three puzzles rest on the bed in a shallow V. Tap one to lift it into the light, and swipe straight down to put it back.
+
 - Three puzzles rest on the bed in a shallow V: a 2×2, the Axis Cube and a classic 3×3. Each presses its own hollow in the duvet.
 - A tap picks one up: it floats into the light, the camera drops to face it, and the rings fade in.
 - A long swipe straight down puts it back, and the camera rises to choose again.
@@ -698,9 +859,13 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.2.10 · 2026-11-21 11:44
 
+**Claude:** The bed steps away from the wall, and sneakers, comics on the floor and a model plane move in. (Every room needs a model plane.)
+
 - The bed stands off the wall, clear of the sill. Sneakers, comics on the floor and a model plane come in. ([87a270d](https://github.com/onexmac/ad/commit/87a270d) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.2.9 · 2026-11-21 11:31
+
+**Claude:** Fixed the rings that had to be hit right on the dot. Each one now owns its whole row or column, so a swipe can start well away from the ring and still catch it.
 
 - **Bug fix.** Marcos, 21 Nov 11:25: the rings had to be hit on the dot; "it's easier to start dragging from afar from the point".
   - Cause: each ring answered only in a small circle around it.
@@ -710,6 +875,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.2.7 · 2026-11-21 11:25
 
+**Claude:** The room is rebuilt at real size, smaller and fuller: a single bed under the window, records, a desk, a dresser and a backpack. It runs lighter, too, and the camera stays inside the walls.
+
 - The room rebuilt at real scale: a 3.6 × 4.2 m bedroom with a 2.6 m ceiling, smaller and fuller.
   - A single bed under the window, a nightstand with the lava lamp, a taller shelf with LPs, a desk with drawers, a dresser.
   - A chair with a denim jacket, a crate of records, a backpack, sneakers and boxes under the bed.
@@ -717,6 +884,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - The cube sits higher on a phone screen, and the camera stays inside the walls. ([3dd2d84](https://github.com/onexmac/ad/commit/3dd2d84) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.2.2 · 2026-11-21 11:24
+
+**Claude:** Swiping on the cube spins it again; the rings had swallowed that gesture, and that's fixed. It coasts and settles square to the screen.
 
 - **Bug fix.** Marcos, 21 Nov 11:17: "I should be able to rotate the cube by swiping in it just like before."
   - Cause: the ring controls of 0.2.0 took over the touch, and the swipe on the cube was lost with them.
@@ -726,6 +895,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.2.0 · 2026-11-21 10:56
 
+**Claude:** Out go the buttons, in come the rings: drag one to turn a layer, and it snaps to a quarter turn with a spring. Hold the cube to scramble or solve it in one go.
+
 - Ring controls replace the buttons: six stroked rings, one column turning the horizontal layers and one row turning the vertical slices.
   - A turn follows the finger, keeps its momentum and snaps onto the nearest quarter turn with a spring.
   - A strong flick can travel several quarters.
@@ -733,6 +904,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - The cube faces the camera square, so the rings' layers are the ones you see. ([cd7c74c](https://github.com/onexmac/ad/commit/cd7c74c) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.1.16 · 2026-11-21 10:42
+
+**Claude:** Fixed the floating pillow. The bed is now soft cloth, a quilted duvet in folds, and whatever rests on it sinks in a little, the record and its sleeve included.
 
 - **Bug fix.** Marcos, 21 Nov 10:35: "la almohada parece que flota", and things set on the bed should press it down.
   - Cause: the bed was hard shapes, and things were set on top of them with no contact.
@@ -743,6 +916,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.1.14 · 2026-11-21 10:28
 
+**Claude:** The room gets lived in: cream walls, old floorboards, sun striping through half-open blinds, plants, a record on the bed and a skateboard on the wall.
+
 - A lived-in room, from new references.
   - Cream plaster walls and an old board floor.
   - Half-open venetian blinds let the sun in striped, with a soft tree outside.
@@ -750,15 +925,21 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.1.11 · 2026-11-21 10:15
 
+**Claude:** It's always dusk now; the daytime look and its switch are gone. More little things turn up too: cassettes, a notebook and pencils, a braided rug.
+
 - Dusk only: the day look and its toggle are gone.
 - More of the room is modelled: a real pillow, finials on the headboard, cloth-bound books, cassettes, a notebook and pencils, a light switch, a braided rag rug. ([699df0f](https://github.com/onexmac/ad/commit/699df0f) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.1.9 · 2026-11-21 10:07
 
+**Claude:** Real wood, wool, cotton and carpet from photographs, plus softer furniture edges, a blanket that falls in folds and a TV with a bulging glass face.
+
 - Photo textures (Poly Haven, CC0): cedar, mahogany, wool, cotton and carpet.
 - Finer modelling: chamfered furniture, a blanket that falls in folds, and a CRT with a bulging glass face. ([1a07eab](https://github.com/onexmac/ad/commit/1a07eab) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.1.6 · 2026-11-21 09:57
+
+**Claude:** Toned down the sunbeam, which was too strong and too magical, and the dust in it sparkles a lot less.
 
 - **Bug fix.** Marcos, 21 Nov 09:55: "Muy mágico se siente el rayo de sol, muy fuerte."
   - Cause: the shafts of light were dense, and the dust glittered in them.
@@ -766,6 +947,8 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - A quieter sunbeam, and fewer sparkles in the dust. ([b9a2993](https://github.com/onexmac/ad/commit/b9a2993) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.1.5 · 2026-11-20 21:46
+
+**Claude:** The room fills up: wood paneling, a shelf of VHS tapes, a TV on a VCR, a lava lamp, a boombox and posters, all in the glow of a warm lamp.
 
 - A fuller, more realistic room:
   - varnished paneling and crown moulding;
@@ -775,5 +958,7 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 - A warm lamp with shadows, ambient occlusion, and a warm grade. ([423b3e2](https://github.com/onexmac/ad/commit/423b3e2) · [#64](https://github.com/onexmac/ad/pull/64))
 
 ## 0.1.0 · 2026-11-20 21:30
+
+**Claude:** Where it all began: a single Axis Cube floating in a room at dusk, the scene Marcos sent, given a home in the portal.
 
 - First version, as Axis Cube: a floating Axis Cube in a dusk room. It is the scene Marcos sent, moved into the portal at /kit/axis-cube. ([7cef55c](https://github.com/onexmac/ad/commit/7cef55c) · [#64](https://github.com/onexmac/ad/pull/64))
