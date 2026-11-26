@@ -48,6 +48,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.38** A real puzzle's geometry comes from photographs of it, not memory.
 - **0.6.40** Match a defining trait in degree, not just in kind.
 - **0.6.45** Don't tune a model to resemble a reference: trace the reference's lines and overlay the model on it.
+- **0.6.49** A thumb's slide bends: read its way over more travel, and lean towards the way that is harder to draw.
 
 Open:
 
@@ -57,6 +58,16 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.49 · 2026-11-25 20:00
+
+- **Bug fix.** Marcos, 25 Nov 19:52: "Ok el slide tiene que considerar un poco las diagonales, a veces cuesta un poco hacer para los lados, el dedo sin querer hace algo de diagonal."
+  - Cause: which way a slide went was read at exactly 45°, from its first 8 or 9 pixels. A thumb drawn sideways pivots from the wrist and bends into a diagonal, so a slide meant sideways often came out a little more up than across, and turned the puzzle or a column up or down.
+  - Don't: split a thumb's slide at 45° from its first few pixels. Read it over a little more travel, and lean towards the way that is harder to draw.
+- A slide now counts as sideways unless it is clearly up or down: up to about 55° from level, where before it was 45°. A slide steeper than that is still up or down, and a long pull straight down still puts the puzzle back.
+  - It holds for every slide: on the puzzle, beside the grid and on the rings.
+- The way is read a little later: after 14 pixels for the whole puzzle (it was 9) and 12 for a ring (it was 8).
+- Checked with slides at 20°, 40°, 50°, 60° and 75° from level in each of the three places: up to 50° they go sideways, from 60° up or down. ([#PR](https://github.com/onexmac/ad/pull/PR))
 
 ## 0.6.48 · 2026-11-25 19:47
 
