@@ -136,7 +136,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 }
 .axis .log-title { margin: 4px 4px 14px; }
 /* a version: its number (on an ink bar) and date, what Marcos said, Claude's line, and every detail; nothing folds */
-.axis .rel { padding: 22px 0 18px; border-top: 1px dashed var(--key-line); }
+.axis .rel { padding: 22px 0 calc(18px + 1lh); border-top: 1px dashed var(--key-line); }   /* a blank line after each version */
 .axis .log-body > .rel:first-child { border-top: 0; padding-top: 4px; }
 .axis .rel h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 14px; font-size: inherit; font-weight: inherit; }
 .axis .rel h3 .num { padding: 0 0.3em; background: var(--crt-ink); color: var(--log-bg); }
