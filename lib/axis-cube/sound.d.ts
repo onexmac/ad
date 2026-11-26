@@ -19,7 +19,7 @@ export interface AxisSound {
   /** It lands: bo-lup, with a soft thump. */
   bolup(): void;
   /** The time merging into the screen: a quick 8-bit run. */
-  merge(): void;
+  merge(after?: number): void;
   /** A puzzle solved by hand: bi-li-li-li-lo-lu-li-lup, in the puzzle's voice. */
   cheer(puzzle?: string): void;
   wind(speed: number): void;
