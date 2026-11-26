@@ -123,7 +123,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
   position: absolute; inset: 0; border-radius: inherit; overflow: hidden;
   display: flex; flex-direction: column;
   background: var(--log-bg); color: var(--log-text);
-  font: 13px/1.55 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font: 13px/1.7 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   transform: translateY(102%); transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1);
 }
 .axis .log.open { transform: none; }
@@ -136,7 +136,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 .axis .era { border-top: 2px solid var(--key-line); }
 .axis .era-head {
   width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  margin: 0; padding: 16px 4px; border: 0; border-radius: 0; background: none; color: var(--log-dim);
+  margin: 0; padding: 20px 4px; border: 0; border-radius: 0; background: none; color: var(--log-dim);
   font: inherit; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer;
   touch-action: manipulation; -webkit-tap-highlight-color: transparent;
 }
@@ -144,25 +144,25 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 .axis .era-list { display: none; padding: 0 4px 12px; }
 .axis .era.open .era-list { display: block; }
 /* a version: what Marcos said, Claude's line, the details a tap away */
-.axis .rel { padding: 14px 0 12px; border-top: 1px dashed var(--key-line); }
+.axis .rel { padding: 22px 0 18px; border-top: 1px dashed var(--key-line); }
 .axis .rel:first-child { border-top: 0; }
-.axis .rel h3 { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 8px; font-size: 14px; color: var(--crt-ink); }
+.axis .rel h3 { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 14px; font-size: 14px; color: var(--crt-ink); }
 .axis .rel h3 span { color: var(--log-dim); font-weight: 400; }
-.axis .rel b { display: block; margin-bottom: 2px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--log-dim); }
-.axis .rel .said { margin: 0 0 10px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; font-style: italic; }
+.axis .rel b { display: block; margin-bottom: 5px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--log-dim); }
+.axis .rel .said { margin: 0 0 16px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; font-style: italic; }
 .axis .rel.open .said { display: block; }
-.axis .rel .claude { margin: 0 0 8px; }
+.axis .rel .claude { margin: 0 0 12px; }
 .axis .rel .claude b { color: var(--crt-ink); }
 .axis .rel .more {
   margin: 0; padding: 6px 0; border: 0; background: none; color: var(--crt-ink);
   font: inherit; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;
   touch-action: manipulation; -webkit-tap-highlight-color: transparent;
 }
-.axis .rel .details { display: none; margin-top: 6px; color: var(--log-dim); font-size: 12px; }
+.axis .rel .details { display: none; margin-top: 10px; color: var(--log-dim); font-size: 12px; }
 .axis .rel.open .details { display: block; }
-.axis .log p { margin: 6px 0; }
-.axis .log ul { margin: 4px 0; padding-left: 16px; }
-.axis .log li { margin: 3px 0; }
+.axis .log p { margin: 9px 0; }
+.axis .log ul { margin: 6px 0; padding-left: 16px; }
+.axis .log li { margin: 6px 0; }
 .axis .log strong { color: var(--crt-ink); font-weight: 600; }
 .axis .log code { color: var(--log-dim); }
 /* CLOSE, under a line across the text's width: the list scrolls under it, never into the sheet's own ground */
@@ -450,9 +450,11 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 .axis.mac .hud, .axis.mac .ver canvas { filter: drop-shadow(0 2px 6px var(--mac-shade)); }
 /* the list of changes: a sheet of paper with its title bar edge to edge, scrolling with the list */
 .axis.mac .log canvas { filter: var(--mac-letters); }
-.axis.mac .log .log-title { margin: -28px -18px 16px; }
+/* its title bar roomier than a window's: taller, its stripes clear of the sheet's round corners, air under it */
+.axis.mac .log .log-title { height: 52px; margin: -28px -18px 24px; background-size: calc(100% - 44px) 14px; }
 .axis.mac .log-foot { border-top-color: var(--mac-ink); }
 .axis.mac .era { border-top-color: var(--mac-ink); }
+.axis.mac .log-body > .era:first-child { border-top: 0; }   /* under the title bar, its line is the first era's */
 .axis.mac .log-close {
   border: 2px solid var(--mac-ink); border-radius: 10px; background: var(--mac-paper);
   box-shadow: 0 3px 0 var(--mac-ink); transition: transform 0.06s ease, box-shadow 0.06s ease;
