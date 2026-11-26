@@ -31,6 +31,9 @@
   --log-bg: rgba(6, 5, 3, 0.97);
   --log-text: #e9dcb8;
   --log-dim: #a8996f;
+  /* the card that asks before a new entry is kept, and the dim round it */
+  --confirm-bg: #070604;
+  --confirm-dim: rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
 html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: hidden; overscroll-behavior: none; }
@@ -97,6 +100,10 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
 /* the machine's line at the top right: drawn by the scene in the screen's letters (INSERT CUBE, MIXING..., READY,
    the clock, GAME OVER, MIX IT) */
 .axis .hud { position: absolute; top: 14px; right: 18px; pointer-events: none; }
+/* close to the screen it reads BACK, and a tap on it is the way back (a padded rim makes it big enough to hit);
+   while a new entry is typed it reads CONGRATS!! and is only words */
+.axis.crt .hud { pointer-events: auto; cursor: pointer; padding: 7px; margin: -7px; outline: none; }
+.axis.crt.entry .hud { pointer-events: none; }
 /* the version, bottom right while a puzzle is chosen (drawn by the scene in the same letters); a tap opens the list
    of changes, a sheet that rises over the room and closes with CLOSE at its foot, a pull down from its top, a slide
    to the right or a push on past its end */
@@ -140,6 +147,46 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .axis.crt.entry .kb { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; transition-delay: 0.35s; }
+/* while a new entry is typed, the Mac goes out of focus, and the entry floats over it: its time and three places,
+   not yet in the table */
+.axis #stage { transition: filter 0.45s ease; }
+.axis.crt.entry #stage { filter: blur(10px) brightness(0.8); }
+.axis .entry-line {
+  position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%) scale(0.92);
+  opacity: 0; pointer-events: none; transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.axis.crt.entry .entry-line { opacity: 1; transform: translate(-50%, -50%); transition-delay: 0.3s; }
+/* END is the key that finishes: filled, its letters dark */
+.axis .key.end { background: var(--crt-ink); border-color: var(--crt-ink); }
+.axis .key.end canvas { filter: brightness(0); }
+.axis .key.end:active { background: var(--key-fill); }
+.axis .key.end:active canvas { filter: none; }
+/* the card END brings up: a frame, the initials and the time on a bar of light, SAVE?, and YES boxed beside NO
+   underlined. A tap beside it is a no. */
+.axis .confirm-wrap {
+  position: absolute; inset: 0; border-radius: inherit; display: grid; place-items: center;
+  background: var(--confirm-dim); opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+}
+.axis .confirm-wrap.open { opacity: 1; pointer-events: auto; }
+.axis .confirm {
+  width: min(calc(100% - 56px), 320px); box-sizing: border-box; padding: 10px 10px 24px;
+  display: grid; justify-items: center; gap: 26px;
+  border: 4px solid var(--crt-ink); background: var(--confirm-bg);
+  transform: scale(0.85); transition: transform 0.34s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.axis .confirm-wrap.open .confirm { transform: none; }
+.axis .confirm-head { justify-self: stretch; display: grid; place-items: center; padding: 18px 8px; background: var(--crt-ink); }
+.axis .confirm-head canvas { filter: brightness(0); }
+.axis .confirm canvas { display: block; }
+.axis .confirm-row { justify-self: stretch; display: flex; justify-content: space-around; align-items: center; }
+.axis .confirm-row button {
+  margin: 0; padding: 8px 10px; border: 0; border-radius: 0; background: none;
+  cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.axis .confirm-row .confirm-yes { border: 3px solid var(--crt-ink); }
+.axis .confirm-row .confirm-no { border-bottom: 3px solid var(--crt-ink); }
+.axis .confirm-row button:active { background: var(--crt-ink); }
+.axis .confirm-row button:active canvas { filter: brightness(0); }
 .axis .key {
   aspect-ratio: 1; display: grid; place-items: center; padding: 0; margin: 0;
   border: 2px solid var(--key-line); border-radius: 0; background: var(--key-fill);
