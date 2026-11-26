@@ -75,7 +75,7 @@ Asked by Marcos, 26 Nov 09:05, in the same message: "Once the user finishes the 
   - A hop on a spring.
   - A whole turn about the upright, left or right by chance, that overshoots and settles, with a happy wobble.
   - Bi-li-li-li-lo-lu-li-lup: eight notes in the puzzle's own voice, up, a dip, and up to the top. The flip's own landing sound stays out of it.
-- In the Sidebar, the opening plays it after the last turn, and goes to the screen 2 s later instead of 1.6 s, once the cube has settled. (PR)
+- In the Sidebar, the opening plays it after the last turn, and goes to the screen 2 s later instead of 1.6 s, once the cube has settled. ([#181](https://github.com/onexmac/ad/pull/181))
 
 ## 0.6.89 · 2026-11-26 09:21
 
@@ -87,7 +87,7 @@ Asked by Marcos, 26 Nov 09:05: "Have the user time merge more seamless into the 
   - Its bar is the screen's own grid of 111 × 13 pixels, and each pixel has its own moment, in a fixed scatter.
   - Over 0.45 s each pixel goes out of the flying row and comes on in the screen at the same moment, so the row is never doubled or missing as the crisp bar turns into the glowing one.
   - CONGRATS!! becomes BACK when it is done.
-- The merge has its own sound: eight square-wave blips climbing a C arpeggio, one step back on the way, 38 ms apart, through a soft low-pass. (PR)
+- The merge has its own sound: eight square-wave blips climbing a C arpeggio, one step back on the way, 38 ms apart, through a soft low-pass. ([#181](https://github.com/onexmac/ad/pull/181))
 
 ## 0.6.87 · 2026-11-26 08:15
 
