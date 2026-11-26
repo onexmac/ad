@@ -69,6 +69,15 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.25 · 2026-11-26 14:14
+
+**Claude:** The icon flipped to night mode: a cream cube on dark blue-grey. It stands out on the home screen and still looks like the Mac's.
+
+Asked by Marcos, 26 Nov 14:14, of 0.7.19: "Let's invert the colors, light icon in dark bluegray rectangle. For the homescreen"
+
+- The home-screen icon is now the cube in paper on the Mac's ink, a dark blue-grey, the other way round from 0.7.19. The cube keeps its place and pose, in all three sizes.
+- A phone that already has the app keeps its icon until it is added to the home screen again. ([#197](https://github.com/onexmac/ad/pull/197))
+
 ## 0.7.24 · 2026-11-26 14:07
 
 **Claude:** Each version now gets a blank line before the next one, so the history reads as separate entries, not one long breath.
