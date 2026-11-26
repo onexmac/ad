@@ -71,6 +71,16 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.38 · 2026-11-26 16:20
+
+**Claude:** Colour tune-up: orange got a little brighter, green a little calmer, so the two stop arguing on the cube.
+
+Asked by Marcos, 26 Nov 16:18: "Have the orange a tad lighter still saturated. I'm color blind and the green a bit less saturated and a tiny tidbit lighter, just a wink."
+
+- The cubes' orange is a tad lighter at the same saturation: #ff641f to #ff7b3d, the same hue and fully saturated, its lightness from 56% to 62%.
+- The green is a bit less saturated and a wink lighter: #19c96a to #2ac672, the same hue, its saturation from 78% to 65% and its lightness from 44% to 47%.
+- It shows on every puzzle that has those faces. ([#205](https://github.com/onexmac/ad/pull/205))
+
 ## 0.7.37 · 2026-11-26 16:16
 
 **Claude:** Squashed a ghost: the big box with your score no longer flickers back over the screen after it merges in. The score goes in once and stays in.
