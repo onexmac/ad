@@ -67,7 +67,7 @@ Open:
 - A slide now counts as sideways unless it is clearly up or down: up to about 55° from level, where before it was 45°. A slide steeper than that is still up or down, and a long pull straight down still puts the puzzle back.
   - It holds for every slide: on the puzzle, beside the grid and on the rings.
 - The way is read a little later: after 14 pixels for the whole puzzle (it was 9) and 12 for a ring (it was 8).
-- Checked with slides at 20°, 40°, 50°, 60° and 75° from level in each of the three places: up to 50° they go sideways, from 60° up or down. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- Checked with slides at 20°, 40°, 50°, 60° and 75° from level in each of the three places: up to 50° they go sideways, from 60° up or down. ([#167](https://github.com/onexmac/ad/pull/167))
 
 ## 0.6.48 · 2026-11-25 19:47
 
