@@ -66,6 +66,16 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.94 · 2026-11-26 10:09
+
+**Claude:** Your score now slides home in one go: it arrives, and melts into the screen while it is still landing. Less boing, more zing.
+
+Asked by Marcos, 26 Nov 10:06: "Make the merge happen faster so it feels like one single motion, don't make the player time bounce that much."
+
+- The flying row arrives in about a third of a second and goes past its mark by 1% (it was 9.5%, with a wobble to wait out). The hop on the way is half as high, and the squash where it lands is about a third of what it was.
+- The merge begins as the row arrives, not once it has stopped. It takes 0.3 s instead of 0.45 s, so the row is the screen's own about 0.6 s after YES, where it took about 1.4 s.
+- The 8-bit run starts on bo-lup's second note, and its blips are a little closer together. (PR)
+
 ## 0.6.93 · 2026-11-26 09:39
 
 **Claude:** The happy cube now gets its full moment: a crouch, a big jump with a whole turn in the air, a squash on landing, two little bounces and a wag, all to its tune. The high-score screen waits politely until the cube has finished showing off.
