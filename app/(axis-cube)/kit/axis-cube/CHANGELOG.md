@@ -70,7 +70,7 @@ Open:
 - A tap on the iMac now opens its screen while the puzzle is still mixing itself up. The mixing goes on behind it.
 - The mark's solve is slower, and it moves:
   - Each turn first empties its line, then fills it again a square at a time, about a fifth of a second apart.
-  - The middle row empties at 0.7 s and fills again from the left by 1.3 s. After a pause, the middle column empties at 2.0 s and fills from the top. At 2.6 s every square is filled. It used to be two turns at once, at 0.45 s and 1.0 s. ([#PR](https://github.com/onexmac/ad/pull/PR))
+  - The middle row empties at 0.7 s and fills again from the left by 1.3 s. After a pause, the middle column empties at 2.0 s and fills from the top. At 2.6 s every square is filled. It used to be two turns at once, at 0.45 s and 1.0 s. ([#173](https://github.com/onexmac/ad/pull/173))
 
 ## 0.6.60 · 2026-11-25 21:46
 
