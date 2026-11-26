@@ -75,7 +75,7 @@ Asked by Marcos, 25 Nov 20:00, with two photographs of an arcade machine's high-
   - Under it "TOP 5 PLAYERS", then five rows of rank, time and initials, in amber and orange, and "THE CUBES" in blue.
   - The letters are a 5 × 7 pixel font drawn for it.
   - Until the stopwatch (1.0.0) there are no real times. As on any arcade, the five are the machine's own: AXS, GST, CUB, TWO and MIX, from 0:48.52 to 1:58.06.
-- The screen's light on the room is a little warm now, as amber on black would give. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The screen's light on the room is a little warm now, as amber on black would give. ([#169](https://github.com/onexmac/ad/pull/169))
 
 ## 0.6.50 · 2026-11-25 19:59
 
