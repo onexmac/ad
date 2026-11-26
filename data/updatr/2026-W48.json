@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "year": 2026,
   "week": 48,
-  "date": "2026-11-24",
-  "updatedAt": "2026-11-24T23:08:47.154Z",
+  "date": "2026-11-25",
+  "updatedAt": "2026-11-25T22:41:49.690Z",
   "isSample": false,
   "items": [
     {
@@ -12,23 +12,182 @@
       "kind": "game",
       "status": "upcoming",
       "importance": 3,
-      "title": "The Grand Major 2026 runs Nov 27–29 in Stockholm with a $200,000 pool",
-      "dek": "Nexon confirms dates, format and streams for The Finals' biggest event of the year. Check when Pick'ems lock.",
+      "title": "Grand Major 2026: seedings out, Pick'ems lock Thursday",
+      "dek": "All 16 teams are seeded. Get your Pick'ems in by Thursday for a badge. The prize pool is $150,000, not $200,000.",
       "body": [
-        "Nexon announced on November 23 that The Grand Major 2026 runs from November 27 to 29 at DreamHack Stockholm. Sixteen teams compete for a $200,000 total prize pool, double last year's. The total includes the online series; the fan wiki splits it into $150,000 for the event and $50,000 for the online series. The format runs from The Promotion to The Throne, the final stage, which five teams reach. Embark also released a new esports trailer.",
-        "English streams will be on YouTube and Twitch, and Korean streams on SOOP and ChZZk. The APAC teams are KingZero, Moon Theory (formerly 777rs) and Ape Squad (formerly MIR GG). The fan wiki lists Promotion Phase 1 on Nov 27, Phase 2 on Nov 28 and The Throne on Nov 29.",
-        "Unresolved: Inven says the prediction event on the official site runs until November 27, while earlier information said Pick'ems lock November 26. This may be a time-zone difference, so submit picks by the 26th to be safe."
+        "Embark posted the seedings for all 16 Grand Major teams on November 23. Pick'ems lock at midnight CET at the end of Thursday, November 26. Choose the five teams you think will reach The Throne, the final stage, to earn an exclusive in-game badge. Each Embark ID can submit once.",
+        "The event runs November 27 to 29 at DreamHack Stockholm, starting at 12pm CET / 6am ET. Liquipedia lists the venue as Stockholmsmässan. Day 3 is The Throne: five teams compete, and the first to three crowns is world champion. Twitch viewers can unlock a helmet, weapon skins and a TGM26 charm. A paid TGM26 Event Pass has 16 reward levels.",
+        "Correction: the Grand Major prize pool is $150,000. Our earlier $200,000 figure added $50,000 from the Online Series. IDC Games also reports a new esports trailer for the event."
       ],
       "date": "2026-11-23",
       "when": "2026-11-27",
       "tags": [
         "esports",
-        "grand major",
-        "pick'em"
+        "pick'ems",
+        "twitch drops"
       ],
-      "source": "Inven Global",
-      "url": "https://www.invenglobal.com/articles/28963/the-finals-grand-major-kicks-off-in-sweden-on-nov-27",
+      "source": "Embark Studios",
+      "url": "https://www.reachthefinals.com/patchnotes/tgm26-seedings",
       "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
+    },
+    {
+      "id": "tfd-1410",
+      "franchise": "descendant",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 3,
+      "title": "Patch 1.4.10 lands November 25 at 23:00 PST",
+      "dek": "Nexon has set the time for Patch 1.4.10. In Europe and Asia it arrives on November 26. The patch notes are not out yet.",
+      "body": [
+        "Nexon's schedule post sets Patch 1.4.10 for Wednesday, November 25, at 23:00 PST. That is already November 26 in Europe and Asia. The same post lists two accounts permanently banned for cheating.",
+        "The post also lists boost windows on November 26–29 and December 3–6, from 23:00 to 22:59 PST. These probably belong to the Descendant's Weekend event. The 1.4.10 patch notes were not found, so the patch contents are still unknown."
+      ],
+      "date": "2026-11-23",
+      "when": "2026-11-25",
+      "tags": [
+        "patch",
+        "maintenance"
+      ],
+      "source": "Nexon (Steam)",
+      "url": "https://steamcommunity.com/app/2074920",
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/a0bbb9bbd1a4f897439add27c46df6639b5cd149.png"
+    },
+    {
+      "id": "tfd-accelerate-research",
+      "franchise": "descendant",
+      "kind": "game",
+      "status": "live",
+      "importance": 2,
+      "title": "Accelerate Research cuts research time by half",
+      "dek": "A weekly event halves research time from Sunday to Thursday through December 9. Plan your crafting around it.",
+      "body": [
+        "Nexon's November 23 schedule post announces an Accelerate Research event. It cuts research time by 50%. It runs each week from Sunday 23:00 to Thursday 22:59 PST, through December 9.",
+        "Start long research jobs inside these windows to save the most time."
+      ],
+      "date": "2026-11-23",
+      "tags": [
+        "event",
+        "research"
+      ],
+      "source": "Nexon (Steam)",
+      "url": "https://steamcommunity.com/app/2074920",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2074920/defeb6250e6fafc1fec7967914c28b9715d6e639/header.jpg?t=1794892609"
+    },
+    {
+      "id": "cod-ivory-widow",
+      "franchise": "cod",
+      "kind": "skin",
+      "status": "out",
+      "importance": 2,
+      "title": "Ivory Widow Ultra bundle adds the Hourglass skin",
+      "dek": "A new 2,400 CP bundle in MW4 has the Hourglass Ultra Operator skin and two weapon blueprints. IGGM calls the value mediocre.",
+      "body": [
+        "IGGM says the Ivory Widow bundle arrived with Modern Warfare 4's November 23 update, which also fixed some Multiplayer and DMZ bugs. itemshop.gg marked it new in the store on November 24. It costs 2,400 COD Points.",
+        "It contains the Ultra Operator skin Hourglass, the Hyeon Burst Ultra blueprint Unmasker and the Rezi 12 Legendary blueprint Widow's Kiss. It also has the animated calling card No Restraint, the charm Inner Turmoil, the emblem Torso Twist and the reticle Widow's Web. There are no tracer effects.",
+        "No source says which Operator Hourglass is for. IGGM calls the value mediocre."
+      ],
+      "date": "2026-11-24",
+      "when": "2026-11-23",
+      "tags": [
+        "bundle",
+        "operator skin",
+        "mw4"
+      ],
+      "source": "IGGM",
+      "url": "https://www.iggm.com/news/cod-mw4-thanksgiving-duty-roster-event-guide",
+      "image": "https://itemshop.gg/call-of-duty/opengraph-image?b4ff1b393c9d47a5"
+    },
+    {
+      "id": "cod-mw4-black-friday",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Target sells MW4 for $49 on November 26 only",
+      "dek": "A one-day Target deal cuts MW4 to $49 on all platforms. It is most likely Target Australia, in Australian dollars.",
+      "body": [
+        "Press Start reports that Target will sell Modern Warfare 4 for $49 on PS5, Xbox Series X|S and Switch 2, on November 26 only. Press Start is an Australian site, so this is most likely Target Australia and Australian dollars. The article does not state the currency.",
+        "Other deals: gg.deals lists the game at 15% off for Black Friday. TechRadar's live blog has the Switch 2 version at $54.55 on Amazon."
+      ],
+      "date": "2026-11-26",
+      "when": "2026-11-26",
+      "tags": [
+        "deal",
+        "black friday"
+      ],
+      "source": "Press Start",
+      "url": "https://press-start.com.au/bargains/2026/11/26/target-will-have-a-crazy-one-day-only-call-of-duty-modern-warfare-4-deal-tomorrow/",
+      "image": "https://cdn.mos.cms.futurecdn.net/HEvi8RBCSjLMCckCbKcgCh-1920-80.jpg"
+    },
+    {
+      "id": "cod-s1-reloaded",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Season 1 Reloaded: December 2 PT is December 3 almost everywhere else",
+      "dek": "The countdown points to December 2 at 10 PM PT, which is already December 3 in Eastern time. Activision has not confirmed the date.",
+      "body": [
+        "The countdown points to Wednesday, December 2, at 10 PM PT. That is already Thursday, December 3, in Eastern time and most other regions. As of November 25, Activision had not posted the Reloaded blog or an official date, according to Unplayed. U4N calls December 3 a leaked date that hasn't been confirmed.",
+        "Unplayed says the Wager Match event ends December 2. It lists the maps Ministry and Overflow, the mode Counter Attack and two Warzone limited-time modes as coming. These are Unplayed's claims, not Activision's."
+      ],
+      "date": "2026-11-25",
+      "when": "2026-12-02",
+      "tags": [
+        "season",
+        "mw4",
+        "warzone"
+      ],
+      "source": "Unplayed",
+      "url": "https://unplayed.gg/blog/mw4-season-1-reloaded",
+      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
+    },
+    {
+      "id": "zzz-34-theatrical-dream",
+      "franchise": "zzz",
+      "kind": "collab",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Version 3.4 brings the Lost in a Theatrical Dream crossover and a Make-A-Wish partnership",
+      "dek": "HoYoverse has named the Star Rail crossover event and announced a Make-A-Wish charity tie-in. Both arrive December 2.",
+      "body": [
+        "HoYoverse's official release says the Honkai: Star Rail crossover event is called Lost in a Theatrical Dream and starts in Version 3.4. During 3.4 the game also partners with Make-A-Wish, inviting players to join Sunbringer in supporting wishes for seriously ill children.",
+        "Version 3.4 launches December 2 on PS5, Xbox Series X|S, Xbox Cloud Gaming, PC, Steam, iOS and Android. Inven Global adds new combat content called Opening Performance: Knight's First Appearance. It also says Sunbringer is one unit of three characters: Eldreda with a spear, Lindverne with a greatsword and Dracaene with a shield. A daily check-in from January 1, 2027, pays up to 1,600 Polychromes."
+      ],
+      "date": "2026-11-24",
+      "when": "2026-12-02",
+      "tags": [
+        "crossover",
+        "star rail",
+        "charity"
+      ],
+      "source": "HoYoverse",
+      "url": "https://www.hoyoverse.com/en-us/news/167445",
+      "image": "https://static.invenglobal.com/upload/image/2026/11/23/i1795398187478756.jpeg"
+    },
+    {
+      "id": "zzz-34-banners",
+      "franchise": "zzz",
+      "kind": "skin",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Robin's Cosmic Beat skin, an Alice rerun and the 3.4 banner dates",
+      "dek": "Robin gets a skin on December 2. Here is when the Sunbringer, Robin, Alice and Kafka banners open and close.",
+      "body": [
+        "GosuGamers says Robin gets a skin called Cosmic Beat at launch on December 2. The Sunbringer and Robin banners open after the December 2 update and close January 12, 2027, at 14:59 server time (UTC+8).",
+        "Kafka's banner opens January 1, 2027, at 12:00 and closes January 21 at 14:59. Alice returns in a rerun with her W-Engine Practiced Perfection. Timesaver gives her the January 12 close but also lists her with the January 1 banners, so her exact window is unclear.",
+        "Timesaver warns that January 12 is when the banners close, not a confirmed end date for Version 3.4."
+      ],
+      "date": "2026-11-25",
+      "when": "2026-12-02",
+      "tags": [
+        "banners",
+        "skin",
+        "rerun"
+      ],
+      "source": "GosuGamers",
+      "url": "https://www.gosugamers.net/news/79527-everything-revealed-for-zenless-zone-zero-3-4-including-sunbringer-kafka-and-free-robin",
+      "image": "https://static.gosugamers.net/fa/48/e3/fd8ebe173210f4dd77d7ec63cc83e68af079dfef1f32775b6f54e3fc0c.webp"
     },
     {
       "id": "zzz-34-program",
@@ -53,50 +212,6 @@
       "source": "Inven Global",
       "url": "https://www.invenglobal.com/articles/28955/zenless-zone-zero-version-34-update-set-for-december-2",
       "image": "https://clan.akamai.steamstatic.com/images/46096005/b0ad9d562ae08b67dee2750b1abb0c0b615f733d.png"
-    },
-    {
-      "id": "cod-s1-reloaded",
-      "franchise": "cod",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 2,
-      "title": "In-game countdown points to Dec 2 for Season 1 Reloaded",
-      "dek": "Unofficial reports read the countdown as 10 PM PT on December 2, which is December 3 in Europe. Activision hasn't confirmed it.",
-      "body": [
-        "On November 21, Gamelevate and Timesaver.gg reported that an in-game countdown in Modern Warfare 4 and Warzone points to 10 PM PT on December 2 for Season 1 Reloaded. In Europe, that is December 3.",
-        "Activision had made no official announcement as of November 24, and no new operator skins have been revealed. Treat the time as likely but unconfirmed until Activision posts it."
-      ],
-      "date": "2026-11-21",
-      "when": "2026-12-02",
-      "tags": [
-        "season 1 reloaded",
-        "warzone",
-        "unconfirmed"
-      ],
-      "source": "Gamelevate",
-      "url": "https://gamelevate.com/mw4-warzone-season-1-reloaded-release-date-content/",
-      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
-    },
-    {
-      "id": "cod-mw4-black-friday",
-      "franchise": "cod",
-      "kind": "game",
-      "status": "live",
-      "importance": 2,
-      "title": "Modern Warfare 4 Black Friday prices: $54.55 at Amazon, 15% off on Steam",
-      "dek": "Modern Warfare 4 is discounted at several stores this week if you haven't bought it yet.",
-      "body": [
-        "On November 23, TechRadar listed Modern Warfare 4 at $54.55 at Amazon, down from $69.99. Steam shows 15% off, but no end date was visible.",
-        "In Australia, Press Start (November 22) lists the PS5 version at $69 at Target, a saving of $20. Prices change quickly during Black Friday, so check before you buy."
-      ],
-      "date": "2026-11-23",
-      "tags": [
-        "deal",
-        "black friday"
-      ],
-      "source": "TechRadar",
-      "url": "https://techradar.com/live/news/nintendo-switch-black-friday-2026-nov-23",
-      "image": "https://cdn.mos.cms.futurecdn.net/HEvi8RBCSjLMCckCbKcgCh-1920-80.jpg"
     },
     {
       "id": "sb-black-friday-deal",
@@ -140,29 +255,6 @@
       "source": "DLCompare",
       "url": "https://dlcompare.com/gaming-news/rayneo-s-new-gt-max-ar-glasses-arrive-in-a-limited-modern-warfare-4-edition-92390",
       "image": "https://cdn.dlcompare.com/others_jpg/upload/news/image/en-rayneo-s-new-gt-max-ar-glasse-a899981f-image-a899980c.jpg.webp"
-    },
-    {
-      "id": "tfd-1410",
-      "franchise": "descendant",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 3,
-      "title": "Patch 1.4.10 lands November 25",
-      "dek": "Nexon has set Patch 1.4.10 for November 25 at 23:00 PST. The contents haven't been announced, so plan around the update window.",
-      "body": [
-        "Nexon posted a notice on November 23 that sets Patch 1.4.10 for November 25, 2026, at 23:00 PST. The notice doesn't list what's in the patch, so don't expect new descendants or skins until Nexon publishes patch notes.",
-        "The same notice gives the results of a cheating crackdown that ran November 13–19 and ended in two permanent bans.",
-        "Watch for the full patch notes on the day."
-      ],
-      "date": "2026-11-23",
-      "when": "2026-11-25",
-      "tags": [
-        "patch",
-        "maintenance"
-      ],
-      "source": "Steam Community – The First Descendant",
-      "url": "https://steamcommunity.com/app/2074920",
-      "image": "https://clan.akamai.steamstatic.com/images/42627465/a0bbb9bbd1a4f897439add27c46df6639b5cd149.png"
     },
     {
       "id": "tfd-descendants-weekend",

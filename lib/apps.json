@@ -27,6 +27,12 @@
           "name": "The Cubes",
           "description": "Cuatro cubos en una biblioteca de los noventa al atardecer: un Axis Cube, un 3×3, un 2×2 y un Ghost Cube para girar con el dedo",
           "code": "app/(axis-cube)/kit/axis-cube"
+        },
+        {
+          "slug": "ex30",
+          "name": "EX30",
+          "description": "Mi Volvo EX30 en 3D, trazado de fotos, para diseñarle un livery",
+          "code": "app/(ex30)/kit/ex30"
         }
       ]
     },
