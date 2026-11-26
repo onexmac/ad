@@ -70,6 +70,23 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.36 · 2026-11-26 15:25
+
+**Claude:** Lost? Tap INSERT CUBE and the cubes on the ottoman wiggle one after another, left to right, like kids raising their hands: pick me, pick me.
+
+Asked by Marcos, 26 Nov 15:23, in the same message: "Touching the insert cube should make the cubes shake so the user knows that's where they need to go, have them happened in a cascade timeline"
+
+- INSERT CUBE, at the top right while no puzzle is held, can now be tapped. The puzzles on the ottoman shake in a cascade, from left to right as seen, each 0.11 s after the one before.
+- Each shake is a little hop and a wiggle from side to side that dies away in about half a second, with a tick as it starts. ([#203](https://github.com/onexmac/ad/pull/203))
+
+## 0.7.34 · 2026-11-26 15:25
+
+**Claude:** The camera now rides along on the hint's little trip home, sinking with the cube, so you feel it heading back to the ottoman instead of just watching it go.
+
+Asked by Marcos, 26 Nov 15:23: "The swipe hint is perfect but have the camera coming down with the hint when it's happening, it gotta feel like it's going down"
+
+- While the first-time hint is up, the camera goes down with the puzzle as it sinks toward the ottoman: lower and tilted a little down, by as much as the dip. It comes back up as the puzzle rises, and after OK. ([#203](https://github.com/onexmac/ad/pull/203))
+
 ## 0.7.33 · 2026-11-26 15:22
 
 **Claude:** Once the cube is mixed, the dots take a little bow: they glow up together for a moment, as if to say "start here", then settle back.
