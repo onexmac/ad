@@ -71,7 +71,7 @@ Asked by Marcos, 25 Nov 21:40: "Lower the black of the vignette so we still see 
   - Once the screen is close, the middle row turns, about half a second in: its three squares swap, filled for outline. Half a second later the middle column turns, and every square is filled.
   - Nothing moves in 3D; the squares only change between filled and outline.
   - When the screen closes it is mixed again, ready to solve the next time.
-- The iMac stands 6 cm further left. Turned to the room in 0.6.55, its right front corner had gone a centimetre and a half into the turntable's lid, which showed close up as a white slab beside the speaker. It now keeps about 4 cm from the lid. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The iMac stands 6 cm further left. Turned to the room in 0.6.55, its right front corner had gone a centimetre and a half into the turntable's lid, which showed close up as a white slab beside the speaker. It now keeps about 4 cm from the lid. ([#172](https://github.com/onexmac/ad/pull/172))
 
 ## 0.6.58 · 2026-11-25 21:39
 
