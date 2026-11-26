@@ -126,7 +126,7 @@ export function Stage({ look = "a", version = "" }: { look?: Look; version?: str
     let stop: (() => void) | undefined, gone = false;
     import("@/lib/axis-cube/scene").then(({ mountAxisCube }) => {
       if (gone || !host.current) return;
-      stop = mountAxisCube(host.current, { look, version, changelog: `${SCOPE}/changelog?v=${version}`, loader: loader.current ?? undefined, onShown: () => { keepForNextTime(); document.querySelector('meta[name="theme-color"]')?.setAttribute("content", BARS_ROOM); }, sound: voice.current ?? undefined, hold: gateUp });
+      stop = mountAxisCube(host.current, { look, version, changelog: `${SCOPE}/changelog?v=${version}`, scores: `${SCOPE}/scores`, loader: loader.current ?? undefined, onShown: () => { keepForNextTime(); document.querySelector('meta[name="theme-color"]')?.setAttribute("content", BARS_ROOM); }, sound: voice.current ?? undefined, hold: gateUp });
     });
     return () => { gone = true; stop?.(); };
   }, [look, version]);
