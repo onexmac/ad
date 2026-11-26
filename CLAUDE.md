@@ -84,6 +84,10 @@
   Chakra Petch numerals, signal green `#86AD00`. Whatever the look, each app
   keeps its colours as tokens in its own layout's stylesheet and reuses them;
   no inline colours.
+- Scrolling content never vanishes into its own background: wherever a scroll
+  is cut (a fixed title bar, a footer with a button), a line marks the cut,
+  so the content reads as sliding under it. It need not reach the edges
+  (playbook, "Layout and chrome").
 - Nested radii: a container's corner radius is always bigger than the radius
   of anything inside it (ideally outer = inner + the padding between them).
   A round 34 px button needs a card radius above 17; a pill inside a pill
