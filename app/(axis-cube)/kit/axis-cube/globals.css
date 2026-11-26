@@ -448,10 +448,9 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 .axis.mac .mac-title canvas { display: block; filter: var(--mac-letters); }
 /* the line at the top right and the version: boxes the scene draws; a soft shadow lifts them off the room */
 .axis.mac .hud, .axis.mac .ver canvas { filter: drop-shadow(0 2px 6px var(--mac-shade)); }
-/* the list of changes: a sheet of paper with its title bar edge to edge, fixed at its top */
+/* the list of changes: a sheet of paper with its title bar edge to edge, scrolling with the list */
 .axis.mac .log canvas { filter: var(--mac-letters); }
-.axis.mac .log .log-title { flex: none; margin: 0; }   /* the title bar stays on top; the list scrolls under its line */
-.axis.mac .log-scroll { padding-top: 20px; }
+.axis.mac .log .log-title { margin: -28px -18px 16px; }
 .axis.mac .log-foot { border-top-color: var(--mac-ink); }
 .axis.mac .era { border-top-color: var(--mac-ink); }
 .axis.mac .log-close {

@@ -294,8 +294,9 @@ matched; when they differ, Updatr is the newer and better-tested one.
   so the text would just stop in mid-air. Draw a line at the cut so the content
   reads as sliding under it; it needn't reach the edges (the text's width is
   enough). Marcos, 26 Nov, on The Cubes' list of changes: "I never like the
-  content to visually disappear into the nothing". (The Cubes: the title bar's
-  line at the top, `.log-foot` above CLOSE.)
+  content to visually disappear into the nothing". (The Cubes:
+  `.log-foot`, the line above CLOSE. Its title bar scrolls with the list: a
+  header that stays put was not asked for, and Marcos turned it down.)
 - **Don't put a navigation bar at the top.** And don't leave a full-width
   transparent wrapper fixed at the bottom either: Safari tints its toolbar
   from it.
