@@ -9,7 +9,8 @@
 // the file is axis-cube-b.html or axis-cube-c.html. Any of them also takes the look from the address: #b.
 // A third argument builds a lab, a version for trying something before it reaches the app: sidebar (the screen
 // close up with the initials keyboard, in amber) is axis-cube-sidebar.html, "Sidebar"; sideb, the same dressed as
-// the app is, a friendly old Mac, is axis-cube-sideb.html, "Side-B".
+// the app is, a friendly old Mac, is axis-cube-sideb.html, "Side-B"; first, the app as a first-timer gets it on every
+// load (nothing kept, the first-time hint), is axis-cube-first.html, published as "Sidebar".
 import fs from "node:fs";
 import path from "node:path";
 import * as esbuild from "esbuild";
@@ -22,9 +23,9 @@ fs.mkdirSync(path.join(OUT, "tex"), { recursive: true });
 const TEX = path.join(ROOT, "public/kit/axis-cube/tex");
 for (const f of fs.readdirSync(TEX)) if (f.endsWith(".jpg")) fs.copyFileSync(path.join(TEX, f), path.join(OUT, "tex", f));
 const LOOK = ["a", "b", "c"].includes(process.argv[3]) ? process.argv[3] : "a";
-const LAB = ["sidebar", "sideb"].includes(process.argv[4]) ? process.argv[4] : "";
+const LAB = ["sidebar", "sideb", "first"].includes(process.argv[4]) ? process.argv[4] : "";
 const NAME = (LOOK === "a" ? "axis-cube" : `axis-cube-${LOOK}`) + (LAB ? `-${LAB}` : "") + ".html";
-const TITLE = LAB ? { sidebar: "Sidebar", sideb: "Side-B" }[LAB] : { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK];
+const TITLE = LAB ? { sidebar: "Sidebar", sideb: "Side-B", first: "Sidebar" }[LAB] : { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK];
 
 
 const js = await esbuild.build({
