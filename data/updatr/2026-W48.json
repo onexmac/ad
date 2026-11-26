@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "year": 2026,
   "week": 48,
-  "date": "2026-11-25",
-  "updatedAt": "2026-11-25T22:41:49.690Z",
+  "date": "2026-11-26",
+  "updatedAt": "2026-11-26T22:30:03.429Z",
   "isSample": false,
   "items": [
     {
@@ -12,45 +12,134 @@
       "kind": "game",
       "status": "upcoming",
       "importance": 3,
-      "title": "Grand Major 2026: seedings out, Pick'ems lock Thursday",
-      "dek": "All 16 teams are seeded. Get your Pick'ems in by Thursday for a badge. The prize pool is $150,000, not $200,000.",
+      "title": "Grand Major 2026: Twitch Drops detailed, 11:30 CET start",
+      "dek": "Five Twitch Drops run Nov 27–29 during the Grand Major in Stockholm, and matches now start at 11:30 CET on Friday.",
       "body": [
-        "Embark posted the seedings for all 16 Grand Major teams on November 23. Pick'ems lock at midnight CET at the end of Thursday, November 26. Choose the five teams you think will reach The Throne, the final stage, to earn an exclusive in-game badge. Each Embark ID can submit once.",
-        "The event runs November 27 to 29 at DreamHack Stockholm, starting at 12pm CET / 6am ET. Liquipedia lists the venue as Stockholmsmässan. Day 3 is The Throne: five teams compete, and the first to three crowns is world champion. Twitch viewers can unlock a helmet, weapon skins and a TGM26 charm. A paid TGM26 Event Pass has 16 reward levels.",
-        "Correction: the Grand Major prize pool is $150,000. Our earlier $200,000 figure added $50,000 from the Online Series. IDC Games also reports a new esports trailer for the event."
+        "The Grand Major 2026 streams on THE FINALS' Twitch channel from 11:30 CET on Friday, November 27, and runs to November 29. An earlier report said 12:00 CET, but the newer 11:30 time comes from Embark's Steam post. Five Twitch Drops unlock at watch-time milestones of up to five hours. Reported rewards include a helmet, weapon skins and a TGM26 charm.",
+        "16 teams from three regions meet at DreamHack Stockholm. For the first time, \"The Throne\" format decides the title: the first team to earn three crowns wins. Several outlets put the prize pool at $150,000. One outlet reports $200,000 including the online series.",
+        "Watch for last year's split NTMR trio. Lasagna stayed, while Gremlin and UNI moved to ENVY. One outlet lists the Pick'ems deadline as November 26, so check it in-game before then."
       ],
-      "date": "2026-11-23",
+      "date": "2026-11-26",
       "when": "2026-11-27",
       "tags": [
         "esports",
-        "pick'ems",
-        "twitch drops"
+        "twitch drops",
+        "grand major"
+      ],
+      "source": "Console & PC Gaming",
+      "url": "https://consolepcgaming.com/the-finals-update-12-5-0-details-the-grand-majors-nov-27-start-and-twitch-drops/",
+      "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
+    },
+    {
+      "id": "tf-12-5-sets",
+      "franchise": "finals",
+      "kind": "skin",
+      "status": "live",
+      "importance": 2,
+      "title": "Update 12.5.0 adds Primetimer and Major Force store sets",
+      "dek": "Two new cosmetic sets are in the store now, including a Major Force Set tied to the Grand Major.",
+      "body": [
+        "Embark's Update 12.5.0 adds two store sets, the Primetimer Set and the Major Force Set. Embark describes the Major Force Set as a way to \"keep a piece of TGM26's action.\" HappyGamer reports that both are in the store now.",
+        "Embark hasn't given prices, item lists or end dates, so don't assume the Grand Major set will stay up long. Embark also says the game's third anniversary is \"approaching\" but gives no date or details. The game launched on Steam on December 7, 2023."
+      ],
+      "date": "2026-11-26",
+      "tags": [
+        "store",
+        "cosmetics",
+        "update 12.5.0"
       ],
       "source": "Embark Studios",
-      "url": "https://www.reachthefinals.com/patchnotes/tgm26-seedings",
-      "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
+      "url": "https://www.reachthefinals.com/patchnotes/12-50",
+      "image": "https://consolepcgaming.com/wp-content/uploads/2026/11/the-finals-update-12-5-0-cowboy-hat-contestant.webp"
     },
     {
       "id": "tfd-1410",
       "franchise": "descendant",
       "kind": "game",
-      "status": "upcoming",
+      "status": "out",
       "importance": 3,
-      "title": "Patch 1.4.10 lands November 25 at 23:00 PST",
-      "dek": "Nexon has set the time for Patch 1.4.10. In Europe and Asia it arrives on November 26. The patch notes are not out yet.",
+      "title": "Patch 1.4.10 is live: Wall Crasher drops Transcendent loot",
+      "dek": "Wall Crasher now drops Quality 251–400 Transcendent weapon loot, and Freyna and Monet get changes.",
       "body": [
-        "Nexon's schedule post sets Patch 1.4.10 for Wednesday, November 25, at 23:00 PST. That is already November 26 in Europe and Asia. The same post lists two accounts permanently banned for cheating.",
-        "The post also lists boost windows on November 26–29 and December 3–6, from 23:00 to 22:59 PST. These probably belong to the Descendant's Weekend event. The 1.4.10 patch notes were not found, so the patch contents are still unknown."
+        "Patch 1.4.10 went live on November 25 at 23:00 PST on Steam, Xbox and PS5. Defeating Wall Crasher can now drop Transcendent Weapon Loot at Quality 251–400, with a low chance of an extra Quality 400 drop. No odds are given, and the Transcendent acquisition boost applies.",
+        "Freyna's Catalyst Zone effects are toned down. Monet's lance module now fires forward when aimed at the ground, and her \"Veil of the Ticking Second\" effects no longer block the view. Some Champion Vulgus areas in Henosis Sanctuary are changed.",
+        "The weekly mission now counts Maneuvering Operation. The patch also fixes the Descendant's Weekend results screen, which showed the wrong mastery XP."
       ],
-      "date": "2026-11-23",
+      "date": "2026-11-26",
       "when": "2026-11-25",
       "tags": [
         "patch",
-        "maintenance"
+        "loot",
+        "wall crasher"
       ],
-      "source": "Nexon (Steam)",
-      "url": "https://steamcommunity.com/app/2074920",
+      "source": "Games Lantern",
+      "url": "https://tfd.gameslantern.com/news/the-first-descendant-patch-1410",
       "image": "https://clan.akamai.steamstatic.com/images/42627465/a0bbb9bbd1a4f897439add27c46df6639b5cd149.png"
+    },
+    {
+      "id": "zzz-sunbringer",
+      "franchise": "zzz",
+      "kind": "character",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "HoYoverse confirms Sunbringer as first Enchainer for Dec 2",
+      "dek": "Official 3.4 release repeats the December 2 date and names Sunbringer the game's first Enchainer Agent.",
+      "body": [
+        "HoYoverse's press release, dated November 24, repeats that version 3.4 arrives on December 2. It calls Sunbringer \"the first Enchainer Agent\" and confirms the crossover with Robin and Kafka.",
+        "Some coverage calls Sunbringer an \"S-Rank Armorer Agent.\" HoYoverse's official class is Enchainer, so go by that."
+      ],
+      "date": "2026-11-24",
+      "when": "2026-12-02",
+      "tags": [
+        "version 3.4",
+        "new agent"
+      ],
+      "source": "HoYoverse",
+      "url": "https://www.hoyoverse.com/en-us/news/167445",
+      "image": "https://guided.news/wp-content/uploads/2026/10/HUMAjguW8AAlxYr.webp"
+    },
+    {
+      "id": "sb-blood-rain-handmade",
+      "franchise": "stellar",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 1,
+      "title": "Shift Up says Blood Rain is \"handmade\" after AI video backlash",
+      "dek": "After backlash over an AI-made music video, Shift Up says Blood Rain is handmade but still uses AI in production steps.",
+      "body": [
+        "Around November 20–21, Shift Up said Stellar Blade: Blood Rain is \"handmade from start to finish.\" The statement followed backlash over an AI-made music video.",
+        "CEO Kim Hyung-tae confirmed the studio still uses AI for middle steps of production. Shift Up has not given a release date for Blood Rain."
+      ],
+      "date": null,
+      "tags": [
+        "ai",
+        "blood rain"
+      ],
+      "source": "HappyGamer",
+      "url": "https://happygamer.com/shift-up-handmade-from-start-to-finish-ai-policy-177052/",
+      "image": "https://happygamer.com/wp-content/uploads/2026/11/shift-up-limits-ai-to-middle-steps-after-stellar-blade-blood-rain-backlash.jpg"
+    },
+    {
+      "id": "cod-mw4-nvidia-driver",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "out",
+      "importance": 1,
+      "title": "Player test: NVIDIA driver 621.35 costs FPS in MW4",
+      "dek": "One player's RTX 5080 test found the new driver slower in Modern Warfare 4 than the older 617.42.",
+      "body": [
+        "In one player's test on an RTX 5080, Modern Warfare 4 ran at 269 FPS on NVIDIA driver 621.35 and 288 FPS after rolling back to 617.42. The tester recommends staying on the older driver.",
+        "This is one user's result, not a statement from NVIDIA or Activision. If your frame rate dropped after updating, rolling back is worth a try."
+      ],
+      "date": "2026-11-26",
+      "tags": [
+        "performance",
+        "nvidia",
+        "mw4"
+      ],
+      "source": "iXBT.games",
+      "url": "https://ixbt.games/en/news/2026/11/26/novyi-draiver-nvidia-prines-problemy-igroki-teriaiut-fps-v-call-of-duty-modern-warfare-4.html",
+      "image": "https://media.ixbt.games/1600x900/smart/jpeg/ixbt-images/1746490/81dfb9e7-a533-4fdf-95e3-bf49ff5e93a9.jpg"
     },
     {
       "id": "tfd-accelerate-research",
@@ -511,28 +600,6 @@
       "source": "Inven Global",
       "url": "https://www.invenglobal.com/articles/28398/shift-up-adjusts-reveal-schedule-for-next-title-project-spirit",
       "image": "https://static.invenglobal.com/upload/image/2026/11/10/r1794300251240326.png"
-    },
-    {
-      "id": "zzz-sunbringer",
-      "franchise": "zzz",
-      "kind": "character",
-      "status": "upcoming",
-      "importance": 3,
-      "title": "Sunbringer, the first Enchainer, arrives December 2",
-      "dek": "Version 3.4 'The Finality of the Day' launches Dec 2 with Sunbringer, an S-Rank Genesis Flare Armorer and the first Enchainer Agent.",
-      "body": [
-        "HoYoverse's Version 3.4 announcement confirms that \"The Finality of the Day\" launches on December 2, 2026. Sunbringer is playable from day one and stays available through the whole version.",
-        "HoYoverse classifies her as an S-Rank Genesis Flare Armorer Agent. She is a new Void Hunter and the first Agent labelled an Enchainer. She shares the opening half of the version with the free crossover Agent Robin; Kafka follows in the second half."
-      ],
-      "date": "2026-11-20",
-      "when": "2026-12-02",
-      "tags": [
-        "version 3.4",
-        "new agent"
-      ],
-      "source": "Guided",
-      "url": "https://guided.news/en/news/zenless-zone-zero-honkai-star-rail-kafka-robin-version-3-4/",
-      "image": "https://guided.news/wp-content/uploads/2026/10/HUMAjguW8AAlxYr.webp"
     },
     {
       "id": "flm-sunrise-reaping",
