@@ -51,6 +51,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.49** A thumb's slide bends: read its way over more travel, and lean towards the way that is harder to draw.
 - **0.6.55** A number in an ask can count the pieces, not the pixels; and add no colour or detail that wasn't asked for.
 - **0.6.58** A close-up keeps the thing in its place: frame it in what holds it, never cut it out of the scene.
+- **0.6.62** A new tap answers in every state a touch can start in; check each mode, not only the one it was built in.
 
 Open:
 
@@ -60,6 +61,16 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.62 · 2026-11-25 21:51
+
+- **Bug fix.** Marcos, 25 Nov 21:50: "Ok a couple of things I should be able to press it while the cube is mixing up ok start. Also on the pixel cube, the two moves happen two fast and hollow then one by one so it feels like they are moving"
+  - Cause: a tap on the iMac was only checked for a touch that started beside the rings. While a puzzle is mixing itself up, the rings are off, so a touch beside the puzzle counts as looking round the room. That kind of touch never asked whether it had landed on the iMac. The puzzle mixes itself every time it is picked up (0.6.50), so for the first seconds the iMac did nothing.
+  - Don't: build a new tap in one state of the controls and stop there. Check every mode a touch can start in, above all the ones a sequence puts the controls in.
+- A tap on the iMac now opens its screen while the puzzle is still mixing itself up. The mixing goes on behind it.
+- The mark's solve is slower, and it moves:
+  - Each turn first empties its line, then fills it again a square at a time, about a fifth of a second apart.
+  - The middle row empties at 0.7 s and fills again from the left by 1.3 s. After a pause, the middle column empties at 2.0 s and fills from the top. At 2.6 s every square is filled. It used to be two turns at once, at 0.45 s and 1.0 s. ([#PR](https://github.com/onexmac/ad/pull/PR))
 
 ## 0.6.60 · 2026-11-25 21:46
 
