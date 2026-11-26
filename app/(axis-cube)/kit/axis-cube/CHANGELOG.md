@@ -50,6 +50,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.45** Don't tune a model to resemble a reference: trace the reference's lines and overlay the model on it.
 - **0.6.49** A thumb's slide bends: read its way over more travel, and lean towards the way that is harder to draw.
 - **0.6.55** A number in an ask can count the pieces, not the pixels; and add no colour or detail that wasn't asked for.
+- **0.6.58** A close-up keeps the thing in its place: frame it in what holds it, never cut it out of the scene.
 
 Open:
 
@@ -59,6 +60,25 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.58 · 2026-11-25 21:39
+
+- **Bug fix.** Marcos, 25 Nov 21:22, of 0.6.55's screen: "The squares of the pixel cube have like dots inside. Remove those. Now the screen should have a reflection of the room and it actually has to be inside the Mac, I see what you are trying to do with the separate faded in flat screen but it doesn't look right. Put it inside, also add more breathing room for the elements of the screen, it looks to crowded. Have the first player highlighted. And for the pixel cube some cubes are filled the others are stokes. Make the screen monochromed with yellow text"
+  - Cause, the dots: each block of the mark had a rivet hole in every corner, a detail carried over from the first version that nobody asked for. Where four blocks met, the holes read as dots inside the cube.
+  - Cause, the flat screen: close up, everything but the screen was cut away to black along the screen's own outline. Seen alone, the screen lost the Mac round it, and the glass reflected next to nothing (a fifth of a dark, rough reflection). It looked like a flat picture faded in, not a tube inside a Mac.
+  - Don't: cut an object out of its scene for a close-up. Frame it in what holds it, and let the scene fall off softly round it. And don't keep details from an earlier version once the ask has changed shape.
+- Close up, the screen is inside the Mac:
+  - The camera stops further back, with the screen four fifths of the frame across. The black surround, the light grey edge of the opening, the ice bezel, the "iMac" under it and the CD tray all show round it.
+  - The dark round it is now a soft ellipse, clear over the screen and its bezel, falling to black across the Mac's face and beyond.
+  - The puzzle in hand steps aside, up and to the right, while the screen is close, so the camera no longer flies through it. It comes back when the screen closes.
+- The glass reflects the room. The first time the screen is opened, the room is caught as the screen sees it, from just in front of the glass. The glass adds that reflection over the screen: smooth, and strong enough to show the shelves and the warm light to the right. Until then it reflects the room as the puzzle sees it.
+- The screen is in one colour, yellow on black:
+  - The mark is 3 × 3 squares of 9 × 9 pixels, two pixels apart, with no holes. Five are filled and four are only an outline, mixed.
+  - Beside it: THE CUBES, TOP 5, PLAYERS.
+  - The first player is lit up: dark letters on a yellow bar.
+  - More air everywhere: the screen has more pixels (160 × 120) for the same letters, with 12 pixels from one row to the next and wider margins. Each pixel is drawn whole, so shapes are solid, with the tube's lines across them.
+  - It is still now: no glint, no mixing.
+- The screen's light on the room is yellow too, in every look. ([#PR](https://github.com/onexmac/ad/pull/PR))
 
 ## 0.6.55 · 2026-11-25 20:32
 
