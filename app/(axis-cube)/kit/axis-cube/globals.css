@@ -403,20 +403,16 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
    an ink line, rounded corners and a title bar of stripes; keys and buttons stand on an ink lip that a press pushes
    them down onto. The pixel letters are drawn in paper and darkened to ink (--mac-letters) wherever they sit on
    paper, so a pressed key, END, and the bars of a time show them in paper. On the screen, the scene draws the same:
-   a window of paper on a dark desktop. */
+   a window of paper on a dark desktop. A lab is the high-score snippet, not the app: no version, no changes. */
 .axis.mac {
   --mac-paper: #ebe4d1;
   --mac-ink: #2a2b2f;
-  --mac-dim: #6f695d;
   --mac-shade: rgba(0, 0, 0, 0.38);
   --mac-letters: brightness(0.18);
   --mac-stripes: repeating-linear-gradient(to bottom, var(--mac-ink) 0 2px, transparent 2px 4px);
   --crt-ink: var(--mac-ink);
   --key-line: rgba(42, 43, 47, 0.3);
   --key-fill: rgba(42, 43, 47, 0.08);
-  --log-bg: var(--mac-paper);
-  --log-text: var(--mac-ink);
-  --log-dim: var(--mac-dim);
   --confirm-bg: var(--mac-paper);
   --confirm-dim: rgba(20, 20, 22, 0.4);
   --ring: rgba(235, 228, 209, 0.7);
@@ -434,18 +430,8 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 }
 .axis.mac .mac-title span { display: block; padding: 0 8px; background: var(--mac-paper); }
 .axis.mac .mac-title canvas { display: block; filter: var(--mac-letters); }
-/* the line at the top right and the version: boxes the scene draws; a soft shadow lifts them off the room */
-.axis.mac .hud, .axis.mac .ver canvas { filter: drop-shadow(0 2px 6px var(--mac-shade)); }
-/* the list of changes: a sheet of paper with its title bar edge to edge */
-.axis.mac .log canvas { filter: var(--mac-letters); }
-.axis.mac .log .log-title { margin: -28px -18px 16px; }
-.axis.mac .era { border-top-color: var(--mac-ink); }
-.axis.mac .log-close {
-  border: 2px solid var(--mac-ink); border-radius: 10px; background: var(--mac-paper);
-  box-shadow: 0 3px 0 var(--mac-ink); transition: transform 0.06s ease, box-shadow 0.06s ease;
-}
-.axis.mac .log-close:active { background: var(--mac-ink); border-color: var(--mac-ink); transform: translateY(2px); box-shadow: 0 1px 0 var(--mac-ink); }
-.axis.mac .log-close:active canvas { filter: none; }
+/* the line at the top right: a box the scene draws; a soft shadow lifts it off the room */
+.axis.mac .hud { filter: drop-shadow(0 2px 6px var(--mac-shade)); }
 /* the keyboard: a window of its own, INITIALS in its title bar; its radius is a key's plus the padding round them */
 .axis.mac .kb {
   box-sizing: border-box; padding: 0 12px 15px; gap: 7px; overflow: hidden;
