@@ -68,7 +68,7 @@ Open:
 - The mark is now 3 × 3 blocks, in one colour: each a plate of 9 × 9 pixels with its corners rounded and a rivet hole in each, a pixel between blocks. Close up the gold still glints.
 - The heading is three lines beside the mark: THE CUBES in amber, then TOP 5 and PLAYERS in blue. The line at the bottom is gone, and the five rows have a little more room between them.
 - The iMac is turned 33° toward the middle of the room, where it was turned 16° away. Its face now looks past the camera, a little to the right, so the way to its screen close up is shorter and straighter.
-  - Turned so, it is a hair deeper than the sideboard: it stands 2 cm further back, just clear of the wall, and one front corner is over the edge by about a centimetre. ([#PR](https://github.com/onexmac/ad/pull/PR))
+  - Turned so, it is a hair deeper than the sideboard: it stands 2 cm further back, just clear of the wall, and one front corner is over the edge by about a centimetre. ([#170](https://github.com/onexmac/ad/pull/170))
 
 ## 0.6.53 · 2026-11-25 20:25
 
