@@ -72,7 +72,7 @@ Asked by Marcos, 25 Nov 22:33: "Guarda en Claude.md o donde veas conveniente el 
   - It closes with CLOSE at its foot, a pull down from its top, a slide to the right, a push on past its end, or Escape.
   - The app reads its changelog when the site is built (`/kit/axis-cube/changelog`), and fetches it only when the list is opened. The artifact carries it in the page.
 - The system is now the portal's for every app (docs/changelog.md): each app keeps its CHANGELOG.md, shows its version, and opens the list from it.
-- 0.6.70 shipped three asks of one message in one push; they are now logged apart, as 0.6.66, 0.6.68 and 0.6.70. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- 0.6.70 shipped three asks of one message in one push; they are now logged apart, as 0.6.66, 0.6.68 and 0.6.70. ([#176](https://github.com/onexmac/ad/pull/176))
 
 ## 0.6.70 · 2026-11-25 22:32
 
