@@ -49,6 +49,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.40** Match a defining trait in degree, not just in kind.
 - **0.6.45** Don't tune a model to resemble a reference: trace the reference's lines and overlay the model on it.
 - **0.6.49** A thumb's slide bends: read its way over more travel, and lean towards the way that is harder to draw.
+- **0.6.55** A number in an ask can count the pieces, not the pixels; and add no colour or detail that wasn't asked for.
 
 Open:
 
@@ -58,6 +59,16 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.6.55 · 2026-11-25 20:32
+
+- **Bug fix.** Marcos, 25 Nov 20:26, of 0.6.53's screen: "La iMac para el zoom sea más sencillo gurala un poco que más bien este 33 grados para el otro lado cómo más viendo hacia el viewer, más bien desviado al otro lado. The cubes / Top 5 / Players. And for the icon is single color and 3x3 (9 blocks) not one."
+  - Cause: his first ask, "un icono pixel art tipo los blocks de Mario pero solo 9x9", was read as one block nine pixels across. He meant nine blocks, 3 × 3, a cube's face made of them. The mark also got a cube's face in six colours in its middle, which he never asked for.
+  - Don't: take a number in an ask as pixels when it can count the pieces; when it reads both ways, show both. Add no colour or detail that wasn't asked for.
+- The mark is now 3 × 3 blocks, in one colour: each a plate of 9 × 9 pixels with its corners rounded and a rivet hole in each, a pixel between blocks. Close up the gold still glints.
+- The heading is three lines beside the mark: THE CUBES in amber, then TOP 5 and PLAYERS in blue. The line at the bottom is gone, and the five rows have a little more room between them.
+- The iMac is turned 33° toward the middle of the room, where it was turned 16° away. Its face now looks past the camera, a little to the right, so the way to its screen close up is shorter and straighter.
+  - Turned so, it is a hair deeper than the sideboard: it stands 2 cm further back, just clear of the wall, and one front corner is over the edge by about a centimetre. ([#170](https://github.com/onexmac/ad/pull/170))
 
 ## 0.6.53 · 2026-11-25 20:25
 
