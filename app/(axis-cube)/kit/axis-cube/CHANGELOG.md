@@ -75,13 +75,13 @@ Shipped in the same push as 0.6.74. This is the Sidebar lab's part.
 - END brings up a card in the screen's letters, after the old game's: a frame; the initials and the time, dark on a bar of light; SAVE?; and YES, boxed, beside NO, underlined.
   - YES keeps the entry: it takes its place in the table, lit up, the Mac comes back into focus, and the line says BACK.
   - NO, or a tap beside the card, goes back to typing.
-- A computer's keyboard types the initials too: letters, Backspace, Enter for END and again for YES, Escape for NO. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- A computer's keyboard types the initials too: letters, Backspace, Enter for END and again for YES, Escape for NO. ([#177](https://github.com/onexmac/ad/pull/177))
 
 ## 0.6.74 · 2026-11-25 22:58
 
 Asked by Marcos, 25 Nov 22:52, in the same message: "The status text (upper right) should say: back; when the camera goes to the screen."
 
-- With the iMac's screen close up, the line at the top right says BACK, and a tap on it is the way back to the room. The tap area reaches a little past the letters. The clock goes on underneath and shows again on the way back. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- With the iMac's screen close up, the line at the top right says BACK, and a tap on it is the way back to the room. The tap area reaches a little past the letters. The clock goes on underneath and shows again on the way back. ([#177](https://github.com/onexmac/ad/pull/177))
 
 ## 0.6.73 · 2026-11-25 22:37
 
