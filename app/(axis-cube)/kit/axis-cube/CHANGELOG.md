@@ -69,6 +69,20 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.27 · 2026-11-26 14:23
+
+**Claude:** First-timers now get a friendly tip: the cube itself acts out how to put it back, ducking toward the ottoman until you press OK. Then it springs back up and gets to mixing.
+
+Asked by Marcos, 26 Nov 14:17: "If it is the first time the user opens a cube have a hint box that says: Strong Swipe Down To Sit Back The Cube (with an Ok). When it's there have the cube bounce down as if trying to go back and when the user press ok it bounce up again and starts mixing up"
+
+- The first time a puzzle is picked up on a device, a box comes up at the bottom: "Strong Swipe Down To Sit Back The Cube", in Cube OS, with OK filled as the button to press.
+- While the box is up:
+  - The puzzle waits to mix (the line at the top right says READY).
+  - Every 1.6 s it dips toward the ottoman, as a strong swipe down would pull it, and springs back.
+  - Touches go to the box.
+- OK: the box goes, the puzzle hops back up, and a moment later it mixes itself up as usual.
+- It shows once: after OK it is not asked again on that device. It never shows in the labs. ([#198](https://github.com/onexmac/ad/pull/198))
+
 ## 0.7.25 · 2026-11-26 14:14
 
 **Claude:** The icon flipped to night mode: a cream cube on dark blue-grey. It stands out on the home screen and still looks like the Mac's.
