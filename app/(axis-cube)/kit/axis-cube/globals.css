@@ -175,7 +175,7 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   opacity: 0; transform: translate(-50%, 24px); pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.axis.crt.entry .kb { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; transition-delay: 0.35s; }
+.axis.crt.entry .kb { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; transition-delay: 0.15s; }
 /* while a new entry is typed, the Mac goes out of focus, and the entry floats over it: its time and three places,
    not yet in the table */
 .axis #stage { transition: filter 0.45s ease; }
@@ -185,14 +185,14 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
   display: flex; align-items: center; gap: 4px;
   opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
-/* the clock's bar is in the line from the moment it leaves the top right (the scene flies it in on a spring);
-   the places for initials come with the keyboard */
-.axis.crt.landing .entry-line { opacity: 1; transition: none; }
+.axis.crt.entry .entry-line { opacity: 1; transition-delay: 0.15s; }
+/* after YES the line is the row it becomes in the table (the clock's bar grows to the whole row) and the scene flies
+   it into the Mac, onto that row, on a spring; the places for initials are part of it then */
+.axis.crt.placing .entry-line { opacity: 1; transition: none; }
+.axis.crt.placing .entry-line .ini { display: none; }
 .axis .entry-line canvas { display: block; }
 .axis .entry-line .chip { transform-origin: center; will-change: transform; }
-.axis .entry-line .ini { opacity: 0; transition: opacity 0.35s ease; }
-.axis.crt.entry .entry-line .ini { opacity: 1; transition-delay: 0.2s; }
-.axis.crt.landing .hud { pointer-events: none; }
+.axis.crt.placing .hud { pointer-events: none; }
 /* END is the key that finishes: filled, its letters dark */
 .axis .key.end { background: var(--crt-ink); border-color: var(--crt-ink); }
 .axis .key.end canvas { filter: brightness(0); }
