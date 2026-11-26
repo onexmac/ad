@@ -8,8 +8,8 @@
 // The second argument picks the look (a analogue, the default; b brush; c classic) and, for b and c,
 // the file is axis-cube-b.html or axis-cube-c.html. Any of them also takes the look from the address: #b.
 // A third argument builds a lab, a version for trying something before it reaches the app: sidebar (the screen
-// close up with the initials keyboard) is axis-cube-sidebar.html, "Sidebar"; sideb, the same dressed as a friendly
-// old Mac, is axis-cube-sideb.html, "Side-B".
+// close up with the initials keyboard, in amber) is axis-cube-sidebar.html, "Sidebar"; sideb, the same dressed as
+// the app is, a friendly old Mac, is axis-cube-sideb.html, "Side-B".
 import fs from "node:fs";
 import path from "node:path";
 import * as esbuild from "esbuild";
@@ -25,8 +25,8 @@ const LOOK = ["a", "b", "c"].includes(process.argv[3]) ? process.argv[3] : "a";
 const LAB = ["sidebar", "sideb"].includes(process.argv[4]) ? process.argv[4] : "";
 const NAME = (LOOK === "a" ? "axis-cube" : `axis-cube-${LOOK}`) + (LAB ? `-${LAB}` : "") + ".html";
 const TITLE = LAB ? { sidebar: "Sidebar", sideb: "Side-B" }[LAB] : { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK];
-// Side-B loads on paper (.mac-loader in the app's stylesheet)
-const LOADER_CLASS = LAB === "sideb" ? "axis-loader mac-loader" : "axis-loader";
+// the Mac loads on paper (.mac-loader in the app's stylesheet); the Sidebar keeps its black
+const LOADER_CLASS = LAB === "sidebar" ? "axis-loader" : "axis-loader mac-loader";
 
 const js = await esbuild.build({
   entryPoints: [path.join(HERE, "entry.js")],

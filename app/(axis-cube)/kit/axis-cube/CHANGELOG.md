@@ -66,6 +66,39 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.5 · 2026-11-26 12:10
+
+**Claude:** High scores are real now. Solve a puzzle by hand fast enough and the Mac asks for your initials. Every puzzle keeps its own top five, and the machine remembers them. No coins required.
+
+Asked by Marcos, 26 Nov 11:32: "I love the side B. Let's implement it into The Cubes"
+
+- The high-score screen comes to the app. It is no longer only in the labs.
+- A solve by hand that makes the puzzle's top five, while its clock runs, plays out like this:
+  - The happy cube celebrates and settles.
+  - After a beat, the screen comes up with the keyboard: initials, END, SAVE?, YES.
+  - The row flies in and merges, and the pixel cube solves.
+- Each puzzle has its own five: 3X3, 2X2, AXIS and GHOST.
+  - The screen shows the puzzle in hand's five, or the last one held, with its name beside the pixel cube.
+  - They start as the machine's own: the 3×3's sample times, the others scaled to how long each takes.
+  - They are kept on the device, so they survive a reload.
+- A slower solve celebrates and stays in hand.
+- Leaving the screen before END drops the entry. A tap on the Mac with no new time shows the five, with BACK.
+- Close to the screen, the camera frames it as the labs did: square on and a tenth closer, with the screen higher while the keyboard is up. ([#187](https://github.com/onexmac/ad/pull/187))
+
+## 0.7.0 · 2026-11-26 12:10
+
+**Claude:** The Cubes is in its Sunday best: cream paper, charcoal ink, striped title bars, and keys you can really press. The amber has retired to the Sidebar lab, where it still glows.
+
+Asked by Marcos, 26 Nov 11:32, in the same message: "I love the side B. Let's implement it into The Cubes"
+
+- The app wears Side-B's look, a friendly old Mac:
+  - The iMac's screen is a window on a dark desktop. Its title bar has stripes, a close box and THE CUBES.
+  - The line at the top right and the version are paper boxes with an ink line, rounded corners and an ink lip. The clock is the same box inverted.
+  - The keyboard is a window titled INITIALS, with keys that press down onto their lip.
+  - END asks in a SAVE? dialog, with YES as the default.
+  - The list of changes is a sheet of paper with CHANGES in its title bar and CLOSE on a lip.
+  - The rings on the puzzle are paper, and the app loads on paper. ([#187](https://github.com/onexmac/ad/pull/187))
+
 ## 0.6.95 · 2026-11-26 10:26
 
 **Claude:** The little pixel cube now waits for your score to land before it solves itself, like a crowd holding its applause for the right moment.
