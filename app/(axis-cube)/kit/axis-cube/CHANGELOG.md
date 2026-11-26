@@ -78,7 +78,7 @@ Open:
   - The first player is lit up: dark letters on a yellow bar.
   - More air everywhere: the screen has more pixels (160 × 120) for the same letters, with 12 pixels from one row to the next and wider margins. Each pixel is drawn whole, so shapes are solid, with the tube's lines across them.
   - It is still now: no glint, no mixing.
-- The screen's light on the room is yellow too, in every look. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The screen's light on the room is yellow too, in every look. ([#171](https://github.com/onexmac/ad/pull/171))
 
 ## 0.6.55 · 2026-11-25 20:32
 
