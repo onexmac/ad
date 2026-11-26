@@ -82,7 +82,7 @@ Asked by Marcos, 26 Nov 16:22, in the same message: "I need the highscore to liv
 - The fives live in a Redis database (Upstash), connected to the portal's Vercel project from its Storage tab; its address and key are the project's, never in this repo. Until it is connected, each device keeps its own fives, as before, and the entries made meanwhile wait on the device and are sent once it is.
 - Offline, the app shows the last fives it saw, and an entry made then is sent the next time the app reaches the portal.
 - The portal checks every entry: a puzzle it knows, a time between a floor no hand beats on a phone (2 s on the 2×2, 5 s on the others) and 99:59:99, and one to three capital letters. It takes at most six entries a minute from one address, and keeps each puzzle's best fifty.
-- The labs never send an entry. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The labs never send an entry. ([#206](https://github.com/onexmac/ad/pull/206))
 
 ## 0.7.40 · 2026-11-26 17:05
 
@@ -92,7 +92,7 @@ Asked by Marcos, 26 Nov 16:22: "Make the dots control glow look like the dots ar
 
 - Half a second after a mix ends, the rings light up twice in 1.8 s. Each pulse comes up quickly and dies away slower, as a lamp does.
 - At each peak the ring's line goes white-hot, a soft light fills it from the inside, and the light spills out round it: a bright edge close in and a wide, faint halo further out. The dark edge that keeps a ring readable on a light background fades while it is lit.
-- They swell only a little, 6% (it was 22%): the light does the work, not the size. With reduced motion they glow and don't swell. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- They swell only a little, 6% (it was 22%): the light does the work, not the size. With reduced motion they glow and don't swell. ([#206](https://github.com/onexmac/ad/pull/206))
 
 ## 0.7.38 · 2026-11-26 16:20
 
