@@ -66,22 +66,6 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
-## 0.6.97 · 2026-11-26 10:46
-
-**Claude:** Introducing Side-B: the same game in its Sunday best. Cream paper, charcoal ink, striped title bars, and keys you can really press. The amber Sidebar keeps its glow; this one keeps its manners.
-
-Asked by Marcos, 26 Nov 10:32, with three pictures of friendly 1-bit interfaces: "Remove or Change the axis cube loader artifact. Let's have a second sidebar but with a different ui style more Macintosh but friendlier lets see how it goes. Everything else should work like the sidebar. Let's call the artifact Side-B"
-
-- A new lab, Side-B (`sideb`). It plays exactly like the Sidebar, dressed as a friendly old Mac: cream paper and charcoal ink.
-  - The iMac's screen is a window on a dark desktop. Its title bar has stripes, a close box and THE CUBES. Under it are the pixel cube, TOP 5 PLAYERS and the five rows; the lit row is ink with paper letters.
-  - The line at the top right and the version are paper boxes with an ink line, rounded corners and an ink lip; the clock is the same box inverted.
-  - The keyboard is a window titled INITIALS. Its keys stand on an ink lip and go down onto it when pressed, turning ink; END is ink.
-  - The entry is a paper field with the time on its ink bar. Once it flies, only the bar goes, with a rim of paper that matches the window it lands in.
-  - END asks in a dialog with SAVE? in its title bar, the entry on an ink bar, and YES as the default button with a ring round it.
-  - The list of changes is a sheet of paper with CHANGES in its title bar, and the rings on the puzzle are paper.
-  - It loads on paper, too.
-- The Sidebar and the app are unchanged. ([#185](https://github.com/onexmac/ad/pull/185))
-
 ## 0.6.95 · 2026-11-26 10:26
 
 **Claude:** The little pixel cube now waits for your score to land before it solves itself, like a crowd holding its applause for the right moment.

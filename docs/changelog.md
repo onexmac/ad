@@ -7,6 +7,7 @@ Every app in the portal keeps a changelog and shows it. It is an Eva rule: Marco
 - `CHANGELOG.md` in the app's own folder, next to its `page.tsx` (The Cubes: `app/(axis-cube)/kit/axis-cube/CHANGELOG.md`, the example to copy).
 - An app's first push to Vercel is **0.1.0**. An app that has no changelog yet starts it at its next push, counted from its first push to Vercel.
 - Every push that changes the app adds its entry **in the same commit**, with the pull request's link (open the PR as a draft, put its number in the entry, push, then merge).
+- A lab is not an app: it is a snippet of one, built as an artifact to try something (The Cubes' Sidebar and Side-B are its high-score screen). A push that only changes a lab gets no entry and no version, and a lab shows neither: no version, no list of changes. Marcos, 26 Nov: "No changelog. Sidebar is not a full app. Just the highscore snippet".
 
 ### Versions
 
