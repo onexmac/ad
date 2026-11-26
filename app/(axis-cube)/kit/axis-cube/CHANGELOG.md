@@ -69,6 +69,14 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.28 · 2026-11-26 14:29
+
+**Claude:** The tip moved in where the controls live, so the first thing you look at to play is the first thing that teaches you.
+
+Asked by Marcos, 26 Nov 14:24: "Put the hint box where the dots control are"
+
+- The first-time hint now sits centred where the grid of dots is, not at the bottom. The dots step aside while it is up and come back after OK. ([#199](https://github.com/onexmac/ad/pull/199))
+
 ## 0.7.27 · 2026-11-26 14:23
 
 **Claude:** First-timers now get a friendly tip: the cube itself acts out how to put it back, ducking toward the ottoman until you press OK. Then it springs back up and gets to mixing.

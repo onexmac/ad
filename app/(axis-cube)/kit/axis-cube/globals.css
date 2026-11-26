@@ -493,20 +493,21 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 .axis.mac .confirm-row .confirm-yes canvas { filter: none; }
 .axis.mac .confirm-row .confirm-yes:active { background: var(--mac-paper); }
 .axis.mac .confirm-row .confirm-yes:active canvas { filter: var(--mac-letters); }
-/* The first-time hint, over the room while a puzzle is first held: a box of paper at the bottom, its words in Cube
-   OS, and OK filled (the button to press). The ground round it is clear, so the puzzle dipping toward the ottoman
+/* The first-time hint, over the room while a puzzle is first held: a box of paper where the grid of rings is (centred
+   on it; the rings step aside while it is up), its words in Cube OS, and OK filled (the button to press). The ground round it is clear, so the puzzle dipping toward the ottoman
    shows, but it takes every touch until OK. */
 .axis .sit-wrap { position: absolute; inset: 0; border-radius: inherit; z-index: 3; pointer-events: none; }
 .axis .sit-wrap.open { pointer-events: auto; }
 .axis .sit-card {
-  position: absolute; left: 50%; bottom: 28px; width: min(calc(100% - 48px), 320px); box-sizing: border-box;
+  position: absolute; left: 50%; top: 81.5%; width: min(calc(100% - 48px), 320px); box-sizing: border-box;
   display: grid; justify-items: center; gap: 18px; padding: 22px 20px 24px;
   font: calc(50px / 3)/1.45 "Cube OS", ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-synthesis: none; text-align: center;
   background: var(--confirm-bg); color: var(--log-text); border: 2px solid var(--crt-ink); border-radius: 18px;
-  opacity: 0; transform: translate(-50%, 24px) scale(0.92);
+  opacity: 0; transform: translate(-50%, calc(-50% + 24px)) scale(0.92);
   transition: opacity 0.25s ease, transform 0.34s cubic-bezier(0.3, 1.5, 0.5, 1);
 }
-.axis .sit-wrap.open .sit-card { opacity: 1; transform: translate(-50%, 0); }
+.axis .sit-wrap.open .sit-card { opacity: 1; transform: translate(-50%, -50%); }
+.axis.sit .pad { opacity: 0; transition: opacity 0.25s ease; }
 .axis .sit-msg { margin: 0; }
 .axis .sit-ok {
   margin: 0; padding: 9px 26px; border: 2px solid var(--crt-ink); border-radius: 10px; background: var(--crt-ink);
