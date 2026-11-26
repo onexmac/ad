@@ -8,7 +8,8 @@
 // The second argument picks the look (a analogue, the default; b brush; c classic) and, for b and c,
 // the file is axis-cube-b.html or axis-cube-c.html. Any of them also takes the look from the address: #b.
 // A third argument builds a lab, a version for trying something before it reaches the app: sidebar (the screen
-// close up with the initials keyboard) is axis-cube-sidebar.html, "Sidebar".
+// close up with the initials keyboard) is axis-cube-sidebar.html, "Sidebar"; sideb, the same dressed as a friendly
+// old Mac, is axis-cube-sideb.html, "Side-B".
 import fs from "node:fs";
 import path from "node:path";
 import * as esbuild from "esbuild";
@@ -21,9 +22,11 @@ fs.mkdirSync(path.join(OUT, "tex"), { recursive: true });
 const TEX = path.join(ROOT, "public/kit/axis-cube/tex");
 for (const f of fs.readdirSync(TEX)) if (f.endsWith(".jpg")) fs.copyFileSync(path.join(TEX, f), path.join(OUT, "tex", f));
 const LOOK = ["a", "b", "c"].includes(process.argv[3]) ? process.argv[3] : "a";
-const LAB = process.argv[4] === "sidebar" ? "sidebar" : "";
+const LAB = ["sidebar", "sideb"].includes(process.argv[4]) ? process.argv[4] : "";
 const NAME = (LOOK === "a" ? "axis-cube" : `axis-cube-${LOOK}`) + (LAB ? `-${LAB}` : "") + ".html";
-const TITLE = LAB ? "Sidebar" : { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK];
+const TITLE = LAB ? { sidebar: "Sidebar", sideb: "Side-B" }[LAB] : { a: "The Cubes", b: "The Cubes B", c: "The Cubes C" }[LOOK];
+// Side-B loads on paper (.mac-loader in the app's stylesheet)
+const LOADER_CLASS = LAB === "sideb" ? "axis-loader mac-loader" : "axis-loader";
 
 const js = await esbuild.build({
   entryPoints: [path.join(HERE, "entry.js")],
@@ -48,7 +51,7 @@ const page = `<meta charset="utf-8">
 ${css.replace(/<\/style/g, "<\\/style")}
 </style>
 <div class="axis-ground"><div id="root" class="axis"></div></div>
-<div class="axis-loader" id="loader" role="progressbar" aria-label="Cargando">${LOADER_HTML}</div>
+<div class="${LOADER_CLASS}" id="loader" role="progressbar" aria-label="Cargando">${LOADER_HTML}</div>
 <script>window.AXIS_LOOK = "${LOOK}"; window.AXIS_LAB = "${LAB}"; window.AXIS_VERSION = ${inPage(version)}; window.AXIS_CHANGELOG = ${inPage(changelog)};</script>
 <script>${js.outputFiles[0].text.replace(/<\/script/g, "<\\/script")}</script>
 `;
