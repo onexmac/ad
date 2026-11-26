@@ -69,6 +69,36 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.22 · 2026-11-26 14:02
+
+**Claude:** The little version number at the bottom right now dresses for the occasion: dark box, light letters, like every version in the list it opens.
+
+Asked by Marcos, 26 Nov 13:59, in the same message: "On the changelog let's add some formatting. The changelog number itself lets have it filled dark with light text"
+
+- The version at the bottom right of the cube picker, which opens the list of changes, is filled ink with its number in paper, the same box as the clock. In the list itself, each version's number was already on an ink bar (0.7.18). ([#195](https://github.com/onexmac/ad/pull/195))
+
+## 0.7.21 · 2026-11-26 14:02
+
+**Claude:** The high-score tables have been wiped clean for a fresh season. Two names already on the board: MAC on the 3×3 and twice on the 2×2. Everywhere else, the dashes await you.
+
+Asked by Marcos, 26 Nov 13:59, in the same message: "Let's have all the high scores empty like this --:--:-- --- Except in the classic 3x3 let's put first: 02:34:48 MAC ... Oh sorry. The 2x2: 00:24:03 and 00:14:56"
+
+- Each puzzle's five starts empty: --:--:-- --- in every place, and any time beats an empty place.
+  - The 3×3 starts with 1. 02:34:48 MAC.
+  - The 2×2 starts with 1. 00:14:56 MAC and 2. 00:24:03 MAC, fastest first.
+  - The Axis and the Ghost start empty, and an empty five lights no row.
+- Times in the table are written as the clock writes them: minutes, seconds and hundredths, 02:34:48. A row is a letter wider, and its bar, the flying row and the merge are all a letter wider with it.
+- The fives kept on a device in the old way start over from these. ([#195](https://github.com/onexmac/ad/pull/195))
+
+## 0.7.19 · 2026-11-26 14:02
+
+**Claude:** New home-screen icon: same cube, same tilt, now dark ink on cream paper, so the app looks like itself before you even open it.
+
+Asked by Marcos, 26 Nov 13:59: "Let's change the home icon. Same position but with the style of the side-b"
+
+- The home-screen icon keeps its cube in the same place and pose, now in the Mac's colours: charcoal ink on cream paper, where it was white on black. All three sizes changed (the iPhone's and the two the app installs with).
+- A phone that already has the app keeps the old icon until it is added to the home screen again. ([#195](https://github.com/onexmac/ad/pull/195))
+
 ## 0.7.18 · 2026-11-26 13:58
 
 **Claude:** The release notes now speak the machine's own language: Cube OS, our pixel letters, now with lowercase, Spanish accents and proper descenders. One ink, one paper, no gray area.
