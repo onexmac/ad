@@ -27,6 +27,10 @@
   --crt-ink: #ffcf3d;
   --key-line: rgba(255, 207, 61, 0.45);
   --key-fill: rgba(0, 0, 0, 0.55);
+  /* the list of changes: the screen's black, its yellow for headings, a warm light for the text */
+  --log-bg: rgba(6, 5, 3, 0.97);
+  --log-text: #e9dcb8;
+  --log-dim: #a8996f;
   color-scheme: dark;
 }
 html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: hidden; overscroll-behavior: none; }
@@ -93,6 +97,39 @@ html, body { height: 100%; margin: 0; background: var(--load-ground); overflow: 
 /* the machine's line at the top right: drawn by the scene in the screen's letters (INSERT CUBE, MIXING..., READY,
    the clock, GAME OVER, MIX IT) */
 .axis .hud { position: absolute; top: 14px; right: 18px; pointer-events: none; }
+/* the version, bottom right while a puzzle is chosen (drawn by the scene in the same letters); a tap opens the list
+   of changes, a sheet that rises over the room and closes with CLOSE at its foot, a pull down from its top, a slide
+   to the right or a push on past its end */
+.axis .ver {
+  position: absolute; right: 14px; bottom: 12px; padding: 0; border: 0; background: none; cursor: pointer;
+  transition: opacity 0.3s ease; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.axis.play .ver { opacity: 0; pointer-events: none; }
+.axis .ver canvas, .axis .log canvas { display: block; }
+.axis .log {
+  position: absolute; inset: 0; border-radius: inherit; overflow: hidden;
+  display: flex; flex-direction: column;
+  background: var(--log-bg); color: var(--log-text);
+  font: 13px/1.55 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  transform: translateY(102%); transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+.axis .log.open { transform: none; }
+.axis .log-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 28px 22px 12px; }
+.axis .log-title { margin: 4px 0 10px; }
+.axis .log h3 { display: flex; justify-content: space-between; gap: 12px; margin: 22px 0 6px; font-size: 14px; color: var(--crt-ink); }
+.axis .log h3 span { color: var(--log-dim); font-weight: 400; }
+.axis .log p { margin: 6px 0; }
+.axis .log ul { margin: 4px 0; padding-left: 16px; }
+.axis .log li { margin: 3px 0; }
+.axis .log strong { color: var(--crt-ink); font-weight: 600; }
+.axis .log code { color: var(--log-dim); }
+.axis .log-close {
+  align-self: center; margin: 8px 0 18px; padding: 12px 20px;
+  border: 2px solid var(--key-line); border-radius: 0; background: var(--key-fill);
+  cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.axis .log-close:active { background: var(--crt-ink); border-color: var(--crt-ink); }
+.axis .log-close:active canvas { filter: brightness(0); }
 /* the sidebar lab: the initials keyboard, under the screen while a new entry in the five is typed. Square keys in
    the screen's letters, as old as the screen; a pressed key lights up. */
 .axis .kb {

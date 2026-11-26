@@ -52,7 +52,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.6.55** A number in an ask can count the pieces, not the pixels; and add no colour or detail that wasn't asked for.
 - **0.6.58** A close-up keeps the thing in its place: frame it in what holds it, never cut it out of the scene.
 - **0.6.62** A new tap answers in every state a touch can start in; check each mode, not only the one it was built in.
-- **0.6.70** Glare is light from something in the room, rendered on a surface shaped to catch it; never painted on.
+- **0.6.66** Glare is light from something in the room, rendered on a surface shaped to catch it; never painted on.
 
 Open:
 
@@ -63,19 +63,36 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.6.73 · 2026-11-25 22:37
+
+Asked by Marcos, 25 Nov 22:33: "Guarda en Claude.md o donde veas conveniente el sistema de changelog. Quiero que todas las apps lo tengan de ahora en adelante. Que cuando la sesión de code empiece con Eva jale esté lógica también. En este caso agrega la versión en el home (cube picker en la parte de abajo a la derecha. Y si se selecciona que habrá una pantalla con la lista de todos los cambios. Ahora estos últimos cambios tienes que agregarlos cómo diferentes ya que hemos enviado muchos mensajes y no hemos hecho push"
+
+- The version shows at the bottom right while a puzzle is chosen, in the machine's yellow pixel letters (V0.6.73). It goes while a puzzle is in hand.
+- A tap on it opens the list of every change: this changelog, newest first, in a sheet that rises over the room. Version and date head each entry, in the screen's yellow.
+  - It closes with CLOSE at its foot, a pull down from its top, a slide to the right, a push on past its end, or Escape.
+  - The app reads its changelog when the site is built (`/kit/axis-cube/changelog`), and fetches it only when the list is opened. The artifact carries it in the page.
+- The system is now the portal's for every app (docs/changelog.md): each app keeps its CHANGELOG.md, shows its version, and opens the list from it.
+- 0.6.70 shipped three asks of one message in one push; they are now logged apart, as 0.6.66, 0.6.68 and 0.6.70. ([#PR](https://github.com/onexmac/ad/pull/PR))
+
 ## 0.6.70 · 2026-11-25 22:32
 
-- **Bug fix.** Marcos, 25 Nov 22:18, of 0.6.65's glare: "The curved flared looks forced it shouldn't be a line I think more like a blob, try to render it not 2d paint it"
-  - Cause: the glare was a streak painted on a picture and laid over the glass, the same in every light. Nothing in the room made it, so it read as drawn on.
-  - Don't: paint a light effect. Find the light in the room that would make it, and give the surface the shape that catches it.
-- The glare is now the arc lamp itself:
-  - The tube's face is a cap of a sphere 42 cm round, so curved that from in front it reflects the orange globe of the lamp to the right as a bright blob, right of the middle.
-  - The glass reflects the room only, sharp, a little fainter than before (0.3).
-  - The painted streak is gone.
-- The tube sits in the opening as a tube does. Its corners are 5 cm in and its middle 1.4 cm. A dark funnel runs from the opening's light grey edge down to its rim, where a flat plate used to be.
-  - The lens focuses through half the depth of the curve, and opens a little less close up (1.8 times), so the whole screen stays sharp.
+Asked by Marcos, 25 Nov 22:18: "The other artifact that we had duped. Can we change the name so it says sidebar. On it let's have the screen mode. Once we nail this we move it to the main app. So I want the camera to focus the screen a bit higher I want outside the screen a pixel keyboard for the user to tap his initials if he reaches the top 5. Very old school, with the _ blinking on the active one. Just three letters available ___"
 
-Asked by Marcos, 25 Nov 22:18, in the same message: "Also on the upper right it should say insert cube. Once a cube is selected, it says: mixing. Then: ready ; and when the player does the first flip (not camera but cube squares) in the upper right same pixel text as the screen. The timer starts 00:00:00. If the user leaves the cube or the app the timer stops until he flips the cube again. If the user press and holds the cube to solve it it says: game over ; while it does it. Once it finishes it says: Mix it ; once it starts mixing it says again: mixing... The other artifact that we had duped. Can we change the name so it says sidebar. On it let's have the screen mode. Once we nail this we move it to the main app. So I want the camera to focus the screen a bit higher I want outside the screen a pixel keyboard for the user to tap his initials if he reaches the top 5. Very old school, with the _ blinking on the active one. Just three letters available ___ The curved flared looks forced it shouldn't be a line I think more like a blob, try to render it not 2d paint it *glare"
+Shipped in the same push as 0.6.66 and 0.6.68, one message with three asks; they are logged apart.
+
+- **The Sidebar**, the copy of the artifact, is now a lab of its own, "The Cubes Sidebar", for the screen close up. What is nailed there moves to the app later.
+  - The camera frames the screen higher, about a third of the way down.
+  - Under it is a keyboard in the screen's letters: A to Z, DEL and END, square keys, a pressed one lit up.
+  - Opening the screen offers a new entry in the top five, once. It takes the time of a puzzle just solved by hand if it is fast enough, else a sample time (1:07.42, third), so the keyboard can be tried.
+  - The new row is lit up, with three places for initials, the one being typed blinking. END keeps the initials, and the row stays lit.
+  - While initials are typed, a stray tap beside the keys doesn't close the screen; a pull down or a slide to the right still does.
+  - The build takes a third argument for it: `node scripts/axis-cube/artifact/build.mjs <outDir> a sidebar`. ([#175](https://github.com/onexmac/ad/pull/175))
+
+## 0.6.68 · 2026-11-25 22:32
+
+Asked by Marcos, 25 Nov 22:18: "Also on the upper right it should say insert cube. Once a cube is selected, it says: mixing. Then: ready ; and when the player does the first flip (not camera but cube squares) in the upper right same pixel text as the screen. The timer starts 00:00:00. If the user leaves the cube or the app the timer stops until he flips the cube again. If the user press and holds the cube to solve it it says: game over ; while it does it. Once it finishes it says: Mix it ; once it starts mixing it says again: mixing..."
+
+Shipped in the same push as 0.6.66 and 0.6.70.
 
 - **The machine's line, at the top right**, in the screen's yellow pixel letters:
   - INSERT CUBE with no puzzle in hand.
@@ -85,14 +102,22 @@ Asked by Marcos, 25 Nov 22:18, in the same message: "Also on the upper right it 
   - The clock stops when the puzzle is put down or the app is left, and goes on at the next turn of a layer. A puzzle picked up again shows where its clock stopped.
   - A hold that solves the puzzle shows GAME OVER while it solves, then MIX IT. A hold that mixes it shows MIXING... again, then READY.
   - Solved by hand, the clock stops on its time.
-  - A puzzle solved by hand along another way than back now counts as solved, so a hold mixes it.
-- **The Sidebar**, the copy of the artifact, is now a lab of its own, "The Cubes Sidebar", for the screen close up. What is nailed there moves to the app later.
-  - The camera frames the screen higher, about a third of the way down.
-  - Under it is a keyboard in the screen's letters: A to Z, DEL and END, square keys, a pressed one lit up.
-  - Opening the screen offers a new entry in the top five, once. It takes the time of a puzzle just solved by hand if it is fast enough, else a sample time (1:07.42, third), so the keyboard can be tried.
-  - The new row is lit up, with three places for initials, the one being typed blinking. END keeps the initials, and the row stays lit.
-  - While initials are typed, a stray tap beside the keys doesn't close the screen; a pull down or a slide to the right still does.
-  - The build takes a third argument for it: `node scripts/axis-cube/artifact/build.mjs <outDir> a sidebar`. ([#175](https://github.com/onexmac/ad/pull/175))
+- A puzzle solved by hand along another way than back now counts as solved, so a hold mixes it. ([#175](https://github.com/onexmac/ad/pull/175))
+
+## 0.6.66 · 2026-11-25 22:32
+
+- **Bug fix.** Marcos, 25 Nov 22:18, of 0.6.65's glare: "The curved flared looks forced it shouldn't be a line I think more like a blob, try to render it not 2d paint it"
+  - Cause: the glare was a streak painted on a picture and laid over the glass, the same in every light. Nothing in the room made it, so it read as drawn on.
+  - Don't: paint a light effect. Find the light in the room that would make it, and give the surface the shape that catches it.
+
+Shipped in the same push as 0.6.68 and 0.6.70.
+
+- The glare is now the arc lamp itself:
+  - The tube's face is a cap of a sphere 42 cm round, so curved that from in front it reflects the orange globe of the lamp to the right as a bright blob, right of the middle.
+  - The glass reflects the room only, sharp, a little fainter than before (0.3).
+  - The painted streak is gone.
+- The tube sits in the opening as a tube does. Its corners are 5 cm in and its middle 1.4 cm. A dark funnel runs from the opening's light grey edge down to its rim, where a flat plate used to be.
+  - The lens focuses through half the depth of the curve, and opens a little less close up (1.8 times), so the whole screen stays sharp. ([#175](https://github.com/onexmac/ad/pull/175))
 
 ## 0.6.65 · 2026-11-25 22:17
 

@@ -1,6 +1,7 @@
 import { Stage } from "@/components/axis-cube/Stage";
+import { AXIS_VERSION } from "@/lib/axis-cube/version";
 
 // The analogue look is the default; /a, /b and /c show each of the three.
 export default function Page() {
-  return <Stage look="a" />;
+  return <Stage look="a" version={AXIS_VERSION} />;
 }
