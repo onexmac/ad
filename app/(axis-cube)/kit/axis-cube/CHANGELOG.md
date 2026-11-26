@@ -59,7 +59,16 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
-## 0.6.49 · 2026-11-25 20:00
+## 0.6.50 · 2026-11-25 19:59
+
+Asked by Marcos, 25 Nov 19:57: "Cuando uno escoge el cube debería comenzar la animación de mixed up igual al de press n hold para que empiece mezclado siempre."
+
+- A puzzle picked up solved now mixes itself up as soon as it is in front of you, about 0.8 s after the tap. It is the same sequence a press and hold plays: it opens, scrambles quickly (20 to 24 turns on a 3×3, 12 to 16 on the 2×2) and closes.
+- A puzzle put down half solved keeps its turns: picked up again, it is as it was left, and a hold still solves it.
+- One that was solved by hand, by other turns than the way back, counts as solved and mixes itself up too.
+- Put down before it is in front, it doesn't mix. ([#168](https://github.com/onexmac/ad/pull/168))
+
+## 0.6.49 · 2026-11-25 19:58
 
 - **Bug fix.** Marcos, 25 Nov 19:52: "Ok el slide tiene que considerar un poco las diagonales, a veces cuesta un poco hacer para los lados, el dedo sin querer hace algo de diagonal."
   - Cause: which way a slide went was read at exactly 45°, from its first 8 or 9 pixels. A thumb drawn sideways pivots from the wrist and bends into a diagonal, so a slide meant sideways often came out a little more up than across, and turned the puzzle or a column up or down.
