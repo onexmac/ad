@@ -499,3 +499,8 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 .axis.mac .confirm-row button canvas { filter: var(--mac-letters); }
 .axis.mac .confirm-row button:active { background: var(--mac-ink); transform: translateY(2px); box-shadow: 0 1px 0 var(--mac-ink); }
 .axis.mac .confirm-row button:active canvas { filter: none; }
+/* YES, the one to press, is filled: ink with paper letters (as END is); pressed, it turns paper */
+.axis.mac .confirm-row .confirm-yes { background: var(--mac-ink); }
+.axis.mac .confirm-row .confirm-yes canvas { filter: none; }
+.axis.mac .confirm-row .confirm-yes:active { background: var(--mac-paper); }
+.axis.mac .confirm-row .confirm-yes:active canvas { filter: var(--mac-letters); }

@@ -67,6 +67,14 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.11 · 2026-11-26 13:28
+
+**Claude:** YES now looks like the answer we hope you pick: filled in, bold, unmissable.
+
+Asked by Marcos, 26 Nov 13:27: "The yes on the confirm on highscore should be filled dark, with light text."
+
+- In the SAVE? dialog, YES is filled ink with paper letters, as END is on the keyboard, and keeps the ring of the button to press. Pressed, it turns paper with ink letters. NO stays paper. ([#190](https://github.com/onexmac/ad/pull/190))
+
 ## 0.7.10 · 2026-11-26 13:26
 
 **Claude:** The welcome screen got the memo: paper from top to bottom, THE CUBES on a striped title bar, and a START button that sits on its lip like it means business.
