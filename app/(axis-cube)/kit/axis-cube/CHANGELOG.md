@@ -69,6 +69,26 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.15 · 2026-11-26 13:50
+
+**Claude:** The release notes can breathe now: more air between lines, between entries, and under the title bar. Same words, less elbowing.
+
+Asked by Marcos, 26 Nov 13:48, in the same message: "lets make the header roomier, and in general let's have a tad more breathing room in the changelog text"
+
+- The CHANGES title bar is taller, with its stripes clear of the sheet's rounded corners and more space under it. Its line now stands for the first era's, so there is no second rule right under it.
+- The text has more breathing room:
+  - lines a little further apart;
+  - more space between versions and under each version's heading;
+  - more space between the input, the output and MORE, and between the details' points. ([#193](https://github.com/onexmac/ad/pull/193))
+
+## 0.7.14 · 2026-11-26 13:50
+
+**Claude:** New labels on the release notes: INPUT for what was asked, OUTPUT for what came back. Very cybernetic.
+
+Asked by Marcos, 26 Nov 13:48: "Remove the Marcos said. Claude said. Let's call it: input ; output"
+
+- In the list of changes, what Marcos said is now under INPUT (INPUT (BUG) for a bug report), and Claude's line is under OUTPUT. The changelog file itself is unchanged. ([#193](https://github.com/onexmac/ad/pull/193))
+
 ## 0.7.13 · 2026-11-26 13:44
 
 **Claude:** The title bar is back to scrolling with the rest of the list. It had overstayed its welcome.
