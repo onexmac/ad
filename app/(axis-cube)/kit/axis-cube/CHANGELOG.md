@@ -79,7 +79,7 @@ Shipped in the same push as 0.6.85. This is the Sidebar lab's part.
   - The keyboard goes, the Mac comes back into focus, and the camera goes in to the screen, square on and a tenth closer.
   - As it goes, the line becomes its row of the table (rank, time, initials, dark on a bar of light) and flies onto that row on the screen, following it as the camera moves. It goes on a spring with some weight, a little hop, an overshoot and a squash where it lands.
   - A swoosh as it leaves; bo-lup as it lands. Once it is still, the screen takes it over: the row is in the table, lit, and the line at the top right says BACK.
-- The mark on the screen waits mixed while the initials are typed, and solves itself as the camera goes in after YES. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The mark on the screen waits mixed while the initials are typed, and solves itself as the camera goes in after YES. ([#180](https://github.com/onexmac/ad/pull/180))
 
 ## 0.6.85 · 2026-11-26 08:15
 
@@ -88,7 +88,7 @@ Shipped in the same push as 0.6.85. This is the Sidebar lab's part.
 Asked by Marcos, 26 Nov 08:07, in the same message: "The initial zoom that brings the keyboard gotta be fast, and not coming from the congrats."
 
 - When the Sidebar goes to the screen for a new entry, the camera gets there about three times as fast, and the Mac goes soft with the keyboard, the time and the places for initials coming at once (0.15 s behind it), where 0.6.84 waited for the mark to solve.
-- The time is in the line from the start; it no longer flies in from the top right, and CONGRATS!! is there from the start. ([#PR](https://github.com/onexmac/ad/pull/PR))
+- The time is in the line from the start; it no longer flies in from the top right, and CONGRATS!! is there from the start. ([#180](https://github.com/onexmac/ad/pull/180))
 
 ## 0.6.84 · 2026-11-26 08:00
 
