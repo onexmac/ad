@@ -70,6 +70,15 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.33 · 2026-11-26 15:22
+
+**Claude:** Once the cube is mixed, the dots take a little bow: they glow up together for a moment, as if to say "start here", then settle back.
+
+Asked by Marcos, 26 Nov 15:16: "After half a second after the mixed up is complete have the dots control glow the dots up so the user notice them then back to normal"
+
+- Half a second after a mix is done, the grid of dots glows up once and settles back over about a second: the rings grow a little, light up with a soft halo and a fill, then return to normal.
+- It plays after every mix. Under reduced motion they only light up, without growing. ([#202](https://github.com/onexmac/ad/pull/202))
+
 ## 0.7.32 · 2026-11-26 14:37
 
 **Claude:** The cube now really acts it out: it sinks slowly, most of the way home to the ottoman, thinks about it, and floats back up. Method acting, in 3D.
