@@ -69,6 +69,22 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.24 · 2026-11-26 14:07
+
+**Claude:** Each version now gets a blank line before the next one, so the history reads as separate entries, not one long breath.
+
+Asked by Marcos, 26 Nov 14:07, in the same message: "And line break after each changelog submission"
+
+- In the list of changes, every version ends with a blank line (a line of the text's own height) before the dashed rule and the next version. ([#196](https://github.com/onexmac/ad/pull/196))
+
+## 0.7.23 · 2026-11-26 14:07
+
+**Claude:** Your words stand on their own now, no quotation marks needed. You said what you said.
+
+Asked by Marcos, 26 Nov 14:07: "Input doesn't have to be quote on quote"
+
+- In the list of changes, what Marcos said shows under INPUT as it is, without the quotation marks round it. ([#196](https://github.com/onexmac/ad/pull/196))
+
 ## 0.7.22 · 2026-11-26 14:02
 
 **Claude:** The little version number at the bottom right now dresses for the occasion: dark box, light letters, like every version in the list it opens.
