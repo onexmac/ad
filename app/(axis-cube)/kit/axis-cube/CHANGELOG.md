@@ -77,7 +77,7 @@ Asked by Marcos, 26 Nov 19:58: "Mmm let's try removing the camera movement"
 
 - A swipe that flips the puzzle no longer moves the camera at all: no lean into the flip, early or late. The delay from 1.0.2 and 1.0.3 goes with it.
 - Measured on a quick flick that turned the puzzle half a turn: the camera stayed where it was throughout.
-- A tap that turns a face to the front still leans the camera a little, as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A tap that turns a face to the front still leans the camera a little, as before. ([#213](https://github.com/onexmac/ad/pull/213))
 
 ## 1.0.3 · 2026-11-26 19:53
 
