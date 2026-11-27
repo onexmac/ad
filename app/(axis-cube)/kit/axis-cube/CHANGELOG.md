@@ -85,7 +85,7 @@ Asked by Marcos, 27 Nov 10:50: "Tapping the clock should pause it until the user
 - The clock at the top right can be tapped while it runs: it pauses on the second it shows.
 - Paused, any move starts it again: a turn of a layer, or a turn of the whole puzzle (a slide, a tap on a face, two taps).
 - Before the first move, turning the whole puzzle still doesn't start the clock: only a turn of a layer does, as before.
-- A clock paused another way (the puzzle put down, or the app left) also goes on with any move now. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A clock paused another way (the puzzle put down, or the app left) also goes on with any move now. ([#243](https://github.com/onexmac/ad/pull/243))
 
 ## 1.4.2 · 2026-11-27 10:52
 
@@ -95,7 +95,7 @@ Asked by Marcos, 27 Nov 10:50: "Tapping the clock should pause it until the user
   - Cause: Marcos's times had been timed in hours, minutes and seconds (00:14:56, 00:24:03, 02:34:48), but the game read them as minutes, seconds and hundredths. Kept that way and put on the world's board, they showed his 2×2 at 14 and 24 seconds and his 3×3 at 2 minutes 34. On top of that, nothing could go past 99 minutes: not the clock, the board on the device, or the world's.
   - Don't: read a time given by hand without asking which units it is in.
 - Times are kept as hours, minutes, seconds and hundredths, up to 99 hours: on the device, in the clock, and in the world's board.
-- Marcos's three times are put right on the world's board, once, by the server itself: 14 min 56 s and 24 min 3 s on the 2×2, 2 h 34 min 48 s on the 3×3. RSA's 45.66 s on the 2×2 was right all along, and is now first. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Marcos's three times are put right on the world's board, once, by the server itself: 14 min 56 s and 24 min 3 s on the 2×2, 2 h 34 min 48 s on the 3×3. RSA's 45.66 s on the 2×2 was right all along, and is now first. ([#243](https://github.com/onexmac/ad/pull/243))
 
 ## 1.4.1 · 2026-11-27 10:45
 
