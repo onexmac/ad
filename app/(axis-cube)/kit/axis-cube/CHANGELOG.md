@@ -82,7 +82,7 @@ Asked by Marcos, 26 Nov 22:02, in the same message: "Let's make it 8 cubes (the 
 - The cushion now has eight seats, in three rows square to the ottoman: three behind, two in the middle, three in front.
 - The four puzzles sit in the middle four, a diamond round the cushion's button: the Ghost Cube behind, the 2×2 and the 3×3 either side, the Axis Cube in front. The four corners are free.
 - Each puzzle presses its weight mark into the leather, which rises again when it is picked up; an empty seat leaves no mark, and gets one when a puzzle comes to sit in it.
-- Checked on screen: the eight seats all fall on the cushion, with the four empty ones clear of the puzzles. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Checked on screen: the eight seats all fall on the cushion, with the four empty ones clear of the puzzles. ([#228](https://github.com/onexmac/ad/pull/228))
 
 ## 1.2.4 · 2026-11-26 22:14
 
@@ -91,7 +91,7 @@ Asked by Marcos, 26 Nov 22:02, in the same message: "Let's make it 8 cubes (the 
 Asked by Marcos, 26 Nov 22:02, in the same message: "You have a sound when the player selects a cube have that same sound when we press the ok button or any button that doesn't have a sound atm"
 
 - The buttons that made no sound now play the bolololip a puzzle makes when it is chosen, on the piano: OK at the foot of the changes, and NO on the card that asks to save the initials (and a tap beside that card, which is a no too).
-- The others already had theirs, and keep them: the version (a swish as the changes open), the keys (a tick), YES (the swoosh of the time flying into the screen), BACK (the swish of the camera), INSERT CUBE (the ticks of the cubes shaking), OK on the first-time hint (a swish). ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The others already had theirs, and keep them: the version (a swish as the changes open), the keys (a tick), YES (the swoosh of the time flying into the screen), BACK (the swish of the camera), INSERT CUBE (the ticks of the cubes shaking), OK on the first-time hint (a swish). ([#228](https://github.com/onexmac/ad/pull/228))
 
 ## 1.2.3 · 2026-11-26 22:00
 
