@@ -38,6 +38,9 @@ export interface AxisSound {
   cubedFor(secs: number): void;
   /** For a test: how much of the music is wanted and whether its loop is running. */
   musicNow(): { k: number; playing: boolean; step: number; round: number; skin: string; victory: boolean; vstep: number };
+  /** Every sound off (true), or back on. */
+  mute(on: boolean): void;
+  isMuted(): boolean;
   wobble(on: boolean): void;
   quiet(): void;
   dispose(): void;

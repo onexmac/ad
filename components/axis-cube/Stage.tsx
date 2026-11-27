@@ -99,6 +99,7 @@ export function Stage({ look = "a", version = "" }: { look?: Look; version?: str
   const voice = useRef<AxisSound | null>(null);
   useEffect(() => {
     const made = (voice.current = makeSound());
+    try { if (localStorage.getItem("axis-cube-muted") === "1") made.mute(true); } catch { /* sound on */ }   // turned off at the couch's lower left last time: off from the welcome on
     return () => { made.dispose(); if (voice.current === made) voice.current = null; };
   }, []);
   // The screen's button was pressed. Its tap is the touch that lets the page make sound (the page's first script
