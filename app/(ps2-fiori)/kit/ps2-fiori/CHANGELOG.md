@@ -64,6 +64,7 @@ Asked by Marcos, 26 Nov 21:30: "Have the ui look like this. With springy and bou
   - The concrete widget bumps on each mix; its bar slides on a spring; a theme change wobbles every window.
   - Dialogs spring in from half size; the list of changes rises on a spring and, let go mid-drag, springs back.
 - Haptics: a tick on load, spin, the theme and each dialog; a double tap on a mix; a buzz on a warning.
+  ([#223](https://github.com/onexmac/ad/pull/223))
 
 ## 0.1.0 · 2026-11-26 21:25
 
