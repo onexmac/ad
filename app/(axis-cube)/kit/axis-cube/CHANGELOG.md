@@ -69,6 +69,23 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.0.13 · 2026-11-26 20:50
+
+**Claude:** New single just dropped: Bounce. Same studio, more coffee, and this time somebody whistles the hook. The old track, Dusk, is in the vault, not the bin.
+
+Asked by Marcos, 26 Nov 20:46: "Save this one. But let's have it a bit more upbeat. Still missing the catchy melody."
+
+- Dusk, the loop of 1.0.10, is kept as it is, under its own name, and can be put back on with one word in the code (TRACK).
+- What plays on the picker now is Bounce: 96 to the minute instead of 64, a lighter shuffle, in G major (Gmaj7, Em7, Cmaj7, D7), twelve bars, still thirty seconds a loop.
+- Its tune is built to stick:
+  - one rhythm, ta-ta-TAA ta-ta-TAA, comes eight times in the first eight bars;
+  - the call climbs (B D E, B D G), the answer comes down (G E D, E D B), and the third call reaches up to A before the line rests;
+  - then four bars of longer notes climb a step at a time (Am7, Bm7, Cmaj7, D7) and lead back into the call;
+  - never wider than B4 to A5.
+- It is whistled: a new sine voice with a breath of air at its pitch and a slow vibrato on the long notes, the cube's own instrument doubling it underneath (kalimba, marimba, glass, piano, one per loop). A plucked note died away before the tune was heard; a whistle holds it.
+- Bouncier under it: the piano stabs every off-beat after its chord, the bass walks (root, octave, fifth, a step into the next chord), and the kick pushes ahead now and then.
+- Rendered: the tune is the loudest pitch in its range at all 58 of its notes, and the loop sits under the other sounds, about 0.7 as loud as a turn and a third as loud as a pick. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.0.10 · 2026-11-26 20:43
 
 **Claude:** The beat learned a tune. Eight bars, thirty seconds, and a hook that should be stuck in your head by the second time round. Sorry in advance.
