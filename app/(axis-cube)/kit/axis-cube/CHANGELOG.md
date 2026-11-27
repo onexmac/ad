@@ -74,6 +74,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.3.1 · 2026-11-27 08:25
+
+**Claude:** MAC used to have a reserved table at the top of the leaderboard, courtesy of the house. Now he queues like everyone else: his times are in the real database, and anyone faster sends him down.
+
+Asked by Marcos, 27 Nov 08:24: "Keep my MAC scores. Those where the ones I did while we were testing. So those stay on the real database (of course if someone beats me down I go, like a normal score"
+
+- Marcos's three times from testing (MAC: 02:34:48 on the 3×3; 00:14:56 and 00:24:03 on the 2×2) are entered in the world's fives like anyone's, through the same route.
+- The app no longer adds them on top of the world's fives on every device: what it shows is the database as it is, so a time beaten out of the five is gone from it, MAC's too.
+- They are still what a device shows before the world's fives come in, offline, and in the labs. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.3.0 · 2026-11-27 08:23
 
 **Claude:** Musical chairs on the ottoman. The 2×2 got promoted to the front row, and the Axis Cube took its seat on the left without a fuss.

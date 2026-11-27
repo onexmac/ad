@@ -7,8 +7,9 @@
  * one is connected the route says so ({ live: false }) and the app keeps its fives on the device, as it always has.
  *
  * Each puzzle is a sorted set of its times in hundredths of a second, each member the initials, the time and a
- * random tag (so two equal entries are two entries), trimmed to its best fifty. The machine's own times (Marcos's,
- * in the scene) are not here: the app puts them among these.
+ * random tag (so two equal entries are two entries), trimmed to its best fifty. Marcos's times from while the game
+ * was made (MAC: 02:34:48 on the 3×3, 00:14:56 and 00:24:03 on the 2×2) were entered here on 27 Nov 2026 like
+ * anyone's, through this route, and go down or out of the fives like anyone's.
  */
 
 const env = (...names: string[]) => names.map((n) => process.env[n]).find(Boolean) || "";
