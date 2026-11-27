@@ -41,6 +41,8 @@
   /* the card that asks before a new entry is kept, and the dim round it */
   --confirm-bg: #070604;
   --confirm-dim: rgba(0, 0, 0, 0.45);
+  /* paused: the dark over the room */
+  --pause-veil: rgba(0, 0, 0, 0.8);
   color-scheme: dark;
 }
 html, body { height: 100%; margin: 0; background: var(--vvv-ground); overflow: hidden; overscroll-behavior: none; }
@@ -116,6 +118,25 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
    while a new entry is typed it reads CONGRATS!! and is only words */
 .axis.crt .hud { pointer-events: auto; cursor: pointer; padding: 7px; margin: -7px; outline: none; }
 .axis.crt.entry .hud { pointer-events: none; }
+/* paused: the room dark, PAUSE in the middle with its sign above it (drawn by the scene); the dark takes no touch,
+   so a turn under it still counts. The line at the top right stays over it, and ▶ comes in to its left */
+.axis .pause-wrap {
+  position: absolute; inset: 0; border-radius: inherit; z-index: 2; pointer-events: none;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  background: var(--pause-veil); opacity: 0; transition: opacity 0.25s ease;
+}
+.axis .pause-wrap canvas { display: block; }
+.axis.paused .pause-wrap { opacity: 1; }
+.axis.paused .hud { z-index: 3; }
+.axis .hud-play {
+  position: absolute; top: 14px; right: 18px; z-index: 3; margin: -7px; padding: 7px; border: 0; background: none;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s ease; cursor: pointer; outline: none;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.axis .hud-play canvas { display: block; }
+.axis.paused .hud-play { opacity: 1; pointer-events: auto; }
+.axis.mac .hud-play { filter: drop-shadow(0 2px 6px var(--mac-shade)); }
+.axis.mac .hud-play:active canvas { transform: translate(1px, 1px); }
 /* the version, bottom right while a puzzle is chosen (drawn by the scene in the same letters); a tap opens the list
    of changes, a sheet that rises over the room and closes with CLOSE at its foot, a pull down from its top, a slide
    to the right or a push on past its end */
@@ -464,6 +485,7 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
   --log-dim: var(--mac-ink);   /* the list is one colour: ink on paper */
   --confirm-bg: var(--mac-paper);
   --confirm-dim: rgba(20, 20, 22, 0.4);
+  --pause-veil: rgba(16, 16, 18, 0.8);
   --ring: rgba(235, 228, 209, 0.7);
   --ring-on: var(--mac-paper);
   --ring-fill: rgba(235, 228, 209, 0.2);

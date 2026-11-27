@@ -77,6 +77,34 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.6.0 · 2026-11-27 15:26
+
+**Claude:** A pause needs a way back that isn't a guess. ▶ now waits beside the clock while it's stopped. Press it and you're off again.
+
+Asked by Marcos, 27 Nov 15:09, in the same message: "Add a play button next to the timer while at it."
+
+- While the clock is paused, ▶ shows to the left of it at the top right, in a box of its own like the clock's. A tap on it sets the clock going again from where it stopped, and it goes away.
+- A tap on the paused clock itself does the same, and so does any turn, of a layer or of the whole puzzle, as before. ([#253](https://github.com/onexmac/ad/pull/253))
+
+## 1.5.9 · 2026-11-27 15:26
+
+**Claude:** Stopping the clock used to be a quiet thing. Now the lights go down, PAUSE appears in the middle with its two bars above it, and you know the game is waiting for you.
+
+Asked by Marcos, 27 Nov 15:09, in the same message: "when pressing the timer is active if the user presses it there should darken the screen and have a pause title in the middle of the screen with the pause icon above it."
+
+- A tap on the running clock pauses it, and the room goes dark under the line at the top right: PAUSE in the middle of the screen, the pause sign (two bars) above it, in the letters of the screen.
+- The dark lifts when the clock goes again. It takes no touch, so a turn made under it still counts and starts the clock.
+- A puzzle whose clock stopped while the app was away, or that was put down mid-solve and picked up again, shows it paused the same way. ([#253](https://github.com/onexmac/ad/pull/253))
+
+## 1.5.7 · 2026-11-27 15:26
+
+**Claude:** READY used to only shake the cube. It now also lights the dots up twice, the same double glow you get after a mix, so you can see where to start turning.
+
+Asked by Marcos, 27 Nov 15:09: "if ready is on and the player presses it besides the jerk I want the double glow on the dots."
+
+- A tap on READY jiggles the puzzle in hand and lights its rings up twice, as they light after a mix, a moment later.
+- Tapped again while they glow, the glow starts over and runs its whole length. ([#253](https://github.com/onexmac/ad/pull/253))
+
 ## 1.5.6 · 2026-11-27 15:04
 
 **Claude:** MIX IT used to be a suggestion. Now it's a button: tap it and the cube shuffles itself, right up to READY.
