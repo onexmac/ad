@@ -73,6 +73,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.1.7 · 2026-11-26 21:38
+
+**Claude:** Walk up to the arcade machine and the band hands the song to the machine: same tune, same beat, now in glorious 8-bit. Walk away and the band takes it back without missing a step.
+
+Asked by Marcos, 26 Nov 21:33: "Can you have the same song but as chiptune when we visit the highscore screen?"
+
+- Whenever the high scores' screen is up close (from the ottoman, or after a solve, when it was silent before), Bounce plays as an old 8-bit machine would: the tune on a pulse wave, the chords as a quick arpeggio on a thinner one, the bass on a triangle, a dropping triangle for the kick and noise for the snare and the hats, and the score's 8-bit run as its fill. No tape and no record, just the machine, a little crushed, as a cheap converter makes it.
+- It is the same song at the same moment: the two versions play in step, and as the screen comes up the lo-fi one fades into the chip one in about a third of a second, and back as it goes.
+- It is about as loud as the lo-fi version, and its tune stays on top: rendered, every one of its 58 notes is the loudest thing in its range. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.1.5 · 2026-11-26 21:31
 
 **Claude:** Changed your mind halfway through a mix? Pull it back down. The cube finishes shuffling on its way home, so it lands properly mixed, never half-baked.
