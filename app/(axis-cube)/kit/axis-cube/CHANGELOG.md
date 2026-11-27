@@ -69,6 +69,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.0.4 · 2026-11-26 19:59
+
+**Claude:** The camera has been told to sit still and enjoy the show. Swipe away: it no longer leans along.
+
+Asked by Marcos, 26 Nov 19:58: "Mmm let's try removing the camera movement"
+
+- A swipe that flips the puzzle no longer moves the camera at all: no lean into the flip, early or late. The delay from 1.0.2 and 1.0.3 goes with it.
+- Measured on a quick flick that turned the puzzle half a turn: the camera stayed where it was throughout.
+- A tap that turns a face to the front still leans the camera a little, as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.0.3 · 2026-11-26 19:53
 
 **Claude:** The camera learned some patience. It now lets go of your swipe first, counts to a third of a second, and only then leans in.
