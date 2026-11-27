@@ -1,8 +1,9 @@
 # PS2 Fiori: changelog
 
 PS2 Fiori lives at [/kit/ps2-fiori](https://magi0s.vercel.app/kit/ps2-fiori): a self-loading concrete mixer (the
-MAZA MZ-20) as an item in a PS2-era inventory screen, to turn, load and mix. It began as Marcos's artifact, the
-Self-Loading Mixer page.
+MAZA MZ-20) as an item in an inventory screen, to turn, load and mix. It began as Marcos's artifact, the
+Self-Loading Mixer page, in a PS2 look; since 0.2.0 it wears paper and ink, after three references he sent (a pixel
+keypad, a line-art widget screen, a retro desktop).
 
 ## How versions are numbered
 
@@ -27,6 +28,42 @@ not to do.
 None yet.
 
 Open: none.
+
+## 0.2.0 · 2026-11-26 21:38
+
+**Claude:** New coat of paint: paper, ink and pastel folders, keys you can actually press, and a mixer drawn in fat pixel lines. Everything bounces now. The mixer included. Especially the mixer.
+
+Asked by Marcos, 26 Nov 21:30: "Have the ui look like this. With springy and bouncy ux"
+
+- **The look.** Paper and ink, after his three references: a pixel keypad (The Cubes'), a line-art phone screen of
+  widgets, a retro desktop with windows and pastel folders.
+  - Every panel is a window: paper, a 2.5 px ink stroke, a 22 px corner, an ink lip 3 px below and a soft shadow; a
+    title bar with a dot and its name, a line under it.
+  - The top: the inventory widget (ITEMS / KEY / EQUIP in an ink pill with the lit one in paper, "Inventory" in
+    Nunito 900, the version under it) and the concrete widget, its value on an LCD (DSEG7, the unlit 8.8 behind) over
+    a pill bar. The theme chip below it: Paper or Ink.
+  - The item's window: its title bar with ×01 on the LCD, the brand and the stars, the description typing itself,
+    three stat tiles in pastel (pink, blue, yellow) with segmented bars, and three pixel keycaps.
+  - The keys are drawn as pixel glyphs (✕, a solid triangle, a square) with their names in Silkscreen; each sits on a
+    lip and goes down onto it under the finger.
+  - The warnings are System warning dialogs with a pixel ⚠ and a yellow dot; good news comes as System with a mint dot.
+    The +1.8 m³ is a yellow sticker, tilted.
+  - The list of changes is a window too: versions on the LCD, INPUT and OUTPUT as pink and blue tags.
+- **The scene in the same look.** Still drawn at 448 px tall and scaled up square-edged, so every line is a fat pixel.
+  - Cel-shaded in three flat bands, with a hard highlight, still dithered to 5 bits a channel. The PS2 sphere-map
+    shine, the bloom, the scanlines, the vignette and the beam are gone.
+  - Every piece is inked: a back-face outline 1.25 of its pixels wide, plus lines on the hard edges.
+  - The mixer in paper with peach stripes and a pale-blue cab glass; the pedestal in paper, its rings and the shadow
+    in ink; a paper floor with a faint ruled grid; pastel waves in the sky above the horizon; ink leaves drifting down
+    and swaying instead of sparkles rising.
+  - Ink (the dark theme) swaps paper and ink, on screen and in the scene. Paper is now the first theme.
+- **Springs.** Damped springs everywhere (ζ 0.38 for pops, 0.55 for settles), as CSS easings and in the scene:
+  - The windows pop in past their size one after another (70 ms apart) and settle; the stat bars fill cell by cell.
+  - A key snaps down in 50 ms and springs back up in 600 ms; the theme chip and the version do the same.
+  - Mixing squashes the mixer and lets it spring back; a finished load makes it hop; it pops in when the page opens.
+  - The concrete widget bumps on each mix; its bar slides on a spring; a theme change wobbles every window.
+  - Dialogs spring in from half size; the list of changes rises on a spring and, let go mid-drag, springs back.
+- Haptics: a tick on load, spin, the theme and each dialog; a double tap on a mix; a buzz on a warning.
 
 ## 0.1.0 · 2026-11-26 21:25
 
