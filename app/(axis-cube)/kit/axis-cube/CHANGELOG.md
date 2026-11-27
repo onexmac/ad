@@ -67,10 +67,33 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.0.1** A slide's speed is read by its events' own times, never by when the page handled them; all of its travel counts; and one that clearly means to turn, turns.
 - **1.0.3** Before changing a motion by its name, measure frame by frame what actually moves on the screen.
 - **1.1.3** A version's second and third numbers are single digits: past 9 they roll over (1.0.9 then 1.1.0); only the first can pass 9.
+- **1.1.4** On an iPhone, make and wake the sound only at the end of a touch, and play into it there; and never let the app's own power saving put the sound to sleep just before it is wanted.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.1.5 · 2026-11-26 21:31
+
+**Claude:** Changed your mind halfway through a mix? Pull it back down. The cube finishes shuffling on its way home, so it lands properly mixed, never half-baked.
+
+Asked by Marcos, 26 Nov 21:14, in the same message: "Also while mixing I should be able to long swipe to go back (mixing should finish, not half way, no cancel)."
+
+- While a puzzle mixes itself up, the long pull straight down now puts it back on the ottoman, as it does at any other time: on the puzzle, or beside it (where a slide still looks round the room, unless it is that pull).
+- The mix is not cancelled: it goes on to its last turn as the puzzle goes down, and the puzzle rests mixed, ready to be played next time. Its wobble and thump end it as usual, under the lobby's music coming back.
+- Checked: a mix of 24 turns, pulled down after 3, ended with all 24 done, on the ottoman; the same beside the puzzle (23 of 23). ([#221](https://github.com/onexmac/ad/pull/221))
+
+## 1.1.4 · 2026-11-26 21:31
+
+**Claude:** The lobby band now starts playing when you walk in, instead of waiting for you to leave and come back.
+
+- **Bug fix.** Marcos, 26 Nov 21:14: "After the startup loading screen why the lobby song doesn't start? I have to insert a cube and go back down again."
+  - Cause: on an iPhone, sound is let out only by the end of a touch. The app's sound listened for the start of a touch too, so on the welcome's Start it could make its sound there, at the start, where an iPhone keeps it silent; the welcome's own tap then only asked it to resume, without the silent note an iPhone needs to really wake it. And the app puts its sound to sleep after twenty seconds of silence, which a long loading after Start could reach just before the lobby. Either way the sound stayed asleep until the next touch, and the next touch is usually picking a cube up, which is where the lobby music stops; it was heard only on coming back down.
+  - Don't: make or wake the sound at the start of a touch, or wake it without playing something into it inside the touch; and don't let the power saving put to sleep what is about to be wanted.
+
+- The sound is now made only at the end of a touch, and every touch that finds it asleep wakes it and plays a silent sample into it, the welcome's Start too.
+- It is not put to sleep before the lobby has had its first chance to play, nor ever while the lobby's music is wanted; and if the music is wanted while the sound is asleep, the app wakes it itself, which a browser allows once the page has been touched.
+- Checked as an iPhone from the home screen would open it: welcome, Start, the room, and the lobby's music playing half a second after the room came in. I cannot run a real iPhone here: if it still waits for a touch, tell me. ([#221](https://github.com/onexmac/ad/pull/221))
 
 ## 1.1.3 · 2026-11-26 20:50
 
