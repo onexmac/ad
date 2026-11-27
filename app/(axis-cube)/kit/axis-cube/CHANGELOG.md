@@ -86,9 +86,9 @@ Asked by Marcos, 27 Nov 15:38: "Pressing the pause screen shouldnnt interact wit
 
 - While the pause screen is up it takes every touch: nothing reaches the puzzle, and a slide on it turns nothing.
 - A touch anywhere on it, the clock and the sign beside it included, lifts it. The touch that lifts it turns nothing as the screen fades.
-- Lifted, the screen leaves the clock stopped where it was, and the rings light up twice. The first turn of the puzzle, of a layer or of the whole puzzle, sets the clock going on from there.
+- Lifted, the screen leaves the clock stopped where it was, and the rings light up twice. The first turn, of a layer or of the whole puzzle, sets the clock going on from there.
 - A turn already under way when the clock is paused, landing under the screen, doesn't set the clock going.
-- The sign beside the clock reads ‖ while the clock is stopped and ▶ once it runs. A tap on it or on the clock, with the screen lifted, brings the screen back. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The sign beside the clock reads ‖ while the clock is stopped and ▶ once it runs. A tap on it or on the clock, with the screen lifted, brings the screen back. ([#255](https://github.com/onexmac/ad/pull/255))
 
 ## 1.6.1 · 2026-11-27 15:36
 
