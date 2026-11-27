@@ -76,9 +76,9 @@ Open:
 
 **Claude:** The high-score table found its database. It was looking for it under the wrong name tag.
 
-Asked by Marcos, 26 Nov 19:22: "Is it working? What else do I need?"
+Asked by Marcos, 26 Nov 19:21: "Is it working? What else do I need?"
 
-- Marcos connected the Upstash database to the portal's Vercel project, which gave its address and key the names MAGI_KV_REST_API_URL and MAGI_KV_REST_API_TOKEN. The scores route now reads those names first (the unprefixed ones still work), so the fives are everybody's from this version on. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Marcos connected the Upstash database to the portal's Vercel project, which gave its address and key the names MAGI_KV_REST_API_URL and MAGI_KV_REST_API_TOKEN. The scores route now reads those names first (the unprefixed ones still work), so the fives are everybody's from this version on. ([#208](https://github.com/onexmac/ad/pull/208))
 
 ## 0.7.46 · 2026-11-26 17:22
 
