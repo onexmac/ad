@@ -84,7 +84,7 @@ Asked by Marcos, 26 Nov 20:46: "Save this one. But let's have it a bit more upbe
   - never wider than B4 to A5.
 - It is whistled: a new sine voice with a breath of air at its pitch and a slow vibrato on the long notes, the cube's own instrument doubling it underneath (kalimba, marimba, glass, piano, one per loop). A plucked note died away before the tune was heard; a whistle holds it.
 - Bouncier under it: the piano stabs every off-beat after its chord, the bass walks (root, octave, fifth, a step into the next chord), and the kick pushes ahead now and then.
-- Rendered: the tune is the loudest pitch in its range at all 58 of its notes, and the loop sits under the other sounds, about 0.7 as loud as a turn and a third as loud as a pick. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Rendered: the tune is the loudest pitch in its range at all 58 of its notes, and the loop sits under the other sounds, about 0.7 as loud as a turn and a third as loud as a pick. ([#218](https://github.com/onexmac/ad/pull/218))
 
 ## 1.0.10 · 2026-11-26 20:43
 
