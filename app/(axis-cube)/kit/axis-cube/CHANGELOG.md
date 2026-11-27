@@ -77,6 +77,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.4.6 · 2026-11-27 13:10
+
+**Claude:** The double tap had a blind spot: tap low, beside the dots, and the cube thought you meant its side. Now anything below the cube means from below, and anything above means from above.
+
+- **Bug fix.** Marcos, 27 Nov 13:07: "The low double tap flip happens only below it, if I press on the right or left to the dots control the flip is as if you were tapping on the sides"
+  - Cause: the side of the two taps was read with an X through the puzzle's middle, so a tap low and well to the side, beside the grid of dots, fell in the side's quarter and turned the puzzle about the upright.
+  - Don't: read where a tap was by its angle alone when what is meant is a region of the screen.
+- Two taps anywhere below the puzzle, beside the dots included, flip it from below; anywhere above it, from above.
+- Level with the puzzle, or on it, the X from its middle still decides: left or right, about the upright; its top or bottom half, about the level. ([#246](https://github.com/onexmac/ad/pull/246))
+
 ## 1.4.5 · 2026-11-27 13:03
 
 **Claude:** A phone with a wobbly connection used to sulk: if it couldn't send your time, it didn't bother asking for anyone else's either. Now it always asks, keeps your time on your board while it waits, and sends it the moment it can.
