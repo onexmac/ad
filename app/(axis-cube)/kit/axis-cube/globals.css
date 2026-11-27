@@ -118,16 +118,18 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
    while a new entry is typed it reads CONGRATS!! and is only words */
 .axis.crt .hud { pointer-events: auto; cursor: pointer; padding: 7px; margin: -7px; outline: none; }
 .axis.crt.entry .hud { pointer-events: none; }
-/* paused: the room dark, PAUSE in the middle with its sign above it (drawn by the scene); the dark takes no touch,
-   so a turn under it still counts. The line at the top right stays over it. To the clock's left while it runs or is
-   paused, a sign of how it stands (▶, or ‖ paused), a tap on which pauses it or sets it going */
+/* paused: the room dark, PAUSE in the middle with its sign above it (drawn by the scene); the dark takes every
+   touch, and a touch anywhere lifts it (held to the end of that touch, so it turns nothing as it fades). The line at
+   the top right stays over it. To the clock's left while it runs or is stopped, a sign of how it stands (▶, or ‖),
+   a tap on which does what a tap on the clock does */
 .axis .pause-wrap {
   position: absolute; inset: 0; border-radius: inherit; z-index: 2; pointer-events: none;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
   background: var(--pause-veil); opacity: 0; transition: opacity 0.25s ease;
 }
 .axis .pause-wrap canvas { display: block; }
-.axis.paused .pause-wrap { opacity: 1; }
+.axis.paused .pause-wrap { opacity: 1; pointer-events: auto; }
+.axis .pause-wrap.hold { pointer-events: auto; }
 .axis.paused .hud { z-index: 3; }
 .axis .hud-play {
   position: absolute; top: 14px; right: 18px; z-index: 3; margin: -7px; padding: 7px; border: 0; background: none;
