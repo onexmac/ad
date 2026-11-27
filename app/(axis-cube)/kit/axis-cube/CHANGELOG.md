@@ -86,7 +86,7 @@ Open:
   - Cause: 1.6.0 read "a play button next to the timer" as a way back from a pause, and showed it only while paused.
   - Don't: decide on my own when a control asked for beside something shows; it shows as long as that thing does, and tells how it stands.
 - From the first turn of a layer, a sign shows to the left of the clock: ▶ while it runs, ‖ while it is paused (the pause screen up).
-- A tap on it does what a tap on the clock does: pauses it while it runs, sets it going again while it is paused. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A tap on it does what a tap on the clock does: pauses it while it runs, sets it going again while it is paused. ([#254](https://github.com/onexmac/ad/pull/254))
 
 ## 1.6.0 · 2026-11-27 15:26
 
