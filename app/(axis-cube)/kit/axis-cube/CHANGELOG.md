@@ -80,7 +80,7 @@ Open:
 - The camera's lean into a flip is now held back until 0.35 s after the finger lifts, then played whole, as strong and as long as before: from the start of the flip, or from 0.3 s before the lift after a long drag.
 - A flip that springs back to where it began no longer moves the camera at all.
 - Measured: on a quick flick (the finger off at 71 ms, the puzzle landing at 1.2 s) the camera first moves at 438 ms, where it moved at 256 ms in 1.0.2 and at once before that, and its lean still lasts 750 ms, ending as the puzzle lands. On a slower swipe (the finger off at 261 ms) it moves at 675 ms, as the puzzle settles. A small slide that springs back leaves the camera still.
-- A tap that turns a face leans at once, as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A tap that turns a face leans at once, as before. ([#212](https://github.com/onexmac/ad/pull/212))
 
 ## 1.0.2 · 2026-11-26 19:44
 
