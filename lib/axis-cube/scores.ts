@@ -2,17 +2,18 @@
  * The Cubes' high scores, one five for everybody (app/(axis-cube)/kit/axis-cube/scores/route.ts).
  *
  * They are kept in a Redis database on Upstash, connected to this Vercel project from its Storage tab, which gives
- * the project its address and key as environment variables (KV_REST_API_URL and KV_REST_API_TOKEN, or the
- * UPSTASH_REDIS_REST_ names); nothing about it is in this repo. Until one is connected the route says so
- * ({ live: false }) and the app keeps its fives on the device, as it always has.
+ * the project its address and key as environment variables: MAGI_KV_REST_API_URL and MAGI_KV_REST_API_TOKEN, as it
+ * was connected (the unprefixed KV_ and UPSTASH_REDIS_REST_ names work too). Nothing about it is in this repo. Until
+ * one is connected the route says so ({ live: false }) and the app keeps its fives on the device, as it always has.
  *
  * Each puzzle is a sorted set of its times in hundredths of a second, each member the initials, the time and a
  * random tag (so two equal entries are two entries), trimmed to its best fifty. The machine's own times (Marcos's,
  * in the scene) are not here: the app puts them among these.
  */
 
-const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || "";
-const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || "";
+const env = (...names: string[]) => names.map((n) => process.env[n]).find(Boolean) || "";
+const URL_ = env("MAGI_KV_REST_API_URL", "KV_REST_API_URL", "UPSTASH_REDIS_REST_URL");
+const TOKEN = env("MAGI_KV_REST_API_TOKEN", "KV_REST_API_TOKEN", "UPSTASH_REDIS_REST_TOKEN");
 export const live = !!(URL_ && TOKEN);
 
 export const PUZZLES = ["axis", "cube3", "cube2", "ghost"] as const;
