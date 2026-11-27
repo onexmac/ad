@@ -38,7 +38,7 @@ Asked by Marcos, 26 Nov 21:40: "Let's call this app MAQ at vercel MAQ02"
 
 - The app is MAQ02 now, at /kit/maq02: in the kit index, the page's title and its home-screen name.
 - /kit/ps2-fiori and its list of changes forward to /kit/maq02.
-- The theme picked before the rename is kept.
+- The theme picked before the rename is kept. ([#224](https://github.com/onexmac/ad/pull/224))
 
 ## 0.2.0 · 2026-11-26 21:38
 
