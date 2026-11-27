@@ -62,18 +62,13 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.32** A motion that demonstrates a gesture plays its whole path, slowly enough to read; never a twitch.
 - **0.7.37** Something that has gone elsewhere is hidden at once; it never fades out back where it began.
 - **0.7.46** A slide's way is split by the two diagonals, an X: each way gets 45° either side, and none is favoured.
-- **0.7.49** A slide's speed is read by its events' own times, never by when the page handled them; all of its travel counts; and one that clearly means to turn, turns.
+- **1.0.1** A slide's speed is read by its events' own times, never by when the page handled them; all of its travel counts; and one that clearly means to turn, turns.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
-## 1.0.0 (planned)
-
-- A stopwatch for solves.
-- A leaderboard on the iMac's screen.
-
-## 0.7.49 · 2026-11-26 19:30
+## 1.0.1 · 2026-11-26 19:30
 
 **Claude:** Fixed the half-hearted turns. A slide that means it now follows through, even when the phone hiccups a frame at the wrong moment.
 
@@ -85,13 +80,15 @@ Open:
 - A slide on the puzzle counts all its travel from the touch, including the first pixels it takes to tell which way it goes.
 - A turn let go more than 30% of the way to the next quarter, and not on its way back, goes on to it: about 32 pixels on a ring, 45 on the puzzle. A smaller slide, or one that comes back, still springs back.
 - Checked on the old and the new version: a flick whose lift reaches the page 110 ms late (28 px on a ring, 40 on the puzzle) went back before and turns now; slow slides of 36 px on a ring and 52 on the puzzle, rested and lifted, went back before and turn now; slides of 22 and 30 px, and one taken to 45 px and brought back to 20, still go back. ([#209](https://github.com/onexmac/ad/pull/209))
+- It shipped as 0.7.49 and became 1.0.1 when Marcos named the version before it 1.0.0.
 
-## 0.7.47 · 2026-11-26 19:24
+## 1.0.0 · 2026-11-26 19:24
 
 **Claude:** The high-score table found its database. It was looking for it under the wrong name tag.
 
 Asked by Marcos, 26 Nov 19:21: "Is it working? What else do I need?"
 
+- 1.0.0, the milestone: the stopwatch and the leaderboard, now one leaderboard for everybody. It shipped as 0.7.47; Marcos named it 1.0.0 afterwards, 26 Nov 19:33: "Re-arrange the changelog, so the last fix becomes 1.0.1 ; the database merge should've been 1.0.0"
 - Marcos connected the Upstash database to the portal's Vercel project, which gave its address and key the names MAGI_KV_REST_API_URL and MAGI_KV_REST_API_TOKEN. The scores route now reads those names first (the unprefixed ones still work), so the fives are everybody's from this version on. ([#208](https://github.com/onexmac/ad/pull/208))
 
 ## 0.7.46 · 2026-11-26 17:22
