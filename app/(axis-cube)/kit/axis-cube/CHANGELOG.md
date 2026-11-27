@@ -81,7 +81,7 @@ Asked by Marcos, 26 Nov 21:14, in the same message: "Also while mixing I should 
 
 - While a puzzle mixes itself up, the long pull straight down now puts it back on the ottoman, as it does at any other time: on the puzzle, or beside it (where a slide still looks round the room, unless it is that pull).
 - The mix is not cancelled: it goes on to its last turn as the puzzle goes down, and the puzzle rests mixed, ready to be played next time. Its wobble and thump end it as usual, under the lobby's music coming back.
-- Checked: a mix of 24 turns, pulled down after 3, ended with all 24 done, on the ottoman; the same beside the puzzle (23 of 23). ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Checked: a mix of 24 turns, pulled down after 3, ended with all 24 done, on the ottoman; the same beside the puzzle (23 of 23). ([#221](https://github.com/onexmac/ad/pull/221))
 
 ## 1.1.4 · 2026-11-26 21:31
 
@@ -93,7 +93,7 @@ Asked by Marcos, 26 Nov 21:14, in the same message: "Also while mixing I should 
 
 - The sound is now made only at the end of a touch, and every touch that finds it asleep wakes it and plays a silent sample into it, the welcome's Start too.
 - It is not put to sleep before the lobby has had its first chance to play, nor ever while the lobby's music is wanted; and if the music is wanted while the sound is asleep, the app wakes it itself, which a browser allows once the page has been touched.
-- Checked as an iPhone from the home screen would open it: welcome, Start, the room, and the lobby's music playing half a second after the room came in. I cannot run a real iPhone here: if it still waits for a touch, tell me. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Checked as an iPhone from the home screen would open it: welcome, Start, the room, and the lobby's music playing half a second after the room came in. I cannot run a real iPhone here: if it still waits for a touch, tell me. ([#221](https://github.com/onexmac/ad/pull/221))
 
 ## 1.1.3 · 2026-11-26 20:50
 
