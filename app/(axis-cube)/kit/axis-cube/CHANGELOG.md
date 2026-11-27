@@ -85,7 +85,7 @@ Open:
   - Cause: the side of the two taps was read with an X through the puzzle's middle, so a tap low and well to the side, beside the grid of dots, fell in the side's quarter and turned the puzzle about the upright.
   - Don't: read where a tap was by its angle alone when what is meant is a region of the screen.
 - Two taps anywhere below the puzzle, beside the dots included, flip it from below; anywhere above it, from above.
-- Level with the puzzle, or on it, the X from its middle still decides: left or right, about the upright; its top or bottom half, about the level. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Level with the puzzle, or on it, the X from its middle still decides: left or right, about the upright; its top or bottom half, about the level. ([#246](https://github.com/onexmac/ad/pull/246))
 
 ## 1.4.5 · 2026-11-27 13:03
 
