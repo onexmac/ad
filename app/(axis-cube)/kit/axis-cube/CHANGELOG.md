@@ -81,7 +81,7 @@ Asked by Marcos, 26 Nov 21:33: "Can you have the same song but as chiptune when 
 
 - Whenever the high scores' screen is up close (from the ottoman, or after a solve, when it was silent before), Bounce plays as an old 8-bit machine would: the tune on a pulse wave, the chords as a quick arpeggio on a thinner one, the bass on a triangle, a dropping triangle for the kick and noise for the snare and the hats, and the score's 8-bit run as its fill. No tape and no record, just the machine, a little crushed, as a cheap converter makes it.
 - It is the same song at the same moment: the two versions play in step, and as the screen comes up the lo-fi one fades into the chip one in about a third of a second, and back as it goes.
-- It is about as loud as the lo-fi version, and its tune stays on top: rendered, every one of its 58 notes is the loudest thing in its range. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- It is about as loud as the lo-fi version, and its tune stays on top: rendered, every one of its 58 notes is the loudest thing in its range. ([#222](https://github.com/onexmac/ad/pull/222))
 
 ## 1.1.5 · 2026-11-26 21:31
 
