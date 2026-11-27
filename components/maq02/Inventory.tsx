@@ -1,13 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { haptic } from "@/lib/histok/haptic";
 
-const CHANGELOG = "/kit/ps2-fiori/changelog";
+const CHANGELOG = "/kit/maq02/changelog";
 
 /**
- * PS2 Fiori: the inventory screen. The markup is the artifact's, as it was; lib/ps2-fiori/scene.js mounts the mixer
- * and the controls on it. The version sits under the tabs and opens the list of changes (docs/changelog.md).
+ * MAQ02: the inventory screen. Since 0.2.0 it wears Marcos's references: windows of paper and ink with a title bar
+ * and a dot (a retro desktop), widgets with an LCD counter and pill bars (a line-art phone screen), and pixel keycaps
+ * that press down and spring back (The Cubes' keypad). lib/maq02/scene.js mounts the mixer and drives the controls
+ * by their ids. The version sits under the title and opens the list of changes (docs/changelog.md).
  */
 export function Inventory({ version }: { version: string }) {
   const root = useRef<HTMLDivElement>(null);
@@ -17,11 +19,14 @@ export function Inventory({ version }: { version: string }) {
 
   useEffect(() => {
     let gone = false, mixer: { dispose(): void } | null = null;
-    import("@/lib/ps2-fiori/scene").then(({ mountMixer }) => {
+    import("@/lib/maq02/scene").then(({ mountMixer }) => {
       if (gone || !root.current) return;
       mixer = mountMixer(root.current, { paused: () => logRef.current });
     });
-    return () => { gone = true; mixer?.dispose(); };
+    // iOS Safari shows :active (the keys going down) only when a touch listener is on the page
+    const noop = () => {};
+    document.addEventListener("touchstart", noop, { passive: true });
+    return () => { gone = true; mixer?.dispose(); document.removeEventListener("touchstart", noop); };
   }, []);
 
   const openLog = () => { setLog(true); haptic.select(); };
@@ -38,45 +43,74 @@ export function Inventory({ version }: { version: string }) {
       </div>
 
       <header className="hud" id="hud">
-        <div>
-          <div className="kicker">INVENTORY</div>
-          <div className="tabs"><span>ITEMS</span><span>KEY</span><span className="on">EQUIPMENT</span></div>
-          {version && <button type="button" className="ver" onClick={openLog} aria-label={`Version ${version}: list of changes`}>VER {version}</button>}
+        <div className="win w-inv" style={{ "--i": 0 } as CSSProperties}>
+          <div className="days"><span>ITEMS</span><span>KEY</span><span className="on">EQUIP</span></div>
+          <div className="inv-title">Inventory</div>
+          {version && <button type="button" className="ver" onClick={openLog} aria-label={`Version ${version}: list of changes`}>VER {version} <Pixel g="next" /></button>}
         </div>
-        <div className="meter" aria-label="Concrete poured">
-          <div className="meter-top"><span>CONCRETE</span><b id="mVal">1.8 m³</b></div>
-          <div className="meter-bar"><i id="mBar" /></div>
-          <button id="bTheme" className="sel-chip" type="button"><i className="g g-sel">SELECT</i><span id="themeLbl">Light</span></button>
+        <div className="hud-r">
+          <div className="win w-meter" id="meter" style={{ "--i": 1 } as CSSProperties} aria-label="Concrete poured">
+            <div className="m-top"><span>CONCRETE</span><span>M³</span></div>
+            <div className="lcd"><span className="ghost" aria-hidden>8.8</span><b id="mVal">1.8</b></div>
+            <div className="pill"><i id="mBar" /></div>
+          </div>
+          <button id="bTheme" className="chip" type="button" style={{ "--i": 2 } as CSSProperties}><Pixel g="moon" /><span id="themeLbl">Ink</span></button>
         </div>
       </header>
 
-      <div id="hint">◂ DRAG TO INSPECT ▸</div>
-      <div id="toast" role="status" aria-live="polite" />
-      <div id="pop">+1.8 m³ CONCRETE</div>
+      <div id="hint"><span>◂ DRAG TO INSPECT ▸</span></div>
+      <div id="toast" className="dlg" role="status" aria-live="polite">
+        <div className="bar-t"><i className="dot" /><span id="toastTitle">System warning</span></div>
+        <div className="dlg-body"><Pixel g="warn" /><span id="toastMsg" /></div>
+      </div>
+      <div id="pop"><b>+1.8</b>M³</div>
 
-      <section className="panel" id="panel">
-        <div className="p-head">
-          <div>
-            <div className="p-tag">EQUIPMENT · <span className="stars">★★★★☆</span></div>
-            <h1 className="p-name"><small>MAZA · MZ-20</small>Self-Loading Mixer</h1>
+      <section className="panel win" id="panel" style={{ "--i": 3 } as CSSProperties}>
+        <div className="bar-t">
+          <i className="dot" />
+          <h1>Self-Loading Mixer</h1>
+          <span className="qty">×<b>01</b></span>
+        </div>
+        <div className="p-body">
+          <div className="p-tag"><span>MAZA · MZ-20</span><span className="stars" aria-label="4 of 5">★★★★☆</span></div>
+          <p className="p-desc" id="desc" />
+          <div className="p-stats">
+            <div className="stat s1"><span>CAPACITY</span><b>1.8<small>m³</small></b><div className="seg" data-v="6" /></div>
+            <div className="stat s2"><span>TRACTION</span><b>4×4</b><div className="seg" data-v="8" /></div>
+            <div className="stat s3"><span>SPEED</span><b>25<small>km/h</small></b><div className="seg" data-v="3" /></div>
           </div>
-          <div className="p-qty">×<b>1</b></div>
+          <nav className="p-btns">
+            <button id="bMix" className="key" type="button"><span className="cap"><Pixel g="x" /><span>Mix</span></span></button>
+            <button id="bLoad" className="key" type="button"><span className="cap"><Pixel g="tri" /><span>Load</span></span></button>
+            <button id="bSpin" className="key" type="button" aria-pressed="true"><span className="cap"><Pixel g="sq" /><span>Spin</span></span></button>
+          </nav>
         </div>
-        <p className="p-desc" id="desc" />
-        <div className="p-stats">
-          <div className="stat"><span>CAPACITY</span><b>1.8 m³</b><div className="seg" data-v="6" /></div>
-          <div className="stat"><span>TRACTION</span><b>4×4</b><div className="seg" data-v="8" /></div>
-          <div className="stat"><span>SPEED</span><b>25 km/h</b><div className="seg" data-v="3" /></div>
-        </div>
-        <nav className="p-btns">
-          <button id="bMix" type="button"><i className="g"><svg viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg></i><span>Mix</span></button>
-          <button id="bLoad" type="button"><i className="g"><svg viewBox="0 0 10 10"><path d="M5 1.4L9 8.4H1z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /></svg></i><span>Load</span></button>
-          <button id="bSpin" type="button" aria-pressed="true"><i className="g"><svg viewBox="0 0 10 10"><rect x="1.8" y="1.8" width="6.4" height="6.4" fill="none" stroke="currentColor" strokeWidth="1.6" /></svg></i><span>Spin</span></button>
-        </nav>
       </section>
 
       <Changes open={log} onClose={closeLog} />
     </div>
+  );
+}
+
+/* ---------- Pixel glyphs: drawn on a grid, square-edged at any size ---------- */
+
+const GLYPHS: Record<string, string[]> = {
+  x: ["XX...XX", "XXX.XXX", ".XXXXX.", "..XXX..", ".XXXXX.", "XXX.XXX", "XX...XX"],
+  tri: ["...X...", "..XXX..", "..XXX..", ".XXXXX.", ".XXXXX.", "XXXXXXX"],
+  sq: ["XXXXXX", "XXXXXX", "XX..XX", "XX..XX", "XXXXXX", "XXXXXX"],
+  warn: ["....X....", "...XXX...", "..XX.XX..", "..XX.XX..", ".XXX.XXX.", ".XXXXXXX.", "XXXX.XXXX", "XXXXXXXXX"],
+  moon: ["..XXX..", ".XX....", "XX.....", "XX.....", "XX.....", ".XX....", "..XXX.."],
+  next: ["X..", "XX.", "XXX", "XX.", "X.."],
+};
+
+function Pixel({ g }: { g: keyof typeof GLYPHS }) {
+  const rows = GLYPHS[g];
+  let d = "";
+  rows.forEach((r, y) => { for (let x = 0; x < r.length; x++) if (r[x] === "X") d += `M${x} ${y}h1v1h-1z`; });
+  return (
+    <svg className={`px px-${g}`} viewBox={`0 0 ${rows[0].length} ${rows.length}`} shapeRendering="crispEdges" aria-hidden>
+      <path d={d} fill="currentColor" />
+    </svg>
   );
 }
 
@@ -168,7 +202,7 @@ function Changes({ open, onClose }: { open: boolean; onClose: () => void }) {
     const el = sheet.current, sc = scroll.current;
     if (!el || !sc) return;
     let g: { id: number; x: number; y: number; top: boolean; end: boolean; mode: string; d: number } | null = null;
-    const settle = () => { el.style.transition = ""; el.style.transform = ""; };
+    const settle = () => { el.style.transition = ""; el.style.translate = ""; };   // back on the CSS spring
     const start = (e: TouchEvent) => {
       if (g) { if (g.mode && g.mode !== "scroll") settle(); g = null; return; }   // a second finger settles it
       const t = e.touches[0];
@@ -187,12 +221,12 @@ function Changes({ open, onClose }: { open: boolean; onClose: () => void }) {
       if (e.cancelable) e.preventDefault(); else { g.mode = "scroll"; settle(); return; }
       g.d = Math.max(0, g.mode === "side" ? dx : g.mode === "down" ? dy : -dy);
       el.style.transition = "none";
-      el.style.transform = g.mode === "side" ? `translateX(${g.d}px)` : g.mode === "down" ? `translateY(${g.d * 0.7}px)` : `translateY(${-Math.min(48, g.d * 0.25)}px)`;
+      el.style.translate = g.mode === "side" ? `${g.d}px 0` : g.mode === "down" ? `0 ${g.d * 0.7}px` : `0 ${-Math.min(48, g.d * 0.25)}px`;
     };
     const end = (e: TouchEvent) => {
       if (!g || !Array.from(e.changedTouches).some((x) => x.identifier === g!.id)) return;
       const go = e.type === "touchend" && g.mode && g.mode !== "scroll" && g.d > (g.mode === "past" ? 110 : 80);
-      if (go) { el.style.transition = ""; el.style.transform = ""; onClose(); } else settle();
+      if (go) { el.style.transition = ""; el.style.translate = ""; onClose(); } else settle();
       g = null;
     };
     el.addEventListener("touchstart", start, { passive: true });
@@ -209,23 +243,20 @@ function Changes({ open, onClose }: { open: boolean; onClose: () => void }) {
 
   return (
     <div className={`log-dim${open ? " open" : ""}`} aria-hidden={!open}>
-      <div ref={sheet} className="log" role="dialog" aria-modal="true" aria-label="Changes" inert={!open}>
+      <div ref={sheet} className="log win" role="dialog" aria-modal="true" aria-label="Changes" inert={!open}>
+        <div className="bar-t"><i className="dot" /><h2>Changes</h2><span className="qty">LOG</span></div>
         <div ref={scroll} className="log-scroll">
-          <div className="kicker">CHANGES</div>
-          <div className="tabs"><span className="on">SYSTEM LOG</span></div>
-          <div className="log-body">
-            {failed ? <p className="log-note">The list could not be loaded.</p> : !entries ? <p className="log-note">LOADING…</p> : entries.map((e) => (
-              <article key={e.ver} className="rel">
-                <h3><span className="num">{e.ver}</span><span>{e.date}</span></h3>
-                {e.said.map((q, i) => <p key={i} className="said"><b>{q.bug ? "Input (bug)" : "Input"}</b>{q.text}</p>)}
-                {e.claude.map((c, i) => <p key={i} className="claude"><b>Output</b>{inline(c)}</p>)}
-                {e.more.some((l) => l.trim()) && <Details lines={e.more} />}
-              </article>
-            ))}
-          </div>
+          {failed ? <p className="log-note">The list could not be loaded.</p> : !entries ? <p className="log-note">LOADING…</p> : entries.map((e) => (
+            <article key={e.ver} className="rel">
+              <h3><span className="num">{e.ver}</span><span>{e.date}</span></h3>
+              {e.said.map((q, i) => <p key={i} className="said"><b>{q.bug ? "Input · bug" : "Input"}</b>{q.text}</p>)}
+              {e.claude.map((c, i) => <p key={i} className="claude"><b>Output</b>{inline(c)}</p>)}
+              {e.more.some((l) => l.trim()) && <Details lines={e.more} />}
+            </article>
+          ))}
         </div>
         <div className="log-foot">
-          <button type="button" className="log-close" onClick={onClose}><i className="g"><svg viewBox="0 0 10 10"><path d="M5 1.4L9 8.4H1z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /></svg></i><span>Close</span></button>
+          <button type="button" className="key log-close" onClick={onClose}><span className="cap"><Pixel g="tri" /><span>Close</span></span></button>
         </div>
       </div>
     </div>

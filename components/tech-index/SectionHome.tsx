@@ -104,7 +104,7 @@ function Glyph({ app }: { app: PortalApp }) {
           <circle cx="11.4" cy="11.4" r="1.6" strokeWidth={1.4} />
         </svg>
       );
-    case "ps2-fiori": // the mixer: its tilted drum on two wheels
+    case "maq02": // the mixer: its tilted drum on two wheels
       return (
         <svg {...GLYPH} aria-hidden>
           <path d="M3 8.6l1.6-4.4 7.6 2.6-1.4 3.9z" strokeWidth={1.5} strokeLinejoin="round" />
