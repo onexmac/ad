@@ -74,6 +74,14 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.3.7 · 2026-11-27 09:32
+
+**Claude:** READY is a button now. Tap it and the cube in your hand does the same little hop and wiggle the ottoman's cubes do for INSERT CUBE. It does not make it any more ready. It just likes the attention.
+
+Asked by Marcos, 27 Nov 09:29: "While Inserted, Tapping ready should jiggle the cube, the same way it happens while tapping insert on the ottoman"
+
+- READY, at the top right while a puzzle is held up and not yet started, can be tapped: the puzzle jiggles as the ones on the ottoman do for INSERT CUBE, with the same tick, a little hop and a wiggle side to side dying away in about half a second. ([#238](https://github.com/onexmac/ad/pull/238))
+
 ## 1.3.6 · 2026-11-27 09:28
 
 **Claude:** Locked cubes now have opinions. Poke one and it shakes its head at you and lets out the wub-wub bass we retired from the turns back in 0.6.7. It found a better job.
