@@ -11,6 +11,8 @@ export interface AxisSound {
   drop(): void;
   land(): void;
   turn(face: number, turned?: boolean, puzzle?: string, closer?: boolean): void;
+  /** A locked puzzle is touched: it says no. */
+  refuse(): void;
   step(): void;
   flip(): void;
   tick(): void;
