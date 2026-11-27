@@ -25,11 +25,11 @@ export interface AxisSound {
   wind(speed: number): void;
   charge(k: number): void;
   /** The picker's music, 0..1, every frame: how much of it should be heard. */
-  music(k: number): void;
+  music(k: number, chip?: boolean): void;
   /** For a test with its own (offline) context: the music's first `secs` seconds, scheduled at once. */
-  musicFor(secs: number): void;
+  musicFor(secs: number, skin?: 'lofi' | 'chip'): void;
   /** For a test: how much of the music is wanted and whether its loop is running. */
-  musicNow(): { k: number; playing: boolean; step: number; round: number };
+  musicNow(): { k: number; playing: boolean; step: number; round: number; skin: string };
   wobble(on: boolean): void;
   quiet(): void;
   dispose(): void;
