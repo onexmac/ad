@@ -82,7 +82,7 @@ Asked by Marcos, 27 Nov 08:02, in the same message: "Also raise like 20% Cubed s
 
 - Cubed plays 20% louder than before (×1.2, about +1.6 dB), over the lobby's song and the chip tune; nothing else in the music changes.
 - Its loudest moments stay under the limiter on the way out, so all of the 20% is heard.
-- Measured in what a phone's speaker plays (300 Hz to 8 kHz, weighted the way the ear hears), Cubed was already about 7 dB over the chip tune and level with the lobby's song; now it is about 1.5 dB over the lobby's song. If the chip still sounds louder on the phone, it is its brightness (square waves, open to 9 kHz, where Cubed's top is rolled off at 3 kHz), not its level. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Measured in what a phone's speaker plays (300 Hz to 8 kHz, weighted the way the ear hears), Cubed was already about 7 dB over the chip tune and level with the lobby's song; now it is about 1.5 dB over the lobby's song. If the chip still sounds louder on the phone, it is its brightness (square waves, open to 9 kHz, where Cubed's top is rolled off at 3 kHz), not its level. ([#229](https://github.com/onexmac/ad/pull/229))
 
 ## 1.2.8 · 2026-11-27 08:13
 
@@ -95,7 +95,7 @@ Asked by Marcos, 27 Nov 08:02, in the same message: "Also raise like 20% Cubed s
 - The music waits for the clock the same way, and starts from the top when it moves.
 - Side-B waits for the clock to move before it solves the cube, six seconds at most, so the solve, the cheer and Cubed are heard as they are seen.
 - The sound no longer goes to sleep after 20 s of silence: it sleeps only when the page is out of sight, and wakes with the first touch back.
-- Checked with an iPhone's stall imitated (the clock standing still for 3 s after the first touch): before, 30 sounds were put on the still clock and the cheer and Cubed were among them; now none are, and the solve starts when the clock moves. Without a stall nothing changes: the solve at 1.2 s, Cubed at 1.6 s, the initials at 3.7 s, and a sound asked for in the very touch that makes the audio plays 1 ms later. On a real iPhone it is still to be heard. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Checked with an iPhone's stall imitated (the clock standing still for 3 s after the first touch): before, 30 sounds were put on the still clock and the cheer and Cubed were among them; now none are, and the solve starts when the clock moves. Without a stall nothing changes: the solve at 1.2 s, Cubed at 1.6 s, the initials at 3.7 s, and a sound asked for in the very touch that makes the audio plays 1 ms later. On a real iPhone it is still to be heard. ([#229](https://github.com/onexmac/ad/pull/229))
 
 ## 1.2.6 · 2026-11-26 22:14
 
