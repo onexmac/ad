@@ -77,6 +77,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.5.4 · 2026-11-27 14:49
+
+**Claude:** Every table is a top ten now, two pages of five, whether anyone has filled them yet or not. Swipe up on any puzzle's table and the second page is there, dashes and all.
+
+Asked by Marcos, 27 Nov 14:48: "Let's make all scrollable even if empty. And let's keep it at top 10, so 2 pages all"
+
+- Each puzzle's table has ten places, in two pages of five, on every puzzle: the places nobody has taken show --:--:-- ---, so every table scrolls the same way.
+- The heading reads TOP 10.
+- A time goes in if it makes the ten. The portal sends the ten best of each puzzle. ([#250](https://github.com/onexmac/ad/pull/250))
+
 ## 1.5.3 · 2026-11-27 14:44
 
 **Claude:** The high scores got longer than five. Swipe up on the screen and the table turns its pages, five at a time, with the neighbours peeking in faintly above and below. The window's title bar stays put; the rest rolls.
