@@ -88,7 +88,7 @@ Asked by Marcos, 27 Nov 16:10: "On the couch screen at the lower left corner add
 - At the lower left of the couch, across from the version and in a box like it, a speaker: with its sound waves while the sound is on, crossed out while it is off. A tap turns it over.
 - Off is every sound, the music, Cubed and the chip tune included; the phone's taps (haptics) stay. Turned back on, it plays a bolololip to say so.
 - It is kept for the next visit, from the welcome screen on.
-- Like the version, it steps aside while a puzzle is in hand. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Like the version, it steps aside while a puzzle is in hand. ([#257](https://github.com/onexmac/ad/pull/257))
 
 ## 1.6.4 · 2026-11-27 15:48
 
