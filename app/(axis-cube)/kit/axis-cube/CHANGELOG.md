@@ -82,7 +82,7 @@ Asked by Marcos, 27 Nov 08:22: "Can you switch the cube at the front with the 2x
 
 - The 2×2 now sits at the front of the diamond, and the Axis Cube where the 2×2 was, on the left; the 3×3 and the Ghost Cube stay where they were.
 - Each keeps its own size and the way it is turned, and its weight mark goes with it.
-- 1.2.9 and a small change make 1.3.0: the third number rolls over. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- 1.2.9 and a small change make 1.3.0: the third number rolls over. ([#230](https://github.com/onexmac/ad/pull/230))
 
 ## 1.2.9 · 2026-11-27 08:13
 
