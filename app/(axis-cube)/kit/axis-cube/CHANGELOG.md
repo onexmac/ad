@@ -63,6 +63,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.37** Something that has gone elsewhere is hidden at once; it never fades out back where it began.
 - **0.7.46** A slide's way is split by the two diagonals, an X: each way gets 45° either side, and none is favoured.
 - **1.0.1** A slide's speed is read by its events' own times, never by when the page handled them; all of its travel counts; and one that clearly means to turn, turns.
+- **1.0.3** A delay meant to be seen is counted from the end of the gesture, not its start.
 
 Open:
 
