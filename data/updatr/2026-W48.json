@@ -2,33 +2,142 @@
   "schemaVersion": 1,
   "year": 2026,
   "week": 48,
-  "date": "2026-11-26",
-  "updatedAt": "2026-11-26T22:30:03.429Z",
+  "date": "2026-11-27",
+  "updatedAt": "2026-11-27T22:08:52.651Z",
   "isSample": false,
   "items": [
     {
       "id": "tf-12-3",
       "franchise": "finals",
       "kind": "game",
-      "status": "upcoming",
+      "status": "live",
       "importance": 3,
-      "title": "Grand Major 2026: Twitch Drops detailed, 11:30 CET start",
-      "dek": "Five Twitch Drops run Nov 27–29 during the Grand Major in Stockholm, and matches now start at 11:30 CET on Friday.",
+      "title": "The Grand Major 2026 starts in Stockholm, with Twitch drops",
+      "dek": "The Finals' Grand Major is underway. Watching on Twitch Nov 27–29 earns up to five free items, ending with the Grand Inferno Helmet.",
       "body": [
-        "The Grand Major 2026 streams on THE FINALS' Twitch channel from 11:30 CET on Friday, November 27, and runs to November 29. An earlier report said 12:00 CET, but the newer 11:30 time comes from Embark's Steam post. Five Twitch Drops unlock at watch-time milestones of up to five hours. Reported rewards include a helmet, weapon skins and a TGM26 charm.",
-        "16 teams from three regions meet at DreamHack Stockholm. For the first time, \"The Throne\" format decides the title: the first team to earn three crowns wins. Several outlets put the prize pool at $150,000. One outlet reports $200,000 including the online series.",
-        "Watch for last year's split NTMR trio. Lasagna stayed, while Gremlin and UNI moved to ENVY. One outlet lists the Pick'ems deadline as November 26, so check it in-game before then."
+        "Embark's official account posted on November 27 that \"The Grand Major 2026 is finally here,\" along with the Day 1 schedule for the Stockholm event. The tournament is running as planned.",
+        "The game's Steam Community hub lists Twitch drops for November 27 to 29. Each hour watched unlocks one item, up to five hours: Box of Glory Charm, Throwing Knives, R.357, Sledgehammer, then the Grand Inferno Helmet.",
+        "To get all five, watch at least five hours before the event ends on November 29."
       ],
-      "date": "2026-11-26",
+      "date": "2026-11-27",
       "when": "2026-11-27",
       "tags": [
         "esports",
-        "twitch drops",
-        "grand major"
+        "twitch drops"
       ],
-      "source": "Console & PC Gaming",
-      "url": "https://consolepcgaming.com/the-finals-update-12-5-0-details-the-grand-majors-nov-27-start-and-twitch-drops/",
+      "source": "The Finals (X, @reachthefinals)",
+      "url": "https://x.com/reachthefinals/status/2126254770646327307",
       "image": "https://static1.squarespace.com/static/62d66fa29e72c560f8efc020/65369029e42c1853834ee4b8/6af4750defdf1442e9b8de94/1794561167799/THEFINALS_S12_StoreUpdate_12_3_Thumbnail_NO_TEXT.jpg?format=1500w"
+    },
+    {
+      "id": "tf-tgm26-bundles",
+      "franchise": "finals",
+      "kind": "skin",
+      "status": "out",
+      "importance": 2,
+      "title": "All 16 Grand Major teams get their own bundle",
+      "dek": "The Finals has 16 Esport Bundles, one per Grand Major team, so you can back your team in cosmetics.",
+      "body": [
+        "IDC Games reported on November 18 that each of the 16 teams in the Grand Major 2026 has its own Esport Bundle in The Finals. The game's Steam Community hub also lists the bundles.",
+        "The sources don't give prices or an end date. Check the in-game store while the Grand Major is running."
+      ],
+      "date": "2026-11-18",
+      "tags": [
+        "esports",
+        "bundles"
+      ],
+      "source": "IDC Games",
+      "url": "https://idcgames.com/en/the-finals/news/all-16-grand-major-teams-get-their-own-bundle-in-the-finals-2026-11-18-09-35-14247",
+      "image": "https://cdn.idcgames.com/storage/image/1486/tgm26-team-bundles-the-finals/default.jpg"
+    },
+    {
+      "id": "tf-tgm26-event-pass",
+      "franchise": "finals",
+      "kind": "game",
+      "status": "out",
+      "importance": 2,
+      "title": "TGM26 Event Pass has 16 levels to clear",
+      "dek": "A 16-level event pass tied to the Grand Major 2026, with time to finish it after the tournament ends.",
+      "body": [
+        "IDC Games reported on November 16 that The Finals' TGM26 Event Pass has 16 levels. According to the report, players can keep working through it after the Grand Major 2026 ends. The game's Steam Community hub also mentions the pass.",
+        "The sources here don't give the exact closing date. Look for it in-game so you don't miss rewards."
+      ],
+      "date": "2026-11-16",
+      "tags": [
+        "event pass",
+        "esports"
+      ],
+      "source": "IDC Games",
+      "url": "https://idcgames.com/en/the-finals/news/the-finals%E2%80%99-tgm26-event-pass-gives-you-16-levels-to-finish-after-the-grand-major-2026-11-16-09-25-14225",
+      "image": "https://cdn.idcgames.com/storage/image/1486/tgm26-event-pass-the-finals/default.jpg"
+    },
+    {
+      "id": "tfd-1410",
+      "franchise": "descendant",
+      "kind": "game",
+      "status": "out",
+      "importance": 2,
+      "title": "Patch 1.4.10 lets Wall Crasher drop quality 400 Transcendent loot",
+      "dek": "Wall Crasher can now drop Transcendent Weapon Loot at quality 251–400 in The First Descendant, which matters if you farm for top rolls.",
+      "body": [
+        "Nexon's Patch 1.4.10 went live on November 25 at 23:00 PST on Steam, Xbox and PS5. The official notes were posted on Steam.",
+        "Wall Crasher now has a chance to drop Transcendent Weapon Loot at quality 251 to 400, plus a low chance of quality 400. Games Lantern, jeu.video and MMOHuts also reported the patch."
+      ],
+      "date": "2026-11-26",
+      "when": "2026-11-25",
+      "tags": [
+        "patch",
+        "loot"
+      ],
+      "source": "Steam (The First Descendant)",
+      "url": "https://store.steampowered.com/news/app/2074920/view/714545101887504973",
+      "image": "https://clan.akamai.steamstatic.com/images/42627465/a0bbb9bbd1a4f897439add27c46df6639b5cd149.png"
+    },
+    {
+      "id": "cod-s1-reloaded",
+      "franchise": "cod",
+      "kind": "game",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "Season 1 Reloaded still has no official date",
+      "dek": "Activision hasn't announced a date. The in-game Battle Pass countdown points to December 2 at 10 PM PT.",
+      "body": [
+        "Unplayed.gg updated its article on November 25 to say Activision had not yet published the Season 1 Reloaded blog or a release date. The only pointer is the in-game Battle Pass countdown, which ends December 2 at 10 PM PT (December 3 in India).",
+        "Two Warzone limited-time modes are expected mid-season: Extreme Resurgence and Rockets and Snipers. Activision announced both earlier.",
+        "Esports.gg says only that Reloaded is confirmed for December. Treat December 2 as likely until Activision's blog goes up."
+      ],
+      "date": "2026-11-25",
+      "when": "2026-12-02",
+      "tags": [
+        "season update",
+        "warzone"
+      ],
+      "source": "Unplayed.gg",
+      "url": "https://unplayed.gg/blog/mw4-season-1-reloaded",
+      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
+    },
+    {
+      "id": "zzz-sunbringer",
+      "franchise": "zzz",
+      "kind": "character",
+      "status": "upcoming",
+      "importance": 2,
+      "title": "How Sunbringer's three-sister Enchainer kit works",
+      "dek": "Zenless Zone Zero's first Enchainer combines three sisters in one Agent. She arrives December 2 with a banner running to January 12.",
+      "body": [
+        "Sunbringer debuts on December 2, 2026 as an S-Rank Genesis Flare Armorer and a new Void Hunter. TheClick reports she is the first Enchainer. She combines three sisters, Eldreda, Lindverne and Dracaene, who take turns with a lance, a greatsword and a shield. You get them as a single Agent from her limited banner, and she keeps the Armorer specialty.",
+        "The article names Gash, Wishfire and Embermark as parts of her combat sequence. Her banner runs December 2 to January 12, 2027, 2:59 PM UTC+8.",
+        "TheClick suggests the free Robin as a partner, because her off-field Concerto grants shields and raises DEF and damage, and her Ultimate restores Sharpness for Armorers."
+      ],
+      "date": "2026-11-27",
+      "when": "2026-12-02",
+      "tags": [
+        "agent",
+        "version 3.4"
+      ],
+      "source": "TheClick",
+      "url": "https://www.theclick.gg/zenless-zone-zero-enchainer-agents/",
+      "image": "https://guided.news/wp-content/uploads/2026/10/HUMAjguW8AAlxYr.webp"
     },
     {
       "id": "tf-12-5-sets",
@@ -51,52 +160,6 @@
       "source": "Embark Studios",
       "url": "https://www.reachthefinals.com/patchnotes/12-50",
       "image": "https://consolepcgaming.com/wp-content/uploads/2026/11/the-finals-update-12-5-0-cowboy-hat-contestant.webp"
-    },
-    {
-      "id": "tfd-1410",
-      "franchise": "descendant",
-      "kind": "game",
-      "status": "out",
-      "importance": 3,
-      "title": "Patch 1.4.10 is live: Wall Crasher drops Transcendent loot",
-      "dek": "Wall Crasher now drops Quality 251–400 Transcendent weapon loot, and Freyna and Monet get changes.",
-      "body": [
-        "Patch 1.4.10 went live on November 25 at 23:00 PST on Steam, Xbox and PS5. Defeating Wall Crasher can now drop Transcendent Weapon Loot at Quality 251–400, with a low chance of an extra Quality 400 drop. No odds are given, and the Transcendent acquisition boost applies.",
-        "Freyna's Catalyst Zone effects are toned down. Monet's lance module now fires forward when aimed at the ground, and her \"Veil of the Ticking Second\" effects no longer block the view. Some Champion Vulgus areas in Henosis Sanctuary are changed.",
-        "The weekly mission now counts Maneuvering Operation. The patch also fixes the Descendant's Weekend results screen, which showed the wrong mastery XP."
-      ],
-      "date": "2026-11-26",
-      "when": "2026-11-25",
-      "tags": [
-        "patch",
-        "loot",
-        "wall crasher"
-      ],
-      "source": "Games Lantern",
-      "url": "https://tfd.gameslantern.com/news/the-first-descendant-patch-1410",
-      "image": "https://clan.akamai.steamstatic.com/images/42627465/a0bbb9bbd1a4f897439add27c46df6639b5cd149.png"
-    },
-    {
-      "id": "zzz-sunbringer",
-      "franchise": "zzz",
-      "kind": "character",
-      "status": "upcoming",
-      "importance": 2,
-      "title": "HoYoverse confirms Sunbringer as first Enchainer for Dec 2",
-      "dek": "Official 3.4 release repeats the December 2 date and names Sunbringer the game's first Enchainer Agent.",
-      "body": [
-        "HoYoverse's press release, dated November 24, repeats that version 3.4 arrives on December 2. It calls Sunbringer \"the first Enchainer Agent\" and confirms the crossover with Robin and Kafka.",
-        "Some coverage calls Sunbringer an \"S-Rank Armorer Agent.\" HoYoverse's official class is Enchainer, so go by that."
-      ],
-      "date": "2026-11-24",
-      "when": "2026-12-02",
-      "tags": [
-        "version 3.4",
-        "new agent"
-      ],
-      "source": "HoYoverse",
-      "url": "https://www.hoyoverse.com/en-us/news/167445",
-      "image": "https://guided.news/wp-content/uploads/2026/10/HUMAjguW8AAlxYr.webp"
     },
     {
       "id": "sb-blood-rain-handmade",
@@ -207,29 +270,6 @@
       "source": "Press Start",
       "url": "https://press-start.com.au/bargains/2026/11/26/target-will-have-a-crazy-one-day-only-call-of-duty-modern-warfare-4-deal-tomorrow/",
       "image": "https://cdn.mos.cms.futurecdn.net/HEvi8RBCSjLMCckCbKcgCh-1920-80.jpg"
-    },
-    {
-      "id": "cod-s1-reloaded",
-      "franchise": "cod",
-      "kind": "game",
-      "status": "upcoming",
-      "importance": 2,
-      "title": "Season 1 Reloaded: December 2 PT is December 3 almost everywhere else",
-      "dek": "The countdown points to December 2 at 10 PM PT, which is already December 3 in Eastern time. Activision has not confirmed the date.",
-      "body": [
-        "The countdown points to Wednesday, December 2, at 10 PM PT. That is already Thursday, December 3, in Eastern time and most other regions. As of November 25, Activision had not posted the Reloaded blog or an official date, according to Unplayed. U4N calls December 3 a leaked date that hasn't been confirmed.",
-        "Unplayed says the Wager Match event ends December 2. It lists the maps Ministry and Overflow, the mode Counter Attack and two Warzone limited-time modes as coming. These are Unplayed's claims, not Activision's."
-      ],
-      "date": "2026-11-25",
-      "when": "2026-12-02",
-      "tags": [
-        "season",
-        "mw4",
-        "warzone"
-      ],
-      "source": "Unplayed",
-      "url": "https://unplayed.gg/blog/mw4-season-1-reloaded",
-      "image": "https://image.u4n.com/article/202611/1902/3507/ooGOtPwa6v4mnicuL1wEE8odMg0a5XDkPpxxtBVT.webp"
     },
     {
       "id": "zzz-34-theatrical-dream",
