@@ -74,10 +74,21 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.4.7** A report can describe what happens or what is wanted: when it reads both ways, ask before changing anything.
 - **1.6.1** A control asked for beside something shows for as long as that thing does, and tells how it stands; don't pick the one moment it is for.
 - **1.6.4** Something started by a gesture starts on the gesture, not on what the gesture ends up doing.
+- **1.6.7** Off is a cut, at once: nothing made, nothing plugged in; never a change that waits on the audio's clock.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.6.7 · 2026-11-27 16:40
+
+**Claude:** The mute button was more of a volume knob with good intentions. Now it pulls the plug: nothing is made and nothing reaches the speaker.
+
+- **Bug fix.** Marcos, 27 Nov 16:31: "Mute should mute all sounds"
+  - Cause: 1.6.6 turned the sound off only by sending its overall level down to nothing along the audio's own clock, and every sound was still made. On an iPhone that clock can stand still (1.2.8), and a change sent along it can wait while sounds still play. On a desktop browser nothing got through, so which sound got through on the phone isn't known.
+  - Don't: turn something off by a change that waits on a clock; cut it.
+- Off now cuts the sound three ways: no sound is made at all, the level is set to nothing at once, and everything is unplugged from the speaker. The music, Cubed and the chip tune play on unheard, so they come back where they are when the sound is turned on.
+- Turned back on, it is plugged in again and comes up in three hundredths of a second, with its bolololip. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 1.6.6 · 2026-11-27 16:16
 
