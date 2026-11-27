@@ -46,7 +46,7 @@ Open: none.
   floor with a gray grid, gray rings and sparkles, and a soft bloom; Ink is the same in charcoal, with the rings and
   sparkles in paper and the stronger bloom.
 - Kept from 0.2.0: the whole screen (windows, LCD, keys, dialogs), and the springs on the mixer: it pops in past its
-  size, squashes on a mix and hops when a load finishes.
+  size, squashes on a mix and hops when a load finishes. ([#225](https://github.com/onexmac/ad/pull/225))
 
 ## 0.2.1 · 2026-11-26 21:40
 
