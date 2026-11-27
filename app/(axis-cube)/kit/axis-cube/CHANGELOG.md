@@ -68,10 +68,34 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.0.3** Before changing a motion by its name, measure frame by frame what actually moves on the screen.
 - **1.1.3** A version's second and third numbers are single digits: past 9 they roll over (1.0.9 then 1.1.0); only the first can pass 9.
 - **1.1.4** On an iPhone, make and wake the sound only at the end of a touch, and play into it there; and never let the app's own power saving put the sound to sleep just before it is wanted.
+- **1.2.8** A sound goes only on an audio clock that moves: an iPhone's can stand still for seconds after it wakes, and whatever is put on it then plays late, all at once. Better dropped than late; and something that plays by itself waits for the clock, not only for the touch.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.2.9 · 2026-11-27 08:13
+
+**Claude:** Cubed got a volume knob and we turned it up a notch. A victory song should never be shouted down by the high-score screen's chiptune.
+
+Asked by Marcos, 27 Nov 08:02, in the same message: "Also raise like 20% Cubed so it sounds higher than the rest of the music right now the chiptune sounds louder than the victory song."
+
+- Cubed plays 20% louder than before (×1.2, about +1.6 dB), over the lobby's song and the chip tune; nothing else in the music changes.
+- Its loudest moments stay under the limiter on the way out, so all of the 20% is heard.
+- Measured in what a phone's speaker plays (300 Hz to 8 kHz, weighted the way the ear hears), Cubed was already about 7 dB over the chip tune and level with the lobby's song; now it is about 1.5 dB over the lobby's song. If the chip still sounds louder on the phone, it is its brightness (square waves, open to 9 kHz, where Cubed's top is rolled off at 3 kHz), not its level. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
+## 1.2.8 · 2026-11-27 08:13
+
+**Claude:** Found a gremlin in the iPhone's audio clock: it says "running" and then just stands there, sometimes for seconds, while every sound we hand it piles up at the door. Now nothing is handed over until the clock is actually ticking.
+
+- **Bug fix.** Marcos, 27 Nov 08:02: "Ok something happens on iOS the artifact of side b doesn't sound until way way late im already at the initials screen when the lololip and then the cubed wav start to sound like late. I'm concern it will happen in game as well."
+  - Cause: on an iPhone the audio can say it is running while its clock has not started yet. Every sound is put on that clock, so the turns of the solve, the cheer and Cubed all waited for it, and played together, late, when it finally moved: by then the initials were up. Side-B started its solve 1.2 s after the touch, whether the clock had moved or not. In the game, the app put its own sound to sleep after 20 s of silence, and the first sounds of the next pick could have come late the same way.
+  - Don't: never put a sound on a clock without checking that it moves; never let something that plays by itself start on the touch alone; and don't put the sound to sleep while the page is on screen.
+- The clock is watched a few times a second. A sound is made only while it moves; one asked for as the audio wakes (the touch that woke it) waits for it a quarter of a second at most, and is then dropped rather than played late.
+- The music waits for the clock the same way, and starts from the top when it moves.
+- Side-B waits for the clock to move before it solves the cube, six seconds at most, so the solve, the cheer and Cubed are heard as they are seen.
+- The sound no longer goes to sleep after 20 s of silence: it sleeps only when the page is out of sight, and wakes with the first touch back.
+- Checked with an iPhone's stall imitated (the clock standing still for 3 s after the first touch): before, 30 sounds were put on the still clock and the cheer and Cubed were among them; now none are, and the solve starts when the clock moves. Without a stall nothing changes: the solve at 1.2 s, Cubed at 1.6 s, the initials at 3.7 s, and a sound asked for in the very touch that makes the audio plays 1 ms later. On a real iPhone it is still to be heard. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 1.2.6 · 2026-11-26 22:14
 

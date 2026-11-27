@@ -4,6 +4,8 @@ export interface AxisSound {
   wake(): void;
   /** The loading is over: heard only if the browser already lets the page make sound. */
   ready(waitForTouch?: boolean): void;
+  /** Whether the audio's clock moves: a sound made now is heard now. */
+  ticking(): boolean;
   select(): void;
   pick(puzzle?: string): void;
   drop(): void;
