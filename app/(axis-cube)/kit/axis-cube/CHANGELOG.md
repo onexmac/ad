@@ -76,6 +76,15 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.4.4 · 2026-11-27 12:57
+
+**Claude:** The cube had a hair trigger. Every slide now turns it 5% less, so a flip that was meant to stop at a quarter stops at a quarter.
+
+Asked by Marcos, 27 Nov 12:54: "Adjust 5% de sensibility so its not as easy to over misstep a flip"
+
+- A slide turns the whole puzzle 5% less for the same distance, and a layer 5% less too: a quarter of a layer now takes about 110 px of slide where it took 105.
+- The speed at which the finger lets go is read the same way, so a fling carries 5% less, and is that much harder to send past the quarter it was meant for. ([#244](https://github.com/onexmac/ad/pull/244))
+
 ## 1.4.3 · 2026-11-27 10:52
 
 **Claude:** Need a breather mid-solve? Tap the clock and it stops. Touch the cube again, any way at all, and it picks up where it left off. Spinning the cube to look at it before you start still doesn't count.
