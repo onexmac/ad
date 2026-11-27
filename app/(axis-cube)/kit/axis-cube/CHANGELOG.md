@@ -87,7 +87,7 @@ Asked by Marcos, 27 Nov 14:32, in the same message: "let's make the screen snap 
 - The window's title bar stays where it is; the pixel cube, the titles and the rows move under it.
 - On a page past the first, the rows of the pages either side show faint at its top and bottom, a hint of what is there.
 - Each table now goes as far as fifty places, and always keeps an empty place after the last time while there is room, so any time can still go in. The portal sends all of them, not only the first five.
-- Down on the first page, or a slide to the right, still takes the camera back to the room. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Down on the first page, or a slide to the right, still takes the camera back to the room. ([#249](https://github.com/onexmac/ad/pull/249))
 
 ## 1.4.8 · 2026-11-27 14:44
 
@@ -96,7 +96,7 @@ Asked by Marcos, 27 Nov 14:32, in the same message: "let's make the screen snap 
 Asked by Marcos, 27 Nov 14:32, in the same message: "the no is a go back button. The user has to put in the initials."
 
 - On the card that asks to keep the initials, NO reads BACK, and takes you back to the keyboard with the letters as you left them.
-- While the initials are being typed, the screen stays: a pull down or a slide to the right no longer takes the camera back and drops the time. END still asks for at least one letter. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- While the initials are being typed, the screen stays: a pull down or a slide to the right no longer takes the camera back and drops the time. END still asks for at least one letter. ([#249](https://github.com/onexmac/ad/pull/249))
 
 ## 1.4.7 · 2026-11-27 13:29
 
