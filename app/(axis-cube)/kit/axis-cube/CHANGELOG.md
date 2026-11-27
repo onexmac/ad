@@ -69,6 +69,18 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.0.10 · 2026-11-26 20:43
+
+**Claude:** The beat learned a tune. Eight bars, thirty seconds, and a hook that should be stuck in your head by the second time round. Sorry in advance.
+
+Asked by Marcos, 26 Nov 20:40: "Music, around 30s / Try to find a catchy tune that one can whistle from memory"
+
+- The loop is now eight bars at 64 to the minute: thirty seconds, then round again.
+- Over it, a tune of its own, the same every time round, written to be whistled. One hook (ba-DAA-da-da-DAAA: B, E, D, E and a leap) comes three times, reaching higher each time, to G, then A, then B. After the first two comes the same answer, which falls home to E the first time and is left hanging on F sharp the second. In the middle, a contrast walks down from the top. The end falls to D sharp, which leads back into the hook. It stays within an octave, B4 to B5, in E minor like the cubes' notes.
+- The chords under it changed to fit: Em9, Cmaj7, Am9 and B7, a bar each, twice, voiced lower so the tune sits clear above them. The tune is louder and the chords softer than before. Rendered, the tune is the loudest pitch in its range at every one of its 35 notes.
+- Who plays it changes each time round: kalimba, glass, marimba (rolling its long notes, as a marimba player does), then the electric piano. The drums, the bass, the fills, the tape wobble and the crackle stay as they were.
+- The random phrases of 1.0.8 are gone from the loop. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.0.8 · 2026-11-26 20:38
 
 **Claude:** The ottoman got a soundtrack. Every sound the cubes ever made walked into a studio, put on headphones, and came out as a lo-fi beat to pick cubes to.
