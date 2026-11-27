@@ -30,8 +30,10 @@
     in that same commit: the version, the date and time (Costa Rica) and what
     changed, in detail. The jump says how big the push was: +0.0.1 small,
     +0.0.2 or +0.0.3 bigger, +0.0.5 big, +0.1.0 too big for that (the last
-    number back to 0), +0.5.0 only for something massive. 1.0.0 is a
-    milestone Marcos names. An app without one starts it at its next push,
+    number back to 0), +0.5.0 only for something massive. The second and
+    third numbers are single digits that roll over like an odometer (1.0.9
+    then 1.1.0; 1.0.8 + 0.0.3 is 1.1.1); only the first can pass 9. 1.0.0 is
+    a milestone Marcos names. An app without one starts it at its next push,
     counted from its first push to Vercel. Bugs Marcos reports come first in
     the entry of the push that fixes them: his words, the cause, and what not
     to do. The changelog keeps a short list of those lessons at the top, and
