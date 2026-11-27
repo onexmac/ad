@@ -23,7 +23,7 @@ export type Boards = Record<Puzzle, Row[]>;
 // No hand solves a mix (12 to 24 turns) faster than this, on a phone: a time under it was not played.
 const FLOOR: Record<Puzzle, number> = { axis: 500, cube3: 500, cube2: 200, ghost: 500 };
 const CEIL = (99 * 3600 + 59 * 60 + 59) * 100 + 99;   // 99:59:59.99, the clock's last
-const KEEP = 50, SHOW = 50;                          // the screen pages through all of them, five at a time
+const KEEP = 50, SHOW = 10;                          // the top ten go out: the screen shows them in two pages of five
 const PER_MINUTE = 6;                                // entries one address may send in a minute
 const setOf = (p: Puzzle) => `axis-cube:top:${p}`;
 
