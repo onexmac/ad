@@ -83,7 +83,7 @@ Open:
 
 Asked by Marcos, 27 Nov 15:04: "If the user press the mix it button it should mix it up until ready"
 
-- MIX IT, at the top right after a hold has solved the puzzle, can be tapped: the puzzle mixes itself up, as a hold mixes it, and the line reads READY when it is done. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- MIX IT, at the top right after a hold has solved the puzzle, can be tapped: the puzzle mixes itself up, as a hold mixes it, and the line reads READY when it is done. ([#252](https://github.com/onexmac/ad/pull/252))
 
 ## 1.5.5 · 2026-11-27 15:02
 
