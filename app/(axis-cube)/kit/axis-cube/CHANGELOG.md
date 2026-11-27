@@ -62,6 +62,7 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.32** A motion that demonstrates a gesture plays its whole path, slowly enough to read; never a twitch.
 - **0.7.37** Something that has gone elsewhere is hidden at once; it never fades out back where it began.
 - **0.7.46** A slide's way is split by the two diagonals, an X: each way gets 45° either side, and none is favoured.
+- **0.7.49** A slide's speed is read by its events' own times, never by when the page handled them; all of its travel counts; and one that clearly means to turn, turns.
 
 Open:
 
@@ -71,6 +72,19 @@ Open:
 
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
+
+## 0.7.49 · 2026-11-26 19:30
+
+**Claude:** Fixed the half-hearted turns. A slide that means it now follows through, even when the phone hiccups a frame at the wrong moment.
+
+- **Bug fix.** Marcos, 26 Nov 19:24: "Dunno why but sometimes the slide doesn't work, it jerks the cube in the right direction but it doesn't commit enough to rotate"
+  - Cause: three things together. The finger's speed at letting go was read by when the page got round to the events, not when they happened: a slow frame between the finger's last move and its lift made a flick look as if it had stopped, so its speed was thrown away and the turn sprang back. On the whole puzzle, the first 14 pixels of a slide were never applied. And anything short of halfway went back, however clearly it was meant.
+  - Don't: time a gesture by when its events are handled. Use the times the events carry, and count all the travel since the touch.
+
+- The finger's speed as it lifts is now read from the events' own times, over its last 60 ms, so a slow frame no longer cancels a flick. A finger that rests for 80 ms before lifting still lets go with no speed.
+- A slide on the puzzle counts all its travel from the touch, including the first pixels it takes to tell which way it goes.
+- A turn let go more than 30% of the way to the next quarter, and not on its way back, goes on to it: about 32 pixels on a ring, 45 on the puzzle. A smaller slide, or one that comes back, still springs back.
+- Checked on the old and the new version: a flick whose lift reaches the page 110 ms late (28 px on a ring, 40 on the puzzle) went back before and turns now; slow slides of 36 px on a ring and 52 on the puzzle, rested and lifted, went back before and turn now; slides of 22 and 30 px, and one taken to 45 px and brought back to 20, still go back. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 0.7.47 · 2026-11-26 19:24
 
