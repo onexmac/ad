@@ -84,7 +84,7 @@ Open:
   - Don't: judge a solve by where the pieces started. Judge it by how it looks: all the pieces turned alike.
 - A puzzle is solved when all its pieces are turned the same way as one another. On the 3×3 a centre only needs to be in its place, since its turn doesn't show.
 - Checked with a 2×2 solved by a swipe, turned as a whole. Before: the clock went on, no celebration, the 3×3 stayed locked. Now: the clock stops on the solve, it celebrates, the 2×2 is kept as finished and the 3×3 opens.
-- A puzzle picked up already solved, whichever way it is turned, mixes itself up again as it should. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A puzzle picked up already solved, whichever way it is turned, mixes itself up again as it should. ([#240](https://github.com/onexmac/ad/pull/240))
 
 ## 1.3.8 · 2026-11-27 09:34
 
