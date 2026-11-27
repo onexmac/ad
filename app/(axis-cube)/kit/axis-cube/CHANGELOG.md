@@ -80,7 +80,7 @@ Open:
 
 - The press now shows only once the finger has rested on the puzzle for 0.12 s, when a hold's growl starts too. A swipe moves before that, so it no longer makes the puzzle shrink and spring back.
 - Measured on a touch that rests 90 ms and then flicks: the puzzle stayed 109.5 px across its radius through the start of the swipe, where it shrank to 106.1 and sprang back before. A finger resting on it still presses it, from 0.12 s on, as before.
-- What still moves on a swipe, by design: the puzzle's small knock back as it lands (about 3 cm, and back), and its slow float, which runs all the time. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- What still moves on a swipe, by design: the puzzle's small knock back as it lands (about 3 cm, and back), and its slow float, which runs all the time. ([#214](https://github.com/onexmac/ad/pull/214))
 
 ## 1.0.4 · 2026-11-26 19:59
 
