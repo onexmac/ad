@@ -75,6 +75,17 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.4.0 · 2026-11-27 10:42
+
+**Claude:** The double tap now listens to where you tapped. Tap above the cube and it tumbles over the top; tap below and it rolls up from the bottom. Left and right still spin it round as before. The cube has learned which way is up.
+
+Asked by Marcos, 27 Nov 10:33: "Now the double tap should reference where it was pressed. Tapping above the cube should flip from there if tapping below should flip from there. 180 flips then from where it happens"
+
+- Two taps flip the puzzle half a turn from the side they were on, whether on the puzzle or off it. The side is read from the puzzle's middle with the same X as a slide, 45° either way:
+  - above or below: a half turn about the level, the top (or the bottom) going away from you;
+  - left or right: a half turn about the upright, as before, the side tapped going away.
+- 1.3.9 and a small change make 1.4.0: the second number rolls over. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.3.9 · 2026-11-27 10:31
 
 **Claude:** The game only believed you had solved the cube if you also put it back facing exactly the way it came out of the box. A 2×2 is perfectly happy solved upside down. Now so is the game.
