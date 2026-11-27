@@ -71,10 +71,22 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.2.8** A sound goes only on an audio clock that moves: an iPhone's can stand still for seconds after it wakes, and whatever is put on it then plays late, all at once. Better dropped than late; and something that plays by itself waits for the clock, not only for the touch.
 - **1.3.9** A puzzle is solved when it looks solved: its pieces all turned alike, however it is turned as a whole. Never check that every piece is back exactly where it started.
 - **1.4.2** A time given by hand is read in the units it was meant in: ask whether 00:14:56 is minutes or hours before keeping it.
+- **1.4.5** A time that fails to send never stops the others' from coming in, and stays on the player's own five until it is sent.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.4.5 · 2026-11-27 13:03
+
+**Claude:** A phone with a wobbly connection used to sulk: if it couldn't send your time, it didn't bother asking for anyone else's either. Now it always asks, keeps your time on your board while it waits, and sends it the moment it can.
+
+- **Bug fix.** Marcos, 27 Nov 12:54: "No sale los tiempos d los demas solo los de Mac y los propios". Then, 12:58: "User items gotta be sent back and feed into the other players".
+  - Cause: a phone first sends any time it still owes the world's five, then fetches the five. If the send failed (no signal for a moment, the server slow to answer), it skipped the fetch too, so that phone showed only what it had: the times it started with (MAC's) and its own. Once a fetch did get through, the phone's own unsent time dropped off its board until it was sent. Every time that was sent did reach everyone else's phone; RSA's and FBM's are in the five.
+  - Don't: let a failed send stop the fetch, or hide a player's own time while it waits to go.
+- The world's five is fetched even when a time couldn't be sent.
+- A time not sent yet shows on its player's own five, among everyone else's, and is sent again each time the five is fetched.
+- The five is fetched as the app opens, each time the high scores' screen comes up, after a new time is kept, and now also each time the app comes back on screen. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 1.4.4 · 2026-11-27 12:57
 
