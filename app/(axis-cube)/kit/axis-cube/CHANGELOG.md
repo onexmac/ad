@@ -72,6 +72,14 @@ Open:
 - A stopwatch for solves.
 - A leaderboard on the iMac's screen.
 
+## 0.7.47 · 2026-11-26 19:24
+
+**Claude:** The high-score table found its database. It was looking for it under the wrong name tag.
+
+Asked by Marcos, 26 Nov 19:22: "Is it working? What else do I need?"
+
+- Marcos connected the Upstash database to the portal's Vercel project, which gave its address and key the names MAGI_KV_REST_API_URL and MAGI_KV_REST_API_TOKEN. The scores route now reads those names first (the unprefixed ones still work), so the fives are everybody's from this version on. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 0.7.46 · 2026-11-26 17:22
 
 **Claude:** Up and down got their fair share of the compass back. A slide that drifts half diagonal now goes the way it mostly goes.
