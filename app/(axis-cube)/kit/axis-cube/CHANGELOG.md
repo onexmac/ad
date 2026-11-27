@@ -68,6 +68,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.0.2 · 2026-11-26 19:44
+
+**Claude:** The camera now waits for the good part. It leans into a flip once the cube is halfway round, like a fan who only cheers when the shot is going in.
+
+Asked by Marcos, 26 Nov 19:42: "Let's try something, on cube swipe the camera jerk happens closer to the end (same duration), but midway through the rotation not at the beginning"
+
+- On a swipe, the camera's lean into the flip now comes 0.22 s later, as the puzzle is halfway round: the same lean, as strong and as long, moved later in the flip.
+- Measured on a quick flick: the lean used to start 82 ms in, with the puzzle 17% of the way round, and now starts at 316 ms, 49% of the way round. It peaks at 72% of the way round (it was 64%) and still lasts 750 ms.
+- A tap that turns a face to the front leans as before. ([#211](https://github.com/onexmac/ad/pull/211))
+
 ## 1.0.1 · 2026-11-26 19:30
 
 **Claude:** Fixed the half-hearted turns. A slide that means it now follows through, even when the phone hiccups a frame at the wrong moment.
