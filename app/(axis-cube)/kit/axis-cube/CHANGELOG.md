@@ -77,6 +77,14 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.5.5 · 2026-11-27 15:02
+
+**Claude:** YES has three letters, so now its partner does too: NOP. Same job as before, it sends you back to the letters, just with better manners for symmetry.
+
+Asked by Marcos, 27 Nov 15:02: "Instead of back on the highscore let's say : nop (that sends you back). I don't like the asymmetry there"
+
+- On the card that asks to keep the initials, BACK reads NOP: three letters, like YES beside it. It still takes you back to the keyboard, the letters as you left them. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.5.4 · 2026-11-27 14:49
 
 **Claude:** Every table is a top ten now, two pages of five, whether anyone has filled them yet or not. Swipe up on any puzzle's table and the second page is there, dashes and all.
