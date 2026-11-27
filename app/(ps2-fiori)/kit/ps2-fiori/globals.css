@@ -1,0 +1,161 @@
+/* PS2 Fiori: the artifact's stylesheet, as it was, plus the version under the tabs and the list of changes it opens.
+   Every colour the page uses is a token here, for each theme; the mixer's own materials live in lib/ps2-fiori/scene.js. */
+:root[data-theme=dark]{
+  --bg0:#050b1e; --ink:#e8f1ff; --dim:#8ea3c7; --acc:#5fd0ff; --acc2:#ff8a2a; --neg:#ff5a6a;
+  --panel:linear-gradient(180deg, rgba(14,32,78,.80), rgba(4,10,30,.90));
+  --panel-solid:linear-gradient(180deg, rgba(14,32,78,.97), rgba(4,10,30,.98));
+  --line:rgba(120,190,255,.55); --line2:rgba(120,190,255,.16); --hl:rgba(160,220,255,.25);
+  --shadow:0 0 22px rgba(60,150,255,.22); --tglow:0 0 10px rgba(95,208,255,.45);
+  --btn:rgba(20,46,105,.55); --btnh:rgba(40,92,185,.70); --segglow:0 0 6px rgba(95,208,255,.8);
+  --glowop:.42; --scan:.16; --vig:rgba(0,0,0,.55); --toast:rgba(4,12,36,.92);
+  --meter:linear-gradient(90deg,#9aa4b2,#e7ecf3); --flash:#fff; --pop-glow:rgba(255,138,42,.6); --pop-shade:rgba(0,0,0,.35); --dim-bg:rgba(2,5,16,.55);
+}
+:root[data-theme=light]{
+  --bg0:#c9d5e8; --ink:#14213f; --dim:#5a6b8c; --acc:#1f5fd6; --acc2:#e0640e; --neg:#d23246;
+  --panel:linear-gradient(180deg, rgba(255,255,255,.88), rgba(226,234,247,.93));
+  --panel-solid:linear-gradient(180deg, rgba(255,255,255,.97), rgba(226,234,247,.98));
+  --line:rgba(40,90,190,.50); --line2:rgba(40,90,190,.16); --hl:rgba(255,255,255,.9);
+  --shadow:0 8px 26px rgba(30,60,120,.18); --tglow:none;
+  --btn:rgba(255,255,255,.72); --btnh:#ffffff; --segglow:none;
+  --glowop:.16; --scan:.06; --vig:rgba(40,60,110,.20); --toast:rgba(255,255,255,.95);
+  --meter:linear-gradient(90deg,#9aa4b2,#e7ecf3); --flash:#fff; --pop-glow:rgba(255,138,42,.6); --pop-shade:rgba(0,0,0,.35); --dim-bg:rgba(40,60,110,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none;background:var(--bg0);color:var(--ink);
+  font-family:"Chakra Petch",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit}
+.pf{position:fixed;left:0;right:0;top:0;height:100vh;height:100lvh;background:var(--bg0)}
+#stage{position:fixed;inset:0;touch-action:none;cursor:grab}
+#stage.grabbing{cursor:grabbing}
+#gl,#glow{position:absolute;inset:0;width:100%;height:100%;display:block}
+#gl{image-rendering:crisp-edges;image-rendering:pixelated}
+#glow{pointer-events:none;mix-blend-mode:screen;opacity:var(--glowop);filter:blur(5px) saturate(1.35)}
+.fx-scan{position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0 2px,rgba(0,0,0,var(--scan)) 2px 3px)}
+.fx-vig{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 45%,transparent 55%,var(--vig) 100%)}
+#flash{position:absolute;inset:0;pointer-events:none;background:var(--flash);opacity:0}
+#flash.on{animation:flash .45s ease-out}
+@keyframes flash{0%{opacity:.7}100%{opacity:0}}
+.nogl{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--dim)}
+
+.hud{position:fixed;top:max(12px,env(safe-area-inset-top));left:14px;right:14px;display:flex;justify-content:space-between;
+  align-items:flex-start;gap:12px;pointer-events:none;z-index:3;animation:inTop .6s ease-out both}
+.kicker{font-weight:700;font-size:20px;letter-spacing:.18em;text-shadow:var(--tglow)}
+.tabs{display:flex;gap:10px;margin-top:3px;font-size:10px;letter-spacing:.14em;color:var(--dim)}
+.tabs span{padding-bottom:2px}
+.tabs .on{color:var(--acc);border-bottom:1px solid var(--acc)}
+/* the version: quiet, under the tabs; a tap opens the list of changes (its box is taller than its letters, for the thumb) */
+.ver{pointer-events:auto;display:block;margin:2px 0 0 -6px;padding:6px;background:none;border:0;cursor:pointer;
+  font:400 10px "Share Tech Mono",monospace;letter-spacing:.12em;color:var(--dim);opacity:.75}
+.ver:hover{color:var(--acc);opacity:1}
+.ver:focus-visible{outline:2px solid var(--acc);outline-offset:0}
+.meter{min-width:138px;display:flex;flex-direction:column;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--dim);padding-top:3px}
+.meter-top{display:flex;justify-content:space-between;gap:10px;letter-spacing:.1em}
+.meter-top b{color:var(--ink);font-weight:400}
+.meter-bar{height:9px;margin-top:4px;border:1px solid var(--line);background:var(--line2);padding:1px}
+.meter-bar i{display:block;height:100%;width:20%;background:var(--meter);transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.sel-chip{pointer-events:auto;margin-top:9px;margin-left:auto;display:flex;align-items:center;gap:6px;padding:4px 8px 4px 5px;
+  font:600 10px "Chakra Petch",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  background:var(--btn);border:1px solid var(--line2);cursor:pointer}
+.sel-chip:hover{background:var(--btnh);border-color:var(--line)}
+.sel-chip:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+#hint{position:fixed;left:var(--fx,50%);top:calc(var(--ft,90px) + 6px);transform:translateX(-50%);
+  z-index:2;pointer-events:none;font-size:10px;letter-spacing:.24em;color:var(--dim);white-space:nowrap;
+  animation:blink 1.6s steps(2) infinite;transition:opacity .4s}
+#hint.gone{opacity:0;animation:none}
+#toast{position:fixed;left:var(--fx,50%);top:var(--fy,40vh);transform:translate(-50%,-50%) scale(.96);z-index:4;
+  pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;padding:10px 16px;font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;background:var(--toast);
+  border:1px solid var(--line);box-shadow:var(--shadow);color:var(--ink)}
+#toast.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#pop{position:fixed;left:var(--fx,50%);top:calc(var(--fy,40vh) - 40px);transform:translate(-50%,0);z-index:4;
+  pointer-events:none;opacity:0;font:700 22px "Chakra Petch",sans-serif;letter-spacing:.08em;color:var(--acc2);
+  text-shadow:0 0 12px var(--pop-glow),0 2px 0 var(--pop-shade);white-space:nowrap}
+#pop.on{animation:pop 1.4s ease-out}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}15%{opacity:1;transform:translate(-50%,0) scale(1.08)}
+  30%{transform:translate(-50%,-6px) scale(1)}100%{opacity:0;transform:translate(-50%,-70px)}}
+
+.panel{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:3;
+  padding:14px 14px 12px;background:var(--panel);border:1px solid var(--line);
+  box-shadow:var(--shadow),inset 0 1px 0 var(--hl);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  animation:inBottom .6s .1s ease-out both}
+.panel::before,.panel::after,.log::before,.log::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--acc);pointer-events:none}
+.panel::before,.log::before{top:-3px;left:-3px;border-right:0;border-bottom:0}
+.panel::after,.log::after{bottom:-3px;right:-3px;border-left:0;border-top:0}
+.p-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--line2)}
+.p-tag{font-size:10px;letter-spacing:.18em;color:var(--acc)}
+.stars{color:var(--acc2);letter-spacing:.06em}
+.p-name{font-size:24px;font-weight:700;letter-spacing:.05em;line-height:1.05;text-transform:uppercase;margin-top:4px;text-shadow:var(--tglow)}
+.p-name small{display:block;font-size:10px;letter-spacing:.32em;color:var(--dim);font-weight:600;margin-bottom:3px;text-shadow:none}
+.p-qty{font-family:"Share Tech Mono",monospace;font-size:22px;color:var(--dim);line-height:1}
+.p-qty b{color:var(--ink);font-weight:400}
+.p-desc{font-size:13px;line-height:1.45;margin:9px 0 11px;opacity:.94}
+.p-desc .rest{color:transparent}
+.p-desc .caret{display:inline-block;width:.5em;height:1em;margin-left:1px;background:var(--acc);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+.p-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.stat{display:grid;grid-template-columns:1fr auto;row-gap:5px;font-size:9.5px;letter-spacing:.14em;color:var(--dim);align-items:end}
+.stat b{font-family:"Share Tech Mono",monospace;font-weight:400;font-size:12px;color:var(--acc);letter-spacing:0}
+.seg{grid-column:1/-1;display:grid;grid-template-columns:repeat(10,1fr);gap:2px;min-height:6px}
+.seg i{height:6px;background:var(--line2)}
+.seg i.on{background:var(--acc);box-shadow:var(--segglow)}
+.p-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.p-btns button,.log-close{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px;padding:0 8px;
+  font:600 11.5px "Chakra Petch",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+  background:var(--btn);border:1px solid var(--line2);cursor:pointer;transition:background .15s,border-color .15s,transform .08s,opacity .2s}
+.p-btns button:hover,.log-close:hover{background:var(--btnh);border-color:var(--line)}
+.p-btns button:active,.log-close:active{transform:translateY(1px)}
+.p-btns button:focus-visible,.log-close:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.p-btns button[aria-pressed=false] .g{opacity:.4}
+.p-btns button.busy{opacity:.55}
+.g{flex:none;width:18px;height:18px;display:inline-grid;place-items:center;border-radius:50%;border:1.5px solid var(--acc);color:var(--acc)}
+.g svg{width:9px;height:9px;display:block}
+.g-sel{width:auto;height:16px;border-radius:8px;padding:0 5px;font:700 7.5px "Chakra Petch",sans-serif;letter-spacing:.1em;font-style:normal}
+
+/* ---------- the list of changes: a panel of the same make, rising over the scene ---------- */
+.log-dim{position:fixed;inset:0;z-index:10;background:var(--dim-bg);opacity:0;pointer-events:none;transition:opacity .3s ease}
+.log-dim.open{opacity:1;pointer-events:auto}
+.log{position:absolute;left:12px;right:12px;top:max(12px,env(safe-area-inset-top));bottom:max(12px,env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;background:var(--panel-solid);border:1px solid var(--line);
+  box-shadow:var(--shadow),inset 0 1px 0 var(--hl);transform:translateY(calc(100% + 40px));
+  transition:transform .42s cubic-bezier(.2,.9,.25,1.04)}
+.log-dim.open .log{transform:none}
+.log-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding:16px 16px 20px;user-select:text;-webkit-user-select:text}
+.log-body{margin-top:14px}
+.log-note{font:400 12px "Share Tech Mono",monospace;letter-spacing:.12em;color:var(--dim)}
+.rel{padding:14px 0;border-top:1px solid var(--line2)}
+.rel h3{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px;
+  font:400 11px "Share Tech Mono",monospace;letter-spacing:.08em;color:var(--dim)}
+.rel h3 .num{font:700 20px "Chakra Petch",sans-serif;letter-spacing:.05em;color:var(--ink);text-shadow:var(--tglow)}
+.rel p.said,.rel p.claude{font-size:13px;line-height:1.45;margin-bottom:8px}
+.rel p.said b,.rel p.claude b{display:block;font:600 9.5px "Chakra Petch",sans-serif;letter-spacing:.18em;text-transform:uppercase;margin-bottom:2px}
+.rel p.said b{color:var(--acc2)}
+.rel p.claude b{color:var(--acc)}
+.details{font-size:12px;line-height:1.5;color:var(--ink);opacity:.86}
+.details p{margin:6px 0}
+.details ul{list-style:none;padding-left:12px}
+.details li{position:relative;margin:3px 0}
+.details li::before{content:"▸";position:absolute;left:-12px;color:var(--acc);font-size:9px;top:2px}
+.details b{font-weight:700}
+.details code{font:400 11px "Share Tech Mono",monospace;color:var(--acc)}
+.details a{color:var(--acc)}
+/* the cut: the list slides under a line, and the close key sits below it */
+.log-foot{flex:none;margin:0 16px;padding:12px 0;border-top:1px solid var(--line)}
+.log-close{width:100%}
+
+@keyframes blink{50%{opacity:0}}
+@keyframes inTop{from{opacity:0;transform:translateY(-10px)}}
+@keyframes inBottom{from{opacity:0;transform:translateY(16px)}}
+@media (max-width:370px){ .p-name{font-size:21px} }
+@media (min-width:860px){
+  .panel{left:auto;right:28px;bottom:auto;top:50%;width:380px;padding:20px 20px 16px;animation:inRight .6s .1s ease-out both;transform:translateY(-50%)}
+  @keyframes inRight{from{opacity:0;transform:translate(16px,-50%)}to{transform:translateY(-50%)}}
+  .hud{top:22px;left:28px;right:28px}
+  .p-name{font-size:30px}
+  .p-desc{font-size:14px}
+  .log{left:auto;right:28px;top:22px;bottom:22px;width:min(520px,calc(100% - 56px))}
+}
+@media (prefers-reduced-motion:reduce){ #hint{animation:none} .log{transition:none} }

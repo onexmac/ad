@@ -33,6 +33,12 @@
           "name": "EX30",
           "description": "Mi Volvo EX30 en 3D, trazado de fotos, para diseñarle un livery",
           "code": "app/(ex30)/kit/ex30"
+        },
+        {
+          "slug": "ps2-fiori",
+          "name": "PS2 Fiori",
+          "description": "Una mezcladora autocargable como ítem de un inventario de PS2: girala, cargala y mezclala",
+          "code": "app/(ps2-fiori)/kit/ps2-fiori"
         }
       ]
     },
