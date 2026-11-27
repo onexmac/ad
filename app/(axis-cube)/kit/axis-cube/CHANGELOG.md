@@ -64,10 +64,23 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.46** A slide's way is split by the two diagonals, an X: each way gets 45° either side, and none is favoured.
 - **1.0.1** A slide's speed is read by its events' own times, never by when the page handled them; all of its travel counts; and one that clearly means to turn, turns.
 - **1.0.3** A delay meant to be seen is counted from the end of the gesture, not its start.
+- **1.0.5** Before changing a motion by its name, measure frame by frame what actually moves on the screen.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.0.5 · 2026-11-26 20:06
+
+**Claude:** Caught the real culprit: it was never the camera. The cube flinched under your finger and popped back as the swipe began. It has stopped flinching.
+
+- **Bug fix.** Marcos, 26 Nov 20:03: "The camera still moves when I swipe the whole cube. What did you do?"
+  - Cause: it was not the camera. Touching the puzzle starts a hold (hold still and it scrambles), and the hold's press shrank the puzzle 3% under the finger at once; a swipe then cancels the hold and the puzzle sprang back to full size just as it set off, which reads as the camera jumping. 1.0.2 to 1.0.4 changed the camera's lean into the flip, a different motion, so the jump stayed.
+  - Don't: change a motion by the name it is given. Measure frame by frame what actually moves on the screen first: the camera, the puzzle's place, its size.
+
+- The press now shows only once the finger has rested on the puzzle for 0.12 s, when a hold's growl starts too. A swipe moves before that, so it no longer makes the puzzle shrink and spring back.
+- Measured on a touch that rests 90 ms and then flicks: the puzzle stayed 109.5 px across its radius through the start of the swipe, where it shrank to 106.1 and sprang back before. A finger resting on it still presses it, from 0.12 s on, as before.
+- What still moves on a swipe, by design: the puzzle's small knock back as it lands (about 3 cm, and back), and its slow float, which runs all the time. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 1.0.4 · 2026-11-26 19:59
 
