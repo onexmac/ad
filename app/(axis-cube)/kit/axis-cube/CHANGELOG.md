@@ -80,7 +80,7 @@ Open:
 
 Asked by Marcos, 27 Nov 09:29: "While Inserted, Tapping ready should jiggle the cube, the same way it happens while tapping insert on the ottoman"
 
-- READY, at the top right while a puzzle is held up and not yet started, can be tapped: the puzzle jiggles as the ones on the ottoman do for INSERT CUBE, with the same tick, a little hop and a wiggle side to side dying away in about half a second. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- READY, at the top right while a puzzle is held up and not yet started, can be tapped: the puzzle jiggles as the ones on the ottoman do for INSERT CUBE, with the same tick, a little hop and a wiggle side to side dying away in about half a second. ([#238](https://github.com/onexmac/ad/pull/238))
 
 ## 1.3.6 · 2026-11-27 09:28
 
