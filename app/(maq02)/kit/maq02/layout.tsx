@@ -21,7 +21,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: "cover",
-  themeColor: "#cfe6e8",
+  themeColor: "#ffffff",
 };
 
 // The theme Marcos last picked, set before the first paint so a light page never flashes dark.
