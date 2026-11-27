@@ -26,9 +26,27 @@ not to do.
 
 ## Bugs Marcos reported
 
-None yet.
+- **0.2.3** A request about the UI changes the UI only: never restyle the mixer or its scene unless Marcos asks for
+  the scene itself.
 
 Open: none.
+
+## 0.2.3 · 2026-11-26 21:46
+
+**Claude:** The mixer is back in its original finish (bloom, dither, chrome and all), now parked in a white-and-gray showroom under the new paper screen. Sorry, little truck.
+
+- **Bug fix.** Marcos, 26 Nov 21:46: "Ui is perfect. Why did you change the mixer? Have it back to the way it was rendered before, keep whites/grays for the background but with the first approach"
+  - Cause: 0.2.0 was asked to make the UI look like his references, and it restyled the 3D scene too (cel shading, ink outlines, paper floor, pastel sky, falling leaves), which nobody asked for.
+  - Don't: carry a UI request into the scene. The screen and the scene change separately, each only when asked.
+
+- The mixer renders as in 0.1.0 again: lit per vertex with the sphere-map shine, dithered to 5 bits a channel, its
+  original whites, grays, orange stripes, red rams and chrome; the half-size bloom, the scanlines and the vignette
+  over it; the hexagonal pedestal with its rings, the beam of light, the grid floor fading into fog, sparkles rising.
+- The room is white and gray instead of the artifact's blue: Paper is a white-to-light-gray sky over a pale gray
+  floor with a gray grid, gray rings and sparkles, and a soft bloom; Ink is the same in charcoal, with the rings and
+  sparkles in paper and the stronger bloom.
+- Kept from 0.2.0: the whole screen (windows, LCD, keys, dialogs), and the springs on the mixer: it pops in past its
+  size, squashes on a mix and hops when a load finishes. ([#225](https://github.com/onexmac/ad/pull/225))
 
 ## 0.2.1 · 2026-11-26 21:40
 

@@ -36,6 +36,9 @@ export function Inventory({ version }: { version: string }) {
     <div ref={root} className="pf">
       <div id="stage">
         <canvas id="gl" />
+        <canvas id="glow" />
+        <div className="fx-scan" />
+        <div className="fx-vig" />
         <div id="flash" />
       </div>
 
