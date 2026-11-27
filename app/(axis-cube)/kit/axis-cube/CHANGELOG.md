@@ -88,7 +88,7 @@ Open:
   - Cause: 1.6.6 turned the sound off only by sending its overall level down to nothing along the audio's own clock, and every sound was still made. On an iPhone that clock can stand still (1.2.8), and a change sent along it can wait while sounds still play. On a desktop browser nothing got through, so which sound got through on the phone isn't known.
   - Don't: turn something off by a change that waits on a clock; cut it.
 - Off now cuts the sound three ways: no sound is made at all, the level is set to nothing at once, and everything is unplugged from the speaker. The music, Cubed and the chip tune play on unheard, so they come back where they are when the sound is turned on.
-- Turned back on, it is plugged in again and comes up in three hundredths of a second, with its bolololip. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Turned back on, it is plugged in again and comes up in three hundredths of a second, with its bolololip. ([#258](https://github.com/onexmac/ad/pull/258))
 
 ## 1.6.6 · 2026-11-27 16:16
 
