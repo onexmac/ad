@@ -25,6 +25,9 @@ const externalRedirects = registry.sections.flatMap((section) =>
 const movedRedirects = [
   { source: "/ad/pads", destination: "/ad", permanent: false },
   { source: "/ad/pads/:slug", destination: "/ad/:slug", permanent: false },
+  // The mixer was PS2 Fiori (/kit/ps2-fiori) until 0.2.1; it is MAQ02 now.
+  { source: "/kit/ps2-fiori", destination: "/kit/maq02", permanent: false },
+  { source: "/kit/ps2-fiori/:path*", destination: "/kit/maq02/:path*", permanent: false },
 ];
 
 const nextConfig: NextConfig = {

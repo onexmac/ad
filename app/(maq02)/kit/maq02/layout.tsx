@@ -11,9 +11,9 @@ import "./globals.css";
 // The faces go in under their own names, not next/font's: the scene draws the MAZA decal on a canvas by family name
 // (Anton, Chakra Petch). The screen: Nunito for words, Silkscreen for pixel labels, DSEG7 for the LCD digits.
 export const metadata: Metadata = {
-  title: "PS2 Fiori",
-  description: "A self-loading concrete mixer as an item in a PS2-era inventory screen.",
-  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "PS2 Fiori" },
+  title: "MAQ02",
+  description: "A self-loading concrete mixer as an item in an inventory screen, in paper and ink.",
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "MAQ02" },
 };
 
 export const viewport: Viewport = {

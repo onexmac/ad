@@ -1,9 +1,10 @@
-# PS2 Fiori: changelog
+# MAQ02: changelog
 
-PS2 Fiori lives at [/kit/ps2-fiori](https://magi0s.vercel.app/kit/ps2-fiori): a self-loading concrete mixer (the
+MAQ02 lives at [/kit/maq02](https://magi0s.vercel.app/kit/maq02): a self-loading concrete mixer (the
 MAZA MZ-20) as an item in an inventory screen, to turn, load and mix. It began as Marcos's artifact, the
 Self-Loading Mixer page, in a PS2 look; since 0.2.0 it wears paper and ink, after three references he sent (a pixel
-keypad, a line-art widget screen, a retro desktop).
+keypad, a line-art widget screen, a retro desktop). It was PS2 Fiori, at /kit/ps2-fiori, until 0.2.1; the old link
+still lands here.
 
 ## How versions are numbered
 
@@ -28,6 +29,16 @@ not to do.
 None yet.
 
 Open: none.
+
+## 0.2.1 · 2026-11-26 21:40
+
+**Claude:** Same mixer, new name on the door: MAQ02. The old address forwards here, so nobody gets lost on the way to the drum.
+
+Asked by Marcos, 26 Nov 21:40: "Let's call this app MAQ at vercel MAQ02"
+
+- The app is MAQ02 now, at /kit/maq02: in the kit index, the page's title and its home-screen name.
+- /kit/ps2-fiori and its list of changes forward to /kit/maq02.
+- The theme picked before the rename is kept. ([#224](https://github.com/onexmac/ad/pull/224))
 
 ## 0.2.0 · 2026-11-26 21:38
 

@@ -35,10 +35,10 @@
           "code": "app/(ex30)/kit/ex30"
         },
         {
-          "slug": "ps2-fiori",
-          "name": "PS2 Fiori",
+          "slug": "maq02",
+          "name": "MAQ02",
           "description": "Una mezcladora autocargable como ítem de un inventario de PS2: girala, cargala y mezclala",
-          "code": "app/(ps2-fiori)/kit/ps2-fiori"
+          "code": "app/(maq02)/kit/maq02"
         }
       ]
     },
