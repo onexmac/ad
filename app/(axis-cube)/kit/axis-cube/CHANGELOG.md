@@ -82,7 +82,7 @@ Asked by Marcos, 27 Nov 09:34: "Let's have the chiptune sound very faintly while
 
 - While a puzzle is held, the song keeps playing as the chip tune, at a fifth of the lobby's level (the high scores' screen plays it at four fifths).
 - It is the same song all along: picking a puzzle up turns the lo-fi into the chip tune, and putting it down turns it back, without starting over.
-- Cubed, after a solve, still plays in its place, at its own level. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Cubed, after a solve, still plays in its place, at its own level. ([#239](https://github.com/onexmac/ad/pull/239))
 
 ## 1.3.7 · 2026-11-27 09:32
 
