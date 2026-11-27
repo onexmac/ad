@@ -83,7 +83,7 @@ Open:
 Asked by Marcos, 27 Nov 12:54: "Adjust 5% de sensibility so its not as easy to over misstep a flip"
 
 - A slide turns the whole puzzle 5% less for the same distance, and a layer 5% less too: a quarter of a layer now takes about 110 px of slide where it took 105.
-- The speed at which the finger lets go is read the same way, so a fling carries 5% less, and is that much harder to send past the quarter it was meant for. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The speed at which the finger lets go is read the same way, so a fling carries 5% less, and is that much harder to send past the quarter it was meant for. ([#244](https://github.com/onexmac/ad/pull/244))
 
 ## 1.4.3 · 2026-11-27 10:52
 
