@@ -69,7 +69,7 @@ var ALL=${JSON.stringify(ALL)},gone=false;
 function tell(k){try{w.dispatchEvent(new Event(k))}catch(e){}}
 function btn(e){var t=e.target;return t&&t.closest?t.closest(".axis-gate .ok"):null}
 function release(){var b=d.querySelector(".axis-gate .ok.press");if(!b)return;b.classList.remove("press");void b.offsetWidth;b.classList.add("bounce")}
-function sound(){var c0=w.__axisAudio;if(c0){try{c0.resume()}catch(e){}return}var A=w.AudioContext||w.webkitAudioContext;if(!A)return;
+function sound(){var c0=w.__axisAudio;if(c0){try{c0.resume();var s0=c0.createBufferSource();s0.buffer=c0.createBuffer(1,1,22050);s0.connect(c0.destination);s0.start(0)}catch(e){}return}var A=w.AudioContext||w.webkitAudioContext;if(!A)return;
 try{if(n.audioSession)n.audioSession.type="ambient"}catch(e){}
 try{var c=new A({latencyHint:"interactive"}),s=c.createBufferSource();s.buffer=c.createBuffer(1,1,22050);s.connect(c.destination);s.start(0);if(c.resume)c.resume();w.__axisAudio=c}catch(e){}}
 function leave(){if(gone||!d.classList.contains("${UP}"))return;gone=true;
