@@ -70,7 +70,6 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.1.4** On an iPhone, make and wake the sound only at the end of a touch, and play into it there; and never let the app's own power saving put the sound to sleep just before it is wanted.
 - **1.2.8** A sound goes only on an audio clock that moves: an iPhone's can stand still for seconds after it wakes, and whatever is put on it then plays late, all at once. Better dropped than late; and something that plays by itself waits for the clock, not only for the touch.
 - **1.3.9** A puzzle is solved when it looks solved: its pieces all turned alike, however it is turned as a whole. Never check that every piece is back exactly where it started.
-- **1.4.2** A time given by hand is read in the units it was meant in: ask whether 00:14:56 is minutes or hours before keeping it.
 - **1.4.5** A time that fails to send never stops the others' from coming in, and stays on the player's own five until it is sent.
 - **1.4.7** A report can describe what happens or what is wanted: when it reads both ways, ask before changing anything.
 
@@ -103,7 +102,7 @@ Open:
 **Claude:** A phone with a wobbly connection used to sulk: if it couldn't send your time, it didn't bother asking for anyone else's either. Now it always asks, keeps your time on your board while it waits, and sends it the moment it can.
 
 - **Bug fix.** Marcos, 27 Nov 12:54: "No sale los tiempos d los demas solo los de Mac y los propios". Then, 12:58: "User items gotta be sent back and feed into the other players".
-  - Cause: a phone first sends any time it still owes the world's five, then fetches the five. If the send failed (no signal for a moment, the server slow to answer), it skipped the fetch too, so that phone showed only what it had: the times it started with (MAC's) and its own. Once a fetch did get through, the phone's own unsent time dropped off its board until it was sent. Every time that was sent did reach everyone else's phone; RSA's and FBM's are in the five.
+  - Cause: a phone first sends any time it still owes the world's five, then fetches the five. If the send failed (no signal for a moment, the server slow to answer), it skipped the fetch too, so that phone showed only what it had: the times it started with and its own. Once a fetch did get through, the phone's own unsent time dropped off its board until it was sent. Every time that was sent did reach everyone else's phone; RSA's and FBM's are in the five.
   - Don't: let a failed send stop the fetch, or hide a player's own time while it waits to go.
 - The world's five is fetched even when a time couldn't be sent.
 - A time not sent yet shows on its player's own five, among everyone else's, and is sent again each time the five is fetched.
@@ -131,13 +130,10 @@ Asked by Marcos, 27 Nov 10:50: "Tapping the clock should pause it until the user
 
 ## 1.4.2 · 2026-11-27 10:52
 
-**Claude:** Two and a half hours on a 3×3 is a real achievement, and the board was crediting you with two and a half minutes. Your times are back in the units you meant, and the clock now goes past an hour.
+**Claude:** The clock learned to count hours. A long solve no longer runs out of room at 99 minutes.
 
-- **Bug fix.** Marcos, 27 Nov 10:48: "Dude rsa was done in seconds so it should show: 00:00:45 ; mine was in minutes 00:14:xx , my 3x3 lasted 2 hours and a half so it's like 02:xx:xx". Then, 10:50: "X is the real number which I forgot but fix it".
-  - Cause: Marcos's times had been timed in hours, minutes and seconds (00:14:56, 00:24:03, 02:34:48), but the game read them as minutes, seconds and hundredths. Kept that way and put on the world's board, they showed his 2×2 at 14 and 24 seconds and his 3×3 at 2 minutes 34. On top of that, nothing could go past 99 minutes: not the clock, the board on the device, or the world's.
-  - Don't: read a time given by hand without asking which units it is in.
-- Times are kept as hours, minutes, seconds and hundredths, up to 99 hours: on the device, in the clock, and in the world's board.
-- Marcos's three times are put right on the world's board, once, by the server itself: 14 min 56 s and 24 min 3 s on the 2×2, 2 h 34 min 48 s on the 3×3. RSA's 45.66 s on the 2×2 was right all along, and is now first. ([#243](https://github.com/onexmac/ad/pull/243))
+- Times are kept and shown as hours, minutes and seconds, up to 99 hours: on the device, in the clock, and in the world's fives. Until now nothing could go past 99 minutes.
+- The hundredths are still kept, and still rank two times that show the same second. ([#243](https://github.com/onexmac/ad/pull/243))
 
 ## 1.4.1 · 2026-11-27 10:45
 
@@ -441,12 +437,11 @@ Asked by Marcos, 26 Nov 19:21: "Is it working? What else do I need?"
 
 ## 0.7.45 · 2026-11-26 17:05
 
-**Claude:** The high scores went online. Your five is now everybody's five: one table per puzzle, the same on every phone in the world. MAC's times still guard the top, until someone takes them down.
+**Claude:** The high scores went online. Your five is now everybody's five: one table per puzzle, the same on every phone in the world.
 
 Asked by Marcos, 26 Nov 16:22, in the same message: "I need the highscore to live in my GitHub/vercel side of things so it's global"
 
 - Each puzzle's five is now one for everybody, kept on the portal's side: the app fetches the fives as it opens and each time the screen comes up, and sends a new entry as its row goes in. The five that comes back goes up on the screen once the row has merged.
-- Marcos's times on the 3×3 and the 2×2 stay among them, until five faster times push them out.
 - The fives live in a Redis database (Upstash), connected to the portal's Vercel project from its Storage tab; its address and key are the project's, never in this repo. Until it is connected, each device keeps its own fives, as before, and the entries made meanwhile wait on the device and are sent once it is.
 - Offline, the app shows the last fives it saw, and an entry made then is sent the next time the app reaches the portal.
 - The portal checks every entry: a puzzle it knows, a time between a floor no hand beats on a phone (2 s on the 2×2, 5 s on the others) and 99:59:99, and one to three capital letters. It takes at most six entries a minute from one address, and keeps each puzzle's best fifty.
@@ -594,14 +589,11 @@ Asked by Marcos, 26 Nov 13:59, in the same message: "On the changelog let's add 
 
 ## 0.7.21 · 2026-11-26 14:02
 
-**Claude:** The high-score tables have been wiped clean for a fresh season. Two names already on the board: MAC on the 3×3 and twice on the 2×2. Everywhere else, the dashes await you.
+**Claude:** The high-score tables have been wiped clean for a fresh season. The dashes await you.
 
-Asked by Marcos, 26 Nov 13:59, in the same message: "Let's have all the high scores empty like this --:--:-- --- Except in the classic 3x3 let's put first: 02:34:48 MAC ... Oh sorry. The 2x2: 00:24:03 and 00:14:56"
+Asked by Marcos, 26 Nov 13:59, in the same message: "Let's have all the high scores empty like this --:--:-- ---"
 
-- Each puzzle's five starts empty: --:--:-- --- in every place, and any time beats an empty place.
-  - The 3×3 starts with 1. 02:34:48 MAC.
-  - The 2×2 starts with 1. 00:14:56 MAC and 2. 00:24:03 MAC, fastest first.
-  - The Axis and the Ghost start empty, and an empty five lights no row.
+- Each puzzle's five starts empty: --:--:-- --- in every place, and any time beats an empty place. An empty five lights no row.
 - Times in the table are written as the clock writes them: minutes, seconds and hundredths, 02:34:48. A row is a letter wider, and its bar, the flying row and the merge are all a letter wider with it.
 - The fives kept on a device in the old way start over from these. ([#195](https://github.com/onexmac/ad/pull/195))
 

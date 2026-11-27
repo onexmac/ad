@@ -7,10 +7,7 @@
  * one is connected the route says so ({ live: false }) and the app keeps its fives on the device, as it always has.
  *
  * Each puzzle is a sorted set of its times in hundredths of a second, each member the initials, the time and a
- * random tag (so two equal entries are two entries), trimmed to its best fifty. Marcos's times from while the game
- * was made (MAC: 2 h 34 min 48 s on the 3×3, 14 min 56 s and 24 min 3 s on the 2×2) were entered here on 27 Nov 2026
- * like anyone's, and go down or out of the fives like anyone's. They were first entered as minutes, seconds and
- * hundredths (154.48 s, 14.56 s, 24.03 s); fixMacOnce() puts them right, once, the first time the fives are read.
+ * random tag (so two equal entries are two entries), trimmed to its best fifty.
  */
 
 const env = (...names: string[]) => names.map((n) => process.env[n]).find(Boolean) || "";
@@ -52,36 +49,7 @@ const rowsOf = (flat: unknown): Row[] => {
   return rows;
 };
 
-// MAC's three times as first entered (in the wrong units), and as they are: hours, minutes and seconds, in hundredths
-const MAC_WRONG: [Puzzle, number][] = [["cube3", 15448], ["cube2", 1456], ["cube2", 2403]];
-const MAC_RIGHT: [Puzzle, number][] = [["cube3", 928800], ["cube2", 89600], ["cube2", 144300]];
-const MAC_FIXED = "axis-cube:fix:mac-hms";
-let macFixed = false;
-async function fixMacOnce() {
-  if (macFixed) return;
-  const [claimed] = await redis([["SET", MAC_FIXED, "1", "NX"]]);
-  macFixed = true;
-  if (claimed !== "OK") return;                      // done already, by this or another instance
-  try {
-    const lists = await redis(PUZZLES.map((p) => ["ZRANGE", setOf(p), 0, -1]));
-    const fix: (string | number)[][] = [];
-    PUZZLES.forEach((p, i) => {
-      for (const m of (Array.isArray(lists[i]) ? (lists[i] as string[]) : [])) {
-        const [ini, cs] = String(m).split(":");
-        if (ini === "MAC" && MAC_WRONG.some(([k, c]) => k === p && String(c) === cs)) fix.push(["ZREM", setOf(p), m]);
-      }
-    });
-    for (const [k, cs] of MAC_RIGHT) fix.push(["ZADD", setOf(k), cs, `MAC:${cs}:fixed`]);
-    await redis(fix);
-  } catch (e) {
-    await redis([["DEL", MAC_FIXED]]).catch(() => null);   // let the next read try again
-    macFixed = false;
-    throw e;
-  }
-}
-
 export async function readBoards(): Promise<Boards> {
-  await fixMacOnce();
   const got = await redis(PUZZLES.map((p) => ["ZRANGE", setOf(p), 0, SHOW - 1, "WITHSCORES"]));
   return Object.fromEntries(PUZZLES.map((p, i) => [p, rowsOf(got[i])])) as Boards;
 }
