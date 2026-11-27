@@ -69,10 +69,22 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.1.3** A version's second and third numbers are single digits: past 9 they roll over (1.0.9 then 1.1.0); only the first can pass 9.
 - **1.1.4** On an iPhone, make and wake the sound only at the end of a touch, and play into it there; and never let the app's own power saving put the sound to sleep just before it is wanted.
 - **1.2.8** A sound goes only on an audio clock that moves: an iPhone's can stand still for seconds after it wakes, and whatever is put on it then plays late, all at once. Better dropped than late; and something that plays by itself waits for the clock, not only for the touch.
+- **1.3.9** A puzzle is solved when it looks solved: its pieces all turned alike, however it is turned as a whole. Never check that every piece is back exactly where it started.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.3.9 · 2026-11-27 10:31
+
+**Claude:** The game only believed you had solved the cube if you also put it back facing exactly the way it came out of the box. A 2×2 is perfectly happy solved upside down. Now so is the game.
+
+- **Bug fix.** Marcos, 27 Nov 10:26: "The first player finished but it didn't register the complete cube. There's a bug there. Check that is working once the cube is done."
+  - Cause: a solve counted only when every piece was back exactly where it started, turned exactly the way it started. A solve can end with the puzzle turned as a whole: on the 2×2, turning both of its layers the same way turns the whole cube, and that is a solved cube. The game didn't see it, so the clock kept running, the cube didn't celebrate, and it was never marked finished, so the 3×3 stayed locked. On the 3×3, a centre turned in place, which doesn't show, had the same effect.
+  - Don't: judge a solve by where the pieces started. Judge it by how it looks: all the pieces turned alike.
+- A puzzle is solved when all its pieces are turned the same way as one another. On the 3×3 a centre only needs to be in its place, since its turn doesn't show.
+- Checked with a 2×2 solved by a swipe, turned as a whole. Before: the clock went on, no celebration, the 3×3 stayed locked. Now: the clock stops on the solve, it celebrates, the 2×2 is kept as finished and the 3×3 opens.
+- A puzzle picked up already solved, whichever way it is turned, mixes itself up again as it should. ([#240](https://github.com/onexmac/ad/pull/240))
 
 ## 1.3.8 · 2026-11-27 09:34
 
