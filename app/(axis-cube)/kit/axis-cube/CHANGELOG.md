@@ -87,7 +87,7 @@ Open:
   - Cause: the clock started only when a turn of a layer landed a quarter or more away from where it began. A hard flick that spun a whole turn round landed where it began, and a turn cut short by the next swipe was finished at once, so neither one started it.
   - Don't: start something on what a gesture ends up doing when it is meant to start on the gesture itself.
 - On a READY puzzle, the clock starts with the first swipe on the rings, the moment it takes hold of a layer: flung all the way round, let go short, or cut short by the next swipe.
-- A turn of the whole puzzle still doesn't start it. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A turn of the whole puzzle still doesn't start it. ([#256](https://github.com/onexmac/ad/pull/256))
 
 ## 1.6.3 · 2026-11-27 15:41
 
