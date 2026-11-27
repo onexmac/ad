@@ -79,6 +79,17 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.6.6 · 2026-11-27 16:16
+
+**Claude:** For playing in a meeting, or in bed: a speaker in the couch's lower-left corner. Tap it and the whole place goes quiet, music and all. Tap it again and it says hello.
+
+Asked by Marcos, 27 Nov 16:10: "On the couch screen at the lower left corner add a speaker icon to mute or unmute"
+
+- At the lower left of the couch, across from the version and in a box like it, a speaker: with its sound waves while the sound is on, crossed out while it is off. A tap turns it over.
+- Off is every sound, the music, Cubed and the chip tune included; the phone's taps (haptics) stay. Turned back on, it plays a bolololip to say so.
+- It is kept for the next visit, from the welcome screen on.
+- Like the version, it steps aside while a puzzle is in hand. ([#257](https://github.com/onexmac/ad/pull/257))
+
 ## 1.6.4 · 2026-11-27 15:48
 
 **Claude:** Fling a layer hard enough and it spun all the way round, landed home, and the clock decided nothing had happened. Now the clock starts the moment your finger swipes the dots, however the turn ends.

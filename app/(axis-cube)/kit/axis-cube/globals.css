@@ -149,6 +149,13 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 }
 .axis.play .ver { opacity: 0; pointer-events: none; }
 .axis .ver canvas, .axis .log canvas { display: block; }
+/* its twin at the lower left: the sound, on (a speaker and its waves) or off (crossed out); a tap turns it over */
+.axis .mute {
+  position: absolute; left: 14px; bottom: 12px; padding: 0; border: 0; background: none; cursor: pointer;
+  transition: opacity 0.3s ease; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.axis.play .mute { opacity: 0; pointer-events: none; }
+.axis .mute canvas { display: block; }
 .axis .log {
   position: absolute; inset: 0; border-radius: inherit; overflow: hidden;
   display: flex; flex-direction: column;
@@ -505,7 +512,7 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 .axis.mac .mac-title span { display: block; padding: 0 8px; background: var(--mac-paper); }
 .axis.mac .mac-title canvas { display: block; filter: var(--mac-letters); }
 /* the line at the top right and the version: boxes the scene draws; a soft shadow lifts them off the room */
-.axis.mac .hud, .axis.mac .ver canvas { filter: drop-shadow(0 2px 6px var(--mac-shade)); }
+.axis.mac .hud, .axis.mac .ver canvas, .axis.mac .mute canvas { filter: drop-shadow(0 2px 6px var(--mac-shade)); }
 /* the list of changes: a sheet of paper with its title bar edge to edge, scrolling with the list */
 .axis.mac .log canvas { filter: var(--mac-letters); }
 /* its title bar roomier than a window's: taller, its stripes clear of the sheet's round corners, air under it */
