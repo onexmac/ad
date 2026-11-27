@@ -83,7 +83,7 @@ Asked by Marcos, 26 Nov 21:52: "Cubed should sound after the lololip sound we ha
 - It stays on as the camera goes to the high scores' screen and while the initials are typed, where the chip tune would play otherwise; pressing YES on them ends it, and the screen's chip tune takes over.
 - With no entry to make (a time that does not make the five), it plays on until the puzzle is put down or mixed again; and leaving the screen without initials ends it too.
 - The song: 120 to the minute, eight upbeat bars in D with the hook TA-te ta-ta TA-te to-ta-to-ta-te TAAA four times (whistled, the marimba under it), then four chill bars, darker and at half time, and the run li li lo lu lo lu lo lu lo LOOP back into the hook. Twenty-four seconds round.
-- Checked on a 2×2 solved by hand: the song starts after the cheer, plays through the screen and the initials, and gives way to the chip tune on YES. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Checked on a 2×2 solved by hand: the song starts after the cheer, plays through the screen and the initials, and gives way to the chip tune on YES. ([#226](https://github.com/onexmac/ad/pull/226))
 
 ## 1.1.7 · 2026-11-26 21:38
 
