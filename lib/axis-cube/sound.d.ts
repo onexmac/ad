@@ -28,8 +28,12 @@ export interface AxisSound {
   music(k: number, chip?: boolean): void;
   /** For a test with its own (offline) context: the music's first `secs` seconds, scheduled at once. */
   musicFor(secs: number, skin?: 'lofi' | 'chip'): void;
+  /** Cubed, the victory song: on after a solve's cheer (delay in seconds), off once the initials are kept. */
+  victory(on: boolean, delay?: number): void;
+  /** For a test with its own (offline) context: Cubed's first `secs` seconds. */
+  cubedFor(secs: number): void;
   /** For a test: how much of the music is wanted and whether its loop is running. */
-  musicNow(): { k: number; playing: boolean; step: number; round: number; skin: string };
+  musicNow(): { k: number; playing: boolean; step: number; round: number; skin: string; victory: boolean; vstep: number };
   wobble(on: boolean): void;
   quiet(): void;
   dispose(): void;
