@@ -74,6 +74,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.3.0 · 2026-11-27 08:23
+
+**Claude:** Musical chairs on the ottoman. The 2×2 got promoted to the front row, and the Axis Cube took its seat on the left without a fuss.
+
+Asked by Marcos, 27 Nov 08:22: "Can you switch the cube at the front with the 2x2"
+
+- The 2×2 now sits at the front of the diamond, and the Axis Cube where the 2×2 was, on the left; the 3×3 and the Ghost Cube stay where they were.
+- Each keeps its own size and the way it is turned, and its weight mark goes with it.
+- 1.2.9 and a small change make 1.3.0: the third number rolls over. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.2.9 · 2026-11-27 08:13
 
 **Claude:** Cubed got a volume knob and we turned it up a notch. A victory song should never be shouted down by the high-score screen's chiptune.
