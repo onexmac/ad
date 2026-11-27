@@ -63,47 +63,27 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.37** Something that has gone elsewhere is hidden at once; it never fades out back where it began.
 - **0.7.46** A slide's way is split by the two diagonals, an X: each way gets 45° either side, and none is favoured.
 - **1.0.1** A slide's speed is read by its events' own times, never by when the page handled them; all of its travel counts; and one that clearly means to turn, turns.
-- **1.0.3** A delay meant to be seen is counted from the end of the gesture, not its start.
-- **1.0.5** Before changing a motion by its name, measure frame by frame what actually moves on the screen.
+- **1.0.3** Before changing a motion by its name, measure frame by frame what actually moves on the screen.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
-## 1.0.5 · 2026-11-26 20:06
+## 1.0.3 · 2026-11-26 19:59
 
-**Claude:** Caught the real culprit: it was never the camera. The cube flinched under your finger and popped back as the swipe began. It has stopped flinching.
+**Claude:** A swipe now moves the cube and nothing else. The camera sits still and enjoys the show, and the cube stopped flinching when you touch it.
 
 - **Bug fix.** Marcos, 26 Nov 20:03: "The camera still moves when I swipe the whole cube. What did you do?"
-  - Cause: it was not the camera. Touching the puzzle starts a hold (hold still and it scrambles), and the hold's press shrank the puzzle 3% under the finger at once; a swipe then cancels the hold and the puzzle sprang back to full size just as it set off, which reads as the camera jumping. 1.0.2 to 1.0.4 changed the camera's lean into the flip, a different motion, so the jump stayed.
+  - Cause: what moved was not the camera. Touching the puzzle starts a hold (hold still and it scrambles), and the hold's press shrank the puzzle 3% under the finger at once; a swipe then cancels the hold, and the puzzle sprang back to full size just as it set off, which reads as the camera jumping. Changing the camera's lean, as 1.0.2 did, left that jump where it was.
   - Don't: change a motion by the name it is given. Measure frame by frame what actually moves on the screen first: the camera, the puzzle's place, its size.
-
-- The press now shows only once the finger has rested on the puzzle for 0.12 s, when a hold's growl starts too. A swipe moves before that, so it no longer makes the puzzle shrink and spring back.
-- Measured on a touch that rests 90 ms and then flicks: the puzzle stayed 109.5 px across its radius through the start of the swipe, where it shrank to 106.1 and sprang back before. A finger resting on it still presses it, from 0.12 s on, as before.
-- What still moves on a swipe, by design: the puzzle's small knock back as it lands (about 3 cm, and back), and its slow float, which runs all the time. ([#214](https://github.com/onexmac/ad/pull/214))
-
-## 1.0.4 · 2026-11-26 19:59
-
-**Claude:** The camera has been told to sit still and enjoy the show. Swipe away: it no longer leans along.
 
 Asked by Marcos, 26 Nov 19:58: "Mmm let's try removing the camera movement"
 
-- A swipe that flips the puzzle no longer moves the camera at all: no lean into the flip, early or late. The delay from 1.0.2 and 1.0.3 goes with it.
-- Measured on a quick flick that turned the puzzle half a turn: the camera stayed where it was throughout.
-- A tap that turns a face to the front still leans the camera a little, as before. ([#213](https://github.com/onexmac/ad/pull/213))
-
-## 1.0.3 · 2026-11-26 19:53
-
-**Claude:** The camera learned some patience. It now lets go of your swipe first, counts to a third of a second, and only then leans in.
-
-- **Bug fix.** Marcos, 26 Nov 19:48: "Still happens at the same time as the swipe. I like the new behavior but have a delay start"
-  - Cause: 1.0.2 moved the lean 0.22 s later, counted from the start of the flip. A quick flick does most of its turning in its first 200 ms, so the camera still moved about 250 ms after the touch, while the swipe was still being seen.
-  - Don't: measure a delay a person should see from the start of their own gesture. Count it from when the gesture ends.
-
-- The camera's lean into a flip is now held back until 0.35 s after the finger lifts, then played whole, as strong and as long as before: from the start of the flip, or from 0.3 s before the lift after a long drag.
-- A flip that springs back to where it began no longer moves the camera at all.
-- Measured: on a quick flick (the finger off at 71 ms, the puzzle landing at 1.2 s) the camera first moves at 438 ms, where it moved at 256 ms in 1.0.2 and at once before that, and its lean still lasts 750 ms, ending as the puzzle lands. On a slower swipe (the finger off at 261 ms) it moves at 675 ms, as the puzzle settles. A small slide that springs back leaves the camera still.
-- A tap that turns a face leans at once, as before. ([#212](https://github.com/onexmac/ad/pull/212))
+- A swipe that flips the puzzle no longer moves the camera: no lean into the flip, early or late. The delay from 1.0.2 goes with it.
+- The press now shows only once the finger has rested on the puzzle for 0.12 s, when a hold's growl starts too. A swipe moves before that, so it no longer makes the puzzle shrink and spring back as it sets off.
+- Measured on a touch that rests 90 ms and then flicks: the camera stays where it is, and the puzzle keeps its size (109.5 px across its radius, where it shrank to 106.1 and sprang back before). A finger resting on it still presses it, from 0.12 s on.
+- A tap that turns a face to the front still leans the camera a little. On a swipe the puzzle still gets its small knock back as it lands (about 3 cm, and back), and floats slowly, as it always does.
+- This version shipped in three steps, as 1.0.3 (the lean waiting for the lift), 1.0.4 and 1.0.5; at Marcos's ask, 26 Nov 20:27, they are one entry, the one where the camera movement went. ([#212](https://github.com/onexmac/ad/pull/212), [#213](https://github.com/onexmac/ad/pull/213), [#214](https://github.com/onexmac/ad/pull/214))
 
 ## 1.0.2 · 2026-11-26 19:44
 
