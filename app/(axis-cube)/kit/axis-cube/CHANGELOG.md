@@ -15,6 +15,8 @@ Every push to Vercel that changes the app gets an entry here. The first push was
 | +0.5.0 | only something massive |
 | 1.0.0 | a milestone: the stopwatch and the leaderboard |
 
+The second and third numbers are single digits and roll over like an odometer: 1.0.9 and a small change make 1.1.0, and 1.0.8 and a bigger one (+0.0.3) make 1.1.1. Only the first number can go past 9 (10.0.0). The versions before 1.0.0 were numbered before this was set, and go past 9; they are kept as they shipped.
+
 Each entry gives the date and time in Costa Rica, the commit, and the pull request that took it to `main` (and so to magi0s). An entry that fixes a bug Marcos reported starts with it. Versions 0.1.0 to 0.3.7 came before the app first reached `main`: they were seen as artifacts and branch builds, and reached magi0s together in #64.
 
 ## Bugs Marcos reported
@@ -64,18 +66,24 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **0.7.46** A slide's way is split by the two diagonals, an X: each way gets 45° either side, and none is favoured.
 - **1.0.1** A slide's speed is read by its events' own times, never by when the page handled them; all of its travel counts; and one that clearly means to turn, turns.
 - **1.0.3** Before changing a motion by its name, measure frame by frame what actually moves on the screen.
+- **1.1.3** A version's second and third numbers are single digits: past 9 they roll over (1.0.9 then 1.1.0); only the first can pass 9.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
-## 1.0.13 · 2026-11-26 20:50
+## 1.1.3 · 2026-11-26 20:50
 
-**Claude:** New single just dropped: Bounce. Same studio, more coffee, and this time somebody whistles the hook. The old track, Dusk, is in the vault, not the bin.
+**Claude:** New single just dropped: Bounce. Same studio, more coffee, and this time somebody whistles the hook. The old track, Dusk, is in the vault, not the bin. And the version numbers learned to count to nine.
+
+- **Bug fix.** Marcos, 26 Nov 21:09: "Wait what? 1.0.10? That shouldn't exist. From 1.0.9 goes 1.1.0 fix all that you had with the same double digit mistake. Just the first version can have more than two digits like 10.0.0 but we aren't there yet"
+  - Cause: the jumps were added to the last number as if it could grow without end, so 1.0.8 and +0.0.2 made 1.0.10, and 1.0.10 and +0.0.3 made 1.0.13. The second and third numbers are single digits: past 9 they roll over into the number before them.
+  - Don't: let the second or third number of a version pass 9. Add a jump as on an odometer: 1.0.8 + 0.0.2 is 1.1.0, 1.1.0 + 0.0.3 is 1.1.3.
+- This version and the one before it shipped as 1.0.13 and 1.0.10; they are 1.1.3 and 1.1.0.
 
 Asked by Marcos, 26 Nov 20:46: "Save this one. But let's have it a bit more upbeat. Still missing the catchy melody."
 
-- Dusk, the loop of 1.0.10, is kept as it is, under its own name, and can be put back on with one word in the code (TRACK).
+- Dusk, the loop of 1.1.0, is kept as it is, under its own name, and can be put back on with one word in the code (TRACK).
 - What plays on the picker now is Bounce: 96 to the minute instead of 64, a lighter shuffle, in G major (Gmaj7, Em7, Cmaj7, D7), twelve bars, still thirty seconds a loop.
 - Its tune is built to stick:
   - one rhythm, ta-ta-TAA ta-ta-TAA, comes eight times in the first eight bars;
@@ -86,7 +94,7 @@ Asked by Marcos, 26 Nov 20:46: "Save this one. But let's have it a bit more upbe
 - Bouncier under it: the piano stabs every off-beat after its chord, the bass walks (root, octave, fifth, a step into the next chord), and the kick pushes ahead now and then.
 - Rendered: the tune is the loudest pitch in its range at all 58 of its notes, and the loop sits under the other sounds, about 0.7 as loud as a turn and a third as loud as a pick. ([#218](https://github.com/onexmac/ad/pull/218))
 
-## 1.0.10 · 2026-11-26 20:43
+## 1.1.0 · 2026-11-26 20:43
 
 **Claude:** The beat learned a tune. Eight bars, thirty seconds, and a hook that should be stuck in your head by the second time round. Sorry in advance.
 

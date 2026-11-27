@@ -20,6 +20,8 @@ Every app in the portal keeps a changelog and shows it. It is an Eva rule: Marco
 | +0.5.0 | only something massive |
 | 1.0.0 | a milestone Marcos names |
 
+The second and third numbers are single digits and roll over like an odometer: a jump that takes one past 9 carries into the number before it, so 1.0.9 + 0.0.1 is 1.1.0 and 1.0.8 + 0.0.3 is 1.1.1. Only the first number can pass 9 (10.0.0). Marcos, 26 Nov: "From 1.0.9 goes 1.1.0 [...] Just the first version can have more than two digits like 10.0.0".
+
 ### The head of the file
 
 1. A line on what the app is and where it lives (its portal link).

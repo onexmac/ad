@@ -23,19 +23,19 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 
 - **0.3.0** One picture is one image element, carried between places; black and white is a filter on it, never a second copy.
 - **0.3.5** Arrows are drawn, never typed: iOS turns arrow characters into colour emoji.
-- **0.3.17** Nothing transparent fixed at the screen's edge: iOS Safari tints its bars from it.
-- **0.3.19** Draw the shape exactly as described (a diagonal arrow with a right-angle head), not the nearest stock one.
-- **0.5.5** A text-only module never takes an entry that has a picture.
+- **0.4.7** Nothing transparent fixed at the screen's edge: iOS Safari tints its bars from it.
+- **0.4.9** Draw the shape exactly as described (a diagonal arrow with a right-angle head), not the nearest stock one.
+- **0.8.5** A text-only module never takes an entry that has a picture.
 
 Still open: none reported.
 
-## 0.5.6 · 2026-11-24 14:27
+## 0.8.6 · 2026-11-24 14:27
 
 - A picture is never shown twice in an issue. Sources often share one share image (Nexon's First Descendant pages do, and so does Steam's store page), and the cover and the spotlight, and Latest's wide picture and the first of Two to see, had shown the same picture for different entries. The issue now places each picture once; an entry whose only picture is already on a page counts as having none.
 - The edition pipeline no longer gives an entry a picture another entry already has: it looks on the entry's other pages instead.
 - This week's edition (Nº48, refreshed this afternoon with seven new or updated entries) has a picture of its own for each of its 28 entries. Eight were filled by hand from the stories' other coverage and from Nexon's own announcements on Steam, each checked to load as an image; all are linked, not copied. ([#160](https://github.com/onexmac/ad/pull/160))
 
-## 0.5.5 · 2026-11-24 14:14
+## 0.8.5 · 2026-11-24 14:14
 
 - **Marcos: "Too many briefs, must up the ui and the layout, favor more images."** The cause: the briefs took every entry the picture modules hadn't used, pictured or not, so eleven of them filled three pages of text while their pictures went unseen. What not to do: never let a text-only module be where entries with pictures overflow to.
 - Pictures lead now. Every entry with a picture goes to a module that shows it; the briefs are only what has no picture, four at most, on one page. Nothing is lost: the archive still lists all of them.
@@ -47,7 +47,7 @@ Still open: none reported.
 - The contents fit the new run on one page, a line each, with a Gallery and a Dates row.
 - The edition pipeline looks harder for pictures. The research gives, for each story, up to three other pages about it, and the picture step tries the source page and then those, keeping the first real photo (still never a site's logo card, still linked, not copied). Entries already in the week without a picture go back to the research by title, to find other pages for them. ([#159](https://github.com/onexmac/ad/pull/159))
 
-## 0.5.0 · 2026-11-24 08:04
+## 0.8.0 · 2026-11-24 08:04
 
 - The magazine is pages now: every section is one screen, and the page snaps to them. A flick lands on a page with the phone's own momentum, and a short drag settles back. The scroll-linked growth, the pulls at both ends, the strips and the home square work as before. The home square and the contents give each page's real number.
 - Sections are smaller, and more of them are built around one big picture:
@@ -63,7 +63,7 @@ Still open: none reported.
 - Blocks on a page grow in as the page lands, not as each one passes a line on the screen, so a block low on a page is whole once the page is in.
 - A jump from the contents or the home bar turns snapping off for its length and lands on the page's top. ([#155](https://github.com/onexmac/ad/pull/155))
 
-## 0.4.8 · 2026-11-24 07:50
+## 0.7.8 · 2026-11-24 07:50
 
 - Briefs: a long press (0.42 s) pops the like fan where the finger is, the same fan as in the article, kept on screen near the edges.
   - Slide onto More or Less and let go to pick it. Or let go first and tap one; a tap anywhere else, the centre key or Escape folds it away.
@@ -80,14 +80,14 @@ Still open: none reported.
 - The click a browser sends when a long press ends no longer lands on whatever is under the finger (the fan's centre key, a verdict key, the page beside a locked picture).
 - Every verdict teaches the taste model that picks about 30% of each issue. ([#153](https://github.com/onexmac/ad/pull/153))
 
-## 0.4.3 · 2026-11-24 06:51
+## 0.7.3 · 2026-11-24 06:51
 
 - An entry without a source page is never published. The edition pipeline drops any entry or suggestion without an http(s) link before it merges the day's brief, so an earlier, sourced version of the same story stays, and the prompt now asks for the page each story comes from.
 - This week's edition, Nº48, is repaired. That morning's first automated run had written two Call of Duty entries and a Stellar Blade note without a source page.
   - The Call of Duty entries are back to their sourced versions, and the Stellar Blade note is gone.
   - Nº48 now has 15 entries and 8 suggestions, all sourced. ([80ef4f5](https://github.com/onexmac/ad/commit/80ef4f5) · [#148](https://github.com/onexmac/ad/pull/148))
 
-## 0.4.2 · 2026-11-24 00:18
+## 0.7.2 · 2026-11-24 00:18
 
 - The like fan takes Noticss's fixes, in Updatr's square, mono look:
   - "Less" comes out 150 ms after "More", a clear beat behind.
@@ -95,7 +95,7 @@ Still open: none reported.
   - The labels are light text on a dark tag.
   - The choice nearest the finger warms to red as the finger approaches, from 120 px away and fully by 72 px, so it shows red before the finger covers it. ([a7ed742](https://github.com/onexmac/ad/commit/a7ed742) · [#142](https://github.com/onexmac/ad/pull/142))
 
-## 0.4.0 · 2026-11-24 00:07
+## 0.7.0 · 2026-11-24 00:07
 
 - Updatr gets a backend, the same system as Noticss's, shaped for releases: one issue a week, numbered by its ISO week, updated every day at 07:23 by a pipeline that runs on its own.
   - It researches the followed franchises with web search, then writes a structured brief: the week's entries and a pool of suggestions from a wider net, including a radar beyond the list.
@@ -116,21 +116,21 @@ Still open: none reported.
   - Or press, slide onto a choice and let go to pick it.
 - The week 47 snapshot becomes the first edition, and this push also brought edition Nº48 (24 November): 13 entries and 8 suggestions, researched with web search and sourced, 18 of the 21 with their source's picture. ([4f1ae74](https://github.com/onexmac/ad/commit/4f1ae74) · [#141](https://github.com/onexmac/ad/pull/141))
 
-## 0.3.30 · 2026-11-23 21:43
+## 0.6.0 · 2026-11-23 21:43
 
 - The skeleton gives way to a loading bar in Updatr's own colours, as The Cubes has.
   - The wordmark sits at the centre, and a stroked bar three quarters of the way down fills as the scripts arrive, then as the page comes alive, the fonts load and the first screen's pictures come in.
   - On a slow phone network Updatr takes 9 to 10 s to come alive, so a bar that fills tells the truth about the wait. ([985f65f](https://github.com/onexmac/ad/commit/985f65f) · [#127](https://github.com/onexmac/ad/pull/127))
 
-## 0.3.29 · 2026-11-23 21:03
+## 0.5.9 · 2026-11-23 21:03
 
 - A skeleton while the magazine loads: its first screen in bones (the issue line, the masthead, the cover and its caption), in Updatr's colours, springing in after 140 ms and out as the app fades in. ([ac55ba3](https://github.com/onexmac/ad/commit/ac55ba3) · [#118](https://github.com/onexmac/ad/pull/118))
 
-## 0.3.28 · 2026-11-23 14:59
+## 0.5.8 · 2026-11-23 14:59
 
 - Geist and Geist Mono come from the repository's own dependencies instead of being fetched from Google during each build. That fetch had been failing deployments at random. ([c102d91](https://github.com/onexmac/ad/commit/c102d91) · [#79](https://github.com/onexmac/ad/pull/79))
 
-## 0.3.27 · 2026-11-17 11:46
+## 0.5.7 · 2026-11-17 11:46
 
 - A bookmark in an open article's floating controls, between the position and Source. Tapping it follows the entry for updates: it fills with ink, with a pop and a haptic, and a short note confirms it ("Watching · 20.11 · T–03D"). Tap again to stop.
 - Watching, a new section (P.29), with a Watch tab in the home bar and a line in the contents: the followed entries, date first.
@@ -139,7 +139,7 @@ Still open: none reported.
   - A row opens its article, and the bookmark at its end stops following it (the row slides out). Empty, the section explains the bookmark.
 - Follows are kept on the device for now and sync across tabs. Two upcoming releases are followed on a first visit. ([22f746e](https://github.com/onexmac/ad/commit/22f746e) · [#16](https://github.com/onexmac/ad/pull/16))
 
-## 0.3.24 · 2026-11-17 09:47
+## 0.5.4 · 2026-11-17 09:47
 
 - At the top of the issue, a fresh pull down lifts the page against friction ("Pull for past editions", then "Release for the calendar"), and letting go there drops a calendar of past editions in from the top. A scroll that only arrives at the top doesn't count; wheel and trackpad work the same.
 - The calendar is roomy, technical and minimal: the editions, the year and the issue count, then "In view" with Nº47 large, its dates and its entry count, then one block per month, newest first.
@@ -148,26 +148,26 @@ Still open: none reported.
 - Picking a week sends the calendar up and away, runs the fetch screen for that issue and opens on its cover.
 - The calendar closes with its Close button, Escape, a right swipe, or a push past its end. ([b64c186](https://github.com/onexmac/ad/commit/b64c186) · [#15](https://github.com/onexmac/ad/pull/15))
 
-## 0.3.19 · 2026-11-17 09:32
+## 0.4.9 · 2026-11-17 09:32
 
 - The drawn arrow on Note, Continue, Now and Read is a diagonal ↘ with a right-angle head, as on Scandinavian signs, in place of the turn arrow. ([eb1b43c](https://github.com/onexmac/ad/commit/eb1b43c) · [#14](https://github.com/onexmac/ad/pull/14))
 
-## 0.3.18 · 2026-11-17 08:46
+## 0.4.8 · 2026-11-17 08:46
 
 - The page keeps its own bounce but no longer hands it on to a page around it. Inside the Claude app, the frame's white container had bounced along at the top. ([bc66cb3](https://github.com/onexmac/ad/commit/bc66cb3) · [#13](https://github.com/onexmac/ad/pull/13))
 
-## 0.3.17 · 2026-11-17 08:44
+## 0.4.7 · 2026-11-17 08:44
 
 - No white band at the screen's edge on iOS. Safari tints its toolbar from what is fixed at the edge, and three transparent fixed layers sat there and could show as a white band while the bar collapsed and expanded on scroll:
   - the pull-to-fetch readout, a full-width strip at the bottom, is there only while the page is lifted, in the ground colour;
   - of the bottom bar, only its 60 px square is fixed now, on the column's right edge, not a full-width wrapper;
   - the layer pictures fly in, which stayed after the first flight, leaves once its last flight lands. ([de692c4](https://github.com/onexmac/ad/commit/de692c4) · [#12](https://github.com/onexmac/ad/pull/12))
 
-## 0.3.16 · 2026-11-17 08:28
+## 0.4.6 · 2026-11-17 08:28
 
 - The wordmark loses its marks: the © on the magazine's cover and on B, and the ® on A. ([1a6ebc1](https://github.com/onexmac/ad/commit/1a6ebc1) · [#11](https://github.com/onexmac/ad/pull/11))
 
-## 0.3.15 · 2026-11-17 08:25
+## 0.4.5 · 2026-11-17 08:25
 
 - At the bottom of the issue, a fresh push up lifts the page against friction. It shows "End of issue 47" over a hairline that fills to the mark, then "Release to fetch issue 48". A scroll that only arrives at the bottom doesn't count; wheel and trackpad work the same.
 - The fetch screen rises from the bottom, technical and minimal: a three-digit percentage, a hairline, the server's steps logging in (request, sources, entries, images, layout), the seconds gone and a blinking status square.
@@ -176,7 +176,7 @@ Still open: none reported.
 - The server is a stand-in for now: it takes 3 s and composes the next issue from a rotated pool of the same entries, so the cover and the modules change and the number goes up.
 - The home square steps aside while fetching. ([222e677](https://github.com/onexmac/ad/commit/222e677) · [#10](https://github.com/onexmac/ad/pull/10))
 
-## 0.3.10 · 2026-11-17 08:12
+## 0.4.0 · 2026-11-17 08:12
 
 - At the end of an article, a fresh push up keeps going against friction: the sheet shrinks up toward the top and a "Back to the issue" sign-off appears below it.
   - Past the mark the sign-off turns accent and reads "Release to go back", and letting go there sends the sheet out the top.
