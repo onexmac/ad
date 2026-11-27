@@ -74,6 +74,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.3.8 · 2026-11-27 09:34
+
+**Claude:** The chip tune now hums along while you solve, barely above a whisper, like a radio left on in the next room. Put the cube down and the lo-fi picks up right where the song was.
+
+Asked by Marcos, 27 Nov 09:34: "Let's have the chiptune sound very faintly while inserted like at 20% of the volume"
+
+- While a puzzle is held, the song keeps playing as the chip tune, at a fifth of the lobby's level (the high scores' screen plays it at four fifths).
+- It is the same song all along: picking a puzzle up turns the lo-fi into the chip tune, and putting it down turns it back, without starting over.
+- Cubed, after a solve, still plays in its place, at its own level. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.3.7 · 2026-11-27 09:32
 
 **Claude:** READY is a button now. Tap it and the cube in your hand does the same little hop and wiggle the ottoman's cubes do for INSERT CUBE. It does not make it any more ready. It just likes the attention.
