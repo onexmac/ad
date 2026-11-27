@@ -69,6 +69,22 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.0.8 · 2026-11-26 20:38
+
+**Claude:** The ottoman got a soundtrack. Every sound the cubes ever made walked into a studio, put on headphones, and came out as a lo-fi beat to pick cubes to.
+
+Asked by Marcos, 26 Nov 20:31: "Ok can you take all the sounds we have created so far a make a looped lo-fi sound for the cube picker screen?"
+
+- While the puzzles sit on the ottoman to be chosen, a lo-fi loop plays, built only from the app's own sounds, made on the spot like the rest:
+  - the chords: the electric piano of the Axis Cube, Cmaj9, Bm7, Am9 and Em9, a bar each, struck on the one and stabbed after;
+  - the bass: the scramble's growling bass, played as notes;
+  - the drums: a landing's thump for the kick, a turn's plastic clack with a brush of air for the snare, a spin's tick for the hats, swung;
+  - the melody: the puzzles' own phrases, a bolololip, a lolip, the run coming down and a lolop to close, in a different puzzle's instrument each time round (kalimba, marimba, glass, piano);
+  - the fills: every other time round, air rising into the bo-lup or into the score's 8-bit run.
+- What makes it lo-fi: a tape's slow wobble (a few cents of pitch), the top rolled off above 2.5 kHz, and a record's crackle under it. 74 to the minute, four bars, and it never plays quite the same twice: the phrases, the hats and the touch are drawn fresh each time.
+- It fades in on the picker, fades out as a puzzle is picked up (and stops 2.5 s later), and comes back when it is put down. With the high scores' screen up close it plays softer, at a third.
+- It sits under the other sounds: rendered, it is about 0.6 as loud as a turn's notes and 0.3 as loud as a pick. Like every sound here, it needs a first touch to start (a browser's rule), and on an iPhone it follows the silent switch. ([#216](https://github.com/onexmac/ad/pull/216))
+
 ## 1.0.3 · 2026-11-26 19:59
 
 **Claude:** A swipe now moves the cube and nothing else. The camera sits still and enjoys the show, and the cube stopped flinching when you touch it.
