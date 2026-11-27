@@ -546,6 +546,7 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
    shows, but it takes every touch until OK. */
 .axis .sit-wrap { position: absolute; inset: 0; border-radius: inherit; z-index: 3; pointer-events: none; }
 .axis .sit-wrap.open { pointer-events: auto; }
+.axis .lock-wrap.hold { pointer-events: auto; }        /* a locked puzzle in hand: no touch reaches it, even before its card is up */
 .axis .sit-card {
   position: absolute; left: 50%; top: 72%; width: min(calc(100% - 48px), 320px); box-sizing: border-box;
   display: grid; justify-items: center; gap: 18px; padding: 22px 20px 24px;
