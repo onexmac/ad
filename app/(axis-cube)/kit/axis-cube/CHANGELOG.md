@@ -77,6 +77,27 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.5.3 · 2026-11-27 14:44
+
+**Claude:** The high scores got longer than five. Swipe up on the screen and the table turns its pages, five at a time, with the neighbours peeking in faintly above and below. The window's title bar stays put; the rest rolls.
+
+Asked by Marcos, 27 Nov 14:32, in the same message: "let's make the screen snap scrollable, so it shows the next 5 with a hint of the previous ones and the next ones (so the header remains what you move is the pixel cube and titles"
+
+- The screen with the high scores scrolls up and down in pages of five, and settles on a page when let go (a quick flick goes on to the next one).
+- The window's title bar stays where it is; the pixel cube, the titles and the rows move under it.
+- On a page past the first, the rows of the pages either side show faint at its top and bottom, a hint of what is there.
+- Each table now goes as far as fifty places, and always keeps an empty place after the last time while there is room, so any time can still go in. The portal sends all of them, not only the first five.
+- Down on the first page, or a slide to the right, still takes the camera back to the room. ([#249](https://github.com/onexmac/ad/pull/249))
+
+## 1.4.8 · 2026-11-27 14:44
+
+**Claude:** Once your time makes the table, it's going in. NO is now BACK, which takes you back to the letters, and the screen won't let you slip away until your initials are on it.
+
+Asked by Marcos, 27 Nov 14:32, in the same message: "the no is a go back button. The user has to put in the initials."
+
+- On the card that asks to keep the initials, NO reads BACK, and takes you back to the keyboard with the letters as you left them.
+- While the initials are being typed, the screen stays: a pull down or a slide to the right no longer takes the camera back and drops the time. END still asks for at least one letter. ([#249](https://github.com/onexmac/ad/pull/249))
+
 ## 1.4.7 · 2026-11-27 13:29
 
 **Claude:** We read the last note upside down and taught the cube to flip from below when you tapped beside the dots. It now flips left or right there, as asked twice. Sorry about the detour.
