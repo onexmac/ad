@@ -84,7 +84,7 @@ Open:
 - The finger's speed as it lifts is now read from the events' own times, over its last 60 ms, so a slow frame no longer cancels a flick. A finger that rests for 80 ms before lifting still lets go with no speed.
 - A slide on the puzzle counts all its travel from the touch, including the first pixels it takes to tell which way it goes.
 - A turn let go more than 30% of the way to the next quarter, and not on its way back, goes on to it: about 32 pixels on a ring, 45 on the puzzle. A smaller slide, or one that comes back, still springs back.
-- Checked on the old and the new version: a flick whose lift reaches the page 110 ms late (28 px on a ring, 40 on the puzzle) went back before and turns now; slow slides of 36 px on a ring and 52 on the puzzle, rested and lifted, went back before and turn now; slides of 22 and 30 px, and one taken to 45 px and brought back to 20, still go back. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Checked on the old and the new version: a flick whose lift reaches the page 110 ms late (28 px on a ring, 40 on the puzzle) went back before and turns now; slow slides of 36 px on a ring and 52 on the puzzle, rested and lifted, went back before and turn now; slides of 22 and 30 px, and one taken to 45 px and brought back to 20, still go back. ([#209](https://github.com/onexmac/ad/pull/209))
 
 ## 0.7.47 · 2026-11-26 19:24
 
