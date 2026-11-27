@@ -51,4 +51,4 @@ Asked by Marcos, 26 Nov 21:12: "I need this as code ad and on magi0s / kit"
     page remembers it.
 - **What changed from the artifact.** The version sits under the tabs and opens this list. The HUD clears the status
   bar on a phone. A finger the system takes away no longer flings the item, and one finger left of a pinch turns it
-  again without a jump.
+  again without a jump. ([#220](https://github.com/onexmac/ad/pull/220))
