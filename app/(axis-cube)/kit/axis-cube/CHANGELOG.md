@@ -81,7 +81,7 @@ Open:
 Asked by Marcos, 27 Nov 08:48: "Remember the first sound you made after the clack clack of the flip? The dubstep one i didn't like?lets use it here when the user tries to do anything to the cube, lets have that sound and the cube shakes as complain"
 
 - Anything tried on a locked puzzle held up (a touch anywhere but its card) plays the bass note whose filter opens and closes twice, the one 0.6.0 put under every turn and 0.6.7 took away, and the puzzle shakes its head: a twist about the upright, quick and dying away in half a second. On a phone that can, it buzzes too.
-- One complaint at a time: a fist on the screen is not twenty of them. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- One complaint at a time: a fist on the screen is not twenty of them. ([#237](https://github.com/onexmac/ad/pull/237))
 
 ## 1.3.5 · 2026-11-27 09:28
 
@@ -95,7 +95,7 @@ Asked by Marcos, 27 Nov 08:30: "darken (like by a shadow all the cubes but the 2
 - A tap lifts it into the light, where it looks like glossy black plastic catching the light along its edges, a little more than on the ottoman. The line at the top right says LOCKED. In its upper right corner, a triangle of light cut off by a diagonal brings its own colours up: the 3×3's blue and yellow, the Axis Cube's yellow and orange, the Ghost Cube's white outlines. The corner is found from the puzzle's own shape as it is turned, so it lands on each of them.
 - Under it, a card in the first-time hint's paper: "Finish The First Cube To Unlock." on the 3×3, "Finish 2 More Cubes To Unlock." on the Axis Cube, "Finish 3 Cubes To Unlock." on the Ghost Cube; after a puzzle is finished, "Finish 1 More Cube…" and "Finish 2 More Cubes…". OK puts it back.
 - Once a puzzle opens, the dark lifts from it over a second and a half, the next time the ottoman is in view.
-- Tried first in the Sidebar lab, which keeps nothing. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Tried first in the Sidebar lab, which keeps nothing. ([#237](https://github.com/onexmac/ad/pull/237))
 
 ## 1.3.0 · 2026-11-27 08:23
 
