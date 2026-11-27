@@ -83,7 +83,7 @@ Asked by Marcos, 26 Nov 20:31: "Ok can you take all the sounds we have created s
   - the fills: every other time round, air rising into the bo-lup or into the score's 8-bit run.
 - What makes it lo-fi: a tape's slow wobble (a few cents of pitch), the top rolled off above 2.5 kHz, and a record's crackle under it. 74 to the minute, four bars, and it never plays quite the same twice: the phrases, the hats and the touch are drawn fresh each time.
 - It fades in on the picker, fades out as a puzzle is picked up (and stops 2.5 s later), and comes back when it is put down. With the high scores' screen up close it plays softer, at a third.
-- It sits under the other sounds: rendered, it is about 0.6 as loud as a turn's notes and 0.3 as loud as a pick. Like every sound here, it needs a first touch to start (a browser's rule), and on an iPhone it follows the silent switch. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- It sits under the other sounds: rendered, it is about 0.6 as loud as a turn's notes and 0.3 as loud as a pick. Like every sound here, it needs a first touch to start (a browser's rule), and on an iPhone it follows the silent switch. ([#216](https://github.com/onexmac/ad/pull/216))
 
 ## 1.0.3 · 2026-11-26 19:59
 
