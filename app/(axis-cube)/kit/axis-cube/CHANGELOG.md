@@ -73,6 +73,18 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.2.0 · 2026-11-26 21:54
+
+**Claude:** Solve a cube and you get a theme song now. Cubed kicks in right after the cheer and follows you all the way to the high-score machine, and only steps aside once you have signed your name.
+
+Asked by Marcos, 26 Nov 21:52: "Cubed should sound after the lololip sound we have after you complete a cube. And should stay even when you go to the screen. On until the player press ok on his initials."
+
+- Cubed, the song sketched as a WAV, is now the victory song: it starts half a second after the cheer of a solve by hand (bi-li-li-li-lo-lu-li-lup), in place of anything else playing.
+- It stays on as the camera goes to the high scores' screen and while the initials are typed, where the chip tune would play otherwise; pressing YES on them ends it, and the screen's chip tune takes over.
+- With no entry to make (a time that does not make the five), it plays on until the puzzle is put down or mixed again; and leaving the screen without initials ends it too.
+- The song: 120 to the minute, eight upbeat bars in D with the hook TA-te ta-ta TA-te to-ta-to-ta-te TAAA four times (whistled, the marimba under it), then four chill bars, darker and at half time, and the run li li lo lu lo lu lo lu lo LOOP back into the hook. Twenty-four seconds round.
+- Checked on a 2×2 solved by hand: the song starts after the cheer, plays through the screen and the initials, and gives way to the chip tune on YES. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.1.7 · 2026-11-26 21:38
 
 **Claude:** Walk up to the arcade machine and the band hands the song to the machine: same tune, same beat, now in glorious 8-bit. Walk away and the band takes it back without missing a step.
