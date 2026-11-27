@@ -72,10 +72,21 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.3.9** A puzzle is solved when it looks solved: its pieces all turned alike, however it is turned as a whole. Never check that every piece is back exactly where it started.
 - **1.4.5** A time that fails to send never stops the others' from coming in, and stays on the player's own five until it is sent.
 - **1.4.7** A report can describe what happens or what is wanted: when it reads both ways, ask before changing anything.
+- **1.6.1** A control asked for beside something shows for as long as that thing does, and tells how it stands; don't pick the one moment it is for.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.6.1 · 2026-11-27 15:36
+
+**Claude:** The play button was hiding until you paused, which is backwards. Now it shows from the clock's first second: ▶ while you're playing, ‖ once you pause.
+
+- **Bug fix.** Marcos, 27 Nov 15:31: "No the play button has to appear while it is active. On pause it changes to a pause."
+  - Cause: 1.6.0 read "a play button next to the timer" as a way back from a pause, and showed it only while paused.
+  - Don't: decide on my own when a control asked for beside something shows; it shows as long as that thing does, and tells how it stands.
+- From the first turn of a layer, a sign shows to the left of the clock: ▶ while it runs, ‖ while it is paused (the pause screen up).
+- A tap on it does what a tap on the clock does: pauses it while it runs, sets it going again while it is paused. ([#254](https://github.com/onexmac/ad/pull/254))
 
 ## 1.6.0 · 2026-11-27 15:26
 
