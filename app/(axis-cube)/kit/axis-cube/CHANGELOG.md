@@ -70,10 +70,32 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.1.4** On an iPhone, make and wake the sound only at the end of a touch, and play into it there; and never let the app's own power saving put the sound to sleep just before it is wanted.
 - **1.2.8** A sound goes only on an audio clock that moves: an iPhone's can stand still for seconds after it wakes, and whatever is put on it then plays late, all at once. Better dropped than late; and something that plays by itself waits for the clock, not only for the touch.
 - **1.3.9** A puzzle is solved when it looks solved: its pieces all turned alike, however it is turned as a whole. Never check that every piece is back exactly where it started.
+- **1.4.2** A time given by hand is read in the units it was meant in: ask whether 00:14:56 is minutes or hours before keeping it.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.4.3 · 2026-11-27 10:52
+
+**Claude:** Need a breather mid-solve? Tap the clock and it stops. Touch the cube again, any way at all, and it picks up where it left off. Spinning the cube to look at it before you start still doesn't count.
+
+Asked by Marcos, 27 Nov 10:50: "Tapping the clock should pause it until the user flips either the cube or an axis ( on start flipping the cube don't start the timer, just flipping the axis). On pause any move starts the timer against."
+
+- The clock at the top right can be tapped while it runs: it pauses on the second it shows.
+- Paused, any move starts it again: a turn of a layer, or a turn of the whole puzzle (a slide, a tap on a face, two taps).
+- Before the first move, turning the whole puzzle still doesn't start the clock: only a turn of a layer does, as before.
+- A clock paused another way (the puzzle put down, or the app left) also goes on with any move now. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
+## 1.4.2 · 2026-11-27 10:52
+
+**Claude:** Two and a half hours on a 3×3 is a real achievement, and the board was crediting you with two and a half minutes. Your times are back in the units you meant, and the clock now goes past an hour.
+
+- **Bug fix.** Marcos, 27 Nov 10:48: "Dude rsa was done in seconds so it should show: 00:00:45 ; mine was in minutes 00:14:xx , my 3x3 lasted 2 hours and a half so it's like 02:xx:xx". Then, 10:50: "X is the real number which I forgot but fix it".
+  - Cause: Marcos's times had been timed in hours, minutes and seconds (00:14:56, 00:24:03, 02:34:48), but the game read them as minutes, seconds and hundredths. Kept that way and put on the world's board, they showed his 2×2 at 14 and 24 seconds and his 3×3 at 2 minutes 34. On top of that, nothing could go past 99 minutes: not the clock, the board on the device, or the world's.
+  - Don't: read a time given by hand without asking which units it is in.
+- Times are kept as hours, minutes, seconds and hundredths, up to 99 hours: on the device, in the clock, and in the world's board.
+- Marcos's three times are put right on the world's board, once, by the server itself: 14 min 56 s and 24 min 3 s on the 2×2, 2 h 34 min 48 s on the 3×3. RSA's 45.66 s on the 2×2 was right all along, and is now first. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 1.4.1 · 2026-11-27 10:45
 
