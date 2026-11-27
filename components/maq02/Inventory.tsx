@@ -3,12 +3,12 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { haptic } from "@/lib/histok/haptic";
 
-const CHANGELOG = "/kit/ps2-fiori/changelog";
+const CHANGELOG = "/kit/maq02/changelog";
 
 /**
- * PS2 Fiori: the inventory screen. Since 0.2.0 it wears Marcos's references: windows of paper and ink with a title bar
+ * MAQ02: the inventory screen. Since 0.2.0 it wears Marcos's references: windows of paper and ink with a title bar
  * and a dot (a retro desktop), widgets with an LCD counter and pill bars (a line-art phone screen), and pixel keycaps
- * that press down and spring back (The Cubes' keypad). lib/ps2-fiori/scene.js mounts the mixer and drives the controls
+ * that press down and spring back (The Cubes' keypad). lib/maq02/scene.js mounts the mixer and drives the controls
  * by their ids. The version sits under the title and opens the list of changes (docs/changelog.md).
  */
 export function Inventory({ version }: { version: string }) {
@@ -19,7 +19,7 @@ export function Inventory({ version }: { version: string }) {
 
   useEffect(() => {
     let gone = false, mixer: { dispose(): void } | null = null;
-    import("@/lib/ps2-fiori/scene").then(({ mountMixer }) => {
+    import("@/lib/maq02/scene").then(({ mountMixer }) => {
       if (gone || !root.current) return;
       mixer = mountMixer(root.current, { paused: () => logRef.current });
     });

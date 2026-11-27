@@ -1,6 +1,6 @@
-/* PS2 Fiori, 0.2.0: paper and ink. Windows with a title bar and a dot (a retro desktop), widgets with an LCD counter
+/* MAQ02, 0.2.0: paper and ink. Windows with a title bar and a dot (a retro desktop), widgets with an LCD counter
    and pill bars (a line-art phone screen), pixel keycaps that press down and spring back (The Cubes' keypad), pastel
-   folders for colour. Every colour is a token here, for each theme; the scene's own colours live in lib/ps2-fiori/scene.js.
+   folders for colour. Every colour is a token here, for each theme; the scene's own colours live in lib/maq02/scene.js.
    Motion runs on springs: CSS linear() easings sampled from a damped spring (ζ 0.38 for pops, 0.55 for settles). */
 :root{
   --spr-pop:linear(0, 0.039, 0.144, 0.292, 0.465, 0.643, 0.814, 0.964, 1.087, 1.18, 1.24, 1.27, 1.274, 1.256, 1.222, 1.178, 1.13, 1.081, 1.036, 0.997, 0.966, 0.944, 0.93, 0.925, 0.926, 0.932, 0.943, 0.956, 0.969, 0.982, 0.994, 1.004, 1.012, 1.017, 1.02, 1.021, 1.02, 1.018, 1.015, 1.011, 1.007, 1.004, 1.001, 0.998, 0.996, 0.995, 0.994, 0.994, 1);
