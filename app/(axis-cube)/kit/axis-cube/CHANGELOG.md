@@ -86,7 +86,7 @@ Open:
   - Don't: let a failed send stop the fetch, or hide a player's own time while it waits to go.
 - The world's five is fetched even when a time couldn't be sent.
 - A time not sent yet shows on its player's own five, among everyone else's, and is sent again each time the five is fetched.
-- The five is fetched as the app opens, each time the high scores' screen comes up, after a new time is kept, and now also each time the app comes back on screen. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The five is fetched as the app opens, each time the high scores' screen comes up, after a new time is kept, and now also each time the app comes back on screen. ([#245](https://github.com/onexmac/ad/pull/245))
 
 ## 1.4.4 · 2026-11-27 12:57
 
