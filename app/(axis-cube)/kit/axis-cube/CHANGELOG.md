@@ -85,7 +85,7 @@ Asked by Marcos, 27 Nov 14:48: "Let's make all scrollable even if empty. And let
 
 - Each puzzle's table has ten places, in two pages of five, on every puzzle: the places nobody has taken show --:--:-- ---, so every table scrolls the same way.
 - The heading reads TOP 10.
-- A time goes in if it makes the ten. The portal sends the ten best of each puzzle. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A time goes in if it makes the ten. The portal sends the ten best of each puzzle. ([#250](https://github.com/onexmac/ad/pull/250))
 
 ## 1.5.3 · 2026-11-27 14:44
 
