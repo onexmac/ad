@@ -273,6 +273,18 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
   transform: translate(-50%, -50%);
   transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, opacity 0.3s ease;
 }
+/* the Crazy 3×3's dial (the Sidebar lab): a ring round the middle one, between it and the eight round it; a slide
+   along it turns the face toward the viewer */
+.axis .dial {
+  position: absolute; left: 50%; top: 81.5%; width: calc(var(--arm) * 1.24); height: calc(var(--arm) * 1.24); box-sizing: border-box;
+  border: 1.5px solid var(--ring); border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--ring-shade), inset 0 0 0 1px var(--ring-shade);
+  transform: translate(-50%, -50%); opacity: 0; pointer-events: none;
+  transition: border-color 0.18s ease, opacity 0.3s ease;
+}
+.axis.dialing .dial { opacity: 1; }
+.axis.two .dial { opacity: 0; }
+.axis .dial.on { border-color: var(--ring-on); }
 .axis .dot.aim { border-color: var(--ring-on); }
 .axis .dot.on { border-color: var(--ring-on); background: var(--ring-fill); transform: translate(-50%, -50%) scale(1.18); }
 .axis.busy .dot { opacity: 0.25; }
