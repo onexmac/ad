@@ -86,7 +86,7 @@ Open:
   - Cause: 1.4.6 read his note of 13:07 ("if I press on the right or left to the dots control the flip is as if you were tapping on the sides") as a complaint about that, when it was what he wanted, and made taps beside the dots flip the puzzle from below.
   - Don't: change anything on a note that can be read as what happens or as what is wanted, without asking which.
 - Two taps to the left or right of the puzzle's column, at any height, beside the grid of dots included, turn it half round about the upright, the side tapped going away.
-- In its column, above or below it, from above or from below; on the puzzle, the X from its middle, as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- In its column, above or below it, from above or from below; on the puzzle, the X from its middle, as before. ([#247](https://github.com/onexmac/ad/pull/247))
 
 ## 1.4.6 · 2026-11-27 13:10
 
