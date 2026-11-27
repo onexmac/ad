@@ -82,7 +82,7 @@ Asked by Marcos, 26 Nov 21:56, in the same message: "Can we have the smaller cub
 - The puzzles at rest are 20% smaller than they were, and drawn in toward the middle by as much (the way of 0.6.5, taken further): to 0.68 of the size they were first drawn, where they were at 0.85.
 - The camera over the ottoman comes in a little, 8% closer, so on screen they are about 13% smaller and the ottoman is bigger around them.
 - That leaves room for at least two more: a puzzle-sized spot at each front corner of the cushion, either side of the Axis Cube, both well inside the ottoman.
-- In the hand they are the size they always were, and a tap on each picks it up as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- In the hand they are the size they always were, and a tap on each picks it up as before. ([#227](https://github.com/onexmac/ad/pull/227))
 
 ## 1.2.1 · 2026-11-26 22:00
 
@@ -90,7 +90,7 @@ Asked by Marcos, 26 Nov 21:56, in the same message: "Can we have the smaller cub
 
 Asked by Marcos, 26 Nov 21:56: "Changelog button should read: ok ; instead of close. Same size"
 
-- The button at the foot of the list of changes reads OK, in the middle of a button kept as wide and as tall as it was with CLOSE: 110 by 42. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The button at the foot of the list of changes reads OK, in the middle of a button kept as wide and as tall as it was with CLOSE: 110 by 42. ([#227](https://github.com/onexmac/ad/pull/227))
 
 ## 1.2.0 · 2026-11-26 21:54
 
