@@ -73,10 +73,21 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.4.5** A time that fails to send never stops the others' from coming in, and stays on the player's own five until it is sent.
 - **1.4.7** A report can describe what happens or what is wanted: when it reads both ways, ask before changing anything.
 - **1.6.1** A control asked for beside something shows for as long as that thing does, and tells how it stands; don't pick the one moment it is for.
+- **1.6.4** Something started by a gesture starts on the gesture, not on what the gesture ends up doing.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.6.4 · 2026-11-27 15:48
+
+**Claude:** Fling a layer hard enough and it spun all the way round, landed home, and the clock decided nothing had happened. Now the clock starts the moment your finger swipes the dots, however the turn ends.
+
+- **Bug fix.** Marcos, 27 Nov 15:46: "When starting a ready cube if the user flips too strong an axis the timer first start. Timer starts in the first swipe of the dots control, regardless"
+  - Cause: the clock started only when a turn of a layer landed a quarter or more away from where it began. A hard flick that spun a whole turn round landed where it began, and a turn cut short by the next swipe was finished at once, so neither one started it.
+  - Don't: start something on what a gesture ends up doing when it is meant to start on the gesture itself.
+- On a READY puzzle, the clock starts with the first swipe on the rings, the moment it takes hold of a layer: flung all the way round, let go short, or cut short by the next swipe.
+- A turn of the whole puzzle still doesn't start it. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 1.6.3 · 2026-11-27 15:41
 
