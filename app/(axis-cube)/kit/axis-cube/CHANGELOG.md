@@ -82,7 +82,7 @@ Asked by Marcos, 27 Nov 08:24: "Keep my MAC scores. Those where the ones I did w
 
 - Marcos's three times from testing (MAC: 02:34:48 on the 3×3; 00:14:56 and 00:24:03 on the 2×2) are entered in the world's fives like anyone's, through the same route.
 - The app no longer adds them on top of the world's fives on every device: what it shows is the database as it is, so a time beaten out of the five is gone from it, MAC's too.
-- They are still what a device shows before the world's fives come in, offline, and in the labs. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- They are still what a device shows before the world's fives come in, offline, and in the labs. ([#231](https://github.com/onexmac/ad/pull/231))
 
 ## 1.3.0 · 2026-11-27 08:23
 
