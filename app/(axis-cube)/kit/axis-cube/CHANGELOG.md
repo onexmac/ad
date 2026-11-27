@@ -83,7 +83,7 @@ Asked by Marcos, 27 Nov 10:26 and 10:44: "Also the time is 00h:00m:00s but don't
 
 - Every time on show reads hours, minutes and seconds, without letters: 00:00:14 for a solve of 14.56 seconds, 00:02:05 for one of 2 minutes 5.07. Until now it read minutes, seconds and hundredths (00:14:56), which looked like hours and minutes.
 - That is the clock at the top right, the high scores' five, the new entry with its time as it flies into the five, and what a screen reader says.
-- The hundredths are still counted and kept, on the device and in the world's fives, and still rank two times that show the same second. The times already kept show the new way. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The hundredths are still counted and kept, on the device and in the world's fives, and still rank two times that show the same second. The times already kept show the new way. ([#242](https://github.com/onexmac/ad/pull/242))
 
 ## 1.4.0 · 2026-11-27 10:42
 
