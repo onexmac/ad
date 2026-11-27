@@ -83,7 +83,7 @@ Open:
 
 Asked by Marcos, 27 Nov 15:02: "Instead of back on the highscore let's say : nop (that sends you back). I don't like the asymmetry there"
 
-- On the card that asks to keep the initials, BACK reads NOP: three letters, like YES beside it. It still takes you back to the keyboard, the letters as you left them. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- On the card that asks to keep the initials, BACK reads NOP: three letters, like YES beside it. It still takes you back to the keyboard, the letters as you left them. ([#251](https://github.com/onexmac/ad/pull/251))
 
 ## 1.5.4 · 2026-11-27 14:49
 
