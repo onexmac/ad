@@ -72,10 +72,21 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.3.9** A puzzle is solved when it looks solved: its pieces all turned alike, however it is turned as a whole. Never check that every piece is back exactly where it started.
 - **1.4.2** A time given by hand is read in the units it was meant in: ask whether 00:14:56 is minutes or hours before keeping it.
 - **1.4.5** A time that fails to send never stops the others' from coming in, and stays on the player's own five until it is sent.
+- **1.4.7** A report can describe what happens or what is wanted: when it reads both ways, ask before changing anything.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.4.7 · 2026-11-27 13:29
+
+**Claude:** We read the last note upside down and taught the cube to flip from below when you tapped beside the dots. It now flips left or right there, as asked twice. Sorry about the detour.
+
+- **Bug fix.** Marcos, 27 Nov 13:26: "Again. Double tapping on the sides of the dots should flip it to the right or left 180."
+  - Cause: 1.4.6 read his note of 13:07 ("if I press on the right or left to the dots control the flip is as if you were tapping on the sides") as a complaint about that, when it was what he wanted, and made taps beside the dots flip the puzzle from below.
+  - Don't: change anything on a note that can be read as what happens or as what is wanted, without asking which.
+- Two taps to the left or right of the puzzle's column, at any height, beside the grid of dots included, turn it half round about the upright, the side tapped going away.
+- In its column, above or below it, from above or from below; on the puzzle, the X from its middle, as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 1.4.6 · 2026-11-27 13:10
 
