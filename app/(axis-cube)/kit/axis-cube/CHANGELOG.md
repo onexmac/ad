@@ -74,6 +74,29 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.3.6 · 2026-11-27 09:28
+
+**Claude:** Locked cubes now have opinions. Poke one and it shakes its head at you and lets out the wub-wub bass we retired from the turns back in 0.6.7. It found a better job.
+
+Asked by Marcos, 27 Nov 08:48: "Remember the first sound you made after the clack clack of the flip? The dubstep one i didn't like?lets use it here when the user tries to do anything to the cube, lets have that sound and the cube shakes as complain"
+
+- Anything tried on a locked puzzle held up (a touch anywhere but its card) plays the bass note whose filter opens and closes twice, the one 0.6.0 put under every turn and 0.6.7 took away, and the puzzle shakes its head: a twist about the upright, quick and dying away in half a second. On a phone that can, it buzzes too.
+- One complaint at a time: a fist on the screen is not twenty of them. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
+## 1.3.5 · 2026-11-27 09:28
+
+**Claude:** Three of the four cubes are now under lock and key. Finish the 2×2 and the 3×3 opens; finish that and the Axis Cube follows; the Ghost Cube waits for all three. Until then they sit in the dark, and only the corner of their colours peeks out when you hold one up.
+
+Asked by Marcos, 27 Nov 08:30: "darken (like by a shadow all the cubes but the 2x2), almost black, when tapped it should go up and have a small diagonal line of light on the upper right corner to hint at the cube itself and below the hint box should read (with an ok button that brings it down again)". Then, 08:55 to 09:17: "more like a diagonal triangle a better hint"; "the light hint should bring up the colors (only while inserted)"; "The cubes in the ottoman darker, light on the edges but coming form the upper side losing strength"; "The in between edges rim light has to be more obvious inserted than while in the ottoman. But never obvious"; and "Let move this to main game".
+
+- The 2×2 is open from the start. Each puzzle finished by hand opens the next: the 3×3 after the first, the Axis Cube after two, the Ghost Cube after three. Different puzzles count, not the same one again.
+- What is finished is kept on the device, so a puzzle once opened stays open. Every device starts with only the 2×2 open, the ones that played before too.
+- A locked puzzle sits on the ottoman as black plastic: its colour all but gone, and a little light along its upper edges that loses strength down it, not enough to read its shape by.
+- A tap lifts it into the light, where it looks like glossy black plastic catching the light along its edges, a little more than on the ottoman. The line at the top right says LOCKED. In its upper right corner, a triangle of light cut off by a diagonal brings its own colours up: the 3×3's blue and yellow, the Axis Cube's yellow and orange, the Ghost Cube's white outlines. The corner is found from the puzzle's own shape as it is turned, so it lands on each of them.
+- Under it, a card in the first-time hint's paper: "Finish The First Cube To Unlock." on the 3×3, "Finish 2 More Cubes To Unlock." on the Axis Cube, "Finish 3 Cubes To Unlock." on the Ghost Cube; after a puzzle is finished, "Finish 1 More Cube…" and "Finish 2 More Cubes…". OK puts it back.
+- Once a puzzle opens, the dark lifts from it over a second and a half, the next time the ottoman is in view.
+- Tried first in the Sidebar lab, which keeps nothing. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.3.0 · 2026-11-27 08:23
 
 **Claude:** Musical chairs on the ottoman. The 2×2 got promoted to the front row, and the Axis Cube took its seat on the left without a fuss.
