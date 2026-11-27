@@ -24,6 +24,12 @@ export interface AxisSound {
   cheer(puzzle?: string): void;
   wind(speed: number): void;
   charge(k: number): void;
+  /** The picker's music, 0..1, every frame: how much of it should be heard. */
+  music(k: number): void;
+  /** For a test with its own (offline) context: the music's first `secs` seconds, scheduled at once. */
+  musicFor(secs: number): void;
+  /** For a test: how much of the music is wanted and whether its loop is running. */
+  musicNow(): { k: number; playing: boolean; step: number; round: number };
   wobble(on: boolean): void;
   quiet(): void;
   dispose(): void;
