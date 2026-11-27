@@ -76,7 +76,7 @@ Asked by Marcos, 26 Nov 19:42: "Let's try something, on cube swipe the camera je
 
 - On a swipe, the camera's lean into the flip now comes 0.22 s later, as the puzzle is halfway round: the same lean, as strong and as long, moved later in the flip.
 - Measured on a quick flick: the lean used to start 82 ms in, with the puzzle 17% of the way round, and now starts at 316 ms, 49% of the way round. It peaks at 72% of the way round (it was 64%) and still lasts 750 ms.
-- A tap that turns a face to the front leans as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A tap that turns a face to the front leans as before. ([#211](https://github.com/onexmac/ad/pull/211))
 
 ## 1.0.1 · 2026-11-26 19:30
 
