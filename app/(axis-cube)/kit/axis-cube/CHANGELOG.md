@@ -84,7 +84,7 @@ Open:
 Asked by Marcos, 27 Nov 15:09, in the same message: "Add a play button next to the timer while at it."
 
 - While the clock is paused, ▶ shows to the left of it at the top right, in a box of its own like the clock's. A tap on it sets the clock going again from where it stopped, and it goes away.
-- A tap on the paused clock itself does the same, and so does any turn, of a layer or of the whole puzzle, as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A tap on the paused clock itself does the same, and so does any turn, of a layer or of the whole puzzle, as before. ([#253](https://github.com/onexmac/ad/pull/253))
 
 ## 1.5.9 · 2026-11-27 15:26
 
@@ -94,7 +94,7 @@ Asked by Marcos, 27 Nov 15:09, in the same message: "when pressing the timer is 
 
 - A tap on the running clock pauses it, and the room goes dark under the line at the top right: PAUSE in the middle of the screen, the pause sign (two bars) above it, in the letters of the screen.
 - The dark lifts when the clock goes again. It takes no touch, so a turn made under it still counts and starts the clock.
-- A puzzle whose clock stopped while the app was away, or that was put down mid-solve and picked up again, shows it paused the same way. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A puzzle whose clock stopped while the app was away, or that was put down mid-solve and picked up again, shows it paused the same way. ([#253](https://github.com/onexmac/ad/pull/253))
 
 ## 1.5.7 · 2026-11-27 15:26
 
@@ -103,7 +103,7 @@ Asked by Marcos, 27 Nov 15:09, in the same message: "when pressing the timer is 
 Asked by Marcos, 27 Nov 15:09: "if ready is on and the player presses it besides the jerk I want the double glow on the dots."
 
 - A tap on READY jiggles the puzzle in hand and lights its rings up twice, as they light after a mix, a moment later.
-- Tapped again while they glow, the glow starts over and runs its whole length. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Tapped again while they glow, the glow starts over and runs its whole length. ([#253](https://github.com/onexmac/ad/pull/253))
 
 ## 1.5.6 · 2026-11-27 15:04
 
