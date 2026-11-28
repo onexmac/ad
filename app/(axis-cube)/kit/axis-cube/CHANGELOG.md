@@ -92,7 +92,7 @@ Asked by Marcos, 27 Nov 22:37: "While on the parallel band along the right face 
 
 - A slide up or down that starts anywhere in the band of the right face rolls the cube: from the edge where the front face meets the right face to the right edge of the screen, at the height of the right face.
 - The band follows that edge as it leans with the cube.
-- The thin right sides of the front face's stickers no longer count as the right face, so a slide on the front face still flips it forward. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The thin right sides of the front face's stickers no longer count as the right face, so a slide on the front face still flips it forward. ([#284](https://github.com/onexmac/ad/pull/284))
 
 ## 2.0.8 · 2026-11-27 22:32
 
