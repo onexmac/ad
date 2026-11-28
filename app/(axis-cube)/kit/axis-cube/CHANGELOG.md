@@ -91,7 +91,7 @@ Open:
 Asked by Marcos, 27 Nov 22:30: "Solving the ghost cube turns the song Cubed on"
 
 - Finishing the Ghost Cube by hand (the sixth cube) makes Cubed the ottoman's song from then on, in place of the lobby's.
-- The 4×4 no longer does. A Cubed earned from the 4×4 before this version no longer counts; the Ghost Cube earns it again. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The 4×4 no longer does. A Cubed earned from the 4×4 before this version no longer counts; the Ghost Cube earns it again. ([#282](https://github.com/onexmac/ad/pull/282))
 
 ## 2.0.7 · 2026-11-27 22:27
 
