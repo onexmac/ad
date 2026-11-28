@@ -76,10 +76,21 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.6.4** Something started by a gesture starts on the gesture, not on what the gesture ends up doing.
 - **1.6.7** Off is a cut, at once: nothing made, nothing plugged in; never a change that waits on the audio's clock.
 - **1.6.8** Grids and drawn letters share the width and scale down; every screen is checked at 320 points across.
+- **1.7.1** Every way a turn can land goes through the same check for a solve. A bug report goes before anything new.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.7.1 · 2026-11-27 19:41
+
+**Claude:** Fast hands found a hole: finish with a flick, touch the dots again before the last turn settles, and the clock kept running on a finished cube. Every landing now checks for the finish, however it lands.
+
+- **Bug fix.** Marcos, 27 Nov 19:23, from a player's report he confirmed: "I have a bug report from a user (I confirmed it) that a cube was complete but the timer didn't stop."
+  - Cause: a turn still settling when the next slide begins is landed at once, and that quick landing skipped the check for a solve. When the solving turn was cut short that way and the new slide came to nothing, the cube sat finished while the clock ran on. Putting it down mid-landing lost the solve the same way.
+  - Don't: check for a solve on only one of the ways a turn can end. Every way a turn lands goes through the same check. And a bug report goes before anything new: Marcos, 27 Nov 19:32, "Bug reports always get priority".
+- A turn that leaves the cube solved stops the clock on its time and the cube celebrates, however it landed: settling on its own, cut short by the next slide (which then turns nothing), or as the cube is pulled down (it stays up and celebrates instead).
+- Paused just as the last turn lands, the solve counts on the time the clock shows. ([#265](https://github.com/onexmac/ad/pull/265))
 
 ## 1.7.0 · 2026-11-27 19:22
 
