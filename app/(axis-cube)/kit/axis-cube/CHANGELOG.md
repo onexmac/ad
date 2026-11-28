@@ -102,7 +102,8 @@ Asked by Marcos, 28 Nov 12:37: "I don't mind the bump. The issue is why does it 
 
 **Claude:** Found the flip thief. Flip the cube, then quickly flip it another way, and the second flip used to get swallowed by the first. Now each flip goes the way your finger goes, however fast you chain them.
 
-- **Bug fix.** Marcos, 28 Nov 12:37: "The issue is why does it happen, the user is trying to flip the cube". Before it, 12:28: "Why sometimes sliding just jerks the cubes?"
+- **Bug fix.** Marcos, 28 Nov 12:37: "The issue is why does it happen, the user is trying to flip the cube"
+  - Before it, at 12:28: "Why sometimes sliding just jerks the cubes?"
   - Cause: a flip takes about half a second to settle on its quarter. A slide that starts in that time was caught by the flip still settling and kept its way. So a slide down soon after a flip sideways couldn't turn the cube down: it only gave it the little give across a flip, and the cube sprang back. That was the jerk.
   - Don't: tune the numbers before finding where the gesture is lost. A flip caught in flight reads which way it goes again.
 - A slide that catches a flip still turning or settling now reads its own way. The same way, it carries that flip on. Another way, the cube flips from wherever it is, and lands square on a spring.
