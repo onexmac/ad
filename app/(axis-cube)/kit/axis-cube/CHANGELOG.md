@@ -20,6 +20,11 @@ The second and third numbers are single digits and roll over like an odometer: 1
 
 Each entry gives the date and time in Costa Rica, the commit, and the pull request that took it to `main` (and so to magi0s). An entry that fixes a bug Marcos reported starts with it. Versions 0.1.0 to 0.3.7 came before the app first reached `main`: they were seen as artifacts and branch builds, and reached magi0s together in #64.
 
+## Words
+
+- **Flip**: the whole cube turning, from a slide on it (or beside it).
+- **Clack**: a layer of the cube turning, one of its axes, from a slide on the rings.
+
 ## Bugs Marcos reported
 
 The bugs Marcos reported come first in the version that fixed them: his words, the cause, and what not to do. In short:
@@ -79,11 +84,30 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.6.8** Grids and drawn letters share the width and scale down; every screen is checked at 320 points across.
 - **1.7.1** Every way a turn can land goes through the same check for a solve. A bug report goes before anything new.
 - **1.7.6** Keep the whole subject inside the lens's sharp zone; on a blur report, find which blur first.
-- **2.1.0** A gesture that changed nothing gets no feedback of one that did.
+- **2.1.3** Find where the gesture is lost before tuning its numbers: a flip caught in flight reads its way again.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 2.1.4 · 2026-11-28 12:40
+
+**Claude:** The bump is back. A flip that doesn't make it lands with its little thud and clack again, as it did before 2.1.0.
+
+Asked by Marcos, 28 Nov 12:37: "I don't mind the bump. The issue is why does it happen, the user is trying to flip the cube"
+
+- Every flip lands with the cube's recoil, its sound and its buzz again, also one that springs back to where it began. 2.1.0 had taken them away from those; the real cause of the failed flips is fixed in 2.1.3. ([#287](https://github.com/onexmac/ad/pull/287))
+
+## 2.1.3 · 2026-11-28 12:40
+
+**Claude:** Found the flip thief. Flip the cube, then quickly flip it another way, and the second flip used to get swallowed by the first. Now each flip goes the way your finger goes, however fast you chain them.
+
+- **Bug fix.** Marcos, 28 Nov 12:37: "The issue is why does it happen, the user is trying to flip the cube"
+  - Before it, at 12:28: "Why sometimes sliding just jerks the cubes?"
+  - Cause: a flip takes about half a second to settle on its quarter. A slide that starts in that time was caught by the flip still settling and kept its way. So a slide down soon after a flip sideways couldn't turn the cube down: it only gave it the little give across a flip, and the cube sprang back. That was the jerk.
+  - Don't: tune the numbers before finding where the gesture is lost. A flip caught in flight reads which way it goes again.
+- A slide that catches a flip still turning or settling now reads its own way. The same way, it carries that flip on. Another way, the cube flips from wherever it is, and lands square on a spring.
+- Tested: a sideways flip with a slide down 60, 150 and 300 ms after it. Before, every one stayed sideways; now every one flips down. ([#287](https://github.com/onexmac/ad/pull/287))
 
 ## 2.1.2 · 2026-11-28 12:35
 
