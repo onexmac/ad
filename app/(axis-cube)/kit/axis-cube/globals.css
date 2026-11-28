@@ -210,7 +210,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 /* while a new entry is typed, the iCube goes out of focus, and the entry floats over it: its time and three places,
    not yet in the table */
 .axis #stage { transition: filter 0.45s ease; }
-.axis.crt.entry #stage { filter: blur(18px) brightness(0.6); }   /* soft and dim enough that the screen behind never reads through the entry line or the keys */
+.axis.crt.entry #stage { filter: blur(10px) brightness(0.8); }
 .axis .entry-line {
   position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
   display: flex; align-items: center; gap: 4px; box-sizing: border-box; max-width: calc(100% - 24px);

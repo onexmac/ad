@@ -77,10 +77,21 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.6.7** Off is a cut, at once: nothing made, nothing plugged in; never a change that waits on the audio's clock.
 - **1.6.8** Grids and drawn letters share the width and scale down; every screen is checked at 320 points across.
 - **1.7.1** Every way a turn can land goes through the same check for a solve. A bug report goes before anything new.
+- **1.7.6** Keep the whole subject inside the lens's sharp zone; on a blur report, find which blur first.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.7.6 · 2026-11-27 20:10
+
+**Claude:** Wrong blur, fixed the right one. The scores on the iCube's screen were coming out soft, as if the lens couldn't make up its mind; now they're sharp edge to edge, and the room behind still melts away. The backdrop behind the keyboard goes back to how it was.
+
+- **Bug fix.** Marcos, 27 Nov 20:04, of 1.7.5: "The issue is in the iCube. It looks blurred not on the outer cube os".
+  - Cause: close up, the lens opens almost twice as wide so that the room melts. It focused on one depth in the middle of the tube, and the screen's curve and lean carried its top and bottom rows a centimetre or two off it, enough at that aperture to smear the letters. The lens's colour fringing and red glow softened them further. 1.7.5 had blurred the wrong thing: the backdrop behind the keyboard, not the screen.
+  - Don't: aim a wide lens at a single depth when what it looks at has depth; keep the whole subject inside the sharp zone. And when the ask is about blur, find which blur first.
+- Close up, the whole depth of the iCube's face and tube (5 cm either side of the focus) stays sharp, while the room beyond is as soft as before. The colour fringing falls to 15% and the red glow to 40% over the screen.
+- Behind the initials keyboard, the iCube is blurred by 10 px and dimmed to 80% again, as before 1.7.5. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
 
 ## 1.7.5 · 2026-11-27 20:03
 
