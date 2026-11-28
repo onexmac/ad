@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   icons: { icon: "/kit/axis-cube/icon-192.png", apple: "/kit/axis-cube/apple-icon.png" },
 };
 
-// The page opens on the Mac's paper (--load-ground), so the bars of the phone match the loading screen; once the room
+// The page opens on the iCube's paper (--load-ground), so the bars of the phone match the loading screen; once the room
 // is in, the page turns them black (Stage).
 export const viewport: Viewport = {
   width: "device-width",

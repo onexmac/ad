@@ -1,5 +1,5 @@
 /* The Cubes: a 3D stage in a rounded frame on a black screen, and a grid of rings that turns the puzzle in hand.
-   The page opens on paper (the Mac's), with a loading bar; then the room, looking down at the ottoman, with no interface
+   The page opens on paper (the iCube's), with a loading bar; then the room, looking down at the ottoman, with no interface
    at all; the rings come in when a puzzle is picked up, laid out like its face: three by three, or two by two for the 2×2.
    A swipe across a row turns that horizontal layer, a swipe along a column that vertical
    slice. On wider screens the grid stays in a phone-wide column at the centre.
@@ -7,7 +7,7 @@
 /* Cube OS: the machine's letters as a font (scripts/axis-cube/font/build.mjs), for running text */
 @font-face { font-family: "Cube OS"; src: url("/kit/axis-cube/cube-os.otf") format("opentype"); font-display: swap; }
 :root {
-  /* the loading screen and the welcome: the Mac's paper and ink, all the way to the edges of the phone */
+  /* the loading screen and the welcome: the iCube's paper and ink, all the way to the edges of the phone */
   --load-ground: #ebe4d1;
   --load-ink: #2a2b2f;
   /* beyond the room's frame, once it is in: black */
@@ -30,7 +30,7 @@
   --glow: 255, 244, 228;          /* the rings' light (r, g, b): its spill, and the white-hot line at its peak */
   --glow-core: 255, 252, 244;
   --shroud: #000;
-  /* the machine's letters: the iMac's screen, the line at the top right, the initials keyboard */
+  /* the machine's letters: the iCube's screen, the line at the top right, the initials keyboard */
   --crt-ink: #ffcf3d;
   --key-line: rgba(255, 207, 61, 0.45);
   --key-fill: rgba(0, 0, 0, 0.55);
@@ -98,7 +98,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
   opacity: 0; transition: opacity 0.35s ease;
 }
 .axis.play .pad { opacity: 1; transition: opacity 0.6s ease 0.45s; }
-/* the iMac's screen, close: the rings step aside, and the room beyond the Mac goes dark. The dark is a soft
+/* the iCube's screen, close: the rings step aside, and the room beyond the iCube goes dark. The dark is a soft
    ellipse, clear over the screen and its bezel; the scene places it on the screen each frame (--cx, --cy, half
    widths --rx, --ry) and sets how dark it is. */
 .axis.crt .pad { opacity: 0; transition: opacity 0.25s ease; }
@@ -198,7 +198,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 .axis .log-close:active { background: var(--crt-ink); border-color: var(--crt-ink); }
 .axis .log-close:active canvas { filter: brightness(0); }
 /* the initials keyboard, under the screen while a new entry in a five is typed. In the screen's amber (the Sidebar
-   lab): square keys in the screen's letters, as old as the screen; a pressed key lights up. The Mac's are below. */
+   lab): square keys in the screen's letters, as old as the screen; a pressed key lights up. The iCube's are below. */
 .axis .kb {
   position: absolute; left: 50%; bottom: 22px;
   width: min(calc(100% - 32px), 400px);
@@ -207,7 +207,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .axis.crt.entry .kb { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; transition-delay: 0.15s; }
-/* while a new entry is typed, the Mac goes out of focus, and the entry floats over it: its time and three places,
+/* while a new entry is typed, the iCube goes out of focus, and the entry floats over it: its time and three places,
    not yet in the table */
 .axis #stage { transition: filter 0.45s ease; }
 .axis.crt.entry #stage { filter: blur(10px) brightness(0.8); }
@@ -218,7 +218,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 }
 .axis.crt.entry .entry-line { opacity: 1; transition-delay: 0.15s; }
 /* after YES the line is the row it becomes in the table (the clock's bar grows to the whole row) and the scene flies
-   it into the Mac, onto that row, on a spring; the places for initials are part of it then */
+   it into the iCube, onto that row, on a spring; the places for initials are part of it then */
 .axis.crt.placing .entry-line { opacity: 1; transition: none; }
 .axis.crt.placing .entry-line .ini { display: none; }
 /* once the row is the screen's own, the line is gone at once: no fade, in which the field and its initials would show
@@ -453,7 +453,7 @@ html.axis-ask .axis-loader .bar { opacity: 0; }
 .axis-gate .how svg { flex: none; }
 html.axis-ask-ios .axis-gate .how.ios, html.axis-ask-android .axis-gate .how.android, html.axis-ask-hello .axis-gate .how.hello { display: flex; }
 /* the welcome's line is the app's name in the machine's letters, three times their size, on a title bar of stripes
-   as the Mac's windows have (a stripe a letter's pixel thick, a pixel apart) */
+   as the iCube's windows have (a stripe a letter's pixel thick, a pixel apart) */
 .axis-gate .how.hello {
   left: 50%; right: auto; width: min(calc(100% - 48px), 300px); height: 21px; transform: translate(-50%, -50%);
   background: repeating-linear-gradient(to bottom, var(--load-ink) 0 3px, transparent 3px 6px);
@@ -467,7 +467,7 @@ html.axis-ask-native .axis-gate .how.ios, html.axis-ask-native .axis-gate .how.a
   min-width: clamp(140px, 48vw, 220px); height: 48px; padding: 0 28px; box-sizing: border-box;
   border: 2px solid var(--load-ink); border-radius: 12px;
   background: var(--load-ground); color: var(--load-ink);
-  box-shadow: 0 4px 0 var(--load-ink);                 /* the Mac's buttons stand on an ink lip */
+  box-shadow: 0 4px 0 var(--load-ink);                 /* the iCube's buttons stand on an ink lip */
   outline: 3px solid var(--load-ink); outline-offset: 4px;   /* and the one to press has a ring round it */
   -webkit-appearance: none; appearance: none; cursor: pointer; touch-action: manipulation;
 }
@@ -511,8 +511,8 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 .axis .fallback[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { .axis .dot, .axis .pad, .axis.play .pad { transition: none; } }
 
-/* The Mac (the app and the Side-B lab; the Sidebar lab keeps the screen's amber): the machine dressed as a friendly
-   old Mac. Cream paper and charcoal ink; windows with an ink line, rounded corners and a title bar of stripes; keys
+/* The iCube (the app and the Side-B lab; the Sidebar lab keeps the screen's amber): the machine dressed as a friendly
+   old iCube. Cream paper and charcoal ink; windows with an ink line, rounded corners and a title bar of stripes; keys
    and buttons stand on an ink lip that a press pushes them down onto. The pixel letters are drawn in paper and darkened to ink (--mac-letters) wherever they sit on
    paper, so a pressed key, END, and the bars of a time show them in paper. On the screen, the scene draws the same:
    a window of paper on a dark desktop. */
