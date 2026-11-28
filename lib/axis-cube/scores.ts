@@ -49,7 +49,32 @@ const rowsOf = (flat: unknown): Row[] => {
   return rows;
 };
 
+// The house's own times, as on any arcade (MAC), were kept to the second; they get their hundredths, as every other
+// entry has. Done once, by whichever request claims it first.
+const HOUSE: [Puzzle, number, number][] = [["cube3", 928800, 928837], ["cube2", 89600, 89641], ["cube2", 144300, 144319]];
+const HOUSE_DONE = "axis-cube:fix:house-cc";
+let houseDone = false;
+async function houseOnce() {
+  if (houseDone) return;
+  houseDone = true;
+  try {
+    const [claimed] = await redis([["SET", HOUSE_DONE, "1", "NX"]]);
+    if (claimed !== "OK") return;
+    const found = await redis(HOUSE.map(([p, was]) => ["ZRANGEBYSCORE", setOf(p), was, was]));
+    const cmds: (string | number)[][] = [];
+    HOUSE.forEach(([p, was, now], i) => {
+      const m = (Array.isArray(found[i]) ? (found[i] as string[]) : []).find((x) => x.startsWith("MAC:"));
+      if (m) cmds.push(["ZREM", setOf(p), m], ["ZADD", setOf(p), now, `MAC:${now}:${m.split(":")[2] || "h"}`]);
+    });
+    if (cmds.length) await redis(cmds);
+  } catch {
+    houseDone = false;
+    await redis([["DEL", HOUSE_DONE]]).catch(() => null);   // not done: the next request tries again
+  }
+}
+
 export async function readBoards(): Promise<Boards> {
+  await houseOnce();
   const got = await redis(PUZZLES.map((p) => ["ZRANGE", setOf(p), 0, SHOW - 1, "WITHSCORES"]));
   return Object.fromEntries(PUZZLES.map((p, i) => [p, rowsOf(got[i])])) as Boards;
 }

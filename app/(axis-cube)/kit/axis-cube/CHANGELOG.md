@@ -83,7 +83,17 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
-## 1.7.8 · 2026-11-27 20:24
+## 1.7.9 · 2026-11-27 20:31
+
+**Claude:** Locked cubes now take the hint. Pull one down, or flick it down hard, and back to the cushion it goes, no OK required. It still sulks if you just poke it.
+
+Asked by Marcos, 27 Nov 20:25: "The blocked cubes a hard slide down should put the cube away"
+
+- With a locked cube held up and its card showing, a pull down puts it back, as it does any cube: it sinks as your finger goes down, clicks where it would let go, and goes back to its hollow if you let go past that.
+- A hard slide down puts it back however short.
+- A tap still makes it shake its head, and the iCube's screen still opens on its ranking. OK still works. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
+## 1.7.8 · 2026-11-27 20:31
 
 **Claude:** Every hundredth counts now, and you can see it. The clock and the tables read 0:00:00:00: hours, minutes, seconds and hundredths, so two solves that looked tied finally settle it in public.
 
