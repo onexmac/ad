@@ -88,7 +88,7 @@ Open:
 Asked by Marcos, 27 Nov 19:02: "While on couch press and holding the cube should have a tooltip (with cube os) with the name of the cube."
 
 - On the couch, a cube held down for a moment shows its name over it, on a label of the hint card's paper, in Cube OS: 2x2, 3x3, Axis Cube, Ghost Cube.
-- Letting go after the name has shown leaves the cube where it is: the hold was to read, not to choose. A slide puts the label away. A tap still picks the cube up. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Letting go after the name has shown leaves the cube where it is: the hold was to read, not to choose. A slide puts the label away. A tap still picks the cube up. ([#263](https://github.com/onexmac/ad/pull/263))
 
 ## 1.6.8 · 2026-11-27 19:22
 
@@ -99,7 +99,7 @@ Asked by Marcos, 27 Nov 19:02: "While on couch press and holding the cube should
   - Don't: size a grid's columns, or letters drawn as pictures, by their contents. Let them share the width and scale down, and check every screen at 320 points across.
 - The keyboard's columns share its width at any size, and each key draws its letters smaller when it is narrow.
 - The entry (the time and the initials) and the SAVE? card shrink to fit the screen as well.
-- Checked at 300, 320, 360, 390 and 430 points across: nothing runs past the screen or its card. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Checked at 300, 320, 360, 390 and 430 points across: nothing runs past the screen or its card. ([#263](https://github.com/onexmac/ad/pull/263))
 
 ## 1.6.7 · 2026-11-27 16:40
 
