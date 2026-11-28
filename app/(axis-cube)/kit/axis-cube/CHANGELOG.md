@@ -84,6 +84,15 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 2.0.1 · 2026-11-27 21:01
+
+**Claude:** The new cube no longer waits around for the speakers to warm up. If the sound can't play yet, it drops quietly after four seconds instead of eight.
+
+Asked by Marcos, 27 Nov 21:00: "Silent drop happens after 4 seconds. Not sure why we have the audio making a physical delay. But ok."
+
+- When a new cube is due and the sound can't play yet, it drops silently after 4 seconds on the ottoman, where it was 8.
+- When the sound can play, the drop comes as before: the jingle, then the cube. A phone only lets a page make sound after it has been touched, which is why the drop waits a moment for it. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 2.0.0 · 2026-11-27 20:52
 
 **Claude:** Version 2.0.0, and the roster doubles. Four new puzzles have broken out of the lab and are loose on the ottoman: the Puppet Cube, the 4×4, the Crazy 3×3 and the Square-1. They don't just show up, either. Earn the next one and it falls out of the sky, jingle and all, and bounces into its corner. Eight cubes in all. Mind the cushion.
