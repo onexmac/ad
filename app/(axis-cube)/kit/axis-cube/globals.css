@@ -202,7 +202,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 .axis .kb {
   position: absolute; left: 50%; bottom: 22px;
   width: min(calc(100% - 32px), 400px);
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;   /* the columns share the width, however narrow the screen */
   opacity: 0; transform: translate(-50%, 24px); pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -213,7 +213,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 .axis.crt.entry #stage { filter: blur(10px) brightness(0.8); }
 .axis .entry-line {
   position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
-  display: flex; align-items: center; gap: 4px;
+  display: flex; align-items: center; gap: 4px; box-sizing: border-box; max-width: calc(100% - 24px);
   opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
 .axis.crt.entry .entry-line { opacity: 1; transition-delay: 0.15s; }
@@ -224,7 +224,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 /* once the row is the screen's own, the line is gone at once: no fade, in which the field and its initials would show
    again, whole, over the screen */
 .axis.crt:not(.entry):not(.placing) .entry-line { transition: none; }
-.axis .entry-line canvas { display: block; }
+.axis .entry-line canvas { display: block; min-width: 0; max-width: 100%; height: auto !important; flex: 0 1 auto; }   /* on a narrow screen the line draws smaller */
 .axis .entry-line .chip { transform-origin: center; will-change: transform; }
 .axis.crt.placing .hud { pointer-events: none; }
 /* END is the key that finishes: filled, its letters dark */
@@ -248,8 +248,10 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 .axis .confirm-wrap.open .confirm { transform: none; }
 .axis .confirm-head { justify-self: stretch; display: grid; place-items: center; padding: 18px 8px; background: var(--crt-ink); }
 .axis .confirm-head canvas { filter: brightness(0); }
-.axis .confirm canvas { display: block; }
-.axis .confirm-row { justify-self: stretch; display: flex; justify-content: space-around; align-items: center; }
+.axis .confirm { grid-template-columns: minmax(0, 1fr); }   /* its contents stay inside it, however narrow the screen */
+.axis .confirm canvas { display: block; max-width: 100%; height: auto !important; }
+.axis .confirm-row { justify-self: stretch; display: flex; justify-content: space-around; align-items: center; gap: 12px; }
+.axis .confirm-row button { min-width: 0; flex: 0 1 auto; }
 .axis .confirm-row button {
   margin: 0; padding: 8px 10px; border: 0; border-radius: 0; background: none;
   cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
@@ -263,7 +265,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
   border: 2px solid var(--key-line); border-radius: 0; background: var(--key-fill);
   cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
 }
-.axis .key canvas { display: block; image-rendering: pixelated; }
+.axis .key canvas { display: block; image-rendering: pixelated; max-width: 78%; height: auto !important; }   /* a narrow key draws its letters smaller */
 .axis .key:active { background: var(--crt-ink); border-color: var(--crt-ink); }
 .axis .key:active canvas { filter: brightness(0); }
 .axis .dot {
@@ -273,6 +275,15 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
   transform: translate(-50%, -50%);
   transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, opacity 0.3s ease;
 }
+/* a puzzle's name, held on the couch: a label of the hint card's paper over it, in Cube OS */
+.axis .cube-tip {
+  position: absolute; left: 0; top: 0; z-index: 4; padding: 6px 12px 5px; white-space: nowrap; pointer-events: none;
+  font: calc(50px / 3)/1.2 "Cube OS", ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-synthesis: none;
+  background: var(--confirm-bg); color: var(--log-text); border: 2px solid var(--crt-ink); border-radius: 10px;
+  opacity: 0; transform: translate(-50%, calc(-100% + 6px)) scale(0.92); transition: opacity 0.15s ease, transform 0.22s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.axis .cube-tip.on { opacity: 1; transform: translate(-50%, -100%); }
+.axis.mac .cube-tip { box-shadow: 0 6px 16px var(--mac-shade); }
 /* the Crazy 3×3's dial (the Sidebar lab): a ring round the middle one, between it and the eight round it; a slide
    along it turns the face toward the viewer */
 .axis .dial {
@@ -331,6 +342,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 /* the 2×2: only the four corners, drawn closer together */
 .axis.two .pad { --arm: clamp(30px, 4.4vh, 42px); }
 .axis.two .dot[data-r="1"], .axis.two .dot[data-c="1"] { opacity: 0; }
+.axis.sq-grid .dot[data-c="1"] { opacity: 0; }        /* the Square-1 (the Sidebar lab): three rows (top, middle, bottom), two columns (its halves) */
 
 /* the loader: a black screen, a cube and a bar, in the page as it arrives, before any script. Only transforms move,
    so the browser keeps both going while the scene is being built; the scene then runs the bar to its end and
@@ -572,7 +584,7 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
 .axis.mac .confirm-head { margin-top: 2px; padding: 14px 8px; background: var(--mac-ink); border-radius: 8px; }
 .axis.mac .confirm-head canvas { filter: none; }
 .axis.mac .confirm-row button {
-  padding: 9px 20px; border: 2px solid var(--mac-ink); border-radius: 10px; background: var(--mac-paper);
+  padding: 9px clamp(10px, 5vw, 20px); border: 2px solid var(--mac-ink); border-radius: 10px; background: var(--mac-paper);
   box-shadow: 0 3px 0 var(--mac-ink); transition: transform 0.06s ease, box-shadow 0.06s ease;
 }
 .axis.mac .confirm-row .confirm-yes { outline: 3px solid var(--mac-ink); outline-offset: 3px; }

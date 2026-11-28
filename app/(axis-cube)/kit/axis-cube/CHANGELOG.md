@@ -75,10 +75,31 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.6.1** A control asked for beside something shows for as long as that thing does, and tells how it stands; don't pick the one moment it is for.
 - **1.6.4** Something started by a gesture starts on the gesture, not on what the gesture ends up doing.
 - **1.6.7** Off is a cut, at once: nothing made, nothing plugged in; never a change that waits on the audio's clock.
+- **1.6.8** Grids and drawn letters share the width and scale down; every screen is checked at 320 points across.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 1.7.0 · 2026-11-27 19:22
+
+**Claude:** Press and hold a cube on the couch and it tells you its name, in Cube OS, the way the old machines labelled their icons. Let go and it stays put. A plain tap still picks it up.
+
+Asked by Marcos, 27 Nov 19:02: "While on couch press and holding the cube should have a tooltip (with cube os) with the name of the cube."
+
+- On the couch, a cube held down for a moment shows its name over it, on a label of the hint card's paper, in Cube OS: 2x2, 3x3, Axis Cube, Ghost Cube.
+- Letting go after the name has shown leaves the cube where it is: the hold was to read, not to choose. A slide puts the label away. A tap still picks the cube up. ([#263](https://github.com/onexmac/ad/pull/263))
+
+## 1.6.8 · 2026-11-27 19:22
+
+**Claude:** On narrower phones the initials keyboard ran off the right edge and took END with it. The keys now shrink to fit any width, the letters with them, and so do the entry and the SAVE? card.
+
+- **Bug fix.** Marcos, 27 Nov 19:02: "Some players report the screen to be cutout. The keyboard. And the ui in general should be responsive"
+  - Cause: the keyboard's seven columns were as wide as their widest key (DEL, END), drawn at a fixed size, so below about 400 points across the grid was wider than its window and its last column (G, N, U, END) was cut off. The card that asks SAVE? did the same at 320: its time and NOP ran past its edge.
+  - Don't: size a grid's columns, or letters drawn as pictures, by their contents. Let them share the width and scale down, and check every screen at 320 points across.
+- The keyboard's columns share its width at any size, and each key draws its letters smaller when it is narrow.
+- The entry (the time and the initials) and the SAVE? card shrink to fit the screen as well.
+- Checked at 300, 320, 360, 390 and 430 points across: nothing runs past the screen or its card. ([#263](https://github.com/onexmac/ad/pull/263))
 
 ## 1.6.7 · 2026-11-27 16:40
 
