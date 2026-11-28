@@ -91,7 +91,7 @@ Open:
 Asked by Marcos, 27 Nov 21:00: "Silent drop happens after 4 seconds. Not sure why we have the audio making a physical delay. But ok."
 
 - When a new cube is due and the sound can't play yet, it drops silently after 4 seconds on the ottoman, where it was 8.
-- When the sound can play, the drop comes as before: the jingle, then the cube. A phone only lets a page make sound after it has been touched, which is why the drop waits a moment for it. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- When the sound can play, the drop comes as before: the jingle, then the cube. A phone only lets a page make sound after it has been touched, which is why the drop waits a moment for it. ([#279](https://github.com/onexmac/ad/pull/279))
 
 ## 2.0.0 · 2026-11-27 20:52
 
