@@ -82,6 +82,14 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.7.5 · 2026-11-27 20:03
+
+**Claude:** Squint less at your own initials. Behind the keyboard the iCube now goes properly soft and a shade darker, so its screen stops ghosting through your time and your letters.
+
+Asked by Marcos, 27 Nov 19:59: "Improve a little bit the blur on the iCube so the text becomes more readable"
+
+- While you type your initials for a new time, the iCube behind is blurred by 18 px (it was 10) and dimmed to 60% (it was 80%). The logo and text on its screen no longer show through the line with your time and initials, and the keys stand out more. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.7.4 · 2026-11-27 19:49
 
 **Claude:** New nameplate on the sideboard: the computer is the iCube now. Same blue plastic, same glowing screen, same scores; only the name changed, everywhere you can read it.
