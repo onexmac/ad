@@ -96,7 +96,7 @@ Open:
 
 Asked by Marcos, 28 Nov 12:37: "I don't mind the bump. The issue is why does it happen, the user is trying to flip the cube"
 
-- Every flip lands with the cube's recoil, its sound and its buzz again, also one that springs back to where it began. 2.1.0 had taken them away from those; the real cause of the failed flips is fixed in 2.1.3. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Every flip lands with the cube's recoil, its sound and its buzz again, also one that springs back to where it began. 2.1.0 had taken them away from those; the real cause of the failed flips is fixed in 2.1.3. ([#287](https://github.com/onexmac/ad/pull/287))
 
 ## 2.1.3 · 2026-11-28 12:40
 
@@ -107,7 +107,7 @@ Asked by Marcos, 28 Nov 12:37: "I don't mind the bump. The issue is why does it 
   - Cause: a flip takes about half a second to settle on its quarter. A slide that starts in that time was caught by the flip still settling and kept its way. So a slide down soon after a flip sideways couldn't turn the cube down: it only gave it the little give across a flip, and the cube sprang back. That was the jerk.
   - Don't: tune the numbers before finding where the gesture is lost. A flip caught in flight reads which way it goes again.
 - A slide that catches a flip still turning or settling now reads its own way. The same way, it carries that flip on. Another way, the cube flips from wherever it is, and lands square on a spring.
-- Tested: a sideways flip with a slide down 60, 150 and 300 ms after it. Before, every one stayed sideways; now every one flips down. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Tested: a sideways flip with a slide down 60, 150 and 300 ms after it. Before, every one stayed sideways; now every one flips down. ([#287](https://github.com/onexmac/ad/pull/287))
 
 ## 2.1.2 · 2026-11-28 12:35
 
