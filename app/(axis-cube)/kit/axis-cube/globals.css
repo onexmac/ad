@@ -342,7 +342,10 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 /* the 2×2: only the four corners, drawn closer together */
 .axis.two .pad { --arm: clamp(30px, 4.4vh, 42px); }
 .axis.two .dot[data-r="1"], .axis.two .dot[data-c="1"] { opacity: 0; }
+/* the Square-1 (the Sidebar lab): two columns and three rows, the columns drawn closer together */
 .axis.sq-grid .dot[data-c="1"] { opacity: 0; }
+.axis.sq-grid .dot[data-c="0"] { left: calc(50% - var(--arm) * 0.55); }
+.axis.sq-grid .dot[data-c="2"] { left: calc(50% + var(--arm) * 0.55); }
 /* the 4×4's grid (the Sidebar lab): four rows, four columns, a little closer together */
 .axis .pad { --arm4: calc(var(--arm) * 0.7); }
 .axis .dot.d4, .axis.four .dot:not(.d4) { display: none; }
