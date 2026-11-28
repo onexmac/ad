@@ -84,6 +84,15 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 2.0.8 · 2026-11-27 22:32
+
+**Claude:** Cubed has a new gatekeeper. Finish the Ghost Cube by hand and the victory song moves in on the ottoman for good. The 4×4 was handing it out a little too freely after the shuffle.
+
+Asked by Marcos, 27 Nov 22:30: "Solving the ghost cube turns the song Cubed on"
+
+- Finishing the Ghost Cube by hand (the sixth cube) makes Cubed the ottoman's song from then on, in place of the lobby's.
+- The 4×4 no longer does. A Cubed earned from the 4×4 before this version no longer counts; the Ghost Cube earns it again. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 2.0.7 · 2026-11-27 22:27
 
 **Claude:** More musical chairs. The 4×4 and the Axis Cube trade places: the 4×4 opens third, on the left; the Axis Cube opens fourth and sits at the back, where everyone can admire its wonky angles.
