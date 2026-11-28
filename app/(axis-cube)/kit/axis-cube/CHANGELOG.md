@@ -89,7 +89,7 @@ Open:
 Asked by Marcos, 27 Nov 19:42: "Remove the time of the the changelogs. Just show the most recent one. I mean keep it but don't display it in app"
 
 - In the list of changes, only the newest version shows its date and time. The others show their number alone.
-- The changelog file keeps every date and time as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The changelog file keeps every date and time as before. ([#266](https://github.com/onexmac/ad/pull/266))
 
 ## 1.7.2 · 2026-11-27 19:45
 
@@ -98,7 +98,7 @@ Asked by Marcos, 27 Nov 19:42: "Remove the time of the the changelogs. Just show
 Asked by Marcos, 27 Nov 19:42: "As a player I should be able to tap the screen to see the ranking even if I haven't unlocked the cube"
 
 - With a locked cube held up and its card showing, a tap on the iMac's screen opens that cube's ranking, its top ten, as for any cube. The rest of the screen still says no, with a shake.
-- At the screen the card steps aside; BACK brings it back with the cube still locked. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- At the screen the card steps aside; BACK brings it back with the cube still locked. ([#266](https://github.com/onexmac/ad/pull/266))
 
 ## 1.7.1 · 2026-11-27 19:41
 
