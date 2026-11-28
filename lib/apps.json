@@ -25,7 +25,7 @@
         {
           "slug": "axis-cube",
           "name": "The Cubes",
-          "description": "Cuatro cubos en una biblioteca de los noventa al atardecer: un Axis Cube, un 3×3, un 2×2 y un Ghost Cube para girar con el dedo",
+          "description": "Ocho cubos en una biblioteca de los noventa al atardecer: un 2×2, un 3×3, un Axis Cube y un Ghost Cube, y después un Puppet Cube, un 4×4, un Crazy 3×3 y un Square-1, para girar con el dedo",
           "code": "app/(axis-cube)/kit/axis-cube"
         },
         {
