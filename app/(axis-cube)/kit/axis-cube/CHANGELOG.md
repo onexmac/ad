@@ -79,10 +79,37 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 - **1.6.8** Grids and drawn letters share the width and scale down; every screen is checked at 320 points across.
 - **1.7.1** Every way a turn can land goes through the same check for a solve. A bug report goes before anything new.
 - **1.7.6** Keep the whole subject inside the lens's sharp zone; on a blur report, find which blur first.
+- **2.1.0** A gesture that changed nothing gets no feedback of one that did.
 
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 2.1.2 · 2026-11-28 12:35
+
+**Claude:** Short slides with intent now get their way. A deliberate little push of about a fifth of a turn is enough to flip the cube, where it used to take nearly a third.
+
+Asked by Marcos, 28 Nov 12:33: "All 3."
+
+- A slow slide on the cube that has gone a fifth of the way to a quarter turn (about 31 px) now goes on to flip it. It used to take three tenths (about 47 px).
+- A turn of a row or a column still commits at three tenths, so a short slip on the rings doesn't turn a layer. ([#286](https://github.com/onexmac/ad/pull/286))
+
+## 2.1.1 · 2026-11-28 12:35
+
+**Claude:** Closed a little no-man's-land between a tap and a slide. A touch now counts as a slide, and knows which way it's going, from the same moment.
+
+Asked by Marcos, 28 Nov 12:33: "All 3."
+
+- A touch on the cube that moves 9 px stops being a tap and reads its direction at once. It used to read the direction at 14 px, and a slide let go between 9 and 14 px was neither a tap nor a flip, so it sprang back. ([#286](https://github.com/onexmac/ad/pull/286))
+
+## 2.1.0 · 2026-11-28 12:35
+
+**Claude:** Cubes no longer flinch at near-misses. A slide that doesn't make it to a flip slips quietly back into place, with no thud, no click and no buzz.
+
+- **Bug fix.** Marcos, 28 Nov 12:28: "Why sometimes sliding just jerks the cubes?"
+  - Cause: a slide too short or too slow to flip springs back to where it started, and that landing played everything a real flip does: the cube's recoil toward the eye, the clack and the buzz. So a miss felt like a jerk.
+  - Don't: give a gesture that changed nothing the feedback of one that did.
+- A flip that comes back to where it began lands quietly: no recoil, no sound, no haptic. A flip that turns lands as before. ([#286](https://github.com/onexmac/ad/pull/286))
 
 ## 2.0.9 · 2026-11-27 22:47
 
