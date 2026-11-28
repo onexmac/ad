@@ -15,13 +15,13 @@ const URL_ = env("MAGI_KV_REST_API_URL", "KV_REST_API_URL", "UPSTASH_REDIS_REST_
 const TOKEN = env("MAGI_KV_REST_API_TOKEN", "KV_REST_API_TOKEN", "UPSTASH_REDIS_REST_TOKEN");
 export const live = !!(URL_ && TOKEN);
 
-export const PUZZLES = ["axis", "cube3", "cube2", "ghost"] as const;
+export const PUZZLES = ["axis", "cube3", "cube2", "ghost", "puppet", "cube4", "crazy", "sq1"] as const;
 export type Puzzle = (typeof PUZZLES)[number];
 export type Row = [number, string];                 // hundredths of a second, initials
 export type Boards = Record<Puzzle, Row[]>;
 
 // No hand solves a mix (12 to 24 turns) faster than this, on a phone: a time under it was not played.
-const FLOOR: Record<Puzzle, number> = { axis: 500, cube3: 500, cube2: 200, ghost: 500 };
+const FLOOR: Record<Puzzle, number> = { axis: 500, cube3: 500, cube2: 200, ghost: 500, puppet: 300, cube4: 1000, crazy: 500, sq1: 500 };
 const CEIL = (99 * 3600 + 59 * 60 + 59) * 100 + 99;   // 99:59:59.99, the clock's last
 const KEEP = 50, SHOW = 10;                          // the top ten go out: the screen shows them in two pages of five
 const PER_MINUTE = 6;                                // entries one address may send in a minute

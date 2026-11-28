@@ -14,6 +14,7 @@ Every push to Vercel that changes the app gets an entry here. The first push was
 | +0.1.0 | one too big for that (the last number goes back to 0) |
 | +0.5.0 | only something massive |
 | 1.0.0 | a milestone: the stopwatch and the leaderboard |
+| 2.0.0 | a milestone: eight cubes |
 
 The second and third numbers are single digits and roll over like an odometer: 1.0.9 and a small change make 1.1.0, and 1.0.8 and a bigger one (+0.0.3) make 1.1.1. Only the first number can go past 9 (10.0.0). The versions before 1.0.0 were numbered before this was set, and go past 9; they are kept as they shipped.
 
@@ -82,6 +83,27 @@ The bugs Marcos reported come first in the version that fixed them: his words, t
 Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
+
+## 2.0.0 · 2026-11-27 20:52
+
+**Claude:** Version 2.0.0, and the roster doubles. Four new puzzles have broken out of the lab and are loose on the ottoman: the Puppet Cube, the 4×4, the Crazy 3×3 and the Square-1. They don't just show up, either. Earn the next one and it falls out of the sky, jingle and all, and bounces into its corner. Eight cubes in all. Mind the cushion.
+
+Asked by Marcos, 27 Nov 20:49: "Nice! This is version 2.0.0 ; Release the cubes into the wild! Every player that has unlocked the ghost should see the next one dropping. 8 cubes in all!"
+
+- Eight cubes in all. After the first four (the 2×2, the 3×3, the Axis Cube and the Ghost Cube) four more come, one at a time, from the least hard to the hardest: the Puppet Cube, the 4×4, the Crazy 3×3 and the Square-1.
+- Each one drops onto its own corner of the ottoman, still dark, once the one before it is open. Open the Ghost Cube and the Puppet Cube drops; open the Puppet Cube and the 4×4 drops; and so on. Like the others, each opens when you've finished one more different cube by hand.
+  - Players who have already opened the Ghost Cube see the Puppet Cube drop the next time they look at the ottoman.
+- The drop: first the jingle of a cube finished by hand, then the new one falls in from above. It presses its hollow into the leather, bounces once, gently, and settles into its place.
+  - It comes while you're looking at the ottoman, and once the sound can be heard.
+  - A cube that has dropped is simply there the next time.
+- The new cubes, and how the rings work them:
+  - The Puppet Cube: a 3×3 with one corner grown into a single block. A turn that would cut through the block is refused, with a shake.
+  - The 4×4: four rows and four columns of rings. Tap a middle row or column and slide right after to turn both middle layers together.
+  - The Crazy 3×3: a ring round the middle dot turns the face toward you. A slide along it, or any slide that starts inside it, turns it.
+  - The Square-1: two columns and three rows of rings. A row turns the top or the bottom a twelfth at a time, and the middle row flips the middle. A column slashes, a half turn, but only while the cut is clear; otherwise it says no.
+- Each new cube has its own top ten for everybody on the iCube's screen: PUPPET, 4X4, CRAZY and SQ-1.
+- Hold a cube on the ottoman to see its name.
+- Finish the 4×4 by hand, and from then on Cubed, the victory song, is the ottoman's song. ([#276](https://github.com/onexmac/ad/pull/276))
 
 ## 1.7.9 · 2026-11-27 20:31
 
