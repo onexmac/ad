@@ -38,6 +38,7 @@
   --log-bg: rgba(6, 5, 3, 0.97);
   --log-text: #e9dcb8;
   --log-dim: #a8996f;
+  --log-input: #8f8466;                         /* what Marcos said, unfolded: grey, under Claude's line */
   /* the card that asks before a new entry is kept, and the dim round it */
   --confirm-bg: #070604;
   --confirm-dim: rgba(0, 0, 0, 0.45);
@@ -170,15 +171,19 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
   padding: 28px 18px 12px;
 }
 .axis .log-title { margin: 4px 4px 14px; }
-/* a version: its number (on an ink bar) and date, what Marcos said, Claude's line, and every detail; nothing folds */
+/* a version: its number (on an ink bar), the newest with its date, and Claude's line; a tap on the line unfolds what
+   Marcos said under it, in grey */
 .axis .rel { padding: 22px 0 calc(18px + 1lh); border-top: 1px dashed var(--key-line); }   /* a blank line after each version */
 .axis .log-body > .rel:first-child { border-top: 0; padding-top: 4px; }
 .axis .rel h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 14px; font-size: inherit; font-weight: inherit; }
 .axis .rel h3 .num { padding: 0 0.3em; background: var(--crt-ink); color: var(--log-bg); }
 .axis .rel b { display: block; margin-bottom: 5px; font-weight: inherit; }
-.axis .rel .said { margin: 0 0 16px; }
-.axis .rel .claude { margin: 0 0 12px; }
-.axis .rel .details { margin-top: 10px; }
+.axis .rel .claude { margin: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; outline: none; }
+.axis .rel .claude p { margin: 0; }
+.axis .rel .claude[role="button"]:focus-visible { outline: 2px dashed var(--key-line); outline-offset: 4px; }
+.axis .rel .said { display: none; margin: 12px 0 0; color: var(--log-input); }
+.axis .rel .said p { margin: 0 0 8px; }
+.axis .rel.open .said { display: block; }
 .axis .log p { margin: 9px 0; }
 .axis .log ul { margin: 6px 0; padding-left: 2ch; }
 .axis .log li { margin: 6px 0; }
@@ -532,6 +537,7 @@ html.axis-ask-native .axis-gate .ok .instalar, html.axis-ask-hello .axis-gate .o
   --log-bg: var(--mac-paper);
   --log-text: var(--mac-ink);
   --log-dim: var(--mac-ink);   /* the list is one colour: ink on paper */
+  --log-input: #8b877c;        /* but what Marcos said, unfolded, is grey */
   --confirm-bg: var(--mac-paper);
   --confirm-dim: rgba(20, 20, 22, 0.4);
   --pause-veil: rgba(16, 16, 18, 0.8);

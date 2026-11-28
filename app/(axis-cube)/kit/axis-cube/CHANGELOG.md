@@ -84,6 +84,36 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 2.0.7 · 2026-11-27 22:27
+
+**Claude:** More musical chairs. The 4×4 and the Axis Cube trade places: the 4×4 opens third, on the left; the Axis Cube opens fourth and sits at the back, where everyone can admire its wonky angles.
+
+Asked by Marcos, 27 Nov 22:23: "Swap the axis with the 4x4"
+
+- The order is now the 2×2, the 3×3, the 4×4, the Axis Cube, then the Puppet Cube, the Ghost Cube, the Crazy 3×3 and the Square-1.
+- The 4×4 sits on the left of the diamond, where the Axis Cube was, and the Axis Cube at the back in the middle.
+- If you had opened two cubes, the 4×4 is open for you now, and the Axis Cube is next. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
+## 2.0.5 · 2026-11-27 22:27
+
+**Claude:** The list of changes got a haircut. You see what changed; tap a line to see what was asked for, in grey, underneath.
+
+Asked by Marcos, 27 Nov 22:23: "On the Changelog. Just show output. Tapping output expands that log to show its input (gray not black text)"
+
+- The list of changes shows each version's number (the newest with its date) and Claude's line, nothing else.
+- A tap on the line unfolds what Marcos asked for, or the bug he reported, in grey under it. Another tap folds it away.
+- The details stay in the changelog file. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
+## 2.0.4 · 2026-11-27 22:27
+
+**Claude:** Cubes now roll off their right side. Slide down on the face that shows to the right and the cube tips that way, right face to the bottom, instead of somersaulting forward.
+
+Asked by Marcos, 27 Nov 22:17: "Sliding the face from the right should flip the cube from there down instead of the usual front flip when sliding the front face"
+
+- A slide up or down that starts on the cube's right face turns it about its front face: down takes the right face to the bottom, up takes it to the top.
+- A slide up or down from the front face or the top flips it forward or back, as before. Sideways is as before from anywhere.
+- A pull down far enough still puts the cube back on the ottoman. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 2.0.3 · 2026-11-27 21:58
 
 **Claude:** Musical chairs on the ottoman. The 4×4 moves up to fourth and takes the Ghost Cube's seat at the back; the Ghost Cube goes to the corner and becomes sixth, dropping in after the Puppet Cube. It was always a little spooky to have it so early.
