@@ -342,7 +342,19 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 /* the 2×2: only the four corners, drawn closer together */
 .axis.two .pad { --arm: clamp(30px, 4.4vh, 42px); }
 .axis.two .dot[data-r="1"], .axis.two .dot[data-c="1"] { opacity: 0; }
-.axis.sq-grid .dot[data-c="1"] { opacity: 0; }        /* the Square-1 (the Sidebar lab): three rows (top, middle, bottom), two columns (its halves) */
+.axis.sq-grid .dot[data-c="1"] { opacity: 0; }
+/* the 4×4's grid (the Sidebar lab): four rows, four columns, a little closer together */
+.axis .pad { --arm4: calc(var(--arm) * 0.7); }
+.axis .dot.d4, .axis.four .dot:not(.d4) { display: none; }
+.axis.four .dot.d4 { display: block; }
+.axis .dot.d4[data-r="0"] { top: calc(81.5% - 1.5 * var(--arm4)); }
+.axis .dot.d4[data-r="1"] { top: calc(81.5% - 0.5 * var(--arm4)); }
+.axis .dot.d4[data-r="2"] { top: calc(81.5% + 0.5 * var(--arm4)); }
+.axis .dot.d4[data-r="3"] { top: calc(81.5% + 1.5 * var(--arm4)); }
+.axis .dot.d4[data-c="0"] { left: calc(50% - 1.5 * var(--arm4)); }
+.axis .dot.d4[data-c="1"] { left: calc(50% - 0.5 * var(--arm4)); }
+.axis .dot.d4[data-c="2"] { left: calc(50% + 0.5 * var(--arm4)); }
+.axis .dot.d4[data-c="3"] { left: calc(50% + 1.5 * var(--arm4)); }        /* the Square-1 (the Sidebar lab): three rows (top, middle, bottom), two columns (its halves) */
 
 /* the loader: a black screen, a cube and a bar, in the page as it arrives, before any script. Only transforms move,
    so the browser keeps both going while the scene is being built; the scene then runs the bar to its end and
