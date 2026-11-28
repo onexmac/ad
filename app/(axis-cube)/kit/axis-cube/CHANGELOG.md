@@ -84,6 +84,17 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 2.0.3 · 2026-11-27 21:58
+
+**Claude:** Musical chairs on the ottoman. The 4×4 moves up to fourth and takes the Ghost Cube's seat at the back; the Ghost Cube goes to the corner and becomes sixth, dropping in after the Puppet Cube. It was always a little spooky to have it so early.
+
+Asked by Marcos, 27 Nov 21:56: "Swap in position and order the ghost with the 4x4"
+
+- The order is now the 2×2, the 3×3, the Axis Cube, the 4×4 (always on the ottoman, at the back in the middle), then the Puppet Cube, the Ghost Cube, the Crazy 3×3 and the Square-1, each dropping in once the one before it is open.
+- The Ghost Cube drops into the back right corner, where the 4×4 was.
+- If you had opened three cubes, the 4×4 is open for you now, and the Ghost Cube comes after the Puppet Cube.
+- Finishing the 4×4 by hand still makes Cubed the ottoman's song. It just comes sooner. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 2.0.1 · 2026-11-27 21:01
 
 **Claude:** The new cube no longer waits around for the speakers to warm up. If the sound can't play yet, it drops quietly after four seconds instead of eight.
