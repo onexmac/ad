@@ -372,7 +372,7 @@ Asked by Marcos, 27 Nov 10:50: "Tapping the clock should pause it until the user
 
 Asked by Marcos, 27 Nov 10:26 and 10:44: "Also the time is 00h:00m:00s but don't display the hour h or the minute m." Then: "Count milliseconds in memory but don't show them. The player added the time. But it still shows miliseconds"
 
-- Every time on show reads hours, minutes and seconds, without letters: 00:00:14 for a solve of 14.56 seconds, 00:02:05 for one of 2 minutes 5.07. Until now it read minutes, seconds and hundredths (00:14:56), which looked like hours and minutes.
+- Every time on show reads hours, minutes and seconds, without letters: 00:00:31 for a solve of 31.72 seconds, 00:02:05 for one of 2 minutes 5.07. Until now it read minutes, seconds and hundredths (00:31:72), which looked like hours and minutes.
 - That is the clock at the top right, the high scores' five, the new entry with its time as it flies into the five, and what a screen reader says.
 - The hundredths are still counted and kept, on the device and in the world's fives, and still rank two times that show the same second. The times already kept show the new way. ([#242](https://github.com/onexmac/ad/pull/242))
 
@@ -825,7 +825,7 @@ Asked by Marcos, 26 Nov 13:59, in the same message: "On the changelog let's add 
 Asked by Marcos, 26 Nov 13:59, in the same message: "Let's have all the high scores empty like this --:--:-- ---"
 
 - Each puzzle's five starts empty: --:--:-- --- in every place, and any time beats an empty place. An empty five lights no row.
-- Times in the table are written as the clock writes them: minutes, seconds and hundredths, 02:34:48. A row is a letter wider, and its bar, the flying row and the merge are all a letter wider with it.
+- Times in the table are written as the clock writes them: minutes, seconds and hundredths, 01:07:42. A row is a letter wider, and its bar, the flying row and the merge are all a letter wider with it.
 - The fives kept on a device in the old way start over from these. ([#195](https://github.com/onexmac/ad/pull/195))
 
 ## 0.7.19 · 2026-11-26 14:02
