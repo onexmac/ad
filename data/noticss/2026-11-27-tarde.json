@@ -3,18 +3,18 @@
   "date": "2026-11-27",
   "slot": "tarde",
   "number": 8,
-  "generatedAt": "2026-11-27T20:25:56.904Z",
+  "generatedAt": "2026-11-28T03:38:54.107Z",
   "isSample": false,
   "weather": {
     "place": "Cartago",
-    "tempC": 21,
+    "tempC": 18,
     "maxC": 22,
     "minC": 17,
     "code": 51,
     "condition": "llovizna",
     "glyph": "rain",
     "cloudCover": 100,
-    "rainProb": 94,
+    "rainProb": 100,
     "sunrise": "05:35",
     "sunset": "17:11",
     "rainHours": [
@@ -23,25 +23,25 @@
       3,
       6,
       9,
-      14,
+      12,
       20,
-      30,
-      42,
-      53,
-      61,
-      68,
+      35,
+      54,
+      69,
       75,
-      82,
-      90,
-      94,
-      94,
-      91,
-      88,
-      86,
-      83,
+      76,
       78,
-      67,
-      52
+      85,
+      92,
+      98,
+      100,
+      99,
+      98,
+      97,
+      96,
+      94,
+      92,
+      90
     ],
     "sky": [
       "#223451",
@@ -60,29 +60,29 @@
       "id": "usd_crc",
       "label": "Dólar",
       "value": "₡445,88",
-      "delta": null,
+      "delta": -0.07,
       "unit": "CRC",
       "note": "venta · BCCR",
-      "series": null,
-      "seriesNote": null
+      "series": [
+        445.95,
+        445.88
+      ],
+      "seriesNote": "Tipo de cambio de venta de referencia BCCR, 26 y 27/11/2026, vía La Nación"
     },
     {
       "id": "tba",
       "label": "Tasa Básica",
-      "value": "3,55 %",
-      "delta": -0.01,
+      "value": "3,56 %",
+      "delta": null,
       "unit": "%",
       "note": "BCCR",
-      "series": [
-        3.56,
-        3.55
-      ],
-      "seriesNote": "BCCR: valor anterior y valor vigente desde el 5/11/2026"
+      "series": null,
+      "seriesNote": null
     },
     {
       "id": "contenedor",
       "label": "Contenedor",
-      "value": "$4.176",
+      "value": "$4.032",
       "delta": null,
       "unit": "USD/40ft",
       "note": "Drewry WCI",
@@ -116,296 +116,119 @@
       "category": "politica",
       "scope": "cr",
       "importance": 2,
-      "title": "Fernández pide referéndum sobre la minería en Crucitas",
-      "synopsis": "La presidenta Fernández pidió llevar a referéndum el expediente 24.717, que permitiría minería de oro a cielo abierto en Cutris y está trabado en la Comisión de Ambiente. No toca agregados ni costos de obra, pero muestra un método: llevar a las urnas lo que se atasca en el Congreso. Hay que vigilar si la convocatoria reúne los 29 votos y cuándo la vota el plenario.",
+      "title": "Fernández convoca referéndum para reabrir la minería de oro en Crucitas",
+      "synopsis": "Laura Fernández firmó un decreto para convocar un referéndum sobre minería de oro en Crucitas, que requiere al menos 29 votos legislativos. No toca la construcción en Cartago, pero muestra un Ejecutivo que lleva al voto popular lo que la Asamblea frena, una vía que podría repetir en permisos, ambiente o agua. Vigilar la votación en plenario, la revisión de Sala IV y TSE, y la fecha propuesta.",
       "image": {
-        "url": "https://teletica-static.ray.media/Files/Sizes/2026/6/24/gira-a-crucitas_1576286657_760x520.jpg",
-        "color": "https://teletica-static.ray.media/Files/Sizes/2026/6/24/gira-a-crucitas_1576286657_760x520.jpg",
-        "alt": "Fernández pide referéndum sobre la minería en Crucitas",
-        "credit": "Teletica"
+        "url": "https://img.delfino.cr/wp-content/uploads/2026/11/visita-a-crucitas-20.jpg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2026/11/visita-a-crucitas-20.jpg?w=1536",
+        "alt": "Fernández convoca referéndum para reabrir la minería de oro en Crucitas",
+        "credit": "Delfino.cr"
       },
       "snippets": [
         {
-          "id": "crucitas-referendum-anuncio",
+          "id": "crucitas-referendum-decreto",
           "kind": "event",
           "importance": 3,
           "published": "2026-11-27",
-          "headline": "Anuncio en San Carlos",
-          "body": "Fernández anunció el referéndum en la Escuela El Campo, en San Carlos, acompañada de Yara Jiménez y Rodrigo Chaves.",
+          "headline": "Decreto entregado a la Asamblea",
+          "body": "La presidenta firmó un decreto ejecutivo para convocar un referéndum nacional sobre Crucitas, en Cutris de San Carlos, y se lo entregó a la presidenta legislativa, Yara Jiménez.",
           "why": null,
           "image": null,
           "tags": [
             "crucitas",
-            "referendum"
-          ],
-          "source": {
-            "name": "Teletica",
-            "url": "https://www.teletica.com/politica/laura-fernandez-impulsa-referendo-sobre-mineria-en-crucitas_421985"
-          }
-        },
-        {
-          "id": "crucitas-referendum-expediente",
-          "kind": "fact",
-          "importance": 2,
-          "published": "2026-11-27",
-          "headline": "Qué se votaría: expediente 24.717",
-          "body": "El proyecto permitiría concesiones para extraer oro con minería metálica a cielo abierto en Cutris. Está trabado por mociones en la Comisión de Ambiente.",
-          "why": "Es minería de oro, no de agregados: no tiene efecto directo en insumos de construcción.",
-          "image": {
-            "url": "https://crc891.com/wp-content/uploads/2026/11/images-93.jpg",
-            "color": "https://crc891.com/wp-content/uploads/2026/11/images-93.jpg",
-            "alt": "Qué se votaría: expediente 24.717",
-            "credit": "CRC 891"
-          },
-          "tags": [
-            "mineria",
+            "referendum",
             "asamblea"
           ],
           "source": {
-            "name": "CRC 891",
-            "url": "https://crc891.com/nacionales/laura-fernandez-entrega-solicitud-para-convocar-referendum-sobre-mineria-a-cielo-abierto-en-crucitas"
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/laura-fernandez-anuncia-referendum-sobre-crucitas"
           }
         },
         {
-          "id": "crucitas-referendum-29-votos",
+          "id": "crucitas-referendum-canon",
           "kind": "number",
           "importance": 2,
           "published": "2026-11-27",
-          "headline": "Hacen falta 29 diputados",
-          "body": "Si el referéndum lo convocan juntos el Ejecutivo y la Asamblea, se necesitan al menos 29 votos. Luego el TSE revisa los requisitos.",
+          "headline": "Canon de 2 % e impuesto de 5 %",
+          "body": "Se votaría el proyecto del gobierno de Rodrigo Chaves, aún en comisiones: canon de 2 % sobre el oro extraído e impuesto de 5 % sobre ventas brutas. El gobierno calcula al menos cinco proyectos y 10 millones de onzas.",
           "why": null,
           "image": {
-            "url": "https://images.hoy.cr/wp-content/uploads/2026/11/Laura-Fernandez-Delgado.png",
-            "color": "https://images.hoy.cr/wp-content/uploads/2026/11/Laura-Fernandez-Delgado.png",
-            "alt": "Hacen falta 29 diputados",
-            "credit": "crhoy"
+            "url": "https://www.elnuevodia.com/resizer/v2/YPVINX6EYRDO3ODX566KDQYJAI.jpg?auth=e9544614f3cf508680edd68be698cfefd63880776a93848df7197e1f088f5f6e&quality=75&width=1200&height=717&focal=2261%2C1276",
+            "color": "https://www.elnuevodia.com/resizer/v2/YPVINX6EYRDO3ODX566KDQYJAI.jpg?auth=e9544614f3cf508680edd68be698cfefd63880776a93848df7197e1f088f5f6e&quality=75&width=1200&height=717&focal=2261%2C1276",
+            "alt": "Canon de 2 % e impuesto de 5 %",
+            "credit": "El Nuevo Día/EFE"
           },
           "tags": [
-            "referendum",
-            "tse"
+            "mineria",
+            "impuestos"
           ],
           "source": {
-            "name": "crhoy",
-            "url": "https://crhoy.com/nacionales/laura-fernandez-anuncia-convocatoria-de-crucitas-a-referendum"
+            "name": "El Nuevo Día/EFE",
+            "url": "https://www.elnuevodia.com/noticias/mundo/notas/presidenta-de-costa-rica-convoca-un-referendo-sobre-explotacion-de-oro-en-la-frontera-con-nicaragua/"
+          }
+        },
+        {
+          "id": "crucitas-referendum-votos",
+          "kind": "fact",
+          "importance": 3,
+          "published": "2026-11-27",
+          "headline": "Necesita 29 votos",
+          "body": "Por el artículo 105 de la Constitución, la convocatoria requiere mayoría absoluta de la Asamblea, al menos 29 votos. PLN y Frente Amplio se oponen.",
+          "why": "El Nuevo Día atribuye 31 diputados al oficialismo; Diario Extra publicó cifras contradictorias (23 y 29).",
+          "image": {
+            "url": "https://www.elfinancierocr.com/resizer/v2/2WZKNXFYUVDSVAU42VWL3BN2HQ.JPG?smart=true&auth=cf9013c1c7821dd5d724e124132764f5414cff7d3bf72973bd8d395b0aeee794&width=1440",
+            "color": "https://www.elfinancierocr.com/resizer/v2/2WZKNXFYUVDSVAU42VWL3BN2HQ.JPG?smart=true&auth=cf9013c1c7821dd5d724e124132764f5414cff7d3bf72973bd8d395b0aeee794&width=1440",
+            "alt": "Necesita 29 votos",
+            "credit": "El Financiero"
+          },
+          "tags": [
+            "asamblea",
+            "votos"
+          ],
+          "source": {
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/economia-y-politica/laura-fernandez-impulsa-referendo-sobre-mineria-en/YP6NGYIGSNDB7BADWXGEUF4ERU/story/"
           }
         },
         {
           "id": "crucitas-referendum-cita",
           "kind": "quote",
-          "importance": 1,
+          "importance": 2,
           "published": "2026-11-27",
-          "headline": "Culpa al PLN y al Frente Amplio",
-          "body": "\"No voy a cargar con facturas ajenas del Frente Amplio\", dijo Fernández sobre el atraso del proyecto.",
-          "why": null,
+          "headline": "\"Ya nos han robado $2.000 millones\"",
+          "body": "La presidenta planteó subastar el oro y destinar los recursos a educación, salud, seguridad y pensiones. Aún no se conocen los detalles de la consulta.",
+          "why": "Artículo 66 tituló \"$2 millones\"; la cifra no está confirmada.",
           "image": {
-            "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1513766-9a5f8e4487990a9a458037f9e7d608c6d86aed77e1905e97807ae0de00b19dab.jpg",
-            "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1513766-9a5f8e4487990a9a458037f9e7d608c6d86aed77e1905e97807ae0de00b19dab.jpg",
-            "alt": "Culpa al PLN y al Frente Amplio",
-            "credit": "Diario Extra"
+            "url": "https://www.larepublica.net/media-library/image.png?id=68785958&width=1200&height=600&coordinates=0%2C14%2C0%2C14",
+            "color": "https://www.larepublica.net/media-library/image.png?id=68785958&width=1200&height=600&coordinates=0%2C14%2C0%2C14",
+            "alt": "\"Ya nos han robado $2.000 millones\"",
+            "credit": "La República"
           },
           "tags": [
-            "crucitas",
-            "asamblea"
+            "oro",
+            "fiscal"
           ],
           "source": {
-            "name": "Diario Extra",
-            "url": "https://www.diarioextra.com/noticia/laura-fernandez-anuncia-referendum-nacional-para-resolver-problematica-de-crucitas/"
+            "name": "La República",
+            "url": "https://www.larepublica.net/laura-fernandez-anuncia-convocatoria-a-referendum-para-decidir-sobre-explotacion-de-oro-de-crucitas/"
           }
         },
         {
-          "id": "crucitas-referendum-antecedente",
+          "id": "crucitas-referendum-sala",
           "kind": "fact",
           "importance": 1,
           "published": "2026-11-27",
-          "headline": "Geólogos lo propusieron en setiembre",
-          "body": "El Colegio de Geólogos ya había propuesto un referéndum en setiembre. Según La Nación, la concesión se daría a una empresa por subasta.",
-          "why": null,
-          "image": {
-            "url": "https://www.nacion.com/resizer/v2/KD6MMOA7HFE5VLV5GFAXAZVALA.JPG?smart=true&auth=439f379f4453f3d82a7b71ae9cb26dbec102eb1b554a624a8ca524058858e384&width=1440",
-            "color": "https://www.nacion.com/resizer/v2/KD6MMOA7HFE5VLV5GFAXAZVALA.JPG?smart=true&auth=439f379f4453f3d82a7b71ae9cb26dbec102eb1b554a624a8ca524058858e384&width=1440",
-            "alt": "Geólogos lo propusieron en setiembre",
-            "credit": "La Nación"
-          },
-          "tags": [
-            "crucitas"
-          ],
-          "source": {
-            "name": "La Nación",
-            "url": "https://www.nacion.com/politica/laura-fernandez-anuncia-referendum-sobre-mineria/F3QPJTB43BHRXJ5YZRQ5IKBNMI/story/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "presupuesto-extraordinario-sala-iv",
-      "category": "politica",
-      "scope": "cr",
-      "importance": 2,
-      "title": "Presidencia arremete otra vez contra la Sala IV",
-      "synopsis": "Casa Presidencial atacó a la Sala IV por segunda vez en 24 horas y la acusó de invadir competencias por el segundo presupuesto extraordinario de 2026. Sube el tono, pero no hay un hecho procesal nuevo; para quien construye cuenta lo que quede en inversión pública y transferencias. Vigilar si el choque altera la votación del domingo.",
-      "image": {
-        "url": "https://teletica-static.ray.media/Files/Sizes/2026/11/26/sala-constitucional_349162534_760x520.png",
-        "color": "https://teletica-static.ray.media/Files/Sizes/2026/11/26/sala-constitucional_349162534_760x520.png",
-        "alt": "Presidencia arremete otra vez contra la Sala IV",
-        "credit": "Teletica"
-      },
-      "snippets": [
-        {
-          "id": "presupuesto-extraordinario-sala-iv-cita",
-          "kind": "quote",
-          "importance": 2,
-          "published": null,
-          "headline": "\"El país no puede seguir gastando lo que no tiene\"",
-          "body": "La Presidencia insistió en que la Sala \"invade competencias\" de los otros poderes para proteger a la cúpula judicial. La nota es del 26 o del 27 de noviembre.",
+          "headline": "Habría control constitucional",
+          "body": "Tras la aprobación legislativa, la convocatoria pasaría por control de constitucionalidad.",
           "why": null,
           "image": null,
           "tags": [
             "sala iv",
-            "ejecutivo"
+            "tse"
           ],
           "source": {
-            "name": "Teletica",
-            "url": "https://www.teletica.com/politica/presidencia-tras-fallo-de-sala-iv-sobre-recortes-el-pais-no-puede-gastar-lo-que-no-tiene_421929"
-          }
-        },
-        {
-          "id": "presupuesto-extraordinario-sala-iv-fees",
-          "kind": "fact",
-          "importance": 2,
-          "published": null,
-          "headline": "Versión contradictoria sobre el FEES",
-          "body": "La misma nota dice que la Sala ordenó eliminar un recorte de ₡8.048 millones al FEES y también que sobre ese recorte no se ordenó ninguna eliminación.",
-          "why": "Dato pendiente de verificar en el original antes de citarlo.",
-          "image": null,
-          "tags": [
-            "fees",
-            "sala iv"
-          ],
-          "source": {
-            "name": "Teletica",
-            "url": "https://www.teletica.com/politica/presidencia-tras-fallo-de-sala-iv-sobre-recortes-el-pais-no-puede-gastar-lo-que-no-tiene_421929"
-          }
-        },
-        {
-          "id": "presupuesto-extraordinario-sala-iv-usurpo",
-          "kind": "quote",
-          "importance": 1,
-          "published": "2026-11-25",
-          "headline": "Chaves: el Judicial \"usurpó\" funciones",
-          "body": "Rodrigo Chaves dijo que el Poder Judicial usurpó labores del Congreso tras el fallo de la Sala IV sobre el presupuesto.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "chaves",
-            "sala iv"
-          ],
-          "source": {
-            "name": "Monumental",
-            "url": "https://www.monumental.co.cr/2026/11/25/rodrigo-chaves-dice-que-poder-judicial-usurpo-labores-del-congreso-tras-fallo-de-sala-iv-sobre-el-presupuesto/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "presupuesto-2027-segundo-debate",
-      "category": "economia",
-      "scope": "cr",
-      "importance": 3,
-      "title": "Presupuesto 2027 se vota el domingo 29",
-      "synopsis": "El plenario vota el domingo el Presupuesto 2027 de ₡12,4 billones, con 40 % para deuda, y el plazo constitucional vence el lunes. Ese texto define cuánta inversión pública y transferencias habrá el próximo año, con efecto en obra pública y demanda. Vigilar si el plenario elimina o mantiene las normas que la Sala IV declaró inconstitucionales.",
-      "image": {
-        "url": "https://www.riotimesonline.com/wp-content/uploads/2026/10/costa-rica-4x3-workweek-court-2026-photo.jpg",
-        "color": "https://www.riotimesonline.com/wp-content/uploads/2026/10/costa-rica-4x3-workweek-court-2026-photo.jpg",
-        "alt": "Presupuesto 2027 se vota el domingo 29",
-        "credit": "Rio Times"
-      },
-      "snippets": [
-        {
-          "id": "presupuesto-2027-segundo-debate-fecha",
-          "kind": "event",
-          "importance": 3,
-          "published": "2026-11-25",
-          "headline": "Votación final el domingo 29",
-          "body": "El plenario vota el domingo 29 de noviembre; al día siguiente vence el plazo constitucional.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "presupuesto",
-            "asamblea"
-          ],
-          "source": {
-            "name": "Rio Times",
-            "url": "https://www.riotimesonline.com/costa-rica-sunday-budget-vote"
-          }
-        },
-        {
-          "id": "presupuesto-2027-segundo-debate-sala",
-          "kind": "number",
-          "importance": 2,
-          "published": "2026-11-21",
-          "headline": "Sala anuló normas por ₡29.843 millones",
-          "body": "La Sala IV anuló cuatro normas que condicionaban ₡29.843.810.438 del Poder Judicial, el 5,6 % de sus recursos para 2027, y la rebaja de ₡8.048 millones al FEES.",
-          "why": null,
-          "image": {
-            "url": "https://img.delfino.cr/wp-content/uploads/2026/08/IMG_5176.JPG-scaled.jpeg?w=1536",
-            "color": "https://img.delfino.cr/wp-content/uploads/2026/08/IMG_5176.JPG-scaled.jpeg?w=1536",
-            "alt": "Sala anuló normas por ₡29.843 millones",
-            "credit": "Delfino"
-          },
-          "tags": [
-            "sala iv",
-            "poder judicial",
-            "fees"
-          ],
-          "source": {
-            "name": "Delfino",
-            "url": "https://delfino.cr/2026/11/presupuesto-2027-sala-iv-declara-inconstitucionales-restricciones-al-poder-judicial-y-recorte-de-8048-millones-al-fees"
-          }
-        },
-        {
-          "id": "presupuesto-2027-segundo-debate-monto",
-          "kind": "number",
-          "importance": 2,
-          "published": "2026-09-01",
-          "headline": "₡12,4 billones, 3,1 % menos",
-          "body": "El presupuesto suma ₡12,4 billones, 3,1 % menos que 2026, y el 40 % se destina a pagar deuda.",
-          "why": "Menos espacio para inversión pública en infraestructura.",
-          "image": {
-            "url": "https://www.abc.com.py/resizer/v2/MOAP76XDJFEHLLTLQPIEIIZQZI.jpg?auth=af21fffb866efe059006e6c98a79ad3cc96cb597e29061d022f5aafd3f78d1f5&width=770&smart=true",
-            "color": "https://www.abc.com.py/resizer/v2/MOAP76XDJFEHLLTLQPIEIIZQZI.jpg?auth=af21fffb866efe059006e6c98a79ad3cc96cb597e29061d022f5aafd3f78d1f5&width=770&smart=true",
-            "alt": "₡12,4 billones, 3,1 % menos",
-            "credit": "ABC Color/EFE"
-          },
-          "tags": [
-            "presupuesto",
-            "deuda"
-          ],
-          "source": {
-            "name": "ABC Color/EFE",
-            "url": "https://www.abc.com.py/internacionales/2026/09/01/costa-rica-baja-su-presupuesto-un-31-con-una-deuda-al-alza-por-encima-del-60-del-pib/"
-          }
-        },
-        {
-          "id": "presupuesto-2027-segundo-debate-deficit",
-          "kind": "number",
-          "importance": 1,
-          "published": "2026-09-01",
-          "headline": "Deuda en 61,1 % del PIB",
-          "body": "La deuda llegó a 61,1 % del PIB en el primer semestre de 2026. El déficit proyectado es 4,62 % del PIB en 2026 y 4,38 % en 2027.",
-          "why": null,
-          "image": {
-            "url": "https://www.abc.com.py/resizer/v2/MOAP76XDJFEHLLTLQPIEIIZQZI.jpg?auth=af21fffb866efe059006e6c98a79ad3cc96cb597e29061d022f5aafd3f78d1f5&width=770&smart=true",
-            "color": "https://www.abc.com.py/resizer/v2/MOAP76XDJFEHLLTLQPIEIIZQZI.jpg?auth=af21fffb866efe059006e6c98a79ad3cc96cb597e29061d022f5aafd3f78d1f5&width=770&smart=true",
-            "alt": "Deuda en 61,1 % del PIB",
-            "credit": "ABC Color/EFE"
-          },
-          "tags": [
-            "deuda",
-            "deficit"
-          ],
-          "source": {
-            "name": "ABC Color/EFE",
-            "url": "https://www.abc.com.py/internacionales/2026/09/01/costa-rica-baja-su-presupuesto-un-31-con-una-deuda-al-alza-por-encima-del-60-del-pib/"
+            "name": "Telemetro",
+            "url": "https://www.telemetro.com/internacionales/presidenta-costa-rica-plantea-referendo-explotar-mina-oro-frontera-nicaragua-n6099822"
           }
         }
       ]
@@ -415,13 +238,13 @@
       "category": "economia",
       "scope": "cr",
       "importance": 3,
-      "title": "Dólar cierra en ₡443,41, nuevo mínimo histórico",
-      "synopsis": "El dólar cerró en ₡443,41 en Monex, nuevo mínimo histórico, y revirtió el rebote de ayer. Abarata en colones el acero y otros insumos importados, pero quien vende vivienda en dólares recibe menos colones por unidad. Vigilar si el BCCR interviene; hoy no hubo señales.",
+      "title": "Dólar en ₡443,41: nuevo mínimo de 20 años y compras récord del BCCR",
+      "synopsis": "El Monex cerró el viernes en ₡443,41, mínimo de 20 años, y el BCCR suma $405,9 millones en compras de estabilización en noviembre, récord desde 2006. Abarata en colones acero, equipo y acabados importados, pero deja menos colones por cada venta pactada en dólares. Vigilar si el BCCR sigue comprando en diciembre y si la TPM de 2,75 % baja las tasas en colones.",
       "image": {
-        "url": "https://www.nacion.com/resizer/v2/6JRBC5E3RFHRTNHZ422XIC7VNA.jpg?smart=true&auth=e55d46aecdb86382b90718c13812ca8a2be7d447fb89ff4610b255179582c3da&width=1440",
-        "color": "https://www.nacion.com/resizer/v2/6JRBC5E3RFHRTNHZ422XIC7VNA.jpg?smart=true&auth=e55d46aecdb86382b90718c13812ca8a2be7d447fb89ff4610b255179582c3da&width=1440",
-        "alt": "Dólar cierra en ₡443,41, nuevo mínimo histórico",
-        "credit": "La Nación"
+        "url": "https://observador.cr/wp-content/uploads/2026/11/AFP__20260206__giri-notitle260204_np9JP__v1__HighRes__PhotosOfDifferentCurrenciesFro-1.jpg.webp",
+        "color": "https://observador.cr/wp-content/uploads/2026/11/AFP__20260206__giri-notitle260204_np9JP__v1__HighRes__PhotosOfDifferentCurrenciesFro-1.jpg.webp",
+        "alt": "Dólar en ₡443,41: nuevo mínimo de 20 años y compras récord del BCCR",
+        "credit": "El Observador"
       },
       "snippets": [
         {
@@ -429,52 +252,76 @@
           "kind": "number",
           "importance": 3,
           "published": "2026-11-27",
-          "headline": "₡443,41 en Monex",
-          "body": "El dólar cerró en ₡443,41 el viernes 27, ₡0,56 menos que los ₡443,97 del 20 de noviembre.",
+          "headline": "Monex cierra en ₡443,41",
+          "body": "El promedio ponderado del viernes rompió el mínimo de ₡443,55 del lunes 23 y suma tres días seguidos de caída.",
           "why": null,
           "image": null,
           "tags": [
-            "tipo de cambio",
+            "dolar",
             "monex"
           ],
           "source": {
-            "name": "La Nación",
-            "url": "https://nacion.com/economia/tipo-de-cambio-sigue-en-picada-dolar-se-ubica-por/2OSX5XAYVZBLTHMCMIY6DDECXI/story"
+            "name": "El Observador",
+            "url": "https://observador.cr/dolar-vuelve-a-marcar-minimo-historico-mientras-banco-central-registra-record-mensual-de-intervencion/"
           }
         },
         {
-          "id": "dolar-minimo-referencia",
+          "id": "dolar-minimo-caida",
           "kind": "number",
           "importance": 2,
           "published": "2026-11-27",
-          "headline": "Referencia BCCR: ₡440,56 / ₡445,88",
-          "body": "El tipo de cambio de referencia para hoy es ₡440,56 en compra y ₡445,88 en venta.",
-          "why": null,
+          "headline": "−₡8,67 en noviembre",
+          "body": "El dólar baja ₡8,67 (1,9 %) en el mes y ₡53,66 en lo que va de 2026.",
+          "why": "Una venta fijada en dólares a inicios de año rinde hoy unos ₡54 menos por dólar.",
           "image": null,
           "tags": [
-            "bccr",
-            "tipo de cambio"
+            "dolar",
+            "ventas"
           ],
           "source": {
-            "name": "La Nación",
-            "url": "https://nacion.com/economia/tipo-de-cambio-sigue-en-picada-dolar-se-ubica-por/2OSX5XAYVZBLTHMCMIY6DDECXI/story"
+            "name": "El Observador",
+            "url": "https://observador.cr/dolar-vuelve-a-marcar-minimo-historico-mientras-banco-central-registra-record-mensual-de-intervencion/"
           }
         },
         {
-          "id": "dolar-minimo-vs-ayer",
-          "kind": "fact",
+          "id": "dolar-minimo-bccr",
+          "kind": "number",
           "importance": 2,
           "published": "2026-11-27",
-          "headline": "₡0,38 menos que ayer",
-          "body": "La edición anterior reportó ₡443,79; hoy bajó ₡0,38 más y el rebote quedó revertido.",
-          "why": "El colón fuerte compensa en parte el alza del petróleo en combustibles.",
+          "headline": "$405,9 millones en estabilización",
+          "body": "Es el monto mensual más alto desde octubre de 2006; el miércoles 25 la cifra era $346,5 millones.",
+          "why": "El BCCR busca frenar la caída, no dejarla correr.",
           "image": null,
           "tags": [
-            "tipo de cambio"
+            "bccr",
+            "intervencion"
           ],
           "source": {
-            "name": "La Nación",
-            "url": "https://nacion.com/economia/tipo-de-cambio-sigue-en-picada-dolar-se-ubica-por/2OSX5XAYVZBLTHMCMIY6DDECXI/story"
+            "name": "El Observador",
+            "url": "https://observador.cr/dolar-vuelve-a-marcar-minimo-historico-mientras-banco-central-registra-record-mensual-de-intervencion/"
+          }
+        },
+        {
+          "id": "dolar-minimo-sector-publico",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-25",
+          "headline": "$4.125,3 millones para el sector público",
+          "body": "En 2026 el BCCR también ha comprado esa suma en Monex para cubrir la demanda del sector público.",
+          "why": null,
+          "image": {
+            "url": "https://observador.cr/wp-content/uploads/2026/11/AFP__20250509__dealmeida-dollarfa250508_npIHF__v1__HighRes__DollarFallsToR568WithPro.jpg.webp",
+            "color": "https://observador.cr/wp-content/uploads/2026/11/AFP__20250509__dealmeida-dollarfa250508_npIHF__v1__HighRes__DollarFallsToR568WithPro.jpg.webp",
+            "alt": "$4.125,3 millones para el sector público",
+            "credit": "El Observador"
+          },
+          "tags": [
+            "bccr",
+            "sector publico"
+          ],
+          "source": {
+            "name": "El Observador",
+            "url": "https://observador.cr/compras-del-banco-central-para-estabilizar-el-dolar-alcanzan-346-millones-en-noviembre/"
           }
         }
       ]
@@ -484,72 +331,295 @@
       "category": "geopolitica",
       "scope": "mundo",
       "importance": 2,
-      "title": "Brent a $97,30 y OPEP+ fija cuotas de 2027 el domingo",
-      "synopsis": "Los futuros del Brent tocaron $97,30 tras cuatro sesiones al alza por ataques en Ormuz y a infraestructura saudí, y la OPEP+ fija el domingo sus cuotas de 2027. Diésel para maquinaria, fletes y asfalto siguen este precio con rezago, aunque el dólar barato amortigua. Vigilar el resultado de la OPEP+ y el próximo ajuste de combustibles en Costa Rica.",
-      "image": {
-        "url": "https://cdn.milenio.com/uploads/media/2023/07/07/empleado-gasolinera-prepara-repostar-coche.jpg",
-        "color": "https://cdn.milenio.com/uploads/media/2023/07/07/empleado-gasolinera-prepara-repostar-coche.jpg",
-        "alt": "Brent a $97,30 y OPEP+ fija cuotas de 2027 el domingo",
-        "credit": "Milenio"
-      },
+      "title": "Ataques hutíes suben el Brent a $96, pero cede en la tarde",
+      "synopsis": "Ataques hutíes contra refinerías sauditas llevaron el Brent a unos $96, aunque en la tarde bajó cerca de $95 y el Brent físico ronda $100. El diésel pesa en maquinaria, acarreo de agregados y asfalto; si el crudo se queda entre $95 y $100, el ajuste de enero podría ir al alza (inferencia, no dato). Vigilar nuevos ataques en el Golfo y el Brent físico.",
+      "image": null,
       "snippets": [
         {
-          "id": "ormuz-petroleo-fletes-brent",
-          "kind": "number",
-          "importance": 3,
+          "id": "ormuz-petroleo-fletes-hutis",
+          "kind": "event",
+          "importance": 2,
           "published": "2026-11-27",
-          "headline": "Brent a $97,30, máximo de la sesión",
-          "body": "Los futuros subían 73 centavos hasta $97,30, el nivel más alto desde el 9 de noviembre, tras cuatro sesiones de alzas.",
-          "why": "Otras fuentes dan cotizaciones de $91 a $94; se publica solo el dato de futuros.",
-          "image": null,
-          "tags": [
-            "brent",
-            "ormuz"
-          ],
-          "source": {
-            "name": "Milenio",
-            "url": "https://www.milenio.com/negocios/precio-del-petroleo-hoy-27-noviembre-de-2026-brent-wti-suben"
-          }
-        },
-        {
-          "id": "ormuz-petroleo-fletes-anz",
-          "kind": "quote",
-          "importance": 1,
-          "published": "2026-11-27",
-          "headline": "ANZ: podría pasar los $100",
-          "body": "Analistas de ANZ creen que el Brent \"aún puede superar los 100 dólares\".",
+          "headline": "Ataques a Jizan y Ras Tanura",
+          "body": "Los ataques hutíes contra refinerías sauditas llevaron el ICE Brent a unos $96, rumbo a una leve ganancia semanal tras tres semanas de caídas.",
           "why": null,
           "image": null,
           "tags": [
             "brent",
-            "pronostico"
+            "hutis",
+            "arabia saudita"
           ],
           "source": {
-            "name": "Milenio",
-            "url": "https://www.milenio.com/negocios/precio-del-petroleo-hoy-27-noviembre-de-2026-brent-wti-suben"
+            "name": "OilPrice",
+            "url": "https://oilprice.com/Energy/Crude-Oil/The-Oil-Glut-Everyone-Expected-Is-Looking-Increasingly-Elusive.html"
           }
         },
         {
-          "id": "ormuz-petroleo-fletes-opep",
-          "kind": "event",
+          "id": "ormuz-petroleo-fletes-fisico",
+          "kind": "fact",
           "importance": 2,
           "published": "2026-11-27",
-          "headline": "OPEP+ se reúne el domingo",
-          "body": "Por primera vez, las cuotas de 2027 se basarán en la capacidad máxima de cada miembro, según una revisión de DeGolyer and MacNaughton. Irak y Kazajistán piden que se les reconozca más capacidad.",
-          "why": "Define la oferta de crudo del próximo año.",
-          "image": {
-            "url": "https://images.highwise.com/stories/442720-1795764341474.jpg",
-            "color": "https://images.highwise.com/stories/442720-1795764341474.jpg",
-            "alt": "OPEP+ se reúne el domingo",
-            "credit": "Wisevoter"
-          },
+          "headline": "Brent físico cerca de $100",
+          "body": "El Dated Brent se acercaba a $100 por menor oferta de Noruega e Irak de la esperada.",
+          "why": "Contradice la tesis de sobreoferta con la que se proyectan rebajas.",
+          "image": null,
           "tags": [
-            "opep",
+            "brent",
             "oferta"
           ],
           "source": {
-            "name": "Wisevoter",
-            "url": "https://wisevoter.com/world/2026/11/27/brent-rises-ahead-of-opec-meeting"
+            "name": "OilPrice",
+            "url": "https://oilprice.com/Energy/Crude-Oil/The-Oil-Glut-Everyone-Expected-Is-Looking-Increasingly-Elusive.html"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-tarde",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-27",
+          "headline": "$94,95 al cierre de la tarde",
+          "body": "Trading Economics registró −1,49 % en el día: 14,95 % menos que hace un mes y 52,21 % más que hace un año.",
+          "why": "Las cifras varían según contrato y hora de cada fuente.",
+          "image": null,
+          "tags": [
+            "brent",
+            "precios"
+          ],
+          "source": {
+            "name": "Trading Economics",
+            "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
+          }
+        },
+        {
+          "id": "ormuz-petroleo-fletes-maximo",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-27",
+          "headline": "Máximo anual: $120,88",
+          "body": "Forbes reportó $96,61 (+0,68 % en 24 horas); el máximo intradía del último año fue $120,88, el 30 de abril de 2026.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "brent"
+          ],
+          "source": {
+            "name": "Forbes Advisor",
+            "url": "https://www.forbes.com/advisor/investing/oil-prices-today/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aresep-combustibles-diciembre",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "ARESEP tramita rebaja de combustibles para diciembre; diésel baja solo ₡9",
+      "synopsis": "ARESEP tramita para diciembre bajar la regular de ₡807 a ₡704 y el diésel de ₡807 a ₡798, mientras el cilindro de gas de 25 libras sube ₡883. Para la obra el alivio es mínimo: ₡9 en diésel, calculado con precios previos al repunte del Brent. Vigilar la resolución final tras el plazo de oposiciones del 2 de diciembre.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "aresep-combustibles-diciembre-diesel",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "Diésel: de ₡807 a ₡798",
+          "body": "La rebaja propuesta del diésel es de ₡9 por litro.",
+          "why": "El diésel mueve maquinaria, acarreo de agregados y asfalto.",
+          "image": null,
+          "tags": [
+            "diesel",
+            "aresep"
+          ],
+          "source": {
+            "name": "Monumental",
+            "url": "https://www.monumental.co.cr/2026/11/24/aresep-inicia-tramite-de-rebaja-de-hasta-%C2%A2103-en-precio-de-combustibles-para-diciembre/"
+          }
+        },
+        {
+          "id": "aresep-combustibles-diciembre-gasolinas",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Regular a ₡704, súper a ₡777",
+          "body": "La regular bajaría de ₡807 a ₡704 y la súper de ₡805 a ₡777.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "gasolina",
+            "aresep"
+          ],
+          "source": {
+            "name": "Monumental",
+            "url": "https://www.monumental.co.cr/2026/11/24/aresep-inicia-tramite-de-rebaja-de-hasta-%C2%A2103-en-precio-de-combustibles-para-diciembre/"
+          }
+        },
+        {
+          "id": "aresep-combustibles-diciembre-gas",
+          "kind": "number",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Gas de 25 libras sube a ₡8.604",
+          "body": "El cilindro aumentaría ₡883.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "gas",
+            "aresep"
+          ],
+          "source": {
+            "name": "Monumental",
+            "url": "https://www.monumental.co.cr/2026/11/24/aresep-inicia-tramite-de-rebaja-de-hasta-%C2%A2103-en-precio-de-combustibles-para-diciembre/"
+          }
+        },
+        {
+          "id": "aresep-combustibles-diciembre-plazo",
+          "kind": "event",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "Oposiciones hasta el 2 de diciembre",
+          "body": "ARESEP recibe oposiciones hasta el 2 de diciembre antes de resolver.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "aresep",
+            "plazo"
+          ],
+          "source": {
+            "name": "Monumental",
+            "url": "https://www.monumental.co.cr/2026/11/24/aresep-inicia-tramite-de-rebaja-de-hasta-%C2%A2103-en-precio-de-combustibles-para-diciembre/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "presupuesto-extraordinario-sala-iv",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Oposición cuenta cinco fallos de la Sala IV desacatados; Chaves pide 38 diputados",
+      "synopsis": "La oposición acusa a Pueblo Soberano de desacatar cinco fallos de la Sala IV sobre presupuestos, y Rodrigo Chaves respondió acusando al Poder Judicial de usurpar competencias y defendiendo tener 38 diputados afines. Para una desarrolladora el riesgo no está en las partidas sino en la incertidumbre institucional creciente. Vigilar acciones de inconstitucionalidad y reformas que exijan mayoría calificada.",
+      "image": {
+        "url": "https://images.hoy.cr/wp-content/uploads/2026/07/Yara-Jimenez-y-Sala-IV.jpeg",
+        "color": "https://images.hoy.cr/wp-content/uploads/2026/07/Yara-Jimenez-y-Sala-IV.jpeg",
+        "alt": "Oposición cuenta cinco fallos de la Sala IV desacatados; Chaves pide 38 diputados",
+        "credit": "CRHoy"
+      },
+      "snippets": [
+        {
+          "id": "presupuesto-extraordinario-sala-iv-cinco-fallos",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-27",
+          "headline": "Cinco fallos desacatados, según la oposición",
+          "body": "La oposición denuncia que Pueblo Soberano desacató cinco fallos de la Sala IV sobre los presupuestos.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "sala iv",
+            "presupuesto"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/nacionales/ppso-desacato-5-fallos-de-la-sala-iv-sobre-presupuestos-denuncia-oposicion/"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-sala-iv-recortes",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-27",
+          "headline": "FEES y Poder Judicial",
+          "body": "La Sala había ordenado eliminar un recorte de ₡8.048 millones al FEES y corregir vicios en el de ₡13.000 millones al Poder Judicial. El extraordinario se aprobó con 29 votos, aunque el magistrado Fernando Cruz dijo que hacían falta 38.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fees",
+            "poder judicial"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/nacionales/ppso-desacato-5-fallos-de-la-sala-iv-sobre-presupuestos-denuncia-oposicion/"
+          }
+        },
+        {
+          "id": "presupuesto-extraordinario-sala-iv-chaves",
+          "kind": "quote",
+          "importance": 2,
+          "published": "2026-11-27",
+          "headline": "Chaves: el Poder Judicial \"usurpa competencias\"",
+          "body": "El ministro de la Presidencia y de Hacienda lo dijo por una medida cautelar a favor de la relatora de la ONU Francesca Albanese, y defendió la necesidad de 38 diputados afines.",
+          "why": "38 votos es la mayoría calificada que exigen reformas de fondo.",
+          "image": {
+            "url": "https://img.delfino.cr/wp-content/uploads/2026/11/el-presidente-de-costa-rica-rodrigo-chaves-camina-durante-un.jpg?w=1536",
+            "color": "https://img.delfino.cr/wp-content/uploads/2026/11/el-presidente-de-costa-rica-rodrigo-chaves-camina-durante-un.jpg?w=1536",
+            "alt": "Chaves: el Poder Judicial \"usurpa competencias\"",
+            "credit": "Delfino.cr"
+          },
+          "tags": [
+            "chaves",
+            "poder judicial"
+          ],
+          "source": {
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/chaves-acusa-al-poder-judicial-de-usurpar-competencias-por-medida-cautelar-a-favor-de-francesca-albanese"
+          }
+        }
+      ]
+    },
+    {
+      "id": "presupuesto-2027-segundo-debate",
+      "category": "politica",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Presupuesto 2027 se vota el domingo 29 con las órdenes de la Sala IV pendientes",
+      "synopsis": "El presupuesto 2027 sigue convocado para el domingo 29 a las 3:00 p.m., porque la Constitución exige aprobarlo antes del 30 de noviembre. Si no se acatan las órdenes de la Sala IV, crece la incertidumbre institucional que pesa sobre la planificación de proyectos. Vigilar si se usa una moción de orden para quitar el recorte al FEES y las normas sobre fondos judiciales.",
+      "image": {
+        "url": "https://images.hoy.cr/wp-content/uploads/2026/05/Jefes-de-fraccion.jpg",
+        "color": "https://images.hoy.cr/wp-content/uploads/2026/05/Jefes-de-fraccion.jpg",
+        "alt": "Presupuesto 2027 se vota el domingo 29 con las órdenes de la Sala IV pendientes",
+        "credit": "CRHoy"
+      },
+      "snippets": [
+        {
+          "id": "presupuesto-2027-segundo-debate-domingo",
+          "kind": "event",
+          "importance": 3,
+          "published": "2026-11-25",
+          "headline": "Sesión el domingo 29, 3:00 p.m.",
+          "body": "Los diputados sesionarán el domingo porque la Constitución exige aprobar el presupuesto antes del 30 de noviembre.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "presupuesto 2027",
+            "asamblea"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/nacionales/por-esta-razon-los-diputados-sesionaran-el-domingo/"
+          }
+        },
+        {
+          "id": "presupuesto-2027-segundo-debate-escenarios",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "Moción de orden o esperar el plazo",
+          "body": "Una vía es una moción de orden para quitar el recorte al FEES y cuatro normas que condicionan fondos del Poder Judicial; otra es esperar al plazo del domingo.",
+          "why": null,
+          "image": {
+            "url": "https://www.nacion.com/resizer/v2/TKXT62YCTNCBPGAJOA54VV6E5M.jpg?smart=true&auth=c7f54bd30bc2250223f40b59cbb2f61a057f7d463ce1be083b142a7ccdedccc1&width=1440",
+            "color": "https://www.nacion.com/resizer/v2/TKXT62YCTNCBPGAJOA54VV6E5M.jpg?smart=true&auth=c7f54bd30bc2250223f40b59cbb2f61a057f7d463ce1be083b142a7ccdedccc1&width=1440",
+            "alt": "Moción de orden o esperar el plazo",
+            "credit": "La Nación"
+          },
+          "tags": [
+            "presupuesto 2027",
+            "sala iv"
+          ],
+          "source": {
+            "name": "La Nación",
+            "url": "https://www.nacion.com/politica/presupuesto-nacional-2027-los-tres-escenarios-para/LI2ZMX5ZKVGBXOCH3D6HJBMCKM/story/"
           }
         }
       ]
@@ -561,27 +631,27 @@
       "category": "economia",
       "scope": "cr",
       "importance": 2,
-      "title": "51 % ve mal la economía, según CIEP-UCR",
-      "synopsis": "La percepción negativa de la economía subió a 51 % en noviembre, desde 43 % en setiembre, mientras el IMAE se desaceleró a 2,4 %. La confianza del consumidor es lo que decide la compra de vivienda, así que puede alargar los plazos de venta. Vigilar la próxima medición y confirmar la cifra de mayo, que varía entre medios.",
+      "title": "Se duplica la percepción negativa de la economía",
+      "synopsis": "Según CIEP-UCR, el 51 % califica la economía de mala o muy mala, frente al 25 % en mayo, y el IMAE de setiembre se desaceleró a 2,4 %. Un ánimo así suele frenar decisiones de compra de vivienda. Vigilar la demanda de preventas en Cartago en las próximas semanas.",
       "image": {
         "url": "https://www.nacion.com/resizer/v2/I333IODIP5BETNNJHIWKDZMXT4.JPG?smart=true&auth=9f847135551d13a5d17f773ec4c5cdc386e2a7c7e38e346d08b73ba7b77a3527&width=1440",
         "color": "https://www.nacion.com/resizer/v2/I333IODIP5BETNNJHIWKDZMXT4.JPG?smart=true&auth=9f847135551d13a5d17f773ec4c5cdc386e2a7c7e38e346d08b73ba7b77a3527&width=1440",
-        "alt": "51 % ve mal la economía, según CIEP-UCR",
+        "alt": "Se duplica la percepción negativa de la economía",
         "credit": "La Nación"
       },
       "snippets": [
         {
-          "id": "percepcion-economia-ciep-51",
+          "id": "percepcion-economia-ciep-encuesta",
           "kind": "number",
           "importance": 2,
           "published": "2026-11-25",
-          "headline": "51 % la ve mala o muy mala",
-          "body": "En noviembre el 51 % ve la economía mala o muy mala, contra 43 % en setiembre. Quienes la ven buena bajaron de 40 % en mayo a 28 %.",
-          "why": "La Nación da 25 % de percepción negativa en mayo; Acontecer y Diario Extra, 35 %.",
+          "headline": "51 % ve mal la economía",
+          "body": "La encuesta CIEP-UCR muestra que el 51 % califica la economía de mala o muy mala; en mayo era el 25 %.",
+          "why": null,
           "image": null,
           "tags": [
             "encuesta",
-            "confianza"
+            "consumidor"
           ],
           "source": {
             "name": "La Nación",
@@ -593,256 +663,99 @@
           "kind": "number",
           "importance": 1,
           "published": "2026-11-25",
-          "headline": "IMAE creció 2,4 % en setiembre",
-          "body": "El IMAE creció 2,4 % interanual en setiembre, 2,8 puntos menos que un año antes.",
+          "headline": "IMAE de setiembre: 2,4 %",
+          "body": "La actividad creció 2,4 % interanual, 2,8 puntos menos que un año antes.",
           "why": null,
           "image": null,
           "tags": [
             "imae",
-            "actividad"
-          ],
-          "source": {
-            "name": "La Nación",
-            "url": "https://www.nacion.com/el-pais/percepcion-negativa-de-la-economia-se-duplica-en/5SV6GDI4ERBKLF53Z77SLXVW6Y/story/"
-          }
-        },
-        {
-          "id": "percepcion-economia-ciep-ortiz",
-          "kind": "fact",
-          "importance": 1,
-          "published": "2026-11-25",
-          "headline": "Las causas, según Daniel Ortiz",
-          "body": "El economista lo atribuye a combustibles más caros, tasas internacionales al alza, desaceleración y desempleo.",
-          "why": null,
-          "image": {
-            "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1512171-690116501d47b031cd47663a74c2ba1a75439de5132e15f87d62938e6fd24da0.jpg",
-            "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1512171-690116501d47b031cd47663a74c2ba1a75439de5132e15f87d62938e6fd24da0.jpg",
-            "alt": "Las causas, según Daniel Ortiz",
-            "credit": "Diario Extra"
-          },
-          "tags": [
-            "desempleo",
-            "combustibles"
-          ],
-          "source": {
-            "name": "Diario Extra",
-            "url": "https://www.diarioextra.com/noticia/mas-de-la-mitad-de-los-costarricenses-considera-que-la-economia-esta-mal/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "huelga-medicos-ccss",
-      "category": "politica",
-      "scope": "cr",
-      "importance": 1,
-      "title": "Médicos de la CCSS llaman a huelga desde febrero",
-      "synopsis": "La Unión Médica Nacional llamó a huelga general desde febrero de 2027 contra las nuevas reglas de pago de horas extra. Una huelga larga pesa en la percepción económica y en la productividad de los trabajadores. Vigilar si hay negociación antes de febrero y el avance de la contratación de servicios privados.",
-      "image": {
-        "url": "https://observador.cr/wp-content/uploads/2024/01/DJI_0138-scaled.jpg.webp",
-        "color": "https://observador.cr/wp-content/uploads/2024/01/DJI_0138-scaled.jpg.webp",
-        "alt": "Médicos de la CCSS llaman a huelga desde febrero",
-        "credit": "El Observador"
-      },
-      "snippets": [
-        {
-          "id": "huelga-medicos-ccss-convocatoria",
-          "kind": "event",
-          "importance": 2,
-          "published": "2026-11-26",
-          "headline": "Huelga desde febrero de 2027",
-          "body": "La Unión Médica Nacional exige anular las nuevas reglas de pago de horas extra.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "ccss",
-            "huelga"
-          ],
-          "source": {
-            "name": "Tico Times",
-            "url": "https://ticotimes.net/2026/11/26/costa-rica-doctors-strike-february-2027-ccss"
-          }
-        },
-        {
-          "id": "huelga-medicos-ccss-espera",
-          "kind": "number",
-          "importance": 1,
-          "published": "2026-11-26",
-          "headline": "449 días de espera por cirugía",
-          "body": "La espera promedio por cirugía es de 449 días; el sindicato dice que el Estado debe a la CCSS más de ₡4 billones.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "ccss",
-            "deuda"
-          ],
-          "source": {
-            "name": "Tico Times",
-            "url": "https://ticotimes.net/2026/11/26/costa-rica-doctors-strike-february-2027-ccss"
-          }
-        },
-        {
-          "id": "huelga-medicos-ccss-privados",
-          "kind": "fact",
-          "importance": 1,
-          "published": "2026-11-26",
-          "headline": "CCSS abre la puerta a privados",
-          "body": "La CCSS dio un primer paso para contratar cirugías, consultas y diagnósticos al sector privado.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "ccss",
-            "sector privado"
+            "crecimiento"
           ],
           "source": {
             "name": "El Observador",
-            "url": "https://observador.cr/ccss-da-primer-paso-para-contratar-cirugias-consultas-y-servicios-de-diagnostico-al-sector-privado/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "bab-el-mandeb-hutis",
-      "category": "geopolitica",
-      "scope": "mundo",
-      "importance": 1,
-      "title": "Hutíes y el control de Bab el-Mandeb",
-      "synopsis": "Un analista citado por MDZ habla de un control parcial de Bab el-Mandeb por parte de los hutíes, en paralelo a los ataques en Ormuz. Si la ruta del Mar Rojo se complica, suben fletes y plazos de entrega de insumos importados. Vigilar si otras fuentes confirman el control y si las navieras desvían rutas.",
-      "image": {
-        "url": "https://assets.mdzol.com/social/1998348-3145021f16.jpg",
-        "color": "https://assets.mdzol.com/social/1998348-3145021f16.jpg",
-        "alt": "Hutíes y el control de Bab el-Mandeb",
-        "credit": "MDZ"
-      },
-      "snippets": [
-        {
-          "id": "bab-el-mandeb-hutis-control",
-          "kind": "quote",
-          "importance": 1,
-          "published": "2026-11-27",
-          "headline": "\"Control parcial\" del estrecho",
-          "body": "Un analista citado por MDZ menciona el control parcial de Bab el-Mandeb por parte de los hutíes.",
-          "why": "Es una sola fuente y una sola voz.",
-          "image": null,
-          "tags": [
-            "mar rojo",
-            "rutas"
-          ],
-          "source": {
-            "name": "MDZ",
-            "url": "https://www.mdzol.com/economia/2026/11/27/el-petroleo-brent-llega-a-us91-y-crece-la-amenaza-alcista-por-el-conflicto-en-el-estrecho-de-ormuz-1998348.html"
-          }
-        },
-        {
-          "id": "bab-el-mandeb-hutis-ruta",
-          "kind": "fact",
-          "importance": 1,
-          "published": "2026-11-27",
-          "headline": "Ángulo aparte del Brent",
-          "body": "Los ataques en el Mar Rojo afectan rutas marítimas, no solo el precio del crudo.",
-          "why": "Los fletes de contenedores pesan en el costo de insumos importados.",
-          "image": null,
-          "tags": [
-            "fletes"
-          ],
-          "source": {
-            "name": "MDZ",
-            "url": "https://www.mdzol.com/economia/2026/11/27/el-petroleo-brent-llega-a-us91-y-crece-la-amenaza-alcista-por-el-conflicto-en-el-estrecho-de-ormuz-1998348.html"
-          }
-        }
-      ]
-    },
-    {
-      "id": "cobre-salto-6",
-      "category": "tecnologia",
-      "scope": "mundo",
-      "importance": 1,
-      "title": "Futuros del cobre saltan 6 %",
-      "synopsis": "Los futuros del cobre subieron 6 %, impulsados por apuestas ligadas a la inteligencia artificial, según una sola fuente. El cobre pesa en el cable eléctrico, que ya había subido 6,28 % en 2025 según el INEC. Vigilar si el alza se sostiene y llega a los precios locales de cable.",
-      "image": {
-        "url": "https://www.euribor.com.es/wp-content/uploads/2026/03/Captura-de-pantalla-13.03.2026-a-11.05.11-a.-m.png",
-        "color": "https://www.euribor.com.es/wp-content/uploads/2026/03/Captura-de-pantalla-13.03.2026-a-11.05.11-a.-m.png",
-        "alt": "Futuros del cobre saltan 6 %",
-        "credit": "euribor.com.es"
-      },
-      "snippets": [
-        {
-          "id": "cobre-salto-6-futuros",
-          "kind": "number",
-          "importance": 1,
-          "published": "2026-11-27",
-          "headline": "Cobre +6 %",
-          "body": "El salto de los futuros reavivó las apuestas de mercado ligadas a la inteligencia artificial.",
-          "why": "Dato de una sola fuente.",
-          "image": null,
-          "tags": [
-            "cobre",
-            "ia"
-          ],
-          "source": {
-            "name": "euribor.com.es",
-            "url": "https://www.euribor.com.es/2026/11/27/analisis-de-mercados-27-de-noviembre-de-2026-27-noviembre-2026/"
-          }
-        },
-        {
-          "id": "cobre-salto-6-cable",
-          "kind": "number",
-          "importance": 1,
-          "published": "2025-02-13",
-          "headline": "Cable eléctrico subió 6,28 %",
-          "body": "El precio del cable eléctrico había subido 6,28 % según el INEC.",
-          "why": "Es el insumo de obra más expuesto al cobre.",
-          "image": null,
-          "tags": [
-            "cable",
-            "insumos"
-          ],
-          "source": {
-            "name": "Monumental",
             "url": null
           }
         }
       ]
     },
     {
-      "id": "recargos-temporada-alta",
-      "category": "geopolitica",
-      "scope": "mundo",
-      "importance": 2,
-      "title": "Navieras planean recargos de hasta $1.600 en diciembre",
-      "synopsis": "Las navieras planean recargos de temporada alta de $1.000 a $1.600 por contenedor en diciembre, aunque el índice Drewry bajó 3 %. Podría frenar la baja de fletes y encarecer insumos importados que lleguen a inicios de 2027. Vigilar el dato de Drewry del 3 de diciembre.",
+      "id": "finanzas-publicas-deficit",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Recaudación cae y el déficit apunta a 3,8 % del PIB",
+      "synopsis": "La recaudación bajó 0,3 % a setiembre y el BCCR proyecta un déficit de 3,8 % del PIB para 2026, con intereses de deuda subiendo a 4,7 % del PIB. Más presión fiscal puede limitar inversión pública y empujar tasas. Vigilar el cierre fiscal y la colocación de deuda.",
       "image": {
-        "url": "https://www.indexbox.io/landing/img/blog/telegram-fallback/a09085c5fd5dec12b75ea864334e2ba2.webp",
-        "color": "https://www.indexbox.io/landing/img/blog/telegram-fallback/a09085c5fd5dec12b75ea864334e2ba2.webp",
-        "alt": "Navieras planean recargos de hasta $1.600 en diciembre",
-        "credit": "IndexBox"
+        "url": "https://www.elfinancierocr.com/resizer/v2/JDLEG5F2ARCS3OSB23PSADRQYM.jpg?smart=true&auth=9e460561daba2f7c991b6e15f94782c0250cd3e86261c6da2cca317c69a01089&width=1440",
+        "color": "https://www.elfinancierocr.com/resizer/v2/JDLEG5F2ARCS3OSB23PSADRQYM.jpg?smart=true&auth=9e460561daba2f7c991b6e15f94782c0250cd3e86261c6da2cca317c69a01089&width=1440",
+        "alt": "Recaudación cae y el déficit apunta a 3,8 % del PIB",
+        "credit": "El Financiero"
       },
       "snippets": [
         {
-          "id": "recargos-temporada-alta-monto",
+          "id": "finanzas-publicas-deficit-setiembre",
           "kind": "number",
-          "importance": 2,
-          "published": "2026-11-21",
-          "headline": "$1.000 a $1.600 por contenedor",
-          "body": "Las navieras planean aplicar recargos de temporada alta en diciembre.",
+          "importance": 1,
+          "published": "2026-11-11",
+          "headline": "Déficit de ₡1,276 billones",
+          "body": "De enero a setiembre la recaudación bajó 0,3 % y el déficit financiero llegó a 2,4 % del PIB.",
           "why": null,
           "image": null,
           "tags": [
-            "fletes",
-            "contenedores"
+            "fiscal",
+            "hacienda"
           ],
           "source": {
-            "name": "IndexBox",
-            "url": "https://www.indexbox.io/blog/drewry-world-container-index-falls-3-as-transpacific-rates-weaken/"
+            "name": "El Financiero",
+            "url": "https://www.elfinancierocr.com/finanzas/ingresos-tributarios-caen-y-el-gasto-crece-se/2DCGUQPBXBBMJFHFTY4BGCXRW4/story/"
           }
         },
         {
-          "id": "recargos-temporada-alta-rutas",
+          "id": "finanzas-publicas-deficit-proyeccion",
           "kind": "number",
           "importance": 1,
-          "published": "2026-11-21",
-          "headline": "Shanghai–Génova sube 6 %",
-          "body": "Las tarifas Transpacífico cayeron siete semanas seguidas; Shanghai–Génova subió 6 %, a $4.436.",
+          "published": null,
+          "headline": "Intereses a 4,7 % del PIB",
+          "body": "El Informe de Política Monetaria proyecta déficit de 3,8 % del PIB en 2026; los intereses pasarían de 4,4 % a 4,7 % del PIB.",
+          "why": null,
+          "image": {
+            "url": "https://images.hoy.cr/wp-content/uploads/2025/06/Ministerio-de-Hacienda.jpg",
+            "color": "https://images.hoy.cr/wp-content/uploads/2025/06/Ministerio-de-Hacienda.jpg",
+            "alt": "Intereses a 4,7 % del PIB",
+            "credit": "CRHoy"
+          },
+          "tags": [
+            "bccr",
+            "deuda"
+          ],
+          "source": {
+            "name": "CRHoy",
+            "url": "https://crhoy.com/economia/aumentan-el-deficit-fiscal-y-la-deuda-del-gobierno/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "drewry-fletes-baja",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 2,
+      "title": "Navieras cancelan viajes y anuncian recargos para diciembre",
+      "synopsis": "Drewry reporta siete viajes cancelados para la próxima semana pero espera que las tarifas sigan bajando, mientras navieras anuncian recargos de $1.000 a $1.600 por contenedor desde diciembre. Afecta el costo de acero, equipo y acabados importados. Vigilar si los recargos se aplican en rutas hacia Costa Rica.",
+      "image": {
+        "url": "https://westworldtrade.com/images/blog/container-rates-fall-transpacific-november-2026/featured.webp",
+        "color": "https://westworldtrade.com/images/blog/container-rates-fall-transpacific-november-2026/featured.webp",
+        "alt": "Navieras cancelan viajes y anuncian recargos para diciembre",
+        "credit": "West World Trade"
+      },
+      "snippets": [
+        {
+          "id": "drewry-fletes-baja-cancelaciones",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-26",
+          "headline": "Siete viajes cancelados",
+          "body": "Drewry anunció siete cancelaciones para la próxima semana, aunque espera que las tarifas sigan bajando.",
           "why": null,
           "image": null,
           "tags": [
@@ -850,318 +763,433 @@
             "drewry"
           ],
           "source": {
-            "name": "IndexBox",
-            "url": "https://www.indexbox.io/blog/drewry-world-container-index-falls-3-as-transpacific-rates-weaken/"
+            "name": "Drewry",
+            "url": "https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry"
+          }
+        },
+        {
+          "id": "drewry-fletes-baja-recargos",
+          "kind": "number",
+          "importance": 2,
+          "published": "2026-11-21",
+          "headline": "Recargos de $1.000 a $1.600",
+          "body": "Varias navieras anunciaron recargos de temporada alta por contenedor de 40 pies desde diciembre; al 19/11 el índice seguía 126 % arriba de hace un año.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "fletes",
+            "recargos"
+          ],
+          "source": {
+            "name": "West World Trade",
+            "url": "https://westworldtrade.com/en/blog/container-rates-fall-transpacific-november-2026"
           }
         }
       ]
     },
     {
-      "id": "inec-obras-2025",
+      "id": "ccc-construyendo-pais",
       "category": "construccion",
       "scope": "cr",
       "importance": 2,
-      "title": "INEC: 43.728 obras en 2025, 5,6 % más",
-      "synopsis": "El INEC registró 43.728 obras en 2025, 5,6 % más que en 2024, con 27.233 residenciales. Confirma una demanda residencial firme, pero también más competencia por terrenos, mano de obra e insumos. Vigilar si el ritmo se mantiene en 2026.",
+      "title": "Cámara de la Construcción presenta agenda contra la tramitología",
+      "synopsis": "La Cámara presentó el 20 de noviembre su agenda \"Construyendo País\" con un estudio de CEFSA sobre el peso de los trámites. Se reportó que la inversión creció 24 % en el primer semestre y 37 % fuera de la GAM. Vigilar qué propuestas de simplificación de permisos avanzan.",
       "image": {
-        "url": "https://crc891.com/wp-content/uploads/2026/11/Construccion-1.jpeg",
-        "color": "https://crc891.com/wp-content/uploads/2026/11/Construccion-1.jpeg",
-        "alt": "INEC: 43.728 obras en 2025, 5,6 % más",
-        "credit": "CRC 891"
+        "url": "https://www.vidayexito.net/wp-content/uploads/2020/09/csm_Construccion_CRN_a82a59e5a2.jpg",
+        "color": "https://www.vidayexito.net/wp-content/uploads/2020/09/csm_Construccion_CRN_a82a59e5a2.jpg",
+        "alt": "Cámara de la Construcción presenta agenda contra la tramitología",
+        "credit": "Vida y Éxito"
       },
       "snippets": [
         {
-          "id": "inec-obras-2025-total",
-          "kind": "number",
+          "id": "ccc-construyendo-pais-agenda",
+          "kind": "event",
           "importance": 2,
-          "published": "2026-11-18",
-          "headline": "43.728 obras, segunda cifra de la década",
-          "body": "Las obras crecieron 5,6 % frente a 2024, la segunda cifra más alta de la década.",
+          "published": "2026-11-24",
+          "headline": "Agenda con estudio de CEFSA",
+          "body": "El 20 de noviembre la Cámara presentó \"Construyendo País\", con un estudio sobre el costo de la tramitología.",
           "why": null,
           "image": null,
           "tags": [
-            "inec",
-            "obras"
+            "camara construccion",
+            "tramites"
           ],
           "source": {
-            "name": "CRC 891",
-            "url": "https://crc891.com/nacionales/construccion-toma-impulso-costa-rica-registro-mas-de-43-700-obras-en-2025-segun-el-inec"
+            "name": "Vida y Éxito",
+            "url": "https://www.vidayexito.net/negocios/construccion-plantea-agenda-de-inversion-e-infraestructura-para-costa-rica/"
           }
         },
         {
-          "id": "inec-obras-2025-residencial",
+          "id": "ccc-construyendo-pais-inversion",
           "kind": "number",
-          "importance": 2,
-          "published": "2026-11-18",
-          "headline": "27.233 obras residenciales",
-          "body": "Las obras residenciales crecieron 7,6 % y son el 62,3 % del total.",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Inversión +24 % en el semestre",
+          "body": "En el encuentro se dijo que la inversión creció 24 % en el primer semestre y 37 % fuera de la GAM.",
           "why": null,
           "image": null,
           "tags": [
-            "vivienda",
-            "inec"
+            "inversion"
           ],
           "source": {
-            "name": "CRC 891",
-            "url": "https://crc891.com/nacionales/construccion-toma-impulso-costa-rica-registro-mas-de-43-700-obras-en-2025-segun-el-inec"
+            "name": "Vida y Éxito",
+            "url": "https://www.vidayexito.net/negocios/construccion-plantea-agenda-de-inversion-e-infraestructura-para-costa-rica/"
           }
         }
       ]
     },
     {
-      "id": "cfia-intencion-semestre",
+      "id": "aya-reformas",
       "category": "construccion",
       "scope": "cr",
-      "importance": 1,
-      "title": "CFIA: intención de construcción creció 21 % en el semestre",
-      "synopsis": "El CFIA reportó que la intención de construcción creció 21 % en el primer semestre de 2026, con 391.220 m² en Cartago. Es un indicador adelantado de competencia y de demanda de insumos en la provincia. Conviene pedir al CFIA el dato del segundo semestre.",
+      "importance": 2,
+      "title": "AyA prepara reformas y abre mesas con la Cámara",
+      "synopsis": "La presidenta ejecutiva del AyA, Lourdes Suárez, anunció reformas en la institución y mesas de trabajo con la Cámara de la Construcción. Puede incidir en plazos de disponibilidad de agua para proyectos nuevos. Vigilar el contenido concreto de las reformas.",
       "image": {
-        "url": "https://www.nacion.com/resizer/v2/5R5ZYLQQZ5DMVI5F53ZHYZ7GPA.jpg?smart=true&auth=2a85ad57f0a63e5d50fef8f562a636c2d40bcef178781a52bda47a6c17220257&width=1440",
-        "color": "https://www.nacion.com/resizer/v2/5R5ZYLQQZ5DMVI5F53ZHYZ7GPA.jpg?smart=true&auth=2a85ad57f0a63e5d50fef8f562a636c2d40bcef178781a52bda47a6c17220257&width=1440",
-        "alt": "CFIA: intención de construcción creció 21 % en el semestre",
-        "credit": "La Nación"
+        "url": "https://revistasumma.com/wp-content/uploads/2026/03/construccion-1.jpg",
+        "color": "https://revistasumma.com/wp-content/uploads/2026/03/construccion-1.jpg",
+        "alt": "AyA prepara reformas y abre mesas con la Cámara",
+        "credit": "Revista Summa"
       },
       "snippets": [
         {
-          "id": "cfia-intencion-semestre-21",
-          "kind": "number",
-          "importance": 1,
-          "published": null,
-          "headline": "+21 % en el primer semestre",
-          "body": "La intención de construcción creció 21 %; la construcción comercial bajó 4 %.",
+          "id": "aya-reformas-anuncio",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-24",
+          "headline": "Reformas en preparación",
+          "body": "Lourdes Suárez habló de las reformas que prepara el AyA en el encuentro de la Cámara.",
           "why": null,
           "image": null,
           "tags": [
-            "cfia",
-            "obras"
+            "aya",
+            "agua"
           ],
           "source": {
-            "name": "La Nación",
-            "url": "https://www.nacion.com/economia/construccion-en-costa-rica-registra-un-dinamismo/FIWZXCWVO5G7PM5D6VK565SNFM/story/"
+            "name": "Revista Summa",
+            "url": "https://revistasumma.com/camara-costarricense-de-la-construccion-reune-a-autoridades-y-sector-privado-para-trazar-una-agenda-de-desarrollo-para-costa-rica/"
           }
         },
         {
-          "id": "cfia-intencion-semestre-cartago",
-          "kind": "number",
-          "importance": 2,
-          "published": null,
-          "headline": "Cartago: 391.220 m²",
-          "body": "Cartago sumó 391.220 m² de intención de construcción en el primer semestre de 2026.",
-          "why": "Mide la competencia directa en la zona.",
+          "id": "aya-reformas-mesas",
+          "kind": "event",
+          "importance": 1,
+          "published": "2026-11-24",
+          "headline": "Mesas de trabajo con la Cámara",
+          "body": "El AyA y la Cámara de la Construcción mantienen mesas de trabajo conjuntas.",
+          "why": null,
           "image": null,
           "tags": [
-            "cartago",
+            "aya",
+            "camara construccion"
+          ],
+          "source": {
+            "name": "Revista Summa",
+            "url": "https://revistasumma.com/camara-costarricense-de-la-construccion-reune-a-autoridades-y-sector-privado-para-trazar-una-agenda-de-desarrollo-para-costa-rica/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cfia-junta-metros",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 1,
+      "title": "Gerardo Díaz Naranjo asume el CFIA; metros tramitados crecen",
+      "synopsis": "El arquitecto Gerardo Díaz Naranjo preside el CFIA hasta octubre de 2027, y titulares del colegio hablan de un crecimiento de 12,8 % en metros tramitados. Es interlocutor clave en trámites de planos. Vigilar el dato oficial con fecha, porque la cifra citada no la trae.",
+      "image": {
+        "url": "https://img.delfino.cr/wp-content/uploads/2022/10/CFIA.jpg?w=1536",
+        "color": "https://img.delfino.cr/wp-content/uploads/2022/10/CFIA.jpg?w=1536",
+        "alt": "Gerardo Díaz Naranjo asume el CFIA; metros tramitados crecen",
+        "credit": "Delfino.cr"
+      },
+      "snippets": [
+        {
+          "id": "cfia-junta-metros-presidente",
+          "kind": "event",
+          "importance": 1,
+          "published": null,
+          "headline": "Nuevo presidente del CFIA",
+          "body": "Gerardo Díaz Naranjo preside el CFIA entre noviembre de 2026 y octubre de 2027.",
+          "why": null,
+          "image": null,
+          "tags": [
             "cfia"
           ],
           "source": {
-            "name": "La Nación",
-            "url": "https://www.nacion.com/economia/construccion-en-costa-rica-registra-un-dinamismo/FIWZXCWVO5G7PM5D6VK565SNFM/story/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "empleo-construccion-escasez",
-      "category": "construccion",
-      "scope": "cr",
-      "importance": 1,
-      "title": "Empleo récord en construcción, pero faltan trabajadores",
-      "synopsis": "La construcción llegó a 155.081 empleos directos en el primer trimestre de 2026, pero la falta de personal encarece las obras. Para quien construye, pesa en el costo de mano de obra y en los plazos. Vigilar salarios del sector y la siniestralidad laboral.",
-      "image": {
-        "url": "https://www.elfinancierocr.com/resizer/v2/5R5ZYLQQZ5DMVI5F53ZHYZ7GPA.jpg?smart=true&auth=2a85ad57f0a63e5d50fef8f562a636c2d40bcef178781a52bda47a6c17220257&width=1440",
-        "color": "https://www.elfinancierocr.com/resizer/v2/5R5ZYLQQZ5DMVI5F53ZHYZ7GPA.jpg?smart=true&auth=2a85ad57f0a63e5d50fef8f562a636c2d40bcef178781a52bda47a6c17220257&width=1440",
-        "alt": "Empleo récord en construcción, pero faltan trabajadores",
-        "credit": "El Financiero"
-      },
-      "snippets": [
-        {
-          "id": "empleo-construccion-escasez-empleos",
-          "kind": "number",
-          "importance": 1,
-          "published": null,
-          "headline": "155.081 empleos directos",
-          "body": "El sector tenía 155.081 empleos directos al primer trimestre de 2026, según el INEC. La falta de personal encarece las obras.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "empleo",
-            "mano de obra"
-          ],
-          "source": {
-            "name": "El Financiero",
-            "url": "https://www.elfinancierocr.com/negocios/sector-construccion-de-costa-rica-alcanza-record/JVLW2H6O45FL3EXVXNDOBVSFKY/story/"
+            "name": "Delfino.cr",
+            "url": "https://delfino.cr/2026/11/gerardo-diaz-naranjo-asume-presidencia-del-cfia-para-periodo-2026-2027"
           }
         },
         {
-          "id": "empleo-construccion-escasez-accidentes",
+          "id": "cfia-junta-metros-m2",
           "kind": "number",
           "importance": 1,
           "published": null,
-          "headline": "16.191 accidentes en 2025",
-          "body": "Hubo 16.191 accidentes y enfermedades laborales en construcción en 2025, según Sugese.",
-          "why": "Afecta pólizas de riesgos del trabajo y plazos.",
-          "image": null,
+          "headline": "5,78 millones de m² en el semestre",
+          "body": "Titulares del CFIA citan crecimiento de 12,8 % y más de 8,3 millones de m², y 5,78 millones de m² en el primer semestre (+20,8 %).",
+          "why": "Sin fecha precisa en la fuente.",
+          "image": {
+            "url": "https://www.vidayexito.net/wp-content/uploads/2026/10/Gerardo-RRSS-e1793821913942.jpg",
+            "color": "https://www.vidayexito.net/wp-content/uploads/2026/10/Gerardo-RRSS-e1793821913942.jpg",
+            "alt": "5,78 millones de m² en el semestre",
+            "credit": "Vida y Éxito"
+          },
           "tags": [
-            "seguridad laboral"
+            "cfia",
+            "metros cuadrados"
           ],
           "source": {
-            "name": "El Financiero",
-            "url": "https://www.elfinancierocr.com/negocios/sector-construccion-de-costa-rica-alcanza-record/JVLW2H6O45FL3EXVXNDOBVSFKY/story/"
+            "name": "Vida y Éxito",
+            "url": "https://www.vidayexito.net/negocios/cfia-presenta-a-la-junta-directiva-que-liderara-la-institucion-hasta-octubre-de-2027/"
           }
         }
       ]
     },
     {
-      "id": "arancel-eeuu-12-5",
-      "category": "geopolitica",
-      "scope": "mundo",
+      "id": "banhvi-450000-bonos",
+      "category": "construccion",
+      "scope": "cr",
       "importance": 1,
-      "title": "Arancel de EE. UU. sigue en 12,5 %",
-      "synopsis": "El arancel de 12,5 % impuesto por la USTR por los controles de trabajo forzoso sigue vigente y afecta a dispositivos médicos y manufactura. Ese empleo exportador sostiene parte de la demanda de vivienda. Hoy no hubo novedades; vigilar cualquier revisión.",
+      "title": "BANHVI llega a 450.000 bonos de vivienda en 40 años",
+      "synopsis": "El BANHVI suma 450.000 bonos de vivienda en cuatro décadas, una cuarta parte del parque habitacional. Muestra el peso del bono en la demanda de vivienda de interés social. Vigilar la asignación presupuestaria del sistema para 2027.",
       "image": {
-        "url": "https://www.elfinancierocr.com/resizer/v2/3OLRJF4BCNDVRK3BDOEZAVUVHA.jpg?smart=true&auth=9914d7c297ceb3a0f1729436a7890a1373793b1dc0936a55da1a137a75d034a0&width=1440",
-        "color": "https://www.elfinancierocr.com/resizer/v2/3OLRJF4BCNDVRK3BDOEZAVUVHA.jpg?smart=true&auth=9914d7c297ceb3a0f1729436a7890a1373793b1dc0936a55da1a137a75d034a0&width=1440",
-        "alt": "Arancel de EE. UU. sigue en 12,5 %",
-        "credit": "El Financiero"
+        "url": "https://www.infobae.com/resizer/v2/HL4OC3HQCNC3TOXMSVOIFW5O2Q.jpg?auth=8413b3a3fe549c8f2c13221eddb5bcfe0a6fdc0f0def5f0efd9c42d13dd62018&smart=true&width=1200&height=630&quality=85",
+        "color": "https://www.infobae.com/resizer/v2/HL4OC3HQCNC3TOXMSVOIFW5O2Q.jpg?auth=8413b3a3fe549c8f2c13221eddb5bcfe0a6fdc0f0def5f0efd9c42d13dd62018&smart=true&width=1200&height=630&quality=85",
+        "alt": "BANHVI llega a 450.000 bonos de vivienda en 40 años",
+        "credit": "Infobae"
       },
       "snippets": [
         {
-          "id": "arancel-eeuu-12-5-tasa",
+          "id": "banhvi-450000-bonos-cifra",
           "kind": "number",
           "importance": 1,
+          "published": "2026-11-23",
+          "headline": "450.000 bonos",
+          "body": "Es el total entregado en 40 años de sistema.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "banhvi",
+            "bono vivienda"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/23/costa-rica-alcanza-los-450000-bonos-de-vivienda-entregados-tras-40-anos-de-impulso-habitacional/"
+          }
+        },
+        {
+          "id": "banhvi-450000-bonos-parque",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-11-23",
+          "headline": "Un cuarto del parque habitacional",
+          "body": "Las viviendas con bono representan una cuarta parte del parque habitacional del país.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "vivienda"
+          ],
+          "source": {
+            "name": "Infobae",
+            "url": "https://www.infobae.com/costa-rica/2026/11/23/costa-rica-alcanza-los-450000-bonos-de-vivienda-entregados-tras-40-anos-de-impulso-habitacional/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cartago-deficit-hidrico",
+      "category": "construccion",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Cartago proyecta déficit hídrico de hasta 30 % y sigue sin tratamiento",
+      "synopsis": "Se proyecta un déficit hídrico de hasta 30 % en Cartago en 2026 por El Niño, y la provincia no tiene planta de tratamiento de aguas residuales. Esto toca directamente las cartas de disponibilidad de agua para proyectos nuevos. Vigilar criterios del AyA y la municipalidad para nuevas conexiones.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "cartago-deficit-hidrico-30",
+          "kind": "number",
+          "importance": 2,
           "published": null,
-          "headline": "12,5 % de arancel",
-          "body": "La USTR lo impuso por los controles de trabajo forzoso; afecta dispositivos médicos y manufactura.",
+          "headline": "Déficit de hasta 30 %",
+          "body": "La proyección para la provincia en 2026 se atribuye a El Niño.",
+          "why": "Afecta la emisión de cartas de disponibilidad de agua.",
+          "image": null,
+          "tags": [
+            "cartago",
+            "agua"
+          ],
+          "source": {
+            "name": "Ojo al Clima",
+            "url": "https://ojoalclima.com/articles/agua-que-no-has-de-beber-dejala-correr-crisis-de-la-gestion-hidrica-y-cambio-climatico-en-cartago"
+          }
+        },
+        {
+          "id": "cartago-deficit-hidrico-tratamiento",
+          "kind": "fact",
+          "importance": 1,
+          "published": null,
+          "headline": "Sin planta de tratamiento",
+          "body": "Cartago sigue sin planta de tratamiento de aguas residuales.",
+          "why": null,
+          "image": null,
+          "tags": [
+            "cartago",
+            "saneamiento"
+          ],
+          "source": {
+            "name": "Ojo al Clima",
+            "url": "https://ojoalclima.com/articles/agua-que-no-has-de-beber-dejala-correr-crisis-de-la-gestion-hidrica-y-cambio-climatico-en-cartago"
+          }
+        }
+      ]
+    },
+    {
+      "id": "arancel-eeuu-125",
+      "category": "geopolitica",
+      "scope": "mundo",
+      "importance": 1,
+      "title": "EE. UU. mantiene arancel de 12,5 % a Costa Rica",
+      "synopsis": "EE. UU. confirmó un arancel de 12,5 % tras la investigación de la Sección 301, con café, piña, banano y jugo de naranja excluidos. Costa Rica paga más que vecinos con 10 %, lo que puede pesar en exportaciones y empleo. Es contexto, no noticia del día.",
+      "image": null,
+      "snippets": [
+        {
+          "id": "arancel-eeuu-125-decision",
+          "kind": "fact",
+          "importance": 1,
+          "published": "2026-07-23",
+          "headline": "12,5 % con exclusiones agrícolas",
+          "body": "Es la decisión final de la Sección 301; café, piña, banano y jugo de naranja quedan excluidos.",
           "why": null,
           "image": null,
           "tags": [
             "aranceles",
-            "exportaciones"
+            "eeuu"
           ],
           "source": {
-            "name": "El Financiero",
-            "url": "https://www.elfinancierocr.com/economia-y-politica/estados-unidos-eleva-a-125-el-arancel-a-las/OQMXGE5JCFFCXOA4XGF4VTDICA/story/"
+            "name": "COMEX",
+            "url": "https://comex.go.cr/sala-de-prensa/comunicados/2026/julio/cp-3250-gobierno-de-los-estados-unidos-confirma-aranceles-para-60-econom%C3%ADas-incluida-costa-rica"
           }
         },
         {
-          "id": "arancel-eeuu-12-5-sinnovedad",
+          "id": "arancel-eeuu-125-region",
           "kind": "fact",
           "importance": 1,
           "published": null,
-          "headline": "Sin novedades hoy",
-          "body": "No se encontraron cambios en el arancel; sirve como dato de fondo.",
+          "headline": "Más que Guatemala, Honduras y El Salvador",
+          "body": "Esos países tienen un arancel de 10 %.",
           "why": null,
           "image": null,
           "tags": [
-            "aranceles"
+            "aranceles",
+            "competitividad"
           ],
           "source": {
-            "name": "El Financiero",
-            "url": "https://www.elfinancierocr.com/economia-y-politica/estados-unidos-eleva-a-125-el-arancel-a-las/OQMXGE5JCFFCXOA4XGF4VTDICA/story/"
+            "name": "La Nación",
+            "url": null
           }
         }
       ]
     },
     {
-      "id": "zonas-francas-desaceleracion",
+      "id": "cuenta-corriente-deficit",
       "category": "economia",
-      "scope": "cr",
+      "scope": "mundo",
       "importance": 1,
-      "title": "Zonas francas se desaceleran en 2026",
-      "synopsis": "Las zonas francas, que concentraron cerca del 68 % de la inversión extranjera de 2025, se desaceleran en 2026. Ese empleo alimenta la demanda de vivienda en Cartago, así que un freno pesa en ventas. Vigilar anuncios de inversión y empleo en parques de Cartago.",
+      "title": "Déficit de cuenta corriente, cubierto por inversión extranjera",
+      "synopsis": "La cuenta corriente tuvo un déficit de $381 millones en el semestre, pero la inversión extranjera de largo plazo lo cubre de sobra, según el BCCR. Ayuda a explicar la abundancia de dólares y el colón fuerte. Vigilar los flujos de inversión en el segundo semestre.",
       "image": {
-        "url": "https://www.infobae.com/resizer/v2/S7VESV7C2BEMFLBG2FDCZAWUJE.webp?auth=7e8c73f0ce0ecdb0f8552bf4d0bb7373881588c5cee7c570aad708614b975e76&smart=true&width=1200&height=630&quality=85",
-        "color": "https://www.infobae.com/resizer/v2/S7VESV7C2BEMFLBG2FDCZAWUJE.webp?auth=7e8c73f0ce0ecdb0f8552bf4d0bb7373881588c5cee7c570aad708614b975e76&smart=true&width=1200&height=630&quality=85",
-        "alt": "Zonas francas se desaceleran en 2026",
-        "credit": "Infobae"
+        "url": "https://www.riotimesonline.com/wp-content/uploads/2026/08/rt-br-15def061a6.jpg",
+        "color": "https://www.riotimesonline.com/wp-content/uploads/2026/08/rt-br-15def061a6.jpg",
+        "alt": "Déficit de cuenta corriente, cubierto por inversión extranjera",
+        "credit": "Rio Times"
       },
       "snippets": [
         {
-          "id": "zonas-francas-desaceleracion-ied",
+          "id": "cuenta-corriente-deficit-cifra",
           "kind": "number",
           "importance": 1,
-          "published": "2026-08-13",
-          "headline": "68 % de la IED de 2025",
-          "body": "Las zonas francas concentraron cerca del 68 % de la inversión extranjera directa de 2025.",
+          "published": "2026-10-01",
+          "headline": "$239,8 millones en el segundo trimestre",
+          "body": "El déficit acumulado del semestre llegó a $381 millones.",
           "why": null,
           "image": null,
           "tags": [
-            "zonas francas",
-            "ied"
+            "balanza de pagos"
           ],
           "source": {
-            "name": "Infobae",
-            "url": "https://www.infobae.com/costa-rica/2026/08/13/desaceleracion-de-zonas-francas-enciende-senales-de-alerta-sobre-la-competitividad-de-costa-rica/"
+            "name": "Rio Times",
+            "url": "https://www.riotimesonline.com/costa-rica-current-account-deficit-widens-q2-2026"
           }
         },
         {
-          "id": "zonas-francas-desaceleracion-gam",
-          "kind": "number",
-          "importance": 1,
-          "published": "2026-08-13",
-          "headline": "92,6 % dentro de la GAM",
-          "body": "El 92,6 % de esa inversión quedó dentro de la Gran Área Metropolitana.",
-          "why": "Cartago está dentro de la GAM y compite por ese empleo.",
-          "image": null,
-          "tags": [
-            "gam",
-            "cartago"
-          ],
-          "source": {
-            "name": "Infobae",
-            "url": "https://www.infobae.com/costa-rica/2026/08/13/desaceleracion-de-zonas-francas-enciende-senales-de-alerta-sobre-la-competitividad-de-costa-rica/"
-          }
-        }
-      ]
-    },
-    {
-      "id": "albanese-migracion",
-      "category": "politica",
-      "scope": "cr",
-      "importance": 1,
-      "title": "Migración impide entrada de relatora Albanese",
-      "synopsis": "Migración negó el ingreso a Francesca Albanese, relatora de la ONU, a quien la UCR iba a dar un doctorado honoris causa, y la Sala IV dictó una medida cautelar. El efecto económico no es trazable, pero abre otro frente entre el Ejecutivo y la Sala. Vigilar la respuesta de Migración en el plazo de 24 horas.",
-      "image": {
-        "url": "https://www.infobae.com/resizer/v2/ZQHTEQF4WNF6ROXTOBF7PQYEEQ.JPG?auth=030795f7853d90b2840563cf66f813079fc66841239bd74feb4b31ab42b00aa1&smart=true&width=1200&height=630&quality=85",
-        "color": "https://www.infobae.com/resizer/v2/ZQHTEQF4WNF6ROXTOBF7PQYEEQ.JPG?auth=030795f7853d90b2840563cf66f813079fc66841239bd74feb4b31ab42b00aa1&smart=true&width=1200&height=630&quality=85",
-        "alt": "Migración impide entrada de relatora Albanese",
-        "credit": "Infobae"
-      },
-      "snippets": [
-        {
-          "id": "albanese-migracion-ingreso",
-          "kind": "event",
-          "importance": 1,
-          "published": "2026-11-27",
-          "headline": "Ingreso negado el 26 de noviembre",
-          "body": "Migración impidió la entrada de la relatora para los territorios palestinos ocupados alegando seguridad nacional; la UCR reclamó.",
-          "why": null,
-          "image": null,
-          "tags": [
-            "migracion",
-            "onu"
-          ],
-          "source": {
-            "name": "Infobae",
-            "url": "https://www.infobae.com/costa-rica/2026/11/27/costa-rica-impide-ingreso-de-relatora-de-la-onu-por-seguridad-nacional-y-desata-reclamo-de-la-universidad-de-costa-rica/"
-          }
-        },
-        {
-          "id": "albanese-migracion-sala",
+          "id": "cuenta-corriente-deficit-ied",
           "kind": "fact",
           "importance": 1,
+          "published": "2026-10-01",
+          "headline": "La IED lo financia",
+          "body": "Según el BCCR, la inversión extranjera de largo plazo cubre de sobra el déficit.",
+          "why": "Es una de las razones por las que sobran dólares.",
+          "image": null,
+          "tags": [
+            "ied",
+            "dolar"
+          ],
+          "source": {
+            "name": "Rio Times",
+            "url": "https://www.riotimesonline.com/costa-rica-current-account-deficit-widens-q2-2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "feriado-1-diciembre",
+      "category": "economia",
+      "scope": "cr",
+      "importance": 2,
+      "title": "Feriado del 1.° de diciembre: pago y descanso en obra",
+      "synopsis": "Según titulares de Diario Extra, el Ministerio de Trabajo aclaró que el descanso del 1.° de diciembre no es obligatorio ni trasladable, con pagos dobles o triples. Afecta la planilla de obra de la próxima semana. Confirmar con el Ministerio de Trabajo antes de cerrar la planilla.",
+      "image": {
+        "url": "https://www.diarioextra.com/wp-content/uploads/social-images/1514076-65e1eb856ac99837dd2cb9a944e8d50c6f6ab3e092c69e647448957cd18f9cbd.jpg",
+        "color": "https://www.diarioextra.com/wp-content/uploads/social-images/1514076-65e1eb856ac99837dd2cb9a944e8d50c6f6ab3e092c69e647448957cd18f9cbd.jpg",
+        "alt": "Feriado del 1.° de diciembre: pago y descanso en obra",
+        "credit": "Diario Extra"
+      },
+      "snippets": [
+        {
+          "id": "feriado-1-diciembre-aclaracion",
+          "kind": "fact",
+          "importance": 2,
           "published": "2026-11-27",
-          "headline": "Sala IV da 24 horas a Migración",
-          "body": "La Sala IV dictó una medida cautelar y dio 24 horas a Migración para explicar la retención.",
+          "headline": "Descanso no obligatorio ni trasladable",
+          "body": "El Ministerio de Trabajo habría aclarado que el descanso no es obligatorio ni se puede trasladar.",
+          "why": "Solo se vieron titulares; falta confirmar.",
+          "image": null,
+          "tags": [
+            "feriado",
+            "planilla"
+          ],
+          "source": {
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/videos/referendum-laura-fernandez-votos-legislativos-aval/"
+          }
+        },
+        {
+          "id": "feriado-1-diciembre-pago",
+          "kind": "fact",
+          "importance": 2,
+          "published": "2026-11-27",
+          "headline": "Pagos dobles o triples",
+          "body": "Quien trabaje el feriado tendría pago doble o triple, según el caso.",
           "why": null,
           "image": null,
           "tags": [
-            "sala iv",
-            "migracion"
+            "feriado",
+            "salarios"
           ],
           "source": {
-            "name": "La Jornada/AFP-AP",
-            "url": "https://www.jornada.com.mx/2026/11/27/mundo/028n2mun"
+            "name": "Diario Extra",
+            "url": "https://www.diarioextra.com/videos/referendum-laura-fernandez-votos-legislativos-aval/"
           }
         }
       ]
