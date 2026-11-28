@@ -82,6 +82,16 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.7.4 · 2026-11-27 19:49
+
+**Claude:** New nameplate on the sideboard: the computer is the iCube now. Same blue plastic, same glowing screen, same scores; only the name changed, everywhere you can read it.
+
+Asked by Marcos, 27 Nov 19:46: "Don't call it iMac. Call it iCube"
+
+- The room's computer is the iCube in the list of changes, in place of iMac and Mac. Marcos's own words, quoted in older entries, stay as he wrote them.
+- Where old entries described the name under the screen, they now say "the name" rather than spell it out.
+- The code's notes and names follow. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.7.3 · 2026-11-27 19:45
 
 **Claude:** The list of changes stopped reading like a logbook. Only the newest says when it shipped; the rest just carry their numbers. The dates are still in the file, kept for the record.
@@ -93,11 +103,11 @@ Asked by Marcos, 27 Nov 19:42: "Remove the time of the the changelogs. Just show
 
 ## 1.7.2 · 2026-11-27 19:45
 
-**Claude:** Locked doesn't mean secret. Holding a cube you haven't opened yet, tap the old Mac's screen and you'll see who's on top of it, so you know what you're chasing.
+**Claude:** Locked doesn't mean secret. Holding a cube you haven't opened yet, tap the old iCube's screen and you'll see who's on top of it, so you know what you're chasing.
 
 Asked by Marcos, 27 Nov 19:42: "As a player I should be able to tap the screen to see the ranking even if I haven't unlocked the cube"
 
-- With a locked cube held up and its card showing, a tap on the iMac's screen opens that cube's ranking, its top ten, as for any cube. The rest of the screen still says no, with a shake.
+- With a locked cube held up and its card showing, a tap on the iCube's screen opens that cube's ranking, its top ten, as for any cube. The rest of the screen still says no, with a shake.
 - At the screen the card steps aside; BACK brings it back with the cube still locked. ([#266](https://github.com/onexmac/ad/pull/266))
 
 ## 1.7.1 · 2026-11-27 19:41
@@ -737,11 +747,11 @@ Asked by Marcos, 26 Nov 14:17: "If it is the first time the user opens a cube ha
 
 ## 0.7.25 · 2026-11-26 14:14
 
-**Claude:** The icon flipped to night mode: a cream cube on dark blue-grey. It stands out on the home screen and still looks like the Mac's.
+**Claude:** The icon flipped to night mode: a cream cube on dark blue-grey. It stands out on the home screen and still looks like the iCube's.
 
 Asked by Marcos, 26 Nov 14:14, of 0.7.19: "Let's invert the colors, light icon in dark bluegray rectangle. For the homescreen"
 
-- The home-screen icon is now the cube in paper on the Mac's ink, a dark blue-grey, the other way round from 0.7.19. The cube keeps its place and pose, in all three sizes.
+- The home-screen icon is now the cube in paper on the iCube's ink, a dark blue-grey, the other way round from 0.7.19. The cube keeps its place and pose, in all three sizes.
 - A phone that already has the app keeps its icon until it is added to the home screen again. ([#197](https://github.com/onexmac/ad/pull/197))
 
 ## 0.7.24 · 2026-11-26 14:07
@@ -784,7 +794,7 @@ Asked by Marcos, 26 Nov 13:59, in the same message: "Let's have all the high sco
 
 Asked by Marcos, 26 Nov 13:59: "Let's change the home icon. Same position but with the style of the side-b"
 
-- The home-screen icon keeps its cube in the same place and pose, now in the Mac's colours: charcoal ink on cream paper, where it was white on black. All three sizes changed (the iPhone's and the two the app installs with).
+- The home-screen icon keeps its cube in the same place and pose, now in the iCube's colours: charcoal ink on cream paper, where it was white on black. All three sizes changed (the iPhone's and the two the app installs with).
 - A phone that already has the app keeps the old icon until it is added to the home screen again. ([#195](https://github.com/onexmac/ad/pull/195))
 
 ## 0.7.18 · 2026-11-26 13:58
@@ -868,8 +878,8 @@ Asked by Marcos, 26 Nov 13:27: "The yes on the confirm on highscore should be fi
   - Don't: give a screen a new colour without the page under it and the phone's bars. Check the first screen on a phone's whole screen, bars and bottom edge included.
 
 - While the loader is up, the page itself and the phone's bars are paper, all the way to the bottom. Once the room is in, they are black again, beyond its frame.
-- The name is THE CUBES in the machine's letters, three times their size, on a title bar of stripes as the Mac's windows have.
-- START (and LISTO or INSTALAR when the app asks to be installed) is a Mac button.
+- The name is THE CUBES in the machine's letters, three times their size, on a title bar of stripes as the iCube's windows have.
+- START (and LISTO or INSTALAR when the app asks to be installed) is an iCube button.
   - It has paper with an ink line, rounded corners and an ink lip, plus the ring of the button to press, in the machine's letters.
   - Pressed, it turns ink with paper letters and still springs.
 - Asking to install looks the same: the loading cube shows through in the middle, and the icon is no longer drawn over it.
@@ -895,11 +905,11 @@ Asked by Marcos, 26 Nov 13:14, in the same message: "New trick, double tap and s
 Asked by Marcos, 26 Nov 13:14: "Mmm double tap on anywhere but the dots control should do the same as in the cube (flip it)."
 
 - Two quick taps anywhere off the grid of dots and off the puzzle flip it round, as two taps on it do. It turns half a turn about the upright, toward the side tapped.
-- One tap there still does nothing, and a tap on the Mac still opens its screen. ([#188](https://github.com/onexmac/ad/pull/188))
+- One tap there still does nothing, and a tap on the iCube still opens its screen. ([#188](https://github.com/onexmac/ad/pull/188))
 
 ## 0.7.5 · 2026-11-26 12:10
 
-**Claude:** High scores are real now. Solve a puzzle by hand fast enough and the Mac asks for your initials. Every puzzle keeps its own top five, and the machine remembers them. No coins required.
+**Claude:** High scores are real now. Solve a puzzle by hand fast enough and the iCube asks for your initials. Every puzzle keeps its own top five, and the machine remembers them. No coins required.
 
 Asked by Marcos, 26 Nov 11:32: "I love the side B. Let's implement it into The Cubes"
 
@@ -913,7 +923,7 @@ Asked by Marcos, 26 Nov 11:32: "I love the side B. Let's implement it into The C
   - They start as the machine's own: the 3×3's sample times, the others scaled to how long each takes.
   - They are kept on the device, so they survive a reload.
 - A slower solve celebrates and stays in hand.
-- Leaving the screen before END drops the entry. A tap on the Mac with no new time shows the five, with BACK.
+- Leaving the screen before END drops the entry. A tap on the iCube with no new time shows the five, with BACK.
 - Close to the screen, the camera frames it as the labs did: square on and a tenth closer, with the screen higher while the keyboard is up. ([#187](https://github.com/onexmac/ad/pull/187))
 
 ## 0.7.0 · 2026-11-26 12:10
@@ -922,8 +932,8 @@ Asked by Marcos, 26 Nov 11:32: "I love the side B. Let's implement it into The C
 
 Asked by Marcos, 26 Nov 11:32, in the same message: "I love the side B. Let's implement it into The Cubes"
 
-- The app wears Side-B's look, a friendly old Mac:
-  - The iMac's screen is a window on a dark desktop. Its title bar has stripes, a close box and THE CUBES.
+- The app wears Side-B's look, a friendly old iCube:
+  - The iCube's screen is a window on a dark desktop. Its title bar has stripes, a close box and THE CUBES.
   - The line at the top right and the version are paper boxes with an ink line, rounded corners and an ink lip. The clock is the same box inverted.
   - The keyboard is a window titled INITIALS, with keys that press down onto their lip.
   - END asks in a SAVE? dialog, with YES as the default.
@@ -992,16 +1002,16 @@ Asked by Marcos, 26 Nov 09:05: "Have the user time merge more seamless into the 
 
 ## 0.6.87 · 2026-11-26 08:15
 
-**Claude:** Hit YES and your score goes home: the Mac comes back into focus, the camera leans in, and your row drops into its spot in the table with a swoosh and a bo-lup, while the little logo solves itself in celebration.
+**Claude:** Hit YES and your score goes home: the iCube comes back into focus, the camera leans in, and your row drops into its spot in the table with a swoosh and a bo-lup, while the little logo solves itself in celebration.
 
 - **Bug fix.** Marcos, 26 Nov 08:07, of 0.6.84: "No. The zoom in on text is to place it into the Mac , swoosh bolup. The initial zoom that brings the keyboard gotta be fast, and not coming from the congrats. Reread the og instruction with this new understanding."
-  - Cause: "move into the screen at the same time the camera zooms in" was read as the clock flying out of the top right during the first zoom. The motion he meant is the end of the entry: the time and initials, once typed, going into the Mac as the camera goes in. And the mark's solve belonged to that zoom too.
+  - Cause: "move into the screen at the same time the camera zooms in" was read as the clock flying out of the top right during the first zoom. The motion he meant is the end of the entry: the time and initials, once typed, going into the iCube as the camera goes in. And the mark's solve belonged to that zoom too.
   - Don't: place a motion at the first moment it could fit. Read an ask for motion against the whole flow: what moves, from where to where, and at which moment.
 
 Shipped in the same push as 0.6.85. This is the Sidebar lab's part.
 
-- YES now sends the entry into the Mac:
-  - The keyboard goes, the Mac comes back into focus, and the camera goes in to the screen, square on and a tenth closer.
+- YES now sends the entry into the iCube:
+  - The keyboard goes, the iCube comes back into focus, and the camera goes in to the screen, square on and a tenth closer.
   - As it goes, the line becomes its row of the table (rank, time, initials, dark on a bar of light) and flies onto that row on the screen, following it as the camera moves. It goes on a spring with some weight, a little hop, an overshoot and a squash where it lands.
   - A swoosh as it leaves; bo-lup as it lands. Once it is still, the screen takes it over: the row is in the table, lit, and the line at the top right says BACK.
 - The mark on the screen waits mixed while the initials are typed, and solves itself as the camera goes in after YES. ([#180](https://github.com/onexmac/ad/pull/180))
@@ -1012,12 +1022,12 @@ Shipped in the same push as 0.6.85. This is the Sidebar lab's part.
 
 Asked by Marcos, 26 Nov 08:07, in the same message: "The initial zoom that brings the keyboard gotta be fast, and not coming from the congrats."
 
-- When the Sidebar goes to the screen for a new entry, the camera gets there about three times as fast, and the Mac goes soft with the keyboard, the time and the places for initials coming at once (0.15 s behind it), where 0.6.84 waited for the mark to solve.
+- When the Sidebar goes to the screen for a new entry, the camera gets there about three times as fast, and the iCube goes soft with the keyboard, the time and the places for initials coming at once (0.15 s behind it), where 0.6.84 waited for the mark to solve.
 - The time is in the line from the start; it no longer flies in from the top right, and CONGRATS!! is there from the start. ([#180](https://github.com/onexmac/ad/pull/180))
 
 ## 0.6.84 · 2026-11-26 08:00
 
-**Claude:** In the Sidebar, your time now leaps out of the corner and lands on the iMac's screen as the camera dives in: a swoosh on the way, a satisfying bo-lup when it lands, with a little bounce. (It has been working out.)
+**Claude:** In the Sidebar, your time now leaps out of the corner and lands on the iCube's screen as the camera dives in: a swoosh on the way, a satisfying bo-lup when it lands, with a little bounce. (It has been working out.)
 
 Asked by Marcos, 26 Nov 07:48: "Can you put the player timer on a filled rectangle and have it move  act into the screen as the same time the camera zooms in, have it enter the screen with a swoosh bolup sound a bit springy so it feels it has weight, also the cube animation should happen when the zoom starts"
 
@@ -1028,11 +1038,11 @@ Shipped in the same push as 0.6.80 and 0.6.81. This is the Sidebar lab's part.
   - A long, falling swoosh as it leaves; bo-lup, low then up, with a soft thump, as it lands.
   - It grows on the way, from the top right's size to the line's.
 - The top right is empty while the bar leaves it; CONGRATS!! comes in once it is on its way.
-- The Mac goes out of focus and the keyboard and the places for initials come only after the bar has landed and the mark on the screen has solved itself. So the flight and the solve are seen sharp. ([#179](https://github.com/onexmac/ad/pull/179))
+- The iCube goes out of focus and the keyboard and the places for initials come only after the bar has landed and the mark on the screen has solved itself. So the flight and the solve are seen sharp. ([#179](https://github.com/onexmac/ad/pull/179))
 
 ## 0.6.81 · 2026-11-26 08:00
 
-**Claude:** The little logo on the iMac's screen now solves itself as the camera starts moving in, so the show is already on by the time you arrive.
+**Claude:** The little logo on the iCube's screen now solves itself as the camera starts moving in, so the show is already on by the time you arrive.
 
 Asked by Marcos, 26 Nov 07:48, in the same message: "also the cube animation should happen when the zoom starts"
 
@@ -1055,7 +1065,7 @@ Asked by Marcos, 25 Nov 22:59, in the same message: "The sidebar artifact should
 Shipped in the same push as 0.6.78.
 
 - The Sidebar opens on the 3×3 already in hand, one turn of its top layer from solved, its clock running past a minute.
-- A moment after the room comes in, the last turn goes home and the clock stops on 01:06:84, a time for third place. A beat later the camera goes to the iMac's screen: CONGRATS!!, the Mac out of focus, the keyboard.
+- A moment after the room comes in, the last turn goes home and the clock stops on 01:06:84, a time for third place. A beat later the camera goes to the iCube's screen: CONGRATS!!, the iCube out of focus, the keyboard.
 - Put the puzzle down, or take another, and the opening stops there; the room is the hands' again.
 - The artifact is called just Sidebar. ([#178](https://github.com/onexmac/ad/pull/178))
 
@@ -1076,27 +1086,27 @@ Shipped in the same push as 0.6.78.
 
 ## 0.6.76 · 2026-11-25 22:58
 
-**Claude:** Over in the Sidebar lab, a new high score now gets a CONGRATS!!, the Mac drifts out of focus, and END asks SAVE? before your initials go up in lights. A real keyboard can type them too.
+**Claude:** Over in the Sidebar lab, a new high score now gets a CONGRATS!!, the iCube drifts out of focus, and END asks SAVE? before your initials go up in lights. A real keyboard can type them too.
 
 Asked by Marcos, 25 Nov 22:52, with a picture of an old game's YOU DIED / RESPAWN? card: "The status text (upper right) should say: back; when the camera goes to the screen. Except when the user has a highscore there it should say: congrats!! ; now in the type you initials after the highscore we should blur the Mac itself so the text should float beyond it but just the keyboard and the line, not placed yet of the users time and the ___ the end should be inverted filled and when the player press it it should pop up a confirmation card."
 
 Shipped in the same push as 0.6.74. This is the Sidebar lab's part.
 
 - While initials are typed for a new entry, the line at the top right says CONGRATS!!.
-- The Mac goes out of focus (a 10 px blur, a little darker). Over it float only the keyboard and the entry itself, not yet in the table: its time and the three places for initials, the one being typed blinking. The table on the screen stays as it was until the entry is kept.
+- The iCube goes out of focus (a 10 px blur, a little darker). Over it float only the keyboard and the entry itself, not yet in the table: its time and the three places for initials, the one being typed blinking. The table on the screen stays as it was until the entry is kept.
 - END is filled: a yellow key with dark letters.
 - END brings up a card in the screen's letters, after the old game's: a frame; the initials and the time, dark on a bar of light; SAVE?; and YES, boxed, beside NO, underlined.
-  - YES keeps the entry: it takes its place in the table, lit up, the Mac comes back into focus, and the line says BACK.
+  - YES keeps the entry: it takes its place in the table, lit up, the iCube comes back into focus, and the line says BACK.
   - NO, or a tap beside the card, goes back to typing.
 - A computer's keyboard types the initials too: letters, Backspace, Enter for END and again for YES, Escape for NO. ([#177](https://github.com/onexmac/ad/pull/177))
 
 ## 0.6.74 · 2026-11-25 22:58
 
-**Claude:** Close up on the iMac's screen, the corner now says BACK, and a tap on it takes you back to the room. The clock keeps running underneath.
+**Claude:** Close up on the iCube's screen, the corner now says BACK, and a tap on it takes you back to the room. The clock keeps running underneath.
 
 Asked by Marcos, 25 Nov 22:52, in the same message: "The status text (upper right) should say: back; when the camera goes to the screen."
 
-- With the iMac's screen close up, the line at the top right says BACK, and a tap on it is the way back to the room. The tap area reaches a little past the letters. The clock goes on underneath and shows again on the way back. ([#177](https://github.com/onexmac/ad/pull/177))
+- With the iCube's screen close up, the line at the top right says BACK, and a tap on it is the way back to the room. The tap area reaches a little past the letters. The clock goes on underneath and shows again on the way back. ([#177](https://github.com/onexmac/ad/pull/177))
 
 ## 0.6.73 · 2026-11-25 22:37
 
@@ -1113,7 +1123,7 @@ Asked by Marcos, 25 Nov 22:33: "Guarda en Claude.md o donde veas conveniente el 
 
 ## 0.6.70 · 2026-11-25 22:32
 
-**Claude:** The Sidebar becomes a test bench for the iMac's screen: an old-school keyboard under it, three blinking blanks for your initials, and a sample time to practise with if you haven't earned a real one.
+**Claude:** The Sidebar becomes a test bench for the iCube's screen: an old-school keyboard under it, three blinking blanks for your initials, and a sample time to practise with if you haven't earned a real one.
 
 Asked by Marcos, 25 Nov 22:18: "The other artifact that we had duped. Can we change the name so it says sidebar. On it let's have the screen mode. Once we nail this we move it to the main app. So I want the camera to focus the screen a bit higher I want outside the screen a pixel keyboard for the user to tap his initials if he reaches the top 5. Very old school, with the _ blinking on the active one. Just three letters available ___"
 
@@ -1147,7 +1157,7 @@ Shipped in the same push as 0.6.66 and 0.6.70.
 
 ## 0.6.66 · 2026-11-25 22:32
 
-**Claude:** Fixed the glare on the iMac's screen, which looked painted on. The glass now curves like a real tube and catches the arc lamp's orange globe as a soft, bright blob.
+**Claude:** Fixed the glare on the iCube's screen, which looked painted on. The glass now curves like a real tube and catches the arc lamp's orange globe as a soft, bright blob.
 
 - **Bug fix.** Marcos, 25 Nov 22:18, of 0.6.65's glare: "The curved flared looks forced it shouldn't be a line I think more like a blob, try to render it not 2d paint it"
   - Cause: the glare was a streak painted on a picture and laid over the glass, the same in every light. Nothing in the room made it, so it read as drawn on.
@@ -1164,54 +1174,54 @@ Shipped in the same push as 0.6.68 and 0.6.70.
 
 ## 0.6.65 · 2026-11-25 22:17
 
-**Claude:** The iMac's screen now glows like a real one, so the room around it falls darker, and its glass bulges a little like an old tube. The reflection is sharper, and the lettering under the screen is gone.
+**Claude:** The iCube's screen now glows like a real one, so the room around it falls darker, and its glass bulges a little like an old tube. The reflection is sharper, and the lettering under the screen is gone.
 
 Asked by Marcos, 25 Nov 22:06: "Is the screen room reflection right? Also the screen should have some light (which by contrast would make its sorroindings darker just like when a camera focuses on a screen). May be some glare as well to make it feel real see the rim light that you have on the cubes sometime. That'll do. Have it more crtv like not flat the 3d model and remove where it says iMac"
 
 - The reflection: it was right in what it showed, the room as seen from the screen, caught from just in front of the glass. It had two faults. It was blurred by a rough glass. And the lamps made pin-pricks of light on it, which on so curved a glass looked like specks of dust. The glass now reflects the room only, sharp: the leather of the ottoman and the chair low down, the shelves to the right. It no longer reflects the lamps one by one. Until the screen is first opened it shows the room as the puzzle sees it.
-- The screen gives light, as a screen does when a camera looks at it. Close up it is brighter (2.4 where it was 1.6), and the camera's exposure comes down to 0.58 of the look's. The screen glows and blooms, and the room round it falls darker by contrast. The dark round the Mac is lighter to make up for it (0.45 at most, where it was 0.6).
+- The screen gives light, as a screen does when a camera looks at it. Close up it is brighter (2.4 where it was 1.6), and the camera's exposure comes down to 0.58 of the look's. The screen glows and blooms, and the room round it falls darker by contrast. The dark round the iCube is lighter to make up for it (0.45 at most, where it was 0.6).
 - A glare on the glass, as a lamp to the upper right would put on it: a bright streak round the upper right of its rim, bright enough to bloom as the cubes' rim light does, and a faint broad sheen. It slides a little as the camera moves, as a reflection does, and it shows from the room too.
 - The tube's face is a cushion, not a plane: its middle 2 cm proud of its edges, down to the dark surround all round. The picture swells a little at the middle (6%), darkens toward its edges, and its corners are rounded off softly into the dark.
   - The lens focuses through the depth of that cushion, and opens a little less close up (2.2 times, where it was 3.2), so the whole screen is sharp and the room still melts.
-- The "iMac" under the screen is gone. ([#174](https://github.com/onexmac/ad/pull/174))
+- The name under the screen is gone. ([#174](https://github.com/onexmac/ad/pull/174))
 
 ## 0.6.62 · 2026-11-25 21:51
 
-**Claude:** The iMac was ignoring taps while a puzzle mixed itself up; fixed. The little cube on its screen also solves itself more slowly now, a square at a time, so you can watch it happen.
+**Claude:** The iCube was ignoring taps while a puzzle mixed itself up; fixed. The little cube on its screen also solves itself more slowly now, a square at a time, so you can watch it happen.
 
 - **Bug fix.** Marcos, 25 Nov 21:50: "Ok a couple of things I should be able to press it while the cube is mixing up ok start. Also on the pixel cube, the two moves happen two fast and hollow then one by one so it feels like they are moving"
-  - Cause: a tap on the iMac was only checked for a touch that started beside the rings. While a puzzle is mixing itself up, the rings are off, so a touch beside the puzzle counts as looking round the room. That kind of touch never asked whether it had landed on the iMac. The puzzle mixes itself every time it is picked up (0.6.50), so for the first seconds the iMac did nothing.
+  - Cause: a tap on the iCube was only checked for a touch that started beside the rings. While a puzzle is mixing itself up, the rings are off, so a touch beside the puzzle counts as looking round the room. That kind of touch never asked whether it had landed on the iCube. The puzzle mixes itself every time it is picked up (0.6.50), so for the first seconds the iCube did nothing.
   - Don't: build a new tap in one state of the controls and stop there. Check every mode a touch can start in, above all the ones a sequence puts the controls in.
-- A tap on the iMac now opens its screen while the puzzle is still mixing itself up. The mixing goes on behind it.
+- A tap on the iCube now opens its screen while the puzzle is still mixing itself up. The mixing goes on behind it.
 - The mark's solve is slower, and it moves:
   - Each turn first empties its line, then fills it again a square at a time, about a fifth of a second apart.
   - The middle row empties at 0.7 s and fills again from the left by 1.3 s. After a pause, the middle column empties at 2.0 s and fills from the top. At 2.6 s every square is filled. It used to be two turns at once, at 0.45 s and 1.0 s. ([#173](https://github.com/onexmac/ad/pull/173))
 
 ## 0.6.60 · 2026-11-25 21:46
 
-**Claude:** Close up, the room now melts into a soft blur round the Mac instead of going black, and the cube on its screen solves itself as you arrive. The iMac also scooted out of the turntable's lid.
+**Claude:** Close up, the room now melts into a soft blur round the iCube instead of going black, and the cube on its screen solves itself as you arrive. The iCube also scooted out of the turntable's lid.
 
 Asked by Marcos, 25 Nov 21:40: "Lower the black of the vignette so we still see some of the room, use the blur bokeh. And for the pixel cube have it with the squares be 2 moves from getting solved so when the screen zooms in they flipped into a full square, you don't 3d move the squares just turn them filled or hollow"
 
-- Close up, the room round the Mac shows again. The dark round it is lighter: at most 0.6 of black, where it was all black. The lens opens up as the camera reaches the screen, to about three times its usual aperture. The screen and the Mac's face stay sharp, and the room round them melts into bokeh: the blinds, the sideboard, the turntable.
+- Close up, the room round the iCube shows again. The dark round it is lighter: at most 0.6 of black, where it was all black. The lens opens up as the camera reaches the screen, to about three times its usual aperture. The screen and the iCube's face stay sharp, and the room round them melts into bokeh: the blinds, the sideboard, the turntable.
 - The mark on the screen solves itself:
   - It now stands two turns from solved: filled, outline, filled in each row, with the middle row the other way round (the middle row and the middle column each turned once).
   - Once the screen is close, the middle row turns, about half a second in: its three squares swap, filled for outline. Half a second later the middle column turns, and every square is filled.
   - Nothing moves in 3D; the squares only change between filled and outline.
   - When the screen closes it is mixed again, ready to solve the next time.
-- The iMac stands 6 cm further left. Turned to the room in 0.6.55, its right front corner had gone a centimetre and a half into the turntable's lid, which showed close up as a white slab beside the speaker. It now keeps about 4 cm from the lid. ([#172](https://github.com/onexmac/ad/pull/172))
+- The iCube stands 6 cm further left. Turned to the room in 0.6.55, its right front corner had gone a centimetre and a half into the turntable's lid, which showed close up as a white slab beside the speaker. It now keeps about 4 cm from the lid. ([#172](https://github.com/onexmac/ad/pull/172))
 
 ## 0.6.58 · 2026-11-25 21:39
 
-**Claude:** Cleaned the stray dots out of the screen's cube and fixed the close-up that cut the screen out of its Mac. It now sits inside the Mac, reflects the room, and reads yellow on black with room to breathe.
+**Claude:** Cleaned the stray dots out of the screen's cube and fixed the close-up that cut the screen out of its iCube. It now sits inside the iCube, reflects the room, and reads yellow on black with room to breathe.
 
 - **Bug fix.** Marcos, 25 Nov 21:22, of 0.6.55's screen: "The squares of the pixel cube have like dots inside. Remove those. Now the screen should have a reflection of the room and it actually has to be inside the Mac, I see what you are trying to do with the separate faded in flat screen but it doesn't look right. Put it inside, also add more breathing room for the elements of the screen, it looks to crowded. Have the first player highlighted. And for the pixel cube some cubes are filled the others are stokes. Make the screen monochromed with yellow text"
   - Cause, the dots: each block of the mark had a rivet hole in every corner, a detail carried over from the first version that nobody asked for. Where four blocks met, the holes read as dots inside the cube.
-  - Cause, the flat screen: close up, everything but the screen was cut away to black along the screen's own outline. Seen alone, the screen lost the Mac round it, and the glass reflected next to nothing (a fifth of a dark, rough reflection). It looked like a flat picture faded in, not a tube inside a Mac.
+  - Cause, the flat screen: close up, everything but the screen was cut away to black along the screen's own outline. Seen alone, the screen lost the iCube round it, and the glass reflected next to nothing (a fifth of a dark, rough reflection). It looked like a flat picture faded in, not a tube inside an iCube.
   - Don't: cut an object out of its scene for a close-up. Frame it in what holds it, and let the scene fall off softly round it. And don't keep details from an earlier version once the ask has changed shape.
-- Close up, the screen is inside the Mac:
-  - The camera stops further back, with the screen four fifths of the frame across. The black surround, the light grey edge of the opening, the ice bezel, the "iMac" under it and the CD tray all show round it.
-  - The dark round it is now a soft ellipse, clear over the screen and its bezel, falling to black across the Mac's face and beyond.
+- Close up, the screen is inside the iCube:
+  - The camera stops further back, with the screen four fifths of the frame across. The black surround, the light grey edge of the opening, the ice bezel, the name under it and the CD tray all show round it.
+  - The dark round it is now a soft ellipse, clear over the screen and its bezel, falling to black across the iCube's face and beyond.
   - The puzzle in hand steps aside, up and to the right, while the screen is close, so the camera no longer flies through it. It comes back when the screen closes.
 - The glass reflects the room. The first time the screen is opened, the room is caught as the screen sees it, from just in front of the glass. The glass adds that reflection over the screen: smooth, and strong enough to show the shelves and the warm light to the right. Until then it reflects the room as the puzzle sees it.
 - The screen is in one colour, yellow on black:
@@ -1224,24 +1234,24 @@ Asked by Marcos, 25 Nov 21:40: "Lower the black of the vignette so we still see 
 
 ## 0.6.55 · 2026-11-25 20:32
 
-**Claude:** Our mistake on the screen's logo: it was one block where there should have been nine. It's now a three-by-three in one colour, and the iMac turns toward the room for a shorter trip in.
+**Claude:** Our mistake on the screen's logo: it was one block where there should have been nine. It's now a three-by-three in one colour, and the iCube turns toward the room for a shorter trip in.
 
 - **Bug fix.** Marcos, 25 Nov 20:26, of 0.6.53's screen: "La iMac para el zoom sea más sencillo gurala un poco que más bien este 33 grados para el otro lado cómo más viendo hacia el viewer, más bien desviado al otro lado. The cubes / Top 5 / Players. And for the icon is single color and 3x3 (9 blocks) not one."
   - Cause: his first ask, "un icono pixel art tipo los blocks de Mario pero solo 9x9", was read as one block nine pixels across. He meant nine blocks, 3 × 3, a cube's face made of them. The mark also got a cube's face in six colours in its middle, which he never asked for.
   - Don't: take a number in an ask as pixels when it can count the pieces; when it reads both ways, show both. Add no colour or detail that wasn't asked for.
 - The mark is now 3 × 3 blocks, in one colour: each a plate of 9 × 9 pixels with its corners rounded and a rivet hole in each, a pixel between blocks. Close up the gold still glints.
 - The heading is three lines beside the mark: THE CUBES in amber, then TOP 5 and PLAYERS in blue. The line at the bottom is gone, and the five rows have a little more room between them.
-- The iMac is turned 33° toward the middle of the room, where it was turned 16° away. Its face now looks past the camera, a little to the right, so the way to its screen close up is shorter and straighter.
+- The iCube is turned 33° toward the middle of the room, where it was turned 16° away. Its face now looks past the camera, a little to the right, so the way to its screen close up is shorter and straighter.
   - Turned so, it is a hair deeper than the sideboard: it stands 2 cm further back, just clear of the wall, and one front corner is over the edge by about a centimetre. ([#170](https://github.com/onexmac/ad/pull/170))
 
 ## 0.6.53 · 2026-11-25 20:25
 
-**Claude:** Tap the iMac and the camera flies right into its screen, now an arcade high-score table. Until there's a stopwatch, the top five are the machine's own. (We're coming for you, AXS.)
+**Claude:** Tap the iCube and the camera flies right into its screen, now an arcade high-score table. Until there's a stopwatch, the top five are the machine's own. (We're coming for you, AXS.)
 
 Asked by Marcos, 25 Nov 20:00, with two photographs of an arcade machine's high-score screen: "Cuando uno haga tap en la Mac debe hacerse zoom a la pantalla dark alrededor y mostrar solo la pantalla, la pantalla tiene que tener un icono pixel art tipo los blocks de Mario pero solo 9x9 y con top 5 players. Algo así."
 
-- A tap on the iMac, with a puzzle in hand, takes the camera to its screen, square on, filling the frame across. On the way the room round the screen goes dark until only the screen is left.
-  - The iMac is in view only from the puzzle in hand; from above the ottoman it is out of the picture.
+- A tap on the iCube, with a puzzle in hand, takes the camera to its screen, square on, filling the frame across. On the way the room round the screen goes dark until only the screen is left.
+  - The iCube is in view only from the puzzle in hand; from above the ottoman it is out of the picture.
   - The dark is cut to the screen's own outline, rounded at the corners, every frame, so it follows the screen as the camera flies.
   - The lens focuses on the screen, and the screen is a little less bright close up, so the letters stay sharp with a glow round them.
   - The rings step aside while it is open.
@@ -1362,12 +1372,12 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.30 · 2026-11-24 08:03
 
-**Claude:** Our iMac didn't look like an iMac, and that's fixed. Rebuilt from photographs: frosted ice above and below, Bondi blue in between, the handle, the vents, the CD tray and the teal speakers.
+**Claude:** Our iCube didn't look like the real thing, and that's fixed. Rebuilt from photographs: frosted ice above and below, Bondi blue in between, the handle, the vents, the CD tray and the teal speakers.
 
 - **Bug fix.** Marcos, 24 Nov 07:18: "Something is off it doesn't look like an iMac."
   - Cause: it was modelled from memory: all blue, with a white frame on the front. On the real one the white is a hood and a skirt, and the blue is only between them.
   - Don't: model a real object from memory. Work from photographs, front, side and back, and compare the renders with them side by side.
-- The iMac is rebuilt from photographs of the real one, laid out as its plastics are:
+- The iCube is rebuilt from photographs of the real one, laid out as its plastics are:
   - a hood of frosted ice over the face and the front of the top;
   - a skirt of the same ice all the way round the bottom;
   - the blue only between them, over the sides and the round back. Before, it was all blue with a white frame on the front.
@@ -1377,7 +1387,7 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
   - the line between the blue and the skirt climbs from the face to the back.
   - Seen from above, the sides still draw in toward the back.
 - The face is the original's:
-  - a large 4:3 screen in a grey-white frame, with "iMac" under it;
+  - a large 4:3 screen in a grey-white frame, with a name under it;
   - on the skirt below, the two teal speakers at the corners, the CD tray in the middle and the power button.
   - The blue band that used to sit under the screen is gone.
 - On the shell:
@@ -1386,16 +1396,16 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
   - On the right side of the skirt is the door, with its blue latch.
   - Underneath are the foot that folds out and four small feet.
 - Inside, the tube shows through the blue, square at the face and drawing in to its neck. The flat panels that used to show through, and the corner of the tube's mask that poked out of the shell, are gone.
-- The screen's light is now a wide spot just off the glass, pointing into the room. It lights what is in front of the screen, but no longer the iMac's own face or glass, which had glowed under the screen. ([#154](https://github.com/onexmac/ad/pull/154))
+- The screen's light is now a wide spot just off the glass, pointing into the room. It lights what is in front of the screen, but no longer the iCube's own face or glass, which had glowed under the screen. ([#154](https://github.com/onexmac/ad/pull/154))
 
 ## 0.6.27 · 2026-11-24 07:02
 
-**Claude:** Fixed the iMac's boxy shell: it now has the original's egg curves, rounding in to a narrow back, with a lip that rolls over its face.
+**Claude:** Fixed the iCube's boxy shell: it now has the original's egg curves, rounding in to a narrow back, with a lip that rolls over its face.
 
 - **Bug fix.** Marcos, 24 Nov 06:57: "The model have to match the iMac egg curves."
   - Cause: the shell was a box tapering back.
   - Don't: build a known object's form out of boxes.
-- The iMac has the original's egg curves. It is built from superellipses instead of a box tapering back.
+- The iCube has the original's egg curves. It is built from superellipses instead of a box tapering back.
   - Seen from above, its sides curve in from the face to a narrow, round back.
   - Seen from the side, its top runs back level and then down in one long arc to a round end, and its bottom lifts toward the back.
   - The shell rolls over the edge of the face as a lip.
@@ -1404,9 +1414,9 @@ Asked by Marcos, 25 Nov 19:35, in a comment on the artifact: "Let's make the con
 
 ## 0.6.25 · 2026-11-24 06:54
 
-**Claude:** A Bondi-blue iMac takes the mushroom lamp's spot on the sideboard, its screen showing an empty TOP SCORES table. The turntable scoots over, and the ashtray has left the building.
+**Claude:** A Bondi-blue iCube takes the mushroom lamp's spot on the sideboard, its screen showing an empty TOP SCORES table. The turntable scoots over, and the ashtray has left the building.
 
-- The first iMac (1998), in Bondi blue, takes the glass mushroom lamp's place on the sideboard under the window.
+- The iCube, in Bondi blue, takes the glass mushroom lamp's place on the sideboard under the window.
   - A frosted ice-white face holds the screen, with a blue band and the speakers at its foot.
   - Behind it, the translucent blue shell tapers back, with the tube and the chassis showing through and a handle at the top.
   - It stands to the left of a puzzle in hand, turned three-quarters to the camera.
