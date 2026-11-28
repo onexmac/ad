@@ -92,7 +92,7 @@ Asked by Marcos, 27 Nov 22:23: "Swap the axis with the 4x4"
 
 - The order is now the 2×2, the 3×3, the 4×4, the Axis Cube, then the Puppet Cube, the Ghost Cube, the Crazy 3×3 and the Square-1.
 - The 4×4 sits on the left of the diamond, where the Axis Cube was, and the Axis Cube at the back in the middle.
-- If you had opened two cubes, the 4×4 is open for you now, and the Axis Cube is next. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- If you had opened two cubes, the 4×4 is open for you now, and the Axis Cube is next. ([#281](https://github.com/onexmac/ad/pull/281))
 
 ## 2.0.5 · 2026-11-27 22:27
 
@@ -102,7 +102,7 @@ Asked by Marcos, 27 Nov 22:23: "On the Changelog. Just show output. Tapping outp
 
 - The list of changes shows each version's number (the newest with its date) and Claude's line, nothing else.
 - A tap on the line unfolds what Marcos asked for, or the bug he reported, in grey under it. Another tap folds it away.
-- The details stay in the changelog file. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The details stay in the changelog file. ([#281](https://github.com/onexmac/ad/pull/281))
 
 ## 2.0.4 · 2026-11-27 22:27
 
@@ -112,7 +112,7 @@ Asked by Marcos, 27 Nov 22:17: "Sliding the face from the right should flip the 
 
 - A slide up or down that starts on the cube's right face turns it about its front face: down takes the right face to the bottom, up takes it to the top.
 - A slide up or down from the front face or the top flips it forward or back, as before. Sideways is as before from anywhere.
-- A pull down far enough still puts the cube back on the ottoman. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A pull down far enough still puts the cube back on the ottoman. ([#281](https://github.com/onexmac/ad/pull/281))
 
 ## 2.0.3 · 2026-11-27 21:58
 
