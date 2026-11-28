@@ -172,7 +172,8 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 }
 .axis .log-title { margin: 4px 4px 14px; }
 /* a version: its number (on an ink bar), the newest with its date, and Claude's line; a tap on the line unfolds what
-   Marcos said under it, in grey */
+   Marcos said above it, in grey, fading in as the line is pushed down, and gives the line its OUTPUT title. Each
+   fold opens from no height to its own (a one-row grid going from 0fr to 1fr), so nothing jumps */
 .axis .rel { padding: 22px 0 calc(18px + 1lh); border-top: 1px dashed var(--key-line); }   /* a blank line after each version */
 .axis .log-body > .rel:first-child { border-top: 0; padding-top: 4px; }
 .axis .rel h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 14px; font-size: inherit; font-weight: inherit; }
@@ -181,9 +182,12 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 .axis .rel .claude { margin: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; outline: none; }
 .axis .rel .claude p { margin: 0; }
 .axis .rel .claude[role="button"]:focus-visible { outline: 2px dashed var(--key-line); outline-offset: 4px; }
-.axis .rel .said { display: none; margin: 12px 0 0; color: var(--log-input); }
-.axis .rel .said p { margin: 0 0 8px; }
-.axis .rel.open .said { display: block; }
+.axis .rel .fold { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.32s cubic-bezier(0.2, 0.9, 0.25, 1), opacity 0.24s ease; }
+.axis .rel .fold > div { min-height: 0; overflow: hidden; }
+.axis .rel.open .fold { grid-template-rows: 1fr; opacity: 1; transition: grid-template-rows 0.32s cubic-bezier(0.2, 0.9, 0.25, 1), opacity 0.3s ease 0.08s; }
+.axis .rel .said { color: var(--log-input); }
+.axis .rel .said p { margin: 0 0 14px; }
+@media (prefers-reduced-motion: reduce) { .axis .rel .fold, .axis .rel.open .fold { transition: opacity 0.15s ease; } }
 .axis .log p { margin: 9px 0; }
 .axis .log ul { margin: 6px 0; padding-left: 2ch; }
 .axis .log li { margin: 6px 0; }
