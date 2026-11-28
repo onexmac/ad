@@ -82,6 +82,24 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.7.3 · 2026-11-27 19:45
+
+**Claude:** The list of changes stopped reading like a logbook. Only the newest says when it shipped; the rest just carry their numbers. The dates are still in the file, kept for the record.
+
+Asked by Marcos, 27 Nov 19:42: "Remove the time of the the changelogs. Just show the most recent one. I mean keep it but don't display it in app"
+
+- In the list of changes, only the newest version shows its date and time. The others show their number alone.
+- The changelog file keeps every date and time as before. ([#266](https://github.com/onexmac/ad/pull/266))
+
+## 1.7.2 · 2026-11-27 19:45
+
+**Claude:** Locked doesn't mean secret. Holding a cube you haven't opened yet, tap the old Mac's screen and you'll see who's on top of it, so you know what you're chasing.
+
+Asked by Marcos, 27 Nov 19:42: "As a player I should be able to tap the screen to see the ranking even if I haven't unlocked the cube"
+
+- With a locked cube held up and its card showing, a tap on the iMac's screen opens that cube's ranking, its top ten, as for any cube. The rest of the screen still says no, with a shake.
+- At the screen the card steps aside; BACK brings it back with the cube still locked. ([#266](https://github.com/onexmac/ad/pull/266))
+
 ## 1.7.1 · 2026-11-27 19:41
 
 **Claude:** Fast hands found a hole: finish with a flick, touch the dots again before the last turn settles, and the clock kept running on a finished cube. Every landing now checks for the finish, however it lands.
