@@ -8,8 +8,8 @@
 // The second argument picks the look (a analogue, the default; b brush; c classic) and, for b and c,
 // the file is axis-cube-b.html or axis-cube-c.html. Any of them also takes the look from the address: #b.
 // A third argument builds a lab, a version for trying something before it reaches the app: sidebar (the screen
-// close up with the initials keyboard, in amber) is axis-cube-sidebar.html, "Sidebar"; sideb, the same dressed as
-// the app is, a friendly old iCube, is axis-cube-sideb.html, "Side-B"; first, the app as a first-timer gets it on every
+// close up with the initials keyboard, in amber) is axis-cube-sidebar.html, "Sidebar"; sideb, dressed as the app is,
+// a friendly old iCube, a bench for the drop of the puzzles still to come, is axis-cube-sideb.html, "Side-B"; first, the app as a first-timer gets it on every
 // load (nothing kept, the first-time hint), is axis-cube-first.html, published as "Sidebar".
 import fs from "node:fs";
 import path from "node:path";
