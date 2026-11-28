@@ -92,7 +92,7 @@ Open:
 Asked by Marcos, 28 Nov 12:33: "All 3."
 
 - A slow slide on the cube that has gone a fifth of the way to a quarter turn (about 31 px) now goes on to flip it. It used to take three tenths (about 47 px).
-- A turn of a row or a column still commits at three tenths, so a short slip on the rings doesn't turn a layer. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A turn of a row or a column still commits at three tenths, so a short slip on the rings doesn't turn a layer. ([#286](https://github.com/onexmac/ad/pull/286))
 
 ## 2.1.1 · 2026-11-28 12:35
 
@@ -100,7 +100,7 @@ Asked by Marcos, 28 Nov 12:33: "All 3."
 
 Asked by Marcos, 28 Nov 12:33: "All 3."
 
-- A touch on the cube that moves 9 px stops being a tap and reads its direction at once. It used to read the direction at 14 px, and a slide let go between 9 and 14 px was neither a tap nor a flip, so it sprang back. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A touch on the cube that moves 9 px stops being a tap and reads its direction at once. It used to read the direction at 14 px, and a slide let go between 9 and 14 px was neither a tap nor a flip, so it sprang back. ([#286](https://github.com/onexmac/ad/pull/286))
 
 ## 2.1.0 · 2026-11-28 12:35
 
@@ -109,7 +109,7 @@ Asked by Marcos, 28 Nov 12:33: "All 3."
 - **Bug fix.** Marcos, 28 Nov 12:28: "Why sometimes sliding just jerks the cubes?"
   - Cause: a slide too short or too slow to flip springs back to where it started, and that landing played everything a real flip does: the cube's recoil toward the eye, the clack and the buzz. So a miss felt like a jerk.
   - Don't: give a gesture that changed nothing the feedback of one that did.
-- A flip that comes back to where it began lands quietly: no recoil, no sound, no haptic. A flip that turns lands as before. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A flip that comes back to where it began lands quietly: no recoil, no sound, no haptic. A flip that turns lands as before. ([#286](https://github.com/onexmac/ad/pull/286))
 
 ## 2.0.9 · 2026-11-27 22:47
 
