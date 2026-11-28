@@ -90,7 +90,7 @@ Asked by Marcos, 27 Nov 19:46: "Don't call it iMac. Call it iCube"
 
 - The room's computer is the iCube in the list of changes, in place of iMac and Mac. Marcos's own words, quoted in older entries, stay as he wrote them.
 - Where old entries described the name under the screen, they now say "the name" rather than spell it out.
-- The code's notes and names follow. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The code's notes and names follow. ([#267](https://github.com/onexmac/ad/pull/267))
 
 ## 1.7.3 · 2026-11-27 19:45
 
