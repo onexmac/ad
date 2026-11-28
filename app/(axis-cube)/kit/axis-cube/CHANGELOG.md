@@ -91,7 +91,7 @@ Open:
   - Cause: close up, the lens opens almost twice as wide so that the room melts. It focused on one depth in the middle of the tube, and the screen's curve and lean carried its top and bottom rows a centimetre or two off it, enough at that aperture to smear the letters. The lens's colour fringing and red glow softened them further. 1.7.5 had blurred the wrong thing: the backdrop behind the keyboard, not the screen.
   - Don't: aim a wide lens at a single depth when what it looks at has depth; keep the whole subject inside the sharp zone. And when the ask is about blur, find which blur first.
 - Close up, the whole depth of the iCube's face and tube (5 cm either side of the focus) stays sharp, while the room beyond is as soft as before. The colour fringing falls to 15% and the red glow to 40% over the screen.
-- Behind the initials keyboard, the iCube is blurred by 10 px and dimmed to 80% again, as before 1.7.5. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Behind the initials keyboard, the iCube is blurred by 10 px and dimmed to 80% again, as before 1.7.5. ([#269](https://github.com/onexmac/ad/pull/269))
 
 ## 1.7.5 · 2026-11-27 20:03
 
