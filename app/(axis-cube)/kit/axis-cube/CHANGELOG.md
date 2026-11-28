@@ -88,7 +88,7 @@ Open:
 
 Asked by Marcos, 27 Nov 19:59: "Improve a little bit the blur on the iCube so the text becomes more readable"
 
-- While you type your initials for a new time, the iCube behind is blurred by 18 px (it was 10) and dimmed to 60% (it was 80%). The logo and text on its screen no longer show through the line with your time and initials, and the keys stand out more. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- While you type your initials for a new time, the iCube behind is blurred by 18 px (it was 10) and dimmed to 60% (it was 80%). The logo and text on its screen no longer show through the line with your time and initials, and the keys stand out more. ([#268](https://github.com/onexmac/ad/pull/268))
 
 ## 1.7.4 · 2026-11-27 19:49
 
