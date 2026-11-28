@@ -93,7 +93,7 @@ Asked by Marcos, 27 Nov 21:56: "Swap in position and order the ghost with the 4x
 - The order is now the 2×2, the 3×3, the Axis Cube, the 4×4 (always on the ottoman, at the back in the middle), then the Puppet Cube, the Ghost Cube, the Crazy 3×3 and the Square-1, each dropping in once the one before it is open.
 - The Ghost Cube drops into the back right corner, where the 4×4 was.
 - If you had opened three cubes, the 4×4 is open for you now, and the Ghost Cube comes after the Puppet Cube.
-- Finishing the 4×4 by hand still makes Cubed the ottoman's song. It just comes sooner. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Finishing the 4×4 by hand still makes Cubed the ottoman's song. It just comes sooner. ([#280](https://github.com/onexmac/ad/pull/280))
 
 ## 2.0.1 · 2026-11-27 21:01
 
