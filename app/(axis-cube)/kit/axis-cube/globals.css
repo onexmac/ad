@@ -285,7 +285,7 @@ html:has(.axis-loader:not(.out)), html:has(.axis-loader:not(.out)) body { backgr
 .axis .cube-tip.on { opacity: 1; transform: translate(-50%, -100%); }
 .axis.mac .cube-tip { box-shadow: 0 6px 16px var(--mac-shade); }
 /* the Crazy 3×3's dial (the Sidebar lab): a ring round the middle one, between it and the eight round it; a slide
-   along it turns the face toward the viewer */
+   along it, or any slide that starts inside it, turns the face toward the viewer */
 .axis .dial {
   position: absolute; left: 50%; top: 81.5%; width: calc(var(--arm) * 1.24); height: calc(var(--arm) * 1.24); box-sizing: border-box;
   border: 1.5px solid var(--ring); border-radius: 50%;
