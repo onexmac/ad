@@ -34,10 +34,12 @@ export interface AxisSound {
   musicFor(secs: number, skin?: 'lofi' | 'chip'): void;
   /** Cubed, the victory song: on after a solve's cheer (delay in seconds), off once the initials are kept. */
   victory(on: boolean, delay?: number): void;
+  /** Cubed as the picker's song (true once the 4×4 has been finished by hand). */
+  lobbyCubed(on: boolean): void;
   /** For a test with its own (offline) context: Cubed's first `secs` seconds. */
   cubedFor(secs: number): void;
   /** For a test: how much of the music is wanted and whether its loop is running. */
-  musicNow(): { k: number; playing: boolean; step: number; round: number; skin: string; victory: boolean; vstep: number };
+  musicNow(): { k: number; playing: boolean; step: number; round: number; skin: string; victory: boolean; vstep: number; cubed: boolean };
   /** Every sound off (true), or back on. */
   mute(on: boolean): void;
   isMuted(): boolean;
