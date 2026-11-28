@@ -91,7 +91,7 @@ Asked by Marcos, 27 Nov 20:25: "The blocked cubes a hard slide down should put t
 
 - With a locked cube held up and its card showing, a pull down puts it back, as it does any cube: it sinks as your finger goes down, clicks where it would let go, and goes back to its hollow if you let go past that.
 - A hard slide down puts it back however short.
-- A tap still makes it shake its head, and the iCube's screen still opens on its ranking. OK still works. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- A tap still makes it shake its head, and the iCube's screen still opens on its ranking. OK still works. ([#271](https://github.com/onexmac/ad/pull/271))
 
 ## 1.7.8 · 2026-11-27 20:31
 
@@ -102,7 +102,7 @@ Asked by Marcos, 27 Nov 20:21: "Ok let's switch up the times show 0:00:00:00 whi
 - Every time shown reads h:mm:ss:cc, one figure for the hours and two each for minutes, seconds and hundredths: the clock at the top right while you solve, the tables on the iCube's screen, the line with your time while you type your initials, and the SAVE? card. A place nobody has taken reads -:--:--:--.
 - The clock runs in hundredths. When it stops, it reads exactly what its row in the table will.
 - The hundredths were always kept with every time (they ranked two times that showed alike); now they show. Times longer than 9:59:59:99 show as that.
-- The rows on the screen are two letters wider, still centred. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- The rows on the screen are two letters wider, still centred. ([#271](https://github.com/onexmac/ad/pull/271))
 
 ## 1.7.6 · 2026-11-27 20:10
 
