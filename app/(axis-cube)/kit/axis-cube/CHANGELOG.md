@@ -83,6 +83,17 @@ Open:
 
 - Lines over the room. Marcos, 24 Nov 00:24: "There's like a set of lines overlaying the room." Not found yet: it needs a screenshot.
 
+## 1.7.8 · 2026-11-27 20:24
+
+**Claude:** Every hundredth counts now, and you can see it. The clock and the tables read 0:00:00:00: hours, minutes, seconds and hundredths, so two solves that looked tied finally settle it in public.
+
+Asked by Marcos, 27 Nov 20:21: "Ok let's switch up the times show 0:00:00:00 which will be 0h:00m:00s:00hundreds of a second"
+
+- Every time shown reads h:mm:ss:cc, one figure for the hours and two each for minutes, seconds and hundredths: the clock at the top right while you solve, the tables on the iCube's screen, the line with your time while you type your initials, and the SAVE? card. A place nobody has taken reads -:--:--:--.
+- The clock runs in hundredths. When it stops, it reads exactly what its row in the table will.
+- The hundredths were always kept with every time (they ranked two times that showed alike); now they show. Times longer than 9:59:59:99 show as that.
+- The rows on the screen are two letters wider, still centred. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+
 ## 1.7.6 · 2026-11-27 20:10
 
 **Claude:** Wrong blur, fixed the right one. The scores on the iCube's screen were coming out soft, as if the lens couldn't make up its mind; now they're sharp edge to edge, and the room behind still melts away. The backdrop behind the keyboard goes back to how it was.
