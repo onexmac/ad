@@ -103,7 +103,7 @@ Asked by Marcos, 27 Nov 20:49: "Nice! This is version 2.0.0 ; Release the cubes 
   - The Square-1: two columns and three rows of rings. A row turns the top or the bottom a twelfth at a time, and the middle row flips the middle. A column slashes, a half turn, but only while the cut is clear; otherwise it says no.
 - Each new cube has its own top ten for everybody on the iCube's screen: PUPPET, 4X4, CRAZY and SQ-1.
 - Hold a cube on the ottoman to see its name.
-- Finish the 4×4 by hand, and from then on Cubed, the victory song, is the ottoman's song. ([#PRNUM](https://github.com/onexmac/ad/pull/PRNUM))
+- Finish the 4×4 by hand, and from then on Cubed, the victory song, is the ottoman's song. ([#276](https://github.com/onexmac/ad/pull/276))
 
 ## 1.7.9 · 2026-11-27 20:31
 
